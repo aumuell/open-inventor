@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Classes:
  |	SoXtMaterialEditor
@@ -156,7 +156,7 @@ static char *deftitles[]={
 	"Material Emissive Color"
 };
 
-static char *mtlDir  = "/usr/share/data/materials";
+static char *mtlDir  = IVPREFIX "/share/data/materials";
 
 static char *slider_labels[] = { (char *)NULL, (char *)NULL, (char *)NULL,
 				 (char *)NULL, (char *)NULL, (char *)NULL

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.4 $
+ |   $Revision: 1.5 $
  |
  |   Classes:
  |	SoXtMaterialList
@@ -264,7 +264,7 @@ SoXtMaterialList::constructorCommon(const char *dir, SbBool buildNow)
     setClassName("SoXtMaterialList");
     if (dir != NULL)
 	materialDir = strdup(dir);
-    else materialDir = strdup("/usr/share/data/materials");
+    else materialDir = strdup(IVPREFIX "/share/data/materials");
 
     callbackList = new SoCallbackList;
     curPalette = -1;

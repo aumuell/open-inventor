@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Classes	: SoXtClipboard
  |
@@ -658,7 +658,7 @@ SoXtClipboard::convertData(
     char conversionCmd[BUFSIZE];
     const char *infile = tmpfile.getString();
     const char *outfile = tmpfile2.getString();
-    sprintf(conversionCmd, "/usr/bin/ivdowngrade -v 2.0 %s %s", infile, outfile);
+    sprintf(conversionCmd, IVPREFIX "/bin/ivdowngrade -v 2.0 %s %s", infile, outfile);
     
     if (system(conversionCmd) == -1) {
 	#ifdef DEBUG

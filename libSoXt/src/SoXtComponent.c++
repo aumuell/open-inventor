@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.5 $
+ |   $Revision: 1.6 $
  |
  |   Classes:
  |	SoXtComponent
@@ -561,7 +561,7 @@ SoXtComponent::unregisterWidget(Widget w)
 //  card given the file name. By default the file will be searched using:
 //	    1) current working directory
 //	    2) SO_HELP_DIR environment variable
-//	    3) /usr/share/help/Inventor
+//	    3) $(IVPREFIX)/share/help/Inventor
 //	    4) else bring a "No help card found message"
 //
 // Use: protected
@@ -622,7 +622,7 @@ SoXtComponent::openHelpCard(const char *cardName)
     }
     
     // else check for the default location
-    strcpy(cardPath, "/usr/share/help/Inventor/");
+    strcpy(cardPath, IVPREFIX "/share/help/Inventor/");
     strcat(cardPath, cardName);
     if ( access(cardPath, R_OK) == 0 ) {
 	strcat(pgrCmd, cardPath);

@@ -146,16 +146,20 @@ MAKEMANDIRS = $(IVMANDIR)/makeManDirs
 # Inventor install directories.
 #
 
-IVBINDIR = $(IVROOT)/usr/bin
-IVLIBDIR = $(IVROOT)/usr/lib
+IVPREFIX = /usr
+LCXXOPTS += -DIVPREFIX=\"$(IVPREFIX)\"
+LCOPTS += -DIVPREFIX=\"$(IVPREFIX)\"
+
+IVBINDIR = $(IVROOT)/$(IVPREFIX)/bin
+IVLIBDIR = $(IVROOT)/$(IVPREFIX)/lib
 IVDLIBDIR = $(IVLIBDIR)/InventorDebug
-IVHDRTOP = $(IVROOT)/usr/include/Inventor
+IVHDRTOP = $(IVROOT)/$(IVPREFIX)/include/Inventor
 IVHDRDIR = $(IVHDRTOP)/$(HDRSUBDIR)
-IVMAN1DIR = $(IVROOT)/usr/man/man1
-IVMAN3DIR = $(IVROOT)/usr/man/man3
-IVHELPDIR = $(IVROOT)/usr/share/help
-IVDATADIR = $(IVROOT)/usr/share/data/models
-IVDEMODIR = $(IVROOT)/usr/demos
+IVMAN1DIR = $(IVROOT)/$(IVPREFIX)/man/man1
+IVMAN3DIR = $(IVROOT)/$(IVPREFIX)/man/man3
+IVHELPDIR = $(IVROOT)/$(IVPREFIX)/share/help
+IVDATADIR = $(IVROOT)/$(IVPREFIX)/share/data/models
+IVDEMODIR = $(IVROOT)/$(IVPREFIX)/demos
 IVDEMOBINDIR = $(IVDEMODIR)/Inventor
 IVDEMODATADIR = $(IVDEMODIR)/data/Inventor
 

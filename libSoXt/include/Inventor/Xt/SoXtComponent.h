@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	This is an abstract base class which defines a c++ protocol
@@ -268,7 +268,7 @@ class SoXtComponent {
     // name. By default the file will be searched using:
     //	    1) current working directory
     //	    2) SO_HELP_DIR environment variable
-    //	    3) /usr/share/help/Inventor
+    //	    3) $(IVPREFIX)/share/help/Inventor
     //	    4) else bring a no help card found dialog
     //
     void    openHelpCard(const char *cardName);

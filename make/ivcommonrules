@@ -101,10 +101,26 @@ install_ivbin: $(PROGRAM)
 install_ivscript:
 	mkdir -p $(IVBINDIR)
 	$(INSTALL) -m 755 $(SCRIPT) $(IVBINDIR)
+	if [ "$(IVPREFIX)" != "/usr" ]; then \
+	  (cd $(IVBINDIR) && \
+	  sed -e 's#/usr#'"$(IVPREFIX)"'#g' $(SCRIPT) > tmp && \
+	  mv tmp $(SCRIPT)); \
+	fi
 
 install_ivdemo: $(DEMO)
 	mkdir -p $(IVDEMOBINDIR) $(IVDEMODATADIR)
 	$(INSTALL) -m 755 $(DEMO) $(IVDEMOBINDIR)
+	if [ -e $(DEMO).RUNME ]; then \
+	  $(INSTALL) -m 755 $(DEMO).RUNME $(IVDEMOBINDIR); \
+	  if [ "$(IVPREFIX)" != "/usr" ]; then \
+	    (cd $(IVDEMOBINDIR) && \
+	    sed -e 's#/usr#'"$(IVPREFIX)"'#g' $(DEMO).RUNME > tmp && \
+	    mv tmp $(DEMO).RUNME); \
+	  fi; \
+	fi
+	if [ -e $(DEMO).about ]; then \
+	  $(INSTALL) -m 644 $(DEMO).about $(IVDEMOBINDIR); \
+	fi
 
 
 
