@@ -41,7 +41,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes	: SoSceneViewer
  |
@@ -171,6 +171,8 @@
 #define SV_ENV_LABEL "SoSceneViewer Environment v3.0"
 
 #define _ATOM_(DISPLAY,NAME) (XmInternAtom(DISPLAY, NAME, False))
+
+#define SCREEN(w) XScreenNumberOfScreen(XtScreen(w))
 
 //
 //  Structs
@@ -3176,7 +3178,7 @@ SoSceneViewer::addLightMenuEntry(SvLightData *data)
     Arg args[8];
     int argnum = 0;
 #ifdef MENUS_IN_POPUP
-    SoXt::getPopupArgs(XtDisplay(menu), (int)NULL, args, &argnum);
+    SoXt::getPopupArgs(XtDisplay(menu), SCREEN(menu), args, &argnum);
 #endif
     data->submenuWidget = XmCreatePulldownMenu(menu, NULL, args, argnum);
     
@@ -3975,8 +3977,8 @@ SoSceneViewer::buildAndLayoutMenu(Widget parent)
     Arg popupargs[4];
     int popupn = 0;
 #ifdef MENUS_IN_POPUP
-    Widget shell = SoXt::getShellWidget(parent);
-    SoXt::getPopupArgs(XtDisplay(menuWidget), (int)NULL, popupargs, &popupn);
+    Widget shell = SoXt::getShellWidget(mgrWidget);
+    SoXt::getPopupArgs(XtDisplay(menuWidget), SCREEN(shell), popupargs, &popupn);
 #endif
 
     itemCount = XtNumber(pulldownData);

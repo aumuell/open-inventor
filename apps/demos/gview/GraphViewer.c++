@@ -73,6 +73,8 @@
 #include "MotifHelp.h"
 #include "NodeCreator.h"
 
+#define SCREEN(w) XScreenNumberOfScreen(XtScreen(w))
+
 ////////////////////////////////////////////////////////////////////////
 //
 // Description:
@@ -444,7 +446,7 @@ GraphViewer::buildMenu(Widget parent)
 
 	// Create a pulldown menu in the pop-up planes
 	RESET_ARGS();
-	SoXt::getPopupArgs(XtDisplay(menu), (int)NULL, (Arg *)args, &argN);
+	SoXt::getPopupArgs(XtDisplay(menu), SCREEN(menu), args, &argN);
 	pulldown = XmCreatePulldownMenu(menu, "pulldown", ARGS);
 	XtAddCallback(pulldown, XmNmapCallback,
 		      &GraphViewer::menuDisplayCB, (XtPointer) pullInfo);

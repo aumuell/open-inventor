@@ -63,6 +63,8 @@
 #include "../../samples/widgets/MyColorEditor.h"
 #include "ivviewMenus.h"
 
+#define SCREEN(w) XScreenNumberOfScreen(XtScreen(w))
+
 typedef struct {
     int    count;	// Number of files read
     char **names;	// File names
@@ -898,7 +900,8 @@ buildAndLayoutMenus(Widget parent)
     int popupn = 0;
 #ifdef MENUS_IN_POPUP
     Widget shell = SoXt::getShellWidget(menuWidget);
-    SoXt::getPopupArgs(XtDisplay(menuWidget), (int)NULL, (Arg *)popupargs, &popupn);
+    SoXt::getPopupArgs(XtDisplay(menuWidget), SCREEN(menuWidget),
+		       popupargs, &popupn);
 #endif
 
     int itemCount = XtNumber(pulldownData);

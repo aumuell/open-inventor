@@ -65,6 +65,8 @@
 #include "MotifHelp.h"
 #include "../../samples/common/InventorLogo.h"
 
+#define SCREEN(w) XScreenNumberOfScreen(XtScreen(w))
+
 static SoSelection		*selector;
 static SoXtExaminerViewer	*examViewer;
 static GraphViewer		*graphViewer;
@@ -308,7 +310,7 @@ buildMenu(Widget parent)
 
     // Create a pulldown menu in the pop-up planes
     RESET_ARGS();
-    SoXt::getPopupArgs(XtDisplay(menu), (int)NULL, (Arg *)args, &argN);
+    SoXt::getPopupArgs(XtDisplay(menu), SCREEN(menu), args, &argN);
     pulldown = XmCreatePulldownMenu(menu, "pulldown", ARGS);
 
     // register callbacks to load/unload the pulldown colormap when the

@@ -73,6 +73,8 @@
 // it does not force a redraw of the scene beneath.
 #define MENUS_IN_POPUP
 
+#define SCREEN(w) XScreenNumberOfScreen(XtScreen(w))
+
 //
 //  Macros to set Motif toggle buttons on or off
 //
@@ -258,7 +260,8 @@ buildFileMenu(Widget menubar)
     int popupn = 0;
     
 #ifdef MENUS_IN_POPUP
-    SoXt::getPopupArgs(XtDisplay(menubar), NULL, popupargs, &popupn);
+    SoXt::getPopupArgs(XtDisplay(menubar), SCREEN(menubar),
+		       popupargs, &popupn);
 #endif
 
     pulldown = XmCreatePulldownMenu(menubar, "fileMenu", popupargs, popupn);
@@ -334,7 +337,8 @@ buildEditMenu(Widget menubar)
     Arg popupargs[4];
     int popupn = 0;
 #ifdef MENUS_IN_POPUP
-    SoXt::getPopupArgs(XtDisplay(menubar), NULL, popupargs, &popupn);
+    SoXt::getPopupArgs(XtDisplay(menubar), SCREEN(menubar),
+		       popupargs, &popupn);
 #endif
     pulldown = XmCreatePulldownMenu(menubar, "editMenu", popupargs, popupn);
     

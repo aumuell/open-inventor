@@ -33,7 +33,6 @@
  *  http://oss.sgi.com/projects/GenInfo/NoticeExplan/
  *
  */
-
 /*
  |   Classes:
  |	Interface
@@ -68,6 +67,8 @@
 #ifdef __linux__
 #include <unistd.h>
 #endif
+
+#define SCREEN(w) XScreenNumberOfScreen(XtScreen(w))
 
 extern SoNode *createProfileGraph( Widget, GeneralizedCylinder *);
 extern SoNode *createCrossSectionGraph( Widget, GeneralizedCylinder *);
@@ -965,11 +966,8 @@ Interface::build( Widget parentWidget )
     int popupn = 0;
 #ifdef MENUS_IN_POPUP
     Widget shell = SoXt::getShellWidget(menuWidget);
-#ifndef __linux__
-    SoXt::getPopupArgs(XtDisplay(menuWidget), NULL, popupargs, &popupn);
-#else
-    SoXt::getPopupArgs(XtDisplay(menuWidget), (int)NULL, (Arg *)popupargs, &popupn);
-#endif
+    SoXt::getPopupArgs(XtDisplay(menuWidget), SCREEN(menuWidget),
+		       popupargs, &popupn);
 #endif
 
     int itemCount = XtNumber(pulldownData);
