@@ -1,3 +1,0 @@
-#!/bin/sh
-#Tag 0x00010510
-/opt/SGIDemos/Inventor/bin/gview /opt/SGIDemos/Inventor/data/windmill.iv

@@ -47,7 +47,7 @@ install: $(TARGETS)
 	@mkdir -p $(IVROOT)/opt/SGIDemos/Inventor/bin
 	@mkdir -p $(IVROOT)/opt/SGIDemos/Inventor/data
 	@cp -f $(TARGETS) $(IVROOT)/opt/SGIDemos/Inventor/bin
-	@cp -f $(TARGETS).RUNME.linux $(IVROOT)/opt/SGIDemos/Inventor/bin/$(TARGETS).RUNME
+	@cp -f $(TARGETS).RUNME $(IVROOT)/opt/SGIDemos/Inventor/bin
 	@cp -f windmill.iv $(IVROOT)/opt/SGIDemos/Inventor/data
 	@cp -f gviewIcons.iv $(IVROOT)/opt/SGIDemos/Inventor/data
 
