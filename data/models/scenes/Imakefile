@@ -1,7 +1,0 @@
-#define DataMakefile
-
-#define DataFiles *.iv *.env README
-
-#ifndef CreatingUserMakefile
-TOP_OF_TREE = ../../..
-#endif
