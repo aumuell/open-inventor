@@ -16,6 +16,18 @@ IVCOMMONRULES = $(IVDEPTH)/make/ivcommonrules
 
 
 #
+# Settings for IRIX systems.
+#
+
+ifeq ($(usingIrix), 1)
+LD = $(TOOLROOT)/usr/bin/CC
+LLDOPTS += -Wl,-full_transitive_link
+GLDLIBS += -L$(ROOT)/usr/$(LIB_LOCATION)
+endif
+
+
+
+#
 # Override variables in commondefs when building on Linux systems.
 #
 
