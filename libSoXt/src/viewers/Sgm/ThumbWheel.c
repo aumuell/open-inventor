@@ -183,6 +183,17 @@ static XtResource resources[] = {
     XmRImmediate,
     (XtPointer)TRUE,
   },
+#ifndef __sgi
+  {
+    XmNtraversalOn,
+    XmCTraversalOn,
+    XmRBoolean,
+    sizeof(Boolean),
+    OFFSET(primitive.traversal_on),
+    XmRImmediate,
+    (XtPointer)FALSE,
+  },
+#endif
 };
 #undef OFFSET
 
