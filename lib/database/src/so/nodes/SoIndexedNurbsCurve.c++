@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      SoIndexedNurbsCurve
@@ -543,16 +543,15 @@ SoIndexedNurbsCurve::drawNURBS(
         type = N_V3D;
     }
     else {
-        SbVec4f			coord4;
         coords = new float[4*numCoordIndices];
         float *tmpCoord = coords;
         for (i=0; i<numCoordIndices; i++)
         {
             const SbVec4f &c4 = ce->get4((int)coordIndices[i]);
-            *tmpCoord++ = coord4[0];
-            *tmpCoord++ = coord4[1];
-            *tmpCoord++ = coord4[2];
-            *tmpCoord++ = coord4[3];
+            *tmpCoord++ = c4[0];
+            *tmpCoord++ = c4[1];
+            *tmpCoord++ = c4[2];
+            *tmpCoord++ = c4[3];
         }
         offset = 4 * sizeof(float);
         type = N_V3DR;
