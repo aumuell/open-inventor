@@ -1,8 +1,13 @@
-#!gmake
+#! gmake
+
 IVDEPTH = ../..
 include $(IVDEPTH)/make/commonivdefs
 
+DST = $(IVROOT)/usr/share/data/models
+FILES = `find . -name "*.env" -o -name "*.iv" -o -name "README"`
+
 install:
-	mkdir -p $(IVROOT)/usr/share/data/ ; cd .. ; tar cvf models.tar models ; cp -f models.tar $(IVROOT)/usr/share/data/ ; rm -f models.tar
-	cd $(IVROOT)/usr/share/data/ ; tar xvf models.tar ; rm -f models.tar
+	mkdir -p $(DST)
+	tar cf - $(FILES) | (cd $(DST); tar xvf -)
+
 all:
