@@ -1,7 +1,7 @@
 #
 # Pmake system makefile for IRIX
 #
-# $Revision: 1.1 $
+# $Revision: 1.2 $
 #
 # The following variables specify the nature of the system on which Pmake 
 # is running. These names may later be used in #if expressions for conditional 
@@ -30,7 +30,8 @@ unix		= It runs UNIX
 endif
 .SUFFIXES : .out .a .b .o .u .c .c++ .C .cxx .cpp .p .f .e .r .pl1 .pli \
 		.f90 .F .F90 \
-		.y .Y .yxx .ypp .l .L .lxx .lpp .s .sh .h .i
+		.y .Y .yxx .ypp .l .L .lxx .lpp .s .sh .h .i \
+		.ivm .3iv
 
 ifndef NORCS
 .SUFFIXES : .c,v .c++,v .f,v .p,v .pl1,v .pli,v .y,v .l,v .s,v .sh,v .h,v \
@@ -194,3 +195,12 @@ endif
 .sh.out .sh :
 	rm -f $@
 	cp $< $@; chmod a+x,u+w  $@
+
+
+# Path to ivman stuff relative to directory ABOVE us
+IVMANDIR = $(DEPTH)/man/ivman
+IVMAN = $(IVMANDIR)/ivman
+MAKEMANDIRS = $(IVMANDIR)/makeManDirs
+
+.ivm.3iv :
+	(cd ..; $(IVMAN) `$(MAKEMANDIRS) $(*F)`) > $@
