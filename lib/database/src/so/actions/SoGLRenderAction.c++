@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SoGLRenderAction
@@ -51,7 +51,7 @@
  _______________________________________________________________________
  */
 
-#include <limits.h>
+#include <float.h>
 #include <GL/gl.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/actions/SoGLRenderAction.h>

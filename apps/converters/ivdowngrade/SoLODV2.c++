@@ -50,6 +50,7 @@
  */
 
 #include <math.h>
+#include <float.h>
 #include <Inventor/nodes/SoLevelOfDetail.h>
 #include <Inventor/actions/SoGetMatrixAction.h>
 #include <Inventor/actions/SoGetBoundingBoxAction.h>

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SbTime
@@ -52,6 +52,7 @@
  */
 
 #include <Inventor/SbTime.h>
+#include <time.h>
 
 #ifdef _CRAY
 extern "C" {
