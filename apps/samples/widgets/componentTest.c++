@@ -59,7 +59,7 @@ void usage(char *name)
     exit(0);
 }
 
-void
+int
 main(unsigned int argc, char *argv[])
 {
     if (argc != 2)

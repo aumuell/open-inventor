@@ -134,8 +134,8 @@ PlayClass *ballSound;
 
 // Audio files have moved between IRIX 5.3 and IRIX 6.2
 #if defined(LIBAUDIOFILE_VERSION) && LIBAUDIOFILE_VERSION == 2
-static char *myVictorySound = "/usr/share/data/sounds/prosonus/musictags/tag3.aiff";
-static char *myBallSound    = "/usr/share/data/sounds/prosonus/sfx/glass_break.aiff";
+static char *myVictorySound = IVPREFIX "/share/data/sounds/prosonus/musictags/tag3.aiff";
+static char *myBallSound    = IVPREFIX "/share/data/sounds/prosonus/sfx/glass_break.aiff";
 #else
 static char *myVictorySound = "/usr/lib/sounds/prosonus/musictags/tag3.aiff";
 static char *myballSound    = "/usr/lib/sounds/prosonus/sfx/glass_break.aiff";
@@ -1143,7 +1143,7 @@ setOverlayLogo(SoXtRenderArea *ra)
     ra->setOverlaySceneGraph(logo);
 }
 
-void
+int
 main(int argc, char *argv[])
 {
     Widget              mainWindow;

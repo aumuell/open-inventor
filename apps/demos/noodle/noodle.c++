@@ -279,7 +279,7 @@ quitCallback(Widget, void *intrf, void * )
     interface->fileQuitEvent();
 }
 
-void
+int
 main(int argc, char **argv)
 {
     // Parse command line arguments. This may fill in the 

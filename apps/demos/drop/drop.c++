@@ -40,7 +40,7 @@
  |
  |   Copyright (C) 1990-96   Silicon Graphics, Inc.
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   main ()
  |
@@ -69,7 +69,7 @@
  |
  _______________________________________________________________________
  */
-void
+int
 main( int, char **argv )
 {
     // Initialize Inventor and Xt

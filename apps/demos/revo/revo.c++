@@ -78,10 +78,10 @@ extern void clearPoints();
 void
 showAboutDialog(Widget, XtPointer, XtPointer)
 {
-    if (access("/usr/demos/Inventor/revo.about", R_OK) != 0)
+    if (access(IVPREFIX "/demos/Inventor/revo.about", R_OK) != 0)
     {
 	system("xmessage 'Sorry, could not find "
-	       "/usr/demos/Inventor/revo.about' > /dev/null");
+	       IVPREFIX "/demos/Inventor/revo.about' > /dev/null");
 	return;
     }
 
@@ -96,7 +96,7 @@ showAboutDialog(Widget, XtPointer, XtPointer)
 	return;
     }
 
-    sprintf(command, "acroread /usr/demos/Inventor/revo.about &");
+    sprintf(command, "acroread " IVPREFIX "/demos/Inventor/revo.about &");
     system(command);
 }	
 
@@ -192,6 +192,7 @@ setOverlayLogo(SoXtRenderArea *ra)
 //
 ////////////////////////////////////////////////////////////////////////
 
+int
 main(int, char **argv)
 {
     Widget w = SoXt::init(argv[0]);

@@ -399,9 +399,9 @@ Interface::createOkayCancelDialog(Widget widget, XtCallbackProc okCB,
 void
 Interface::showAboutDialog()
 {
-   if (access("/usr/demos/Inventor/noodle.about", R_OK) != 0) {
+   if (access(IVPREFIX "/demos/Inventor/noodle.about", R_OK) != 0) {
         system("xmessage 'Sorry, could not find "
-               "/usr/demos/Inventor/noodle.about' > /dev/null");
+               IVPREFIX "/demos/Inventor/noodle.about' > /dev/null");
         return;
     }
 
@@ -415,7 +415,7 @@ Interface::showAboutDialog()
         return;
     }
 
-    sprintf(command, "acroread /usr/demos/Inventor/noodle.about &");
+    sprintf(command, "acroread " IVPREFIX "/demos/Inventor/noodle.about &");
     system(command);
 }
 

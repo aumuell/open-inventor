@@ -13,7 +13,6 @@ LLDLIBS = -lInventor -lInventorXt
 all: all_ivbin
 
 install: install_ivdemo
-	$(INSTALL) -m 755 $(DEMO).RUNME $(IVDEMOBINDIR)
 	$(INSTALL) -m 644 windmill.iv $(IVDEMODATADIR)
 	$(INSTALL) -m 644 gviewIcons.iv $(IVDEMODATADIR)
 

@@ -715,9 +715,9 @@ countUpdatesCB(void *, SoAction *action)
 static void
 showAboutDialog()
 {
-   if (access("/usr/share/help/ivview/ivview.about", R_OK) != 0) {
+   if (access(IVPREFIX "/share/help/ivview/ivview.about", R_OK) != 0) {
         system("xmessage 'Sorry, could not find "
-               "/usr/share/help/ivview/ivview.about' > /dev/null");
+               IVPREFIX "/share/help/ivview/ivview.about' > /dev/null");
         return;
     }
 
@@ -731,7 +731,7 @@ showAboutDialog()
         return;
     }
 
-    sprintf(command, "acroread /usr/share/help/ivview/ivview.about &");
+    sprintf(command, "acroread " IVPREFIX "/share/help/ivview/ivview.about &");
     system(command);
 }
 
@@ -1107,7 +1107,7 @@ static String _myXtDefaultLanguageProc(Display *, String xnl, XtPointer)
 
 ///////////////////////////////////////////////////////////////////
 //
-void
+int
 main(int argc, char **argv)
 {
     XtAppContext appContext;

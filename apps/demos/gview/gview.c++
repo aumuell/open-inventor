@@ -392,7 +392,7 @@ setOverlayLogo(SoXtRenderArea *ra)
 //    Mainline.
 //
 
-void
+int
 main(int argc, char **argv)
 //
 ////////////////////////////////////////////////////////////////////////

@@ -156,10 +156,10 @@ profileCallback(void *data, SoSensor *)
 void
 showAboutDialog(Widget, XtPointer, XtPointer)
 {
-    if (access("/usr/demos/Inventor/textomatic.about", R_OK) != 0)
+    if (access(IVPREFIX "/demos/Inventor/textomatic.about", R_OK) != 0)
     {
 	system("xmessage 'Sorry, could not find "
-	       "/usr/demos/Inventor/textomatic.about' > /dev/null");
+	       IVPREFIX "/demos/Inventor/textomatic.about' > /dev/null");
 	return;
     }
 
@@ -173,7 +173,7 @@ showAboutDialog(Widget, XtPointer, XtPointer)
 	return;
     }
 
-    sprintf(command, "acroread /usr/demos/Inventor/textomatic.about &");
+    sprintf(command, "acroread " IVPREFIX "/demos/Inventor/textomatic.about &");
     system(command);
 }	
 
@@ -402,7 +402,7 @@ const int Vert1 = 20;
 const int Vert2 = 60;
 Labels labels;        // Global variable.
 
-void
+int
 main(int argc, char **argv)
 {
     XtSetLanguageProc( NULL, _myXtDefaultLanguageProc, NULL );

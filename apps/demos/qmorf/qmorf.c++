@@ -413,7 +413,8 @@ parse_args(int argc, char **argv)
 	fprintf(stderr, "At least two files must be given, and "
 		"they must contain QuadMeshes (qmorf can\n");
 	fprintf(stderr, "only morph QuadMesh nodes).\n");
-	fprintf(stderr, "The directory /usr/share/data/models/CyberHeads "
+	fprintf(stderr, "The directory "
+		IVPREFIX "/share/data/models/CyberHeads "
 		"contains good data to morph.\n");
 
 	exit(7);
@@ -435,10 +436,10 @@ quitCallback(Widget, XtPointer, XtPointer)
 void
 showAboutDialog(Widget, XtPointer, XtPointer)
 {
-    if (access("/usr/demos/Inventor/qmorf.about", R_OK) != 0)
+    if (access(IVPREFIX "/demos/Inventor/qmorf.about", R_OK) != 0)
     {
 	system("xmessage 'Sorry, could not find "
-	       "/usr/demos/Inventor/qmorf.about' > /dev/null");
+	       IVPREFIX "/demos/Inventor/qmorf.about' > /dev/null");
 	return;
     }
     char command[100];
@@ -452,7 +453,7 @@ showAboutDialog(Widget, XtPointer, XtPointer)
 	return;
     }
 
-    sprintf(command, "acroread /usr/demos/Inventor/qmorf.about &");
+    sprintf(command, "acroread " IVPREFIX "/demos/Inventor/qmorf.about &");
     system(command);
 }	
 
@@ -688,6 +689,7 @@ buildUI( Widget appWindow,
     return viewer;
 }
 
+int
 main(int argc, char **argv)
 {
     Widget appWindow = SoXt::init(argv[0]);

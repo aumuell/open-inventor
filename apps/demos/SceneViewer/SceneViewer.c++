@@ -137,8 +137,8 @@ static String _myXtDefaultLanguageProc(Display *, String xnl, XtPointer)
     return setlocale(LC_CTYPE, NULL);
 }
 
-
-void main(int argc, char **argv)
+int
+main(int argc, char **argv)
 {
     Widget	 	mainWindow;
     SoSceneViewer	*sv;

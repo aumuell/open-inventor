@@ -67,7 +67,7 @@ SoNode	*DisplayGraph::otherIcon;
 SbDict	*DisplayGraph::iconDict;
 
 #define ICON_FILE	"gviewIcons.iv"
-#define ICON_INST_DIR	"/usr/demos/data/Inventor"
+#define ICON_INST_DIR	IVPREFIX "/demos/data/Inventor"
 #define ICON_ENV_VAR	"IV_GRAPH_DIR"
 
 ////////////////////////////////////////////////////////////////////////

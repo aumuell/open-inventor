@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.6 $
+ |   $Revision: 1.7 $
  |
  |   Classes:
  |	MyMaterialPalette
@@ -193,7 +193,7 @@ static MenuStruct pulldownData[] = {
 };
 
 static char *editorTitle = "Material Palette";
-static char *defaultDir = "/usr/share/data/materials";
+static char *defaultDir = IVPREFIX "/share/data/materials";
 
 
 static char *geometryBuffer = "\

@@ -13,8 +13,6 @@ LLDLIBS = -lInventorWidget -lInventor -lInventorXt
 all: all_ivbin
 
 install: install_ivbin install_ivdemo
-	$(INSTALL) -m 755 $(DEMO).RUNME $(IVDEMOBINDIR)
-	$(INSTALL) -m 644 $(DEMO).about $(IVDEMOBINDIR)
 	$(INSTALL) -m 644 jackInTheBox.iv $(IVDEMODATADIR)
 
 include $(IVCOMMONRULES)

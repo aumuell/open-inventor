@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.5 $
+ |   $Revision: 1.6 $
  |
  |   Classes:
  |	MyTextureEditor
@@ -228,7 +228,7 @@ struct PaletteStruct {
 
 
 static char *customTextureDir = ".textures";
-static char *defaultDir = "/usr/share/data/textures";
+static char *defaultDir = IVPREFIX "/share/data/textures";
 static char *editorTitle = "Texture Editor";
 static char *noFileNameStr = "<empty>";
 
