@@ -39,7 +39,9 @@
 #include <getopt.h>
 #include <string.h>
 #include <unistd.h>
+#ifdef __sgi
 #include <alloca.h>
+#endif
 #include <assert.h>
 #include <locale.h>
 #include <sys/types.h>
