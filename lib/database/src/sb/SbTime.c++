@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.4 $
+ |   $Revision: 1.5 $
  |
  |   Classes:
  |	SbTime
@@ -67,16 +67,12 @@ extern "C" {
 //
 // Use: public
 
-#ifndef __sgi
-inline static int trunc(double x) { return int(x); }
-#endif // !__sgi
-
 SbTime::SbTime(double sec)
 //
 ////////////////////////////////////////////////////////////////////////
 {
     if (sec >= 0) {
-	t.tv_sec = trunc(sec);
+	t.tv_sec = int(sec);
 	t.tv_usec = (time_t) (0.5 + (sec - t.tv_sec) * 1000000.0);
     }
     else
