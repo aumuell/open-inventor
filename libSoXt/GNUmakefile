@@ -60,7 +60,7 @@ OBJS = \
 LDIRT = libInventorXt.so
 
 library: all
-	$(LD) -o libInventorXt.so -shared  $(OBJS)
+	$(LD) -o libInventorXt.so -shared  $(OBJS) -L/usr/X11R6/lib -lXt -lXm
 
 install: library
 	@mkdir -p $(IVROOT)/usr/lib
