@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.6 $
+ |   $Revision: 1.7 $
  |
  |   Classes:
  |      SoText3
@@ -1664,7 +1664,6 @@ SoOutlineFontCache::SoOutlineFontCache(SoState *state) :
 	    SoDebugError::post("SoText3::getFont",
 			       "Couldn't find font Utopia-Regular!");
 #endif
-	    return;
 	}
     }
 
@@ -1955,7 +1954,7 @@ SoOutlineFontCache::generateFrontChar(const char* c,
     // Get outline for character
     SoFontOutline *outline = getOutline(c);
     int i;
-    for (int i = 0; i < outline->getNumOutlines(); i++) {
+    for (i = 0; i < outline->getNumOutlines(); i++) {
 
 	// It would be nice if the font manager told us the type of
 	// each outline...
@@ -4276,7 +4275,6 @@ SoOutlineFontCache::SoOutlineFontCache(SoState *state) :
 	    SoDebugError::post("SoText3::getFont",
 			       "Couldn't find font Utopia-Regular!");
 #endif
-	    return;
 	}
     }
 

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.4 $
+ |   $Revision: 1.5 $
  |
  |   Classes:
  |      SoText2
@@ -837,6 +837,7 @@ SoBitmapFontCache::getFont(SoState *state, SbBool forRender)
     SoBitmapFontCache *result = NULL;
     for (int i = 0; i < fonts->getLength() && result == NULL; i++) {
 	SoBitmapFontCache *fc = (SoBitmapFontCache *)(*fonts)[i];
+	if (!fc->fontNumList) continue;
 	if (forRender ? fc->isRenderValid(state) : fc->isValid(state)) {
 	    result = fc;
 	    result->ref();
@@ -989,7 +990,6 @@ SoBitmapFontCache::SoBitmapFontCache(SoState *state) : SoCache(state)
 			       "Couldn't find font Utopia-Regular!");
 #endif
 	    numChars = 0;
-	    return;
 	}
     }
 
@@ -1344,6 +1344,8 @@ SoBitmapFontCache::getBitmap(unsigned char* c)
 //
 ////////////////////////////////////////////////////////////////////////
 {
+    if (!fontNumList) return NULL;
+
     unsigned long key = (unsigned long)(c[0]<<8 | c[1]);
     void* value;
     if(!bitmapDict->find(key, value)){
@@ -2029,6 +2031,7 @@ SoBitmapFontCache::getFont(SoState *state, SbBool forRender)
     SoBitmapFontCache *result = NULL;
     for (int i = 0; i < fonts->getLength() && result == NULL; i++) {
 	SoBitmapFontCache *fc = (SoBitmapFontCache *)(*fonts)[i];
+	if (!fc->fontNumList) continue;
 	if (forRender ? fc->isRenderValid(state) : fc->isValid(state)) {
 	    result = fc;
 	    result->ref();
@@ -2130,7 +2133,6 @@ SoBitmapFontCache::SoBitmapFontCache(SoState *state) : SoCache(state)
 			       "Couldn't find font Utopia-Regular!");
 #endif
 	    numChars = 0;
-	    return;
 	}
     }	
     flMakeCurrentFont(fontId);
@@ -2459,6 +2461,8 @@ SoBitmapFontCache::getBitmap(unsigned char c)
 //
 ////////////////////////////////////////////////////////////////////////
 {
+    if (!fontNumList) return NULL;
+
     if (bitmaps[c] == NULL) {
 	bitmaps[c] = flGetBitmap(fontId, c);
     }
