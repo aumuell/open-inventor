@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoXtGLWidget
@@ -724,6 +724,10 @@ SoXtGLWidget::buildNormalGLXWidget(XVisualInfo *vis)
 	    return;
 	}
     }
+
+    int val;
+    glXGetConfig(XtDisplay(mgrWidget), vis, GLX_DOUBLEBUFFER, &val);
+    SET_BIT(glModes, SO_GLX_DOUBLE, val);
     
     //
     // Build the GLX widget

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	_SoXtSlider
@@ -596,7 +596,10 @@ _SoXtSlider::drawSliderTopRegion()
     glRects(slx1, sly1, slx2, sly2);
     SoDrawThumbUIRegion(thumx1, thumy1, thumx2, thumy2);
     
-    glFlush();
+    if (isDoubleBuffer())
+	glXSwapBuffers(getDisplay(), getNormalWindow());
+    else
+	glFlush();
 }
 
 void

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	_SoXtColorPatch
@@ -168,7 +168,10 @@ _SoXtColorPatch::redraw()
     glColor3fv(color.getValue());
     glRecti(SIDE, SIDE, size[0] - SIDE, size[1] - SIDE);
     
-    glFlush();
+    if (isDoubleBuffer())
+	glXSwapBuffers(getDisplay(), getNormalWindow());
+    else
+	glFlush();
 }
 
 
@@ -195,7 +198,10 @@ _SoXtColorPatch::setColor(const SbColor &rgb)
     SbVec2s size = getGlxSize();
     glRecti(SIDE, SIDE, size[0] - SIDE, size[1] - SIDE);
     
-    glFlush();
+    if (isDoubleBuffer())
+	glXSwapBuffers(getDisplay(), getNormalWindow());
+    else
+	glFlush();
 }
 
 ////////////////////////////////////////////////////////////////////////

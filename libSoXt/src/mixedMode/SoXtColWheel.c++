@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	_SoXtColorWheel
@@ -225,7 +225,10 @@ _SoXtColorWheel::redraw()
     drawWheelSurrounding();
     drawWheelColors();
     
-    glFlush();
+    if (isDoubleBuffer())
+	glXSwapBuffers(getDisplay(), getNormalWindow());
+    else
+	glFlush();
 }
 
 
@@ -323,7 +326,10 @@ _SoXtColorWheel::setBaseColor(
 	    return;
     	glXMakeCurrent(getDisplay(), getNormalWindow(), getNormalContext());
 	drawWheelColors();
-	glFlush();
+	if (isDoubleBuffer())
+	    glXSwapBuffers(getDisplay(), getNormalWindow());
+	else
+	    glFlush();
 	checkMarkerColor();
     }
     
@@ -363,7 +369,10 @@ _SoXtColorWheel::setWYSIWYG(SbBool flag)
 	    return;
     	glXMakeCurrent(getDisplay(), getNormalWindow(), getNormalContext());
 	drawWheelColors();
-	glFlush();
+	if (isDoubleBuffer())
+	    glXSwapBuffers(getDisplay(), getNormalWindow());
+	else
+	    glFlush();
 	checkMarkerColor();
     }
 }
@@ -674,7 +683,10 @@ _SoXtColorWheel::drawWheelMarker()
     glVertex2s(x+3+1, y+3);
     glEnd();
     
-    glFlush();
+    if (isDoubleBuffer())
+	glXSwapBuffers(getDisplay(), getNormalWindow());
+    else
+	glFlush();
 }
 
 ////////////////////////////////////////////////////////////////////////
