@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Classes:
  |	SoOutput
@@ -178,7 +178,7 @@ static struct ieee_double max_dbl_ieee = { 0, 0x7ff, 0 };
 static void DGL_HTON_DOUBLE( char *PC, struct cray_double vc ) {
     union {
 	struct ieee_double is;
-	char iis[SIZEOF(double)];
+	char iis[M_SIZEOF(double)];
     } ieee;
 
     if(vc.exp >= MAX_CRAY_SNG) ieee.is = max_dbl_ieee;
@@ -193,7 +193,7 @@ static void DGL_HTON_DOUBLE( char *PC, struct cray_double vc ) {
 	/* Hidden bit removed by truncation */
     }
     ieee.is.sign = vc.sign;
-    memcpy(PC, ieee.iis, SIZEOF(double));
+    memcpy(PC, ieee.iis, M_SIZEOF(double));
 }
 
 #endif // _CRAY
@@ -647,7 +647,7 @@ SoOutput::write(char c)
             tmpBuffer[1] = 0;
             tmpBuffer[2] = 0;
             tmpBuffer[3] = 0;
-            fwrite((void *)tmpBuffer, SIZEOF(char), 4, fp);
+            fwrite((void *)tmpBuffer, M_SIZEOF(char), 4, fp);
             fflush(fp);
         }
     }
@@ -795,17 +795,17 @@ SoOutput::write(const SbName &s)
     if (! wroteHeader)							      \
 	writeHeader();							      \
     if (isBinary()) {							      \
-	if (isToBuffer() && ! makeRoomInBuf(SIZEOF(dglType)))		      \
+	if (isToBuffer() && ! makeRoomInBuf(M_SIZEOF(dglType)))		      \
 	    return;							      \
         if (isToBuffer()) {                                                   \
             dglFunc(num, curBuf);	  				      \
-            curBuf += SIZEOF(dglType);                                        \
+            curBuf += M_SIZEOF(dglType);                                      \
         }                                                                     \
         else {                                                                \
-            if (!makeRoomInTmpBuf(SIZEOF(dglType)))			      \
+            if (!makeRoomInTmpBuf(M_SIZEOF(dglType)))			      \
                 return;							      \
             dglFunc(num, tmpBuffer);                                          \
-            fwrite((void *)tmpBuffer, SIZEOF(dglType), 1, fp);                \
+            fwrite((void *)tmpBuffer, M_SIZEOF(dglType), 1, fp);              \
             fflush(fp);                                                       \
         }                                                                     \
     }									      \
@@ -820,17 +820,17 @@ SoOutput::write(const SbName &s)
 #define WRITE_BIN_ARRAY(type, array, length, dglFunc)  			      \
     if (! wroteHeader)							      \
 	writeHeader();							      \
-    if (isToBuffer() && ! makeRoomInBuf(length*SIZEOF(type)))	              \
+    if (isToBuffer() && ! makeRoomInBuf(length*M_SIZEOF(type)))	              \
         return;							              \
     if (isToBuffer()) {                                                       \
         dglFunc(array, curBuf, length);                                       \
-        curBuf += length * SIZEOF(type);                                      \
+        curBuf += length * M_SIZEOF(type);                                    \
     }									      \
     else {                                                                    \
-        if (!makeRoomInTmpBuf(length*SIZEOF(type))) 			      \
+        if (!makeRoomInTmpBuf(length*M_SIZEOF(type))) 			      \
             return;							      \
         dglFunc(array, tmpBuffer, length);                                    \
-        fwrite((void *)tmpBuffer, SIZEOF(type), length, fp);                  \
+        fwrite((void *)tmpBuffer, M_SIZEOF(type), length, fp);                \
         fflush(fp); 							      \
     }                                                                         \
 
@@ -973,14 +973,14 @@ SoOutput::writeBinaryArray(unsigned char *c, int length)
 {
     if (! wroteHeader)
 	writeHeader();
-    if (isToBuffer() && ! makeRoomInBuf(length*SIZEOF(unsigned char)))
+    if (isToBuffer() && ! makeRoomInBuf(length*M_SIZEOF(unsigned char)))
 	return;
     if (isToBuffer()) {
 	memcpy(curBuf, c, length);
-	curBuf += length * SIZEOF(unsigned char);
+	curBuf += length * M_SIZEOF(unsigned char);
     }
     else {
-	fwrite((void *)c, SIZEOF(unsigned char), length, fp);
+	fwrite((void *)c, M_SIZEOF(unsigned char), length, fp);
 	fflush(fp);
     }
 }
@@ -1047,7 +1047,7 @@ SoOutput::convertShort(short s, char *to)
     int i;
 
     DGL_HTON_INT32( INT32(jjj), l );
-    for (i=0; i<SIZEOF(int32_t); i++)  to[i] = jjj[i];
+    for (i=0; i<M_SIZEOF(int32_t); i++)  to[i] = jjj[i];
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1067,7 +1067,7 @@ SoOutput::convertInt32(int32_t l, char *to)
 
     DGL_HTON_INT32( INT32(jjj), l );
 
-    for (i=0; i<SIZEOF(int32_t); i++)  to[i] = jjj[i];
+    for (i=0; i<M_SIZEOF(int32_t); i++)  to[i] = jjj[i];
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1087,7 +1087,7 @@ SoOutput::convertFloat(float f, char *to)
 
     DGL_HTON_FLOAT( FLOAT(jjj), f );
 
-    for (i=0; i<SIZEOF(float); i++)  to[i] = jjj[i];
+    for (i=0; i<M_SIZEOF(float); i++)  to[i] = jjj[i];
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1124,16 +1124,16 @@ SoOutput::convertShortArray( register short *from,
 
     while (len > 4) {		// unroll the loop a bit
 	DGL_HTON_SHORT( SHORT(b), from[0]);
-	DGL_HTON_SHORT( SHORT(b + SIZEOF(short)),   from[1]);
-	DGL_HTON_SHORT( SHORT(b + SIZEOF(short)*2), from[2]);
-	DGL_HTON_SHORT( SHORT(b + SIZEOF(short)*3), from[3]);
-	b += SIZEOF(short)*4;
+	DGL_HTON_SHORT( SHORT(b + M_SIZEOF(short)),   from[1]);
+	DGL_HTON_SHORT( SHORT(b + M_SIZEOF(short)*2), from[2]);
+	DGL_HTON_SHORT( SHORT(b + M_SIZEOF(short)*3), from[3]);
+	b += M_SIZEOF(short)*4;
 	from += 4;
 	len -= 4;
     }
     while (len-- > 0) {
 	DGL_HTON_SHORT( SHORT(b),*from);
-	b += SIZEOF(short);
+	b += M_SIZEOF(short);
 	from++;
     }
 }
@@ -1158,16 +1158,16 @@ SoOutput::convertInt32Array( int32_t *from,
 
     while (len > 4) {		// unroll the loop a bit
 	DGL_HTON_INT32( INT32(b), f[0]);
-	DGL_HTON_INT32( INT32(b + SIZEOF(int32_t)),   f[1]);
-	DGL_HTON_INT32( INT32(b + SIZEOF(int32_t)*2), f[2]);
-	DGL_HTON_INT32( INT32(b + SIZEOF(int32_t)*3), f[3]);
-	b += SIZEOF(int32_t)*4;
+	DGL_HTON_INT32( INT32(b + M_SIZEOF(int32_t)),   f[1]);
+	DGL_HTON_INT32( INT32(b + M_SIZEOF(int32_t)*2), f[2]);
+	DGL_HTON_INT32( INT32(b + M_SIZEOF(int32_t)*3), f[3]);
+	b += M_SIZEOF(int32_t)*4;
 	f += 4;
 	len -= 4;
     }
     while (len-- > 0) {
 	DGL_HTON_INT32( INT32(b),*f);
-	b += SIZEOF(int32_t);
+	b += M_SIZEOF(int32_t);
 	f++;
     }
 }
@@ -1192,16 +1192,16 @@ SoOutput::convertFloatArray( float *from,
 
     while (len > 4) {		// unroll the loop a bit
 	DGL_HTON_FLOAT( FLOAT(b), f[0]);
-	DGL_HTON_FLOAT( FLOAT(b + SIZEOF(float)),   f[1]);
-	DGL_HTON_FLOAT( FLOAT(b + SIZEOF(float)*2), f[2]);
-	DGL_HTON_FLOAT( FLOAT(b + SIZEOF(float)*3), f[3]);
-	b += SIZEOF(float)*4;
+	DGL_HTON_FLOAT( FLOAT(b + M_SIZEOF(float)),   f[1]);
+	DGL_HTON_FLOAT( FLOAT(b + M_SIZEOF(float)*2), f[2]);
+	DGL_HTON_FLOAT( FLOAT(b + M_SIZEOF(float)*3), f[3]);
+	b += M_SIZEOF(float)*4;
 	f += 4;
 	len -= 4;
     }
     while (len-- > 0) {
 	DGL_HTON_FLOAT( FLOAT(b),*f);
-	b += SIZEOF(float);
+	b += M_SIZEOF(float);
 	f++;
     }
 }
@@ -1225,16 +1225,16 @@ SoOutput::convertDoubleArray( register double *from,
 
     while (len > 4) {		// unroll the loop a bit
 	DGL_HTON_DOUBLE( DOUBLE(b), from[0]);
-	DGL_HTON_DOUBLE( DOUBLE(b + SIZEOF(double)),   from[1]);
-	DGL_HTON_DOUBLE( DOUBLE(b + SIZEOF(double)*2), from[2]);
-	DGL_HTON_DOUBLE( DOUBLE(b + SIZEOF(double)*3), from[3]);
-	b += SIZEOF(double)*4;
+	DGL_HTON_DOUBLE( DOUBLE(b + M_SIZEOF(double)),   from[1]);
+	DGL_HTON_DOUBLE( DOUBLE(b + M_SIZEOF(double)*2), from[2]);
+	DGL_HTON_DOUBLE( DOUBLE(b + M_SIZEOF(double)*3), from[3]);
+	b += M_SIZEOF(double)*4;
 	from += 4;
 	len -= 4;
     }
     while (len-- > 0) {
 	DGL_HTON_DOUBLE( DOUBLE(b),*from);
-	b += SIZEOF(double);
+	b += M_SIZEOF(double);
 	from++;
     }
 }

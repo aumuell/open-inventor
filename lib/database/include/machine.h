@@ -43,7 +43,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Description:
  |	This include file contains the machine-dependent macros
@@ -179,14 +179,14 @@ extern int errno;		/* missing from errno.h			*/
 #define size_double 8
 #define size_Fontchar 8
 #ifdef __STDC__
-#define SIZEOF(x) size_##x
+#define M_SIZEOF(x) size_##x
 #else
-#define SIZEOF(x) size_/**/x
+#define M_SIZEOF(x) size_/**/x
 #endif /*__STDC__*/
 
 #else /* SGI and not CRAY */
 
-#define SIZEOF(x) sizeof(x)
+#define M_SIZEOF(x) sizeof(x)
 
 #endif /* ifdef _CRAY */
 
