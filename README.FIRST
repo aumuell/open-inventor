@@ -55,24 +55,20 @@ BUILDING THE TREE
 
 		setenv LD_LIBRARY_PATH "$LD_LIBRARY_PATH":$IVROOT/usr/lib
 
-	3) Set the DISPLAY environment variable, e.g.
-
-		setenv DISPLAY :0
-
-	4) The source code is compiled with optimization enabled by default. To
+	3) The source code is compiled with optimization enabled by default. To
 	   create debug libraries, enter:
 
 		setenv LIBTYPE debug
 
-	5) To use the FreeType interface instead of the default font library,
+	4) To use the FreeType interface instead of the default font library,
 	   enter:
 
 		setenv FREETYPE 1
 
-	6) Type 'gmake install' from the directory where you unpacked the Open
+	5) Type 'gmake install' from the directory where you unpacked the Open
 	   Inventor source code.
 
-	7) To use the default font library, run the linkType1.sh script in
+	6) To use the default font library, run the linkType1.sh script in
 	   libFL/src as root. Type1 PFA font files must already exist in
 	   /usr/lib/X11/fonts/Type1.
 
