@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.5 $
+ |   $Revision: 1.6 $
  |
  |   Classes:
  |	SbTime
@@ -264,7 +264,7 @@ SbTime::formatDate(const char *fmt) const
 {
     char buf[200];
 
-#if (_MIPS_SZLONG == 64 || __ia64)
+#if (_MIPS_SZLONG == 64 || __ia64 || __APPLE__)
     int  seconds;
     seconds = (int) t.tv_sec;
     strftime(buf, sizeof(buf), fmt, localtime((const time_t *) &seconds));

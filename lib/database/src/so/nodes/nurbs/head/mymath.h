@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * mymath.h - $Revision: 1.1 $
+ * mymath.h - $Revision: 1.2 $
  */
 
 #ifdef GLBUILD
@@ -59,6 +59,10 @@ extern "C" float	floorf(float);
 
 #ifdef LIBRARYBUILD
 #include <math.h>
+#endif
+
+#ifdef _DOUBLE_MATH_ONLY
+#define sqrtf sqrt
 #endif
 
 #endif /* __glumymath_h_ */

@@ -128,7 +128,8 @@ install_ivdemo: $(DEMO)
 # Convenience assignments. TARGETS are removed by 'make clobber'.
 #
 
-all_ivbin: $(LIBDSO) $(PROGRAM) $(PROGRAMS_1) $(PROGRAMS_2) $(ARCHIVE) $(DSO)
+all_ivbin: $(LIBDSO) $(PROGRAM) $(PROGRAMS_1) $(PROGRAMS_2) $(ARCHIVE) $(DSO) \
+		$(BUNDLE)
 
 TARGETS += $(LIBDSO) $(PROGRAM) $(PROGRAMS_1) $(PROGRAMS_2) $(PROGRAMS_EXT) \
-		$(ARCHIVE) $(DSO)
+		$(ARCHIVE) $(DSO) $(BUNDLE)

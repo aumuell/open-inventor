@@ -43,7 +43,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.4 $
+ |   $Revision: 1.5 $
  |
  |   Description:
  |	This include file contains the machine-dependent macros
@@ -145,10 +145,22 @@ extern int errno;		/* missing from errno.h			*/
 
 #if __i386__ || __ia64__
 
-#define MACHINE_WORD_FORMAT DGL_LITTLE_ENDIAN
-#define MACHINE_FLOAT_FORMAT DGL_NON_IEEE
+#define MACHINE_WORD_FORMAT	DGL_LITTLE_ENDIAN
+#define MACHINE_FLOAT_FORMAT	DGL_NON_IEEE
 
 #endif /* __i386__ || __ia64__ */
+
+
+/*
+ * Apple Darwin (Mac OS X) machine dependent setup
+ */
+
+#ifdef __APPLE__
+
+#define MACHINE_WORD_FORMAT	DGL_BIG_ENDIAN
+#define MACHINE_FLOAT_FORMAT	DGL_BIG_IEEE
+
+#endif /* __APPLE__ */
 
 
 /*

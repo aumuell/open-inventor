@@ -4,7 +4,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      ???
@@ -20,7 +20,12 @@
 #include <Inventor/errors/SoDebugError.h>
 #include "SoCalcExpr.h"
 #include <stdio.h>
+#ifdef __APPLE__
+#include <float.h>
+#include <limits.h>
+#else
 #include <values.h>
+#endif
 #include <math.h>
 #include <ctype.h>
 #include <strings.h>
@@ -38,7 +43,11 @@ static const struct {
     float	val;
 } Constants[] = {
     { "MAXFLOAT",	MAXFLOAT },
+#ifdef __APPLE__
+    { "MINFLOAT",	FLT_MIN },
+#else
     { "MINFLOAT",	MINFLOAT },
+#endif
     { "M_E",		M_E },
     { "M_LOG2E",	M_LOG2E },
     { "M_LOG10E",	M_LOG10E },

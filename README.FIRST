@@ -37,7 +37,8 @@ TREE STRUCTURE
 
 DEPENDENCIES
 
-	The source in its current form will compile on IRIX and Linux i386.
+	The source in its current form will compile on IRIX, Linux i386, and
+	Apple Darwin (Mac OS X).
 
 	Currently the only dependencies include OpenGL(R) and X11R6 and
 	Motif(R) 1.2x. See the file FAQ.misc for more detailed information.
@@ -48,12 +49,14 @@ BUILDING THE TREE
 	1) Set the environment variable IVROOT to point to the root directory
 	   for the installed libraries and binaries, e.g.
 
-		setenv IVROOT /
+		setenv IVROOT /usr/local/src
 
 	2) Append the DSO installation directory to the LD_LIBRARY_PATH
 	   environment variable, i.e.
 
 		setenv LD_LIBRARY_PATH "$LD_LIBRARY_PATH":$IVROOT/usr/lib
+
+	   On Apple Darwin (Mac OS X), use DYLD_LIBRARY_PATH instead.
 
 	3) The source code is compiled with optimization enabled by default. To
 	   create debug libraries, enter:

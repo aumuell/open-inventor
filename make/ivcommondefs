@@ -9,9 +9,7 @@ IVCOMMONRULES = $(IVDEPTH)/make/ivcommonrules
 # Settings for systems without single-precision math functions.
 #
 
-# MATHDEFS = -D_DOUBLE_MATH_ONLY
-# LCXXDEFS += $(MATHDEFS)
-# LCDEFS += $(MATHDEFS)
+MATHDEFS = -D_DOUBLE_MATH_ONLY
 
 
 
@@ -85,6 +83,45 @@ LCINCS += -I$(X11INCDIR)
 
 LDDSOOPTS += -L$(X11LIBDIR)
 LDOPTS += -L$(X11LIBDIR)
+
+endif
+
+
+
+#
+# Settings for Apple Darwin (Mac OS X) systems.
+#
+
+ifeq ($(usingDarwin), 1)
+
+FREETYPE = 1
+
+CC  = /usr/bin/gcc
+C++ = /usr/bin/g++
+LD  = /usr/bin/libtool
+
+ARFLAGS = vrs
+INSTALL = /usr/bin/install
+
+LCXXDEFS += $(MATHDEFS)
+LCDEFS += $(MATHDEFS)
+
+DARWINOPTS = -dynamic -fno-common
+LCXXOPTS += $(DARWINOPTS)
+LCOPTS += $(DARWINOPTS)
+
+X11DIR = /usr/X11R6
+X11INCDIR = $(X11DIR)/include
+X11LIBDIR = $(X11DIR)/lib
+
+LCXXINCS += -I$(X11INCDIR)
+LCINCS += -I$(X11INCDIR) -I$(X11INCDIR)/freetype2
+
+LDDSOOPTS += -dynamic -all_load -L$(X11LIBDIR)
+LDOPTS += -multiply_defined suppress -L$(X11LIBDIR)
+CXXDSOOPTS += -bundle -flat_namespace -undefined suppress -L$(X11LIBDIR)
+
+LOCALRULES = $(IVDEPTH)/make/localrules.apple
 
 endif
 
@@ -172,7 +209,9 @@ IVDEMODATADIR = $(IVDEMODIR)/data/Inventor
 ifneq (, $(findstring debug, $(LIBTYPE)))
 LLDDSOOPTS += -L$(IVDLIBDIR)
 LLDOPTS += -L$(IVDLIBDIR)
+CXXDSOOPTS += -L$(IVDLIBDIR)
 else
 LLDDSOOPTS += -L$(IVLIBDIR)
 LLDOPTS += -L$(IVLIBDIR)
+CXXDSOOPTS += -L$(IVLIBDIR)
 endif

@@ -42,8 +42,12 @@
 #include <string.h>
 #include <unistd.h>
 #include <iconv.h>
+#ifdef __APPLE__
+#include <libcharset.h>
+#else
 #include <nl_types.h>
 #include <langinfo.h>
+#endif
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/Xt/SoXtRenderArea.h>
@@ -410,7 +414,11 @@ main(int argc, char **argv)
     Widget w = SoXt::init(argv[0],"Textomatic");
     if (w == NULL) exit(1);
 
-    char *nl_encord = nl_langinfo( CODESET );
+#ifdef __APPLE__
+    const char *nl_encord = locale_charset();
+#else
+    const char *nl_encord = (const char *) nl_langinfo( CODESET );
+#endif
     if ( (global_iconvCodeL2 = iconv_open( "UCS-2", nl_encord ))==(iconv_t)-1 ) {
            fprintf( stderr, "textomatic: iconv_open error.\n" );
     }

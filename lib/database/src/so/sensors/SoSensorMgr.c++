@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Description:
  |	Defines the (internal) SoSensorManager class
@@ -57,6 +57,9 @@
 #ifdef __sgi
 #include <osfcn.h>
 #endif // __sgi
+#ifdef __APPLE__
+#include <unistd.h>
+#endif // __APPLE__
 
 #ifdef DEBUG
 #include <SoDebug.h>

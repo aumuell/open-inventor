@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.5 $
+ |   $Revision: 1.6 $
  |
  |   Classes:
  |	SoType
@@ -295,7 +295,7 @@ SoType::fromName(SbName name)
 	if (dsoHandle  == NULL)
 	    return SoType::badType();
 
-#if ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 2))
+#if ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1))
 #define DUMMY_FUNC "_ZN%d%s9initClassEv"
 #else
 #define DUMMY_FUNC "initClass__%d%s%s"
