@@ -88,6 +88,19 @@ LCINCS += $(IVLIBHDRDIRS)
 
 
 #
+# Font library directories.
+#
+
+FLDIR = $(IVDEPTH)/libFL/src
+FLLIB = -lFL
+ifdef FREETYPE
+FLDIR = $(IVDEPTH)/libFL/freetype
+FLLIB += -lfreetype
+endif
+
+
+
+#
 # Tools for generating Inventor man pages.
 #
 
@@ -122,5 +135,10 @@ IVDEMODATADIR = $(IVDEMODIR)/data/Inventor
 # Locate installed Inventor libraries when linking applications.
 #
 
+ifneq (, $(findstring debug, $(LIBTYPE)))
+LDDSOOPTS += -L$(IVDLIBDIR)
+LDOPTS += -L$(IVDLIBDIR)
+else
 LDDSOOPTS += -L$(IVLIBDIR)
 LDOPTS += -L$(IVLIBDIR)
+endif

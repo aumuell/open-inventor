@@ -28,7 +28,11 @@ TREE STRUCTURE
 		make     - makefile definitions and rules
 		tools    - preprocessor for generating shape source files
 		libimage - library to read SGI RGB files
-		libFL    - font library (IRIX, Linux i386, and Solaris only)
+		libFL    - font library (IRIX, Linux i386, and Solaris only).
+			   Includes source code for Ang Bodhi's FreeType
+			   interface. For more information, visit
+
+				http://www.geocities.com/angbodhi/download
 
 
 DEPENDENCIES
@@ -41,13 +45,13 @@ DEPENDENCIES
 
 BUILDING THE TREE
 
-	1) Set the environment variable IVROOT to point to the root
-	   directory for the installed libraries and binaries, e.g.
+	1) Set the environment variable IVROOT to point to the root directory
+	   for the installed libraries and binaries, e.g.
 
 		setenv IVROOT /
 
-	2) Append the DSO installation directory to the
-	   LD_LIBRARY_PATH environment variable, i.e.
+	2) Append the DSO installation directory to the LD_LIBRARY_PATH
+	   environment variable, i.e.
 
 		setenv LD_LIBRARY_PATH "$LD_LIBRARY_PATH":$IVROOT/usr/lib
 
@@ -55,17 +59,27 @@ BUILDING THE TREE
 
 		setenv DISPLAY :0
 
-	4) The source code is compiled with optimization enabled
-	   by default. To create debug libraries, enter:
+	4) The source code is compiled with optimization enabled by default. To
+	   create debug libraries, enter:
 
 		setenv LIBTYPE debug
 
-	5) Type 'gmake install' from the directory where you
-	   unpacked the Open Inventor source code.
+	5) To use the FreeType interface instead of the default font library,
+	   enter:
 
-	6) To use the default font library (libFL), run the
-	   linkType1.sh script in libFL/src as root. Type1 PFA
-	   font files must already exist in /usr/lib/X11/fonts/Type1.
+		setenv FREETYPE 1
+
+	6) Type 'gmake install' from the directory where you unpacked the Open
+	   Inventor source code.
+
+	7) To use the default font library, run the linkType1.sh script in
+	   libFL/src as root. Type1 PFA font files must already exist in
+	   /usr/lib/X11/fonts/Type1.
+
+	   To use the FreeType interface, set the FL_FONT_PATH environment
+	   variable to the directory where TrueType fonts are installed
+	   (defaults to /usr/share/data/fonts) and run the linkTrueType.sh
+	   script in libFL/freetype as root.
 
 
 INSTALLATION TREE STRUCTURE

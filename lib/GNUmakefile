@@ -3,10 +3,10 @@ include $(IVDEPTH)/make/ivcommondefs
 
 LIBDSO = libInventor.so
 
-LLDDSOOPTS += -L$(IVDEPTH)/libimage -L$(IVDEPTH)/libFL/src
+LLDDSOOPTS += -L$(IVDEPTH)/libimage -L$(FLDIR)
 
 LLDLIBS = \
-	-ljpeg -limage -lFL \
+	-ljpeg -limage $(FLLIB) \
         -lX11 -ldl -lm \
         -lGLU -lGL
 

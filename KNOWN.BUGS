@@ -4,13 +4,8 @@ of these may be due to older versions of other libraries, i.e. LessTif or Mesa.
 1. Font capabilities used by SoAsciiText and SoText[23] are currently provided
    by libFL.a. On IRIX, libFL.so is provided in the eoe.sw.gfx and eoe.sw64.gfx
    subsystems. A version of libFL.a compiled for SunOS 5.8 is available in the
-   FTP download area. No other platforms are currently supported.
-
-   Ang Bodhi (bodhi@pacific.net.sg) has written some code that uses the
-   FreeType library to provide support for fonts (yet to be reviewed and
-   integrated into the CVS repository). For a preview, see
-
-     http://www.geocities.com/angbodhi/download/
+   FTP download area. No other platforms are currently supported. Look in
+   README.FIRST for more information on using Ang Bodhi's FreeType interface.
 
 2. Arrowhead cones in transformer dragger appear squished. This occurs on IRIX
    and Linux.
@@ -26,4 +21,4 @@ of these may be due to older versions of other libraries, i.e. LessTif or Mesa.
    with Lesstif 0.91.4, but not 0.90.0 (see Bug 2).
 
 
-Last updated: $Date: 2000/11/01 01:58:41 $
+Last updated: $Date: 2001/03/24 02:47:41 $

@@ -1,6 +1,9 @@
 #ifndef __flclient_h_
 #define __flclient_h_
 
+#ifdef WIN32
+#include <windows.h>
+#endif
 #ifndef __gl_h_
 #include <GL/gl.h>
 #endif /* __gl_h_ */

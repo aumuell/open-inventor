@@ -1,7 +1,7 @@
 IVDEPTH = ../../../../..
 include $(IVDEPTH)/make/ivcommondefs
 
-LCXXINCS += -I$(IVDEPTH)/libFL/src -Inurbs/head
+LCXXINCS += -I$(FLDIR) -Inurbs/head
 LCXXDEFS += -DIRIX_6 -DLIBRARYBUILD
 
 CFILES = readGIF.c 
