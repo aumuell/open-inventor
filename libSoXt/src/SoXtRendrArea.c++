@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.4 $
+ |   $Revision: 1.5 $
  |
  |   Classes:
  |	SoXtRenderArea
@@ -404,6 +404,17 @@ SoXtRenderArea::buildWidget(Widget parent)
     SbColor c;
     if (xr.getResource("backgroundColor", "BackgroundColor", c))
 	 setBackgroundColor(c);
+
+    // get the transparent color index
+#ifdef GLX_TRANSPARENT_INDEX_VALUE_EXT
+    XVisualInfo *vis = getOverlayVisual();
+    if (vis != NULL) {
+	int index;
+	glXGetConfig(XtDisplay(parent), vis, GLX_TRANSPARENT_INDEX_VALUE_EXT,
+	    &index);
+	overlaySceneMgr->setBackgroundIndex(index);
+    }
+#endif
 
     return getGlxMgrWidget();
 }
@@ -901,10 +912,22 @@ SoXtRenderArea::setAntialiasing(SbBool smoothing, int numPasses)
 	    attribList[n++] = GLX_ACCUM_BLUE_SIZE;
 	    attribList[n++] = 1;
 	}
+
+	// check for stencil buffer
+	Widget w = getWidget();
+	XVisualInfo *normalVis = getNormalVisual();
+	if (normalVis) {
+	    int val;
+	    glXGetConfig(XtDisplay(w), normalVis, GLX_STENCIL_SIZE, &val);
+	    if (val) {
+		attribList[n++] = GLX_STENCIL_SIZE;
+		attribList[n++] = val;
+	    }
+	}
+
 	attribList[n++] = (int) None;
 	
 	// create the visual
-	Widget w = getWidget();
 	XVisualInfo *vis = glXChooseVisual(XtDisplay(w), 
 	    XScreenNumberOfScreen(XtScreen(w)), attribList);
 	
