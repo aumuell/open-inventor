@@ -39,7 +39,6 @@
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInteraction.h>
 #include <Inventor/nodekits/SoNodeKit.h>
-#include <Inventor/Xt/SoXt.h>
 #include "Man.h"
 
 /////////////////////////////////////////////////////////////////////////////
@@ -119,7 +118,6 @@ main(int argc, char *argv[])
     SoDB::init();
     SoNodeKit::init();
     SoInteraction::init();
-    SoXt::init(argv[0]);
 
     // Process each class in turn
     ClassDef	*mainCd = NULL, *curCd = NULL, *cd;
