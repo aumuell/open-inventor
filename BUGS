@@ -1,0 +1,37 @@
+The problems described below occur on Linux platforms we tested.  Note that
+some of these may be due to older versions of other libraries, i.e. LessTif or
+Mesa.
+
+1. Font capabilities used by SoAsciiText and SoText[23] are currently provided
+   by libFL.a.  On IRIX, libFL.so is provided in the eoe.sw.gfx and
+   eoe.sw64.gfx subsystems.  A version of libFL.a compiled for SunOS 5.8 is
+   available in the FTP download area.  No other platforms are currently
+   supported.  Look in the README file for more information on using Ang
+   Bodhi's FreeType interface.
+
+2. Arrowhead cones in transformer dragger appear squished.  This occurs on
+   IRIX and Linux.
+
+3. When selecting hidden-line view in viewers, the following error is printed
+   for models with colors specified in arrays:
+
+     Inventor error in SoIndexedShape(): material index n is out of range 0 - 1
+
+   This occurs on IRIX and Linux.
+
+4. SceneViewer crashes when loading temple.iv (binary format).  This occurs
+   with LessTif 0.91.4, but not 0.90.0, nor with OpenMotif 2.2.2-5; refer to
+
+     http://oss.sgi.com/bugzilla/show_bug.cgi?id=2
+
+5. SoXtFullViewer popup menu appears only at first invocation.  This occurs
+   with LessTif, but not with OpenMotif; refer to
+
+     http://oss.sgi.com/bugzilla/show_bug.cgi?id=349
+
+For a list of reported bugs, see
+
+  http://oss.sgi.com/bugzilla/buglist.cgi?product=inventor
+
+
+Last updated: $Date: 2005/01/14 22:58:15 $

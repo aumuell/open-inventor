@@ -1,4 +1,4 @@
-	Release notes for Open Inventor(TM) (August 15th, 2000)
+	Release notes for Open Inventor (TM) (August 15th, 2000)
 	Alexandre Naaman, Thomas Flynn: OpenGL Performer (TM)
 	Jonathan Lim: Global Product Support
 	SGI
@@ -6,10 +6,10 @@
 
 INTRODUCTION
 
-	These notes briefly describe the structure of the Open Inventor (TM)
+	These notes briefly describe the structure of the Open Inventor
 	source tree and how it can be built.
 
-	For the latest news concerning Open Inventor (TM) please consult the
+	For the latest news concerning Open Inventor, please consult the
 	following URL:
 
 		http://oss.sgi.com/projects/inventor/
@@ -17,8 +17,8 @@ INTRODUCTION
 
 TREE STRUCTURE
 
-	The source tree containing the Open Inventor (TM) source is structured
-	as follows:
+	The source tree containing the Open Inventor source is structured as
+	follows:
 
 		apps     - sample programs and examples
 		data     - sample data
@@ -28,20 +28,20 @@ TREE STRUCTURE
 		make     - makefile definitions and rules
 		tools    - preprocessor for generating shape source files
 		libimage - library to read SGI RGB files
-		libFL    - font library (IRIX, Linux i386, and Solaris only).
+		libFL    - font library (IRIX, Linux ix86, and Solaris only).
 			   Includes source code for Ang Bodhi's FreeType
-			   interface. For more information, visit
+			   interface.  For more information, visit
 
 				http://www.geocities.com/angbodhi/download
 
 
 DEPENDENCIES
 
-	The source in its current form will compile on IRIX, Linux i386, and
-	Apple Darwin (Mac OS X).
+	The source in its current form will compile on IRIX, Linux ix86/ia64,
+	and Apple Darwin (Mac OS X).
 
-	Currently the only dependencies include OpenGL(R) and X11R6 and
-	Motif(R) 1.2x. See the file FAQ.misc for more detailed information.
+	Currently the only dependencies include OpenGL (R), X11R6, and
+	Motif (R) 1.2x.  See the FAQ file for more detailed information.
 
 
 BUILDING THE TREE
@@ -58,8 +58,8 @@ BUILDING THE TREE
 
 	   On Apple Darwin (Mac OS X), use DYLD_LIBRARY_PATH instead.
 
-	3) The source code is compiled with optimization enabled by default. To
-	   create debug libraries, enter:
+	3) The source code is compiled with optimization enabled by default.
+	   To create debug libraries, enter:
 
 		setenv LIBTYPE debug
 
@@ -68,11 +68,11 @@ BUILDING THE TREE
 
 		setenv FREETYPE 1
 
-	5) Type 'gmake install' from the directory where you unpacked the Open
-	   Inventor source code.
+	5) Type 'gmake install' in the directory where the source code was
+	   unpacked.
 
 	6) To use the default font library, run the linkType1.sh script in
-	   libFL/src as root. Type1 PFA font files must already exist in
+	   libFL/src as root.  Type1 PFA font files must already exist in
 	   /usr/lib/X11/fonts/Type1.
 
 	   To use the FreeType interface, set the FL_FONT_PATH environment
@@ -86,23 +86,25 @@ INSTALLATION TREE STRUCTURE
 	When typing 'gmake install' the files generated during the
 	build will end up in the following locations:
 
-	$(IVROOT)/usr/bin			-> commonly used binaries
-						   (ivview, ivcat, etc.)
-	$(IVROOT)/usr/include/Inventor		-> include files (.h)
-	$(IVROOT)/usr/lib			-> shared libraries (.so)
-	$(IVROOT)/usr/lib/InventorDebug		-> debug shared libraries (.so)
-	$(IVROOT)/usr/man			-> man pages 
-	$(IVROOT)/usr/share/data		-> 3D models
-	$(IVROOT)/usr/demos/Inventor		-> miscellaneous SGI demos
+		$(IVROOT)/usr/bin		- executables (e.g. ivview)
+		$(IVROOT)/usr/include/Inventor	- include files (.h)
+		$(IVROOT)/usr/lib		- shared libraries (.so)
+		$(IVROOT)/usr/lib/InventorDebug	- debug shared libraries (.so)
+		$(IVROOT)/usr/man		- man pages 
+		$(IVROOT)/usr/share/data	- 3D models
+		$(IVROOT)/usr/demos/Inventor	- miscellaneous SGI demos
 
 
 THANKS
 
-	Special thanks goes out to all the original Open Inventor 
-	developers, especially Paul Strauss and Gavin Bell for 
-	graciously agreeing to act in an ongoing advisory capacity 
+	Special thanks goes out to all the original Open Inventor
+	developers, especially Paul Strauss and Gavin Bell for
+	graciously agreeing to act in an ongoing advisory capacity
 	at this exciting moment in Open Inventor's history.
 
 	We would also like to thank Chris Insinger and Jenny Zhao
-	for their unwavering support and persistence. Without them
-	this open source project would not have happened.         
+	for their unwavering support and persistence.  Without them
+	this open source project would not have happened.
+
+
+Last updated: $Date: 2005/01/14 22:58:15 $
