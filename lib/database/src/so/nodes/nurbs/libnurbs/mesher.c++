@@ -35,7 +35,7 @@
  */
 
 /*
- * mesher.c++ - $Revision: 1.1 $
+ * mesher.c++ - $Revision: 1.2 $
  * 	Derrick Burns - 1991
  */
 
@@ -60,6 +60,7 @@ Mesher::Mesher( Backend& b )
 {
     stacksize = 0;
     vdata = 0;
+    lastedge = 0;
 }
 
 Mesher::~Mesher( void )
