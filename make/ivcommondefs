@@ -29,6 +29,10 @@ LLDDSOOPTS += -Wl,-full_transitive_link
 LLDOPTS += -Wl,-full_transitive_link
 LD_QUICKSTART_INFO =
 
+X11DIR = /usr
+X11INCDIR = $(X11DIR)/include
+X11LIBDIR = $(X11DIR)/lib
+
 endif
 
 
@@ -84,6 +88,16 @@ LCINCS += -I$(X11INCDIR)
 LDDSOOPTS += -L$(X11LIBDIR)
 LDOPTS += -L$(X11LIBDIR)
 
+endif
+
+
+
+#
+# Settings for IA64 systems.
+#
+
+ifeq ($(usingIA64), 1)
+FREETYPE = 1
 endif
 
 
@@ -199,6 +213,7 @@ IVDATADIR = $(IVROOT)/$(IVPREFIX)/share/data/models
 IVDEMODIR = $(IVROOT)/$(IVPREFIX)/demos
 IVDEMOBINDIR = $(IVDEMODIR)/Inventor
 IVDEMODATADIR = $(IVDEMODIR)/data/Inventor
+IVAPPLOADDIR = $(IVROOT)/$(X11LIBDIR)/X11/app-defaults
 
 
 

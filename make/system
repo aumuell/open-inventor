@@ -1,9 +1,10 @@
 usingIrix = 0
 usingLinux = 0
+usingIA64 = 0
 usingFreeBSD = 0
 usingDarwin = 0
 
-UNAME = $(shell uname | tr '[:upper:]' '[:lower:]')
+UNAME = $(shell uname -sm | tr '[:upper:]' '[:lower:]')
 
 ifneq (, $(findstring irix, $(UNAME)))
 usingIrix = 1
@@ -11,6 +12,10 @@ endif
 
 ifneq (, $(findstring linux, $(UNAME)))
 usingLinux = 1
+endif
+
+ifneq (, $(findstring ia64, $(UNAME)))
+usingIA64 = 1
 endif
 
 ifneq (, $(findstring freebsd, $(UNAME)))
