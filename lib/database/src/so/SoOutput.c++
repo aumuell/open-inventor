@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoOutput
@@ -690,9 +690,7 @@ SoOutput::write(const char *s)
         //
         if (isToBuffer()) {
             int m = n;
-#ifdef __i386__
-            DGL_HTON_INT32( m, n );
-#endif
+            DGL_HTON_INT32(m, n);
             *((int *)curBuf) = m;
             curBuf += 4;
             bcopy((const void *)s, (void *)curBuf, n);
@@ -704,9 +702,7 @@ SoOutput::write(const char *s)
             if (!makeRoomInTmpBuf(nsize))
                 return;
             int m = n;
-#ifdef __i386__
-            DGL_HTON_INT32( m, n );
-#endif
+            DGL_HTON_INT32(m, n);
             fwrite((void *)&m, sizeof(int), 1, fp);
             bcopy((const void *)s, tmpBuffer, n);
             for (int i=0; i<(nsize-n); i++) 
@@ -1474,4 +1470,3 @@ SoOutput::findReference(const SoBase *base	// Thing to look for
 
     return referenceId;
 }
-

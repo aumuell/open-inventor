@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoInput, SoInputFile
@@ -1009,9 +1009,7 @@ SoInput::read(SbString &s)
 		return FALSE;
 
             int n = * (int *) curFile->curBuf;
-#ifdef __i386__
-                DGL_NTOH_INT32( n, n );
-#endif
+            DGL_NTOH_INT32(n, n);
 
             // A marker was read.  Return without incrementing the buffer
             if (n < 0)
@@ -1038,9 +1036,8 @@ SoInput::read(SbString &s)
 
 	    int n;
             if (fread((void *) &n, sizeof(int), 1, curFile->fp) == 1) {
-#ifdef __i386__
-                DGL_NTOH_INT32( n, n );
-#endif
+                DGL_NTOH_INT32(n, n);
+
                 if (n < 0) {
                     // A marker was read.  Put it in the backup buffer
                     // so the next read will read it.
@@ -2893,4 +2890,3 @@ SoInput::makeRoomInBuf(size_t nBytes)
 
     return TRUE;
 }
-
