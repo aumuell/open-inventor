@@ -110,10 +110,11 @@ IVHDRTOP = $(IVROOT)/usr/include/Inventor
 IVHDRDIR = $(IVHDRTOP)/$(HDRSUBDIR)
 IVMAN1DIR = $(IVROOT)/usr/man/man1
 IVMAN3DIR = $(IVROOT)/usr/man/man3
+IVHELPDIR = $(IVROOT)/usr/share/help
 IVDATADIR = $(IVROOT)/usr/share/data/models
-IVDEMODIR = $(IVROOT)/opt/SGIDemos/Inventor
-IVDEMOBINDIR = $(IVDEMODIR)/bin
-IVDEMODATADIR = $(IVDEMODIR)/data
+IVDEMODIR = $(IVROOT)/usr/demos
+IVDEMOBINDIR = $(IVDEMODIR)/Inventor
+IVDEMODATADIR = $(IVDEMODIR)/data/Inventor
 
 
 

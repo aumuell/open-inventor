@@ -439,20 +439,23 @@ showAboutDialog(Widget, XtPointer, XtPointer)
 {
     if (access("/usr/demos/Inventor/qmorf.about", R_OK) != 0)
     {
-	system("xconfirm -t 'Sorry, could not find "
+	system("xmessage 'Sorry, could not find "
 	       "/usr/demos/Inventor/qmorf.about' > /dev/null");
 	return;
     }
     char command[100];
-    sprintf(command, "showcase -v /usr/demos/Inventor/qmorf.about");
+    sprintf(command, "which acroread >& /dev/null");
 
     int err = system(command);
     if (err)
     {
-	system("xconfirm -t 'You must install showcase"
+	system("xmessage 'You must install acroread"
 	       " for this function to work' > /dev/null");
 	return;
     }
+
+    sprintf(command, "acroread /usr/demos/Inventor/qmorf.about &");
+    system(command);
 }	
 
 //

@@ -22,7 +22,7 @@ all: all_ivbin
 
 install: install_ivdemo
 	$(INSTALL) -m 755 $(DEMO).RUNME $(IVDEMOBINDIR)
-	$(INSTALL) -m 644 $(DEMO).about $(IVDEMODATADIR)
+	$(INSTALL) -m 644 $(DEMO).about $(IVDEMOBINDIR)
 	$(INSTALL) -m 644 defaultTexture.rgb $(IVDEMODATADIR)
 
 include $(IVCOMMONRULES)

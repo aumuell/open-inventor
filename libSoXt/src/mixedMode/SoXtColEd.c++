@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Classes:
  |	_SoXtColorEditor
@@ -1730,7 +1730,7 @@ _SoXtColorEditor::editMenuCallback(
 	    	    	    	    ! d->classPtr->WYSIWYGmode); break;
     	case COPY_ID:	    d->classPtr->copy(eventTime); break;
     	case PASTE_ID:	    d->classPtr->paste(eventTime); break;
-	case HELP_ID:	    d->classPtr->openHelpCard("_SoXtColorEditor.help"); break;
+	case HELP_ID:	    d->classPtr->openHelpCard("SoXtColorEditor.help"); break;
     }
 }
 

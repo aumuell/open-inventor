@@ -80,7 +80,7 @@ INSTALLATION TREE STRUCTURE
 	$(IVROOT)/usr/lib/InventorDebug		-> debug shared libraries (.so)
 	$(IVROOT)/usr/man			-> man pages 
 	$(IVROOT)/usr/share/data		-> 3D models
-	$(IVROOT)/opt/SGIDemos/Inventor/bin	-> miscellaneous SGI demos
+	$(IVROOT)/usr/demos/Inventor		-> miscellaneous SGI demos
 
 
 THANKS

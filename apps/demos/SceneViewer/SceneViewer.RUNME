@@ -1,4 +1,4 @@
-#! /bin/sh
-
-opt=$IVROOT/opt/SGIDemos/Inventor
-$opt/bin/SceneViewer $opt/data/jackInTheBox.iv
+#!/bin/sh
+#Tag 0x00010510
+cd /usr/share/data/models
+/usr/demos/Inventor/SceneViewer /usr/demos/data/Inventor/jackInTheBox.iv

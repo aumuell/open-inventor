@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SoXtComponent
@@ -76,7 +76,7 @@
 
 static char *helpDialogTitle = "Help Card Error Dialog";
 static char *helpCardError = "Inventor Help Cards not installed.";
-static char *helpPrgError = "showcase not installed on this system.";
+static char *helpPrgError = "acroread not installed on this system.";
 static char *thisClassName = "SoXtComponent";
 
 // static members
@@ -573,8 +573,9 @@ SoXtComponent::openHelpCard(const char *cardName)
 {
     char pgrCmd[100];
     char cardPath[100];
-    strcpy(pgrCmd, "showcase -v ");
+    strcpy(pgrCmd, "acroread ");
     
+#if 0
     // ??? make showcase come up single buffered on the Indigo. This should
     // ??? be the default behavior for showcase in view only mode. (bug 107547)
 //???alain- check this out, make sure it'll still work.
@@ -587,10 +588,19 @@ SoXtComponent::openHelpCard(const char *cardName)
 
     if (bitnum < 12)
 	strcat(pgrCmd, "-b ");	// single buffer mode
+#endif
+
+    char command[100];
+    sprintf(command, "which acroread >& /dev/null");
+    if (system(command) != 0) {
+	SoXt::createSimpleErrorDialog(_baseWidget, helpDialogTitle, helpPrgError);
+	return;
+    }
     
     // check if the file is located in current directory
     if ( access(cardName, R_OK) == 0 ) {
 	strcat(pgrCmd, cardName);
+	strcat(pgrCmd, " &");
 	if (system(pgrCmd) != 0)
 	    SoXt::createSimpleErrorDialog(_baseWidget, helpDialogTitle, helpPrgError);
 	return;
@@ -604,6 +614,7 @@ SoXtComponent::openHelpCard(const char *cardName)
 	strcat(cardPath, cardName);
 	if ( access(cardPath, R_OK) == 0 ) {
 	    strcat(pgrCmd, cardPath);
+	    strcat(pgrCmd, " &");
 	    if (system(pgrCmd) != 0)
 		SoXt::createSimpleErrorDialog(_baseWidget, helpDialogTitle, helpPrgError);
 	    return;
@@ -615,6 +626,7 @@ SoXtComponent::openHelpCard(const char *cardName)
     strcat(cardPath, cardName);
     if ( access(cardPath, R_OK) == 0 ) {
 	strcat(pgrCmd, cardPath);
+	strcat(pgrCmd, " &");
 	if (system(pgrCmd) != 0)
 	    SoXt::createSimpleErrorDialog(_baseWidget, helpDialogTitle, helpPrgError);
 	return;

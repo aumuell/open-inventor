@@ -41,7 +41,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.6 $
+ |   $Revision: 1.7 $
  |
  |   Classes	: SoSceneViewer
  |
@@ -4741,21 +4741,24 @@ SoSceneViewer::showAboutDialog()
 {
     if (access("/usr/demos/Inventor/SceneViewer.about", R_OK) != 0)
     {
-	system("xconfirm -t 'Sorry, could not find "
+	system("xmessage 'Sorry, could not find "
 	       "/usr/demos/Inventor/SceneViewer.about' > /dev/null");
 	return;
     }
 
     char command[100];
-    sprintf(command, "showcase -v /usr/demos/Inventor/SceneViewer.about");
+    sprintf(command, "which acroread >& /dev/null");
 
     int err = system(command);
     if (err)
     {
-	system("xconfirm -t 'You must install showcase"
+	system("xmessage 'You must install acroread"
 	       " for this function to work' > /dev/null");
 	return;
     }
+
+    sprintf(command, "acroread /usr/demos/Inventor/SceneViewer.about &");
+    system(command);
 }
 
 //

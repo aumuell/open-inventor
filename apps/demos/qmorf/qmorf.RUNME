@@ -1,4 +1,3 @@
-#! /bin/sh
-
-$IVROOT/opt/SGIDemos/Inventor/bin/qmorf \
-  $IVROOT/usr/share/data/models/CyberHeads/*.iv
+#!/bin/sh
+#Tag 0x00010510
+/usr/demos/Inventor/qmorf /usr/share/data/models/CyberHeads/*.iv

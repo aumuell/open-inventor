@@ -1,7 +1,7 @@
 IVDEPTH = ..
 include $(IVDEPTH)/make/ivcommondefs
 
-SUBDIRS = man
+SUBDIRS = help man
 
 all install:
 	$(SUBDIRS_MAKERULE)
