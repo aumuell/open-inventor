@@ -27,8 +27,13 @@ RELEASE_NAME=2.2
 # If DEF_CSTYLE should change then LIB_LOCATION and ROOTRLDNAME should also
 # reflect the change to the DEF_CSTYLE.
 #
+ifneq ($(usingIrix), 1)
 DEF_CSTYLE=$(CSTYLE_IA32)
 DEF_GLDOPTS=$(GLDOPTS_IA32)
+else
+DEF_CSTYLE=$(CSTYLE_N32_M3)
+DEF_GLDOPTS=$(GLDOPTS_N32_M3)
+endif
 
 #
 # LIB_LOCATION is for Makefile's who have hardcoded pathnames
@@ -40,12 +45,20 @@ DEF_GLDOPTS=$(GLDOPTS_IA32)
 # This way when the default object style changes we only
 # need to change it here.
 #
+ifneq ($(usingIrix), 1)
 LIB_LOCATION=lib
+else
+LIB_LOCATION=lib32
+endif
 
 #
 # Set ROOTRLDNAME for the correct default object style.
 #
+ifneq ($(usingIrix), 1)
 ROOTRLDNAME=$(ROOTRLDNAME_IA32) 
+else
+ROOTRLDNAME=$(ROOTRLDNAME_N32) 
+endif
 
 #
 # Define default OBJECT_STYLE - this can be changed to 'N32' to
@@ -56,29 +69,36 @@ ROOTRLDNAME=$(ROOTRLDNAME_IA32)
 # setting OBJECT_STYLE=$(DEF_32_OBJECT_STYLE) in a versiondefs file
 # would permit it to be easily changed to compile N32.
 #
+ifneq ($(usingIrix), 1)
 DEF_OBJECT_STYLE=IA32
+else
+DEF_OBJECT_STYLE=N32_M3
+DEF_32_OBJECT_STYLE=N32_M3
+DEF_64_OBJECT_STYLE=64
+endif
 
 #
 # default ISA's for 32, N32, and 64 bit programs
 # If a makefile specifies OBJECT_STYLE={32, N32, 64} this is what they'll get
 #
+ifneq ($(usingIrix), 1)
 DEF_CSTYLE_IA32	= $(CSTYLE_IA32)
+DEF_GLDOPTS_IA32= $(GLDOPTS_IA32)
+else
+DEF_CSTYLE_32	= $(CSTYLE_32_M2)
+DEF_CSTYLE_N32	= $(CSTYLE_N32_M3)
+DEF_CSTYLE_64	= $(CSTYLE_64_M3)
+DEF_GLDOPTS_32	= $(GLDOPTS_32_M2)
+DEF_GLDOPTS_N32	= $(GLDOPTS_N32_M3)
+DEF_GLDOPTS_64	= $(GLDOPTS_64_M3)
+endif
 
 #
 # For this release - which styles should be built? Built from the list in
 # commondefs
 #
+ifneq ($(usingIrix), 1)
 STYLES_TO_BUILD=IA32
-
-#
-# Turn on generation of api information for libraries built using the
-# libcommondefs/libcommonrules conventions.  To override this setting
-# for a given library, add "NO_CHECK_API=1" to the appropriate
-# versiondefs files
-#
-# (temporarily undefining CHECK_API pending 7.2+ linker fixes)
-# CHECK_API=1
-
-# this only needs to be changed when doing a hardware specific OS release.
-# See man page for mkversionnum for more details.
-TREE_ID=0
+else
+STYLES_TO_BUILD=32 32_M2 32_ABI N32 N32_M3 N32_M4 64 64_M3 64_M4 64_ABI
+endif

@@ -1,0 +1,117 @@
+include $(IVDEPTH)/make/system
+include $(IVDEPTH)/make/commondefs
+
+IVCOMMONRULES = $(IVDEPTH)/make/ivcommonrules
+
+
+
+#
+# Override variables in commondefs when building on Linux systems.
+#
+
+ifeq ($(usingLinux), 1)
+
+CC  = /usr/bin/gcc
+C++ = /usr/bin/g++
+
+INSTALL = /usr/bin/install
+
+# MKDEPOPT = -MD
+
+GLDDSOOPTS = -shared --whole-archive
+
+endif
+
+
+
+#
+# Additional settings for Linux systems and GNU compilers.
+#
+
+ifeq ($(usingLinux), 1)
+
+LINUXDEFS = -DPOSIX_SOURCE -D_XOPEN_SOURCE
+LCXXDEFS += $(LINUXDEFS)
+LCDEFS += $(LINUXDEFS)
+
+LINUXOPTS = -fPIC
+LCXXOPTS += $(LINUXOPTS)
+LCOPTS += $(LINUXOPTS)
+
+X11DIR = /usr/X11R6
+X11INCDIR = $(X11DIR)/include
+X11LIBDIR = $(X11DIR)/lib
+
+LCXXINCS += -I$(X11INCDIR)
+LCINCS += -I$(X11INCDIR)
+
+LDDSOOPTS += -L$(X11LIBDIR)
+LDOPTS += -L$(X11LIBDIR)
+
+endif
+
+
+
+#
+# Determine optimization from LIBTYPE.
+#
+
+OPTIMIZER = -O -DNDEBUG
+ifneq (, $(findstring debug, $(LIBTYPE)))
+OPTIMIZER = -g
+endif
+
+
+
+#
+# Inventor library include directories.
+#
+
+IVLIBHDRDIRS = \
+	-I. \
+	-I$(IVDEPTH)/lib/database/include \
+	-I$(IVDEPTH)/lib/interaction/include \
+	-I$(IVDEPTH)/lib/nodekits/include \
+	-I$(IVDEPTH)/libSoXt/include
+
+LCXXINCS += $(IVLIBHDRDIRS)
+LCINCS += $(IVLIBHDRDIRS)
+
+
+
+#
+# Tools for generating Inventor man pages.
+#
+
+IVPPPDIR = $(IVDEPTH)/tools/ppp
+IVPPP = $(IVPPPDIR)/ppp
+IVMANDIR = $(shell dirname $(IVDEPTH))/doc/man/ivman
+IVMAN = $(IVMANDIR)/ivman
+MAKEMANDIRS = $(IVMANDIR)/makeManDirs
+
+
+
+#
+# Inventor install directories.
+#
+
+IVBINDIR = $(IVROOT)/usr/bin
+IVLIBDIR = $(IVROOT)/usr/lib
+IVDLIBDIR = $(IVLIBDIR)/InventorDebug
+IVHDRTOP = $(IVROOT)/usr/include/Inventor
+IVHDRDIR = $(IVHDRTOP)/$(HDRSUBDIR)
+IVMAN1DIR = $(IVROOT)/usr/man/man1
+IVMAN3DIR = $(IVROOT)/usr/man/man3
+IVDATADIR = $(IVROOT)/usr/share/data/models
+IVDEMODIR = $(IVROOT)/opt/SGIDemos/Inventor
+IVDEMOBINDIR = $(IVDEMODIR)/bin
+IVDEMODATADIR = $(IVDEMODIR)/data
+
+
+
+#
+# Locate installed Inventor libraries when linking applications.
+#
+
+LDDSOOPTS += -L$(IVLIBDIR)
+LDOPTS += -L$(IVLIBDIR)

@@ -1,6 +1,6 @@
 # Copyright 1990 Silicon Graphics, Inc.  All rights reserved.
 #
-#ident "$Revision: 1.1 $"
+#ident "$Revision: 1.2 $"
 #
 # Common makefile rules.
 #
@@ -31,14 +31,6 @@
 #	  xxxinstall, etc).  SUBDIRS_MAKERULE in commondefs is a convenience
 #	  macro that expands to the above loop.
 #
-
-#
-# $(_FORCE) doesn't exist under gmake, so we can't define it here or it will
-# be run.  The preferred method is now to use ".PHONY", a gmake construct.
-# For example, to force "clean," use: ".PHONY: clean".
-# grantham 7/7/97
-#
-#$(_FORCE):
 
 #
 # File removal rules: there are three.
@@ -93,12 +85,12 @@ $(COMMONPREF)TAGS:
 	    xargs $(ETAGS) -a $(ETAGOPTS)
 
 #
-# A better version of smake's makelib.mk rule.
-# XXX fix makelib.mk in next release and remove this rule.
+# Implicit rule to compile files with .c++ extension.
 #
-MAKELIB: .USE .PRECIOUS
-	$(AR) c$(ARFLAGS) $@ $?
-	rm -f $?
+.SUFFIXES: .c++
+
+.c++.o:
+	$(CXX) $(CXXFLAGS) -c $<
 
 #
 # Include the make dependency file if it exists.

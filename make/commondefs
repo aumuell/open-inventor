@@ -1,6 +1,6 @@
 # Copyright 1990-1995 Silicon Graphics, Inc.  All rights reserved.
 #
-#ident "$Revision: 1.1 $"
+#ident "$Revision: 1.2 $"
 #
 # Common makefile definitions.
 #
@@ -27,16 +27,14 @@
 #     NO_STARTOPT - don't set any of the DSO start option macros - this
 #	will keep the global so_locations files from being updated.
 #
-
 COMMONRULES= $(IVDEPTH)/make/commonrules
 COMMONTARGS= clobber clean rmtargets fluff tags
-PRODUCTDEFS= $(IVDEPTH)/make/$(PRODUCT)defs
 RELEASEDEFS= $(IVDEPTH)/make/releasedefs
 
 # include releasedefs by default
-ifndef NO_RELEASEDEFS
+#if !defined(NO_RELEASEDEFS)
 include $(RELEASEDEFS)
-endif
+#endif
 
 # Build tools, i.e., programs which are used as part of the build
 # process.  These must run on all supported build environments
@@ -44,32 +42,16 @@ endif
 
 AR	= $(TOOLROOT)/usr/bin/ar
 AS	= $(TOOLROOT)/usr/bin/as $(ENDIAN)
-BISON   = $(TOOLROOT)/usr/bin/bison
-# ugly thing to check for linux or Linux ...
-ifeq ($(OSTYPE),linux)
-  usingLinux = 1
-else
-ifeq ($(OSTYPE),Linux)
-  usingLinux = 1
-else
-  usingLinux = 0
-endif
-endif
-ifeq ($(usingLinux),1)
-	C++	= $(TOOLROOT)/usr/bin/g++
-	C++C	= $(TOOLROOT)/usr/bin/g++
-	CC	= $(TOOLROOT)/usr/bin/gcc
-else
-	C++	= $(TOOLROOT)/usr/bin/CC
-	C++C	= $(TOOLROOT)/usr/bin/CC
-	CC	= $(TOOLROOT)/usr/bin/cc
-endif
+BISON   = $(TOOLROOTSAFE) $(TOOLROOT)/usr/bin/bison
+C++	= $(TOOLROOT)/usr/bin/CC
+C++C	= $(TOOLROOT)/usr/bin/CC
+CC	= $(TOOLROOT)/usr/bin/cc
 CORD    = $(TOOLROOT)/usr/bin/cord
 CXX	= $(C++)
 F77	= $(TOOLROOT)/usr/bin/f77
 FC	= $(TOOLROOT)/usr/bin/f77
-FLEX    = $(TOOLROOT)/usr/bin/flex
-GNUM4	= $(TOOLROOT)/usr/bin/gnum4
+FLEX    = $(TOOLROOTSAFE) $(TOOLROOT)/usr/bin/flex
+GNUM4	= $(TOOLROOTSAFE) $(TOOLROOT)/usr/bin/gnum4
 LEX	= $(TOOLROOT)/usr/bin/lex -l $(ROOT)/usr/lib/lex/ncform
 LD	= $(TOOLROOT)/usr/bin/ld
 LIBSPEC	= $(TOOLROOT)/usr/sbin/libspec
@@ -83,7 +65,10 @@ SIZE	= $(TOOLROOT)/usr/bin/size
 STRIP	= $(TOOLROOT)/usr/bin/strip
 TAG	= $(TOOLROOT)/usr/sbin/tag
 TLINK	= $(TOOLROOT)/usr/sbin/tlink
-YACC    = $(TOOLROOT)/usr/bin/yacc -P $(ROOT)/usr/lib/yaccpar
+YACC    = $(TOOLROOTSAFE) $(TOOLROOT)/usr/bin/yacc
+ifeq ($(usingIrix), 1)
+YACC	+= -P $(ROOT)/usr/lib/yaccpar
+endif
 
 # Old TOOLROOT-prefixed macros.  References should be replaced with
 # native 'echo', sh, etc. since special versions shouldn't really be
@@ -96,36 +81,25 @@ ECHO	= echo
 M4	= m4
 
 #
-# The native tools, which must be used when building programs that are
-# run on the build host from a makefile.  Use of these macros are
-# deprecated, since we don't want to make assumptions about what's
-# installed on the host.  
-
-ifeq ($(CXX),g++)
-	HOST_CC		= TOOLROOT= /usr/bin/gcc
-	HOST_C++	= TOOLROOT= /usr/bin/g++
-else
-	HOST_CC		= TOOLROOT= /usr/bin/CC
-	HOST_C++	= TOOLROOT= /usr/bin/cc
-endif
-HOST_CXX	= $(HOST_C++)
-HOST_LD		= TOOLROOT= /usr/bin/ld
-HOST_YACC	= _XPG= TOOLROOT= /usr/bin/yacc -p /usr/lib/yaccpar
-HOST_LEX	= TOOLROOT= /usr/bin/lex -l /usr/lib/lex/ncform
-
-HOST_CFLAGS	= $(CFLAGS:S/$(ROOT)//g)
-HOST_C++FLAGS	= $(C++FLAGS:S/$(ROOT)//g)
-HOST_CXXFLAGS	= $(HOST_C++FLAGS)
-HOST_LDFLAGS	= $(LDFLAGS:S/$(ROOT)//g)
-
-HOST_CCF	= $(HOST_CC) $(HOST_CFLAGS)
-HOST_C++F	= $(HOST_C++) $(HOST_C++FLAGS)
-HOST_CXXF	= $(HOST_C++F)
-HOST_LDF	= $(HOST_LD) $(HOST_LDFLAGS)
-HOST_YACCF	= $(HOST_YACC) $(YFLAGS)
-HOST_LEXF	= $(HOST_LEX) $(LFLAGS)
-
-ALLSTYLES=IA32
+# Popular ABI/ISA combinations supported here:
+#
+# 32_M2		- MIPS/ABI; 32 bit; mips2
+# 32_ABI	- MIPS/ABI; 32 bit; mips1; ABI restrictions
+# N32_M3	- new calling convention; 32 bit; mips3
+# N32_M4	- new calling convention; 32 bit; mips4
+# 64_M3		- new calling convention; 64 bit; mips3
+# 64_M4		- new calling convention; 64 bit; mips4
+# 64_ABI	- MIPS/ABI; 64 bit; mips3/4; ABI restrictions
+#
+# The following are 'generic' these should be used unless fine control
+# over ISA is required (releasedefs decides which ISA):
+#
+# 32		- MIPS/ABI; 32 bit;
+# N32		- new calling convention; 32 bit;
+# 64		- new calling convention; 64 bit;
+#
+ALLSTYLES=32 32_M2 32_ABI N32 N32_M3 N32_M4 64 64_M3 64_M4 64_ABI
+ALLSTYLES+=IA32
 
 #
 # ENDIAN is defined only when cross-compiling
@@ -162,23 +136,41 @@ ALLSTYLES=IA32
 #	1499 - -woff arguments must be in the range ...
 #	1685 - The v6.02 compiler changes woff #1499 to 1685.
 #	       The specific error is "invalid error number <warning number>"
-
-WOFF=
+ifeq ($(usingIrix), 1)
+WOFF=-woff 1685,515,608,658,799,803,852,1048,1233,1499$(LWOFF)
+endif
 
 #
 # Default C version, optimizer, common global options, and make-depend options.
 #
 CVERSION   = 
 OPTIMIZER  = -O
-ifeq ($(usingLinux),1)
-MKDEPOPT   = -MD
+ifeq ($(usingIrix), 1)
+MKDEPOPT   = -MDupdate $(MKDEPFILE)
 endif
 COMMONGOPTS=$(OPTIMIZER) $(MKDEPOPT) $(ENDIAN)
 
 #
 # Pick appropriate STYLE - releasedefs defines the default
+# Note that binaries that don't have absolute ISA requirements should use
+# the generic OBJECT_STYLE={64, 32, N32}. This permits the default to be
+# set by releasedefs
 #
-CSTYLE_IA32 = 
+CSTYLE_32_M2 = -mips2 -o32
+CSTYLE_32_ABI= -mips1 -o32 -D_MIPSABI_SOURCE=3
+CSTYLE_N32_M3= -mips3 -n32
+CSTYLE_N32_M4= -mips4 -n32
+CSTYLE_R32   = -mips3 -r32
+CSTYLE_64_M3 = -mips3 -64
+CSTYLE_64_M4 = -mips4 -64
+CSTYLE_64_ABI = -mips3 -64 -D_MIPSABI_SOURCE=3
+CSTYLE_IA32  =
+
+# 'generic' styles - per ABI. releasedefs sets what it is.
+# DEF_CSTYLE's are set in releasedefs
+CSTYLE_32    = $(DEF_CSTYLE_32)
+CSTYLE_N32   = $(DEF_CSTYLE_N32)
+CSTYLE_64    = $(DEF_CSTYLE_64)
 
 #
 # Set OBJECT_STYLE if it hasn't already been set - note that std 'make'files
@@ -193,21 +185,55 @@ ifndef OBJECT_STYLE
 OBJECT_STYLE = $(DEF_OBJECT_STYLE)
 endif
 
-ifeq ($(OBJECT_STYLE),IA32)
-CSTYLE=$(CSTYLE_IA32)
-else
-ifeq ($(OBJECT_STYLE),NONE)
-CSTYLE=
-else
 # set in releasedefs
-# This is one that 'make' sees
+# This is the one that 'make' sees
 CSTYLE=$(DEF_CSTYLE)
+
+ifeq "$(OBJECT_STYLE)" "64"
+CSTYLE=$(CSTYLE_64)
 endif
+ifeq "$(OBJECT_STYLE)" "64_M3"
+CSTYLE=$(CSTYLE_64_M3)
+endif
+ifeq "$(OBJECT_STYLE)" "64_M4"
+CSTYLE=$(CSTYLE_64_M4)
+endif
+ifeq "$(OBJECT_STYLE)" "64_ABI"
+CSTYLE=$(CSTYLE_64_ABI)
+endif
+ifeq "$(OBJECT_STYLE)" "32_ABI"
+CSTYLE=$(CSTYLE_32_ABI)
+endif
+ifeq "$(OBJECT_STYLE)" "N32"
+CSTYLE=$(CSTYLE_N32)
+endif
+ifeq "$(OBJECT_STYLE)" "N32_M3"
+CSTYLE=$(CSTYLE_N32_M3)
+endif
+ifeq "$(OBJECT_STYLE)" "N32_M4"
+CSTYLE=$(CSTYLE_N32_M4)
+endif
+ifeq "$(OBJECT_STYLE)" "R32"
+CSTYLE=$(CSTYLE_R32)
+endif
+ifeq "$(OBJECT_STYLE)" "32"
+CSTYLE=$(CSTYLE_32)
+endif
+ifeq "$(OBJECT_STYLE)" "32_M2"
+CSTYLE=$(CSTYLE_32_M2)
+endif
+ifeq "$(OBJECT_STYLE)" "IA32"
+CSTYLE=$(CSTYLE_IA32)
+endif
+ifeq "$(OBJECT_STYLE)" "NONE"
+CSTYLE=
 endif
 
 GCOPTS	= $(CSTYLE) $(OPTIMIZER) $(ENDIAN) $(MKDEPOPT) $(WOFF)
 GCDEFS	=
-GCINCS	= 
+ifeq ($(usingIrix), 1)
+GCINCS	= -nostdinc -I$(INCLDIR)
+endif
 
 #
 # Cc flags, composed of:
@@ -265,7 +291,9 @@ C++DEFS   = $(VC++DEFS) $(LC++DEFS) $(GC++DEFS)
 C++INCS   = $(VC++INCS) $(LC++INCS) $(GC++INCS)
 
 GC++OPTS  = $(CSTYLE) $(OPTIMIZER) $(ENDIAN) $(MKDEPOPT)
-GC++INCS  = 
+ifeq ($(usingIrix), 1)
+GC++INCS  = -nostdinc -I$(INCLDIR)/CC -I$(INCLDIR)
+endif
 GC++DEFS  = 
 
 #
@@ -285,22 +313,7 @@ GC++DEFS  =
 
 # Note: To turn off -quickstart_info for specific Makefile add:
 #		LD_QUICKSTART_INFO=
-LD_QUICKSTART_INFO=
-
-#
-# locations to search for libs. We search the 'generic' locations such
-# as usr/lib64 even though those are installed in a machine specific manner.
-# This permits library writers that only want to have one 'least-common-
-# denominator' version per ABI to install it directly in the generic location
-# without having to create links. This should be OK in the build environment
-# since we always search the specific directories first.
-#
-# Some user's may not want all this searching help - they can specify
-# NO_LSRCH
-#
-ifndef NO_LSRCH
-LSRCH_IA32 =	-L$(ROOT)/lib -L$(ROOT)/usr/lib `
-endif
+LD_QUICKSTART_INFO=-quickstart_info
 
 #
 # each 'popular' combination of ABI and ISA gets its own set of
@@ -314,7 +327,24 @@ endif
 # a way to add additional options per object style. So, we add a set of LDOPTS_*
 # this can also be used for makefiles that would rather not use cmdcommon*.
 #
-GLDOPTS_IA32 =
+GLDOPTS_32_M2 = -mips2 -o32 $(LD_QUICKSTART_INFO) -nostdlib $(LSRCH_32_M2)
+GLDOPTS_32_ABI= -o32 -abi -nostdlib $(LSRCH_32_ABI)
+GLDOPTS_N32_M3= -mips3 -n32 $(LD_QUICKSTART_INFO) -nostdlib $(LSRCH_N32_M3)
+GLDOPTS_N32_M4= -mips4 -n32 $(LD_QUICKSTART_INFO) -nostdlib $(LSRCH_N32_M4)
+GLDOPTS_R32   = -r32 $(LD_QUICKSTART_INFO) -nostdlib $(LSRCH_R32)
+GLDOPTS_64_M3 = -mips3 -64 $(LD_QUICKSTART_INFO) -nostdlib $(LSRCH_64_M3)
+GLDOPTS_64_M4 = -mips4 -64 $(LD_QUICKSTART_INFO) -nostdlib $(LSRCH_64_M4)
+GLDOPTS_64_ABI= -mips3 -64 -abi -nostdlib $(LSRCH_64_ABI)
+# until new ld
+GLDOPTS_64_ABI= -mips3 -64 -nostdlib $(LSRCH_64_ABI)
+GLDOPTS_IA32  =
+#
+# Most objects don't have absolute requirements for ISA - use these
+# to get the default for each ABI as set by the release gods.
+#
+GLDOPTS_32    =$(DEF_GLDOPTS_32)
+GLDOPTS_N32   =$(DEF_GLDOPTS_N32)
+GLDOPTS_64    =$(DEF_GLDOPTS_64)
 
 GLDLIBS= 
 
@@ -335,32 +365,111 @@ LDLIBS	= $(VLDLIBS) $(LLDLIBS) $(GLDLIBS)
 # the generic OBJECT_STYLE={64, 32, N32}. This permits the default to be
 # set by releasedefs
 #
-ifeq ($(OBJECT_STYLE),IA32)
-GLDOPTS=$(GLDOPTS_IA32)
-else
-ifeq ($(OBJECT_STYLE),NONE)
-GLDOPTS=
-else
 # set in releasedefs
 # This is one that 'make' sees
 GLDOPTS=$(DEF_GLDOPTS)
+
+ifeq "$(OBJECT_STYLE)" "64"
+GLDOPTS=$(GLDOPTS_64)
 endif
+ifeq "$(OBJECT_STYLE)" "64_M3"
+GLDOPTS=$(GLDOPTS_64_M3)
+endif
+ifeq "$(OBJECT_STYLE)" "64_M4"
+GLDOPTS=$(GLDOPTS_64_M4)
+endif
+ifeq "$(OBJECT_STYLE)" "64_ABI"
+GLDOPTS=$(GLDOPTS_64_ABI)
+endif
+ifeq "$(OBJECT_STYLE)" "32_ABI"
+GLDOPTS=$(GLDOPTS_32_ABI)
+endif
+ifeq "$(OBJECT_STYLE)" "N32"
+GLDOPTS=$(GLDOPTS_N32)
+endif
+ifeq "$(OBJECT_STYLE)" "N32_M3"
+GLDOPTS=$(GLDOPTS_N32_M3)
+endif
+ifeq "$(OBJECT_STYLE)" "N32_M4"
+GLDOPTS=$(GLDOPTS_N32_M4)
+endif
+ifeq "$(OBJECT_STYLE)" "R32"
+GLDOPTS=$(GLDOPTS_R32)
+endif
+ifeq "$(OBJECT_STYLE)" "32"
+GLDOPTS=$(GLDOPTS_32)
+endif
+ifeq "$(OBJECT_STYLE)" "32_M2"
+GLDOPTS=$(GLDOPTS_32_M2)
+endif
+ifeq "$(OBJECT_STYLE)" "IA32"
+GLDOPTS=$(GLDOPTS_IA32)
+endif
+ifeq "$(OBJECT_STYLE)" "NONE"
+GLDOPTS=
 endif
 
-LDOPTS_IA32    =$(VLDOPTS) $(LLDOPTS)
+LDOPTS_32    =$(VLDOPTS) $(LLDOPTS) $(LLDOPTS_32_M2) $(GLDOPTS_32_M2)
+LDOPTS_32_M2 =$(VLDOPTS) $(LLDOPTS) $(LLDOPTS_32_M2) $(GLDOPTS_32_M2)
+LDOPTS_32_ABI=$(VLDOPTS) $(LLDOPTS) $(LLDOPTS_32_ABI) $(GLDOPTS_32_ABI)
+LDOPTS_N32   =$(VLDOPTS) $(LLDOPTS) $(LLDOPTS_N32_M3) $(GLDOPTS_N32)
+LDOPTS_N32_M3=$(VLDOPTS) $(LLDOPTS) $(LLDOPTS_N32_M3) $(GLDOPTS_N32_M3)
+LDOPTS_N32_M4=$(VLDOPTS) $(LLDOPTS) $(LLDOPTS_N32_M4) $(GLDOPTS_N32_M4)
+LDOPTS_R32   =$(VLDOPTS) $(LLDOPTS) $(LLDOPTS_R32) $(GLDOPTS_R32)
+LDOPTS_64    =$(VLDOPTS) $(LLDOPTS) $(LLDOPTS_64_M3) $(GLDOPTS_64)
+LDOPTS_64_M3 =$(VLDOPTS) $(LLDOPTS) $(LLDOPTS_64_M3) $(GLDOPTS_64_M3)
+LDOPTS_64_M4 =$(VLDOPTS) $(LLDOPTS) $(LLDOPTS_64_M4) $(GLDOPTS_64_M4)
+LDOPTS_64_ABI=$(VLDOPTS) $(LLDOPTS) $(LLDOPTS_64_ABI) $(GLDOPTS_64_ABI)
+LDOPTS_IA32  =$(VLDOPTS) $(LLDOPTS) $(LLDOPTS_IA32) $(GLDOPTS_IA32)
 
-DSONAMEOPT  = -Wl,-soname,$@
+#
+# Loader options for making shared objects. By default, shared objects
+# are all registered in a global location file.
+# Redefine $(DSOSTARTOPT) to not update the registry file
+#
+# By default the DT_SONAME section is set to the name of the target shared
+# object. Redefine $(DSONAMEOPT) to allow the DT_SONAME section to be
+# something other than the targeted shared object name.
+#
+# DSOs are typically all made in one top level makefile, in place, rather
+#	than in subdirectories - therefore all the various flags must be
+#	present with no conditionals
+#
+#
+# To build a DSO that doesn't use lib*rules:
+#
+# $(LD) $(LDDSOOPTS) $(LDOPTS) $(OBJECTS) $(LDLIBS) -o $@
+#
+# Note that LDOPTS must be before the OBJECTS and LDLIBS must be after.
+# For local .so's make it easy to not update any registry files
+#
+ifndef NO_STARTOPT
+DSOREGFILE_32 = $(ROOT)/usr/lib/so_locations
+DSOREGFILE = $(DSOREGFILE_32)
+DSOREGFILE_R32 = $(ROOT)/usr/libr32/so_locations
+DSOREGFILE_64 = $(ROOT)/usr/lib64/so_locations
+DSOREGFILE_N32 = $(ROOT)/usr/lib32/so_locations
+
+DSOSTARTOPT_32 = -update_registry $(DSOREGFILE_32)
+DSOSTARTOPT = $(DSOSTARTOPT_32)
+DSOSTARTOPT_R32 = -update_registry $(DSOREGFILE_R32)
+DSOSTARTOPT_64 = -update_registry $(DSOREGFILE_64)
+DSOSTARTOPT_N32 = -update_registry $(DSOREGFILE_N32)
+endif
+
+DSONAMEOPT  = -soname $@
 
 #
 # Note:  To turn off -no_unresolved for a specific library Makefile, add:
 #		LD_NO_UNRESOLVED=
-LD_NO_UNRESOLVED=
+LD_NO_UNRESOLVED=-no_unresolved
 
 #
-# Linux doesn't do DSO versioning as far as I can tell.
+# SGI specific versioning. Redefine $(DSOVERSION) to change version number.
+# Redefine $(DSOVERSIONOPT) to skip versioning.
 #
-DSOVERSION  = 
-DSOVERSIONOPT  = 
+DSOVERSION  = sgi1.0
+DSOVERSIONOPT  = -set_version $(DSOVERSION)
 
 #
 # Export files - each build can have up to 2 exports file - a common
@@ -376,101 +485,117 @@ else
 DSOEXPORTSOPT=
 endif
 
+# Permit per ABI exports file
+ifdef DSOEXPORTS_32
+DSOEXPORTSOPT_32=-exports_file $(DSOEXPORTS_32)
+else
+# this is what make sees
+DSOEXPORTSOPT_32=
+endif
+ifdef DSOEXPORTS_32_ABI
+DSOEXPORTSOPT_32_ABI=-exports_file $(DSOEXPORTS_32_ABI)
+else
+# this is what make sees
+DSOEXPORTSOPT_32_ABI=
+endif
+ifdef DSOEXPORTS_N32
+DSOEXPORTSOPT_N32=-exports_file $(DSOEXPORTS_N32)
+else
+# this is what make sees
+DSOEXPORTSOPT_N32=
+endif
+ifdef DSOEXPORTS_64
+DSOEXPORTSOPT_64=-exports_file $(DSOEXPORTS_64)
+else
+# this is what make sees
+DSOEXPORTSOPT_64=
+endif
+ifdef DSOEXPORTS_64_ABI
+DSOEXPORTSOPT_64_ABI=-exports_file $(DSOEXPORTS_64_ABI)
+else
+# this is what make sees
+DSOEXPORTSOPT_64_ABI=
+endif
+
 #
 # Each ABI gets the generic *LDDSOOPTS as well as a set of ABI specific ones
 #
+LDDSOOPTS_32  = $(VLDDSOOPTS) $(VLDDSOOPTS_32) \
+		$(LLDDSOOPTS) $(LLDDSOOPTS_32) \
+		$(GLDDSOOPTS) $(GLDDSOOPTS_32)
+LDDSOOPTS_32_ABI= $(VLDDSOOPTS) $(VLDDSOOPTS_32_ABI) \
+		$(LLDDSOOPTS) $(LLDDSOOPTS_32_ABI) \
+		$(GLDDSOOPTS) $(GLDDSOOPTS_32_ABI)
+LDDSOOPTS_R32 = $(VLDDSOOPTS) $(VLDDSOOPTS_R32) \
+		$(LLDDSOOPTS) $(LLDDSOOPTS_R32) \
+		$(GLDDSOOPTS) $(GLDDSOOPTS_R32)
+LDDSOOPTS_N32 = $(VLDDSOOPTS) $(VLDDSOOPTS_N32) \
+		$(LLDDSOOPTS) $(LLDDSOOPTS_N32) \
+		$(GLDDSOOPTS) $(GLDDSOOPTS_N32)
+LDDSOOPTS_64  = $(VLDDSOOPTS) $(VLDDSOOPTS_64) \
+		$(LLDDSOOPTS) $(LLDDSOOPTS_64) \
+		$(GLDDSOOPTS) $(GLDDSOOPTS_64)
+LDDSOOPTS_64_ABI= $(VLDDSOOPTS) $(VLDDSOOPTS_64_ABI) \
+		$(LLDDSOOPTS) $(LLDDSOOPTS_64_ABI) \
+		$(GLDDSOOPTS) $(GLDDSOOPTS_64_ABI)
 LDDSOOPTS_IA32  = $(VLDDSOOPTS) $(VLDDSOOPTS_IA32) \
 		$(LLDDSOOPTS) $(LLDDSOOPTS_IA32) \
 		$(GLDDSOOPTS) $(GLDDSOOPTS_IA32)
 
 # Totally generic - common options for all ABIs
-GLDDSOOPTS  = -shared $(DSONAMEOPT)
+ifeq ($(usingIrix), 1)
+GLDDSOOPTS  = -elf -shared -all $(MKDEPOPT) $(DSONAMEOPT)
+endif
 
-GLDDSOOPTS_IA32  = $(LD_NO_UNRESOLVED) $(LD_QUICKSTART_INFO) \
-			$(DSOEXPORTSOPT) $(DSOEXPORTSOPT_IA32) \
-			$(DSOSTARTOPT_IA32) $(DSOVERSIONOPT)
+GLDDSOOPTS_32  = $(LD_NO_UNRESOLVED) $(LD_QUICKSTART_INFO) \
+			$(DSOEXPORTSOPT) $(DSOEXPORTSOPT_32) \
+			$(DSOSTARTOPT_32) $(DSOVERSIONOPT)
+GLDDSOOPTS_32_ABI  = $(DSOEXPORTSOPT_32_ABI)
+GLDDSOOPTS_R32  = $(LD_NO_UNRESOLVED) $(LD_QUICKSTART_INFO) \
+			$(DSOSTARTOPT_R32) $(DSOVERSIONOPT)
+GLDDSOOPTS_N32  = $(LD_NO_UNRESOLVED) $(LD_QUICKSTART_INFO) \
+			$(DSOEXPORTSOPT) $(DSOEXPORTSOPT_N32) \
+			$(DSOSTARTOPT_N32) $(DSOVERSIONOPT)
+GLDDSOOPTS_64   = $(LD_NO_UNRESOLVED) $(LD_QUICKSTART_INFO) \
+			$(DSOEXPORTSOPT) $(DSOEXPORTSOPT_64) \
+			$(DSOSTARTOPT_64) $(DSOVERSIONOPT)
+GLDDSOOPTS_64_ABI   = $(DSOEXPORTSOPT_64_ABI)
+GLDDSOOPTS_IA32 = $(DSOEXPORTSOPT) $(DSOEXPORTSOPT_IA32) \
+			$(DSOSTARTOPT_IA32)
 
 #
 # set LDDSOOPTS based on OBJECT_STYLE - makes it easier to make .so's
 # when one doesn't use lib*defs
 #
-ifneq (,$(findstring IA32,$(OBJECT_STYLE)))
-LDDSOOPTS=$(LDDSOOPTS_IA32)
-else
-ifeq ($(OBJECT_STYLE),NONE)
-LDDSOOPTS=
-else
 # this is what 'make' sees
+LDDSOOPTS=$(LDDSOOPTS_32)
+
+ifeq "$(OBJECT_STYLE)" "32_ABI"
+LDDSOOPTS=$(LDDSOOPTS_32_ABI)
+endif
+ifeq "$(OBJECT_STYLE)" "64_ABI"
+LDDSOOPTS=$(LDDSOOPTS_64_ABI)
+endif
+ifneq (, $(findstring M64, $(OBJECTS_STYLE)))
+LDDSOOPTS=$(LDDSOOPTS_64)
+endif
+ifneq (, $(findstring MN32, $(OBJECTS_STYLE)))
+LDDSOOPTS=$(LDDSOOPTS_N32)
+endif
+ifneq (, $(findstring M32, $(OBJECTS_STYLE)))
+LDDSOOPTS=$(LDDSOOPTS_32)
+endif
+ifneq (, $(findstring IA32, $(OBJECT_STYLE)))
 LDDSOOPTS=$(LDDSOOPTS_IA32)
 endif
+ifeq "$(OBJECT_STYLE)" "NONE"
+LDDSOOPTS=
 endif
-
-#
-# F77 flags are just like cc flags.
-#
-FFLAGS= $(VFFLAGS) $(LFFLAGS) $(GFFLAGS)
-
-VFFLAGS	= $(VF77DEFS) $(VF77INCS) $(VF77OPTS)
-LFFLAGS	= $(LF77DEFS) $(LF77INCS) $(LF77OPTS)
-GFFLAGS	= $(GF77DEFS) $(GF77INCS) $(GF77OPTS)
-
-F77OPTS	= $(VF77OPTS) $(LF77OPTS) $(GF77OPTS)
-F77DEFS	= $(VF77DEFS) $(LF77DEFS) $(GF77DEFS)
-F77INCS	= $(VF77INCS) $(LF77INCS) $(GF77INCS)
-
-GF77OPTS= $(CSTYLE) $(OPTIMIZER) $(ENDIAN) $(MKDEPOPT)
-GF77DEFS= $(GCDEFS)
-GF77INCS= $(GCINCS)
-
-#
-# Pc flags are just like cc flags.
-#
-PFLAGS	= $(VPFLAGS) $(LPFLAGS) $(GPFLAGS)
-
-VPFLAGS	= $(VPDEFS) $(VPINCS) $(VPOPTS)
-LPFLAGS	= $(LPDEFS) $(LPINCS) $(LPOPTS)
-GPFLAGS	= $(GPDEFS) $(GPINCS) $(GPOPTS)
-
-POPTS	= $(VPOPTS) $(LPOPTS) $(GPOPTS)
-PDEFS	= $(VPDEFS) $(LPDEFS) $(GPDEFS)
-PINCS	= $(VPINCS) $(LPINCS) $(GPINCS)
-
-GPOPTS	= $(CSTYLE) $(OPTIMIZER) $(ENDIAN) $(MKDEPOPT)
-GPDEFS	= $(GCDEFS)
-GPINCS	= $(GCINCS)
-
-#
-# as flags are just like cc flags.
-# By default, ASTYLE is the same as CSTYLE, but some may need to make
-# the asm more aggressive than 'C' and can set ASTYLE. Users of 'make'
-# always get ASTYLE == CSTYLE
-#
-ifndef ASTYLE
-ASTYLE=$(CSTYLE)
-endif
-
-ASFLAGS	= $(VASFLAGS) $(LASFLAGS) $(GASFLAGS)
-
-VASFLAGS = $(VASDEFS) $(VASINCS) $(VASOPTS)
-LASFLAGS = $(LASDEFS) $(LASINCS) $(LASOPTS)
-GASFLAGS = $(GASDEFS) $(GASINCS) $(GASOPTS)
-
-ASOPTS	= $(VASOPTS) $(LASOPTS) $(GASOPTS)
-ASDEFS	= $(VASDEFS) $(LASDEFS) $(GASDEFS)
-ASINCS	= $(VASINCS) $(LASINCS) $(GASINCS)
-
-GASOPTS	= $(ASTYLE) $(OPTIMIZER) $(ENDIAN) $(MKDEPOPT)
-GASDEFS	= $(GCDEFS)
-GASINCS	= $(GCINCS)
 
 #
 # The install command to use.
 #
-ifeq ($(usingLinux),1)
-INSTALL	= $(TOOLROOT)/usr/bin/install
-else
-INSTALL	= $(TOOLROOT)/sbin/install
-endif
+INSTALL	= $(TOOLROOT)/etc/install
 
 
 #
@@ -484,6 +609,14 @@ CTAGFILES = \( -name '*.[cfhlpy]' -o -name '*.c++' \)
 MKDEPFILE = Makedepend
 
 #
+# Name of the location of various libs $(ROOT)/usr/$(LIB_LOCATION)/libfoo.[a,so]
+# This is set in the releasedefs file.
+#
+LIB_LOCATION_O32=lib
+LIB_LOCATION_N32=lib32
+LIB_LOCATION_IA32=lib
+
+#
 # Name of the runtime linker in /
 #
 # Note: this is used to set the PR_INTERP_NAME, but the DT_RPATH elf var must
@@ -493,19 +626,15 @@ MKDEPFILE = Makedepend
 # two different ROOTRLDNAME's which then can be mapped to ROOTRLDNAME.
 # The variable ROOTRLDNAME is set in the releasedefs file.
 #
+ROOTRLDNAME_O32=/lib/libc.so.1,-rpath,/lib
+ROOTRLDNAME_N32=/lib32/libc.so.1,-rpath,/lib32
 ROOTRLDNAME_IA32=
 
-#
-# Flags to handle yacc and lex automatic dependency generation
-# We also use this to place woff's that are specific to yacc and lex.
-#
-YACCMKDEPFLAGS=
-LEXMKDEPFLAGS=
 
 #
 # Include directory shorthands, used in CFLAGS and LDFLAGS components.
 #
-IA32	= $(ROOT)/usr/include
+INCLDIR	= $(ROOT)/usr/include
 
 #
 # Convenient command macros that include the flags macros.
@@ -526,10 +655,6 @@ LEXF	= $(LEX) $(LFLAGS)
 PCF	= $(PC) $(PFLAGS)
 YACCF	= $(YACC) $(YFLAGS)
 
-VCC=
-VCXX=
-VLD=
-
 #
 # Rule macros for nonterminal makefiles that iterate over subdirectories,
 # making the current target.  Set *SUBDIRS to the relevant list of kids.
@@ -543,7 +668,7 @@ SUBDIR_MAKERULE= \
 			echo "SKIPPING $$d: No such directory."; \
 		fi \
 	else \
-		echo "	(cd $$d; $(MAKE) $${RULE:=$@})"; \
+		echo "\t(cd $$d; $(MAKE) $${RULE:=$@})"; \
 		(cd $$d; ${MAKE} $${RULE:=$@}); \
 	fi
 
@@ -609,8 +734,7 @@ SOURCES=$(HFILES) $(ASFILES) $(C++FILES) $(CXXFILES) $(CFILES) $(EFILES) \
 CXXO1=$(CXXFILES:.c++=.o) $(C++FILES:.c++=.o)
 CXXO2=$(CXXO1:.cxx=.o)
 CXXO3=$(CXXO2:.C=.o)
-CXXO4=$(CXXO3:.cpp=.o)
-CXXOALL=$(CXXO4)
+CXXOALL=$(CXXO3)
 YO1=$(YFILES:.y=.o)
 YO2=$(YO1:.yxx=.o)
 YO3=$(YO2:.Y=.o)
@@ -647,4 +771,4 @@ GDIRT=*.[oue] a.out core lex.yy.[co] y.tab.[cho] $(_FORCE) ar.tmp.*
 LOCALDEFS  = ./localdefs
 LOCALRULES = ./localrules
 
-#-include $(LOCALDEFS)
+sinclude $(LOCALDEFS)
