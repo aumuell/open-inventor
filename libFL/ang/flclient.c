@@ -216,7 +216,7 @@ flDestroyContext(FLcontext ctx)
       current_context = NULL;
 
     if (ctx->fontTable) {
-      for (fn = 0; fn < ctx->numFont; fn++)
+      for (fn = 1; fn <= ctx->numFont; fn++)
 	_flDestroyFont(ctx->fontTable[fn]);
       free(ctx->fontTable);
     }
