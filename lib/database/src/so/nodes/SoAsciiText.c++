@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |      SoAsciiText
@@ -1389,7 +1389,12 @@ MyOutlineFontCache::generateFrontChar(const char c,
     GLdouble v[3];
 
     tesselationError = FALSE;
+#ifdef GLU_VERSION_1_2
+    gluTessBeginPolygon(tobj, NULL);
+    gluTessBeginContour(tobj);
+#else
     gluBeginPolygon(tobj);
+#endif
     
     // Get outline for character
     MyFontOutline *outline = getOutline(c);
@@ -1398,7 +1403,12 @@ MyOutlineFontCache::generateFrontChar(const char c,
 
 	// It would be nice if the font manager told us the type of
 	// each outline...
+#ifdef GLU_VERSION_1_2
+	gluTessEndContour(tobj);
+	gluTessBeginContour(tobj);
+#else
 	gluNextContour(tobj, (GLenum)GLU_UNKNOWN);
+#endif
 
 	for (int j = 0; j < outline->getNumVerts(i); j++) {
 	    SbVec2f &t = outline->getVertex(i,j);
@@ -1412,7 +1422,12 @@ MyOutlineFontCache::generateFrontChar(const char c,
 	    gluTessVertex(tobj, v, &t);
 	}
     }
+#ifdef GLU_VERSION_1_2
+    gluTessEndContour(tobj);
+    gluTessEndPolygon(tobj);
+#else
     gluEndPolygon(tobj);
+#endif
 
     // If there was an error tesselating the character, just generate
     // a bounding box for the character:
@@ -1425,14 +1440,24 @@ MyOutlineFontCache::generateFrontChar(const char c,
 	    boxVerts[1].setValue(boxVerts[2][0], boxVerts[0][1]);
 	    boxVerts[3].setValue(boxVerts[0][0], boxVerts[2][1]);
 
+#ifdef GLU_VERSION_1_2
+	    gluTessBeginPolygon(tobj, NULL);
+	    gluTessBeginContour(tobj);
+#else
 	    gluBeginPolygon(tobj);
+#endif
 	    for (i = 0; i < 4; i++) {
 		v[0] = boxVerts[i][0];
 		v[1] = boxVerts[i][1];
 		v[2] = 0.0;
 		gluTessVertex(tobj, v, &boxVerts[i]);
 	    }
+#ifdef GLU_VERSION_1_2
+	    gluTessEndContour(tobj);
+	    gluTessEndPolygon(tobj);
+#else
 	    gluEndPolygon(tobj);
+#endif
 	}
     }
 }

@@ -39,7 +39,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      Decal
@@ -152,18 +152,34 @@ Decal::GLRenderBelowPath(SoGLRenderAction *action)
     }
     if (SoGLCacheContextElement::extSupported(state, offsetExtInt)) {
 
+#ifdef GL_VERSION_1_1
+	glEnable(GL_POLYGON_OFFSET_FILL);
+	glEnable(GL_POLYGON_OFFSET_LINE);
+	glEnable(GL_POLYGON_OFFSET_POINT);
+#else
 	glEnable(GL_POLYGON_OFFSET_EXT);
+#endif
 
 	float offset = 0;
 
 	for (int i=0; i < childList->getLength(); i++) {
+#ifdef GL_VERSION_1_1
+	    glPolygonOffset(offset, 0);
+#else
 	    glPolygonOffsetEXT(offset, 0);
+#endif
 	    childList->traverse(action, i);
 
 	    offset -= 0.1;
 	}
 
+#ifdef GL_VERSION_1_1
+	glDisable(GL_POLYGON_OFFSET_FILL);
+	glDisable(GL_POLYGON_OFFSET_LINE);
+	glDisable(GL_POLYGON_OFFSET_POINT);
+#else
 	glDisable(GL_POLYGON_OFFSET_EXT);
+#endif
 
     } else {
 
