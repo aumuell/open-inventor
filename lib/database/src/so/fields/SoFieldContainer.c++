@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoFieldContainer
@@ -677,6 +677,9 @@ SoFieldContainer::findCopy(const SoFieldContainer *orig,
 //
 ////////////////////////////////////////////////////////////////////////
 {
+    if (! copyDictList || ! (*copyDictList)[0])
+	return NULL;
+
     SbDict *copyDict = (SbDict *) (*copyDictList)[0];
 
     void *copyPtr;
