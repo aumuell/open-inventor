@@ -3,21 +3,20 @@ include $(IVDEPTH)/make/commonivdefs
 
 DEPTH = ..
 
-#	draggers \
-#	manips \
-
 SUBDIRS = \
 	actions \
 	basics \
 	components \
 	details \
 	devices \
+	draggers \
 	engines \
 	errors \
 	events \
 	fields \
 	general \
 	interaction \
+	manips \
 	nodekits \
 	nodes \
 	projectors \

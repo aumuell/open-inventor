@@ -1,5 +1,6 @@
-
-.SUFFIXES: .ivm .3iv
+DEPTH = ../../..
+IVDEPTH = ../../../../..
+include $(IVDEPTH)/make/commonivdefs
 
 MANPAGES = \
 	SoBase.ivm \
@@ -22,13 +23,9 @@ MANPAGES = \
 	SoType.ivm \
 	SoTypeList.ivm
 
-
 OBJECTS = $(MANPAGES:.ivm=.3iv)
 
 all: $(OBJECTS)
-
-.ivm.3iv:
-	../../../ivman/ivman $< > $@
 
 install: all
 	@mkdir -p $(IVROOT)/usr/man/man3
@@ -38,4 +35,3 @@ install: all
 
 clean clobber:
 	rm -f $(OBJECTS)
-
