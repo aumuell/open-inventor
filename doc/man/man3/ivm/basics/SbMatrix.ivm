@@ -93,7 +93,7 @@ The decomposition depends upon choice of center point for
 rotation and scaling, which is optional as the last parameter.
 Note that if the center is 0, decompose() is the same as
 factor() where \at\. is translation, \au\. is rotation, \as\. is scaleFactor,
-and \ar\. is ScaleOrientattion.
+and \ar\. is ScaleOrientation.
 }
 METHOD det3Mx float       det3(int r1, int r2, int r3, int c1, int c2, int c3) const {
 Returns determinant of 3x3 submatrix composed of given row and
@@ -111,6 +111,7 @@ Factors a matrix m into 5 pieces: m = r s r^ u t, where r^
 means transpose of r, and r and u are rotations, s is a scale,
 and t is a translation. Any projection information is returned
 in \aproj\..
+NOTE: the projection matrix is always set to identity.
 }
 METHOD "" SbMatrix    inverse() const {
 Returns inverse of matrix. Results are undefined for
