@@ -165,10 +165,14 @@ static XtResource initializeResources[] = {
   
 /* The background is obtained only if the allocateBackground resource is TRUE*/
 static XtResource backgroundResources[] = {
-#ifndef __sgi
-#undef __GLX_MOTIF
-#endif /* !__sgi */
+
 #ifdef __GLX_MOTIF
+#ifdef __sgi
+#define USE_SGI_COLOR_RESOURCES
+#endif /* __sgi */
+#endif /* __GLX_MOTIF */
+
+#ifdef USE_SGI_COLOR_RESOURCES
    {
      XmNbackground, XmCBackground, XmRPixel, 
      sizeof (Pixel), XtOffset(SoGLwDrawingAreaWidget, core.background_pixel),
@@ -179,22 +183,21 @@ static XtResource backgroundResources[] = {
      sizeof (Pixmap), XtOffset(SoGLwDrawingAreaWidget, core.background_pixmap),
      XmRImmediate, (XtPointer) XmUNSPECIFIED_PIXMAP
    },
-
-#else	/* ! __GLX_MOTIF */
+#else	/* ! USE_SGI_COLOR_RESOURCES */
     {XtNbackground, XtCBackground, XtRPixel,sizeof(Pixel),
          XtOffset(SoGLwDrawingAreaWidget,core.background_pixel),
 	 XtRString, (XtPointer)"XtDefaultBackground"},
     {XtNbackgroundPixmap, XtCPixmap, XtRPixmap, sizeof(Pixmap),
          XtOffset(SoGLwDrawingAreaWidget,core.background_pixmap),
 	 XtRImmediate, (XtPointer)XtUnspecifiedPixmap},
-#endif  /* __GLX_MOTIF */
+#endif  /* USE_SGI_COLOR_RESOURCES */
 };
 
 /* The other colors such as the foreground are allocated only if
  * allocateOtherColors are set.  These resources only exist in Motif.
  */
 
-#ifdef __GLX_MOTIF
+#ifdef USE_SGI_COLOR_RESOURCES
 static XtResource otherColorResources[] = {
    {
      XmNforeground, XmCForeground, XmRPixel, 
@@ -215,7 +218,7 @@ static XtResource otherColorResources[] = {
      XmRCallProc, (XtPointer) _XmPrimitiveHighlightPixmapDefault
    },
 };
-#endif /* __GLX_MOTIF */
+#endif /* USE_SGI_COLOR_RESOURCES */
 
 struct attribInfo
 {
@@ -391,13 +394,13 @@ Initialize (SoGLwDrawingAreaWidget req, SoGLwDrawingAreaWidget new,
 				  XtNumber(backgroundResources),
 				  args, *num_args);
 
-#ifdef __GLX_MOTIF
+#ifdef USE_SGI_COLOR_RESOURCES
     if (req->SoglwDrawingArea.allocateOtherColors)
 	XtGetApplicationResources((Widget) new, new,
 				  otherColorResources,
 				  XtNumber(otherColorResources),
 				  args, *num_args);
-#endif /* __GLX_MOTIF */
+#endif /* USE_SGI_COLOR_RESOURCES */
 
 }
 
@@ -557,3 +560,5 @@ Widget SoGLwCreateMDrawingArea(Widget parent, char *name,
 			    argcount));
 }
 #endif
+
+#undef USE_SGI_COLOR_RESOURCES
