@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoMaterial
@@ -143,6 +143,9 @@ SoMaterial::doAction(SoAction *action)
 	&& ! SoOverrideElement::getDiffuseColorOverride(state)) {
 	if (isOverride()) {
 	    SoOverrideElement::setDiffuseColorOverride(state, this, TRUE);
+	    // Diffuse color and transparency share override state
+            if (! transparency.isIgnored() && transparency.getNum() > 0)
+                bitmask |= SoLazyElement::TRANSPARENCY_MASK;
 	}
 	bitmask |= SoLazyElement::DIFFUSE_MASK;
     }
@@ -151,6 +154,9 @@ SoMaterial::doAction(SoAction *action)
 	&& ! SoOverrideElement::getTransparencyOverride(state)) {
 	if (isOverride()) {
 	    SoOverrideElement::setTransparencyOverride(state, this, TRUE);
+	    // Diffuse color and transparency share override state
+            if (! diffuseColor.isIgnored() && diffuseColor.getNum() > 0)
+                bitmask |= SoLazyElement::DIFFUSE_MASK;
 	}
         bitmask |= SoLazyElement::TRANSPARENCY_MASK;
     }
