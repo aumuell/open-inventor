@@ -1,0 +1,59 @@
+IVDEPTH = ../../..
+include $(IVDEPTH)/make/ivcommondefs
+
+ARCHIVE = libInventorWidget.a
+
+CXXFILES = \
+	MyUIRegion.c++ \
+	MyColEd.c++ \
+	MyColPatch.c++ \
+	MyColSlider.c++ \
+	MyColWheel.c++ \
+	MyDropSite.c++ \
+	MyFileRead.c++ \
+	MySlider.c++ \
+	MyThumbWhl.c++ \
+	MyFloatCBList.c++ \
+	MySimpleMtlEditor.c++ \
+	MyMtlPal.c++  \
+	MyTextureEd.c++
+
+LTARGETS = getFiles
+
+all install: all_ivbin
+
+
+/* Some really ugly rules to grab the source from the tree: */
+
+HF = MyUIRegion.h \
+	MyColorEditor.h \
+	MyColorPatch.h \
+	MyColorSlider.h \
+	MyColorWheel.h \
+	MySlider.h 
+
+CF = MyUIRegion.c++ \
+	MyColEd.c++ \
+	MyColPatch.c++ \
+	MyColSlider.c++ \
+	MyColWheel.c++ \
+	MySlider.c++
+
+C2F = MyFloatCBList.c++ MyFloatCallbackList.h 
+
+getFiles: $(HF) $(CF) $(C2F)
+
+$(CF): My%: $(IVDEPTH)/libSoXt/src/mixedMode/SoXt%
+	./nameScript $(IVDEPTH)/libSoXt/src/mixedMode/$(subst My,SoXt,$@) \
+		> $@
+$(C2F): My%: $(IVDEPTH)/libSoXt/src/mixedMode/So%
+	./nameScript $(IVDEPTH)/libSoXt/src/mixedMode/$(subst My,So,$@) \
+		> $@
+$(HF): My%: $(IVDEPTH)/libSoXt/include/_SoXt%
+	./nameScript $(IVDEPTH)/libSoXt/include/$(subst My,_SoXt,$@) \
+		> $@
+
+LDIRT += $(HF) $(CF) $(C2F)
+
+
+include $(IVCOMMONRULES)

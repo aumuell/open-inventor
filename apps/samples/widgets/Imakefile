@@ -1,7 +1,0 @@
-#define MultiProgram
-
-#define Programs libInventorWidget.a componentTest
-
-#ifndef CreatingUserMakefile
-TOP_OF_TREE = ../../..
-#endif

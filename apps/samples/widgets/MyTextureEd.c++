@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	MyTextureEditor
@@ -680,7 +680,7 @@ MyTextureEditor::buildMenu(Widget parent)
     // create the "File" menu
     //
     
-    subMenu = XmCreatePulldownMenu(menu, NULL, NULL, 0);
+    subMenu = XmCreatePulldownMenu(menu, "subMenu", NULL, 0);
     
     XtSetArg(args[0], XmNsubMenuId, subMenu);
     buttons[butNum] = XmCreateCascadeButtonGadget(menu, "File", args, 1);
@@ -776,7 +776,7 @@ MyTextureEditor::buildPaletteSubMenu()
     // ??? we cannot delete the old popup menu or things will brake. 
     // ??? Is it automatically deleted for us ?
     widgetList[PALETTE_MENU] = XmCreatePulldownMenu(widgetList[MENU_BAR], 
-	NULL, NULL, 0);
+	"widgetList", NULL, 0);
     
     Arg	args[1];
     XtSetArg(args[0], XmNsubMenuId, widgetList[PALETTE_MENU]);
@@ -1022,7 +1022,7 @@ MyTextureEditor::buildButtons(Widget parent)
     Widget list[15];
     int num;
     
-    widgetList[MAPP_PULLDOWN] = XmCreatePulldownMenu(form, NULL, NULL, 0);
+    widgetList[MAPP_PULLDOWN] = XmCreatePulldownMenu(form, "widgetList", NULL, 0);
     n = 0;
     XtSetArg(args[n], XmNuserData, this); n++;
     
@@ -1052,7 +1052,7 @@ MyTextureEditor::buildButtons(Widget parent)
     buttons[0] = XmCreateOptionMenu(form, "optionMenu", args, n);
     
     // create the options button
-    widgetList[OPT_PULLDOWN] = XmCreatePulldownMenu(form, NULL, NULL, 0);
+    widgetList[OPT_PULLDOWN] = XmCreatePulldownMenu(form, "widgetList", NULL, 0);
     n = 0;
     XtSetArg(args[n], XmNuserData, this); n++;
     
@@ -1471,7 +1471,7 @@ MyTextureEditor::getPaletteNames()
     }
     
     if (dirp = opendir(paletteDir)) {
-	getwd(currentDir);
+	getcwd(currentDir, MAXPATHLEN-1);
         chdir(paletteDir);
         while (direntry = readdir(dirp)) {
 	    f = direntry->d_name;
@@ -1496,7 +1496,7 @@ MyTextureEditor::getPaletteNames()
     char customDir[MAXPATHLEN];
     sprintf(customDir, "%s/%s", getenv("HOME"), customTextureDir);
     if (dirp = opendir(customDir)) {
-	getwd(currentDir);
+	getcwd(currentDir, MAXPATHLEN-1);
 	chdir(customDir);
 	while (direntry = readdir(dirp)) {
 	    f = direntry->d_name;
@@ -1647,7 +1647,7 @@ MyTextureEditor::loadPaletteItems()
     
     if ((dirp = opendir(palDir)) != NULL) {
 	// cd to palette directory
-	getwd(currentDir);
+	getcwd(currentDir, MAXPATHLEN-1);
 	chdir(palDir);
 	
 	//

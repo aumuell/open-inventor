@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	MyMaterialPalette
@@ -609,7 +609,7 @@ MyMaterialPalette::buildMenu(Widget parent)
     
     for (int i=0; i < itemCount; i++) {
 	// Make Topbar menu button
-	Widget subMenu = XmCreatePulldownMenu(menu, NULL, popupargs, popupn);
+	Widget subMenu = XmCreatePulldownMenu(menu, "subMenu", popupargs, popupn);
 	widgetList[pulldownData[i].id] = subMenu;
 	
 #ifdef MENUS_IN_POPUP
@@ -731,7 +731,7 @@ MyMaterialPalette::buildPaletteSubMenu()
     SoXt::getPopupArgs(XtDisplay(widgetList[MENU_BAR]), SCREEN(widgetList[MENU_BAR]), args, &argnum);
 #endif
     Widget subMenu = widgetList[PALETTE_MENU] = 
-	XmCreatePulldownMenu(widgetList[MENU_BAR], NULL, args, argnum);
+	XmCreatePulldownMenu(widgetList[MENU_BAR], "subMenu", args, argnum);
     
 #ifdef MENUS_IN_POPUP
     // register callbacks to load/unload the pulldown colormap when the
@@ -949,7 +949,7 @@ MyMaterialPalette::getPaletteNamesAndLoad()
     }
     
     if (dirp = opendir(paletteDir)) {
-	getwd(currentDir);
+	getcwd(currentDir, MAXPATHLEN-1);
         chdir(paletteDir);
         while (direntry = readdir(dirp)) {
 	    f = direntry->d_name;
@@ -974,7 +974,7 @@ MyMaterialPalette::getPaletteNamesAndLoad()
     char customDir[MAXPATHLEN];
     sprintf(customDir, "%s/%s", getenv("HOME"), customPalDir);
     if (dirp = opendir(customDir)) {
-	getwd(currentDir);
+	getcwd(currentDir, MAXPATHLEN-1);
 	chdir(customDir);
 	while (direntry = readdir(dirp)) {
 	    f = direntry->d_name;
@@ -1071,7 +1071,7 @@ MyMaterialPalette::loadPaletteItems()
     
     if ((dirp = opendir(palDir)) != NULL) {
 	// cd to palette directory
-	getwd(currentDir);
+	getcwd(currentDir, MAXPATHLEN-1);
 	chdir(palDir);
 	
 	// loop throught the files, and open any material files
@@ -1599,7 +1599,7 @@ MyMaterialPalette::savePalette()
 {
     int i;
     char currentDir[MAXPATHLEN];
-    getwd(currentDir);
+    getcwd(currentDir, MAXPATHLEN-1);
     
     // go to the materials directory
     chdir(getenv("HOME"));
