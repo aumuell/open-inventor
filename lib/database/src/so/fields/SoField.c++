@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoField
@@ -290,7 +290,8 @@ SoField::enableConnection(SbBool flag)
 	    // Mark engine as needing evaluation to force it to write
 	    // value (just as if we added a connection):
 	    auditorInfo->connection.engineOutput->addConnection(NULL);
-	} else {
+	}
+	else if (isConnectedFromField()) {
 	    auditorInfo->connection.field->connectionStatusChanged(1);
 	}
 	evaluate(); // Pull value through
