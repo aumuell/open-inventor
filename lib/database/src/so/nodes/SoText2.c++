@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |      SoText2
@@ -1142,7 +1142,8 @@ SoBitmapFontCache::hasDisplayList(const char* c)
 //
 ////////////////////////////////////////////////////////////////////////
 {
-    unsigned long key = (c[0]<<8)|c[1];
+    unsigned char *uc = (unsigned char*)c;
+    unsigned long key = (uc[0]<<8)|uc[1];
     // If we have one, return TRUE
     void *value = NULL;
     if (displayListDict->find(key, value)) return TRUE;
@@ -1175,7 +1176,7 @@ SoBitmapFontCache::callLists(const char *string, int len)
 ////////////////////////////////////////////////////////////////////////
 {
 
-    glCallLists(len, GL_2_BYTES, string);
+    glCallLists(len, GL_2_BYTES, (unsigned char*)string);
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1301,6 +1302,7 @@ SoBitmapFontCache::drawString(int line)
     SbBool useCallLists = TRUE;
     
     char *str = getUCSString(line);
+    unsigned char *ustr = (unsigned char*)str;
 
     // If there aren't any other caches open, build display lists for
     // the characters we can:
@@ -1325,7 +1327,7 @@ SoBitmapFontCache::drawString(int line)
 		drawCharacter(str + 2*i);
 	    }
 	    else glCallList(list->getFirstIndex()+
-		((str[2*i]<<8) | str[2*i+1]));
+		((ustr[2*i]<<8) | ustr[2*i+1]));
 	}
     }
 }

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Classes:
  |      SoText3
@@ -1889,7 +1889,8 @@ SoOutlineFontCache::getOutline(const char* c)
     if (!fontNumList) {
 	return SoFontOutline::getNullOutline();
     }
-    long key = (c[0]<<8)|c[1];
+    unsigned char *uc = (unsigned char*)c;
+    long key = (uc[0]<<8)|uc[1];
     void *value;
     if (!outlineDict->find(key, value)){
 	
@@ -2060,7 +2061,8 @@ SoOutlineFontCache::hasFrontDisplayList(const char* c,
 ////////////////////////////////////////////////////////////////////////
 {
     // If we have one, return TRUE
-    long key = (c[0]<<8) | c[1];
+    unsigned char *uc = (unsigned char*)c;
+    long key = (uc[0]<<8) | uc[1];
     void *value;
     if (frontDict->find(key, value)) return TRUE;
     
@@ -2092,7 +2094,8 @@ SoOutlineFontCache::hasSideDisplayList(const char* c,
 //
 ////////////////////////////////////////////////////////////////////////
 {
-    long key = (c[0]<<8) | c[1];
+    unsigned char *uc = (unsigned char*)c;
+    long key = (uc[0]<<8) | uc[1];
     void *value;
     // If we have one, return TRUE
     if (sideDict->find(key, value)) return TRUE;  
@@ -2131,7 +2134,7 @@ SoOutlineFontCache::callFrontLists(int line)
 {
     const char *str = getUCSString(line);
 
-    glCallLists(getNumUCSChars(line), GL_2_BYTES, str);
+    glCallLists(getNumUCSChars(line), GL_2_BYTES, (unsigned char*)str);
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -2150,7 +2153,7 @@ SoOutlineFontCache::callSideLists(int line)
 {
     const char *str = getUCSString(line);
 
-    glCallLists(getNumUCSChars(line), GL_2_BYTES, str);
+    glCallLists(getNumUCSChars(line), GL_2_BYTES, (unsigned char*)str);
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -2168,10 +2171,11 @@ SoOutlineFontCache::renderFront(int line,
 ////////////////////////////////////////////////////////////////////////
 {
     const char *str = getUCSString(line);
+    unsigned char *ustr = (unsigned char*)str;
 
     void *value;
     for (int i = 0; i < getNumUCSChars(line); i++) {
-	long key = str[2*i]<<8 | str[2*i+1];	
+	long key = ustr[2*i]<<8 | ustr[2*i+1];	
 	if (frontDict->find(key, value)) {
 	    glCallList(frontList->getFirstIndex()+key);
 	}
@@ -2198,9 +2202,10 @@ SoOutlineFontCache::renderSide(int line,
 ////////////////////////////////////////////////////////////////////////
 {
     const char *str = getUCSString(line);
+    unsigned char *ustr = (unsigned char*)str;
     void* value;
     for (int i = 0; i < getNumUCSChars(line); i++) {
-	long key = (str[2*i]<<8)|str[2*i+1];
+	long key = (ustr[2*i]<<8)|ustr[2*i+1];
 	if (sideDict->find(key, value)) {
 	    glCallList(sideList->getFirstIndex()+key);
 	}
