@@ -179,13 +179,13 @@ _SoNurbsVertex4SurfaceMap::point( float *v )
         // Send down first cache vertex
         ::glNormal3fv( cachePt[0].norm );
         if (validTexCoords)
-            ::glTexCoord2fv( texCachePt[1] );
+            ::glTexCoord2fv( texCachePt[0] );
         ::glVertex4fv( cachePt[0].p );
 
         // Send down second cache vertex
         ::glNormal3fv( cachePt[1].norm );
         if (validTexCoords)
-            ::glTexCoord2fv( texCachePt[0] );
+            ::glTexCoord2fv( texCachePt[1] );
         ::glVertex4fv( cachePt[1].p );
 
         // Send down current vertex
