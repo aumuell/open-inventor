@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SoOffscreenRenderer
@@ -542,7 +542,7 @@ SoOffscreenRenderer::putHex(
 //
 ////////////////////////////////////////////////////////////////////////
 {
-    fprintf(fp, "%02hx", val);
+    fprintf(fp, "%02hx", (unsigned char)val);
     if (++hexPos >= 32) {
         fprintf(fp, "\n");
         hexPos = 0;
