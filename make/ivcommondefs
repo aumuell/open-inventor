@@ -23,12 +23,14 @@ ifeq ($(usingLinux), 1)
 
 CC  = /usr/bin/gcc
 C++ = /usr/bin/g++
+LD  = /usr/bin/g++
 
 INSTALL = /usr/bin/install
 
 # MKDEPOPT = -MD
 
-GLDDSOOPTS = -shared --whole-archive
+GLDDSOOPTS = -shared -Wl,--whole-archive
+POST_LDDSOOPTS = -Wl,--no-whole-archive
 
 endif
 

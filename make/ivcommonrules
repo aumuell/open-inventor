@@ -22,10 +22,10 @@ LDIRT += $(SHAPEFILES)
 #
 
 $(LIBDSO): $(LARCHIVE)
-	$(LD) $(LDDSOOPTS) $^ $(LDLIBS) -o $@
+	$(LD) $(LDDSOOPTS) $^ $(LDLIBS) $(POST_LDDSOOPTS) -o $@
 
 $(LARCHIVE):
-	for i in $(SUBDIRS); do (cd $$i; $(MAKE) all); done
+	for i in $(SUBDIRS); do (cd $$i && $(MAKE) all) || exit 1; done
 	$(RM) $(LARCHIVE)
 	$(AR) $(ARFLAGS) $(LARCHIVE) $(OBJECTS)
 
@@ -53,7 +53,7 @@ LDIRT += $(LARCHIVE)
 .SUFFIXES: .ivm .3iv
 
 .ivm.3iv:
-	(cd ..; $(IVMAN) `$(MAKEMANDIRS) $(*F)`) > $@
+	(cd .. && $(IVMAN) `$(MAKEMANDIRS) $(*F)`) > $@
 
 MAN3PAGES = $(IVMFILES:.ivm=.3iv)
 
@@ -92,7 +92,7 @@ $(ARCHIVE): $(LTARGETS) $(OBJECTS)
 	$(AR) $(ARFLAGS) $@ $(OBJECTS)
 
 $(DSO): $(OBJECTS)
-	$(LD) $(LDDSOOPTS) $(OBJECTS) $(LDLIBS) -o $@
+	$(LD) $(LDDSOOPTS) $(OBJECTS) $(LDLIBS) $(POST_LDDSOOPTS) -o $@
 
 install_ivbin: $(PROGRAM)
 	if [ ! -d $(IVBINDIR) ]; then mkdir -p $(IVBINDIR); fi
