@@ -62,7 +62,7 @@ quadSheet: $(OBJECTS) quadSheet.o
 install: qmorf
 	@mkdir -p $(IVROOT)/opt/SGIDemos/Inventor/bin
 	@cp -f qmorf $(IVROOT)/opt/SGIDemos/Inventor/bin
-	@cp -f qmorf.RUNME.linux $(IVROOT)/opt/SGIDemos/Inventor/bin/qmorf.RUNME
+	@cp -f qmorf.RUNME $(IVROOT)/opt/SGIDemos/Inventor/bin
 	@cp -f qmorf.about $(IVROOT)/opt/SGIDemos/Inventor/bin
 
 include $(COMMONRULES)
