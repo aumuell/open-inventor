@@ -1,11 +1,9 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-INST_HEADER_ROOT   = $(IVROOT)/usr/include/Inventor/Xt/viewers
-HEADER_PATH        = $(INST_HEADER_ROOT)
-NOSHIP_HEADER_PATH = $(HEADER_PATH)
+HDRSUBDIR = Xt/viewers
 
-INST_HEADERS = \
+HEADERS = \
 	SoXtConstrainedViewer.h \
 	SoXtExaminerViewer.h \
 	SoXtFlyViewer.h \
@@ -14,10 +12,8 @@ INST_HEADERS = \
 	SoXtViewer.h \
 	SoXtWalkViewer.h
 
+all:
 
-LDIRT = $(INST_HEADER_ROOT)
-
-install: headers
+install: install_ivheaders
 
 include $(IVCOMMONRULES)
-

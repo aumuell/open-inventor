@@ -1,15 +1,13 @@
 IVDEPTH = ../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-INST_HEADER_ROOT   = $(IVROOT)/usr/include/Inventor/Xt
-HEADER_PATH        = $(INST_HEADER_ROOT)
-NOSHIP_HEADER_PATH = $(HEADER_PATH)
+HDRSUBDIR = Xt
 
-INST_HEADERS = \
+HEADERS = \
 	SoXt.h \
+	SoXtCursors.h \
 	SoXtClipboard.h \
 	SoXtComponent.h \
-	SoXtCursors.h \
 	SoXtDirectionalLightEditor.h \
 	SoXtGLWidget.h \
 	SoXtIcons.h \
@@ -24,17 +22,15 @@ INST_HEADERS = \
 	SoXtSliderSetBase.h \
 	SoXtTransformSliderSet.h
 
+HEADERS_SUBDIRS = devices viewers
 
-SUBDIRS = \
-	devices \
-	viewers
+all:
 
-LDIRT = $(INST_HEADER_ROOT)
+install: install_ivheaders
+	$(HEADERS_SUBDIRS_MAKERULE)
 
-install: headers
-	@for d in $(SUBDIRS); do \
-		$(ECHO) "\tcd $$d; $(MAKE) $@"; \
-		cd $$d; $(MAKE) $@; cd ..; \
-	done
+COMMONPREF = xxx
+$(COMMONTARGS): %: $(COMMONPREF)%
+	$(HEADERS_SUBDIRS_MAKERULE)
 
 include $(IVCOMMONRULES)

@@ -1,18 +1,8 @@
 IVDEPTH = ../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../..
-LDIRT = *.d
-CXXFLAGS += -I$(DEPTH)/include \
-	   -DLIBRARYBUILD \
-	   -I$(DEPTH)/../lib/database/include \
-	   -I$(DEPTH)/../lib/interaction/include \
-	   -I$(DEPTH)/../lib/nodekits/include -DDEBUG
+CXXFILES = SoXtMtlEdit.c++ SoXtMtlList.c++
 
-CXXFILES =\
-	SoXtMtlEdit.c++ \
-	SoXtMtlList.c++
+all install: $(OBJECTS) 
 
-all:: $(OBJECTS) 
-
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

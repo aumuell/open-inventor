@@ -1,23 +1,12 @@
 IVDEPTH = ../..
-include $(IVDEPTH)/make/commonivdefs
-
-DEPTH = ..
-LDIRT = *.d
-LCXXFLAGS += -I$(DEPTH)/include \
-	    -DLIBRARYBUILD \
-	    -I../../lib/database/include \
-	    -I../../lib/interaction/include \
-	    -I../../lib/nodekits/include -DDEBUG
+include $(IVDEPTH)/make/ivcommondefs
 
 CXXFILES = \
-	SoXt.c++ \
-	SoXtClipboard.c++ \
-	SoXtComponent.c++ \
-	SoXtGLWidget.c++ \
-	SoXtImportInterest.c++ \
-	SoXtPrintDlog.c++ \
+	SoXt.c++ SoXtRsrc.c++ \
+	SoXtComponent.c++ SoXtGLWidget.c++ \
 	SoXtRendrArea.c++ \
-	SoXtRsrc.c++
+	SoXtClipboard.c++ SoXtPrintDlog.c++ \
+	SoXtImportInterest.c++
 
 CFILES = \
 	SoGLwDAUtil.c \
@@ -25,33 +14,15 @@ CFILES = \
 	SoGLwMDrawA.c \
 	sgi_visual.c
 
-
 SUBDIRS = \
-	devices \
-	lightEditor \
-	mixedMode \
-	motif \
-	mtlEdit \
-	viewers
+	devices mixedMode viewers \
+	lightEditor mtlEdit motif
 
-all: $(OBJECTS) 
-	@for d in $(SUBDIRS); do \
-		$(ECHO) "\tcd $$d; $(MAKE) $@"; \
-		cd $$d; $(MAKE) $@; cd ..; \
-	done
+all install: $(OBJECTS) 
+	$(SUBDIRS_MAKERULE)
 
-install: all
-	@for d in $(SUBDIRS); do \
-		$(ECHO) "\tcd $$d; $(MAKE) $@"; \
-		cd $$d; $(MAKE) $@; cd ..; \
-	done
+COMMONPREF = xxx
+$(COMMONTARGS): %: $(COMMONPREF)%
+	$(SUBDIRS_MAKERULE)
 
-include $(COMMONRULES)
-
-clean clobber:
-	rm -f *.o *.d
-	@for d in $(SUBDIRS); do \
-		$(ECHO) "\tcd $$d; $(MAKE) $@"; \
-		cd $$d; $(MAKE) $@; cd ..; \
-	done
-
+include $(IVCOMMONRULES)

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoXtMaterialList
@@ -151,7 +151,7 @@ createStringTable(char *dir, XmString **table, int *size)
     char *f;
     if (dirp = opendir(dir)) {
     	char currentDir[MAXPATHLEN];
-	getwd(currentDir);
+	getcwd(currentDir, MAXPATHLEN-1);
         chdir(dir);
 	
 	// count the number of files so we can allocate space in the str table
@@ -330,7 +330,7 @@ SoXtMaterialList::setupPalettes()
     char *f;
     if (dirp = opendir(materialDir)) {
     	char currentDir[MAXPATHLEN];
-	getwd(currentDir);
+	getcwd(currentDir, MAXPATHLEN-1);
         chdir(materialDir);
         while (direntry = readdir(dirp)) {
 	    f = direntry->d_name;

@@ -1,12 +1,10 @@
-#!gmake
 IVDEPTH = ../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-LCFLAGS = -I..
-LDIRT   = *.d
+LCINCS += -I..
 
 CFILES = ThumbWheel.c
 
-all:: $(OBJECTS)
+all install: $(OBJECTS)
 
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

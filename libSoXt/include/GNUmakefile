@@ -1,13 +1,15 @@
 IVDEPTH = ../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-SUBDIRS = \
-	Inventor/Xt
+HEADERS_SUBDIRS = Inventor/Xt
 
-dirs all: install
+all:
+
+install:
+	$(HEADERS_SUBDIRS_MAKERULE)
 
 COMMONPREF = xxx
-install $(COMMONTARGS):
-	$(SUBDIRS_MAKERULE)
+$(COMMONTARGS): %: $(COMMONPREF)%
+	$(HEADERS_SUBDIRS_MAKERULE)
 
 include $(IVCOMMONRULES)

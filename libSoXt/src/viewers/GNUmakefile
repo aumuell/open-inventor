@@ -1,34 +1,25 @@
-#!gmake
 IVDEPTH = ../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../..
-LDIRT = *.d
-LCXXFLAGS += -I$(DEPTH)/include \
-	    -DLIBRARYBUILD \
-	    -I. \
-	    -I$(DEPTH)/../lib/database/include \
-	    -I$(DEPTH)/../lib/interaction/include \
-	    -I$(DEPTH)/../lib/nodekits/include -DDEBUG
- 
-CXXFILES =\
-	SoXtBitmapButton.c++ \
-	SoXtConstVwr.c++ \
+CXXFILES = \
 	SoXtCursors.c++ \
-	SoXtExamVwr.c++ \
-	SoXtFlyVwr.c++ \
-	SoXtFullVwr.c++ \
 	SoXtIcons.c++ \
-	SoXtPlaneVwr.c++ \
+	SoXtBitmapButton.c++ \
 	SoXtViewer.c++ \
-	SoXtWalkVwr.c++ 
+	SoXtFullVwr.c++ \
+	SoXtExamVwr.c++ \
+	SoXtPlaneVwr.c++ \
+	SoXtConstVwr.c++ \
+	SoXtWalkVwr.c++ \
+	SoXtFlyVwr.c++
 
-all:: $(OBJECTS) 
-	cd Sgm ; $(MAKE)
+SUBDIRS = Sgm
 
-include $(COMMONRULES)
+all install: $(OBJECTS)
+	$(SUBDIRS_MAKERULE)
 
-clean clobber:
-	rm -f *.o *.d
-	cd Sgm ; make clobber
+COMMONPREF = xxx
+$(COMMONTARGS): %: $(COMMONPREF)%
+	$(SUBDIRS_MAKERULE)
 
+include $(IVCOMMONRULES)

@@ -1,20 +1,17 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-INST_HEADER_ROOT   = $(IVROOT)/usr/include/Inventor/Xt/devices
-HEADER_PATH        = $(INST_HEADER_ROOT)
-NOSHIP_HEADER_PATH = $(HEADER_PATH)
+HDRSUBDIR = Xt/devices
 
-INST_HEADERS = \
+HEADERS = \
 	SoXtDevice.h \
 	SoXtInputFocus.h \
 	SoXtKeyboard.h \
 	SoXtMouse.h \
 	SoXtSpaceball.h
 
-LDIRT = $(INST_HEADER_ROOT)
+all:
 
-install: headers
+install: install_ivheaders
 
 include $(IVCOMMONRULES)
-

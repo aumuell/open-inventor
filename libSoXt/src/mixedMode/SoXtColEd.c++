@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	_SoXtColorEditor
@@ -499,7 +499,7 @@ _SoXtColorEditor::buildPulldownMenu(Widget parent)
     //
     // SUBMENU 1
     //
-    Widget sub_menu1 = XmCreatePulldownMenu(menubar, NULL, popupargs, popupn);
+    Widget sub_menu1 = XmCreatePulldownMenu(menubar, "sub_menu1", popupargs, popupn);
 #ifdef MENUS_IN_POPUP
     // register callbacks to load/unload the pulldown colormap
     SoXt::registerColormapLoad(sub_menu1, SoXt::getShellWidget(parent));
@@ -571,7 +571,7 @@ _SoXtColorEditor::buildPulldownMenu(Widget parent)
     //
     // SUBMENU 2
     //
-    Widget sub_menu2 = XmCreatePulldownMenu(menubar, NULL, popupargs, popupn);
+    Widget sub_menu2 = XmCreatePulldownMenu(menubar, "sub_menu2", popupargs, popupn);
 #ifdef MENUS_IN_POPUP
     // register callbacks to load/unload the pulldown colormap
     SoXt::registerColormapLoad(sub_menu2, SoXt::getShellWidget(parent));

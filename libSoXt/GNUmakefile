@@ -1,9 +1,13 @@
 IVDEPTH = ..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ..
+LIBDSO = libInventorXt.so
 
-OBJS = \
+LLDLIBS = \
+	-lXm -lXt -lXext -lXi -lX11 -lm \
+	-lInventor -lGLU -lGL
+
+OBJECTS = \
 	./src/devices/SoXtFocus.o \
 	./src/devices/SoXtKeybd.o \
 	./src/devices/SoXtMouse.o \
@@ -55,26 +59,21 @@ OBJS = \
 	./src/SoXtPrintDlog.o \
 	./src/SoXtRendrArea.o \
 	./src/SoXtRsrc.o \
-	./src/sgi_visual.o 
+	./src/sgi_visual.o
 
-LDIRT = libInventorXt.so
+LARCHIVE = libInventorXt.a
 
-library: all
-	$(LD) -o libInventorXt.so -shared  $(OBJS) -L/usr/X11R6/lib -lXt -lXm
+SUBDIRS = src
 
-install: library
-	@mkdir -p $(IVROOT)/usr/lib
-	@cp -f libInventorXt.so $(IVROOT)/usr/lib
+all: all_ivbin
 
-SUBDIRS = src include #test
+HEADERS_SUBDIRS = include
+
+install: install_ivlibdso
+	$(HEADERS_SUBDIRS_MAKERULE)
 
 COMMONPREF = xxx
-
-$(COMMONTARGS) all:: 
+$(COMMONTARGS): %: $(COMMONPREF)%
 	$(SUBDIRS_MAKERULE)
 
-clean clobber::
-	rm -f $(IVROOT)/usr/lib/libInventorXt.so
-	rm -f libInventorXt.so
-	$(SUBDIRS_MAKERULE)
-
+include $(IVCOMMONRULES)
