@@ -20,9 +20,17 @@ IVCOMMONRULES = $(IVDEPTH)/make/ivcommonrules
 #
 
 ifeq ($(usingIrix), 1)
+
+# Define this to have menus appear in the popup planes instead of the normal
+# planes. You lose menu colors, but don't have to redraw the scene just to see
+# a menu.
+LCXXDEFS += -DMENUS_IN_POPUP
+
 LD = $(TOOLROOT)/usr/bin/CC
+LLDDSOOPTS += -Wl,-full_transitive_link
 LLDOPTS += -Wl,-full_transitive_link
-GLDLIBS += -L$(ROOT)/usr/$(LIB_LOCATION)
+LD_QUICKSTART_INFO =
+
 endif
 
 
@@ -148,9 +156,9 @@ IVDEMODATADIR = $(IVDEMODIR)/data/Inventor
 #
 
 ifneq (, $(findstring debug, $(LIBTYPE)))
-LDDSOOPTS += -L$(IVDLIBDIR)
-LDOPTS += -L$(IVDLIBDIR)
+LLDDSOOPTS += -L$(IVDLIBDIR)
+LLDOPTS += -L$(IVDLIBDIR)
 else
-LDDSOOPTS += -L$(IVLIBDIR)
-LDOPTS += -L$(IVLIBDIR)
+LLDDSOOPTS += -L$(IVLIBDIR)
+LLDOPTS += -L$(IVLIBDIR)
 endif

@@ -54,10 +54,6 @@
 #include <Xm/ToggleB.h>
 #include <Xm/ToggleBG.h>
 
-#ifdef __sgi
-#define MENUS_IN_POPUP
-#endif // __sgi
-
 
 enum MenuEntries {
     IV_FILE = 0,

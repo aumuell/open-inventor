@@ -10,7 +10,6 @@ unsigned int iflsbuf(IMAGE *image, unsigned int c)
 {
 	register unsigned short *base;
 	register int n, rn;
-	char c1;
 	int size;
 
 	if ((image->flags&_IOWRT)==0)

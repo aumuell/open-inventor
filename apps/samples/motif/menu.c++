@@ -69,11 +69,6 @@
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/nodes/SoCone.h>
 
-// Define this to get menus in the popup planes.
-// When the menu is in the popup plane, showing and hiding
-// it does not force a redraw of the scene beneath.
-#define MENUS_IN_POPUP
-
 #define SCREEN(w) XScreenNumberOfScreen(XtScreen(w))
 
 //

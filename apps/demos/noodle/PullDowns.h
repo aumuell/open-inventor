@@ -57,8 +57,6 @@
 #include <Xm/ToggleB.h>
 #include <Xm/ToggleBG.h>
 
-#define MENUS_IN_POPUP
-
 #include "Interface.h"
 
 enum MenuEntries {

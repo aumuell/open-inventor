@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes    : SoXtFullViewer
  |
@@ -49,9 +49,6 @@
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  _______________________________________________________________________
  */
-
-// Define MENUS_IN_POPUP to get menus in the popup window
-#define MENUS_IN_POPUP
 
 #include <inttypes.h>
 #include <stdio.h>

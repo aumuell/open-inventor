@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SoEventCallback
@@ -57,11 +57,11 @@
 #include <Inventor/nodes/SoEventCallback.h>
 
 // internal class for storing event types, callback funcs, user data
-typedef struct SoEventCallbackData {
+typedef struct {
     SoType		eventType;
     SoEventCallbackCB	*func;
     void		*userData;
-};
+} SoEventCallbackData;
 
 SO_NODE_SOURCE(SoEventCallback);
 

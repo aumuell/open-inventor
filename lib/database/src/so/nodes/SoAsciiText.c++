@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Classes:
  |      SoAsciiText
@@ -137,7 +137,7 @@ class MyOutlineFontCache : public SoCache
     static MyOutlineFontCache	*getFont(SoState *, SbBool forRender);
     
     // Checks to see if this font is valid
-    SbBool	isValid(SoState *state) const;
+    SbBool	isValid(const SoState *state) const;
 
     // Figures out if this cache is valid for rendering (the base
     // class isValid can be used for all other actions)
@@ -985,7 +985,7 @@ MyOutlineFontCache::getFont(SoState *state, SbBool forRender)
 // Use: public
 
 SbBool
-MyOutlineFontCache::isValid(SoState *state) const
+MyOutlineFontCache::isValid(const SoState *state) const
 //
 ////////////////////////////////////////////////////////////////////////
 {

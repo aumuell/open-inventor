@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SoCallbackList
@@ -54,10 +54,10 @@
 #include <Inventor/misc/SoCallbackList.h>
 #include <Inventor/errors/SoDebugError.h>
 
-typedef struct SoCallbackStruct {
+typedef struct {
     SoCallbackListCB	*func;
     void		*userData;
-};
+} SoCallbackStruct;
 
 //////////////////////////////////////////////////////////////////////////////
 //

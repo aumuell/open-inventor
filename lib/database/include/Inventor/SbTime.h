@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Description:
  |	This file defines the SbTime class for manipulating times
@@ -136,9 +136,9 @@ class SbTime {
     static SbTime		zero()
 	{ return SbTime(0, 0); }
 
-#ifndef __sgi
+#ifndef INT32_MAX
 #define INT32_MAX INT_MAX
-#endif // !__sgi
+#endif // !INT32_MAX
 
     // Get a time far, far into the future
     static SbTime		max()

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.7 $
+ |   $Revision: 1.8 $
  |
  |   Classes:
  |      SoText3
@@ -209,7 +209,7 @@ class SoOutlineFontCache : public SoCache
     int		getNumUCSChars(int line)
 	{ return (int)(long)UCSNumChars[line];}
 	
-    GLubyte *SoOutlineFontCache::createUniFontList(const char* fontNameList); 
+    GLubyte *createUniFontList(const char* fontNameList); 
     
   protected:
 

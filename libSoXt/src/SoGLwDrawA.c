@@ -475,7 +475,6 @@ static void
 Redraw(SoGLwDrawingAreaWidget w, XEvent *event, Region region)
 {
    SoGLwDrawingAreaCallbackStruct cb;
-   XtCallbackList cblist;
    
    cb.reason = SoGLwCR_EXPOSE;
    cb.event = event;

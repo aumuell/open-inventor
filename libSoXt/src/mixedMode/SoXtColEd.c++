@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.4 $
+ |   $Revision: 1.5 $
  |
  |   Classes:
  |	_SoXtColorEditor
@@ -51,13 +51,6 @@
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  _______________________________________________________________________
  */
-
-// Define this to have menus appear in the popup planes
-// instead of the normal planes. You lose menu colors, 
-// but don't have to redraw the scene just to see a menu.
-#ifdef __sgi
-#define MENUS_IN_POPUP
-#endif // __sgi
 
 #include <Inventor/actions/SoSearchAction.h>
 #include <Inventor/SoLists.h>

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoXtMaterialEditor
@@ -51,12 +51,6 @@
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  _______________________________________________________________________
  */
-
-
-// Define this to have menus appear in the popup planes
-// instead of the normal planes. You lose menu colors, 
-// but don't have to redraw the scene just to see a menu.
-#define MENUS_IN_POPUP
 
 #include <inttypes.h>
 #include <string.h>
