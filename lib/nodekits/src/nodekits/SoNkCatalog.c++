@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      SoNodekitCatalog
@@ -298,7 +298,7 @@ SoNodekitCatalog::~SoNodekitCatalog()
 
     // delete the entries array itself
     if (entries != NULL)
-	delete entries;
+	delete [] entries;
 
 }
 
@@ -1267,7 +1267,7 @@ SoNodekitCatalog::addEntry( const SbName &theName,
     if ( entries != NULL ) {
 	for (int i = 0; i < numEntries; i++ )
 	    newArray[i] = entries[i];
-	delete entries;
+	delete [] entries;
     }
     entries = newArray;
     numEntries++;	
