@@ -1,3 +1,0 @@
-#!/bin/sh
-#Tag 0x00010510
-cd /opt/SGIDemos/Inventor/data ; /opt/SGIDemos/Inventor/bin/noodle

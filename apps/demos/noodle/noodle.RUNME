@@ -1,3 +1,5 @@
-#!/bin/sh
-#Tag 0x00010510
-cd /usr/demos/data/Inventor; /usr/demos/Inventor/noodle
+#! /bin/sh
+
+opt=$IVROOT/opt/SGIDemos/Inventor
+cd $opt/data
+$opt/bin/noodle
