@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoType
@@ -200,6 +200,7 @@ SoType::fromName(SbName name)
 {
     void *b = NULL;
 
+#ifdef __sgi
 //  The following #ifdefs deal with the different names and
 //  directories for o32, n32, and n64 compilation.  The libs
 //  reside in different directories, and the CC compilers 
@@ -224,6 +225,18 @@ SoType::fromName(SbName name)
         const char *libDir = "lib64";
         const char *abiName = "SGv";
 #endif
+#else // ! __sgi
+#ifdef DEBUG
+	char *longestName = "/usr/lib/InventorDSO/.so";
+#endif // DEBUG
+	const char *libDir = "lib";
+	const char *abiName = "";
+	//
+	// XXX Alex -- add additional layer of abstraction on top
+ 	// of this to make porting to other platforms easier.
+	//
+#define sgidlopen_version(a,b,c,d) dlopen((a),(b))
+#endif // __sgi
 
     const char *nameChars = name.getString();
     SbString nameString(nameChars);  // For easier manipulation...
@@ -266,13 +279,6 @@ SoType::fromName(SbName name)
 #endif
 
 	sprintf(DSOFile, "%s.so", nameChars);
-	//
-	// XXX Alex -- add additional layer of abstraction on top
- 	// of this to make porting to other platforms easier.
-	//
-#ifdef __linux__
-#define sgidlopen_version(a,b,c,d) dlopen((a),(b))
-#endif
 	dsoHandle = sgidlopen_version(DSOFile, RTLD_LAZY, "sgi3.0", 0);
 
 	if (dsoHandle == NULL && !isRoot) {
