@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	This file defines the SoGate class.
@@ -99,6 +99,8 @@ class SoGate : public SoEngine {
   protected:
 
     virtual void	inputChanged(SoField *whichInput);
+
+    virtual SoFieldContainer *	copyThroughConnection() const;
   
   private:
     SoGate();

@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	This file defines the "concatenation" engine that joins
@@ -106,6 +106,8 @@ class SoConcatenate : public SoEngine {
 
   protected:
 
+    virtual SoFieldContainer *	copyThroughConnection() const;
+  
   private:
     // Constructor/Destructor.  This constructor is used only when
     // reading these from file.
