@@ -55,8 +55,8 @@ BUILDING THE TREE
 
 		setenv LIBTYPE debug
 
-	4) Type 'gmake' from the directory where you unpacked the
-	   Open Inventor source code.
+	4) Type 'gmake install' from the directory where you
+	   unpacked the Open Inventor source code.
 
 
 INSTALLATION TREE STRUCTURE
