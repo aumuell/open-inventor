@@ -4,10 +4,10 @@ MISCELLANEOUS TECHNICAL QUESTIONS FOR Open Inventor Open Source Release
   What platforms does it run on?
   ------------------------------
 
-  This release was built and has been tested with Red Hat Linux versions 6.0,
-  6.1, and 6.2 on a variety of Intel Pentium II based systems including the SGI
-  230, 330, 550 workstation with VPro graphics accelerator. It is also known to
-  run with several other Linux distributions on IA32-based hardware.
+  This release was built and has been tested with Red Hat Linux version 7.1 on
+  a variety of Intel Pentium II based systems including the SGI 230, 330, 550
+  workstations with VPro graphics accelerator. It is also known to run with
+  several other Linux distributions on IA32-based hardware.
 
   What are the dependencies for this release?
   -------------------------------------------
@@ -15,23 +15,24 @@ MISCELLANEOUS TECHNICAL QUESTIONS FOR Open Inventor Open Source Release
   The libraries and sample programs built for this release have dependencies
   upon the following DSO's. For your convenience their corresponding package
   name from the system which built the images is included below. Many of the
-  packages are included in Red Hat 6.0 or 6.1:
+  packages are included in Red Hat 7.1:
 
-    ld-linux.so.2    [glibc-2.1.1-6]
-    libdl.so.2       [glibc-2.1.1-6]
-    libm.so.6        [glibc-2.1.1-6]
-    libc.so.6        [glibc-2.1.1-6]
-    libICE.so.6      [XFree86-libs-3.3.3.1-49]
-    libSM.so.6       [XFree86-libs-3.3.3.1-49]
-    libX11.so.6:     [XFree86-libs-3.3.3.1-49]
-    libXext.so.6     [XFree86-libs-3.3.3.1-49]
-    libXmu.so.6      [XFree86-libs-3.3.3.1-49]
-    libXt.so.6       [XFree86-libs-3.3.3.1-49]
-    libXi.so.6       [XFree86-libs-3.3.3.1-49]
-    libGL.so.1       [Mesa-3.2-1]
-    libGLU.so.1      [Mesa-3.2-1]
-    libXm.so.1       [lesstif-0.90.0-1]
-    libjpeg.so.62    [libjpeg-6b-10]
+    ld-linux.so.2    [glibc-2.2.4-19]
+    libdl.so.2       [glibc-2.2.4-19]
+    libm.so.6        [glibc-2.2.4-19]
+    libc.so.6        [glibc-2.2.4-19]
+    libICE.so.6      [XFree86-libs-4.0.3-5]
+    libSM.so.6       [XFree86-libs-4.0.3-5]
+    libX11.so.6:     [XFree86-libs-4.0.3-5]
+    libXext.so.6     [XFree86-libs-4.0.3-5]
+    libXmu.so.6      [XFree86-libs-4.0.3-5]
+    libXt.so.6       [XFree86-libs-4.0.3-5]
+    libXi.so.6       [XFree86-libs-4.0.3-5]
+    libXp.so.6       [XFree86-libs-4.0.3-5]
+    libGL.so.1       [Mesa-3.4-13]
+    libGLU.so.1      [Mesa-3.4-13]
+    libXm.so.1       [lesstif-0.91.4-1]
+    libjpeg.so.62    [libjpeg-6b-15]
 
   The help cards accessible from the Open Inventor viewers, editors, and demos
   are in PDF format. To view these files, you will need the Adobe Acrobat
@@ -50,8 +51,8 @@ MISCELLANEOUS TECHNICAL QUESTIONS FOR Open Inventor Open Source Release
   Open Inventor 2.1.5 is compatible with any implementation of OpenGL that
   conforms to the OpenGL ABI for Linux, such as:
 
-    SGI 230, SGI 330, and SGI 550 workstations with VPro graphics are shipped
-    with specially-tuned OpenGL DSO's.
+    SGI 230, 330, and 550 workstations with VPro graphics are shipped with
+    specially-tuned OpenGL DSO's.
 
     NVIDIA-specific drivers compliant with the OpenGL ABI for Linux can be
     found on the NVIDIA web site.
