@@ -456,6 +456,13 @@ static SoSceneViewerButton lightData[] = {
     {0,    		    0,			    SV_SEPARATOR },
 };
 
+XtResource intl_light_resources[] = {
+  { "ambientLighting", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&lightData[4].name, &lightData[0]),
+    XtRString, (XtPointer) "Ambient Lighting...",},
+};
+int intl_num_light_resources = XtNumber( intl_light_resources );
+
 static struct {
     char *headlight;
     char *editlight;
@@ -464,27 +471,24 @@ static struct {
     char *pointlight;
 } Light;
 
-XtResource intl_light_resources[] = {
-  { "ambientLighting", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) SV_OFFSET(&lightData[4].name, &lightData[0]),
-    XtRString, (XtPointer) "Ambient Lighting...",},
+XtResource intl_lightType_resources[] = {
   { "headlight", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) SV_OFFSET(&Light.headlight, &lightData[0]),
+    (Cardinal) SV_OFFSET(&Light.headlight, &Light),
     XtRString, (XtPointer) "Headlight ",},
   { "editlight", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) SV_OFFSET(&Light.editlight, &lightData[0]),
+    (Cardinal) SV_OFFSET(&Light.editlight, &Light),
     XtRString, (XtPointer) "Edit",},
   { "directionallight", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) SV_OFFSET(&Light.directionallight, &lightData[0]),
+    (Cardinal) SV_OFFSET(&Light.directionallight, &Light),
     XtRString, (XtPointer) "Directional ",},
   { "spotlight", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) SV_OFFSET(&Light.spotlight, &lightData[0]),
+    (Cardinal) SV_OFFSET(&Light.spotlight, &Light),
     XtRString, (XtPointer) "Spot ",},
   { "pointlight", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) SV_OFFSET(&Light.pointlight, &lightData[0]),
+    (Cardinal) SV_OFFSET(&Light.pointlight, &Light),
     XtRString, (XtPointer) "Point ",},
 };
-int intl_num_light_resources = XtNumber( intl_light_resources );
+int intl_num_lightType_resources = XtNumber( intl_lightType_resources );
 
 static SoSceneViewerMenu pulldownData[] = {
 //  {name, 	id,	    	subMenu,    subItemCount}

@@ -41,7 +41,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.10 $
+ |   $Revision: 1.11 $
  |
  |   Classes	: SoSceneViewer
  |
@@ -355,6 +355,9 @@ SoSceneViewer::constructorCommon(
 			NULL, 0 );
     XtGetSubresources(  getParentWidget(), &lightData[0], "intl", "Intl",
                         intl_light_resources, intl_num_light_resources,
+			NULL, 0 );
+    XtGetSubresources(  getParentWidget(), &Light, "intl", "Intl",
+                        intl_lightType_resources, intl_num_lightType_resources,
 			NULL, 0 );
     XtGetSubresources(  getParentWidget(), &pulldownData[0], "intl", "Intl",
                         intl_pulldown_resources, intl_num_pulldown_resources,
