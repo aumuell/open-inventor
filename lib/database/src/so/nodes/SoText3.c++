@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.4 $
+ |   $Revision: 1.5 $
  |
  |   Classes:
  |      SoText3
@@ -1474,7 +1474,7 @@ SoOutlineFontCache::createUniFontList(const char* fontNameList)
     while (s1 = (char *)strchr(s, ';')) {
        *s1 = (char)NULL;  /* font name is pointed to s */
 
-       if ((fn = flCreateFont((const GLubyte*)s, mat, 0, NULL)) == (FLfontNumber)NULL) {
+       if ((fn = flCreateFont((const GLubyte*)s, mat, 0, NULL)) == (FLfontNumber)0) {
 #ifdef DEBUG
 	    SoDebugError::post("SoOutlineFontCache::createUniFontList", 
 		"Cannot create font %s", s);         
@@ -2238,7 +2238,7 @@ SoOutlineFontCache::convertToUCS(uint32_t nodeid,
     //delete previously converted UCS string
     int i;
     for (i = 0; i< UCSStrings.getLength(); i++){
-	delete [] UCSStrings[i];
+	delete [] (char*)UCSStrings[i];
     }
     UCSStrings.truncate(0);
     UCSNumChars.truncate(0);
@@ -2266,7 +2266,7 @@ SoOutlineFontCache::convertToUCS(uint32_t nodeid,
 	size_t outbytes = 2*inbytes+2;
 	char* output = (char*)UCSStrings[i];
     
-	if ((iconv(conversionCode, (const char **)&input, &inbytes, &output, &outbytes) == (size_t)-1)){
+	if ((iconv(conversionCode, &input, &inbytes, &output, &outbytes) == (size_t)-1)){
 #ifdef DEBUG
 	    SoDebugError::post("SoOutlineFontCache::convertToUCS", 
 		"Error converting text to UCS-2");
