@@ -1,0 +1,143 @@
+NAME SoPointLightDragger SoPtLtDrag "" { sun-shaped icon you can translate in 3D by dragging with the mouse }
+
+INCLUDE draggers/SoPointLightDragger.h
+
+DESC { \cSoPointLightDragger\. 
+is a dragger that looks like a point light source, can be translated in three
+directions, and has a \vtranslation\. field that 
+always reflects its position in local space.
+The point light dragger also has a special \amaterial\. part which can be 
+used to make it take on the color of a light source.
+\p
+\eRemember:\. This is \enot\. a light source! It just looks like one.  
+If you want to move a light with this dragger, you can either: 
+\p
+[a] Use an \cSoPointLightManip\., which is subclassed from \cSoLight\.. 
+It creates one of
+these draggers and uses it as the interface to change the \vlocation\. of its 
+light source (see the \cSoPointLightManip\. reference page).  
+The manipulator also edits the \vmaterial\. part of this dragger to match the
+color of light the manipulator is producing.
+\p
+[b] Use a field-to-field connection to connect the \vlocation\. of a light 
+source from this dragger's \vtranslation\. field.
+\p
+This dragger contains an \cSoDragPointDragger\., which you drag through
+3-space using an integrated set of linear and planar draggers.  (For
+detailed information on how to use \cSoDragPointDragger\., see its
+reference page.)  The point light dragger sets the planar translation
+parts of this dragPoint dragger with a new default that looks like a
+shining sun emanating rays of light (okay, so use your imagination).
+\p
+By changing the \vmaterial\. part you can change the color of the sun shape,
+because the default part contains no \cSoMaterial\. nodes.   This fact
+enables the \cSoPointLightManip\. (not the dragger, the manipulator) to 
+color its dragger to match the color of the light it is emanating. 
+Recall that a point light \emanip\. is
+derived from \cSoLight\. and creates a point light \edragger\. to provide 
+an interface and geometrical presence on screen. The manipulator also has a 
+\vcolor\. field; when the light color changes, it changes the \vmaterial\. 
+part of its dragger so that they match.
+\p
+You can change the parts in any instance of this dragger using
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+\p
+The default part geometries are defined as resources for this 
+\cSoPointLightDragger\. class.  They are detailed in the 
+Dragger Resources section of the online reference page for this class.
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/pointLightDragger.iv\.
+into your own directory, editing the file, and then
+setting the environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+METHOD "" SoPointLightDragger() {
+Constructor.
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+FIELD translation { Position of the dragger. }
+
+DRAGGER_RESOURCE {
+  pointLightOverallMaterial,
+  material,
+  "white. half strength emissive, half strength diffuse",
+  "sets material for the sun shape when stationary. 
+   Resource for the moving sun, 
+   pointLightTranslatorPlaneTranslatorActive, 
+   contains a yellow material for highlighting."
+}
+DRAGGER_RESOURCE {
+  pointLightTranslatorPlaneTranslator,
+  translator.yzTranslator.translator
+  translator.xzTranslator.translator
+  translator.xyTranslator.translator,
+  "sun shape with no material",
+  "picking these parts initiates dragging 
+   by the yz, xz, and xy planar draggers 
+   respectively."
+}
+
+DRAGGER_RESOURCE {
+  pointLightTranslatorPlaneTranslatorActive,
+  translator.yzTranslator.translatorActive
+  translator.xzTranslator.translatorActive
+  translator.xyTranslator.translatorActive,
+  "yellow sun shape",
+  "shown during planar dragging in the yz, xz, 
+   and xy planes respectively."
+}
+
+
+DRAGGER_RESOURCE {
+  pointLightTranslatorLineTranslator,
+  translator.xTranslator.translator
+  translator.yTranslator.translator
+  translator.zTranslator.translator,
+  "white cylinder",
+  "picking these parts initiates dragging 
+   in the x, y, and z linear draggers respectively."
+}
+
+DRAGGER_RESOURCE {
+  pointLightTranslatorLineTranslatorActive,
+  translator.xTranslator.translatorActive
+  translator.yTranslator.translatorActive
+  translator.zTranslator.translatorActive,
+  "yellow cylinder",
+  "shown during linear dragging in the x, y, 
+   and z directions respectively."
+}
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoCenterballDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTransformerDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}

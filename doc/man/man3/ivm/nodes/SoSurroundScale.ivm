@@ -1,0 +1,105 @@
+NAME SoSurroundScale SoSurroundScale "" { transformation node that adjusts the current matrix so a default cube will surround other objects }
+
+INCLUDE nodes/SoSurroundScale.h
+
+DESC {
+When traversed by an action, this node
+appends a transformation to the current transformation matrix
+so that a default size  cube will surround the objects specified 
+by its fields. Transform manipulators, such as \cSoHandleBoxManip\.,
+use these nodes to make themselves surround other objects.
+\p 
+This node only recalculates after the 
+\m\+invalidate()\.\-SoSurroundScaleInvalidate()\.\. method has been
+called. Otherwise it uses a saved scale and translation.
+\p
+When calculating what to surround, the \cSoSurroundScale\.
+looks at the current path in
+the action and at its own field values.  
+Then \cSoSurroundScale\. applies an \cSoGetBoundingBoxAction\. 
+to the node that is
+\vnumNodesUpToContainer\. nodes above it on the path.
+\cSoSurroundScale\. also tells the action to reset
+the bounding box upon traversal of the
+node located \vnumNodesUpToReset\. nodes above it in the path.
+The \cSoSurroundScale\. then appends a translation and scale
+to the current transformation
+so that a default size \cSoCube\. will translate and scale to fit this
+bounding box.
+\p
+For example, when an \cSoHandleBoxManip\. wants to surround the objects it
+is going to move, the scene graph will look something like this:
+\b\k\*(Cr
+                 RootNode
+       -------------------------
+       |                        |
+     handleBoxManip        movingStuff
+       |
+     handleBoxDragger
+       |
+     separator
+      -----------------------------------
+      |            |                     |
+    motionMatrix  surroundScale      cubeGeom
+\.\.
+The \cSoHandleBoxDragger\. wants to transform the \ecubeGeom\. so that it
+surrounds the \emovingStuff\.. So it sets the \esurroundScale\. fields to:
+\b
+     \vnumNodesUpToContainer\. = 4;
+     \vnumNodesUpToReset\. = 3;
+\.
+The \cSoBoundingBoxAction\. will then be applied to \eRootNode\., 
+with a reset after traversing the \cSoHandleBoxManip\..
+So the \cSoSurroundScale\. will surround the objects below \eseparator\., and
+to the right of \ehandleBoxManip\., producing the desired effect.
+}
+
+FIELD numNodesUpToContainer {
+When traversed by an action, if surroundScale needs to 
+calculate a new box, surroundScale
+looks at the current path in
+the action. It travels up this path a distance of \vnumNodesUpToContainer\. 
+and  applies an \cSoGetBoundingBoxAction\. to the node that it finds
+there.
+}
+
+FIELD numNodesUpToReset {
+Before applying the \cSoGetBoundingBoxAction\. (see the 
+\vnumNodesUpToContainer\. field aove) the surroundScale node
+travels up the path a distance of \vnumNodesUpToReset\. 
+and tells the action to reset
+the bounding box upon traversal of that node.
+}
+
+METHOD "" SoSurroundScale() {
+Creates a surround scale node with default settings.
+}
+
+METHOD "" void invalidate() {
+If you call this, then next time an action is applied the node will re-calculate
+it's cached translation and scale values.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoRayPickAction {
+Accumulates scaling and translation transformations into 
+the current transformation.
+}
+
+ACTION SoGetMatrixAction {
+Returns the matrix corresponding to the scaling and translation.
+}
+
+ALSO { SoTransformation, SoTransformManip,
+SoCenterballDragger, SoCenterballManip,
+SoHandleBoxDragger, SoHandleBoxManip,
+SoJackDragger, SoJackManip,
+SoTabBoxDragger, SoTabBoxManip,
+SoTrackballDragger, SoTrackballManip,
+SoTransformBoxDragger, SoTransformBoxManip
+}
+

@@ -1,0 +1,54 @@
+NAME SoMaterial SoMtl "" { surface material definition node }
+
+INCLUDE nodes/SoMaterial.h
+
+DESC {
+This node defines the current surface material properties for all
+subsequent shapes. \cSoMaterial\. sets several components of the
+current material during traversal. 
+\p
+Multiple values can be specified for
+the \vdiffuseColor\. and \vtransparency\..
+Different shapes interpret
+materials with multiple values differently. To bind materials to
+shapes, use an \cSoMaterialBinding\. node.
+}
+
+FIELD ambientColor { Ambient color of the surface. }
+FIELD diffuseColor { Diffuse color(s) of the surface. }
+FIELD specularColor { Specular color of the surface. }
+FIELD emissiveColor { Emissive color of the surface. }
+FIELD shininess {
+Shininess coefficient of the surface. Values can range from 0.0 for
+no shininess (a diffuse surface) to 1.0 for maximum shininess (a
+highly polished surface).
+}
+FIELD transparency {
+Transparency value(s) of the surface. Values can range from 0.0 for
+opaque surfaces to 1.0 for completely transparent surfaces.  If the
+transparency type is \cSoGLRenderAction::SCREEN_DOOR\. then only the
+first transparency value will be used.  With other transparency types,
+multiple transparencies will be used, if the \cSoMaterial\. node
+contains as many transparencies as diffuse colors.  If there are not
+as many transparencies as diffuse colors, only the first transparency
+will be used.
+}
+
+METHOD "" SoMaterial() { Creates a material node with default settings. }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction {
+Sets the ambient color, the diffuse color, the specular color, the
+emissive color, the shininess, and the transparency of the current
+material.
+}
+
+ALSO {
+SoBaseColor,
+SoLightModel,
+SoMaterialBinding,
+SoPackedColor
+}

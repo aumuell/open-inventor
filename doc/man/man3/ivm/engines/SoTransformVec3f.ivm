@@ -1,0 +1,28 @@
+NAME SoTransformVec3f SoXfV3f "" { 
+transforms a 3D vector by a 4x4 matrix
+}
+
+DESC { 
+This engine takes as input a three dimensional floating-point vector and
+a transformation matrix.  The vector is assumed to be a row vector.
+\p
+The engine multiplies the vector by the matrix and returns the result
+in the output \vpoint\..
+The output \vdirection\. contains the result when the matrix multiplication
+assumes the vector is a direction, and therefore ignores the translation 
+part of the matrix.
+The output \vnormalDirection\. contains the normalized \vdirection\.
+}
+
+INCLUDE engines/SoTransformVec3f.h
+
+INPUT vector { Input row vector. }
+INPUT matrix { Input transformation matrix. }
+
+OUTPUT point { Vector transformed by matrix. }
+OUTPUT direction { Vector transformed by matrix, ignoring translation. }
+OUTPUT normalDirection { Normalized direction. }
+
+METHOD Create SoTransformVec3f() { Constructor }
+
+ALSO { SoEngineOutput }

@@ -1,0 +1,117 @@
+NAME SoGLRenderAction SoGLRenderAct "SO_GL_RENDER_ACT_" {
+renders a scene graph using OpenGL
+}
+
+INCLUDE actions/SoGLRenderAction.h
+
+DESC {
+This class traverses a scene graph and renders it using the OpenGL
+graphics library. It assumes that a valid window has been created
+and initialized for proper OpenGL rendering. The \cSoXtRenderArea\.
+class or any of its subclasses may be used to create such a window.
+}
+
+TYPEDEF AbortCode SoGLRenderAbortCB "(void *userData)"
+TYPEDEF void      SoGLRenderPassCB  "(void *userData)"
+
+ENUM TransparencyType {
+    SCREEN_DOOR		"Uses stipple patterns for screen-door transparency",
+    ADD			"Uses additive alpha blending",
+    DELAYED_ADD		"Uses additive blending, rendering all transparent
+			 objects after opaque ones",
+    SORTED_OBJECT_ADD	"Same as DELAYED_ADD, but sorts transparent objects
+			 by distances of bounding boxes from camera",
+    BLEND		"Uses multiplicative alpha blending",
+    DELAYED_BLEND	"Uses multiplicative alpha blending, rendering all
+			 transparent objects after opaque ones",
+    SORTED_OBJECT_BLEND	"Same as DELAYED_BLEND, but sorts transparent objects
+			 by distances of bounding boxes from camera"
+}
+
+ENUM AbortCode {
+    CONTINUE	"Continue traversal as usual",
+    ABORT	"Stop traversing the rest of the graph",
+    PRUNE	"Do not traverse this node or its children, but continue",
+    DELAY	"Delay rendering of this node until the second pass"
+}
+
+METHOD "" SoGLRenderAction(const SbViewportRegion &viewportRegion)  {
+Constructor. The parameter defines the viewport region into
+which rendering will take place. 
+}
+
+METHOD setVPReg void setViewportRegion(const SbViewportRegion &newRegion) {}
+METHOD getVPReg const SbViewportRegion &getViewportRegion() const {
+Changes/returns viewport region to use for rendering.
+}
+
+METHOD "" void setUpdateArea(const SbVec2f &origin, const SbVec2f &size) {}
+METHOD "" void getUpdateArea(SbVec2f &origin, SbVec2f &size) const {
+Sets/returns the current update area, which is the rectangular area of
+the viewport region that will actually be rendered into. This can be
+used for partial updates in applications that can manage them. The
+update area is specified in normalized viewport coordinates, where
+(0,0) is the lower left corner of the viewport and (1,1) is the upper
+right corner. The area is specified or returned as an origin and a size.
+}
+
+METHOD setAbortCB void
+	setAbortCallback(SoGLRenderAbortCB *func, void *userData) {
+Sets callback to call during rendering to test for an abort condition.
+It will be called for each node that is traversed.
+This allows applications to terminate rendering prematurely if some
+condition occurs. The callback function should return one of the AbortCode
+codes to indicate whether traversal should continue. Use of the various
+codes in a callback can allow applications to modify Inventor's default
+order of rendering objects in a scene graph.
+}
+
+METHOD setTranspType void setTransparencyType(TransparencyType type) {}
+METHOD getTranspType TransparencyType getTransparencyType() const {
+Sets/returns transparency quality level to use when rendering. The
+default is SCREEN_DOOR. (Note that SCREEN_DOOR transparency does not work
+in the case where transparency values are specified for each vertex
+of a shape. If this is the case, use one of the other transparency types.)
+}
+
+METHOD "" void setSmoothing(SbBool smooth) {}
+METHOD "" SbBool isSmoothing() const {
+Sets/returns smoothing flag. When on, smoothing uses OpenGL's line-
+and point-smoothing features to provide cheap antialiasing of lines
+and points. The default is FALSE.
+}
+
+METHOD "" void setNumPasses(int num) {}
+METHOD "" int getNumPasses() const {
+Sets/returns number of rendering passes for multipass rendering.
+Specifying more than one pass will result in antialiasing of the
+rendered scene, using OpenGL's accumulation buffer. (Camera nodes
+typically move their viewpoints a little bit for each pass to achieve
+the antialiasing.)  Each additional pass provides better
+antialiasing, but requires more rendering time The default is 1 pass.
+}
+
+METHOD "" void setPassUpdate(SbBool flag) {}
+METHOD "" SbBool isPassUpdate() const {
+Sets/returns a flag indicating whether intermediate results are
+displayed after each antialiasing pass for progressive improvement
+(default is FALSE).
+}
+
+METHOD setPassCB void setPassCallback(SoGLRenderPassCB *func, void *userData) {
+Sets a callback function to invoke between passes when antialiasing.
+Passing NULL (which is the default state) will cause a clear of the color
+and depth buffers to be performed.
+}
+
+METHOD "" void setCacheContext(uint32_t context) {}
+METHOD "" uint32_t getCacheContext() const {
+Sets/returns the OpenGL cache context. A cache context is just an
+integer identifying when OpenGL display lists (which are used for
+render caching) can be shared between render actions; for example, see
+the documentation on GLX contexts for information on when OpenGL
+display lists can be shared between GLX windows.
+}
+
+ALSO { SoSeparator, SoXtRenderArea }
+

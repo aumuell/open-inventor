@@ -1,0 +1,43 @@
+NAME SoCoordinate4 SoCoord4 "" { rational coordinate point node }
+
+INCLUDE nodes/SoCoordinate4.h
+
+DESC {
+This node defines a set of 3D coordinates to be used by subsequent
+vertex-based shape nodes (those derived from \cSoVertexShape\.) or
+shape nodes that use them as control points (such as NURBS curves and
+surfaces).  Coordinates are specifed as rational 4-vectors; the
+corresponding 3D point is computed by dividing the first three
+components by the fourth.  This node does not produce a visible result
+during rendering; it simply replaces the current coordinates in the
+rendering state for subsequent nodes to use.
+\p
+This node exists primarily for use with NURBS curves and surfaces.
+However, it can be used to define coordinates for any vertex-based
+shape.
+}
+
+FIELD point { Coordinate point(s). }
+
+METHOD "" SoCoordinate4() {
+Creates a coordinate node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoRayPickAction {
+Sets coordinates in current traversal state.
+}
+
+ALSO {
+SoCoordinate4,
+SoIndexedNurbsCurve,
+SoIndexedNurbsSurface,
+SoNurbsCurve,
+SoNurbsProfile,
+SoNurbsSurface,
+SoVertexShape
+}

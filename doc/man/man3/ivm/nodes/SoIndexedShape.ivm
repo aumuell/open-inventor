@@ -1,0 +1,90 @@
+NAME SoIndexedShape SoInd "" { 
+abstract base class for all indexed vertex-based shapes
+}
+
+INCLUDE nodes/SoIndexedShape.h
+
+DESC {
+This node is the abstract base class for all vertex-based shapes that
+are constructed from indices, including \cSoIndexedFaceSet\.,
+\cSoIndexedTriangleStripSet\., and \cSoIndexedLineSet\..
+\cSoIndexedShape\. defines fields that are used in all of its
+subclasses.
+\p
+All subclasses of \cSoNonIndexedShape\. construct objects by using the
+coordinates specified by the \vvertexProperty\. field
+(from \cSoVertexShape\.), or the current inherited coordinates. 
+The \vcoordIndex\.
+field defined by this class contains the indices into the current
+coordinates of the vertices of the shape. These indices are also used
+for materials, normals, or texture coordinates when the appropriate
+binding is \kPER_VERTEX_INDEXED\..
+\p
+Material and normal bindings are interpreted as follows for each subclass:
+\b
+\kOVERALL\.		One material for the entire shape.
+\kPER_PART\.		Specific to the subclass.
+\kPER_PART_INDEXED\.	Same as \kPER_PART\., using indices from the
+			\vmaterialIndex\. or \vnormalIndex\. field.
+\kPER_FACE\.		Specific to the subclass.
+\kPER_FACE_INDEXED\.	Same as \kPER_FACE\., using indices from the
+			\vmaterialIndex\. or \vnormalIndex\. field.
+\kPER_VERTEX\.		One material per vertex.
+\kPER_VERTEX_INDEXED\.	One material per vertex, using indices from the
+			\vmaterialIndex\. or \vnormalIndex\. field.
+\.
+\p
+When any \k_INDEXED\. binding is used for materials or normals, the
+\vmaterialIndex\. or \vnormalIndex\. field is used to determine the
+indices for the materials or normals. If this field contains a single
+value of -1 (the default), the coordinate indices from the
+\vcoordIndex\. field are used as well for materials or normals. When
+the binding is \kPER_VERTEX_INDEXED\., indices in these fields that
+correspond to negative indices in \vcoordIndex\. are skipped; for
+other index bindings all the values in the fields are used, in order.
+\p
+Explicit texture coordinates (as defined by \cSoTextureCoordinate2\.)
+may be bound to vertices of an indexed
+shape consecutively (if the texture coordinate binding is
+\kPER_VERTEX\.) or by using the indices in the \vtextureCoordIndex\.
+field (if the binding is \kPER_VERTEX_INDEXED\.). As with all
+vertex-based shapes, if there is a current texture but no texture
+coordinates are specified, a default texture coordinate mapping is
+calculated using the bounding box of the shape.
+\p
+Be sure that the indices contained in the \vcoordIndex\.,
+\vmaterialIndex\., \vnormalIndex\., and \vtextureCoordIndex\. fields
+are valid with respect to the current state, or errors will occur.
+}
+
+FIELD coordIndex {
+The indices of the coordinates that the shape uses as its vertices.
+The coordinates connect to form faces, lines, or other shapes. Each
+subclass defines special negative indices to use to indicate
+separation between faces, lines, and so on.
+}
+
+FIELD materialIndex     {}
+FIELD normalIndex       {}
+FIELD textureCoordIndex {
+The indices of the materials, normals, and texture coordinates that
+are used for the shape. These fields are used only when the
+appropriate binding is one of the \k_INDEXED\. bindings. By default,
+the values of these fields indicate that the coordinate indices should
+be used for materials, normals, or texture coordinates as well.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ALSO {
+SoIndexedFaceSet,
+SoIndexedLineSet,
+SoIndexedTriangleStripSet,
+SoMaterialBinding,
+SoNonIndexedShape,
+SoNormalBinding,
+SoShapeHints,
+SoTextureCoordinateBinding
+}

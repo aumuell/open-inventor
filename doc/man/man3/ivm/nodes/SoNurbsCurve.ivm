@@ -1,0 +1,61 @@
+NAME SoNurbsCurve SoCurve "" { NURBS curve shape node }
+
+INCLUDE nodes/SoNurbsCurve.h
+
+DESC {
+This class represents a NURBS curve, based on the knot vector and the
+control points that you specify. The \vknotVector\. field specifies a
+floating-point array of values; the values are the coordinates of the
+knot points in the curve, and you must enter them in non-decreasing
+order. The curve will use the first \vnumControlPoints\. values in the
+current coordinates as control points.
+\p
+If you specify \en\. knots, you can specify up to \en-8\. control
+points. The number of knots minus the number of control points is
+known as the order of the curve. A NURBS curve can have an order of up
+to 8.
+\p
+The control points of the curve are transformed by the current
+transformation matrix. The curve is drawn with the current lighting
+model and drawing style (drawing style \kFILLED\. is treated as
+\kLINES\.). The coordinates, normals, and texture coordinates of a
+NURBS curve are generated, so you cannot bind explicit normals or
+texture coordinates to a NURBS curve.
+\p
+The approximation of the curve by line segments is affected by the
+current complexity value.
+}
+
+FIELD numControlPoints { Number of control points. }
+FIELD knotVector { The knot vector. }
+
+METHOD "" SoNurbsCurve() {
+Creates a NURBS curve node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Draws the curve based on the current coordinates, material, and so on.
+}
+
+ACTION SoRayPickAction {
+Picks the curve based on the current coordinates and transformation.
+}
+
+ACTION SoGetBoundingBoxAction {
+Computes the bounding box that encloses all control points of the
+curve with the current transformation applied to them. Sets the center
+to the average of the control points.
+}
+
+ACTION SoCallbackAction {
+If any line segment callbacks are registered with the action, they
+will be invoked for each successive segment approximating the curve.
+}
+
+ALSO {
+SoIndexedNurbsCurve, SoNurbsSurface
+}

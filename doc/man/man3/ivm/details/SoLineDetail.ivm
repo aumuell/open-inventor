@@ -1,0 +1,38 @@
+NAME SoLineDetail SoLineDtl "" {
+stores detail information about vertex-based shapes made of line segments
+}
+
+INCLUDE details/SoLineDetail.h
+
+DESC {
+This class contains detail information about a point on a line segment
+in a vertex-based shape made of line segments. The information
+includes the points at the ends of the segment, and the index of the
+segment within the shape.
+}
+
+METHOD "" SoLineDetail() {}
+METHOD "" virtual ~SoLineDetail() { Constructor and destructor. }
+
+METHOD getPt0 const SoPointDetail * getPoint0() const {}
+METHOD getPt1 const SoPointDetail * getPoint1() const {
+These return information about the two points forming the end vertices of
+the line segment, represented as an \cSoPointDetail\..
+}
+
+METHOD getLineInd int32_t getLineIndex() const {
+Returns the index of the line the segment is part of within a shape,
+such as the third line within an \cSoLineSet\..
+}
+
+METHOD getPartInd int32_t getPartIndex() const {
+Returns the index of the part containing the line segment within the
+shape. Usually, the part index is the same as the line segment index,
+such as the fifth segment overall within an \cSoLineSet\..
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ALSO { SoDetail, SoPickedPoint, SoPrimitiveVertex, SoVertexShape }

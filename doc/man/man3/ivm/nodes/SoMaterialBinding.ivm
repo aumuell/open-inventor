@@ -1,0 +1,61 @@
+NAME SoMaterialBinding SoMtlBind SO_MTL_BIND_ {
+node that specifies how multiple materials are bound to shapes
+}
+
+INCLUDE nodes/SoMaterialBinding.h
+
+DESC {
+This node specifies how the current materials are bound to shapes that
+follow in the scene graph. Each shape node may interpret bindings
+differently. The current material always has a base value, which is
+defined by the first value of all material fields. Since material
+fields may have multiple values, the binding determines how these
+values are distributed over a shape.
+\p
+The bindings for faces and vertices are meaningful only for shapes
+that are made from faces and vertices. Similarly, the indexed bindings
+are only used by the shapes that allow indexing.
+\p
+The bindings apply only to diffuse colors and transparency.  Other
+materials (emissive, specular, ambient, shininess) will have the first
+value applied to the
+entire shape, regardless of the material binding or the number provided.
+\p
+If the number of transparencies is less than the number of diffuse
+colors, only the first transparency value will be used, regardless of
+the material binding.
+If the number of diffuse colors in the state is less than the number required
+for the given binding, a debug warning will be printed and unpredictable colors
+will result.  
+}
+
+ENUM Binding {
+    OVERALL		"Whole object has same material",
+    PER_PART		"One material for each part of object",
+    PER_PART_INDEXED	"One material for each part, indexed",
+    PER_FACE		"One material for each face of object",
+    PER_FACE_INDEXED	"One material for each face, indexed",
+    PER_VERTEX		"One material for each vertex of object",
+    PER_VERTEX_INDEXED	"One material for each vertex, indexed"
+}
+
+FIELD value { Specifies how to bind materials to shapes. }
+
+METHOD "" SoMaterialBinding() {
+Creates a material binding node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction {
+Sets the current material binding type.
+}
+
+ALSO {
+SoMaterial,
+SoNormalBinding,
+SoShape,
+SoTextureCoordinateBinding
+}

@@ -1,0 +1,44 @@
+This directory contains source code for a library,
+libInventorWidget.a, containing various sample Xt components, 
+and other useful code.  It also contains
+
+The sample components in libInventorWidget.a:
+---------------------------------------------
+
+MySimpleMaterialEditor: 
+	    A simple material editor
+
+MyMaterialPalette: 
+	    A component which display palettes of materials using
+	    an array of spheres 
+
+MyTextureEditor: 
+	    A component which displays palettes of textures, as well
+	    as let you edit how the texture is applied to an object.
+
+MyColorEditor:
+MyColorPatch:
+MyColorSlider:
+MyColorWheel:
+MySlider:
+MyThumbWheel:
+	    Componenets that used be in the Inventor 1.0 library.
+
+Other useful code in libInventorWidget.a:
+-----------------------------------------
+MyDropSite:
+	    Code for implementing drag-and-drop of file icons from the
+	    desktop into an Inventor application.
+
+MyFileRead:
+	    Code for reading files into Inventor applications.  First
+	    it tries to read the file as an Inventor file.  If that fails
+	    it uses /usr/sbin/routeprint to convert the file to Inventor
+	    format using FTR rules.  See the man page on routeprint.
+
+The application, componentTest, in this directory, uses some of the 
+components in the library.  Run componentTest without any arguments
+to get a usage message.
+
+The SceneViewer program in ../../demos/SceneViewer uses some of the
+components as well as the drag-and-drop and file reading code.

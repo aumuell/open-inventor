@@ -1,0 +1,14 @@
+#define OneProgram
+
+#define ShipProgram
+
+PROGRAM = ivinfo
+
+C++FILES = ivinfo.c++
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../..
+
+OTHERSOURCE = README
+#endif
+

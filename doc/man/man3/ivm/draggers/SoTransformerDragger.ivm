@@ -1,0 +1,565 @@
+NAME SoTransformerDragger "" "" { box-like object you scale, rotate, and translate by dragging with the mouse }
+
+INCLUDE draggers/SoTransformerDragger.h
+
+DESC { \cSoTransformerDragger\. 
+is a dragger shaped like a box. It has small cubes at the corners and small 
+balls sticking out of the middle of each face.
+Click and drag any face of the box for 2D translation in the plane of that face.
+Drag any corner-cube to scale the box uniformly.
+Pick any of the mid-face balls to rotate the whole dragger about
+its center. 
+\p
+The \cSoTransformerDragger\. uses locate highlighting, so you can tell which part
+you are about to select before pressing the mouse button. By default, the 
+locate highlight color is gold.
+\p
+Click-drag any \eface\. to translate the dragger within the plane of that 
+face.  The face you selected will highlight in yellow. While you drag, 
+yellow \efeedback arrows\. display the
+two directions of motion.  Press the \k<Shift>\. key and the arrows turn 
+orange; you may now pick between these two directions to
+\econstrain\. the motion. The direction you move the cursor in will determine
+which direction is chosen.
+Press the \k<Control>\. key and the dragger will translate
+\eperpendicular\. to that plane.  The \vtranslation\. field is modified
+as the face is dragged.
+\p
+Click a \ecorner\. to scale the dragger.  The corner you selected will
+turn yellow and radial lines will indicate that you may move toward and away
+from the center of the box.  Drag radially and you will perform uniform scale.
+Press the \k<Control>\. key to scale about the opposite corner instead of the center
+of the box.
+\p
+To stretch the dragger non-uniformly, press \k<Shift>\. when you drag the
+corner cube.  Now you will see three orange arrows indicating that your 
+gesture will determine which direction to choose.  Move the cursor and
+the selected arrow will turn yellow while the others disappear. Now the 
+dragger will stretch only in the direction you selected.
+Pressing \k<Control>\. at the same time as \k<Shift>\. allows you to stretch the
+dragger while keeping the opposite side pinned in place.
+When you drag a corner, this modifies the \vscaleFactor\. 
+and possibly the \vtranslation\.  field of the dragger.
+\p
+Click one of the \espherical knobs\. to rotate the
+dragger.  When you first click, you'll see two orange lines and two purple 
+circles.  The purple circles indicate the two ways you can rotate. The
+orange lines are, once again, the two choices for your mouse gesture.
+Each line begins you moving around one of the two circles.
+Once you move the cursor far enough, the selected line turns yellow and you
+begin rotating the dragger about the selected circle.  The other circle
+and line will disappear. 
+\p
+To perform unconstrained ("free") rotation, just press \k<Shift>\. while you
+drag the spherical knob.  There will be no choices; instead all three 
+purple circles will be displayed, forming a ball that you can roll around.  
+Regardless of how you rotate, dragging the spherical knobs will modify the
+\vrotatation\. field of the dragger. Depending on how it is centered and
+what transforms precede it in the scene graph, rotation is likely to affect
+the \vtranslation\. and \vscaleFactor\. fields as well.
+\p
+Pressing the \k<Control>\. key will change the center of rotation in both the
+constrained and unconstrained (\k<Shift>\.) case.    By default, rotation 
+occurs about the center of the bounding box.  With \k<Control>\. depressed,
+rotation occurs about the middle of the opposite side of the bounding
+box.  The purple feedback will change to illustrate this; the feedback circles 
+increase in size and purple crosshairs sprout at the new rotational center.
+\p 
+Ordinarily, the knobs of the dragger are unsquished upon readin from file and 
+when the mouse button is released at the end of a drag. If you want this to
+happen more often, then you should call the method \munsquishKnobs\..
+\p
+As with all draggers, if you change the fields the dragger will
+move to match the new settings.
+\p
+\aRemember:\. This is \enot\. an \cSoTransform!\.. 
+If you want to move other objects with this dragger, you can either: 
+\p
+[a] Use an \cSoTransformerManip\., which is subclassed from \cSoTransform\.. 
+It creates one of
+these draggers and uses it as the interface to change its fields.
+(see the \cSoTransformerManip\. man page).  
+\p
+[b] Use field-to-field connections to connect the fields of this dragger to
+those of any \cSoTransformation\. node.
+\p
+You can change the parts in any instance of this dragger using
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+The default part geometries are defined as resources for this 
+\cSoTransformerDragger\. class.  They are detailed in the 
+Dragger Resources section of the online reference page for this class.
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/transformerDragger.iv\.
+into your own directory, editing the file, and then
+setting the environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+METHOD "" SoTransformerDragger() {
+Constructor.
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+METHOD "" void setColinearThreshold( int newVal ) {}
+METHOD "" int getColinearThreshold() 
+{
+    When picking a direction for constraining based on gesture, this
+    paramater determines how many pixels must separate two axes before they
+    are regarded as distinct.  If they are deemed "the same" then the shorter
+    of the two will be discarded.
+}
+
+METHOD "" void setLocateHighlighting( SbBool onOff ) {}
+METHOD "" SbBool isLocateHighlighting() 
+{
+    Controls whether or not locate highlighting is used.
+    Default is TRUE.
+}
+
+METHOD "" void unsquishKnobs() {
+Tells the dragger to unsquish its rotation and scale knobs during the next 
+traversal.
+Ordinarily, the knobs are only unsquished upon readin from file and when
+the mouse button is released at the end of a drag. If you want this to
+happen more often, then you should call this method.
+}
+
+FIELD rotation { Orientation of the dragger. }
+FIELD translation { Position of the dragger. }
+FIELD scaleFactor { Scale of the dragger. }
+FIELD minDiscRotDot { Specifies the minimum dot product between eyeDir and rotPlane normal before switching from record-player-type rotation to rolling-pin-type rotation.  This transition is made so that rotations don't get screwy when the circle is edge-on. Lies in range [0-1]. Best to leave this alone. }
+
+DRAGGER_RESOURCE {
+  transformerLocateMaterial,
+  none,
+  "Gold diffuse and emissive color",
+  "Locate highlight color used for all parts."
+}
+
+DRAGGER_RESOURCE {
+  transformerOverallStyle,
+  overallStyle,
+  "White Low-Complexity lines",
+  "If nothing else specified, this is style of the part."
+}
+
+DRAGGER_RESOURCE {
+  transformerTranslator1,
+  translator1,
+  "White Line-Style Square",
+  "Top face of transformer.  Picking this initiates translation in x-z plane."
+}
+DRAGGER_RESOURCE {
+  transformerTranslator2,
+  translator2,
+  "White Line-Style Square",
+  "Bottom face of transformer.  Picking this initiates translation in x-z plane."
+}
+DRAGGER_RESOURCE {
+  transformerTranslator3,
+  translator3,
+  "White Line-Style Square",
+  "Left face of transformer.  Picking this initiates translation in y-z plane."
+}
+DRAGGER_RESOURCE {
+  transformerTranslator4,
+  translator4,
+  "White Line-Style Square",
+  "Right face of transformer.  Picking this initiates translation in y-z plane."
+}
+DRAGGER_RESOURCE {
+  transformerTranslator5,
+  translator5,
+  "White Line-Style Square",
+  "Front face of transformer.  Picking this initiates translation in x-y plane."
+}
+DRAGGER_RESOURCE {
+  transformerTranslator6,
+  translator6,
+  "White Line-Style Square",
+  "Back face of transformer.  Picking this initiates translation in x-y plane."
+}
+
+DRAGGER_RESOURCE {
+  transformerTranslator1Active,
+  translator1Active,
+  "Yellow version of transformerTranslator1",
+  "Replaces transformerTranslator1 during dragging."
+}
+DRAGGER_RESOURCE {
+  transformerTranslator2Active,
+  translator2Active,
+  "Yellow version of transformerTranslator2",
+  "Replaces transformerTranslator2 during dragging."
+}
+DRAGGER_RESOURCE {
+  transformerTranslator3Active,
+  translator3Active,
+  "Yellow version of transformerTranslator3",
+  "Replaces transformerTranslator3 during dragging."
+}
+DRAGGER_RESOURCE {
+  transformerTranslator4Active,
+  translator4Active,
+  "Yellow version of transformerTranslator4",
+  "Replaces transformerTranslator4 during dragging."
+}
+DRAGGER_RESOURCE {
+  transformerTranslator5Active,
+  translator5Active,
+  "Yellow version of transformerTranslator5",
+  "Replaces transformerTranslator5 during dragging."
+}
+DRAGGER_RESOURCE {
+  transformerTranslator6Active,
+  translator6Active,
+  "Yellow version of transformerTranslator6",
+  "Replaces transformerTranslator6 during dragging."
+}
+
+DRAGGER_RESOURCE {
+  transformerRotator1,
+  rotator1,
+  "Green Sphere at end of a stick",
+  "Top knob of transformer.  Picking this initiates rotation."
+}
+DRAGGER_RESOURCE {
+  transformerRotator2,
+  rotator2,
+  "Green Sphere at end of a stick",
+  "Bottom knob of transformer.  Picking this initiates rotation."
+}
+DRAGGER_RESOURCE {
+  transformerRotator3,
+  rotator3,
+  "Green Sphere at end of a stick",
+  "Left knob of transformer.  Picking this initiates rotation."
+}
+DRAGGER_RESOURCE {
+  transformerRotator4,
+  rotator4,
+  "Green Sphere at end of a stick",
+  "Right knob of transformer.  Picking this initiates rotation."
+}
+DRAGGER_RESOURCE {
+  transformerRotator5,
+  rotator5,
+  "Green Sphere at end of a stick",
+  "Front knob of transformer.  Picking this initiates rotation."
+}
+DRAGGER_RESOURCE {
+  transformerRotator6,
+  rotator6,
+  "Green Sphere at end of a stick",
+  "Back knob of transformer.  Picking this initiates rotation."
+}
+
+DRAGGER_RESOURCE {
+  transformerRotator1Active,
+  rotator1Active,
+  "Yellow version of transformerRotator1",
+  "Replaces transformerRotator1 during dragging."
+}
+DRAGGER_RESOURCE {
+  transformerRotator2Active,
+  rotator2Active,
+  "Yellow version of transformerRotator2",
+  "Replaces transformerRotator2 during dragging."
+}
+DRAGGER_RESOURCE {
+  transformerRotator3Active,
+  rotator3Active,
+  "Yellow version of transformerRotator3",
+  "Replaces transformerRotator3 during dragging."
+}
+DRAGGER_RESOURCE {
+  transformerRotator4Active,
+  rotator4Active,
+  "Yellow version of transformerRotator4",
+  "Replaces transformerRotator4 during dragging."
+}
+DRAGGER_RESOURCE {
+  transformerRotator5Active,
+  rotator5Active,
+  "Yellow version of transformerRotator5",
+  "Replaces transformerRotator5 during dragging."
+}
+DRAGGER_RESOURCE {
+  transformerRotator6Active,
+  rotator6Active,
+  "Yellow version of transformerRotator6",
+  "Replaces transformerRotator6 during dragging."
+}
+
+
+DRAGGER_RESOURCE {
+  transformerScale1,
+  scale1,
+  "Small white cube in (+x+y+z) corner of transformer",
+  "Picking this initiates scaling."
+}
+DRAGGER_RESOURCE {
+  transformerScale2,
+  scale2,
+  "Small white cube in (+x+y-z) corner of transformer",
+  "Picking this initiates scaling."
+}
+DRAGGER_RESOURCE {
+  transformerScale3,
+  scale3,
+  "Small white cube in (+x-y+z) corner of transformer",
+  "Picking this initiates scaling."
+}
+DRAGGER_RESOURCE {
+  transformerScale4,
+  scale4,
+  "Small white cube in (+x-y-z) corner of transformer",
+  "Picking this initiates scaling."
+}
+DRAGGER_RESOURCE {
+  transformerScale5,
+  scale5,
+  "Small white cube in (-x+y+z) corner of transformer",
+  "Picking this initiates scaling."
+}
+DRAGGER_RESOURCE {
+  transformerScale6,
+  scale6,
+  "Small white cube in (-x+y-z) corner of transformer",
+  "Picking this initiates scaling."
+}
+DRAGGER_RESOURCE {
+  transformerScale7,
+  scale7,
+  "Small white cube in (-x-y+z) corner of transformer",
+  "Picking this initiates scaling."
+}
+
+DRAGGER_RESOURCE {
+  transformerScale8,
+  scale8,
+  "Small white cube in (-x-y-z) corner of transformer",
+  "Picking this initiates scaling."
+}
+
+DRAGGER_RESOURCE {
+  transformerScale1Active,
+  scale1Active,
+  "Yellow version of transformerScale1Active",
+  "Replaces transformerScale1Active during dragging."
+}
+DRAGGER_RESOURCE {
+  transformerScale2Active,
+  scale2Active,
+  "Yellow version of transformerScale2Active",
+  "Replaces transformerScale2Active during dragging."
+}
+DRAGGER_RESOURCE {
+  transformerScale3Active,
+  scale3Active,
+  "Yellow version of transformerScale3Active",
+  "Replaces transformerScale3Active during dragging."
+}
+DRAGGER_RESOURCE {
+  transformerScale4Active,
+  scale4Active,
+  "Yellow version of transformerScale4Active",
+  "Replaces transformerScale4Active during dragging."
+}
+DRAGGER_RESOURCE {
+  transformerScale5Active,
+  scale5Active,
+  "Yellow version of transformerScale5Active",
+  "Replaces transformerScale5Active during dragging."
+}
+DRAGGER_RESOURCE {
+  transformerScale6Active,
+  scale6Active,
+  "Yellow version of transformerScale6Active",
+  "Replaces transformerScale6Active during dragging."
+}
+DRAGGER_RESOURCE {
+  transformerScale7Active,
+  scale7Active,
+  "Yellow version of transformerScale7Active",
+  "Replaces transformerScale7Active during dragging."
+}
+DRAGGER_RESOURCE {
+  transformerScale8Active,
+  scale8Active,
+  "Yellow version of transformerScale8Active",
+  "Replaces transformerScale8Active during dragging."
+}
+
+
+DRAGGER_RESOURCE {
+  transformerXAxisFeedbackActive,
+  xAxisFeedbackActive,
+  "Yellow arrow along X axis",
+  "Displayed when translating if X direction is permitted."
+}
+DRAGGER_RESOURCE {
+  transformerXAxisFeedbackSelect,
+  xAxisFeedbackSelect,
+  "Orange arrow along X axis",
+  "Displayed when awaiting gesture to pick between X axis and another direction(s)."
+}
+
+
+DRAGGER_RESOURCE {
+  transformerYAxisFeedbackActive,
+  yAxisFeedbackActive,
+  "Yellow arrow along Y axis",
+  "Displayed when translating if Y direction is permitted."
+}
+DRAGGER_RESOURCE {
+  transformerYAxisFeedbackSelect,
+  yAxisFeedbackSelect,
+  "Orange arrow along Y axis",
+  "Displayed when awaiting gesture to pick between Y axis and another direction(s)."
+}
+
+
+DRAGGER_RESOURCE {
+  transformerZAxisFeedbackActive,
+  zAxisFeedbackActive,
+  "Yellow arrow along Z axis",
+  "Displayed when translating if Z direction is permitted."
+}
+DRAGGER_RESOURCE {
+  transformerZAxisFeedbackSelect,
+  zAxisFeedbackSelect,
+  "Orange arrow along Z axis",
+  "Displayed when awaiting gesture to pick between Z axis and another direction(s)."
+}
+
+DRAGGER_RESOURCE {
+  transformerXCrosshairFeedback,
+  xCrosshairFeedback,
+  "Yellow crossHair in y-z plane",
+  "Displayed when translating perpendicular to y-z plane."
+}
+DRAGGER_RESOURCE {
+  transformerYCrosshairFeedback,
+  yCrosshairFeedback,
+  "Yellow crossHair in x-z plane",
+  "Displayed when translating perpendicular to x-z plane."
+}
+DRAGGER_RESOURCE {
+  transformerZCrosshairFeedback,
+  zCrosshairFeedback,
+  "Yellow crossHair in x-y plane",
+  "Displayed when translating perpendicular to x-y plane."
+}
+
+
+DRAGGER_RESOURCE {
+  transformerXCircleFeedback,
+  xCircleFeedback,
+  "Purple Unit Circle about X axis",
+  "Displayed when rotating about X axis"
+}
+DRAGGER_RESOURCE {
+  transformerYCircleFeedback,
+  yCircleFeedback,
+  "Purple Unit Circle about Y axis",
+  "Displayed when rotating about Y axis"
+}
+DRAGGER_RESOURCE {
+  transformerZCircleFeedback,
+  zCircleFeedback,
+  "Purple Unit Circle about Z axis",
+  "Displayed when rotating about Z axis"
+}
+
+DRAGGER_RESOURCE {
+  transformerRadialFeedback,
+  radialFeedback,
+  "Purple Rays emanating from center through corners",
+  "Displayed when scaling uniformly about center."
+}
+DRAGGER_RESOURCE {
+  transformerTranslateBoxFeedback,
+  translateBoxFeedback,
+  "Purple Box with one bright yellow side",
+  "Displayed when translating. Automatically oriented so yellow side matches selected face."
+}
+
+DRAGGER_RESOURCE {
+  transformerPosXWallFeedback,
+  posXWallFeedback,
+  "Purple Plane along Right side of transformer",
+  "Displayed when <Control> scaling and keeping right side fixed."
+}
+DRAGGER_RESOURCE {
+  transformerPosYWallFeedback,
+  posYWallFeedback,
+  "Purple Plane along Top side of transformer",
+  "Displayed when <Control> scaling and keeping top side fixed."
+}
+DRAGGER_RESOURCE {
+  transformerPosZWallFeedback,
+  posZWallFeedback,
+  "Purple Plane along Front side of transformer",
+  "Displayed when <Control> scaling and keeping front side fixed."
+}
+DRAGGER_RESOURCE {
+  transformerNegXWallFeedback,
+  negXWallFeedback,
+  "Purple Plane along Left side of transformer",
+  "Displayed when <Control> scaling and keeping left side fixed."
+}
+DRAGGER_RESOURCE {
+  transformerNegYWallFeedback,
+  negYWallFeedback,
+  "Purple Plane along Bottom side of transformer",
+  "Displayed when <Control> scaling and keeping bottom side fixed."
+}
+DRAGGER_RESOURCE {
+  transformerNegZWallFeedback,
+  negZWallFeedback,
+  "Purple Plane along Back side of transformer",
+  "Displayed when <Control> scaling and keeping back side fixed."
+}
+
+
+ALSO {
+SoDragger,
+SoInteractionKit,
+SoLocateHighlight,
+SoCenterballDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}

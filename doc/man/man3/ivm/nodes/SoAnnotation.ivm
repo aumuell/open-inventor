@@ -1,0 +1,47 @@
+NAME SoAnnotation SoAnnot "" { Annotation group node }
+
+INCLUDE nodes/SoAnnotation.h
+
+DESC {
+This group node delays rendering its children until all other nodes
+have been traversed, turning off depth buffer comparisons first. The
+result is that the shapes under the annotation node are rendered on
+top of the rest of the scene. This node is derived from
+\cSoSeparator\., so it saves and restores traversal state for all
+actions.
+\p
+Note that if more than one annotation node is present in a graph, the
+order in which they are traversed determines the stacking order \(em
+later nodes are rendered on top of earlier ones. Also note that since
+depth buffer comparisons are disabled, complex 3D objects may not be
+rendered correctly when used under annotation nodes.
+\p
+Also note that the annotation node does nothing special when picking
+along a ray. That is, it does not modify the sorting order of
+intersected objects based on which ones are under annotation nodes. If
+your application uses annotation nodes and you want to ensure that
+objects under them are picked "in front of" other objects, you can
+tell the pick action that you want to pick all objects along the ray
+and then scan through the paths in the resulting picked point
+instances to see if any of them passes through an annotation
+node. Your program can then decide what to do in such a case.
+}
+
+METHOD "" SoAnnotation() {
+Creates an annotation node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Delays rendering its children until all other nodes have been
+traversed, turning off depth buffer comparisons first.
+}
+
+ACTION SoCallbackAction, SoGetBoundingBoxAction,
+       SoGetMatrixAction, SoRayPickAction, SoSearchAction {
+Same as \cSoSeparator\.
+}
+

@@ -1,0 +1,46 @@
+NAME SoPickedPointList SoPickPtList "" {
+maintains a list of pointers to \cSoPickedPoint\. instances
+}
+
+INCLUDE SoLists.h
+
+DESC  {
+This subclass of \cSbPList\. holds lists of pointers to
+instances of classes derived from \cSoPickedPoint\.. It is used primarily
+to return information from picking with the \cSoRayPickAction\. class.
+}
+
+METHOD "" SoPickedPointList() { Constructor. }
+
+METHOD createSize SoPickedPointList(int size) {
+Constructor that pre-allocates storage for \asize\. pointers.
+}
+
+METHOD " " SoPickedPointList(const SoPickedPointList &l) {
+Constructor that copies the contents of another list.
+}
+
+METHOD "" ~SoPickedPointList() { Destructor. }
+
+METHOD "" void append(SoPickedPoint *ptr) {
+Adds a pointer to the end of the list.
+}
+
+METHOD "" void insert(SoPickedPoint *ptr, int addBefore) {
+Inserts given pointer in list before pointer with given index.
+}
+
+METHOD "" void truncate(int start) {
+Removes all pointers after one with given index, inclusive, deleting all
+instances removed from the list.
+}
+
+METHOD "" SoPickedPoint * operator [\|](int i) const {
+Accesses an element of a list.
+}
+
+METHOD "" void set(int i, SoPickedPoint *pickedPoint) {
+Sets an element of a list.
+}
+
+ALSO { SoPickedPoint, SoRayPickAction }

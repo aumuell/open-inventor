@@ -1,0 +1,145 @@
+.\" All local SGI man macros go here, except for .Op, which is in it's own 
+.\" file, and .Ne, which has been added to stdmacro and mn.
+.\" $Revision: 1.1 $
+.
+.
+.\" Use this macro start a code example.  It will printed as an indented
+.\" (using .RS), unfilled section using font 7, which is assumed to be a 
+.\" constant-width font (Courier or similar).  It takes one optional 
+.\" argument: the number of lines in the example; it calles .Ne with it.
+.\" Added by CSK  6/12/89
+.de Ex
+.	Ne \\$1
+.	P
+.	RS 3
+.	ft 7
+.	ps -2
+.	nf
+.	nh
+.	if t .na
+.	if n .ta 8n +8n +8n +8n +8n +8n +8n +8n +8n +8n +8n +8n +8n
+..
+.
+.\" Use this macro to end a code example started with .Ex .  You will 
+.\" probably want to follow it with a .P, except if it's the last thing
+.\" before a .SH .
+.\" Added by CSK  6/12/89
+.de Ee
+.	if n .DT
+.	if t .ad
+.	hy 14
+.	fi
+.	ps
+.	ft 1
+.	sp 0.5
+.	RE
+..
+.\" Below here, many hacks for the OpenGL reference manual ...
+.deTH
+.Ne					\" 6/12/89 csk
+.PD
+.nrIN \\n()Mu
+.ift .ds ]E \\$1
+.ifn .ds ]E \\$1
+.if!\\$2 .as ]E (\^\\$2\^)
+.if\\n()s .ds ]D Silicon Graphics
+.if\\n()t .ds ]D Silicon Graphics
+.ifn .ds ]D Silicon Graphics
+.ds]P
+'\" Print Silicon Graphics instead of the 3rd and 4th arguments
+'\".if!\\$3 .ds ]P (\^\\$3\^)
+'\" .if!\\$4 .ds ]D \\$4
+.wh0 }H
+.wh-\\n(:mu }F
+.em}M
+.\" .if\\n(nl .bp 1 	.\" changed for the sake of sequntial page numbering
+.if\\n(nl .bp
+.nr)I \\n()Mu
+.nr)R 0
+.}E
+.DT
+.ifn \{.na
+.nh\}
+.ift \{.bd S 3 3 	\" let's try not hyphenating at all
+.nh \}
+.\" .hy14 \}
+..
+.de}H
+.ev1
+.}C
+.}E
+.ie\\n()s 'sp 2v
+.el'sp 3v
+.ps\\n()S-1
+.bd1 3
+.\"	Print command name on outside
+.\" 	XXX shouldn't do this on-line -- I should fix this, eh?
+.ie e \{.
+.tl \\s(11\\*(]E
+.\" .	ie \\*(]P .tl \\*(]E\\*(]D
+.\" .	el .tl \\*(]E\\*(]D \|\\*(]P
+.\}
+.el \{.
+.tl \\s(11\\*(]E
+.\" .	ie \\*(]P .tl \\*(]D\\*(]E
+.\" .	el .tl \\*(]P\\*(]E
+.\}
+.ft 1
+.bd1
+.\" don't want this line on on-line man pages - AE 5/34/94
+.if t \{\
+.\" underrule stuff
+.in -\\n()Mu
+.sp -0.5v
+\l'\\n(.lu'
+.in 0 \}
+.\" end rule stuff
+.ps\\n()S
+.ie\\n()s 'sp 1.5v
+.el'sp 3v
+.ev
+.ns
+..
+.de}F
+.ev1
+.}E
+.if\\n()s 'sp |\\n(.pu-1v-1p
+.if\\n()t 'sp |\\n(.pu-3v
+.ifn 'sp |\\n(.pu-4v
+.ifn .tl Page %\\*(Re\\*(]T
+.nr z
+.if\\n()s \{ .ie \\nz .tl \\nz\-%
+.\".el \{ .if o .tl \\f6\\s9\\*(Dt- % -\\*(Vn\\s0\\fP  
+.\".if e .tl \\f6\\s9\\*(Dt- % -\\*(Vn\\s0\\fP \} \}
+.\"  chg footer for Cypress man pages (SFChesson)
+.el \{ .if o .tl \\s9\\f2\\h'6.5P'\\f8\\s0%\f1
+.if e .tl \f8%\\h'6.5P'\\s9\\f2Open Inventor C++ Reference Pages\\f1\\s0 \} \}
+.if \\nC==5 \{ .pl 11i
+.lt 6.5i
+.ch }F 11i	    \" move footer trap out of the way
+'sp |10.5i
+.tl [\s-2file last modified: \\*(Dmchecksum: \\*(Xsprinted: \\*(Dp\s+2]
+.lt
+.ch }F -\\n(:mu	    \" move it back
+.pl \}
+'bp
+.ev
+..
+.ie \ns=2 \{.\"	-rs2 (for now ...)
+.	\" Put stone fonts in position
+.	if t .fp 1 st
+.	if t .fp 2 sT
+.	if t .fp 3 St
+.	fp 4 sN
+.	fp 5 sn
+.	fp 6 Sn
+.	fp 8 HB			\" for page number in footer, we hope.
+.\" 	nr )L 8.1875i		\" gives a proper 9" page somehow.
+.	nr )L 8.50i		\" fudged for OpenGL
+.	nr LL 6i
+.	nr )O .75i
+.	nr )S 10		.\" point size
+.	nr )V 12
+.	nr HF 6			\" StoneSans headers
+.	nr RR 1
+.\}

@@ -1,0 +1,99 @@
+NAME SoCone "" SO_CONE_ { cone shape node }
+
+INCLUDE nodes/SoCone.h
+
+DESC {
+
+This node represents a simple cone whose central axis is aligned with
+the y-axis. By default, the cone is centered at (0,0,0) and has a size
+of -1 to +1 in all three directions. The cone has a radius of 1 at the
+bottom and a height of 2, with its apex at 1. The cone has two parts:
+the sides and the bottom.
+\p
+The cone is transformed by the current cumulative transformation and
+is drawn with the current lighting model, drawing style, material, and
+geometric complexity.
+\p
+If the current material binding is \kPER_PART\. or
+\kPER_PART_INDEXED\., the first current material is used for the sides
+of the cone, and the second is used for the bottom. Otherwise, the
+first material is used for the entire cone.
+\p
+When a texture is applied to a cone, it is applied differently to the
+sides and bottom. On the sides, the texture wraps counterclockwise
+(from above) starting at the back of the cone. The texture has a
+vertical seam at the back, intersecting the yz-plane. For the bottom,
+a circle is cut out of the texture square and applied to the cone's
+base circle. The texture appears right side up when the top of the
+cone is tilted away from the camera.
+}
+
+ENUM Part {
+    SIDES	"The conical part",
+    BOTTOM	"The bottom circular face",
+    ALL		"All parts"
+}
+
+FIELD parts { Visible parts of cone. }
+
+FIELD bottomRadius {}
+FIELD height {
+These define the cone's height and the radius of the base circle;
+values must be greater than 0.0.
+}
+
+METHOD "" SoCone() {
+Creates a cone node with default settings.
+}
+
+BEGIN C++
+METHOD "" void addPart(SoCone::Part part) {}
+METHOD "" void removePart(SoCone::Part part) {
+These are convenience functions that make it easy to turn on or off a
+part of the cone.
+}
+METHOD "" SbBool hasPart(SoCone::Part part) const {
+This convenience function returns whether a given part is on or off.
+}
+END
+
+BEGIN C
+METHOD "" void addPart(SoConePart part) {}
+METHOD "" void removePart(SoConePart part) {
+These are convenience functions that make it easy to turn on or off a
+part of the cone.
+}
+METHOD "" SbBool hasPart(SoConePart part) const {
+This convenience function returns whether a given part is on or off.
+}
+END
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Draws cone based on the current coordinates, materials,
+drawing style, and so on.
+}
+
+ACTION SoRayPickAction {
+Intersects the ray with the cone. The part of the cone that was picked
+is available from the \cSoConeDetail\..
+}
+
+ACTION SoGetBoundingBoxAction {
+Computes the bounding box that encloses the cone.
+}
+
+ACTION SoCallbackAction {
+If any triangle callbacks are registered with the action, they will
+be invoked for each successive triangle that approximates the cone.
+}
+
+ALSO {
+SoConeDetail,
+SoCube,
+SoCylinder,
+SoSphere
+}

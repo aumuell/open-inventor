@@ -1,0 +1,27 @@
+The problems described below occur on Linux platforms we tested:
+
+1. Applications which depend on overlay planes will not work because the
+   current OpenGL drivers on the SGI Visual Workstations 230, 330 and 550
+   (http://www.sgi.com/workstations) do not support this feature.
+
+2. When viewing certain models using ivview or SceneViewer, switching the
+   draw style to wireframe will cause the lines to be rendered in a different
+   color than what is expected.
+
+3. Models which contain colors specified in an array in a SoBaseColor node may
+   be rendered with the wrong colors. data/models/vehicles/x29.iv is one such
+   model which demonstrates the problem.
+
+4. Font capabilities used by SoText[23] are currently provided by libFL.a. On
+   IRIX, libFL.so is provided in the eoe.sw.gfx and eoe.sw64.gfx subsystems. No
+   other platforms are supported.
+
+5. In the SoXt viewers, pressing the 'Escape' key will not toggle between 
+   viewing and selection modes.
+
+6. apps/samples/widgets/componentTest will crash with a segmentation fault when
+   invoked with the 'T' option.
+
+7. Arrowheads drawn as cones in a SoTransformerManip may appear squished.
+
+8. Transparency does not work.

@@ -1,0 +1,65 @@
+NAME SoComplexity SoCmplx SO_CMPLX_ { shape complexity node }
+
+INCLUDE nodes/SoComplexity.h
+
+DESC {
+This node sets the current shape complexity value. This is a heuristic
+value which provides a hint at what geometric complexity to render
+shape nodes.  Values range from 0 to 1, where 0 means minimum
+complexity and 1 means maximum complexity. Each shape node interprets
+complexity in its own way.
+\p
+Shape complexity always affects rendering and primitive generation for
+the \cSoCallbackAction\.. For some shapes, it also affects picking.
+\p
+There are three ways to interpret shape complexity, depending on the
+\vtype\. field. \kBOUNDING_BOX\. complexity ignores the \vvalue\.
+field and renders all shapes as bounding boxes, using the current
+material, drawing style, etc. The other two types use the \vvalue\.
+field to determine the tessellation of shapes into polygons.
+\kOBJECT_SPACE\. complexity uses \vvalue\. directly to determine the
+tessellation.  \kSCREEN_SPACE\. complexity depends on \vvalue\. and the
+projected size of the shape on the screen; a \vvalue\. of 0 produces
+the minimum tessellation for a shape, and a \vvalue\. of 1 produces a
+tessellation that is fine enough that each edge of a polygon is about 1
+or two pixels in length. Since the projected size depends on the
+camera position, objects may be tessellated differently every frame if
+the camera is moving; note that this may have adverse effects on
+render caching in \cSoSeparator\. nodes.
+\p
+The \cSoComplexity\. node also sets a hint for the quality of textures
+applied to shapes, based on the value of the \vtextureQuality\. field.
+The texture quality will take effect at the next Texture2 node;
+Texture2 nodes previously traversed will not be affected.
+}
+
+ENUM Type {
+    SCREEN_SPACE "Set complexity based on screen size",
+    OBJECT_SPACE "Set complexity independent of screen size",
+    BOUNDING_BOX "Draw all shapes as bounding boxes"
+}
+
+FIELD type { How shape complexity is interpreted. }
+
+FIELD value { Complexity value. }
+
+FIELD textureQuality {
+Hint about texture quality. A value of 0 indicates that the fastest
+texturing should be used, while a value of 1 indicates that the best
+quality texturing should be used.
+}
+
+METHOD "" SoComplexity() {
+Creates a complexity node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoRayPickAction {
+Sets the current complexity in the state.
+}
+
+ALSO { SoShape, SoShapeHints, SoTexture2 }

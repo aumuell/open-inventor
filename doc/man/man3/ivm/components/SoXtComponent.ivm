@@ -1,0 +1,170 @@
+NAME SoXtComponent SoXtComp "" {
+abstract base class for all Inventor Xt components
+}
+
+INCLUDE Xt/SoXtComponent.h
+
+TYPEDEF void SoXtComponentCB "(void *userData, SoXtComponent *comp)"
+
+DESC {
+Abstract base class from which all Inventor Xt components are derived.
+This class provides a basic \+C++\.\-C\. protocol for building and
+displaying Motif components. Components are used to encapsulate some
+function or task into a reusable package in the form of a Motif widget
+that can be used in any Inventor Xt program. See the Example section on
+how to build and use \cSoXtComponents\..
+}
+
+METHOD "" virtual void 	show() {}
+METHOD "" virtual void 	hide()
+{
+This shows and hides the component. If this is a topLevelShell 
+component, then \mshow()\. will Realize and Map the window, otherwise it
+will simply Manage the widget.
+\mhide()\. calls the appropriate unmap or unmanage routines.
+\p
+In addition, \mshow()\. will also pop the component window to the top
+and de-iconify if necessary, to make sure the component is visible
+by the user.
+}
+
+METHOD "" SbBool   	isVisible()
+{
+Returns TRUE if this component is mapped onto the screen. For
+a component to be visible, it's widget and the shell containing
+this widget must be mapped (which is FALSE when the component
+is iconified).
+\p\+Subclasses should call this routine before redrawing anything
+and in any sensor trigger methods. Calling this will check the 
+current visibility (which is really cheap) and invoke the
+visibility changed callbacks if the state changes (see
+\maddVisibilityChangeCallback()\.).\.
+}
+
+METHOD "" Widget		getWidget() const
+{
+This returns the base widget for this component.
+If the component created its own shell, this returns the 
+topmost widget beneath the shell.
+Call \mgetShellWidget()\. to obtain the shell.
+}
+
+METHOD "" SbBool		isTopLevelShell() const {}
+METHOD "" Widget		getShellWidget() const
+{
+Returns TRUE if this component is a top level shell component (has its
+own window). Subclasses may use this to decide if they are allowed to
+resize themselves.
+Also method to return the shell widget (NULL if the shell hasn't been
+created by this component).
+}
+
+METHOD "" Widget		getParentWidget() const
+{
+Return the parent widget, be it a shell or not
+}
+
+METHOD "" void		setSize(const SbVec2s &size) {}
+METHOD "" SbVec2s		getSize()
+{
+Convenience routines on the widget \(em setSize calls XtSetValue
+}
+
+METHOD "" Display  	*getDisplay()
+{
+Returns the X display associated with this components widget.
+}
+
+METHOD "" void    	    	setTitle(const char *newTitle) {}
+METHOD "" const char *    	getTitle() const {}
+METHOD "" void    	    	setIconTitle(const char *newIconTitle) {}
+METHOD "" const char *    	getIconTitle() const
+{
+The window and icon title can be set for topLevelShell components or
+components which are directly under a shell widget (i.e. components which
+have their own window).
+}
+
+METHOD setWinCloseCB void setWindowCloseCallback(SoXtComponentCB *func, void *data = NULL)
+{
+Sets which callback to call when the user closes this component
+(double click in the upper left corner) \(em by default \mhide()\. is 
+called on this component, unless a callback is set to something
+other than NULL. A pointer to this class will be passed as the
+callback data.
+\p
+Note: this callback is supplied because the user may wish to
+delete this component when it is closed.
+}
+
+METHOD getComp static SoXtComponent	*getComponent(Widget w)
+{
+This returns the \cSoXtComponent\. for this widget.
+If the widget is not an Inventor component, then NULL is returned.
+}
+
+METHOD "" const char *	getWidgetName() const {}
+METHOD "" const char *	getClassName() const 
+{
+Routines which return the widget name and the class name. The widget name
+is passed to the build method. The class name is predefined by each
+component. These names are used when retrieving X resource values for the
+component.
+}
+
+MISC EXAMPLE {
+This example shows how an Inventor component can be built inside a
+program using the Xt widget set. The example uses the \cSoXtExaminerViewer\.
+widget to view some simple geometry.
+\b\k\+
+#include <Inventor/Xt/SoXt.h>         
+#include <Inventor/nodes/SoCone.h>
+#include <Inventor/Xt/viewers/SoXtExaminerViewer.h>  
+
+void main(int, char **argv)
+\{
+    // Initialize Inventor and Xt, which must be done
+    // before any Inventor calls are made.
+    Widget myWindow = SoXt::init(argv[0]);
+    
+    // create the viewer in the toplevel window
+    // and set some scene to display
+    SoXtExaminerViewer *myViewer = new SoXtExaminerViewer(myWindow);
+    myViewer->setSceneGraph( new SoCone() );
+    
+    // manage and map window on screen
+    myViewer->show();
+    SoXt::show(myWindow); // calls XtRealizeWidget()
+    
+    // Loop forever
+    SoXt::mainLoop();
+\}
+\.\-#include <Inventor_c/Xt/SoXt.h>         
+#include <Inventor_c/nodes/SoCone.h>
+#include <Inventor_c/Xt/viewers/SoXtExaminerViewer.h>  
+
+void main(int argc, char **argv)
+\{
+    Widget          myWindow;
+    SoXtExamVwr	    *myViewer;
+    
+    /* Initialize Inventor and Xt, which must be done */
+    /* before any Inventor calls are made. */
+    myWindow = SoXtInit(argv[0], "Inventor");
+    
+    /* create the viewer in the toplevel window */
+    /* and set some scene to display */
+    myViewer = SoXtExamVwrCreateStd(myWindow, NULL);
+    SoXtExamVwrSetScene(myViewer, (SoNode *) SoConeCreate();
+    
+    /* manage and map window on screen */
+    SoXtExamVwrShow(myViewer);
+    SoXtShow(myWindow); /* calls XtRealizeWidget() */
+    
+    /* Loop forever */
+    SoXtMainLoop();
+\}
+\.\.\.
+}
+
+ALSO { SoXt, SoXtRenderArea, SoXtViewer, SoXtMaterialEditor }

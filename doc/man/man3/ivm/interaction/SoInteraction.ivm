@@ -1,0 +1,43 @@
+NAME SoInteraction "" "" { initializes Inventor interaction classes }
+
+INCLUDE SoInteraction.h
+
+DESC { \cSoInteraction\. consists of one static function which
+initializes all Inventor interaction classes, as well as nodekits and
+the database.
+Note that 
+\+\mSoInteraction::init()\.\.
+\-\mSoInteractionInit()\.\.
+is already called by 
+\+\mSoXt::init()\..\.
+\-\mSoXtInit()\..\.
+}
+
+METHOD "" static void init() {
+This calls 
+\+\mSoDB::init()\. and \mSoNodeKit::init()\.,\.
+\-\mSoDBInit()\. and \mSoNodeKitInit()\.,\.
+calls \minitClasses()\. on \cSoDragger\.,
+and calls \minitClass()\. on the following classes:
+\cSoAntiSquish\.,
+\cSoBoxHighlightRenderAction\.,
+\cSoCenterballManip\.,
+\cSoDirectionalLightManip\.,
+\cSoHandleBoxManip\.,
+\cSoInteractionKit\.,
+\cSoJackManip\.,
+\cSoLineHighlightRenderAction\.,
+\cSoPointLightManip\.,
+\cSoSelection\.,
+\cSoSpotLightManip\.,
+\cSoSurroundScale\.,
+\cSoTabBoxManip\.,
+\cSoTrackballManip\.,
+\cSoTransformBoxManip\., and
+\cSoTransformManip\..
+}
+
+ALSO { SoDB, SoNodeKit, SoXt }
+
+
+

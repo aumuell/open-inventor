@@ -1,0 +1,28 @@
+NAME SoTranslation SoXlate "" { node representing a 3D translation }
+
+INCLUDE nodes/SoTranslation.h
+
+DESC {
+This node defines a translation by a 3D vector.
+}
+
+FIELD translation { Translation vector. }
+
+METHOD "" SoTranslation() {
+Creates a translation node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoRayPickAction {
+Accumulates translation into the current transformation.
+}
+
+ACTION SoGetMatrixAction {
+Returns the matrix corresponding to the translation.
+}
+
+ALSO { SoTransform }

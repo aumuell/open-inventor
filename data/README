@@ -1,0 +1,6 @@
+This directory contains Inventor sample data.
+This data is provided to customers.
+Each data type is organized into functional directories 
+(e.g. models/furniture).
+
+models	  - Directory containing sample 3d models and scenes

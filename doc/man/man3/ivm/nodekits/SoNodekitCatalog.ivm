@@ -1,0 +1,98 @@
+NAME SoNodekitCatalog SoNkitCat "" { nodekit catalog class }
+
+
+INCLUDE nodekits/SoNodekitCatalog.h
+
+
+DESC {
+This class describes the parts and structure of a nodekit.  Each class of
+nodekit has one \cSoNodekitCatalog\. (a static variable for the class).
+Internally, the catalog contains one entry for each "part" in the
+nodekit's structure. Users can query the catalog for information about
+each entry in the catalog. This information can be obtained either by
+part name (an \cSbName\. unique for the part within the catalog) or by part
+number (an index into an array of parts).
+\p
+Note that, although the catalog for a nodekit class may contain many
+entries, each instance of that class is not initially created with all of
+these parts intact. Rather, each instance of the class has its own
+parts list which keeps track of which parts the user has created. The
+nodekit uses the catalog as a guide in creating new nodes as its
+descendants; the standard \maddChild()\., \mremoveChild()\. and other 
+\cSoGroup\.  methods are protected, so that users must create descendants 
+indirectly by asking the nodekit to get and/or set the different "parts"
+in the catalog.
+\p
+The first entry in any \cSoNodekitCatalog\. corresponds to the nodekit
+itself. Its \apartName\. is "this" and its \apartNumber\. is 0. All other 
+parts in the catalog are described relative to "this."
+}
+
+
+METHOD "" static void initClass() { Initializes this object. }
+
+
+METHOD "" int getNumEntries() const
+	{ Returns number of entries in the catalog. }
+
+METHOD getPartNum int getPartNumber(const SbName &theName) const {
+Given the name of a part, returns its part number in the catalog. }
+
+METHOD "" const SbName &getName(int thePartNumber) const {
+Given the part number of a part, returns its name in the catalog. }
+
+METHOD "" SoType getType(int thePartNumber) const {}
+METHOD getTypeByName SoType getType(const SbName &theName) const {}
+METHOD getDfltType SoType getDefaultType(int thePartNumber) const {}
+METHOD getDfltTypeByName SoType getDefaultType(const SbName &theName) const {}
+METHOD "" SbBool isNullByDefault(int thePartNumber) const {}
+METHOD isNullByDefaultByName SbBool isNullByDefault(const SbName &theName) const {}
+METHOD "" SbBool isLeaf(int thePartNumber) const {}
+METHOD isLeafByName SbBool isLeaf(const SbName &theName) const {}
+METHOD getParName const SbName &getParentName(int thePartNumber) const {}
+METHOD getParNameByName
+	const SbName &getParentName(const SbName &theName) const {}
+METHOD getParPartNum int getParentPartNumber(int thePartNumber) const {}
+METHOD getParPartNumByName
+	int getParentPartNumber(const SbName &theName) const {}
+METHOD getRtSibName
+	const SbName &getRightSiblingName(int thePartNumber) const {}
+METHOD getRtSibNameByName
+	const SbName &getRightSiblingName(const SbName &theName) const {}
+METHOD getRtSibPartNum
+	int getRightSiblingPartNumber(int thePartNumber) const {}
+METHOD getRtSibPartNumByName
+	int getRightSiblingPartNumber(const SbName &theName) const {}
+METHOD "" SbBool isList(int    thePartNumber) const {}
+METHOD isListByName SbBool isList(const SbName &theName) const {}
+METHOD getLstCntnrType SoType getListContainerType(int thePartNumber) const {}
+METHOD getLstCntnrTypeByName
+	SoType getListContainerType(const SbName &theName) const {}
+METHOD "" const SoTypeList &getListItemTypes(int thePartNumber) const {}
+METHOD getListItemTypesByName
+	const SoTypeList &getListItemTypes(const SbName &theName) const {}
+METHOD "" SbBool isPublic(int thePartNumber) const {}
+METHOD isPubByName SbBool isPublic(const SbName &theName) const {
+A full set of methods for finding out all parameters in the catalog, given
+either the part name or the part number. 
+}
+
+DEFINE { SO_CATALOG_NAME_NOT_FOUND -1 }
+DEFINE { SO_CATALOG_THIS_PART_NUM   0 }
+
+
+ALSO {
+SoAppearanceKit,
+SoBaseKit,
+SoCameraKit,
+SoLightKit,
+SoNodeKit,
+SoNodeKitDetail,
+SoNodeKitListPart,
+SoNodeKitPath,
+SoSceneKit,
+SoSeparatorKit,
+SoShapeKit,
+SoWrapperKit }
+
+

@@ -1,0 +1,164 @@
+NAME SoShapeKit SoShapeKit "" { shape nodekit class }
+
+INCLUDE nodekits/SoShapeKit.h
+
+DESC {
+A nodekit that is used for creating a shape (i.e. geometry).
+\cSoShapeKit\. is derived from \cSoSeparatorKit\. and \cSoBaseKit\.,
+and thus inherits all the parts defined by these classes.
+\p
+Furthermore, \cSoShapeKit\. adds numerous parts that can be used
+to define a variety of \eshape\. objects, a \elocalTransform\. part,
+and of course a \eshape\. part.
+\p
+All of the property nodes requires to define any of the Inventor shapes
+are included as parts in this class.
+Not all of these parts (nodes) are needed for any
+one type of shape. For example, if you set the \eshape\. part to be
+an \cSoSphere\. node, then it is not necessary to create a
+\eprofileCoordinate3\. part since it will be ignored in drawing the
+sphere.  (And the unneeded parts will not be created, so there is 
+no performance penalty for using this class of node.
+\p
+This class contains two private parts. They are both \cSoSeparator\.
+nodes.  One of them sits just below the nodekit itself, and serves to
+contain all properties within this nodekit from affecting nodes that
+come after this nodekit. The second separator sits above the \eshape\.
+part, and serves to cache the shape even when the \etransform\.,
+\elocalTransform\., or \eappearance\. parts are changing.
+}
+PART shapeSeparator
+	{ This is a private part. The parent node of the actual shape part.
+	  It is a \cSoSeparator\. and is \kNULL\. by default, but
+	  is created automatically if necessary. }
+
+
+
+METHOD "" SoShapeKit()  { Constructor. }
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for the class \cSoShapeKit\.. }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+
+PART materialBinding  
+	{ An \cSoMaterialBinding\. node that can be used to set the
+	material binding for the shape. This part is \kNULL\. by default,
+	but is created automatically if necessary. }
+
+PART normalBinding
+	{ An \cSoNormalBinding\. node that can be used to set the
+	normal binding for the shape. This part is \kNULL\. by default,
+	but is created automatically if necessary. }
+
+PART textureCoordinateBinding
+	{ An \cSoTextureCoordinateBinding\. node that can be used to set the
+	texture coordinate binding for the shape. This part is \kNULL\.
+	by default, but is created automatically if necessary. }
+
+PART shapeHints
+	{ An \cSoShapeHints\. node that can be used to set the
+	shape hints for the shape. This part is \kNULL\.
+	by default, but is created automatically if necessary. }
+
+PART coordinate3
+	{ An \cSoCoordinate3\. node that can be used to set the
+	3D coordinates for a vertex-based shape.
+	This part is \kNULL\. by default, but is created automatically
+	if necessary. }
+
+PART coordinate4
+	{ An \cSoCoordinate4\. node that can be used to set the
+	4D coordinates for a NURBS shapes.
+	This part is \kNULL\. by default, but is created automatically
+	if necessary. }
+
+PART normal
+	{ An \cSoNormal\. node that can be used to set the
+	normal vectors for a vertex-based shape.
+	This part is \kNULL\. by default, but is created automatically
+	if necessary. }
+
+PART textureCoordinate2
+	{ An \cSoTextureCoordinate2\. node that can be used to set the
+	texture coordinates for a vertex-based shape.
+	This part is \kNULL\. by default, but is created automatically
+	if necessary. }
+
+PART textureCoordinateFunction
+	{ An \cSoTextureCoordinateFunction\. node that can be used to set the
+	a procedural texture coordinates function
+	for a vertex-based shape.
+	This part is \kNULL\. by default, but is created automatically
+	if necessary. }
+
+PART profileCoordinate2
+	{ An \cSoProfileCoordinate2\. node that can be used to set the
+	2D profile coordinates for a shape that uses them,
+	(e.g., \cSoText3\.).
+	This part is \kNULL\. by default, but is created automatically
+	if necessary. }
+
+PART profileCoordinate3
+	{ An \cSoProfileCoordinate3\. node that can be used to set the
+	3D profile coordinates for a shape that uses them,
+	(e.g., \cSoSoNURBSCurve\.).
+	This part is \kNULL\. by default, but is created automatically
+	if necessary. }
+
+PART profileList
+	{ An \cSoProfileList\. node that can be used to set the
+	profile curve for a shape that uses them, (e.g., \cSoNurbsCurve\.).
+	This part is \kNULL\. by default, but is created automatically
+	if necessary. }
+
+PART localTransform
+	{ An \cSoTransform\. node that can be used to set a
+	local tranformation on the shape.
+	This part is \kNULL\. by default, but is created automatically
+	if necessary. }
+
+PART shape
+	{ This is the part which specifies the actual shape node.
+	  This can be any node derived from \cSoShape\.
+	  By default, an \cSoCube\. is created.
+	  It is important to set all of the appropriate parts
+	  within this nodekit to suit the type of \cSoShape\.
+	  that is used.  For example, if the \eshape\. part is
+	  set to an \cSoFaceSet\., then the \ecoordinate3\. shape
+	  and probably the \enormal\. shape would be set as well.
+	  See the reference page of the shape used for details on which
+	  other nodes are necessary.
+	}
+
+
+ALSO {
+SoAppearanceKit,
+SoBaseKit,
+SoCameraKit,
+SoLightKit,
+SoNodeKit,
+SoNodeKitDetail,
+SoNodeKitListPart,
+SoNodeKitPath,
+SoNodekitCatalog,
+SoSceneKit,
+SoSeparatorKit,
+SoWrapperKit,
+SoCone,
+SoCube,
+SoCylinder,
+SoIndexedNurbsCurve,
+SoIndexedNurbsSurface,
+SoNurbsCurve,
+SoNurbsSurface,
+SoShapeHints,
+SoSphere,
+SoText2,
+SoText3,
+SoVertexShape
+}

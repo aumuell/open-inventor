@@ -1,0 +1,877 @@
+#Inventor V2.0 ascii
+DEF transformerOverallStyle Group {
+    DrawStyle { style LINES lineWidth 1 }
+    LightModel { model PHONG }
+    Texture2 {}
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+    Normal {}
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    Complexity { value .01  textureQuality  0 }
+}
+
+DEF SO_TRANSFORMER_DRAGGER_TRANSLATOR_STYLE Group {
+    DrawStyle { style LINES lineWidth 2 }
+}
+DEF SO_TRANSFORMER_DRAGGER_CUBE_COORDS Coordinate3 { 
+    point [ -1.001 1.001 1.001, 1.001 1.001 1.001, 1.001 1.001 -1.001, -1.001 1.001 -1.001,
+			  -1.001 -1.001 1.001, 1.001 -1.001 1.001, 1.001 -1.001 -1.001, -1.001 -1.001 -1.001 ] 
+}
+DEF transformerTranslator1 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_CUBE_COORDS
+    DrawStyle { style INVISIBLE }
+    IndexedFaceSet { coordIndex [ 0, 1, 2, 3 ] }
+    USE SO_TRANSFORMER_DRAGGER_TRANSLATOR_STYLE
+#    IndexedLineSet { coordIndex [ 0, 1, 2, 3, 0 ] }
+    IndexedLineSet {     
+	coordIndex [ 0, 1, -1, 1, 2, -1, 2, 3, -1, 3, 0, -1, ] 
+    }
+}
+DEF transformerTranslator2 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_CUBE_COORDS
+    DrawStyle { style INVISIBLE }
+    IndexedFaceSet { coordIndex [ 7, 6, 5, 4 ] }
+    USE SO_TRANSFORMER_DRAGGER_TRANSLATOR_STYLE
+#    IndexedLineSet { coordIndex [ 7, 6, 5, 4, 7 ] }
+    IndexedLineSet {     
+	coordIndex [ 4, 5, -1, 5, 6, -1, 6, 7, -1, 7, 4, -1, ] 
+    }
+}
+DEF transformerTranslator3 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_CUBE_COORDS
+    DrawStyle { style INVISIBLE }
+    IndexedFaceSet { coordIndex [ 0, 3, 7, 4 ] }
+    USE SO_TRANSFORMER_DRAGGER_TRANSLATOR_STYLE
+#    IndexedLineSet { coordIndex [ 0, 3, 7, 4, 0 ] }
+    IndexedLineSet {     
+	coordIndex [ 3, 0, -1, 0, 4, -1, 3, 7, -1, 7, 4, -1, ] 
+    }
+}
+DEF transformerTranslator4 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_CUBE_COORDS
+    DrawStyle { style INVISIBLE }
+    IndexedFaceSet { coordIndex [ 5, 6, 2, 1 ] }
+    USE SO_TRANSFORMER_DRAGGER_TRANSLATOR_STYLE
+#    IndexedLineSet { coordIndex [ 5, 6, 2, 1, 5 ] }
+    IndexedLineSet {     
+	coordIndex [ 1, 2, -1, 1, 5, -1, 2, 6, -1, 5, 6, -1, ] 
+    }
+}
+DEF transformerTranslator5 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_CUBE_COORDS
+    DrawStyle { style INVISIBLE }
+    IndexedFaceSet { coordIndex [ 0, 4, 5, 1 ] }
+    USE SO_TRANSFORMER_DRAGGER_TRANSLATOR_STYLE
+#    IndexedLineSet { coordIndex [ 0, 4, 5, 1, 0 ] }
+    IndexedLineSet {     
+	coordIndex [ 0, 1, -1, 0, 4, -1, 1, 5, -1, 4, 5, -1, ] 
+    }
+}
+DEF transformerTranslator6 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_CUBE_COORDS
+    DrawStyle { style INVISIBLE }
+    IndexedFaceSet { coordIndex [ 3, 2, 6, 7 ] }
+    USE SO_TRANSFORMER_DRAGGER_TRANSLATOR_STYLE
+#    IndexedLineSet { coordIndex [ 3, 2, 6, 7, 3 ] }
+    IndexedLineSet {     
+	coordIndex [ 2, 3, -1, 2, 6, -1, 3, 7, -1, 6, 7, -1, ] 
+    }
+}
+DEF SO_TRANSFORMER_DRAGGER_TRANSLATOR_STYLE_ACTIVE Group {
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    DrawStyle { style LINES lineWidth 3 }
+    ShapeHints {
+	vertexOrdering COUNTERCLOCKWISE
+    }
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+}
+DEF transformerTranslator1Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_TRANSLATOR_STYLE_ACTIVE
+    Normal { vector [ 0 1 0 ] }
+    Coordinate3 { point [ 1  1  1, 1  1 -1, -1  1 -1, -1  1  1 ] }
+    FaceSet { }
+}
+DEF transformerTranslator2Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_TRANSLATOR_STYLE_ACTIVE
+    Normal { vector [ 0 -1 0 ] }
+    Coordinate3 { point [ 1  -1  1, 1  -1 -1, -1  -1 -1, -1  -1  1 ] }
+    FaceSet { }
+}
+DEF transformerTranslator3Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_TRANSLATOR_STYLE_ACTIVE
+    Normal { vector [ -1 0 0 ] }
+    Coordinate3 { point [ -1  1  1, -1  1 -1, -1  -1 -1, -1  -1  1 ] }
+    FaceSet { }
+}
+DEF transformerTranslator4Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_TRANSLATOR_STYLE_ACTIVE
+    Normal { vector [ 1 0 0 ] }
+    Coordinate3 { point [ 1  1  1, 1  1 -1, 1  -1 -1, 1  -1  1 ] }
+    FaceSet { }
+}
+DEF transformerTranslator5Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_TRANSLATOR_STYLE_ACTIVE
+    Normal { vector [ 0 0 1 ] }
+    Coordinate3 { point [ 1  1  1, 1  -1 1, -1  -1 1, -1  1  1 ] }
+    FaceSet { }
+}
+DEF transformerTranslator6Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_TRANSLATOR_STYLE_ACTIVE
+    Normal { vector [ 0 0 -1 ] }
+    Coordinate3 { point [ 1  1  -1, 1  -1 -1, -1  -1 -1, -1  1  -1 ] }
+    FaceSet { }
+}
+
+
+DEF SO_TRANSFORMER_DRAGGER_ROTATOR_STYLE Group {
+    Material {
+	diffuseColor	[ 0.0 0.5 0.0 ]
+	emissiveColor	[ 0.0 0.5 0.0 ]
+    }
+    DrawStyle { lineWidth 1 }
+    Complexity { 
+	value 0.3
+        textureQuality  0 
+    }
+}
+DEF SO_TRANSFORMER_DRAGGER_ROTATOR_STYLE_ACTIVE Group {
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    DrawStyle { lineWidth 3 }
+    Complexity { 
+	value 0.3
+        textureQuality  0 
+    }
+}
+DEF SO_TRANSFORMER_DRAGGER_ROTATOR_1 Group {
+    Coordinate3 { point [ 0 0 0, 0 1.25 0 ] }
+    LineSet {}
+    Translation { translation 0 1.25 0 }
+    AntiSquish { 
+	recalcAlways FALSE
+    }
+    Sphere { radius .05 }
+}
+DEF SO_TRANSFORMER_DRAGGER_ROTATOR_2 Group {
+    Coordinate3 { point [ 0 0 0, 0 -1.25 0 ] }
+    LineSet {}
+    Translation { translation 0 -1.25 0 }
+    AntiSquish { 
+	recalcAlways FALSE
+    }
+    Sphere { radius .05 }
+}
+DEF SO_TRANSFORMER_DRAGGER_ROTATOR_3 Group {
+    Coordinate3 { point [ 0 0 0, -1.25 0 0 ] }
+    LineSet {}
+    Translation { translation -1.25 0 0 }
+    AntiSquish { 
+	recalcAlways FALSE
+    }
+    Sphere { radius .05 }
+}
+DEF SO_TRANSFORMER_DRAGGER_ROTATOR_4 Group {
+    Coordinate3 { point [ 0 0 0, 1.25 0 0 ] }
+    LineSet {}
+    Translation { translation 1.25 0 0 }
+    AntiSquish { 
+	recalcAlways FALSE
+    }
+    Sphere { radius .05 }
+}
+DEF SO_TRANSFORMER_DRAGGER_ROTATOR_5 Group {
+    Coordinate3 { point [ 0 0 0, 0 0 1.25 ] }
+    LineSet {}
+    Translation { translation 0 0 1.25 }
+    AntiSquish { 
+	recalcAlways FALSE
+    }
+    Sphere { radius .05 }
+}
+DEF SO_TRANSFORMER_DRAGGER_ROTATOR_6 Group {
+    Coordinate3 { point [ 0 0 0, 0 0 -1.25 ] }
+    LineSet {}
+    Translation { translation 0 0 -1.25 }
+    AntiSquish { 
+	recalcAlways FALSE
+    }
+    Sphere { radius .05 }
+}
+
+DEF transformerRotator1 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_STYLE
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_1
+}
+DEF transformerRotator2 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_STYLE
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_2
+}
+DEF transformerRotator3 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_STYLE
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_3
+}
+DEF transformerRotator4 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_STYLE
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_4
+}
+DEF transformerRotator5 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_STYLE
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_5
+}
+DEF transformerRotator6 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_STYLE
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_6
+}
+DEF transformerRotator1Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_STYLE_ACTIVE
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_1
+}
+DEF transformerRotator2Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_STYLE_ACTIVE
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_2
+}
+DEF transformerRotator3Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_STYLE_ACTIVE
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_3
+}
+DEF transformerRotator4Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_STYLE_ACTIVE
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_4
+}
+DEF transformerRotator5Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_STYLE_ACTIVE
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_5
+}
+DEF transformerRotator6Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_STYLE_ACTIVE
+    USE SO_TRANSFORMER_DRAGGER_ROTATOR_6
+}
+
+DEF SO_TRANSFORMER_DRAGGER_SCALING_STYLE Group {
+    DrawStyle { lineWidth 1 }
+}
+DEF SO_TRANSFORMER_DRAGGER_SCALING_STYLE_ACTIVE Group {
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    DrawStyle { lineWidth 3 }
+}
+DEF SO_TRANSFORMER_DRAGGER_SCALE_1 Group {
+    Translation { translation 1 1 1 }
+    AntiSquish { 
+	recalcAlways FALSE
+    }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF SO_TRANSFORMER_DRAGGER_SCALE_2 Group {
+    Translation { translation 1 1 -1 }
+    AntiSquish { 
+	recalcAlways FALSE
+    }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF SO_TRANSFORMER_DRAGGER_SCALE_3 Group {
+    Translation { translation 1 -1 1 }
+    AntiSquish { 
+	recalcAlways FALSE
+    }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF SO_TRANSFORMER_DRAGGER_SCALE_4 Group {
+    Translation { translation 1 -1 -1 }
+    AntiSquish { 
+	recalcAlways FALSE
+    }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF SO_TRANSFORMER_DRAGGER_SCALE_5 Group {
+    Translation { translation -1 1 1 }
+    AntiSquish { 
+	recalcAlways FALSE
+    }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF SO_TRANSFORMER_DRAGGER_SCALE_6 Group {
+    Translation { translation -1 1 -1 }
+    AntiSquish { 
+	recalcAlways FALSE
+    }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF SO_TRANSFORMER_DRAGGER_SCALE_7 Group {
+    Translation { translation -1 -1 1 }
+    AntiSquish { 
+	recalcAlways FALSE
+    }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF SO_TRANSFORMER_DRAGGER_SCALE_8 Group {
+    Translation { translation -1 -1 -1 }
+    AntiSquish { 
+	recalcAlways FALSE
+    }
+    Cube { width .1 height .1 depth .1 }
+}
+
+DEF transformerScale1 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_SCALING_STYLE
+    USE SO_TRANSFORMER_DRAGGER_SCALE_1
+}
+DEF transformerScale2 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_SCALING_STYLE
+    USE SO_TRANSFORMER_DRAGGER_SCALE_2
+}
+DEF transformerScale3 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_SCALING_STYLE
+    USE SO_TRANSFORMER_DRAGGER_SCALE_3
+}
+DEF transformerScale4 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_SCALING_STYLE
+    USE SO_TRANSFORMER_DRAGGER_SCALE_4
+}
+DEF transformerScale5 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_SCALING_STYLE
+    USE SO_TRANSFORMER_DRAGGER_SCALE_5
+}
+DEF transformerScale6 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_SCALING_STYLE
+    USE SO_TRANSFORMER_DRAGGER_SCALE_6
+}
+DEF transformerScale7 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_SCALING_STYLE
+    USE SO_TRANSFORMER_DRAGGER_SCALE_7
+}
+DEF transformerScale8 Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_SCALING_STYLE
+    USE SO_TRANSFORMER_DRAGGER_SCALE_8
+}
+DEF transformerScale1Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_SCALING_STYLE_ACTIVE
+    USE SO_TRANSFORMER_DRAGGER_SCALE_1
+}
+DEF transformerScale2Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_SCALING_STYLE_ACTIVE
+    USE SO_TRANSFORMER_DRAGGER_SCALE_2
+}
+DEF transformerScale3Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_SCALING_STYLE_ACTIVE
+    USE SO_TRANSFORMER_DRAGGER_SCALE_3
+}
+DEF transformerScale4Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_SCALING_STYLE_ACTIVE
+    USE SO_TRANSFORMER_DRAGGER_SCALE_4
+}
+DEF transformerScale5Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_SCALING_STYLE_ACTIVE
+    USE SO_TRANSFORMER_DRAGGER_SCALE_5
+}
+DEF transformerScale6Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_SCALING_STYLE_ACTIVE
+    USE SO_TRANSFORMER_DRAGGER_SCALE_6
+}
+DEF transformerScale7Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_SCALING_STYLE_ACTIVE
+    USE SO_TRANSFORMER_DRAGGER_SCALE_7
+}
+DEF transformerScale8Active Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_SCALING_STYLE_ACTIVE
+    USE SO_TRANSFORMER_DRAGGER_SCALE_8
+}
+
+DEF SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE Group {
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.36 0.05 0.44 ]
+	emissiveColor	[ 0.36 0.05 0.44 ]
+    }
+    DrawStyle { lineWidth 2 }
+    Complexity { 
+	value 0.3
+        textureQuality  0 
+    }
+}
+
+DEF SO_TRANSFORMER_DRAGGER_FEEDBACK_ACTIVE_STYLE Group {
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.5 0.5 0 ]
+	emissiveColor	[ 0.5 0.5 0 ]
+    }
+    DrawStyle { lineWidth 2 }
+    Complexity { 
+	value 0.3
+        textureQuality  0 
+    }
+}
+
+DEF SO_TRANSFORMER_DRAGGER_FEEDBACK_SELECT_STYLE Group {
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.8 0.3 0.1 ]
+	emissiveColor	[ 0.8 0.3 0.1 ]
+    }
+    DrawStyle { lineWidth 2 }
+    Complexity { 
+	value 0.3
+        textureQuality  0 
+    }
+}
+
+DEF SO_TRANSFORMER_DRAGGER_Y_AXIS Group {
+    # shaft
+    Coordinate3 { point [ 0 -0.5 0, 0 0.5 0 ] }
+    LineSet {}
+
+    # top
+    Translation { translation 0 .5 0 }
+    Cone { height 0.075 bottomRadius 0.0375 }
+
+    # bottom
+    Translation { translation 0 -1 0 }
+    RotationXYZ { axis Z angle 3.14159 }
+    Cone { height 0.075 bottomRadius 0.0375 }
+}
+
+DEF transformerXAxisFeedbackActive Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_ACTIVE_STYLE
+    RotationXYZ { axis Z angle 1.57079 }
+    USE SO_TRANSFORMER_DRAGGER_Y_AXIS
+}
+DEF transformerYAxisFeedbackActive Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_ACTIVE_STYLE
+    USE SO_TRANSFORMER_DRAGGER_Y_AXIS
+}
+DEF transformerZAxisFeedbackActive Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_ACTIVE_STYLE
+    RotationXYZ { axis X angle 1.57079 }
+    USE SO_TRANSFORMER_DRAGGER_Y_AXIS
+}
+
+DEF transformerXAxisFeedbackSelect Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_SELECT_STYLE
+    RotationXYZ { axis Z angle 1.57079 }
+    USE SO_TRANSFORMER_DRAGGER_Y_AXIS
+}
+DEF transformerYAxisFeedbackSelect Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_SELECT_STYLE
+    USE SO_TRANSFORMER_DRAGGER_Y_AXIS
+}
+DEF transformerZAxisFeedbackSelect Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_SELECT_STYLE
+    RotationXYZ { axis X angle 1.57079 }
+    USE SO_TRANSFORMER_DRAGGER_Y_AXIS
+}
+
+DEF transformerXCrosshairFeedback Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_ACTIVE_STYLE
+    Coordinate3 { point [ -0.125 0 0, 0.125 0 0 ] }
+    LineSet {}
+}
+DEF transformerYCrosshairFeedback Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_ACTIVE_STYLE
+    Coordinate3 { point [ 0 -0.125 0, 0 0.125 0 ] }
+    LineSet {}
+}
+DEF transformerZCrosshairFeedback Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_ACTIVE_STYLE
+    Coordinate3 { point [ 0 0 -0.125, 0 0 0.125 ] }
+    LineSet {}
+}
+
+DEF SO_TRANSFORMER_RADIAL_FEEDBACK_VERTICAL Group {
+
+    # A vertical axis 4.5 units tall
+
+    # shaft
+    Coordinate3 { point [ 0 -2.2 0, 0 2.2 0 ] }
+    LineSet {}
+
+    # top cone
+    Translation { translation 0 2.2 0 }
+    Cone { height 0.075 bottomRadius 0.0375 }
+
+    # bottom cone
+    Translation { translation 0 -4.4 0 }
+    RotationXYZ { axis Z angle 3.14159 }
+    Cone { height 0.075 bottomRadius 0.0375 }
+}
+
+DEF transformerRadialFeedback Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE
+    
+    # 4 different diagonals
+    Separator {
+	Rotation { rotation 1 0 1 .95531662 }
+	USE SO_TRANSFORMER_RADIAL_FEEDBACK_VERTICAL
+    }
+    Separator {
+	Rotation { rotation -1 0 1 .95531662 }
+	USE SO_TRANSFORMER_RADIAL_FEEDBACK_VERTICAL
+    }
+    Separator {
+	Rotation { rotation -1 0 -1 .95531662 }
+	USE SO_TRANSFORMER_RADIAL_FEEDBACK_VERTICAL
+    }
+    Separator {
+	Rotation { rotation 1 0 -1 .95531662 }
+	USE SO_TRANSFORMER_RADIAL_FEEDBACK_VERTICAL
+    }
+}
+
+DEF SO_TRANSFORMER_Y_CIRCLE_COORDS_AND_NORMALS Group {
+
+    # Scale this up from unit size to intersect our rotation knobs:
+    Scale { scaleFactor 1.25 1.25 1.25 }
+
+    NormalBinding { value PER_VERTEX }
+    MaterialBinding { value OVERALL }
+    Coordinate3 {
+	point [
+
+	    # first quadrant
+	    1.0  0  0.0,
+
+	    0.980785  0  0.195090,
+	    0.923880  0  0.382683,
+	    0.831470  0  0.555570,
+	    0.707107  0  0.707107,
+	    0.555570  0  0.831470,
+	    0.382683  0  0.923880,
+	    0.195090  0  0.980785,
+
+	    0.0  0  1.0,
+
+	    # second quadrant
+	    0.0  0  1.0,
+
+	    -0.195090  0  0.980785,
+	    -0.382683  0  0.923880,
+	    -0.555570  0  0.831470,
+	    -0.707107  0  0.707107,
+	    -0.831470  0  0.555570,
+	    -0.923880  0  0.382683,
+	    -0.980785  0  0.195090,
+
+	    -1.0  0  0.0,
+
+	    # third quadrant
+	    -1.0  0  0.0,
+
+	    -0.980785  0  -0.195090,
+	    -0.923880  0  -0.382683,
+	    -0.831470  0  -0.555570,
+	    -0.707107  0  -0.707107,
+	    -0.555570  0  -0.831470,
+	    -0.382683  0  -0.923880,
+	    -0.195090  0  -0.980785,
+
+	    0.0  0  -1.0,
+
+	    # fourth quadrant
+	    0.0  0  -1.0,
+
+	    0.195090  0  -0.980785,
+	    0.382683  0  -0.923880,
+	    0.555570  0  -0.831470,
+	    0.707107  0  -0.707107,
+	    0.831470  0  -0.555570,
+	    0.923880  0  -0.382683,
+	    0.980785  0  -0.195090,
+
+	    1.0  0  0.0,
+
+	]
+    }
+
+    Normal {
+	vector [ 
+
+	    # first quadrant
+	    1.0  0  0.0,
+
+	    0.980785  0  0.195090,
+	    0.923880  0  0.382683,
+	    0.831470  0  0.555570,
+	    0.707107  0  0.707107,
+	    0.555570  0  0.831470,
+	    0.382683  0  0.923880,
+	    0.195090  0  0.980785,
+
+	    0.0  0  1.0,
+
+	    # second quadrant
+	    0.0  0  1.0,
+
+	    -0.195090  0  0.980785,
+	    -0.382683  0  0.923880,
+	    -0.555570  0  0.831470,
+	    -0.707107  0  0.707107,
+	    -0.831470  0  0.555570,
+	    -0.923880  0  0.382683,
+	    -0.980785  0  0.195090,
+
+	    -1.0  0  0.0,
+	    # third quadrant
+	    -1.0  0  0.0,
+
+	    -0.980785  0  -0.195090,
+	    -0.923880  0  -0.382683,
+	    -0.831470  0  -0.555570,
+	    -0.707107  0  -0.707107,
+	    -0.555570  0  -0.831470,
+	    -0.382683  0  -0.923880,
+	    -0.195090  0  -0.980785,
+
+	    0.0  0  -1.0,
+
+	    # fourth quadrant
+	    0.0  0  -1.0,
+
+	    0.195090  0  -0.980785,
+	    0.382683  0  -0.923880,
+	    0.555570  0  -0.831470,
+	    0.707107  0  -0.707107,
+	    0.831470  0  -0.555570,
+	    0.923880  0  -0.382683,
+	    0.980785  0  -0.195090,
+
+	    1.0  0  0.0,
+	]
+    }
+}
+
+DEF transformerXCircleFeedback Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE
+
+    RotationXYZ { axis Z angle 1.57079 }
+    USE SO_TRANSFORMER_Y_CIRCLE_COORDS_AND_NORMALS 
+    LineSet {}
+}
+
+DEF transformerYCircleFeedback Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE
+
+    USE SO_TRANSFORMER_Y_CIRCLE_COORDS_AND_NORMALS 
+    LineSet {}
+}
+DEF transformerZCircleFeedback Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE
+
+    RotationXYZ { axis X angle 1.57079 }
+    USE SO_TRANSFORMER_Y_CIRCLE_COORDS_AND_NORMALS 
+    LineSet {}
+}
+
+# A purple box with a yellow top.
+# The top will be aligned by the dragger to 
+# match the plane of motion
+DEF transformerTranslateBoxFeedback Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE
+
+    Coordinate3 {
+	point [ 
+		-1 1 -1, -1 -1 -1,
+		 1 1 -1,  1 -1 -1,
+		 1 1  1,  1 -1  1,
+		-1 1  1, -1 -1  1,
+		-1 -1 -1, 1 -1 -1,
+		 1 -1 -1, 1 -1  1,
+		 1 -1  1,-1 -1  1,
+		-1 -1  1,-1 -1 -1,
+	      ]
+    }
+    LineSet {
+	numVertices [ 2, 2, 2, 2, 2, 2, 2, 2 ]
+    }
+
+    USE SO_TRANSFORMER_DRAGGER_TRANSLATOR_STYLE_ACTIVE
+    Coordinate3 {
+	point [ 
+		-1  1 -1, 1  1 -1,  1  1 -1, 1  1  1,
+		 1  1  1,-1  1  1, -1  1  1,-1  1 -1,
+	      ]
+    }
+    LineSet {}
+}
+
+# A purple box made of lines.
+DEF transformerScaleBoxFeedback Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE
+    DrawStyle { style LINES lineWidth 2 }
+
+    Cube {}
+}
+
+DEF transformerPosXWallFeedback Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE
+    Material { diffuseColor	~ emissiveColor	~ transparency 0.5 }
+    Coordinate3 { point [ 1 1 1, 1 1 -1, 1 -1 -1, 1 -1 1 ] }
+    FaceSet {}
+}
+DEF transformerPosYWallFeedback Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE
+    Material { diffuseColor	~ emissiveColor	~ transparency 0.5 }
+    Coordinate3 { point [ 1 1 1, -1 1 1, -1 1 -1, 1 1 -1 ] }
+    FaceSet {}
+}
+DEF transformerPosZWallFeedback Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE
+    Material { diffuseColor	~ emissiveColor	~ transparency 0.5 }
+    Coordinate3 { point [ 1 1 1, 1 -1 1, -1 -1 1, -1 1 1 ] }
+    FaceSet {}
+}
+DEF transformerNegXWallFeedback Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE
+    Material { diffuseColor	~ emissiveColor	~ transparency 0.5 }
+    Coordinate3 { point [ -1 1 1, -1 1 -1, -1 -1 -1, -1 -1 1 ] }
+    FaceSet {}
+}
+DEF transformerNegYWallFeedback Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE
+    Material { diffuseColor	~ emissiveColor	~ transparency 0.5 }
+    Coordinate3 { point [ 1 -1 1, -1 -1 1, -1 -1 -1, 1 -1 -1 ] }
+    FaceSet {}
+}
+DEF transformerNegZWallFeedback Separator {
+    renderCaching ON
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE
+    Material { diffuseColor	~ emissiveColor	~ transparency 0.5 }
+    Coordinate3 { point [ 1 1 -1, 1 -1 -1, -1 -1 -1, -1 1 -1 ] }
+    FaceSet {}
+}
+
+DEF transformerPosXRoundWallFeedback Separator {
+    # No render caching, since antiSquish always blows cache when
+    # shown as feedback (when matrix affecting it is constantly changing)
+    renderCaching OFF
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE
+    Transform { rotation 0 0 1 1.57079 translation 1 0 0 }
+    AntiSquish {}
+    Coordinate3 { point [ -1 0 0, 1 0 0, 0 0 -1, 0 0 1, 0 -1 0, 0 1 0 ] }
+    LineSet { numVertices [ 2, 2, 2 ] }
+#    Sphere { radius .25 }
+}
+DEF transformerPosYRoundWallFeedback Separator {
+    # No render caching, since antiSquish always blows cache when
+    # shown as feedback (when matrix affecting it is constantly changing)
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE
+    Translation { translation 0 1 0 }
+    AntiSquish {}
+    Coordinate3 { point [ -1 0 0, 1 0 0, 0 0 -1, 0 0 1, 0 -1 0, 0 1 0 ] }
+    LineSet { numVertices [ 2, 2, 2 ] }
+#    Sphere { radius .25 }
+}
+DEF transformerPosZRoundWallFeedback Separator {
+    # No render caching, since antiSquish always blows cache when
+    # shown as feedback (when matrix affecting it is constantly changing)
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE
+    Transform { rotation 1 0 0 1.57079 translation 0 0 1 }
+    AntiSquish {}
+    Coordinate3 { point [ -1 0 0, 1 0 0, 0 0 -1, 0 0 1, 0 -1 0, 0 1 0 ] }
+    LineSet { numVertices [ 2, 2, 2 ] }
+#    Sphere { radius .25 }
+}
+DEF transformerNegXRoundWallFeedback Separator {
+    # No render caching, since antiSquish always blows cache when
+    # shown as feedback (when matrix affecting it is constantly changing)
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE
+    Transform { rotation 0 0 1 1.57079 translation -1 0 0 }
+    AntiSquish {}
+    Coordinate3 { point [ -1 0 0, 1 0 0, 0 0 -1, 0 0 1, 0 -1 0, 0 1 0 ] }
+    LineSet { numVertices [ 2, 2, 2 ] }
+#    Sphere { radius .25 }
+}
+DEF transformerNegYRoundWallFeedback Separator {
+    # No render caching, since antiSquish always blows cache when
+    # shown as feedback (when matrix affecting it is constantly changing)
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE
+    Translation { translation 0 -1 0 }
+    AntiSquish {}
+    Coordinate3 { point [ -1 0 0, 1 0 0, 0 0 -1, 0 0 1, 0 -1 0, 0 1 0 ] }
+    LineSet { numVertices [ 2, 2, 2 ] }
+#    Sphere { radius .25 }
+}
+DEF transformerNegZRoundWallFeedback Separator {
+    # No render caching, since antiSquish always blows cache when
+    # shown as feedback (when matrix affecting it is constantly changing)
+    USE SO_TRANSFORMER_DRAGGER_FEEDBACK_STYLE
+    Transform { rotation 1 0 0 1.57079 translation 0 0 -1 }
+    AntiSquish {}
+    Coordinate3 { point [ -1 0 0, 1 0 0, 0 0 -1, 0 0 1, 0 -1 0, 0 1 0 ] }
+    LineSet { numVertices [ 2, 2, 2 ] }
+#    Sphere { radius .25 }
+}
+
+DEF transformerLocateMaterial Material {
+    emissiveColor .8 .3 .1
+}

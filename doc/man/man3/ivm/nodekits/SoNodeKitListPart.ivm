@@ -1,0 +1,111 @@
+NAME SoNodeKitListPart SoNkitListPart "" { group node with restricted children }
+
+INCLUDE nodekits/SoNodeKitListPart.h
+
+DESC {
+This node class is very similar to \cSoGroup\. with the exception
+that it specifies restrictions on the type of children that
+it allows.  It is used by nodekits to restrict child types
+within \elist parts\. (see the reference page for \cSoBaseKit\.).
+\p
+By default, any kind of child may be added. Methods of this class
+allow you to restrict the type of allowable children, and to lock
+down the types so that this type list may no longer be altered.
+\p
+Inside the \cSoNodeKitListPart\. is a \econtainer\. node, which in
+turn contains the \echildren\.. The \econtainer\. node is a hidden
+child, and the type of node used may be set with 
+\m\+setContainerType()\.\-SoNkitListPartSetContainerType()\.\..
+In this way, you can make the nodekitlist behave like a group, a
+separator, or any other subclass of group. The \econtainer\. is not
+accessible so that the nodekitlist may retain control over what kinds
+of children are added.
+}
+
+
+METHOD "" SoNodeKitListPart() { Constructor. }
+
+
+METHOD "" SoType getContainerType() const {}
+METHOD "" void setContainerType( SoType newContainerType )
+	{ Gets and sets the type of node used as the \econtainer\.. }
+
+METHOD "" const SoTypeList &getChildTypes() const
+	{ Returns the permitted child node types. By default, any type of 
+	  node is permitted, so the list contains one entry of 
+	  type \cSoNode\.. }
+
+METHOD "" void addChildType( SoType typeToAdd )
+	{ Permits the node type \atypeToAdd\. as a child.
+	  The first time the 
+	  \m\+addChildType()\.\-SoNkitListPartAddChildType()\.\. method is 
+	  called, 
+	  the default of \cSoNode\. is overridden and only the 
+	  new  \atypeToAdd\. is permitted.  In subsequent calls to
+	  \m\+addChildType()\.\-SoNkitListPartAddChildType()\.\.,
+	  the \atypeToAdd\. is added to the existing 
+	  types. }
+
+
+
+METHOD "" SbBool isTypePermitted( SoType typeToCheck ) const
+	{ Returns whether a node of type \atypeToCheck\. may be
+	added as a child. }
+
+
+METHOD "" SbBool isChildPermitted( const SoNode *child ) const
+	{ Returns whether the node \achild\. may be added to this list.
+	This will return TRUE if the type of \achild\. is one of the permissible
+	child types. }
+
+
+METHOD "" void containerSet( const char *fieldDataString )
+	{ Sends a string to the \m\+set()\.\-SoGroupSet()\.\. method on the 
+	container node.
+	This is how you can set the value of a switch node if the container
+	node is an \cSoSwitch\., for example. }
+
+
+METHOD "" void   lockTypes()
+	{ This function permanently locks the permitted child types and 
+	the container type permanently.
+	  Calls to 
+	  \m\+setContainerType()\.\-SoNkitListPartSetContainerType()\.\.
+	  and \m\+addChildType()\.\-SoNkitListPartAddChildType()\.\.
+	  will have no effect after this function is called. }
+
+
+METHOD "" SbBool isTypeLocked() const
+	{ Returns whether the permitted child types and the container type
+	      are locked
+	  (i.e. cannot be changed).  See 
+	  \m\+lockTypes()\.\-SoNkitListPartLockTypes()\.\. }
+
+METHOD "" void addChild( SoNode *child ) {}
+METHOD "" void insertChild( SoNode *child, int childIndex ) {}
+METHOD "" SoNode *getChild( int index ) const {}
+METHOD "" int findChild(SoNode *child) const {}
+METHOD "" int getNumChildren() const  {}
+METHOD "" void removeChild(int index) {}
+METHOD removeChildNode void removeChild(SoNode *child) {}
+METHOD "" void replaceChild(int index, SoNode *newChild) {}
+METHOD replaceChildNode void replaceChild( SoNode *oldChild, SoNode *newChild)
+	{ These are the functions used to edit the children.
+	They parallel those of \cSoGroup\., except that they always check
+	the child types against those which are permissible.
+	See \cSoGroup\. for details. }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ALSO {
+SoBaseKit,
+SoNodeKit,
+SoNodeKitDetail,
+SoNodeKitPath,
+SoNodekitCatalog,
+SoSceneKit,
+SoSeparatorKit,
+SoShapeKit,
+SoWrapperKit }

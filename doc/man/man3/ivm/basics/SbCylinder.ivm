@@ -1,0 +1,53 @@
+NAME SbCylinder SbCyl "" { class for representing a cylinder }
+INCLUDE SbLinear.h
+DESC {
+This class defines a simple cylinder datatype.  It is used by
+the Inventor toolkit for arguments or return values.
+\- Note that there are no \mCreate\. and \mDelete\. functions for
+\cSbCylinder\..
+C programmers should treat cylinders as standard C structs (declare them
+locally or use malloc):
+\b\k
+     /* This is defined in Inventor_c/SbLinear.h: */
+     struct \{
+         struct SbLine  axis;
+         float          radius;
+     \}
+     typedef SbCylinder      SbCyl;
+
+
+     /* Your code should look something like this: */
+     #include <Inventor_c/SbLinear.h>
+
+     SbCylinder   c;
+
+     c.radius = 2.0;
+     SbV3fSetX_Y_Z( c.axis.pos, 0.0, 0.0, 0.0 );
+     SbV3fSetX_Y_Z( c.axis.dir, 0.0, 1.0, 0.0 );
+\.\.
+\.
+}
+BEGIN C++
+METHOD "" SbCylinder() {}
+METHOD "" SbCylinder(const SbLine &a, float r) {
+Constructors.  One takes an axis and radius.
+}
+METHOD "" void        setValue(const SbLine &a, float r) {
+Change the axis and radius.
+}
+METHOD "" void        setAxis(const SbLine &a) {}
+METHOD "" void        setRadius(float r) {
+Set just the axis or radius.
+}
+METHOD "" const SbLine &      getAxis() const {}
+METHOD "" float               getRadius() const {
+Return the axis and radius.
+}
+END
+METHOD "" SbBool      intersect(const SbLine &l, SbVec3f &intersection) const {}
+METHOD intersect2 SbBool      intersect(const SbLine &l,
+                          SbVec3f &enter, SbVec3f &exit) const {
+Intersect line and cylinder, returning \kTRUE\. if there is an intersection.
+}
+ALSO { SbVec3f, SbLine, SbPlane, SbSphere, SoCylinder }
+

@@ -1,0 +1,48 @@
+NAME SoSphere "" SO_SPHERE_ { sphere shape node }
+
+INCLUDE nodes/SoSphere.h
+
+DESC {
+This node represents a sphere. By default, the sphere is centered at
+the origin and has a radius of 1. The sphere is transformed by the
+current cumulative transformation and is drawn with the current
+lighting model, drawing style, material, and geometric complexity.
+\p
+A sphere does not have faces or parts. Therefore, the sphere ignores
+material and normal bindings, using the first material for the entire
+sphere and using its own normals. When a texture is applied to a
+sphere, the texture covers the entire surface, wrapping
+counterclockwise from the back of the sphere. The texture has a seam
+at the back on the yz-plane.
+}
+
+FIELD radius { Radius of sphere. This must be greater than 0. }
+
+METHOD "" SoSphere() {
+Creates a sphere node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Draws sphere based on the current coordinates, materials,
+drawing style, and so on.
+}
+
+ACTION SoRayPickAction {
+Intersects the ray with the sphere. No details are created for
+intersections.
+}
+
+ACTION SoGetBoundingBoxAction {
+Computes the bounding box that encloses the sphere.
+}
+
+ACTION SoCallbackAction {
+If any triangle callbacks are registered with the action, they will
+be invoked for each successive triangle that approximates the sphere.
+}
+
+ALSO { SoCone, SoCube, SoCylinder }

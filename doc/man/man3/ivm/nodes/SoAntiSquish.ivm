@@ -1,0 +1,62 @@
+NAME SoAntiSquish SoAntiSquish SO_ANTI_SQUISH_ { transformation node that undoes non-uniform 3D scales }
+
+INCLUDE nodes/SoAntiSquish.h
+
+DESC {
+This node removes nonuniform 3D scaling from the current transformation matrix
+when traversed by an action.   It is used by draggers such as the 
+\cSoTrackballDragger\. that need to stay uniformly scaled no matter where
+they are located in the scene graph.
+\p
+The magnitude of the new scale is determined
+by the current transformation matrix and the \asizing\. field.
+This node does not change the translation or rotation in the matrix.
+}
+
+ENUM Sizing {
+    X   "fits the other two axes to match the X axis, whose size is unchanged",
+    Y   "fits the other two axes to match the Y axis, whose size is unchanged",
+    Z   "fits the other two axes to match the Z axis, whose size is unchanged",
+    AVERAGE_DIMENSION   "uses average of 3 scales in the matrix",
+    BIGGEST_DIMENSION   "uses biggest of 3 scales in the matrix",
+    SMALLEST_DIMENSION  "uses smallest of 3 scales in the matrix",
+    LONGEST_DIAGONAL    "accounts for shearing; transforms a cube by the
+    matrix and then uses length of longest diagonal"
+}
+
+FIELD sizing {
+Determines which of the algorithms enumerated by the type \cSizing\. 
+will be used to select the new scale when the x,y, and z scales are
+not equal.
+}
+
+
+FIELD recalcAlways {
+If recalcAlways is \kTRUE\., this node calculates its unsquishing matrix every 
+time it is traversed.  If \kFALSE\., then this only occurs during the first 
+traversal folllowing a call to recalc().
+}
+
+METHOD "" SoAntiSquish() {
+Creates an anti-squish node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+METHOD "" void recalc() {
+Sets a flag so that the next time the node is traversed, it will recalculate
+its unsquishing matrix.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoGetMatrixAction, SoRayPickAction {
+Appends the current transformation with a new matrix to create an unsquished
+result.
+}
+
+ALSO { 
+SoCenterballDragger, SoJackDragger, SoTrackballDragger, SoTransformerDragger,
+SoTransformation, 
+SoTransformBoxDragger }

@@ -1,0 +1,45 @@
+#Inventor V2.0 ascii
+Separator {
+    Coordinate3 {
+	point [ -3 -3 0, -3 3 0, 3 3 0, 3 -3 0, -3 -3 0 ]
+    }
+
+    TransformBoxDragger {}
+    LineSet {}
+
+    Translation { translation 7 0 0 }
+    Separator { HandleBoxManip {} Cone {} }
+    LineSet {}
+
+    Translation { translation -21 -7 0 }
+    CenterballDragger {}
+    LineSet {}
+
+    Translation { translation 7 0 0 }
+    TrackballDragger {}
+    LineSet {}
+
+    Translation { translation 7 0 0 }
+    Separator { TrackballManip {} Cube {} }
+    LineSet {}
+
+    Translation { translation 7 0 0 }
+    DirectionalLightDragger {}
+    LineSet {}
+
+    Translation { translation 7 0 0 }
+    PointLightDragger {}
+    LineSet {}
+
+    Translation { translation -21 -7 0 }
+    SpotLightDragger {}
+    LineSet {}
+
+    Translation { translation 7 0 0 }
+    JackDragger {}
+    LineSet {}
+
+    Translation { translation 7 0 0 }
+    Separator { JackManip {} Cone {} }
+    LineSet {}
+}

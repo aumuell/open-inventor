@@ -1,0 +1,128 @@
+#
+# Copyright (C) 1990,1991  Silicon Graphics, Inc.
+#
+#_______________________________________________________________________
+#______________  S I L I C O N   G R A P H I C S   I N C .  ____________
+#
+#   usr/src/toolkits/Inventor/make/so_inclcommonrules
+#   $Revision: 1.1 $
+#
+#   Description:
+#      Inventor include common rules - primary deals with generating a 
+#   C-api from the .h files.  
+#
+#   The following should be set before including this file:
+#	HINST_DIR	Directory under /usr that c++ header files should 
+#			be installed in
+#	CAPI_HINST_DIR  Directory under /usr that c header files should be
+#			installed in
+#	CPP_DIR		Directory relative to this one where c++ header files
+#			can be stored
+#	CAPI_DIR	Directory relative to this one where c header files can
+#			be stored
+#	CAPI_SOLIB	Destination location of C-api library
+#	ORIG_DIR	Relative location of this directory to CPP_DIR and
+#			CAPI_DIR
+#	HFILES		All .h files to be processed
+#
+#   Author(s):	Kevin P. Smith
+#
+#______________  S I L I C O N   G R A P H I C S   I N C .  ____________
+#_______________________________________________________________________
+#
+#
+#
+
+LCDEFS = $(SO_LCDEFS) $(DEFINES)
+LCOPTS = $(SO_LCOPTS) 
+LC++DEFS = $(SO_LC++DEFS) $(DEFINES)
+LC++OPTS = $(SO_LC++OPTS)
+
+LDIRT = $(CAPI_DIR) $(CPP_DIR) $(CAPI_SOLIB) CapiSymbols.C 
+
+IDBTAGH     = -idb "inventor_dev.sw.base HDR"
+IDBTAGHC    = -idb "inventor_dev.sw.c HDRC"
+
+# default creates C and C++ headers
+default: c_api cppinclude
+
+# insertDefs fixes the C api headers after default has been run
+insertDefs:
+	cd $(CAPI_DIR); \
+	chmod 644 $(HFILES); /bin/ls $(HFILES) | \
+	    $(DEPTH)../tools/ncbind/insertDefs $(DATAFILE); \
+	chmod 444 $(HFILES)
+
+# install installs everything
+install:
+	(cd $(CAPI_DIR); \
+	  $(INSTALL) -m 444 $(IDBTAGHC) -F /usr/$(CAPI_HINST_DIR) $(HFILES));
+	(cd $(CPP_DIR); \
+	  $(INSTALL) -m 444 $(IDBTAGH) -F /usr/$(HINST_DIR) $(HFILES));
+
+include $(COMMONRULES)
+
+#
+# The INCL_TMPFILE variable is used by the tools/ncbind/strip2.0Defs.awk 
+# script.  Do not change the filenames unless you also change the script.
+#
+INCL_TMPFILE = /tmp/.shercapi
+
+c_api: CapiSymbols.o $(HFILES) $(CAPI_DIR)
+	cd $(CAPI_DIR); \
+	$(MAKE) -f $(ORIG_DIR)/Makefile DOING_C=1 CapiHeaders
+
+cppinclude: $(CPP_DIR) $(HFILES)
+	cd $(CPP_DIR); \
+	$(MAKE) -f $(ORIG_DIR)/Makefile DOING_CPP=1 CppHeaders
+
+$(CAPI_DIR):
+	mkdir -p $(CAPI_DIR)
+
+$(CPP_DIR):
+	mkdir -p $(CPP_DIR)
+
+#
+# The -Wf,-min_st_indirection flag is a workaround for a compiler bug which
+# causes the CapiSymbols.o file to be generated in such a way that the mld
+# commands used by ncbind return bogus information.
+#	
+CapiSymbols.o: CapiSymbols.C
+	$(C++F) -Wf,-min_st_indirection -g -c CapiSymbols.C
+
+CapiSymbols.C: $(HFILES)
+	cat $(HFILES) > CapiSymbols.C
+
+#ifdef DOING_CPP
+
+CppHeaders: $(HFILES)
+
+.NOTPARALLEL: $(HFILES)
+
+$(HFILES): $(ORIG_DIR)/$@
+	$(DEPTH)../tools/ncbind/copyrightScript \
+	    $(DEPTH)../doc/copyrightNotice.txt $(ORIG_DIR)/$@ $(INCL_TMPFILE)
+	nawk -f $(DEPTH)../tools/ncbind/strip2.0Def.awk $(INCL_TMPFILE) > $@
+	/bin/rm $(INCL_TMPFILE)
+
+#endif
+
+#ifdef DOING_C
+
+CapiHeaders: $(HFILES)
+
+# This rule doesn't work properly.  It de-parallelizes everything.  Not good.
+.NOTPARALLEL: $(HFILES)
+
+$(HFILES): $(ORIG_DIR)/$@ 
+	NEWNAME=`$(DEPTH)../tools/hashname/hashname $@` ; \
+	$(DEPTH)../tools/ncbind/ncbind $(SO_NCBIND) -o $(ORIG_DIR)/CapiSymbols.o -h ${@:.h=_.h} -c $$NEWNAME.c++ $(ORIG_DIR)/$@ ; \
+	$(C++F) -c $$NEWNAME.c++ ; \
+	$(AR) crlv $(CAPI_SOLIB) $$NEWNAME.o ; \
+	/bin/rm $$NEWNAME.c++ $$NEWNAME.o ; \
+	/bin/mv ${@:.h=_.h} $@
+	$(DEPTH)../tools/ncbind/digest < $@ >> $(DATAFILE)
+	/bin/cat $(DEPTH)../doc/copyrightNotice.txt > /tmp/.capif
+	/bin/cat $@ >> /tmp/.capif
+	/bin/mv /tmp/.capif $@
+#endif

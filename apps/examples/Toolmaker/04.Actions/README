@@ -1,0 +1,12 @@
+Open Inventor - Examples from The Inventor Toolmaker
+
+Chapter 4 - "Creating an Action"
+
+
+This directory contains source code for a short program
+that illustrates how to create a new scene database action.
+
+See The Inventor Mentor chapter 9 for an introduction to 
+Inventor actions.
+
+*** This is for C++ programmers only! ***

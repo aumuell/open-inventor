@@ -1,0 +1,14 @@
+#Inventor V2.0 ascii
+Separator {
+    Separator {
+	Transform { translation -5 5 0 }
+	File { name "crankPlusRivet.iv" }
+    }
+    Separator {
+	File { name "doubleLinkPlusCrankAndRivet.iv" }
+    }
+    Separator {
+	Transform { translation 5 5 0 }
+	File { name "crankTwoRivetsDoubleLink.iv" }
+    }
+}

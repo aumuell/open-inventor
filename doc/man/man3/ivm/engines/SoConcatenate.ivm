@@ -1,0 +1,37 @@
+NAME SoConcatenate SoConcat "" { 
+joins separate fields into a single multiple-value field
+}
+
+DESC {
+This engine joins up to 10 separate fields of a type into 
+a single multiple-valued field of the same type.
+The type of the input fields can be any subclass of
+\cSoMField\. The type is specified when an instance of
+the class is created.
+For example,
+\+\cSoConcatenate(SoMFFloat::getClassTypeId())\.\.
+\-\cSoConcatCreate(SoMFloatGetClassTypeId())\.\.
+creates an engine that concatenates floating-point values.
+\p
+The \vinput\. field is a 10-element array, where each element can 
+be connected to single- or multiple-valued fields.
+All the values in the input are concatenated
+together to form one multiple-value field.  For example, if 
+\vinput[0]\. contains 10 values and \vinput[1]\. contains 3 values,
+the output will contain 13 values.
+\p
+Note that, unlike the output of most engines, \voutput\. is a pointer.
+Note also that by default \vinput\. does not contain any values, 
+and no value is output from the engine.
+}
+
+INCLUDE engines/SoConcatenate.h
+
+INPUT input[10] { }
+
+OUTPUT output { }
+
+METHOD SoConcatCreate SoConcatenate(SoType inputType) 
+{ Constructor.  The argument specifies the type of values to concatenate. }
+
+ALSO { SoEngineOutput, SoGate, SoSelectOne }

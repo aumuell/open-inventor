@@ -1,0 +1,125 @@
+NAME SbVec2f SbV2f "" { 2D vector class }
+INCLUDE SbLinear.h
+DESC {
+2D vector class used to store 2D vectors and points. This class is used
+throughout Inventor for arguments and return values.
+\-
+This object does not have \mCreate\. or \mDelete\.
+functions because it is considered a simple datatype; instances of
+this class may be declared directly as local or global variables in C.
+C programmers can access the components of the vector as though it were
+a simple structure or use the access and operation functions described
+in this reference page:
+\b\k
+struct SbVec2f \{ float vec[2]; \};
+
+SbVec2f   v1, v2;
+
+/* The next two lines produce equivalent vectors. */
+v1.vec[0] = 1.0; v1.vec[1] = 1.0;
+SbV2fSetX_Y( v2, 1.0, 1.0 );
+\.\.\.
+}
+
+BEGIN C++
+METHOD "" SbVec2f() { Default constructor. }
+METHOD "" SbVec2f(const float v[2]) {}
+METHOD "" SbVec2f(float x, float y) {
+Constructor given vector components.
+}
+METHOD "" float dot(const SbVec2f &v) const {
+Returns dot (inner) product of vector and another vector.
+}
+END
+
+BEGIN C
+MACRO SbV2fDot(SbVec2f vec0, SbVec2f vec1) {
+Returns dot (inner) product of two vectors.
+}
+END
+
+METHOD "" SbBool      equals(const SbVec2f v, float tolerance) const {
+Equality comparison within given tolerance \(em the square of the
+length of the maximum distance between the two vectors.
+}
+
+BEGIN C++
+METHOD "" const float *getValue() const {}
+METHOD "" void        getValue(float &x, float &y) const {
+Returns vector components.
+}
+END
+
+BEGIN C
+MACRO SbV2fGetXY(float array[2], SbVec2f vec) {}
+MACRO SbV2fGetX_Y(float x, float y, SbVec2f vec) {
+Returns vector components.
+}
+END
+
+BEGIN C++
+METHOD "" float       length() const {
+Returns geometric length of vector.
+}
+METHOD "" void        negate() {
+Negates each component of vector in place.
+}
+END
+BEGIN C
+MACRO SbV2fLen(SbVec2f vec) {
+Returns geometric length of vector.
+}
+MACRO SbV2fNegate(SbVec2f vec) {
+Negates each component of vector in place.
+}
+MACRO SbV2fSetXY(SbVec2f vec, float array[2]) {}
+MACRO SbV2fSetX_Y(SbVec2f vec, float x, float y) {
+Sets the vector components.
+}
+MACRO SbV2fMultBy(SbVec2f vec, float scalar) {}
+MACRO SbV2fDivBy(SbVec2f vec, float scalar) {
+Component-wise scalar multiplication and division operators.
+}
+MACRO SbV2fAdd(SbVec2f dest, SbVec2f src1, SbVec2f src2) {}
+MACRO SbV2fSub(SbVec2f dest, SbVec2f src1, SbVec2f src2) {
+Component-wise binary vector addition and subtraction operators.
+}
+END
+METHOD norm float normalize() { 
+Changes vector to be unit length.
+}
+BEGIN C++
+METHOD "" SbVec2f &   setValue(const float v[2]) {}
+METHOD "" SbVec2f &   setValue(float x, float y) {
+Sets the vector components.
+}
+METHOD "" float &       operator [\|](int i) {}
+METHOD "" const float & operator [\|](int i) {
+Accesses indexed component of vector.
+}
+METHOD "" SbVec2f &   operator *=(float d) {}
+METHOD "" SbVec2f &   operator /=(float d) {
+Component-wise scalar multiplication and division operators.
+}
+METHOD "" SbVec2f &   operator +=(const SbVec2f &u) {}
+METHOD "" SbVec2f &   operator -=(const SbVec2f &u) {
+Component-wise vector addition and subtraction operators.
+}
+METHOD "" SbVec2f     operator -() const {
+Nondestructive unary negation \(em returns a new vector.
+}
+METHOD "" SbVec2f      operator *(const SbVec2f &v, float d) {}
+METHOD "" SbVec2f      operator *(float d, const SbVec2f &v) {}
+METHOD "" SbVec2f      operator /(const SbVec2f &v, float d) {
+Component-wise binary scalar multiplication and division operators.
+}
+METHOD "" SbVec2f      operator +(const SbVec2f &v1, const SbVec2f &v2) {}
+METHOD "" SbVec2f      operator -(const SbVec2f &v1, const SbVec2f &v2) {
+Component-wise binary vector addition and subtraction operators.
+}
+END
+METHOD "" int          operator ==(const SbVec2f &v1, const SbVec2f &v2) {}
+METHOD "" int          operator !=(const SbVec2f &v1, const SbVec2f &v2) {
+Equality comparison operators.
+}
+ALSO { SbVec3f, SbVec4f, SbVec2s, SbRotation }

@@ -1,0 +1,9 @@
+This directory contains the source code for ivinfo.
+
+ivinfo prints out information on an Inventor data file, including:
+	- whether data is ASCII or binary
+	- number of root nodes
+	- number of nodes under each root
+	- contents of any SoInfo nodes found in the data
+ 
+

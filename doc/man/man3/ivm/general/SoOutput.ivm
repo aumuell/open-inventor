@@ -1,0 +1,106 @@
+NAME SoOutput SoOut "" { used to write Inventor data files }
+
+INCLUDE SoOutput.h
+
+TYPEDEF "void *" SoOutputReallocCB "(void *ptr, size_t newSize)"
+
+DESC {
+This class is used for writing Inventor data files.  It supports both
+ASCII (default) and binary formats and provides some convenience
+functions for handling files.  It can also write to a buffer in memory
+as well as to a file pointer.  
+A user-defined header can be specified for the output file.
+
+An instance of \cSoOutput\. is
+contained in an \cSoWriteAction\.; this is typically the only instance
+needed.
+}
+
+METHOD "" SoOutput() {}
+METHOD "" ~SoOutput() {
+Constructor and destructor. The default \cSoOutput\. writes to \xstdout\..
+The destructor closes any files opened by the \cSoOutput\..
+}
+
+METHOD setFilePtr void setFilePointer(FILE *newFP) {
+Sets file pointer to write to.
+}
+
+METHOD getFilePtr FILE * getFilePointer() const {
+Returns the file pointer in use, or NULL if using a buffer.
+}
+
+METHOD "" SbBool openFile(const char *fileName) {
+Opens named file, sets file pointer to result. This returns FALSE on error.
+}
+
+METHOD "" closeFile() {
+Closes current file if opened with
+\+\mopenFile()\..\.
+\-\mSoOutOpenFile()\..\.
+}
+
+METHOD setBuf void setBuffer(void *bufPointer, size_t initSize,
+			     SoOutputReallocCB *reallocFunc, int32_t offset = 0) {
+Sets up memory buffer to write to, initial size, reallocation function
+(which is called if there is not enough room in the buffer), and
+offset in the buffer at which to begin writing.  If the reallocation
+function returns NULL, writing will be disabled.
+}
+
+METHOD getBuf SbBool getBuffer(void *&bufPointer, size_t &nBytes) const {
+Returns pointer to memory buffer being written to and the new size of
+the buffer. Returns FALSE if not writing into a buffer.
+}
+
+METHOD "" size_t getBufferSize() const {
+The total number of bytes allocated to a memory buffer may be larger
+than the number of bytes written. This returns that total number.
+}
+
+METHOD "" void resetBuffer() {
+Resets buffer for output again. Output starts over at beginning of buffer.
+}
+
+METHOD setBin void setBinary(SbBool flag) {
+Sets whether output should be ASCII (default) or binary.
+}
+
+METHOD isBin SbBool isBinary() const {
+Returns current state of binary flag.
+}
+
+METHOD setHdrStr void setHeaderString(const SbString &str) {
+Sets the header for output files.
+This is useful, for example, if you have a file format that is
+a superset of the Inventor file format and you want Inventor
+to read the files.  It is highly recommend that in your new
+header you simply append to the header of the Inventor
+file format you are extending.
+For example, if a new file format is based on the Inventor 2.1 
+file format, register a header similar to:
+\k"#Inventor V2.1 ascii MY FILE FORMAT EXTENSION"\.
+Then all Inventor 2.1 applications (and later) can read the file.
+}
+
+METHOD resetHdrStr void resetHeaderString() {
+Resets the header for output files to be the default header.
+}
+
+METHOD getDfltASCIIHdr static SbString getDefaultASCIIHeader() {
+Returns the string representing the default ASCII header.
+}
+
+METHOD getDfltBinHdr static SbString getDefaultBinaryHeader() {
+Returns the string representing the default binary header.
+}
+
+METHOD setFltPrcsn void setFloatPrecision(int precision) {
+Sets the precision for writing floating point numbers, i.e.
+the number of significant digits. Floating point numbers
+are written using %.xg format, where 'x' is the value of
+the precision argument.
+}
+
+ALSO { SoInput, SoWriteAction, SoTranSender }
+

@@ -1,0 +1,28 @@
+#Inventor V2.0 ascii
+Separator {
+    RotationXYZ { axis Y angle .3 }
+    DEF NEW_LINK_BUTTON Button {
+	buttonText       Separator { Text3 { string "NEW LINK" } }
+	buttonActiveText Separator { Text3 { string "NEW LINK" } }
+    }
+    Translation { translation 0 -20 0 }
+    DEF NEW_CRANK_BUTTON Button {
+	buttonText       Separator { Text3 { string "NEW CRANK" } }
+	buttonActiveText Separator { Text3 { string "NEW CRANK" } }
+    }
+    Translation { translation 0 -20 0 }
+    DEF NEW_HINGE_BUTTON Button {
+	buttonText       Separator { Text3 { string "NEW HINGE" } }
+	buttonActiveText Separator { Text3 { string "NEW HINGE" } }
+    }
+    Translation { translation 0 -20 0 }
+    DEF NEW_DOUBLE_LINK_BUTTON Button {
+	buttonText       Separator { Text3 { string "NEW DOUBLE LINK" } }
+	buttonActiveText Separator { Text3 { string "NEW DOUBLE LINK" } }
+    }
+    Translation { translation 0 -20 0 }
+    DEF NEW_PISTON_BUTTON Button {
+	buttonText       Separator { Text3 { string "NEW PISTON" } }
+	buttonActiveText Separator { Text3 { string "NEW PISTON" } }
+    }
+}

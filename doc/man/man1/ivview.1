@@ -1,0 +1,96 @@
+'\"macro stdmacro
+.TH ivview 1
+.SH NAME
+ivview \- fast, interactive 3D viewer of Inventor files
+.SH SYNOPSIS
+.B ivview
+.RB [ \-hpw ]
+ [files | < file]
+.SH DESCRIPTION
+.I ivview
+reads an Inventor file (or files) and provides a simple interface to
+quickly view 3D data. The input files must be valid Inventor 3D files
+(versions 1.0 or 2.0).  All the files specified at the command line are
+read in and rendered.
+.PP
+ivview presents a single window containing an Inventor viewer
+(\f2examiner viewer\f1 or the \f2walk viewer\f1) and a menu bar.
+.PP
+Note that if you click and hold the right mouse button, the viewer
+pop-up capabilities will be displayed.  Also, note that the viewer
+has a help card that provides detailed instruction on how to use it.
+.PP
+The menu bar contains the following menus:
+.TP
+.I File
+.br
+This menu presents a file
+.I Open
+button, (reads an Inventor file and replaces existing object), an
+.I About
+button, (displays information about the program), and a
+.I Quit
+button.
+.TP
+.I Options
+.br
+This menu includes a
+.I High quality transparency
+toggle button that turns the high-quality transparency option on and off
+(high quality uses DELAYED_BLEND transparency, low quality uses SCREEN_DOOR
+transparency), 
+and an
+.I Edit background color
+button that pops up the Inventor Color Editor to change the background color.
+.TP
+.I Optimize
+.br
+This menu includes an
+.I Optimize for speed
+toggle button that will run the
+.B ivfix
+utility and a
+.I Cull backfaces
+toggle button that will insert an
+.B SoShapeHints
+node that will cause only front-facing polygons to be drawn.  When
+checked, both of these options apply to the current scene and any
+scenes read in using the File/Open menu.  Note that the 
+.B ivfix 
+utility
+completely restructures the scene, losing any interaction or animation
+nodes or engines.
+.SH OPTIONS
+The following command line options are allowed:
+.TP
+.BI \-h
+Prints the usage message for ivview.
+.TP
+.BI \-p
+Enables the performance meter.  Off by default.
+.TP
+.BI \-w
+Use an 
+.B SoXtWalkViewer 
+instead of the default 
+.B SoXtExaminerViewer. 
+Off by default.  This option is incompatible with the -p option.
+.SH EXAMPLES
+.IP
+.B ivview < /usr/share/data/models/toys/jackInTheBox.iv
+.IP
+.B ivview -w /usr/share/data/models/buildings/Barcelona.iv
+.IP
+.B ivview myCameraAndLights.iv myObject.iv
+
+.SH SOURCE CODE
+Note that the source code to 
+.I ivview 
+comes with the
+.I Open Inventor 3D Toolkit.
+.SH FILES
+/usr/share/data/models/* - Sample Inventor data files
+/usr/share/src/Inventor/tools/ivview/* - Source to ivview
+.SH SEE ALSO
+inventor, ivfix, ivcat, ivinfo,
+SceneViewer, gview

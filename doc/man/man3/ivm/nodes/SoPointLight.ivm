@@ -1,0 +1,30 @@
+NAME SoPointLight SoPtLt "" {
+node representing a point light source
+}
+
+INCLUDE nodes/SoPointLight.h
+
+DESC {
+This node defines a point light source at a fixed 3D location.  A
+point source illuminates equally in all directions; that is, it is
+omni-directional.
+}
+
+FIELD location { Location of the source. }
+
+METHOD "" SoPointLight() {
+Creates a point light source node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Activates this light (if so specified) during traversal. All shape
+nodes that come after this light in the scene graph are illuminated by
+this light. The light's location is affected by the current
+transformation.
+}
+
+ALSO { SoDirectionalLight, SoSpotLight }

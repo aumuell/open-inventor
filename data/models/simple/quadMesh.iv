@@ -1,0 +1,82 @@
+#Inventor V2.1 ascii
+
+Separator {
+    BaseColor {
+	rgb	[ 0 1 0,
+			  0 1 0,
+			  0 1 0,
+			  0 1 0,
+			  0 1 0,
+			  0 1 0,
+			  0.5 0.5 0,
+			  0.5 0.5 0,
+			  0.5 0.5 0,
+			  0 1 0,
+			  0 1 0,
+			  0.5 0.5 0,
+			  1 1 1,
+			  0.5 0.5 0,
+			  0 1 0,
+			  0 1 0,
+			  0.5 0.5 0,
+			  0 1 0,
+			  0.5 0.5 0,
+			  0 1 0,
+			  0 1 0,
+			  0 1 0,
+			  0 1 0,
+			  0 1 0,
+			  0 1 0 ]
+    }
+    MaterialBinding {
+	value	PER_VERTEX
+    }
+    DEF mountain+0 QuadMesh {
+	vertexProperty		VertexProperty {
+	    vertex	[ -2 0 -2,
+			      -1 0 -2,
+			      0 0 -2,
+			      1 0 -2,
+			      2 0 -2,
+			      -2 0 -1,
+			      -1 1 -1,
+			      0 1 -1,
+			      1 1 -1,
+			      2 0 -1,
+			      -2 0 0,
+			      -1 1 0,
+			      0 2 0,
+			      1 1 0,
+			      2 0 0,
+			      -2 0 1,
+			      -1 1 1,
+			      0 1 1,
+			      1 1 1,
+			      2 0 1,
+			      -2 0 2,
+			      -1 0 2,
+			      0 0 2,
+			      1 0 2,
+			      2 0 2 ]
+	    normal	[  ]
+	    texCoord	[  ]
+	    orderedRGBA	[  ]
+	}
+
+	verticesPerColumn	5
+	verticesPerRow	5
+    }
+    DrawStyle {
+	style	LINES
+    }
+    BaseColor {
+	rgb	0 0 0
+    }
+    MaterialBinding{
+	value OVERALL
+    }
+    Translation {
+	translation	0 0.0099999998 0
+    }
+    USE mountain+0
+}

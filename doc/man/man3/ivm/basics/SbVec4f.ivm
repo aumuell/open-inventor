@@ -1,0 +1,133 @@
+NAME SbVec4f SbV4f "" { 4D vector class }
+INCLUDE SbLinear.h
+DESC {
+4D vector class used to store homogeneous coordinates. This class is used
+in Inventor for arguments and return values.
+\-
+This object does not have \mCreate\. or \mDelete\.
+functions because it is considered a simple datatype; instances of
+this class may be declared directly as local or global variables in C.
+C programmers can access the components of the vector as though it were
+a simple structure or use the access and operation functions described
+in this reference page:
+\b\k
+struct SbVec4f \{ float vec[4]; \};
+
+SbVec2f   v1, v2;
+
+/* The next two lines produce equivalent vectors. */
+v1.vec[0] = 1.0; v1.vec[1] = 1.0; v1.vec[2] = 1.0; v1.vec[3] = 1.0;
+SbV4fSetX_Y_Z_W( v2, 1.0, 1.0, 1.0, 1,0 );
+\.\.\.
+}
+
+BEGIN C++
+METHOD "" SbVec4f() { Default constructor. }
+METHOD "" SbVec4f(const float v[4]) {}
+METHOD "" SbVec4f(float x, float y, float z, float w) {
+Constructor given vector components.
+}
+METHOD "" float dot(const SbVec4f &v) const {
+Returns dot (inner) product of vector and another vector.
+}
+END
+
+BEGIN C
+MACRO SbV4fDot(SbVec4f vec0, SbVec4f vec1) {
+Returns dot (inner) product of two vectors.
+}
+END
+
+METHOD "" SbBool      equals(const SbVec4f v, float tolerance) const {
+Equality comparison within given tolerance \(em the square of the
+length of the maximum distance between the two vectors.
+}
+METHOD "" void        getReal(SbVec3f &v) const {
+Returns the real portion of the vector by dividing by the fourth value.
+}
+
+BEGIN C++
+METHOD "" const float *getValue() const {}
+METHOD "" void        getValue(float &x, float &y, float &z, float &w) const {
+Returns vector components.
+}
+END
+
+BEGIN C
+MACRO SbV4fGetXYZW(float array[4], SbVec4f vec) {}
+MACRO SbV4fGetX_Y_Z_W(float x, float y, float z, float w, SbVec4f vec) {
+Returns vector components.
+}
+END
+
+BEGIN C++
+METHOD "" float       length() const {
+Returns geometric length of vector.
+}
+METHOD "" void        negate() {
+Negates each component of vector in place.
+}
+END
+BEGIN C
+MACRO SbV4fLen(SbVec4f vec) {
+Returns geometric length of vector.
+}
+MACRO SbV4fNegate(SbVec4f vec) {
+Negates each component of vector in place.
+}
+END
+
+METHOD norm normalize() { 
+Changes vector to be unit length.
+}
+
+BEGIN C
+MACRO SbV4fSetXYZW(SbVec4f vec, float array[4]) {}
+MACRO SbV4fSetX_Y_Z_W(SbVec4f vec, float x, float y, float z, float w) {
+Sets the vector components.
+}
+MACRO SbV4fAdd(SbVec4f dest, SbVec4f src1, SbVec4f src2) {}
+MACRO SbV4fSub(SbVec4f dest, SbVec4f src1, SbVec4f src2) {
+Component-wise binary vector addition and subtraction operators.
+}
+MACRO SbV4fMultBy(SbVec4f vec, float scalar) {}
+MACRO SbV4fDivBy(SbVec4f vec, float scalar) {
+Component-wise scalar multiplication and division operators.
+}
+END
+
+BEGIN C++
+METHOD "" SbVec4f &   setValue(const float v[4]) {}
+METHOD "" SbVec4f &   setValue(float x, float y, float z, float w) {
+Sets the vector components.
+}
+METHOD "" float &       operator [\|](int i) {}
+METHOD "" const float & operator [\|](int i) {
+Accesses indexed component of vector.
+}
+METHOD "" SbVec4f &   operator *=(float d) {}
+METHOD "" SbVec4f &   operator /=(float d) {
+Component-wise scalar multiplication and division operators.
+}
+METHOD "" SbVec4f &   operator +=(const SbVec4f &u) {}
+METHOD "" SbVec4f &   operator -=(const SbVec4f &u) {
+Component-wise vector addition and subtraction operators.
+}
+METHOD "" SbVec4f     operator -() const {
+Nondestructive unary negation \(em returns a new vector.
+}
+METHOD "" SbVec4f      operator *(const SbVec4f &v, float d) {}
+METHOD "" SbVec4f      operator *(float d, const SbVec4f &v) {}
+METHOD "" SbVec4f      operator /(const SbVec4f &v, float d) {
+Component-wise binary scalar multiplication and division operators.
+}
+METHOD "" SbVec4f      operator +(const SbVec4f &v1, const SbVec4f &v2) {}
+METHOD "" SbVec4f      operator -(const SbVec4f &v1, const SbVec4f &v2) {
+Component-wise binary vector addition and subtraction operators.
+}
+END
+METHOD "" int          operator ==(const SbVec4f &v1, const SbVec4f &v2) {}
+METHOD "" int          operator !=(const SbVec4f &v1, const SbVec4f &v2) {
+Equality comparison operators.
+}
+ALSO { SbVec2f, SbVec3f, SbVec2s, SbRotation }

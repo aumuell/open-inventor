@@ -1,0 +1,37 @@
+NAME SoPathSwitch SoPathSwitch "" {
+group node that traverses only when traversed along a given path
+}
+
+INCLUDE nodes/SoPathSwitch.h
+
+DESC {
+\cSoPathSwitch\. is a group node that traverses its children only if
+the current traversal path matches the \cSoPath\. in the \vpath\.
+field. This can be used, for example, to affect only one instance of a
+subgraph. The \vpath\. field contains the path up to (but not
+including) the \cSoPathSwitch\.. The path need not go all the way back
+to the root; if it does not, then only the number of ancestors that
+are in the path are compared to see if the children should be
+traversed. A NULL path means that the children are never traversed.
+}
+
+FIELD path { The path that must match the current traversal path. }
+
+METHOD "" SoPathSwitch() {
+Creates a path switch node with default settings.
+}
+
+METHOD CreateN SoPathSwitch(int nChildren) {
+Constructor that takes approximate number of children.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+SoGetBoundingBoxAction, SoRayPickAction, SoHandleEventAction {
+Traverses the children if the paths match.
+}
+
+ALSO { SoPath, SoSwitch }

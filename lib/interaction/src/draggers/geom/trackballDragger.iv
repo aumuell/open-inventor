@@ -1,0 +1,398 @@
+#Inventor V2.0 ascii
+
+
+DEF TRACKBALL_DRAGGER_Y_RING_COORDS_AND_NORMALS Group {
+    NormalBinding { value PER_VERTEX }
+    MaterialBinding { value OVERALL }
+    Coordinate3 {
+	point [
+
+	    # first quadrant
+	    1.0  0  0.0,
+
+	    0.980785  0.05000  0.195090,
+	    0.980785 -0.05000  0.195090,
+	    0.923880  0.05000  0.382683,
+	    0.923880 -0.05000  0.382683,
+	    0.831470  0.05000  0.555570,
+	    0.831470 -0.05000  0.555570,
+	    0.707107  0.05000  0.707107,
+	    0.707107 -0.05000  0.707107,
+	    0.555570  0.05000  0.831470,
+	    0.555570 -0.05000  0.831470,
+	    0.382683  0.05000  0.923880,
+	    0.382683 -0.05000  0.923880,
+	    0.195090  0.05000  0.980785,
+	    0.195090 -0.05000  0.980785,
+
+	    0.0  0  1.0,
+
+	    # second quadrant
+	    0.0  0  1.0,
+
+	    -0.195090  0.05000  0.980785,
+	    -0.195090 -0.05000  0.980785,
+	    -0.382683  0.05000  0.923880,
+	    -0.382683 -0.05000  0.923880,
+	    -0.555570  0.05000  0.831470,
+	    -0.555570 -0.05000  0.831470,
+	    -0.707107  0.05000  0.707107,
+	    -0.707107 -0.05000  0.707107,
+	    -0.831470  0.05000  0.555570,
+	    -0.831470 -0.05000  0.555570,
+	    -0.923880  0.05000  0.382683,
+	    -0.923880 -0.05000  0.382683,
+	    -0.980785  0.05000  0.195090,
+	    -0.980785 -0.05000  0.195090,
+
+	    -1.0  0  0.0,
+
+	    # third quadrant
+	    -1.0  0  0.0,
+
+	    -0.980785  0.05000  -0.195090,
+	    -0.980785 -0.05000  -0.195090,
+	    -0.923880  0.05000  -0.382683,
+	    -0.923880 -0.05000  -0.382683,
+	    -0.831470  0.05000  -0.555570,
+	    -0.831470 -0.05000  -0.555570,
+	    -0.707107  0.05000  -0.707107,
+	    -0.707107 -0.05000  -0.707107,
+	    -0.555570  0.05000  -0.831470,
+	    -0.555570 -0.05000  -0.831470,
+	    -0.382683  0.05000  -0.923880,
+	    -0.382683 -0.05000  -0.923880,
+	    -0.195090  0.05000  -0.980785,
+	    -0.195090 -0.05000  -0.980785,
+
+	    0.0  0  -1.0,
+
+	    # fourth quadrant
+	    0.0  0  -1.0,
+
+	    0.195090  0.05000  -0.980785,
+	    0.195090 -0.05000  -0.980785,
+	    0.382683  0.05000  -0.923880,
+	    0.382683 -0.05000  -0.923880,
+	    0.555570  0.05000  -0.831470,
+	    0.555570 -0.05000  -0.831470,
+	    0.707107  0.05000  -0.707107,
+	    0.707107 -0.05000  -0.707107,
+	    0.831470  0.05000  -0.555570,
+	    0.831470 -0.05000  -0.555570,
+	    0.923880  0.05000  -0.382683,
+	    0.923880 -0.05000  -0.382683,
+	    0.980785  0.05000  -0.195090,
+	    0.980785 -0.05000  -0.195090,
+
+	    1.0  0  0.0,
+
+	]
+    }
+
+    Normal {
+	vector [ 
+
+	    # first quadrant
+	    1.0  0  0.0,
+
+	    0.980785  0  0.195090,
+	    0.980785  0  0.195090,
+	    0.923880  0  0.382683,
+	    0.923880  0  0.382683,
+	    0.831470  0  0.555570,
+	    0.831470  0  0.555570,
+	    0.707107  0  0.707107,
+	    0.707107  0  0.707107,
+	    0.555570  0  0.831470,
+	    0.555570  0  0.831470,
+	    0.382683  0  0.923880,
+	    0.382683  0  0.923880,
+	    0.195090  0  0.980785,
+	    0.195090  0  0.980785,
+
+	    0.0  0  1.0,
+
+	    # second quadrant
+	    0.0  0  1.0,
+
+	    -0.195090  0  0.980785,
+	    -0.195090  0  0.980785,
+	    -0.382683  0  0.923880,
+	    -0.382683  0  0.923880,
+	    -0.555570  0  0.831470,
+	    -0.555570  0  0.831470,
+	    -0.707107  0  0.707107,
+	    -0.707107  0  0.707107,
+	    -0.831470  0  0.555570,
+	    -0.831470  0  0.555570,
+	    -0.923880  0  0.382683,
+	    -0.923880  0  0.382683,
+	    -0.980785  0  0.195090,
+	    -0.980785  0  0.195090,
+
+	    -1.0  0  0.0,
+	    # third quadrant
+	    -1.0  0  0.0,
+
+	    -0.980785  0  -0.195090,
+	    -0.980785  0  -0.195090,
+	    -0.923880  0  -0.382683,
+	    -0.923880  0  -0.382683,
+	    -0.831470  0  -0.555570,
+	    -0.831470  0  -0.555570,
+	    -0.707107  0  -0.707107,
+	    -0.707107  0  -0.707107,
+	    -0.555570  0  -0.831470,
+	    -0.555570  0  -0.831470,
+	    -0.382683  0  -0.923880,
+	    -0.382683  0  -0.923880,
+	    -0.195090  0  -0.980785,
+	    -0.195090  0  -0.980785,
+
+	    0.0  0  -1.0,
+
+	    # fourth quadrant
+	    0.0  0  -1.0,
+
+	    0.195090  0  -0.980785,
+	    0.195090  0  -0.980785,
+	    0.382683  0  -0.923880,
+	    0.382683  0  -0.923880,
+	    0.555570  0  -0.831470,
+	    0.555570  0  -0.831470,
+	    0.707107  0  -0.707107,
+	    0.707107  0  -0.707107,
+	    0.831470  0  -0.555570,
+	    0.831470  0  -0.555570,
+	    0.923880  0  -0.382683,
+	    0.923880  0  -0.382683,
+	    0.980785  0  -0.195090,
+	    0.980785  0  -0.195090,
+
+	    1.0  0  0.0,
+	]
+    }
+}
+
+
+DEF TRACKBALL_DRAGGER_RING_SHAPE_MESH
+TriangleStripSet {
+    numVertices [ 16, 16, 16, 16 ]
+}
+
+DEF TRACKBALL_DRAGGER_RING_SHAPE_INVISIBLE Separator {
+    renderCaching ON
+    DrawStyle {
+	style INVISIBLE
+    }
+    USE TRACKBALL_DRAGGER_RING_SHAPE_MESH
+}
+
+DEF TRACKBALL_DRAGGER_RING_SHAPE_UNPICKABLE_OUTLINE Group {
+    PickStyle {
+	style UNPICKABLE
+    }
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+    IndexedLineSet {
+	coordIndex [
+	0,  1,  3,  5,  7,  9, 11, 13, 15, 14, 12, 10,  8,  6,  4,  2,  0, -1,
+	16, 17, 19, 21, 23, 25, 27, 29, 31, 30, 28, 26, 24, 22, 20, 18, 16, -1,
+	32, 33, 35, 37, 39, 41, 43, 45, 47, 46, 44, 42, 40, 38, 36, 34, 32, -1,
+	48, 49, 51, 53, 55, 57, 59, 61, 63, 62, 60, 58, 56, 54, 52, 50, 48, -1
+	]
+    }
+}
+
+DEF TRACKBALL_DRAGGER_X_ROTATOR Group {
+    Scale { scaleFactor    1.038 1.038 1.038 } 
+    RotationXYZ { axis Z angle 1.57079 }
+    USE TRACKBALL_DRAGGER_Y_RING_COORDS_AND_NORMALS
+
+    # draw invisible so it can be picked!
+    USE TRACKBALL_DRAGGER_RING_SHAPE_INVISIBLE
+
+    # now draw an unpickable line
+    USE TRACKBALL_DRAGGER_RING_SHAPE_UNPICKABLE_OUTLINE
+}
+
+DEF TRACKBALL_DRAGGER_Y_ROTATOR Group {
+    Scale { scaleFactor    1.038 1.038 1.038 }
+    USE TRACKBALL_DRAGGER_Y_RING_COORDS_AND_NORMALS
+
+    # draw invisible so it can be picked!
+    USE TRACKBALL_DRAGGER_RING_SHAPE_INVISIBLE
+
+    # now draw an unpickable line
+    USE TRACKBALL_DRAGGER_RING_SHAPE_UNPICKABLE_OUTLINE
+}
+
+DEF TRACKBALL_DRAGGER_Z_ROTATOR Group {
+    Scale { scaleFactor    1.038 1.038 1.038 }
+    RotationXYZ { axis  X angle 1.57079 }
+    USE TRACKBALL_DRAGGER_Y_RING_COORDS_AND_NORMALS
+
+    # draw invisible so it can be picked!
+    USE TRACKBALL_DRAGGER_RING_SHAPE_INVISIBLE
+
+    # now draw an unpickable line
+    USE TRACKBALL_DRAGGER_RING_SHAPE_UNPICKABLE_OUTLINE
+}
+
+DEF TRACKBALL_DRAGGER_USER_AXIS Group {
+    Scale { scaleFactor    1.088 1.088 1.088 }
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+    Coordinate3 { point [ 0 -1.25 0, 0 1.25 0 ] }
+    LineSet {}
+}
+
+DEF TRACKBALL_DRAGGER_USER_ROTATOR Group {
+    Scale { scaleFactor    1.088 1.088 1.088 }
+    USE TRACKBALL_DRAGGER_Y_RING_COORDS_AND_NORMALS
+    USE TRACKBALL_DRAGGER_RING_SHAPE_MESH
+
+    # now draw an unpickable line
+    USE TRACKBALL_DRAGGER_RING_SHAPE_UNPICKABLE_OUTLINE
+}
+
+DEF trackballRotator Separator {
+    renderCaching ON
+    DrawStyle { style INVISIBLE }
+    Complexity { value .3 }
+    Sphere { radius 1.0 }
+}
+
+DEF trackballRotatorActive Separator {
+    renderCaching ON
+    DrawStyle { style INVISIBLE }
+    Complexity { value .3 }
+    Sphere { radius 1.0 }
+}
+
+DEF trackballXRotator Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    USE TRACKBALL_DRAGGER_X_ROTATOR
+}
+
+DEF trackballXRotatorActive Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    DrawStyle { lineWidth 3 }
+    LightModel { model PHONG }
+    Texture2 {}
+    USE TRACKBALL_DRAGGER_X_ROTATOR
+}
+
+DEF trackballYRotator Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    USE TRACKBALL_DRAGGER_Y_ROTATOR
+}
+
+DEF trackballYRotatorActive Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    DrawStyle { lineWidth 3 }
+    LightModel { model PHONG }
+    Texture2 {}
+    USE TRACKBALL_DRAGGER_Y_ROTATOR
+}
+
+DEF trackballZRotator Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    USE TRACKBALL_DRAGGER_Z_ROTATOR
+}
+
+DEF trackballZRotatorActive Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    DrawStyle { lineWidth 3 }
+    LightModel { model PHONG }
+    Texture2 {}
+    USE TRACKBALL_DRAGGER_Z_ROTATOR
+}
+
+DEF trackballUserAxis Separator {
+    renderCaching ON
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.25 0.05 0.36 ]
+	emissiveColor	[ 0.25 0.05 0.36 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    USE TRACKBALL_DRAGGER_USER_AXIS
+}
+
+DEF trackballUserAxisActive Separator {
+    renderCaching ON
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.36 0.05 0.44 ]
+	emissiveColor	[ 0.36 0.05 0.44 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    USE TRACKBALL_DRAGGER_USER_AXIS
+}
+
+DEF trackballUserRotator Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.05 0.18 0.125 ]
+	emissiveColor	[ 0.05 0.18 0.125 ]
+
+	transparency	0.5
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    USE TRACKBALL_DRAGGER_USER_ROTATOR
+}
+
+DEF trackballUserRotatorActive Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.05 0.2025 0.18 ]
+	emissiveColor	[ 0.05 0.2025 0.18 ]
+
+	transparency	0.5
+    }
+    DrawStyle { lineWidth 3 }
+    LightModel { model PHONG }
+    Texture2 {}
+    USE TRACKBALL_DRAGGER_USER_ROTATOR
+}

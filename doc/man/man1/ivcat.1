@@ -1,0 +1,59 @@
+'\"macro stdmacro
+.TH ivcat 1
+.SH NAME
+ivcat \- concatenates and converts Inventor files
+.SH SYNOPSIS
+.B ivcat
+.RB [ \-bfht ]
+.RB [ \-o
+file]
+[file ...]
+.SH DESCRIPTION
+.I ivcat
+reads each
+.I file
+in sequence and then writes each out.  If no input file is given, or a
+filename of "-" is specified,
+.I ivcat
+reads from the standard input file.  The input files must be valid
+Open Inventor 3D Interchange Format files (1.0 or 2.0).
+.PP
+The following command line options are allowed:
+.TP 5
+.B \-b
+Write out the files in binary Inventor format.  The default is to
+write out the files in Inventor's ASCII format.
+.TP 5
+.B \-f
+Remove all 
+.I SoFile
+nodes.  This has the effect of condensing hierarchical files into
+a single file.
+.TP 5
+.B \-h
+Print usage message.
+.TP
+.BI \-o " file"
+Send the output to the given file, instead of to the standard output.
+.TP
+.BI \-t
+Expand SoTexture2 nodes to explictly include the texture data rather than
+a file name.
+.SH EXAMPLES
+To convert from binary to ASCII Inventor
+.IP
+.B ivcat < binaryfile.iv >  asciifile.iv
+.PP
+To convert from ASCII to binary Inventor:
+.IP
+.B ivcat -b < asciifile.iv > binaryfile.iv
+.SH SOURCE CODE
+Note that the source code to 
+.I ivcat 
+comes with the
+.I Open Inventor 3d Toolkit.
+.SH FILES
+/usr/share/data/models/* - Sample Inventor data files
+/usr/share/src/Inventor/tools/ivcat/* - Source to ivcat
+.SH SEE ALSO
+inventor, ivview, noodle, SceneViewer, gview

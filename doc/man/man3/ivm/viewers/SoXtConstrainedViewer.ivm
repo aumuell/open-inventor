@@ -1,0 +1,25 @@
+NAME SoXtConstrainedViewer SoXtConstrVwr "" {
+base viewer class which adds camera constraints given a world up direction
+}
+
+INCLUDE Xt/viewers/SoXtConstrainedViewer.h
+
+DESC {
+This is a base class for the \cSoXtWalkViewer\.  and \cSoXtFlyViewer\.
+component viewers. This class adds methods and convenience routines 
+available to subclasses to constrain the camera given a world up direction.
+This prevents the camera from looking upside down. By default the +Y 
+direction is used.
+}
+
+METHOD setUpDir void setUpDirection(const SbVec3f &newUpDirection) {}
+METHOD getUpDir SbVec3f	    getUpDirection()
+{
+Specifies the upward direction of the viewer. This up direction is
+used by the viewers to constrain the camera when tilting up/down, and
+also used when rotating the camera right/left.
+The default is the +Y (0,1,0) direction.
+}
+
+ALSO { SoXtFullViewer, SoXtViewer, SoXtComponent, SoXtRenderArea, 
+SoXtWalkViewer, SoXtFlyViewer }

@@ -1,0 +1,87 @@
+NAME SoScaleUniformDragger SoScaleUniDrag "" { object you can scale uniformly in 3D by dragging with the mouse }
+
+INCLUDE draggers/SoScaleUniformDragger.h
+
+DESC { \cSoScaleUniformDragger\. 
+is a simple dragger that scales
+uniformly in all 3 dimensions when dragged with the mouse.
+The local space is determined by its
+location in the scene graph.
+Transformation nodes placed before it will
+affect both the dragger and the plane of motion.
+\p
+This node has a \vscaleFactor\. field
+which always reflects
+its size in local space.
+If you set the field, the dragger will change accordingly.
+You can also connect fields of other nodes or engines from
+this one to make them follow the dragger's motion.
+\p
+This dragger contains four parts, \escaler\., \escalerActive\.,
+\efeedback\., and \efeedbackActive\..
+\p
+Each of these is set by default from a resource described in the Dragger
+Resources section of the online reference page for this class.  You can
+change the parts in any instance of this dragger using
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+\p
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/scaleUniformDragger.iv\.
+into your own directory, editing the file, and then
+setting the environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+DRAGGER_RESOURCE {
+  scaleUniformScaler,
+  scaler,
+  "8 small white cubes at the corners of a larger 2x2x2 cube.",
+  "picking this initiates the scaling"
+}
+
+DRAGGER_RESOURCE {
+  scaleUniformScalerActive,
+  scalerActive,
+  "yellow version of scaler, but with extra yellow box connecting corners",
+  "displayed instead of scaler while in motion"
+}
+
+DRAGGER_RESOURCE {
+  scaleUniformFeedback,
+  feedback,
+  "thin purple 3-D crosshair",
+  "shows center of scale when still"
+}
+
+DRAGGER_RESOURCE {
+  scaleUniformFeedbackActive,
+  feedbackActive,
+  "thin, slightly brighter purple 3-D crosshair",
+  "shows center of scale while in motion"
+}
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoCenterballDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTransformerDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}
+

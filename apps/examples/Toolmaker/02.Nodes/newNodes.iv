@@ -1,0 +1,45 @@
+#Inventor V2.0 ascii
+
+#
+# Input file for "newNodes" example program
+#
+
+Separator {
+
+   MaterialBinding { value PER_PART }
+   Material {
+      diffuseColor   [.3 .6 .3, .6 .3 .2] 
+      transparency   [ 0.6 , 0.0]
+      shininess      .5
+   }
+
+   # Skip every other child
+   Alternate {
+      fields         []
+
+      Pyramid {
+         fields         []
+      }
+
+      Cube {}           # This child is skipped
+
+      Separator {
+         MaterialBinding { value OVERALL }
+         Glow {
+            fields [ SFColor color , SFFloat brightness , SFFloat transparency]
+            brightness  .6
+            color       .8 .3 .3
+	    transparency .7
+         }
+         Transform {
+            translation 3 .6 0
+         }
+         Pyramid {
+            fields      [SFFloat   height ]
+            height      3.2
+         }
+      }
+
+      Sphere {}         # This child is skipped
+   }
+}

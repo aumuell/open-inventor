@@ -1,0 +1,52 @@
+		README for Inventor GraphViewer
+		-------------------------------
+
+Notes on the "gview" sample program:
+
+    This program creates a window containing an ExaminerViewer on the left
+    and a GraphViewer on the right. Changes to the graph displayed in the
+    GraphViewer are reflected in the 3D scene displayed by the
+    ExaminerViewer. A pulldown menu lets you save the resulting scene
+    graph in "gview.iv".
+
+    Callbacks have been set up so that selecting objects in the left
+    window also selects the appropriate graph icon, and vice-versa.
+    Selecting an icon representing a non-group, non-shape node selects the
+    parent group in the left window.
+
+    Note that the "icons.iv" file must be either in the directory in which
+    the program is run or in a directory named by the "IV_GRAPH_DIR"
+    environment variable. You can create your own "icons.iv" file with
+    your own icon styles in it.
+
+
+Notes on the GraphViewer component:
+
+    The GraphViewer consists of a main viewer window and a top-bar of
+    pulldown menus. The viewer is derived from SoXtPlaneViewer and has an
+    orthographic camera, so you get only one view of the graph. The left
+    mouse button pans around. The zoom slider or thumbwheel can be used to
+    "zoom" in and out (although only the size of the parallel view volume
+    is really changing).
+
+    When not in viewer mode, the GraphViewer allows you to perform
+    selection (single-selection policy) of icons. You can register
+    selection and deselection callbacks with the viewer. The top-bar menus
+    contain a variety of editing and graph viewing options, including
+    cut/copy/paste, creating new nodes, navigating through the graph, and
+    editing fields of a node. Each menu option has a corresponding
+    keyboard shortcut listed in the menu.
+
+    Double-clicking on an icon initiates the most common action for that
+    type of node. For a group, it toggles the display mode. (It opens the
+    group, showing the children, if the group is closed, and closes it if
+    it is open.) For an instance (looks like an "I"), it shows what
+    node it is an instance of or hides the connection if it is already
+    shown. For any other node, it opens an editor on the fields of the
+    node.
+
+    The GraphViewer does not use data sensors to determine when
+    someone else changes the graph it represents - that would make it much
+    too slow. If you change the graph from within your program, you can
+    call the "update()" method on the GraphViewer or use the "update"
+    menu button.

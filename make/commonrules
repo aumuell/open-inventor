@@ -1,0 +1,111 @@
+# Copyright 1990 Silicon Graphics, Inc.  All rights reserved.
+#
+#ident "$Revision: 1.1 $"
+#
+# Common makefile rules.
+#
+# Notes:
+#	- After including $(IVDEPTH)/make/commondefs, a makefile may
+#	  say ``include $(COMMONRULES)'' to get this file.
+#	- It is up to the including makefile to define a default rule before
+#	  including $(COMMONRULES).
+#	- The parent makefile must define TARGETS in order for clobber to work.
+#	- If the parent makefile must overload the common targets with special
+#	  rules (e.g. to perform recursive or subdirectory makes), then set
+#	  COMMONPREF to some unique prefix before including $(COMMONRULES),
+#	  and make sure that each common target depends on its prefixed name.
+#	  For example, a makefile which passes common targets and install on
+#	  to makes in subdirectories listed in DIRS might say
+#
+#		COMMONPREF=xxx
+#		include $(COMMONRULES)
+#
+#		$(COMMONTARGS) install: $(COMMONPREF)$$@
+#			@for d in $(DIRS); do \
+#				$(ECHO) "\tcd $$d; $(MAKE) $@"; \
+#				cd $$d; $(MAKE) $@; cd ..; \
+#			done
+#
+#	  Thus, all of the common rules plus install are passed to sub-makes
+#	  *and* executed in the current makefile (as xxxclean, xxxclobber,
+#	  xxxinstall, etc).  SUBDIRS_MAKERULE in commondefs is a convenience
+#	  macro that expands to the above loop.
+#
+
+#
+# $(_FORCE) doesn't exist under gmake, so we can't define it here or it will
+# be run.  The preferred method is now to use ".PHONY", a gmake construct.
+# For example, to force "clean," use: ".PHONY: clean".
+# grantham 7/7/97
+#
+#$(_FORCE):
+
+#
+# File removal rules: there are three.
+#	- clean removes dirt
+#	- clobber removes targets, dirt, and Makedepend
+#	- rmtargets removes targets only
+# One might 'make clean' in a large tree to reclaim disk space after targets
+# are built, but before they are archived into distribution images on disk.
+# One might 'make rmtargets' to remove badly-linked executables, and then
+# run a 'make' to re-link the good objects.
+#
+.PHONY: $(COMMONPREF)clobber $(COMMONPREF)clean $(COMMONPREF)rmtargets
+
+$(COMMONPREF)clobber: $(COMMONPREF)clean $(COMMONPREF)rmtargets
+	rm -rf $(MKDEPFILE)
+
+$(COMMONPREF)clean:
+	rm -rf $(DIRT)
+
+$(COMMONPREF)rmtargets:
+	rm -rf $(TARGETS)
+
+#
+# Lint and C tags support.
+#
+.PHONY: $(COMMONPREF)fluff $(COMMONPREF)tags $(COMMONPREF)TAGS
+
+$(COMMONPREF)fluff:
+	$(LINT) $(LINTFLAGS) $(CDEFS) $(CINCS) $(CFILES) $(LDLIBS)
+
+CTAGS=ctags
+
+$(COMMONPREF)tags: 
+	rm -f tags
+	find . $(CTAGFILES) \
+		! -name '.*' ! -name 'llib-*' ! -name '*,v' \
+		$(CTAGFINDARGS) -print | \
+	    sed 's:^\./::' | \
+	    xargs $(CTAGS) -a $(CTAGOPTS)
+	if test -f tags; then \
+		sort -u +0 -1 -o tags tags; \
+	fi
+
+ETAGS=etags
+
+$(COMMONPREF)TAGS:
+	rm -f TAGS
+	find . $(CTAGFILES) \
+		! -name '.*' ! -name 'llib-*' ! -name '*,v' \
+		$(CTAGFINDARGS) -print | \
+	    sed 's:^\./::' | \
+	    xargs $(ETAGS) -a $(ETAGOPTS)
+
+#
+# A better version of smake's makelib.mk rule.
+# XXX fix makelib.mk in next release and remove this rule.
+#
+MAKELIB: .USE .PRECIOUS
+	$(AR) c$(ARFLAGS) $@ $?
+	rm -f $?
+
+#
+# Include the make dependency file if it exists.
+#
+sinclude $(MKDEPFILE)
+
+#
+# Local make rules
+#
+sinclude $(LOCALRULES)

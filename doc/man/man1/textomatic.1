@@ -1,0 +1,73 @@
+'\"macro stdmacro
+.TH textomatic 1
+.SH NAME
+textomatic \- interactive program for creating 3d text
+.SH SYNOPSIS
+.B textomatic
+.SH DESCRIPTION
+.I textomatic
+is an Inventor program for creating beveled, 3D text.  It supports arbitrary
+bevels, arbitrary messages, assigning different materials to the
+front, back and sides of the text, and supports pasting into other
+applications (like showcase or SceneViewer).
+.PP
+The textomatic window is split into four parts:
+.PP
+The top of the window is an Inventor examiner viewer, displaying the
+3D text and allowing you to rotate and zoom it.  By default the
+"decoration" of buttons and thumbwheels used to control your view is
+turned off; you can turn it back on using the popup menu that will
+appear if you press the right mouse button in this window.  Help on
+how to use the viewer is also available from the 'Functions->Help'
+menu entry on that popup.
+.PP
+The lower-right of the window contains a Motif text widget, which can
+be used to change the 3D message displayed.  Just click the left mouse
+button in the window and start typing; the 3D text is automatically
+updated 1 second after you stop typing.
+.PP
+At the bottom center of the window is a representation of the bevel
+used for the sides of the text.  You can use the left mouse button to
+add points to the bevel and will immediately see changes in the 3D
+text.  For example, position the cursor in the middle of the cyan
+line, where the two red lines cross.  Press and hold the left mouse
+button, then drag the mouse up and down a little.  Notice how the
+bevel on the 3D text changes to match the cross-section defined by the
+cyan line.  Try adding some more points.  You can use the backspace
+key to delete points, and you can move existing points by clicking on
+them (notice that a little white cross is drawn when your cursor gets
+close to them).
+.PP
+The lower-left of the window contains four buttons:
+.TP
+.I Copy
+Will copy the Inventor scene graph used to draw the 3D text onto the X
+clipboard, where it can be viewed (use the xclipboard program) or
+pasted into another Inventor application (like showcase or
+SceneViewer).
+.TP
+.I Edit Parts
+Brings up a material editor and some radio buttons that let you
+independently turn on or off the front, back and sides of the text, or
+change their material.  Try disabling editing of the sides' material
+(click on the yellow 'Edit' button in front of 'Sides:') and then
+changing the diffuse color (by clicking on the little diamond button
+in front of the 'Diff:' slider, and then changing the color in the
+color wheel that appears).
+.TP
+.I About
+Brings up a short description of textomatic.
+.TP
+.I Quit
+Exits textomatic.  Note that the data copied to the X clipboard with
+the copy button will disappear when texomatic exits, so be sure to
+paste your creations before exiting.
+.SH SOURCE CODE
+Note that the source code to 
+.I textomatic 
+comes with the
+.I Open Inventor 3d Toolkit.
+.SH FILES
+/usr/share/src/Inventor/demos/textomatic/* - Source to textomatic
+.SH SEE ALSO
+drop, maze, noodle, qmorf, revo, showcase, SceneViewer, inventor, ivview

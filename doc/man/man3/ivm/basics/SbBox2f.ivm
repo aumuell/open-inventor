@@ -1,0 +1,61 @@
+NAME SbBox2f "" "" { 2D box class }
+INCLUDE SbBox.h
+DESC {
+2D box which has planes parallel to the major axes and is specified by
+two points (specified as floating point) on a diagonal. This class is part
+of the standard Inventor datatype classes and is used as input and output
+to geometry operations.
+}
+
+METHOD "" SbBox2f() {}
+METHOD CreateBounds SbBox2f(float xmin, float ymin, float xmax float ymax) {}
+METHOD CreateMinMax SbBox2f(const SbVec2f &min, const SbVec2f &max) {}
+METHOD "" void ~SbBox2f() {
+Constructors and destructor for a 2D float box.  \axmin\., \aymin\., \axmax\.,
+and \aymax\. are the bounds of the box. \amin\. and \amax\. are the corners of
+the diagonal that define the box.
+}
+METHOD "" const SbVec2f & getMin() {}
+METHOD "" const SbVec2f & getMax() {
+Returns the minimum and maximum points of the box.
+}
+METHOD "" SbVec2f getCenter() {
+Returns the center of the box.
+}
+METHOD extendByPt void extendBy(const SbVec2f &point) {}
+METHOD extendByBox void extendBy(const SbBox2f &box) { 
+Extends this box (if necessary) to contain the specified point or other box.
+}
+METHOD intersectPt SbBool intersect(const SbVec2f &point) {} 
+METHOD intersectBox SbBool intersect(const SbBox2f &box) { 
+Returns \kTRUE\. if the specified \apoint\. or \abox\. intersects this box.
+}
+METHOD "" void setBounds(float xmin, float ymin, float xmax, float ymax) {}
+METHOD setBoundsMinMax void setBounds(const SbVec2f &min, const SbVec2f &max) {
+Sets the corners of the box.
+}
+METHOD "" void getBounds(float &xmin, float &ymin, float &xmax, float &ymax) {}
+METHOD getBoundsMinMax void getBounds(SbVec2f &min, SbVec2f &max) {
+Gets the corners of the box.
+}
+METHOD "" void getOrigin(float &x0, float &y0) {
+Gets box origin.
+}
+METHOD "" void getSize(float &x, float &y) {
+Gets box size.
+}
+METHOD "" float getAspectRatio() {
+Gets box aspect ratio.
+}
+METHOD "" void makeEmpty() {
+Makes an empty box.
+}
+METHOD "" SbBool isEmpty() {
+Returns \kTRUE\. if the box is empty, and \kFALSE\. otherwise.
+}
+METHOD "" SbBool hasArea() {
+Returns \kTRUE\. if both dimensions of the box have positive size,
+and \kFALSE\. otherwise.
+}
+ALSO { SbBox3f, SbXfBox3f, SbBox2s, SbVec3f, SbVec2f, SbVec2s, SbMatrix }
+

@@ -1,0 +1,40 @@
+NAME SoMultipleCopy SoMultCopy "" {
+group node that traverses multiple times, applying matrices
+}
+
+INCLUDE nodes/SoMultipleCopy.h
+
+DESC {
+This group node traverses its children, in order, several times,
+applying a different matrix each time. The matrices are stored in the
+multiple-value \vmatrix\. field. Each matrix is concatenated to the
+current transformation matrix, and all of the children are traversed.
+This allows the user to put multiple copies of the same data in
+different locations easily and efficiently.
+\p
+Traversing the \aN\.th child sets the current switch value to \aN\., for use
+with inherited switch values (see \cSoSwitch\.).
+}
+
+FIELD matrix { Set of matrices to apply to children. }
+
+METHOD "" SoMultipleCopy() {
+Creates a multiple copy node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoRayPickAction {
+Traverses all children for each matrix, saving and restoring state
+before and after each traversal.
+}
+
+ACTION SoSearchAction {
+Traverses all children once, setting the inherited switch value to
+\kSO_SWITCH_ALL\. first.
+}
+
+ALSO { SoArray, SoSwitch }

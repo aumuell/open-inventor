@@ -1,0 +1,52 @@
+#Inventor V2.0 ascii
+
+Separator {
+    PickStyle {
+	style	UNPICKABLE
+    }
+    LightModel {
+	model	BASE_COLOR
+    }
+    NormalBinding {
+	value	DEFAULT
+    }
+    BaseColor {
+	rgb	0.2 0.2 0.2
+    }
+    Array {
+	numElements1	61
+	separation1	0.5 0 0
+	origin	CENTER
+	Coordinate3 {
+	    point	[ 0 -15 -1e-05,
+			      0 15 -1e-05 ]
+	}
+	LineSet {
+	    numVertices	2
+	}
+    }
+    Array {
+	numElements1	61
+	separation1	0 0.5 0
+	origin	CENTER
+	Coordinate3 {
+	    point	[ -15 0 -1e-05,
+			      15 0 -1e-05 ]
+	}
+	LineSet {
+	    numVertices	2
+	}
+    }
+    BaseColor {
+	rgb	0.4 0 0
+    }
+    Coordinate3 {
+	point	[ -15 0 0,
+			  15 0 0,
+			  0 -15 0,
+			  0 15 0 ]
+    }
+    LineSet {
+	numVertices	[ 2, 2 ]
+    }
+}

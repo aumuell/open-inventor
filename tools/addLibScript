@@ -1,0 +1,32 @@
+#! /bin/sh
+
+#
+# This script edits the give file and substitutes the correct library names
+# for the given placeholder library variables.
+# The correct library names are passed in by the command line.
+#
+# The command line arguments are:
+#   $1:  Input File Name
+#   $2:  Output File Name
+#   $3:  Inventor Library Name
+#   $4:  Inventor Xt Library Name
+#   $5:  Inventor GL Library Name
+#   $6:  Inventor C Library Name
+#   $7:  Inventor Xt C Library Name
+#   $8:  Inventor GL C Library Name
+#   $9:  Inventor Debug Library Name
+#   $10:  Inventor Xt Debug Library Name
+#   $11:  Inventor GL Debug Library Name
+
+echo "g/\\$(INVENTORLIB)/ s/\\$(INVENTORLIB)/$3/g" > /tmp/ed.script
+echo "g/\\$(INVENTORLIBXT)/ s/\\$(INVENTORLIBXT)/$4/g" >> /tmp/ed.script
+echo "g/\\$(INVENTORLIBGL)/ s/\\$(INVENTORLIBGL)/$5/g" >> /tmp/ed.script
+echo "g/\\$(INVENTORLIBC)/ s/\\$(INVENTORLIBC)/$6/g" >> /tmp/ed.script
+echo "g/\\$(INVENTORLIBXTC)/ s/\\$(INVENTORLIBXTC)/$7/g" >> /tmp/ed.script
+echo "g/\\$(INVENTORLIBGLC)/ s/\\$(INVENTORLIBGLC)/$8/g" >> /tmp/ed.script
+echo "g/\\$(INVENTORLIBDBG)/ s/\\$(INVENTORLIBDBG)/$9/g" >> /tmp/ed.script
+echo "g/\\$(INVENTORLIBXTDBG)/ s/\\$(INVENTORLIBXTDBG)/$10/g" >> /tmp/ed.script
+echo "g/\\$(INVENTORLIBGLDBG)/ s/\\$(INVENTORLIBGLDBG)/$11/g" >> /tmp/ed.script
+echo "w $2"             >> /tmp/ed.script
+echo "q"                >> /tmp/ed.script
+ed $1 < /tmp/ed.script

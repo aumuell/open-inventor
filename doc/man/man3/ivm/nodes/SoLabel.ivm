@@ -1,0 +1,20 @@
+NAME SoLabel SoLabel "" { node containing label text string }
+
+INCLUDE nodes/SoLabel.h
+
+DESC {
+This class defines a label node in the scene graph. This node has no effect
+during traversal. It is used to store text labels in the scene graph,
+typically for application-specific identification of subgraphs when
+node naming is not appropriate.
+}
+
+FIELD label { Defines the label string value as an \cSbName\.. }
+
+METHOD "" SoLabel() { Creates a label node with default settings. }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ALSO { SbName, SoInfo }

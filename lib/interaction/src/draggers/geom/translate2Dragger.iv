@@ -1,0 +1,116 @@
+#Inventor V2.0 ascii
+
+DEF TRANSLATE_2_DRAGGER_X_ARROW Separator {
+    # An arrow.
+	Scale { scaleFactor 1.1 1.1 1.1 }
+
+	#stick
+        Complexity { value .01 }
+        Cube { width 2 height .1 depth .1 }
+
+        Complexity { value 0.3 }
+	#left arrowhead
+	Separator {
+	    Translation { translation -1.25 0 0 }
+	    RotationXYZ { axis Z angle 1.57079 }
+	    Cone { height 0.5 bottomRadius 0.25 }
+	}
+
+	#right arrowhead
+	Separator {
+	    Translation { translation 1.25 0 0 }
+	    RotationXYZ { axis Z angle -1.57079 }
+	    Cone { height 0.5 bottomRadius 0.25 }
+	}
+
+	#extra object to facilitate picking
+	DrawStyle { style INVISIBLE }
+        Complexity { value .01 }
+	Cube { width 2 height .5 depth .5 }
+}
+
+DEF TRANSLATE_2_DRAGGER_Y_ARROW Separator {
+    # An arrow.
+	Scale { scaleFactor 1.1 1.1 1.1 }
+
+	#stick
+        Complexity { value .01 }
+        Cube { width .1 height 2 depth .1 }
+
+        Complexity { value 0.3 }
+	#top arrowhead
+	Separator {
+	    Translation { translation 0 1.25 0 }
+	    Cone { height 0.5 bottomRadius 0.25 }
+	}
+
+	#bottom arrowhead
+	Separator {
+	    Translation { translation 0 -1.25 0 }
+	    RotationXYZ { axis Z angle 3.14159 }
+	    Cone { height 0.5 bottomRadius 0.25 }
+	}
+
+	#extra object to facilitate picking
+	DrawStyle { style INVISIBLE }
+        Complexity { value .01 }
+	Cube { width .5 height 2 depth .5 }
+}
+
+DEF translate2Translator Separator {
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    Complexity { value .2 }
+    USE TRANSLATE_2_DRAGGER_X_ARROW
+    USE TRANSLATE_2_DRAGGER_Y_ARROW
+}
+
+DEF translate2TranslatorActive Separator {
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    DrawStyle { lineWidth 3 }
+    LightModel { model PHONG }
+    Texture2 {}
+    Complexity { value .2 }
+    USE TRANSLATE_2_DRAGGER_X_ARROW
+    USE TRANSLATE_2_DRAGGER_Y_ARROW
+}
+
+# These parts don't get used in the default case
+DEF translate2Feedback Separator {}
+DEF translate2FeedbackActive Separator {}
+
+DEF TRANSLATE_2_AXIS_FEEDBACK_STYLE Group {
+    Material {
+	diffuseColor	[ 0.36 0.05 0.44 ]
+	emissiveColor	[ 0.36 0.05 0.44 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding {value OVERALL}
+}
+
+DEF translate2XAxisFeedback Separator {
+    renderCaching ON
+    USE TRANSLATE_2_AXIS_FEEDBACK_STYLE 
+    Coordinate3 { point [ -3 0 0, 3 0 0 ] }
+    LineSet {}
+}
+DEF translate2YAxisFeedback Separator {
+    renderCaching ON
+    USE TRANSLATE_2_AXIS_FEEDBACK_STYLE 
+    Coordinate3 { point [ 0 -3 0, 0 3 0 ] }
+    LineSet {}
+}
+
+
+

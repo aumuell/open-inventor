@@ -1,0 +1,57 @@
+NAME SbBox2s SbBox2s "" { 2D box class }
+INCLUDE SbBox.h
+DESC {
+2D box which has planes parallel to the major axes and is specified by two
+points (specified with short integers) on a diagonal. This class is part of
+the standard Inventor datatype classes and is used as input and output to
+geometry operations.
+}
+
+METHOD "" SbBox2s() {}
+METHOD CreateBounds SbBox2s(short xmin, short ymin, short xmax, short ymax) {}
+METHOD CreateMinMax SbBox2s(const SbVec2s &_min, const SbVec2s &_max) {}
+METHOD "" void ~SbBox2s() {
+Constructors and destructor for a 2D integer box.  \axmin\., \aymin\., \axmax\.,
+and \aymax\. are the bounds of the box.  \amin\. and \amax\. are the corners
+of the diagonal that define the box.
+}
+METHOD "" const SbVec2s &     getMin() const {}
+METHOD "" const SbVec2s &     getMax() const {
+Returns the minimum and maximum points of the box.
+}
+METHOD extendByPt void        extendBy(const SbVec2s &point) {}
+METHOD extendByBox void        extendBy(const SbBox2s &box) {
+Extends this box (if necessary) to contain the specified \apoint\. or
+other \abox\..
+}
+METHOD intersectPt SbBool      intersect(const SbVec2s &point) const {}
+METHOD intersectBox SbBool      intersect(const SbBox2s &box) const {
+Returns TRUE if the specified \apoint\. or \abox\. intersects this box.
+}
+METHOD "" void setBounds(short xmin, short ymin, short xmax, short ymax) {}
+METHOD setBoundsMinMax void setBounds(const SbVec2s &_min,
+    const SbVec2s &_max) {
+Sets the corners of the box.
+}
+METHOD "" void        getBounds(short &xmin, short &ymin,
+                          short &xmax, short &ymax) const {}
+METHOD getBoundsMinMax void getBounds(SbVec2s &_min, SbVec2s &_max) const {
+Gets the corners of the box.
+}
+METHOD "" void        getOrigin(short &originX, short &originY) const {
+Returns origin (minimum point) of box.
+}
+METHOD "" void        getSize(short &sizeX, short &sizeY) const {
+Returns box size.
+}
+METHOD "" float       getAspectRatio() const {
+Returns aspect ratio (ratio of width to height) of box.
+}
+METHOD "" void        makeEmpty() {
+Makes an empty box.
+}
+METHOD "" int          operator ==(const SbBox2s &b1, const SbBox2s &b2) {}
+METHOD "" int          operator !=(const SbBox2s &b1, const SbBox2s &b2) {
+Equality comparisons.
+}
+ALSO { SbBox3f, SbXfBox3f, SbBox2f, SbVec3f, SbVec2f, SbVec2s, SbMatrix }

@@ -1,0 +1,3 @@
+#!/bin/sh
+#Tag 0x00010510
+cd /usr/demos/data/Inventor; /usr/demos/Inventor/noodle

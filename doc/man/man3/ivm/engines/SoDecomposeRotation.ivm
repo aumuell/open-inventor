@@ -1,0 +1,22 @@
+NAME SoDecomposeRotation SoDecmpsRot "" { 
+decomposes rotation values
+}
+
+DESC { 
+This engine takes as input a rotation, and 
+decomposes it into an axis value and a rotation angle (in radians).
+\p
+The input can have multiple values, allowing the engine to decompose
+several rotations in parallel.
+}
+
+INCLUDE engines/SoCompose.h
+
+INPUT rotation { Rotation to be decomposed. }
+
+OUTPUT axis { Axis of rotation derived from the input. }
+OUTPUT angle { Angle (in radians) derived from the input. }
+
+METHOD Create SoDecomposeRotation() { Constructor }
+
+ALSO { SoDecomposeRotationFromTo, SoComposeRotation, SoEngineOutput }

@@ -1,0 +1,21 @@
+NAME SoPickAction SoPickAct "" {
+abstract base class for picking objects in a scene
+}
+
+INCLUDE actions/SoPickAction.h
+
+DESC {
+This is an abstract base class for all picking actions. Currently,
+the only supported subclass is the \cSoRayPickAction\..
+}
+
+METHOD setVPReg void setViewportRegion(const SbViewportRegion &newRegion) {}
+METHOD getVPReg const SbViewportRegion &getViewportRegion() const {
+Sets/returns current viewport region to use for action. Even though
+the picking operation may not involve a window per se, some nodes need
+this information to determine their size and placement.
+}
+
+ALSO { SoRayPickAction }
+
+

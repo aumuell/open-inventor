@@ -1,0 +1,24 @@
+NAME SoDecomposeVec4f SoDecmpsV4f "" { 
+decomposes 4D vectors into floating-point values
+}
+
+DESC {  
+This engine takes as input a 4D vector,
+and decomposes it into four single floating-point values. 
+\p
+The input can have multiple values, allowing the engine to decompose
+several vectors in parallel.
+}
+
+INCLUDE engines/SoCompose.h
+
+INPUT vector { Vector to be decomposed. }
+
+OUTPUT x { First component of the vector. } 
+OUTPUT y { Second component of the vector. }
+OUTPUT z { Third component of the vector. }
+OUTPUT w { Fourth component of the vector. }
+
+METHOD Create SoDecomposeVec4f() { Constructor }
+
+ALSO { SoComposeVec4f, SoEngineOutput }

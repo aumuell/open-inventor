@@ -1,0 +1,48 @@
+NAME SoNormalBinding SoNormBind SO_NORM_BIND_ {
+node that specifies how multiple surface normals are bound to shapes
+}
+
+INCLUDE nodes/SoNormalBinding.h
+
+DESC {
+This node specifies how the current normals are bound to shapes that
+follow in the scene graph. Each shape node may interpret bindings
+differently.
+\p
+The bindings for faces and vertices are meaningful only for shapes
+that are made from faces and vertices. Similarly, the indexed bindings
+are only used by the shapes that allow indexing. For bindings that
+require multiple normals, be sure to have at least as many normals
+defined as are necessary; otherwise, errors will occur.
+}
+
+ENUM Binding {
+    OVERALL		"Whole object has same normal",
+    PER_PART		"One normal for each part of object",
+    PER_PART_INDEXED	"One normal for each part, indexed",
+    PER_FACE		"One normal for each face of object",
+    PER_FACE_INDEXED	"One normal for each face, indexed",
+    PER_VERTEX		"One normal for each vertex of object",
+    PER_VERTEX_INDEXED	"One normal for each vertex, indexed"
+}
+
+FIELD value { Specifies how to bind normals to shapes. }
+
+METHOD "" SoNormalBinding() {
+Creates a normal binding node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction, SoRayPickAction {
+Sets the current normal binding type.
+}
+
+ALSO {
+SoMaterialBinding,
+SoNormal,
+SoTextureCoordinateBinding,
+SoVertexShape
+}

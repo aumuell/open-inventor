@@ -1,0 +1,94 @@
+NAME SoIndexedNurbsSurface SoIndNurbs "" { indexed NURBS surface shape node }
+
+INCLUDE nodes/SoIndexedNurbsSurface.h
+
+DESC {
+
+This shape node represents a NURBS surface based on the knot vectors
+and the control points that you specify. The \vuKnotVector\. and
+\vvKnotVector\. fields specify floating-point arrays of values; the
+values are the coordinates of the knot points in the surface, and you
+must enter them in non-decreasing order.  The \vnumUControlPoints\.
+and \vnumVControlPoints\. fields specify the number of control points
+the surface will have in the U and V parametric directions, and will
+use the current coordinates that are indexed from the \vcoordIndex\.
+field.
+
+\p
+
+You can get a surface of minimum order (2) in the U or V directions by
+specifying two more knots than control points in that direction and
+having at least two control points in that direction.  This surface
+would appear creased in one direction.
+
+\p
+
+You can get a surface of maximum order (8) in the U or V directions by
+specifying eight more knots than control points in that direction and
+having at least eight control points in that direction.
+
+\p
+
+The control points of the NURBS surface are transformed by the current
+cumulative transformation. The surface is drawn with the current light
+model and drawing style. The coordinates, normals, and texture
+coordinates of a surface are generated, so you cannot bind explicit
+normals or texture coordinates to a NURBS surface. The first material
+in the state is applied to the entire surface.
+\p
+The surface is trimmed according to the currently defined profiles curves.
+
+\p
+
+When default texture coordinates are applied to a NURBS surface, the
+edges of the texture square are stretched to fit the surface. The axes
+of the texture are called S and T; S is horizontal and T is vertical.
+The axes of the NURBS surface are called U and V; U is horizontal and
+V is vertical. You can also define texture coordinates explicitly with
+the S,T location point, the knot vectors, and the current texture
+coordinates.
+}
+
+FIELD numUControlPoints {}
+FIELD numVControlPoints { Number of control points in the U and V directions. }
+FIELD coordIndex { Coordinate indices. }
+FIELD uKnotVector {}
+FIELD vKnotVector { The knot vectors in the U and V directions. }
+FIELD numSControlPoints {}
+FIELD numTControlPoints { Number of control points in the S and T directions. }
+FIELD textureCoordIndex { Texture coordinate indices. }
+FIELD sKnotVector {}
+FIELD tKnotVector { The knot vectors in the S and T directions. }
+
+METHOD "" SoIndexedNurbsSurface() {
+Creates an indexed NURBS surface node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Draws the surface based on the current coordinates, material, and so on.
+}
+
+ACTION SoRayPickAction {
+Picks the surface based on the current coordinates and transformation.
+}
+
+ACTION SoGetBoundingBoxAction {
+Computes the bounding box that encloses all control points of the
+surface with the current transformation applied to them. Sets the
+center to the average of the control points.
+}
+
+ACTION SoCallbackAction {
+If any triangle callbacks are registered with the action, they will be
+invoked for each successive triangle approximating the surface.
+}
+
+ALSO {
+SoIndexedNurbsCurve,
+SoNurbsSurface,
+SoProfile
+}

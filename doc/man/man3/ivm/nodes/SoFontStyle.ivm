@@ -1,0 +1,52 @@
+NAME SoFontStyle "" "" { simple 3D text shape node }
+
+INCLUDE nodes/SoFontStyle.h
+
+DESC {
+This node defines the current font family and style for all
+subsequent text shapes in the scene graph.
+}
+
+ENUM Family {
+    SERIF	"Use Serif style (such as Times-Roman)",
+    SANS	"Use Sans Serif style (such as Helvetica)",
+    TYPEWRITER	"Use fixed pitch style (such as Courier)"
+}
+
+ENUM Style {
+    NONE	"No modification to Family",
+    BOLD	"Embolden Family",
+    ITALIC	"Italicize or Slant Family"
+}
+
+FIELD family {
+Defines the family of font to use.
+}
+
+FIELD style {
+Defines style modifications to the chosen font, either bold or italic or no change.
+}
+
+METHOD "" SoFontStyle() {
+Creates a font style node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+METHOD "" SbString getFontName() {
+Returns the font name used by this node based on the settings of family and style.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction, SoGetBoundingBoxAction,
+       SoRayPickAction {
+Sets the font family and style in the current traversal state.
+}
+
+ALSO {
+SoAsciiText,
+SoFont,
+SoText2,
+SoText3
+}

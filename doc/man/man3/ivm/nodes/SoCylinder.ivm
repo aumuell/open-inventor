@@ -1,0 +1,103 @@
+NAME SoCylinder SoCyl SO_CYL_ { cylinder shape node }
+
+INCLUDE nodes/SoCylinder.h
+
+DESC {
+
+This node represents a simple capped cylinder centered around the
+y-axis. By default, the cylinder is centered at (0,0,0) and has a
+default size of -1 to +1 in all three dimensions.  You can use the
+\cradius\. and \cheight\. fields to create a cylinder with a different
+size.
+\p
+The cylinder is transformed by the current cumulative transformation
+and is drawn with the current lighting model, drawing style, material,
+and geometric complexity.
+\p
+If the current material binding is \kPER_PART\. or
+\kPER_PART_INDEXED\., the first current material is used for the sides
+of the cylinder, the second is used for the top, and the third is used
+for the bottom. Otherwise, the first material is used for the entire
+cylinder.
+\p
+When a texture is applied to a cylinder, it is applied differently to
+the sides, top, and bottom. On the sides, the texture wraps
+counterclockwise (from above) starting at the back of the
+cylinder. The texture has a vertical seam at the back, intersecting
+the yz-plane. For the top and bottom, a circle is cut out of the
+texture square and applied to the top or bottom circle. The top
+texture appears right side up when the top of the cylinder is tilted
+toward the camera, and the bottom texture appears right side up when
+the top of the cylinder is tilted away from the camera.
+}
+
+ENUM Part {
+    SIDES	"The cylindrical part",
+    TOP		"The top circular face",
+    BOTTOM	"The bottom circular face",
+    ALL		"All parts"
+}
+
+FIELD parts { Visible parts of cylinder. }
+
+FIELD radius {}
+FIELD height {
+Define the cylinder's height and radius; values must be greater than
+0.0.
+}
+
+METHOD "" SoCylinder() {
+Creates a cylinder node with default settings.
+}
+
+BEGIN C++
+METHOD "" void addPart(SoCylinder::Part part) {}
+METHOD "" void removePart(SoCylinder::Part part) {
+These are convenience functions that make it easy to turn on or off a
+part of the cylinder.
+}
+METHOD "" SbBool hasPart(SoCylinder::Part part) const {
+This convenience function returns whether a given part is on or off.
+}
+END
+
+BEGIN C
+METHOD "" void addPart(SoCylPart part) {}
+METHOD "" void removePart(SoCylPart part) {
+These are convenience functions that make it easy to turn on or off a
+part of the cylinder.
+}
+METHOD "" SbBool hasPart(SoCylPart part) const {
+This convenience function returns whether a given part is on or off.
+}
+END
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Draws cylinder based on the current coordinates, materials,
+drawing style, and so on.
+}
+
+ACTION SoRayPickAction {
+Intersects the ray with the cylinder. The part of the cylinder that
+was picked is available from the \cSoCylinderDetail\..
+}
+
+ACTION SoGetBoundingBoxAction {
+Computes the bounding box that encloses the cylinder.
+}
+
+ACTION SoCallbackAction {
+If any triangle callbacks are registered with the action, they will
+be invoked for each successive triangle that approximates the cylinder.
+}
+
+ALSO {
+SoCone,
+SoCube,
+SoCylinderDetail,
+SoSphere
+}

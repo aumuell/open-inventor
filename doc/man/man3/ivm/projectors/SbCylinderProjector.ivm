@@ -1,0 +1,63 @@
+NAME SbCylinderProjector "SbCylProj" "" { cylinder projector }
+
+INCLUDE projectors/SbCylinderProjector.h
+
+DESC { \cSbCylinderProjector\. 
+is an abstract base class for projectors that use a cylinder in
+their projection. The
+\+\mgetRotation()\. method\.
+\-\mSbCylProjGetRot()\. function\. 
+for an SbCylinderProjector will always
+return a rotation that is about the axis of the cylinder.
+Cylinder projectors are typically used to write
+interactive 3D manipulators and viewers.
+}
+
+METHOD "" ~SbCylinderProjector() { Destructor. }
+
+METHOD "projectGetRot" SbVec3f projectAndGetRotation(const SbVec2f &point,
+  SbRotation &rot) {
+Apply the projector using the given point, returning the
+point in three dimensions that it projects to.
+This also returns in \vrot\. a rotation about the axis of the cylinder
+from the last projected point to this one.
+The passed \vpoint\. should be normalized (i.e. lie in the range [0.0,1.0]),
+with (0,0) at the lower-left.
+}
+
+METHOD "getRot" virtual SbRotation getRotation(const SbVec3f &point1,
+				    const SbVec3f &point2) {
+Get a rotation given two points on this cylinder projector.
+The rotation will be about the axis of the cylinder.
+}
+
+METHOD "setCyl" void setCylinder(const SbCylinder &cyl) {}
+METHOD "getCyl" const SbCylinder & getCylinder() const {
+Set and get the cylinder on which to project points.
+The default cylinder is aligned with the Y axis and has radius 1.0.
+}
+
+METHOD "" void setOrientToEye(SbBool orientToEye) {}
+METHOD "" SbBool isOrientToEye() const {
+Set and get whether the projector should always be oriented towards the eye.
+Set to FALSE if the tolerance should be evaluated in working space.
+}
+
+METHOD "" void setFront(SbBool isFront) {}
+METHOD "" SbBool isFront() const {}
+METHOD "" SbBool isPointInFront(const SbVec3f &point) const {
+Set and get whether the projector should intersect the half of the
+cylinder that faces the eye.
+Set to FALSE if the projector should intersect with the rear half.
+}
+    
+ALSO { 
+SbCylinderPlaneProjector,
+SbCylinderSectionProjector,
+SbCylinderSheetProjector,
+SbLineProjector, SbPlaneProjector, SbSpherePlaneProjector,
+SbSphereProjector, SbSphereSectionProjector, SbSphereSheetProjector
+}
+
+
+

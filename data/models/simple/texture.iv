@@ -1,0 +1,76 @@
+#Inventor V2.1 ascii
+
+Separator {
+    Texture2 {
+	image	4 2 3 0xffffff 0xff0000 0xff00 0xff 0x80 0x8080f 0x800000 0x8000
+    }
+    Complexity {
+	value	~
+	textureQuality	0.2
+    }
+    TextureCoordinate2 {
+	point	[ 0 0,
+			  1 0,
+			  1 1,
+			  0 1 ]
+    }
+    TextureCoordinateBinding {
+	value	PER_VERTEX
+    }
+    Separator {
+	Transform {
+	    translation	0 0 0
+	    rotation	-0.43643582 -0.21821791 -0.87287164  0.49999997
+	}
+	Cube {
+	}
+    }
+    Separator {
+	Transform {
+	    translation	2 0 0
+	    rotation	0.44721401 0 0.89442706  0.3999998
+	}
+	Cylinder {
+	}
+    }
+    Separator {
+	Transform {
+	    translation	2 2 0
+	    rotation	-0.24253584 -0.97014248 0  0.3999998
+	}
+	Cone {
+	}
+    }
+    Separator {
+	Transform {
+	    translation	0 2 0
+	    rotation	-0.48666406 -0.32444307 -0.8111071  0.3999998
+	}
+	IndexedFaceSet {
+	    vertexProperty		    VertexProperty {
+		vertex	[ -1 -1 0,
+				  1 -1 0,
+				  1 1 0,
+				  -1 1 0 ]
+		normal	0 0 1
+		texCoord	[ 0 0,
+				  1 0,
+				  1 1,
+				  0 1 ]
+		orderedRGBA	[  ]
+		normalBinding	OVERALL
+	    }
+
+	    coordIndex	[ 0, 1, 2, 3, -1 ]
+	    textureCoordIndex	[ 0, 1, 2, 3, -1 ]
+	}
+    }
+    Separator {
+	Transform {
+	    translation	0 4 0
+	    rotation	-0.14018093 -0.93453854 0.32708883  0.49999997
+	}
+	Sphere {
+	}
+    }
+}

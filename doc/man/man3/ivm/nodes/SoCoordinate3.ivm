@@ -1,0 +1,32 @@
+NAME SoCoordinate3 SoCoord3 "" { coordinate point node }
+
+INCLUDE nodes/SoCoordinate3.h
+
+DESC {
+This node defines a set of 3D coordinates to be used by subsequent
+vertex-based shape nodes (those derived from \cSoVertexShape\.) or
+shape nodes that use them as control points (such as NURBS curves and
+surfaces). This node does not produce a visible result during
+rendering; it simply replaces the current coordinates in the rendering
+state for subsequent nodes to use.
+}
+
+FIELD point { Coordinate point(s). }
+
+METHOD "" SoCoordinate3() {
+Creates a coordinate node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoRayPickAction {
+Sets coordinates in current traversal state.
+}
+
+ALSO {
+SoCoordinate4,
+SoVertexShape
+}

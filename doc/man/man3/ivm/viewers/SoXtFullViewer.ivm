@@ -1,0 +1,65 @@
+NAME SoXtFullViewer SoXtFullVwr SO_XT_FULL_VWR_ {
+base viewer class which adds a decoration around the rendering area
+}
+
+INCLUDE Xt/viewers/SoXtFullViewer.h
+
+ENUM BuildFlag {
+BUILD_NONE "doesn't build anything extra",
+BUILD_DECORATION "build the decoration only",
+BUILD_POPUP "build the popup menu only",
+BUILD_ALL "build everything by default"
+}
+
+DESC {
+This is a base class used by all viewer components. The class adds a
+decoration around the rendering area which includes thumb wheels, a zoom
+slider and push buttons. This base class also includes a viewer popup menu
+and a preference sheet with generic viewing functions. The constructors for 
+the various subclasses of \cSoXtFullViewer\. provide a flag for specifying
+whether the decoration and popup menus should be built.
+}
+
+METHOD setDecor void    	    setDecoration(SbBool onOrOff) {}
+METHOD isDecor SbBool  	    isDecoration()
+{
+Show/hide the viewer component trim (default on). See the viewer
+constructor to prevent the decoration from being built.
+}
+
+METHOD SetPopupEnabled void    	    setPopupMenuEnabled(SbBool trueOrFalse) {}
+METHOD IsPopupEnabled SbBool  	    isPopupMenuEnabled()
+{
+Enable/disable the viewer popup menu (default enabled). See the viewer
+constructor to prevent the popup menu from being built.
+}
+
+METHOD getAppPushBtnParent Widget	    getAppPushButtonParent() const
+{
+Returns the parent widget, which is needed when creating new buttons.
+Note: that if the decoration is \enot\. created in the constructor, 
+this will be NULL until the decoration is shown.
+}
+
+METHOD addAppPushBtn void	    addAppPushButton(Widget newButton) {}
+METHOD insertAppPushBtn void	    insertAppPushButton(Widget newButton, int index) {}
+METHOD removeAppPushBtn void	    removeAppPushButton(Widget oldButton) {}
+METHOD findAppPushBtn int		    findAppPushButton(Widget oldButton) {}
+METHOD lengthAppPushBtn int		    lengthAppPushButton()
+{
+Add/remove push buttons for the application, which will be 
+placed in the left hand side decoration trim. Adding buttons
+appends them to the end of the list, while inserting them places
+them at the desired index.
+\p
+Note: the button pixmaps should be 24-by-24 pixels size to nicely fit
+into the decoration trim like the other viewer buttons.
+}
+
+METHOD getRAWidget Widget	    getRenderAreaWidget()
+{
+Returns the render area widget.
+}
+
+ALSO { SoXtViewer, SoXtComponent, SoXtRenderArea, SoXtExaminerViewer, 
+SoXtWalkViewer, SoXtFlyViewer, SoXtPlaneViewer }

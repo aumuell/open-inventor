@@ -1,0 +1,46 @@
+NAME SoPathList "" "" { maintains a list of pointers to paths }
+
+INCLUDE SoLists.h
+
+DESC {
+This subclass of \cSoBaseList\. holds lists of pointers to
+\cSoPath\.s.  It updates reference counts to paths in the list
+whenever adding or removing pointers.
+}
+
+METHOD "" SoPathList() { Constructor. }
+
+METHOD createSize SoPathList(int size) {
+Constructor that pre-allocates storage for \asize\. pointers.
+}
+
+METHOD " " SoPathList(const SoPathList &l) {
+Constructor that copies the contents of another list.
+}
+
+METHOD "" ~SoPathList() { Destructor. }
+
+METHOD "" void append(SoPath *path) { Adds a path to the end of the list. }
+
+METHOD "" SoPath * operator [\|](int i) const { Accesses an element of a list. }
+
+METHOD "" SoPathList & operator =(const SoPathList &l) {
+Copies a list, keeping all reference counts correct.
+}
+
+METHOD "" int findPath(const SoPath &path) {
+Returns the index of the matching path in the list, or -1 if not found.
+}
+
+METHOD "" void sort() {
+Sorts list in place based on (1) increasing address of head node, then
+(2) increasing indices of children.
+}
+
+METHOD "" void uniquify() {
+Given a sorted list, removes any path that (1) is a duplicate, or (2)
+goes through a node that is the tail of another path.
+}
+
+ALSO { SoPath }
+

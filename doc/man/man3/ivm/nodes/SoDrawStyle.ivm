@@ -1,0 +1,45 @@
+NAME SoDrawStyle SoDStyle SO_D_STYLE_ {
+node that defines the style to use when rendering
+}
+
+INCLUDE nodes/SoDrawStyle.h
+
+DESC {
+This node defines the current drawing style for all subsequent shape
+nodes in a scene graph. \cSoDrawStyle\. specifies how primitives
+should be rendered. The drawing style has no effect on picking or
+callback primitive generation.
+}
+
+ENUM Style {
+    FILLED	"Draw filled regions",
+    LINES	"Draw only outlines (wire frame)",
+    POINTS	"Draw points at vertices",
+    INVISIBLE	"Do not draw anything at all"
+}
+
+FIELD style { Drawing style. }
+
+FIELD pointSize { Radius of points (for \kPOINTS\. style). }
+
+FIELD lineWidth { Width of lines (for \kLINES\. style). }
+
+FIELD linePattern  {
+Stipple pattern for lines (for \kLINES\. style). Values can range from
+0 (invisible) to 0xffff (solid). This specifies how dashed or dotted
+lines will be drawn.
+}
+
+METHOD "" SoDrawStyle() {
+Creates a drawing style node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction {
+Sets the current drawing style.
+}
+
+ALSO { SoLightModel, SoPickStyle, SoShapeHints }

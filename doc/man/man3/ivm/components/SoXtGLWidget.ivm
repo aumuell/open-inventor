@@ -1,0 +1,97 @@
+NAME SoXtGLWidget "" "" {
+wrapper around GLwMDraw for OpenGL rendering in a motif widget
+}
+
+INCLUDE Xt/SoXtGLWidget.h
+
+DESC {
+This abstract base class provides a \+C++\.\-C\. wrapper around the 
+\xGLwMDraw\.
+widget. It allows OpenGL rendering to be performed within a motif widget and
+is used by the
+\cSoXtRenderArea\..
+\cSoXtGlWidget\.
+uses a form widget around two separate 
+\xGLwMDraw\.
+widgets (one for single and one for double
+buffering), with routines to return the appropriate windows.
+
+\+\p
+Subclasses only need to redefine the 
+\mredraw()\.
+routine for rendering and 
+\mprocessEvent()\.
+routine if they are interested in receiving X events.
+\.
+}
+
+METHOD "" void setBorder(SbBool onOrOff) {}
+METHOD "" SbBool isBorder() const {
+Show and hide the border around the glx widgets (thickness 3).
+Default is no border (FALSE). 
+(The \cSoXtRenderArea\. subclass defaults turns the border on by default.)
+}
+
+METHOD setDblBuf virtual void	setDoubleBuffer(SbBool onOrOff) {}
+METHOD isDblBuf SbBool  	isDoubleBuffer()
+{
+Routine which dynamically changes between single and
+double buffering.
+Default is double buffer off. (The
+\cSoXtRenderArea\.
+subclass makes it double buffer by default.)
+}
+
+METHOD getNormWin Window  	getNormalWindow() {}
+METHOD getOverWin Window   	getOverlayWindow() {}
+METHOD getNormCtx GLXContext	getNormalContext() {}
+METHOD getOverCtx GLXContext	getOverlayContext() {}
+METHOD getNormWidget Widget	getNormalWidget() {}
+METHOD getOverWidget Widget	getOverlayWidget()
+{
+Get the current normal and overlay GLX windows, contexes and widgets,
+which are needed as arguments to glXMakeCurrent() when doing 
+drawing in the normal or overlay planes.
+
+\p
+Note: These should \enot\. be cached by users because they will
+change as single/double buffering changes.
+}
+
+METHOD setNormVis virtual void    setNormalVisual(XVisualInfo *vis) {}
+METHOD getNormVis XVisualInfo *   getNormalVisual() {}
+METHOD setOverVis virtual void    setOverlayVisual(XVisualInfo *vis) {}
+METHOD getOverVis XVisualInfo *   getOverlayVisual()
+{
+Specify exactly what the visual should be for the normal and overlay
+window. This allows the user to create all possible visuals supported 
+by OpenGL. The \xXVisualInfo\. structure should be a valid OpenGL visual
+returned by \xglXChooseVisual()\.. This structure will be copied by
+the \cSoXtGLWidget\.; the application is responsible for freeing
+the visual info with \xXFree()\. when done.
+\+(The methods for setting the visual are virtual so that
+derived classes can know when the visual is changing.)\.
+}
+
+METHOD setDrwFrontBuf void setDrawToFrontBufferEnable(SbBool enableFlag) {}
+METHOD isDrwFrontBuf SbBool isDrawToFrontBufferEnable() const
+{
+Inventor 2.1 changed the behavior of double buffered windows to
+redraw temporary to the front buffer when an expose event is received
+or when a new sceneGraph() is set on an SoXtRenderArea. This does not
+apply for general interactive rendering. The idea is that it is 
+better to see something redraw (especially if it is slow) than
+to see garbage in the window (in the expose case) or an old invalid 
+scene graph (in the SoXtRenderArea::setSceneGraph() case).
+\p
+This API enables you to turn this functionality OFF if for some reason
+you are unable to prevent repeated expose from causing a redraw (which
+is bad and should be fixed, as it gets worse for large scenes). 
+This will be the case for example if you can't create a pulldown 
+menu in the popup planes.
+\p
+NOTE: this api might be removed in some future releases and is only
+intended as a porting help for Inventor 2.0 to 2.1
+}
+
+ALSO { SoXtComponent, SoXtRenderArea }

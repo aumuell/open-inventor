@@ -1,0 +1,35 @@
+NAME
+    Decal - node representing a decal of coplanar polygons
+
+INHERITS FROM
+    SoSeparator
+
+SYNOPSIS
+    #include "Decal.h"
+
+	Methods from class Decal
+
+		Decal()
+
+DESCRIPTION
+    The first child of a Decal is defined to be the base and is drawn first.
+    The other children are layers to be drawn above the base in the order
+    defined.  Some or all of the layers can be coplanar with the base.  The
+    geometries of the layers must lie within the geometry of the base 
+    otherwise the results are incorrect.
+
+METHODS
+		Decal()
+	Creates a decal node.
+
+FILE FORMAT/DEFAULTS
+    Decal {
+    }
+
+SAMPLE FILES
+    coplanar.iv:
+	A scene containing 3 coplanar squares (white base, and red and cyan
+	layers on top) under a separator.  Demonstrates depth buffer conflicts.
+
+    decal.iv:
+	The same scene with the coplanar faces defined under a decal node.

@@ -1,0 +1,132 @@
+NAME SbRotation SbRot "" { class for representing a rotation }
+INCLUDE SbLinear.h
+DESC {
+Object that stores a rotation. There are several ways to specify a
+rotation: quaternion (4 floats), 4x4 rotation matrix, or axis and angle.
+All angles are in radians and all rotations are right-handed.
+\-
+This object does not have \mCreate\. or \mDelete\.
+functions because it is a simple datatype. C programmers should declare
+and/or malloc rotations as standard C structs.
+Access the components of the vector as though it is a simple
+structure or use the access and operation functions described in 
+this reference page:
+\b\k
+     /* This is defined in Inventor_c/SbLinear.h: */
+     struct SbRotation \{
+	  float quat[4];
+     \};
+     typedef SbRotation SbRot
+
+
+     /* This is what your code should look like: */
+     SbRot   r1, r2;
+
+     /* The next two lines produce equivalent rotations. */
+     r1.quat[0] = 1.0; r1.quat[1] = r1.quat[2] = 0.0; r1.quat[3] = 1.0;
+     SbRotSetQ_U_A_T( v2, 1.0, 0.0, 0.0, 1.0 );
+\.\.
+\.
+}
+BEGIN C++
+METHOD "" SbRotation() {}
+METHOD "" SbRotation(const SbVec3f &axis, float radians) {}
+METHOD "" SbRotation(const float v[4]) {}
+METHOD "" SbRotation(float q0, float q1, float q2, float q3) {}
+METHOD "" SbRotation(const SbMatrix &m) {}
+METHOD "" SbRotation(const SbVec3f &rotateFrom, const SbVec3f &rotateTo) {
+Constructors for rotation. The axis/radians constructor creates a rotation of
+angle radians about the given axis.  The constructors that take four floats 
+create a quaternion from those floats (careful, this differs from the four 
+numbers in an axis/radian definition). 
+Matrix constructor requires a valid rotation matrix.
+The rotateFrom/To constructor defines rotation that rotates from one vector 
+into another.
+The \arotateFrom\. and \arotateTo\. vectors are normalized by the constructor
+before calculating the rotation.}
+METHOD "" const float *       getValue() const {
+Returns pointer to array of 4 components defining quaternion.
+}
+METHOD "" void                getValue(float &q0, float &q1,
+                                 float &q2, float &q3) const {
+Returns 4 individual components of rotation quaternion.
+}
+METHOD "" SbRotation &        setValue(float q0, float q1, float q2, float q3) {
+Sets value of rotation from 4 individual components of a quaternion.
+}
+END
+BEGIN C
+MACRO SbRotGetQuat(float *dest, SbRotation *src) {}
+MACRO SbRotGetQ_U_A_T(float q0, float q1, float q2, float q3,
+                      SbRotation *src) {}
+MACRO SbRotSetQuat(SbRotation *dest, float *src) {}
+MACRO SbRotSetQ_U_A_T(SbRotation *dest, float q0, float q1,
+                      float q2, float q3) {
+Sets and gets rotations in the form of quaternions.  The quaternion may
+be passed either as an array of length 4 or as 4 separate components.
+}
+END
+METHOD getAxisAngle void         getValue(SbVec3f &axis, float &radians) const {
+Returns corresponding 3D rotation axis vector and angle in radians.
+}
+METHOD getMx void                getValue(SbMatrix &matrix) const {
+Returns corresponding 4x4 rotation matrix.
+}
+METHOD "" SbRotation &        invert() {
+Changes a rotation to be its inverse.
+}
+METHOD "" SbRotation          inverse() const {
+Returns the inverse of a rotation.
+}
+BEGIN C++
+METHOD "" SbRotation &        setValue(const float q[4]) {
+Sets value of rotation from array of 4 components of a quaternion.
+}
+END
+METHOD setMx SbRotation &        setValue(const SbMatrix &m) {
+Sets value of rotation from a rotation matrix.
+}
+METHOD setAxisAngle SbRotation & setValue(const SbVec3f &axis, float radians) {
+Sets value of vector from 3D rotation axis vector and angle in radians.
+}
+METHOD setFromTo SbRotation & setValue(const SbVec3f &rotateFrom,
+                                 const SbVec3f &rotateTo) {
+Sets rotation to rotate one direction vector to another.  The \arotateFrom\.
+and \arotateTo\. arguments are normalized before the rotation is calculated.
+}
+BEGIN C++
+METHOD "" SbRotation &         operator *=(const SbRotation &q) {
+Multiplies by another rotation; results in product of rotations.
+}
+END
+METHOD "" int  operator ==(const SbRotation &q1, const SbRotation &q2) {}
+METHOD "" int  operator !=(const SbRotation &q1, const SbRotation &q2) {
+Equality comparison operators.
+}
+METHOD "" SbBool       equals(const SbRotation &r, float tolerance) const {
+Equality comparison within given tolerance \(em the square of the
+length of the maximum distance between the two quaternion vectors.
+}
+METHOD "" SbRotation   operator *(const SbRotation &q1, const SbRotation &q2) {
+Multiplication of two rotations; results in product of rotations.
+}
+METHOD "" void        multVec(const SbVec3f &src, SbVec3f &dst) const {
+Multiplies the given vector by the matrix of this rotation.
+}
+METHOD "" void scaleAngle( float scaleFactor ) {
+Keep the axis the same. Multiply the angle of rotation by 
+the amount \ascaleFactor\..
+}
+METHOD "" static SbRotation   slerp(const SbRotation &rot0,
+                              const SbRotation &rot1, float t) {
+Spherical linear interpolation: as \at\. goes from 0 to 1, returned
+value goes from \arot0\. to \arot1\..
+}
+METHOD ident static SbRotation   identity() {
+Returns a null rotation.
+}
+ALSO { SbVec3f, SbMatrix }
+
+MISC NOTES {
+Rotations are stored internally as quaternions.
+}

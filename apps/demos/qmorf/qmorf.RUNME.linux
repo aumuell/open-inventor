@@ -1,0 +1,3 @@
+#!/bin/sh
+#Tag 0x00010510
+/opt/SGIDemos/Inventor/bin/qmorf /usr/share/data/models/CyberHeads/*.iv

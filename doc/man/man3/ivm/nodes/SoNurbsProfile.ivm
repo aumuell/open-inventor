@@ -1,0 +1,31 @@
+NAME SoNurbsProfile SoNProf "" { NURBS profile curve }
+
+INCLUDE nodes/SoNurbsProfile.h
+
+DESC {
+This node specifies a NURBS curve that is used as a profile. The curve
+is defined in the same way as a standard \cSoNurbsCurve\., except that
+the control points are constructed from the current set of profile
+coordinates, using the \vindex\. field.
+}
+
+FIELD knotVector {
+The knot vector for the NURBS curve. It must be a list of
+non-decreasing floating point values.
+}
+
+METHOD "" SoNurbsProfile() {
+Creates a NURBS profile curve node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction, SoRayPickAction {
+Adds a profile to the current traversal state.
+}
+
+ALSO {
+SoLinearProfile, SoNurbsCurve, SoProfileCoordinate2, SoProfileCoordinate3
+}

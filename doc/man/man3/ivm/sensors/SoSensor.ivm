@@ -1,0 +1,31 @@
+NAME SoSensor SoSens "" { abstract base class for Inventor sensors }
+INCLUDE sensors/SoSensor.h
+DESC {
+Sensors detect changes either to time or to Inventor objects in a
+scene graph, and call a user-defined callback function.  Sensors are
+\escheduled\. when the thing they are attached to changes, and sometime
+after they are scheduled they are \etriggered\., calling the user's
+callback function.
+}
+TYPEDEF void SoSensorCB "(void *data, SoSensor *sensor)"
+
+METHOD setFunc void setFunction(SoSensorCB *callbackFunction) {
+Sets the callback function that is called when the sensor is
+triggered.  The function must take two arguments \(em user-supplied
+callback data (of type void *) and a pointer to the sensor that is
+triggering the function (of type SoSensor *).
+}
+METHOD getFunc SoSensorCB * getFunction() const {
+Returns the callback function that will be called when the sensor is
+triggered.
+}
+METHOD "" void setData(void *callbackData) {
+Sets the callback data passed to the callback function.
+}
+METHOD "" void * getData() const {
+Returns the user-supplied pointer that will be passed to the callback
+function.
+}
+ALSO { SoAlarmSensor, SoDataSensor, SoFieldSensor, SoIdleSensor,
+SoNodeSensor, SoPathSensor, SoSensorManager }
+

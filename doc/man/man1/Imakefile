@@ -1,0 +1,7 @@
+#define ManMakefile
+
+#define InstallDirectory /usr/share/catman/u_man/cat1/Inventor
+
+#define NoShipUser
+
+DEPTH= ../

@@ -1,0 +1,71 @@
+NAME SoAction SoAct "" { abstract base class for all actions }
+
+INCLUDE actions/SoAction.h
+
+DESC {
+\cSoAction\. is the abstract base class for all actions. Classes
+derived from \cSoAction\. define operations to be applied at each node
+encountered during traversal of a scene graph. The function that gets
+called to implement the action for a particular node type is
+determined by a lookup table in the global database.
+}
+
+METHOD "" virtual ~SoAction() { Destructor. }
+
+METHOD "" virtual void apply(SoNode *node) {}
+METHOD ApplyPath virtual void apply(SoPath *path) {}
+METHOD ApplyPathList virtual void apply(const SoPathList &pathList,
+                                        SbBool obeysRules = FALSE) {
+Initiates an action on the graph defined either by a node, path, or
+list of paths. TRUE can be passed for the \aobeysRules\. flag if the
+given path list has the following 4 properties:
+\b
+1 - All paths have the same head node
+2 - Paths are sorted in traversal order
+3 - If one path ends at node \eA\., no other path
+    continues through \eA\.
+4 - No two paths are the same
+\.
+These rules will be obeyed by path lists returned by picking and by
+searches for non-group nodes.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns the type identifier for this class.
+}
+
+METHOD "" virtual SoType getTypeId() {
+Returns the type identifier for a specific instance.
+}
+
+METHOD "" virtual SbBool isOfType(SoType type) {
+Returns TRUE if this instance is of the type specified in \atype\. or is
+derived from that type. Otherwise, it returns FALSE. For example,
+\b\k
+\+actionPtr->isOfType(SoGetMatrixAction::getClassTypeId())\.
+\-SoActionIsOfType(actionPtr, SoGetMxActGetClassTypeId())\.
+\.\.
+returns TRUE if \aactionPtr\. is an instance of \cSoGetMatrixAction\.
+or one of its subclasses.
+}
+
+METHOD "" virtual void invalidateState() {
+Invalidates the current traversal state in the action, forcing it to
+be recreated when the action is next applied. This is typically
+unnecessary in most applications.
+}
+
+ALSO {
+SoNode,
+SoPath,
+SoPathList,
+SoCallbackAction,
+SoGLRenderAction,
+SoGetBoundingBoxAction,
+SoGetMatrixAction,
+SoHandleEventAction,
+SoPickAction,
+SoRayPickAction,
+SoSearchAction,
+SoWriteAction
+}

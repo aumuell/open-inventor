@@ -1,0 +1,94 @@
+NAME SoMFVec2f SoMVec2f "" {
+multiple-value field containing any number of two-dimensional vectors
+}
+
+INCLUDE fields/SoMFVec2f.h
+
+DESC {
+A multiple-value field that contains any number of two-dimensional
+vectors.
+\p
+\cSoMFVec2fs\. are written to file as one or more pairs of floating
+point values separated by whitespace.
+When more than one value is present, all of the
+values are enclosed in square brackets and separated by commas; for
+example:
+\b
+[ 0 0, 1.2 3.4, 98.6 -4e1 ]
+\.
+}
+METHOD SetXYs void setValues(int start, int num, const float xy[\|][2])
+{
+Sets \anum\. values starting at index \astart\. to the given floating point
+values.  There must be \anum\.*2 values in the passed array.
+}
+METHOD Set1X_Y void set1Value(int index, float x, float y) {}
+METHOD Set1XY void set1Value(int index, const float xy[2]) {
+Set the \aindex\.'th value to the given floating point values.
+}
+METHOD SetX_Y void setValue(float x, float y) {}
+METHOD SetXY void setValue(const float xy[2]) {
+Sets the field to contain the given value and only the given value (if
+the array had multiple values before, they are deleted).
+}
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get const SbVec2f & operator [\|](int i) const {
+Returns the \ai\.'th value of the field.  Indexing past the end of the
+field (passing in \ai\. greater than \mgetNum()\.) will return garbage.
+}
+METHOD GetN const SbVec2f * getValues(int start) const {
+Returns a pointer into the array of values in the field, starting at
+index \astart\..  The values are read-only; see the
+\mstartEditing()\./\mfinishEditing()\. methods for a way of modifying values
+in place.
+}
+METHOD "" int find(const SbVec2f & targetValue,
+	SbBool addIfNotFound = FALSE) {
+Finds the given value in the array and returns the index of that value
+in the array.  If the value is not found, -1 is returned.  If
+\aaddIfNotFound\. is set, then \atargetValue\. is added to the end of the
+array (but -1 is still returned).
+}
+METHOD SetN void setValues(int start, int num,
+	const SbVec2f *newValues) {
+Sets \anum\. values starting at index \astart\. to the values in \anewValues\..
+The array will be automatically be made larger to accomodate the new
+values, if necessary.
+}
+METHOD Set1 void set1Value(int index, const SbVec2f & newValue) {
+Sets the \aindex\.'th value in the array to \anewValue\..  The array will be
+automatically expanded, if necessary.
+}
+METHOD " " const SbVec2f & operator =(const SbVec2f & newValue) {}
+METHOD Set void setValue(const SbVec2f & newValue) {
+Sets the first value in the array to \anewValue\., and deletes the second
+and subsequent values.
+}
+METHOD IsEq int operator ==(const SoMFVec2f &f) const {}
+METHOD IsNEq int operator !=(const SoMFVec2f &f) const {
+Returns TRUE if all of the values of this field equal (do not
+equal) those of the given field.  If the fields are different types FALSE will
+always be returned (even if one field is an \cSoMFFloat\. with one
+value of 1.0 and the other is an \cSoMFInt\. with a value of 1, for
+example).
+}
+METHOD StartEdit SbVec2f *startEditing() {}
+METHOD FinishEdit void finishEditing() {
+\mstartEditing()\. returns a pointer to the internally-maintained array that
+can be modified.  The values in the array may be changed, but values cannot
+be added or removed.  It is illegal to call any other editing methods between
+\+\mstartEditing()\. and \mfinishEditing()\. (e.g. \mset1Value()\.,
+\msetValue()\., etc).\.\-\mStartEdit()\. and \mFinishEdit()\. (e.g.
+\mSet1()\., \mSet()\., etc).\.
+\p
+Fields, engines or sensors connected to this field and sensors are not
+notified that this field has changed until
+\+\mfinishEditing()\.\.\-\mFinishEdit()\.\. is called.  Calling
+\+\mfinishEditing()\.\.\-\mFinishEdit()\.\. always sets the
+\+\misDefault()\.\.\-\mIsDflt\.\. flag to FALSE and informs
+engines and sensors that the field changed, even if none of the values
+actually were changed.
+}

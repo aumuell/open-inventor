@@ -1,0 +1,77 @@
+NAME SoIndexedTriangleStripSet SoIndTriStripSet "" {
+indexed triangle strip set shape node
+}
+
+INCLUDE nodes/SoIndexedTriangleStripSet.h
+
+DESC {
+This shape node constructs triangle strips out of vertices located at
+the coordinates specified in the \vvertexProperty\. field
+(from \cSoVertexShape\.), or the
+current inherited coordinates. 
+For optimal performance, the \vvertexProperty\. field is recommended.
+\p
+\cSoIndexedTriangleStripSet\. uses the
+indices in the \vcoordIndex\. field (from \cSoIndexedShape\.) to
+specify the vertices of the triangle strips. An index of
+\kSO_END_STRIP_INDEX\. (-1) indicates that the current strip has ended
+and the next one begins.
+\p
+The vertices of the faces are transformed by the current
+transformation matrix. The faces are drawn with the current light
+model and drawing style.
+\p
+Treatment of the current material and normal binding is as follows:
+\kPER_PART\. specifies a material or normal per strip.  \kPER_FACE\.
+binding specifies a material or normal for each triangle.
+\kPER_VERTEX\. specifies a material or normal for each vertex.  The
+corresponding \k_INDEXED\. bindings are the same, but use the
+\vmaterialIndex\. or \vnormalIndex\. indices (see \cSoIndexedShape\.).
+The default material binding is \kOVERALL\.. The
+default normal binding is \kPER_VERTEX_INDEXED\. 
+\p
+If any normals (or materials) are specified, Inventor assumes 
+you provide the correct number of them, as indicated by the binding.
+You will see unexpected results
+if you specify fewer normals (or materials) than the shape requires.
+If no normals are specified, they will be generated automatically.
+}
+
+METHOD "" SoIndexedTriangleStripSet() {
+Creates an indexed triangle strip set node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Draws a strip set based on the current coordinates, normals,
+materials, drawing style, and so on.
+}
+
+ACTION SoRayPickAction {
+Picks on the strip set based on the current coordinates and
+transformation.  Details about the intersection are returned in an
+\cSoFaceDetail\..
+}
+
+ACTION SoGetBoundingBoxAction {
+Computes the bounding box that encloses all vertices of the strip set
+with the current transformation applied to them. Sets the center to
+the average of the coordinates of all vertices.
+}
+
+ACTION SoCallbackAction {
+If any triangle callbacks are registered with the action, they will be
+invoked for each successive triangle forming the strips of the set.
+}
+
+ALSO {
+SoCoordinate3,
+SoDrawStyle,
+SoFaceDetail,
+SoIndexedFaceSet,
+SoTriangleStripSet,
+SoVertexProperty
+}

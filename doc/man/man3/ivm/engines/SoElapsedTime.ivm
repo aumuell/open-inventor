@@ -1,0 +1,34 @@
+NAME SoElapsedTime SoElapsedTime "" { basic controllable time source }
+
+DESC { 
+This engine functions as a stopwatch; it outputs the time that has 
+elapsed since it started running.
+By default, the \vtimeIn\. input is connected to the \vrealTime\. global field.
+It can, however, be connected to any other time source.
+\p
+The ouput from the engine is the time that has elapsed since it
+started running, or since the \vreset\. input was last triggered.
+You can affect the speed of the output time by setting the 
+\vspeed\. scale factor.  A value greater than 1.0 will speed up
+the output, and a value less than 1.0 will slow it down.
+\p
+If you pause the engine, by setting the \vpause\. input to TRUE, it stops
+updating the \vtimeOut\. output.  When you turn off the pause, it jumps
+to its current position without losing time.
+Alternatively, if you want to stop the engine for a while, and then restart it 
+from where it left off, use the \von\. input field.
+}
+
+INCLUDE engines/SoElapsedTime.h
+
+INPUT timeIn { Running time. }
+INPUT speed { Scale factor for time. }
+INPUT on { TRUE to start running, FALSE to stop. }
+INPUT pause { TRUE to freeze, FALSE to continue running. }
+INPUT reset { Reset the base time. }
+
+OUTPUT timeOut { Time elapsed, modified by the speed factor. }
+
+METHOD Create SoElapsedTime() { Constructor. }
+
+ALSO { SoTimeCounter, SoOneShot, SoEngineOutput }

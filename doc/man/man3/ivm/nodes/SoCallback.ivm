@@ -1,0 +1,52 @@
+NAME SoCallback SoCB "" { provides custom behavior during actions }
+
+INCLUDE nodes/SoCallback.h
+
+DESC {
+This node provides a general mechanism for inserting callback functions
+into a scene graph. The callback function registered with the node is
+called each time the node is traversed while performing any scene graph
+action. The callback function is passed a pointer to the action being
+performed and a user data pointer registered with the callback function.
+You can use this node to make nonstandard OpenGL calls while rendering. If
+you do, be careful not to interfere with Inventor's use of OpenGL.
+\p
+If you use a callback node for GL rendering, you should be careful
+to follow render caching rules. If your callback node can make
+different rendering calls each time it is traversed, it cannot be
+cached. In such a case, the node should invalidate any open caches,
+as in the following example:
+\p\k\b
+void
+myCallbackFunc(void *d, SoAction *action) \{
+    if (action->isOfType(SoGLRenderAction::getClassTypeId())) \{
+	// Make my custom GL calls
+	((MyClass *) d)->myRender();
+	
+	// Invalidate the state so that a cache is not made
+	SoCacheElement::invalidate(action->getState());
+    \}
+\}\.\.
+}
+
+TYPEDEF void SoCallbackCB "(void *userData, SoAction *action)"
+
+METHOD "" SoCallback() {
+Creates a callback node with default settings.
+}
+
+METHOD setCB void setCallback(SoCallbackCB *func, void *userData = NULL) {
+Sets pointer to callback function and user data. By default, the
+function pointer in the node is NULL and does nothing.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoBoundingBoxAction, SoPickAction {
+Calls the specified callback function for all actions.
+}
+
+ALSO { SoAction, SoCallbackAction, SoEventCallback }
+

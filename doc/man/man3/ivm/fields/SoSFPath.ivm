@@ -1,0 +1,31 @@
+NAME SoSFPath SoSPath "" {
+field containing a pointer to an SoPath
+}
+
+INCLUDE fields/SoSFPath.h
+
+DESC {
+This field maintains a pointer to an \cSoPath\. instance,
+correctly maintaining its reference count.
+\p
+\cSoSFPaths\. are written to file as the path they point to.  See the
+\cSoPath\. manual page for a description of the file format for a
+path.
+}
+ALSO { SoField, SoSField, SoMFPath, SoPath }
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get SoPath * getValue() const {
+Returns this field's value.
+}
+METHOD " " SoPath * operator =(SoPath * newValue) {}
+METHOD Set void setValue(SoPath * newValue) {
+Sets this field to \anewValue\..
+}
+METHOD IsEq int operator ==(const SoSFPath &f) const {}
+METHOD IsNEq int operator !=(const SoSFPath &f) const {
+Returns TRUE if \af\. is of the same type and has the same value as this
+field.
+}

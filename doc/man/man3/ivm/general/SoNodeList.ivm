@@ -1,0 +1,32 @@
+NAME SoNodeList "" "" { maintains a list of pointers to nodes }
+
+INCLUDE SoLists.h
+
+DESC {
+This subclass of \cSoBaseList\. holds lists of pointers to
+\cSoNode\.s.  It updates reference counts to nodes in the list
+whenever adding or removing pointers.
+}
+
+METHOD "" SoNodeList() { Constructor. }
+
+METHOD createSize SoNodeList(int size) {
+Constructor that pre-allocates storage for \asize\. pointers.
+}
+
+METHOD " " SoNodeList(const SoNodeList &l) {
+Constructor that copies the contents of another list.
+}
+
+METHOD "" ~SoNodeList() { Destructor. }
+
+METHOD "" void append(SoNode *node) { Adds a pointer to the end of the list. }
+
+METHOD "" SoNode * operator [\|](int i) const { Accesses an element of a list. }
+
+METHOD "" SoNodeList & operator =(const SoNodeList &l) {
+Copies a list, keeping all reference counts correct.
+}
+
+ALSO { SoNode }
+

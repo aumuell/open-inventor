@@ -1,0 +1,18 @@
+This directory contains the source code for the Open Inventor tools:
+
+ivcat 	- Converts between binary and ASCII Inventor formats.
+ivinfo  - Prints out information on an Inventor file.
+ivnorm	- Generates normals for SoIndexedFaceSet objects.
+ivfix   - Restructures an Inventor scene for improved rendereing performance.
+ivview  - A simple viewer for quickly viewing Inventor files.
+ivAddVP	- Converts files to use the vertex property fields.
+ivperf  - Analyzes rendering performance
+longToInt32 - Converts files to use type int32_t in place of long.
+
+Each subdirectory contains the source code and include files needed to
+make the program.  
+
+Note that you need superuser permissions to build or modify the installed
+source code for the Inventor tools.  Alternatively, you can copy the programs 
+that interest you into your local directory.
+

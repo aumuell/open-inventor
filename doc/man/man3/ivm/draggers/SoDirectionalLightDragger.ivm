@@ -1,0 +1,182 @@
+NAME SoDirectionalLightDragger SoDirLtDrag "" { directional icon you rotate and translate by dragging with the mouse }
+
+INCLUDE draggers/SoDirectionalLightDragger.h
+
+DESC { \cSoDirectionalLightDragger\. 
+is a composite dragger.  It looks like a sun with a large arrow coming
+out of it.  
+The arrow can be rotated about the sun by dragging with the mouse; its
+orientation is given by the \vrotation\. field.
+You can also drag the sun (and the arrow with it) through 3-space. The
+location is stored in the \vtranslation\. field.
+\p
+The dragger uses an \cSoRotateSphericalDragger\. for changing the 
+rotation. Instead of using the default spherical geometry, this dragger
+uses an arrow shape.
+\p
+The sun is an \cSoDragPointDragger\.. Dragging it edits the \vtranslation\.
+field; conversely, if you change the \vtranslation\. field the sun 
+will move to that new location, bringing the arrow with it.  The sun 
+looks and behaves just like 
+the sun in an \cSoPointLightDragger\.,
+as does the \vmaterial\. part. See the \cSoPointLightDragger\. man page
+for details.
+\p
+\eRemember:\. This is \enot\. a light source! It just looks like one.  
+If you want to move a light with this dragger, you can either: 
+\p
+[a] Use an \cSoDirectionalLightManip\., which is subclassed from \cSoLight\.. 
+It creates an \cSoDirectionalLightDragger\. 
+and uses it as the interface to change the \vdirection\. of its  
+light source (see the \cSoDirectionalLightManip\. man page). 
+The manipulator also edits the \vmaterial\. part of this dragger to match the
+color of light the manipulator is producing.
+However, the directional light manipulator will ignore the \vtranslation\. 
+field, because a directional light has no location or translation field.
+So in this case the translation dragger merely allows you to 
+move the physical arrow to wherever you'd like it to be.
+\p
+[b] Put an \cSoTransform\. under an \cSoTransformSeparator\..
+Add the \cSoDirectionalLight\. as the next child. Use 
+a field-to-field connection between the \vrotation\. fields of this
+dragger and the transform node to synchronize the light with this dragger.
+\p
+[c] Use engines to connect the \vrotation\. field of this dragger to the 
+\vdirection\. field of an \cSoDirectionalLight\..  Use the \vrotation\. as 
+input to an \cSoComposeMatrix\. engine. Then, use an 
+\cSoTransformVec3f\. engine to apply that matrix to (0,0,-1), the default
+light direction.
+\p
+You can change the parts in any instance of this dragger using
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+The default part geometries are defined as resources for this 
+\cSoDirectionalLightDragger\. class.  They are detailed in the 
+Dragger Resources section of the online reference page for this class.
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/directionalLightDragger.iv\.
+into your own directory, editing the file, and then
+setting the environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+METHOD "" SoDirectionalLightDragger() {
+Constructor.
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+FIELD rotation { Orientation of the rotating part (an arrow by default). }
+FIELD translation { Position of the origin of the directional light dragger.}
+
+DRAGGER_RESOURCE {
+  directionalLightRotatorRotator,
+  rotator.rotator,
+  "white arrow that goes through the sun",
+  "picking this begins rotation of the arrow about the sun-shape"
+}
+
+DRAGGER_RESOURCE {
+  directionalLightRotatorRotatorActive,
+  rotator.rotatorActive,
+  "yellow arrow that goes through the sun",
+  "displayed while the arrow is being rotated"
+}
+
+DRAGGER_RESOURCE {
+  directionalLightRotatorFeedback,
+   rotator.feedback,
+  "empty Separator",
+  "this disables display of the axes that a rotateSpherical dragger uses
+   by default"
+}
+
+DRAGGER_RESOURCE {
+  directionalLightRotatorFeedbackActive,
+  rotator.feedbackActive,
+  "empty Separator",
+  "this disables display of the axes that a rotateSpherical dragger uses
+   by default"
+}
+
+DRAGGER_RESOURCE {
+  directionalLightOverallMaterial,
+  material,
+  "white. half strength emissive, half strength diffuse",
+  "sets material for the sun shape when stationary. 
+   Resource for the moving sun, 
+   directionalLightTranslatorPlaneTranslatorActive, 
+   contains a yellow material for highlighting."
+}
+DRAGGER_RESOURCE {
+  directionalLightTranslatorPlaneTranslator,
+  translator.yzTranslator.translator
+  translator.xzTranslator.translator
+  translator.xyTranslator.translator,
+  "sun shape with no material",
+  "picking these parts initiates dragging 
+   by the yz, xz, and xy planar draggers 
+   respectively."
+}
+
+DRAGGER_RESOURCE {
+  directionalLightTranslatorPlaneTranslatorActive,
+  translator.yzTranslator.translatorActive
+  translator.xzTranslator.translatorActive
+  translator.xyTranslator.translatorActive,
+  "yellow sun shape",
+  "shown during planar dragging in the yz, xz, 
+   and xy planes respectively."
+}
+
+
+DRAGGER_RESOURCE {
+  directionalLightTranslatorLineTranslator,
+  translator.xTranslator.translator
+  translator.yTranslator.translator
+  translator.zTranslator.translator,
+  "white cylinder",
+  "picking these parts initiates dragging 
+   in the x, y, and z linear draggers respectively."
+}
+
+DRAGGER_RESOURCE {
+  directionalLightTranslatorLineTranslatorActive,
+  translator.xTranslator.translatorActive
+  translator.yTranslator.translatorActive
+  translator.zTranslator.translatorActive,
+  "yellow cylinder",
+  "shown during linear dragging in the x, y, 
+   and z directions respectively."
+}
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoCenterballDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTransformerDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}
+

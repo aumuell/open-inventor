@@ -1,0 +1,133 @@
+#
+# Copyright (C) 1990,1991  Silicon Graphics, Inc.
+#
+#_______________________________________________________________________
+#______________  S I L I C O N   G R A P H I C S   I N C .  ____________
+#
+#   usr/src/toolkits/Inventor/make/so_libcommonrules
+#   $Revision: 1.1 $
+#
+#   Description:
+#      Inventor library common rules - to be included by top-level Makefiles
+#   for libraries.  Normally included as SO_LIBCOMMONRULES, which is in 
+#   so_commondefs (include this file after including so_commondefs)
+#
+#   The following should be set before including this file:
+#      LIBNAME    - the name of the library (e.g. libfoo.a)
+#      COMMONPREF - a common prefix for make rules (e.g. libfoo)
+#      SRCDIRS    - the source directories to call make in (e.g. src)
+#      DEPTH      - depth in the tree (e.g. ./ or ../)
+#
+#   Author(s):	David Mott
+#
+#______________  S I L I C O N   G R A P H I C S   I N C .  ____________
+#_______________________________________________________________________
+#
+#
+#
+
+TARGETS = $(LIBNAME)
+
+# NOTE: a default rule must be set before including commonrules
+default:
+	@echo "\nmaking $(NAME), Release $(SO_RELEASE) $(SOBUILD)"
+	@${MAKE} -f $(MAKEFILE) compile
+	@echo "finished $(NAME)"
+
+include $(COMMONRULES)
+
+
+#
+#   rules for making library
+#
+compile:
+	@for dir in $(SRCDIRS); \
+		do \
+			echo "====\tcd $$dir" ;\
+			( cd $$dir; $(MAKE) default ) ;\
+		done
+
+c_api:
+	@for dir in $(INCLDIRS); \
+		do \
+			echo "====\tcd $$dir" ;\
+			(cd $$dir; $(MAKE) c_api ) ;\
+		done
+
+inclinstall:
+	@for dir in $(INCLDIRS); \
+		do \
+			echo "====\tcd $$dir" ;\
+			(cd $$dir; $(MAKE) install ) ;\
+		done
+
+#
+#   Shared library
+#
+shlibc++:
+	@echo "\nmaking $(NAME) shared library, Release $(SO_RELEASE) $(SOBUILD)"
+	@SO_SHLIBOPTS="-G 0" \
+		SO_SHLIBDEFS= \
+		SHLIB_PREFIX=sh \
+		${MAKE} -f $(MAKEFILE) compile
+	@echo "finished $(NAME) shared library"
+	
+
+#
+#   Standard rules (depend, clean, clobber, install)
+#
+$(COMMONTARGS): $(COMMONPREF)$$@
+	@echo "make $@"
+	@for dir in $(SRCDIRS); do \
+		echo "====\tcd $$dir; make $@ ";\
+		( cd $$dir; $(MAKE) $@ ); \
+	done
+	@for dir in $(INCLDIRS); do \
+		echo "====\tcd $$dir; make $@ ";\
+		( cd $$dir; $(MAKE) $@ ); \
+	done
+
+#INST_TARGS = default datadir manpage doc inclinstall
+INST_TARGS = default inclinstall
+install: 
+	@for targs in $(INST_TARGS) ; do \
+	    $(MAKE) -f $(MAKEFILE) $$targs ; \
+	done
+
+
+datadir:
+	@if [ -d $(DATADIR) ]; then \
+		echo "Installing data"; \
+		(cd $(DATADIR); \
+		$(INSTALL) -v -m 444 $(IDBTAG) \
+			-O -F $(INSTALL_DATA) *); \
+	fi
+
+manpage: 
+	@if [ -d $(DOCDIR) ]; then \
+		if [ -r $(DOCDIR)/$(NAME).3 ]; then \
+			$(MAKE) $(SO_MAN3)/$(NAME).3 ; \
+		else \
+			echo $(DOCDIR)/$(NAME).3 does not exist, cannot install; \
+		fi \
+	else \
+		echo $(DOCDIR) does not exist, cannot install man page; \
+	fi
+
+$(SO_MAN3)/$(NAME).3: $(DOCDIR)/$(NAME).3
+	@echo "Installing man page"
+	(cd $(DOCDIR); \
+	$(INSTALL) -v -m 444 $(IDBTAG) \
+		-O -f $(INSTALL_MAN3) $(NAME).3 )
+
+doc: $(_FORCE)
+	@if [ -d $(DOCDIR) ]; then \
+		if [ -r $(DOCDIR)/$(NAME).3 ]; then \
+			echo make doc - writing to $(DOCDIR)/$(NAME) ; \
+			nroff -man $(DOCDIR)/$(NAME).3 > $(DOCDIR)/$(NAME) ; \
+		else \
+			echo $(DOCDIR)/$(NAME).3 does not exist, cannot nroff; \
+		fi \
+	else \
+		echo $(DOCDIR) does not exist, cannot nroff man page; \
+	fi

@@ -1,0 +1,55 @@
+#Inventor V2.0 ascii
+Separator {
+    # Turn on backface removal
+    ShapeHints {
+	vertexOrdering COUNTERCLOCKWISE
+	shapeType SOLID
+    }
+
+    # Bar Chart Node
+    ProfileCoordinate2 {
+	point	[ 0 0,
+			  0.3 0.2,
+			  1.7 0.2,
+			  2 0 ]
+    }
+    LinearProfile {
+	index	[ 0, 1, 2, 3 ]
+    }
+    Font { name "GoudyTextMT-LombardicCapitals" }
+    BarChart {
+	# plateColor 1 1 0 0
+	# poleColor  1 0 1 0
+	
+	values [ 1, 0.2, 0.3, 0.4, 
+		 0.5, 0.6, 0.7, 0.8, 
+		 0.4, 0.6, 0.3, 0.7, 
+		 0.4, 0.8, 0.9, 0.3, 
+		 0.5, 0.7, 0.9, 0.2, 
+		 0.3, 0.3, 0.5, 0.9 ]
+		 
+	valueColors [ 0 0.8 0 0, 0.8 0 0 0, 0.6 0 0.6 0, 0.8 0.8 0 0 ]
+	
+	xLabels [ "Gizmo", "Whatzit", "Thinger", "Gadget" ]
+	xLabelColors [ 0 0.8 0 0, 0.8 0 0 0, 0.6 0 0.6 0, 0.8 0.8 0 0 ]
+	xLabelScale 1.5 1.5 1.5 
+	
+	yLabels [ "`91", "`92", "`93", "`94", "`95" ]
+	# yLabelColors [ 0 0.8 0 0 ]
+	yLabelScale 1.8 1.8 1.8 
+	
+	xDimension 4
+	yDimension 5
+	
+	# xBarProportion 0.7
+	# yBarProportion 0.7
+	
+	# minValue 0.2
+	# maxValue 1.2
+	
+	# zLabelColor 0.8, 0.8, 0, 0 
+	# zMarkerColor 0.8, 0, 0, 0
+	zLabelScale 1.5 1.5 1.5 
+	# zLabelIncrement 20 
+    }
+}

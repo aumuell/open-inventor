@@ -1,0 +1,22 @@
+This directory contains the Inventor man pages.
+
+Note that Inventor man pages are created using a custom Inventor program
+called `ivman'.  We have designed a simple language which we use to write
+our original man pages in (*.ivm) and then run `ivman' to generate
+a standard Unix man page (TROFF).  We ONLY edit the .ivm files found in
+man3/ivm/* - NOT the *.3 files.
+
+Note however, that we write standard Unix man pages for the commands
+and demos found in man/man1 (e.g., ivcat).
+
+
+IVMFormat.doc - describes the Inventor Man Page Format (.ivm)
+Makefile      - makes man pages
+mandefs       - man page include file for common definitions
+manrules      - man page rules file
+
+ivman	 - contains the source code for the InVentor MAN page generator (ivman)
+macros   - contains macro files used by man pages
+man1     - contains Inventor command man pages
+man3     - contains Inventor toolkit man pages
+tools    - contains various tools used to make man pages

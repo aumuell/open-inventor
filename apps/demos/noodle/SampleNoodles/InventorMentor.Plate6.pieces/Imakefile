@@ -1,0 +1,12 @@
+#define DataMakefile
+
+#define DataFiles *.iv README
+
+#define IdbTag -idb "inventor_dev.src.sample"
+
+#define InstallDirectory /usr/share/src/Inventor/demos/noodle/SampleNoodles/InventorMentor.Plate6.pieces
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../../../..
+#endif
+

@@ -1,0 +1,44 @@
+#define OneProgram
+
+PROGRAM = gview
+
+C++FILES =      gview.c++ DisplayGraph.c++ Error.c++ FieldEditor.c++ \
+                GraphIcon.c++ GraphViewer.c++ NodeCreator.c++
+
+HFILES =	DisplayGraph.h Error.h FieldEditor.h \
+		GraphIcon.h GraphViewer.h NodeCreator.h \
+		Actions.h Menu.h MotifHelp.h
+
+#define ShipProgram
+#define BinDir /usr/demos/Inventor
+#define OtherBins gview.RUNME
+#define OtherLibs -lGL -lXm -lXt -lX11
+
+#define IdbTagBin  -idb "inventor_eoe.demo.progs $(MACH_TAG)"
+#define IdbTagOtherBins  -idb "inventor_eoe.demo.progs $(MACH_TAG) \
+	exitop('if [ -x \$$rbase/usr/sbin/iconbookedit ]; then \
+		chroot \$$rbase /usr/sbin/iconbookedit \
+		-add \"Category:File Name:/usr/demos/Inventor/gview.RUNME\" \
+		-syspage Demos; fi;')"
+
+
+#ifndef CreatingUserMakefile
+
+TOP_OF_TREE = ../../..
+OTHERSOURCE = README windmill.iv gviewIcons.iv
+
+
+#ifdef CreatingSgiMakefile
+
+IDBTAGEXTRA = -idb "inventor_eoe.demo.progs $(MACH_TAG)"
+
+default:
+install: extraInstall
+extraInstall:
+	$(INSTALL) -F /usr/demos/data/Inventor -u demos -g demos \
+		-m 444 $(IDBTAGEXTRA) gviewIcons.iv
+	$(INSTALL) -F /usr/demos/data/Inventor -u demos -g demos \
+		-m 444 $(IDBTAGEXTRA) windmill.iv
+
+#endif /* CreatingSgiMakefile */
+#endif /* ! CreatingUserMakefile */

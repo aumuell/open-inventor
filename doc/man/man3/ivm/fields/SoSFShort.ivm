@@ -1,0 +1,30 @@
+NAME SoSFShort SoSShort "" {
+field containing a short integer
+}
+
+INCLUDE fields/SoSFShort.h
+
+DESC {
+A field containing a short (16-bit) integer.
+\p
+\cSoSFShorts\. are written to file as a single short integer
+value, represented as decimal, hexadecimal (beginning with '0x') or
+octal (beginning with '0') value.
+}
+ALSO { SoField, SoSField, SoMFShort, SoSFUShort, SoSFInt32 }
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get short getValue() const {
+Returns this field's value.
+}
+METHOD " " short operator =(short newValue) {}
+METHOD Set void setValue(short newValue) {
+Sets this field to \anewValue\..
+}
+METHOD IsEq int operator ==(const SoSFShort &f) const {}
+METHOD IsNEq int operator !=(const SoSFShort &f) const {
+Returns TRUE if \af\. is of the same type and has the same value as this
+field.
+}

@@ -1,0 +1,55 @@
+#Inventor V2.1 ascii
+
+Separator {
+    Separator {
+	Separator {
+	    DEF QUAD FaceSet {
+		vertexProperty	VertexProperty {
+		    vertex	[ -1 -1 0, 1 -1 0, 1 1 0, -1 1 0 ]
+		    normal	0 0 1
+		    normalBinding	OVERALL
+		}
+		numVertices	4
+	    }
+	}
+	Separator {
+	    Material {
+		diffuseColor	1 0 0
+	    }
+	    Transform {
+		rotation	0 0 1  0.5
+		scaleFactor	0.6 0.6 0.6
+	    }
+	    USE QUAD
+	}
+	Separator {
+	    Material {
+		diffuseColor	0 1 1
+	    }
+	    Transform {
+		rotation	0 0 1  1
+		scaleFactor	0.3 0.3 0.3
+	    }
+	    USE QUAD
+	}
+    }
+    Separator {
+	Material {
+	    diffuseColor	0 1 0
+	}
+	Transform {
+	    translation	0 0 -0.3
+	    scaleFactor	2 2 2
+	}
+	USE QUAD
+    }
+    Separator {
+	Material {
+	    diffuseColor	0 0 1
+	}
+	Transform {
+	    translation	-1 -1 0.3
+	}
+	USE QUAD
+    }
+}

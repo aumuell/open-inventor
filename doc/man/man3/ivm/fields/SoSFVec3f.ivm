@@ -1,0 +1,33 @@
+NAME SoSFVec3f SoSVec3f "" {
+field containing a three-dimensional vector
+}
+
+INCLUDE fields/SoSFVec3f.h
+
+DESC {
+Field containing a three-dimensional vector.
+\p
+\cSoSFVec3fs\. are written to file as three floating
+point values separated by whitespace.
+}
+METHOD SetX_Y_Z void setValue(float x, float y, float z) {}
+METHOD SetXYZ void setValue(const float xyz[3]) {
+Sets the field to the given value.
+}
+ALSO { SoField, SoSField, SoMFVec3f }
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get const SbVec3f & getValue() const {
+Returns this field's value.
+}
+METHOD " " const SbVec3f & operator =(const SbVec3f & newValue) {}
+METHOD Set void setValue(const SbVec3f & newValue) {
+Sets this field to \anewValue\..
+}
+METHOD IsEq int operator ==(const SoSFVec3f &f) const {}
+METHOD IsNEq int operator !=(const SoSFVec3f &f) const {
+Returns TRUE if \af\. is of the same type and has the same value as this
+field.
+}

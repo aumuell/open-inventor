@@ -1,0 +1,8 @@
+NAME SbBool "" "" { a Boolean type }
+INCLUDE SbBasic.h
+DESC {
+This typedef is used to represent the Boolean
+values TRUE and FALSE.
+\cSbBool\. is not a class and does not have any methods
+or variables.
+}

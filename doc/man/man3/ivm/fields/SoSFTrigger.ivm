@@ -1,0 +1,33 @@
+NAME SoSFTrigger SoSTrigger "" {
+field used to trigger engines or connection networks
+}
+
+INCLUDE fields/SoSFTrigger.h
+
+DESC {
+This class can be used to start or to synchronize a network of field
+connections.  It is the "null" field \(em a field with no values.  It
+is typically used as the "start button" for engines that change over
+time.
+\p
+Triggers can be connected from any other type of field, and will notify
+any engines or nodes they are part of (or any other triggers they are
+connected to) whenever the value of the field is set (even if it is set
+to its current value) or the field is \mtouch()\.'ed.
+\p
+Since they have no value, \cSoSFTriggers\. are not written to file.  A
+node or engine containing an \cSoSFTrigger\. field will write only the
+field's name.
+}
+METHOD Set void setValue() {
+Starts the notification process; this is equivalent to calling \mtouch()\..
+}
+METHOD Get void getValue() {
+Forces any connected engines or fields to evaluate themselves.
+}
+METHOD IsEq int operator ==(const SoSFTrigger &t) const {}
+METHOD IsNEq int operator !=(const SoSFTrigger &t) const {
+All trigger fields are equal; these methods always return TRUE and
+FALSE, respectively.
+}
+ALSO { SoSFBool, SoMFBool }

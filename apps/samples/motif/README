@@ -1,0 +1,20 @@
+This demonstrates one way to set up and use Motif pulldown menus.
+
+There are two menus, File and Edit.
+The File menu has several items, including a separator line,
+and keyboard accelerators for the menu items.
+The Edit menu also has several items, but rather than simple push
+button items, this menu has a toggle button and three radio buttons.
+
+Menus can be in the popup planes or the normal planes.
+When in the popup planes, they show and hide without forcing
+a redraw of the entire scene. However, they are limited in the
+number of colors they can have. For instance, toggle buttons on
+menus in the normal planes can be colored yellow for easy visiblity,
+but in the popup planes have no color, and are more difficult to see.
+When there is a complicated scene, though, it is best to have the
+menus in the popup planes. (All viewers put menus in the popup planes.)
+
+The src file has a #define MENUS_IN_POPUP which forces the menus
+into the popup planes. Removing this causes the menus to appear in
+the normal planes.

@@ -1,0 +1,30 @@
+NAME SoColorIndex SoColInd "" { surface color index node }
+
+INCLUDE nodes/SoColorIndex.h
+
+DESC {
+This node specifies the color to use for subsequent shapes as an index
+into the current color table. This is used only for \kBASE_COLOR\.
+lighting (see \cSoLightModel\.) in color index mode. Color index mode
+may be enabled by the window in which rendering occurs.
+\p
+Since color indices make sense only in the context of OpenGL rendering,
+this node implements only a method for the \cSoGLRenderAction\..
+}
+
+FIELD index { Color index. }
+
+METHOD "" SoColorIndex() {
+Creates a color index node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Sets the color index for subsequent shapes rendered with
+\kBASE_COLOR\. lighting.
+}
+
+ALSO { SoBaseColor, SoLightModel }

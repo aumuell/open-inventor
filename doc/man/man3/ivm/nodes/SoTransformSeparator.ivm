@@ -1,0 +1,36 @@
+NAME SoTransformSeparator SoXfSep "" {
+group node that saves and restores transformation state
+}
+
+INCLUDE nodes/SoTransformSeparator.h
+
+DESC {
+This group node is similar to the \cSoSeparator\. node in that it
+saves state before traversing its children and restores it afterwards.
+However, it saves only the current transformation; all other state is
+left as is. This node can be useful for positioning a camera, since
+the transformations to the camera will not affect the rest of the
+scene, even through the camera will view the scene. Similarly, this
+node can be used to isolate transformations to light sources or other
+objects.
+}
+
+METHOD "" SoTransformSeparator() {
+Creates a transform separator node with default settings.
+}
+
+METHOD CreateN SoTransformSeparator(int nChildren) {
+Constructor that takes approximate number of children.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction, SoGetBoundingBoxAction,
+       SoGetMatrixAction, SoRayPickAction {
+Saves the current transformation state, traverses all children, and
+restores the previous transformation state.
+}
+
+ALSO { SoResetTransform, SoTransformation }

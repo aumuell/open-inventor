@@ -1,0 +1,95 @@
+NAME SoMField SoMField "" { base class for all multiple-valued fields }
+
+INCLUDE fields/SoField.h
+
+DESC {
+Each class derived from \cSoMField\. begins with an \cSoMF\. prefix
+and contains a dynamic array of values of a particular type.  Each has a
+\m\+setValues()\.\-SetN()\.\. method
+that is passed a pointer to a const array of values of the correct
+type; these values are copied into the array in the field, making
+extra room in the array if necessary. The start and num parameters to
+this method indicate the starting array index to copy into and the
+number of values to copy.
+\p
+The \m\+getValues()\.\-GetN()\.\. method
+for a multiple-value field returns a const pointer to the array of
+values in the field. (Because this pointer is const, it cannot be used
+to change values in this array.)
+\+
+\p
+In addition, the indexing operator "[]" is overloaded to return the
+\ai\.'th value in the array; because it returns a const reference, it can
+be used only to get values, not to set them.
+\.
+\p
+Methods are provided for getting the number of values in the field,
+inserting space for new values in the middle, and deleting values.
+\p
+There are other methods that allow you to set only one value of
+several in the field and to set the field to contain one and only one
+value.
+\p
+Two other methods can be used to make several changes to a
+multiple-value field without the overhead of copying values into and
+out of the fields. The \m\+startEditing()\.\-StartEdit()\.\. method
+returns a non-const pointer to the array of values in the field; this
+pointer can then be used to change (but not add or remove) any values
+in the array. The \m\+finishEditing()\.\-FinishEdit()\.\. method
+indicates that the editing is done and notifies any sensors or engines
+that may be connected to the field.
+\-
+\p
+This class is rarely needed by C programmers.
+\.
+\p
+\cSoMFields\. are written to file as a series of values separated by
+commas, all enclosed in square brackets.  If the field has no values
+(\mgetNum()\. returns zero), then only the square brackets ("[]") are
+written.  The last value may optionally be followed by a comma.  Each
+field subtype defines how the values are written; for example, a field
+whose values are integers might be written as:
+\b
+[ 1, 2, 3, 4 ]
+   or:
+[ 1, 2, 3, 4, ]
+\.
+}
+
+METHOD "" int getNum() const {
+Returns the number of values currently in the field.
+}
+
+METHOD "" void setNum(int num) {
+Forces this field to have exactly num values, inserting or deleting
+values as necessary.
+}
+
+METHOD del virtual void deleteValues(int start, int num = -1) {
+Deletes \anum\. values beginning at index \astart\. (index \astart\. through
+\astart\.+\anum\.-1 will be deleted, and any leftover values will be moved
+down to fill in the gap created).  A \anum\. of -1 means delete all values
+from \astart\. to the last value in the field; \mgetNum()\. will return 
+\astart\.  as the number of values in the field after this operation
+(\m\+deleteValues(0, -1)\-Del(0, -1)\.\. empties the field).
+}
+
+METHOD "" virtual void insertSpace(int start, int num) {
+Inserts space for \anum\. values at index \astart\..  Index \astart\. through
+\astart\.+\anum\.-1 will be moved up to make room.  For example, to make room
+for 7 new values at the beginning of the field call
+\m\+insertSpace(0, 10)\.\-InsertSpace(0, 10)\.\..
+}
+
+METHOD "" SbBool set1(int index, const char *valueString) {}
+METHOD "" void get1(int index, SbString &valueString) {
+These are equivalent to the \m\+set()\.\-Set()\.\. and
+\m\+get()\.\-Get()\.\. methods of \cSoField\., but they operate on
+only one value.  See the \cSoField\. methods for details.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Return the type identifier for this field class.
+}
+
+ALSO { SoNode, SoEngine }

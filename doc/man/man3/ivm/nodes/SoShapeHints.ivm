@@ -1,0 +1,94 @@
+NAME SoShapeHints SoShapeHints "" { node that provides hints about shapes }
+
+INCLUDE nodes/SoShapeHints.h
+
+DESC {
+By default, Inventor assumes very little about the shapes it renders.
+You can use the \cSoShapeHints\. node to indicate that vertex-based
+shapes (those derived from \cSoVertexShape\.) are solid, contain
+ordered vertices, or contain convex faces.  For fastest rendering,
+specify SOLID, COUNTERCLOCKWISE, CONVEX shapes.
+\p
+These hints allow Inventor to optimize certain rendering features.
+Optimizations that may be performed include enabling back-face culling
+and disabling two-sided lighting. For example, if an object is solid
+and has ordered vertices, Inventor turns on backface culling and turns
+off two-sided lighting. If the object is not solid but has ordered
+vertices, it turns off backface culling and turns on two-sided
+lighting. In all other cases, both backface culling and two-sided
+lighting are off.
+\p
+The \cSoShapeHints\. node also affects how default normals are
+generated.  When a node derived from \cSoVertexShape\. has to generate
+default normals, it uses the \vcreaseAngle\. field to determine which
+edges should be smooth-shaded and which ones should have a sharp
+crease.  The crease angle is the angle between surface normals on
+adjacent polygons. For example, a crease angle of .5 radians
+means that an edge between two adjacent polygonal faces
+will be smooth shaded if the normals to the two faces form an angle
+that is less than .5 radians (about 30 degrees). Otherwise, it will
+be faceted.  Normal generation is fastest when the creaseAngle is 0
+(the default), producing one normal per facet.  A creaseAngle of pi
+produces one averaged normal per vertex.
+}
+
+ENUM VertexOrdering {
+    UNKNOWN_ORDERING	"Ordering of vertices is unknown",
+    CLOCKWISE		"Face vertices are ordered clockwise
+			 (from the outside)",
+    COUNTERCLOCKWISE	"Face vertices are ordered counterclockwise
+			 (from the outside)"
+}
+
+ENUM ShapeType {
+    UNKNOWN_SHAPE_TYPE	"Nothing is known about the shape",
+    SOLID		"The shape encloses a volume"
+}
+
+ENUM FaceType {
+    UNKNOWN_FACE_TYPE	"Nothing is known about faces",
+    CONVEX		"All faces are convex"
+}
+
+FIELD vertexOrdering {
+Indicates how the vertices of faces are ordered. \kCLOCKWISE\.
+ordering means that the vertices of each face form a clockwise loop
+around the face, when viewed from the outside (the side toward which
+the normal points).
+}
+
+FIELD shapeType {
+Indicates whether the shape is known to enclose a volume (\kSOLID\.)
+or not. If the inside (the side away from the surface normal) of any
+part of the shape is visible, the shape is not solid.
+}
+
+FIELD faceType {
+Indicates whether each face is convex. Because the penalty for
+non-convex faces is very steep (faces must be triangulated
+expensively), the default assumes all faces are convex. Therefore,
+shapes with concave faces may not be displayed correctly unless this
+hint is set to \kUNKNOWN_FACE_TYPE\..
+}
+
+FIELD creaseAngle {
+Indicates the minimum angle (in radians) between two adjacent face
+normals required to form a sharp crease at the edge when default
+normals are computed and used.
+}
+
+METHOD "" SoShapeHints() {
+Creates a shape hints node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction, SoRayPickAction,
+       SoGetBoundingBoxAction {
+Sets the state to contain the hints; sets up optimizations based on
+the hints.
+}
+
+ALSO { SoVertexShape }

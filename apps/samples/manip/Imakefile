@@ -1,0 +1,12 @@
+#define OneProgram
+
+PROGRAM = constrainManip
+
+C++FILES = constrainManip.c++
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../..
+
+OTHERSOURCE = README simpleDraggers.iv complexDraggers.iv
+
+#endif

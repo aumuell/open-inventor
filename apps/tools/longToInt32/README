@@ -1,0 +1,49 @@
+
+This directory contains the perl script for the 'longToInt32' utility, used
+to convert a list of files from using "long" types to "int32_t" types.
+
+---
+   longToInt32  changes longs to int32_ts and all the changes
+   associated with this (see the s/from/to/ lines for all the
+   gory details).
+
+   Note:  This perl script will not change any longs on a line with
+    either of the strings "system long" or "System long".  
+    Therefore, if you have a long that must remain in the code, 
+    then insert a comment on the same line as the long and 
+    include one of the above strings.  The comment may appear
+    anywhere on the line.
+
+   Suggestions for use:
+   --------------------
+      Work in manageable chunks by identifing a directory whose
+      contents (and subdirectory contents) will not overwhelm you.
+
+	  cd to that directory, and run the following command to
+          get a list of filenames.  Each file will contain the
+	  string "long" (case insensitive) in it:
+
+	  find . -print | xargs grep -l -i long > /tmp/long.files
+
+      In one window, edit /tmp/long.files  and in another run
+
+	  longToInt32 /tmp/long.files -m | more
+
+      and consider whether you want the script to edit the file for  
+      you, the file should be removed from the list, or whether you
+      want to add the special string "system long" to one or more 
+      lines of the file.  Execute the script with no arguments to
+      get a list of options.
+
+       run: longToInt32               to see the options
+
+      (the -m option enables printing of modification information to 
+      stdout).  
+
+      When you are ready to replace the files with their int32 counterparts,
+
+        longToInt32 /tmp/long.files -r    (plus your choice of options)
+
+      The -r enables REPLACEMENT of the original file.  The original files
+      will be retained with the extension  ".old".
+   --------------------

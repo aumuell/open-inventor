@@ -1,0 +1,28 @@
+#!/bin/csh -f
+
+#
+# Prepares command line info to create a man page for the given class name
+#
+# Usage: makeManDirs className
+#
+
+set nonomatch
+set toolDir = ../../ivman
+set className = $1
+set treeFile = $toolDir/manTree
+
+# Get the list of derived classes
+set classes = `grep "^$className " $treeFile`
+
+# For each class, find the directory containing the man page. Build
+# a final list from the {className,dir} pairs.
+set list = ()
+foreach class ($classes)
+    if (-e */$class.ivm) then
+	set path = `echo */$class.ivm`
+	set list = ($list $path)
+    endif
+end
+
+# Print the result
+echo $list

@@ -1,0 +1,134 @@
+NAME SoSeparatorKit SoSepKit SO_SEP_KIT_ { separator nodekit class }
+
+INCLUDE nodekits/SoSeparatorKit.h
+
+DESC {
+A nodekit that is used for creating nodekit hierarchies.
+\cSoSeparatorKit\. contains a \etransform\. part, a \echildList\. part,
+and a few others in its catalog.
+The \etransform\. part (an \cSoTransform\. node) affects all of the
+children in the \kchildList\.. Each of these children must be an
+\cSoSeparatorKit\. or from a class that is derived from \cSoSeparatorKit\.
+(e.g., \cSoShapeKit\. and \cSoWrapperKit\.).
+Since all members of the \echildList\. are in turn \cSoSeparatorKit\.s,
+and each contains a \etransform\., these nested lists allow you to create
+a hierarchy of motion, in which each \etransform\. affects an entire subgraph
+of nodekits.
+\p
+The other parts added to the catalog for the \cSoSeparatorKit\. are
+\epickStyle\., \eappearance\., \eunits\. and \etexture2Transform\..  
+Furthermore,
+since \cSoSeparator\. is derived from \cSoBaseKit\., it inherits
+the \ecallbackList\. part. This is a list of \cSoCallback\. and/or
+\cSoEventCallback\. nodes which enable the \cSoSeparatorKit\. to perform
+special callbacks whenever an action is applied to it. 
+\p
+By creating the \epickStyle\. part, a user can alter the pick style
+for the entire nodekit hierarchy. The \eappearance\. part is an
+\cSoAppearanceKit\. nodekit. Note that all parts contained in the
+\cSoAppearanceKit\. catalog can be accessed 
+as if they were part of the \cSoSeparatorKit\.. For example:
+\+\b\k
+myMtl = mySepKit->getPart("material",TRUE)
+\.\.\.
+\-\b\k
+myMtl = SoSepKitGetPart(mySepKit,"material",TRUE)
+\.\.\.
+and 
+\+\b\k
+mySepKit->setPart("material",myMtl)
+\.\.\.
+\-\b\k
+SoSepKitSetPart(mySepKit,"material",myMtl)
+\.\.\.
+See \cSoBaseKit\. for further explanation.
+}
+
+METHOD "" SoSeparatorKit() { Constructor. }
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for the class \cSoSeparatorKit\.. }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+
+PART pickStyle
+  { An \cSoPickStyle\. property node that can be used to set the
+    picking style of its children. This part is \kNULL\. by default,
+	but is created automatically if necessary. }
+
+PART appearance { An \cSoAppearanceKit\. nodekit which can be used
+	to set the appearance properties of its children.
+	This part is \kNULL\. by default, but is created automatically
+	if necessary. }
+
+PART units { An \cSoUnits\. node which can be used
+	to set the types of units, (e.g., feet), of its children.
+	This part is \kNULL\. by default, but is created automatically
+	if necessary. }
+
+PART transform { An \cSoTransform\. node which can be used
+	to set the overall position, orientation, and scale
+	of its children. This part is \kNULL\. by default,
+	but is created automatically if necessary. }
+
+PART texture2Transform { An \cSoTexture2Transform\. node which can be used
+	to apply a transformation to any textures used by its children.
+	This part is \kNULL\. by default, but is created automatically
+	if necessary. }
+
+PART childList { This part contains the children nodekits of this
+	\cSoSeparatorKit\..  This part is a \elist part\. and can
+	have multiple children. This part is \kNULL\. by default,
+	but is created automatically when the first child is added 
+	to the \echildList\.. 
+	Also, when asked to build a member of the \echildList\., 
+	the separatorKit
+	will build an \cSoShapeKit\. by default.
+	So if the \echildList\. part is NULL, and you call:
+	\m\+getPart("childList[0]", TRUE)\.\-SoSepKitGetPart(mySepKit, 
+	"childList[0]", TRUE)\.\.,
+	the separator kit will create the \echildList\. and add 
+	an \cSoShapeKit\. as the new element in the list.
+	}
+
+
+ENUM CacheEnabled {
+	OFF  "Never build or use a cache",
+	ON   "Always try to build a cache",
+	AUTO "Automatic caching" 
+}
+
+FIELD renderCaching { Set render caching mode.  Default is \kAUTO\.. }
+
+
+FIELD boundingBoxCaching { Set bounding box caching mode.
+	Default is \kON\..  Setting this value to \kAUTO\. is equivalent
+	to \kON\ \(em automatic culling is not implemented. }
+
+
+FIELD renderCulling { Set render culling mode.  Default is \kOFF\..
+	Setting this value to \kAUTO\. is equivalent to \kON\ \(em
+	automatic culling is not implemented. }
+
+
+FIELD pickCulling { Set pick culling mode.  Default is \kAUTO\.. }
+
+
+ALSO {
+SoAppearanceKit,
+SoBaseKit,
+SoCameraKit,
+SoLightKit,
+SoNodeKit,
+SoNodeKitDetail,
+SoNodeKitListPart,
+SoNodeKitPath,
+SoNodekitCatalog,
+SoSceneKit,
+SoShapeKit,
+SoWrapperKit }
+

@@ -1,0 +1,24 @@
+#! /bin/csh -f
+
+set defs = _defines.h
+set undefs = _undefs.h
+set tmp = $TMPDIR/$$
+cp /dev/null $tmp
+egrep "^((class)|(struct))" head/*.h libnurbs/*.c++ | \
+    sed -e 's/.*class \([^ ;\*]*\).*$/\1/' \
+	-e 's/.*struct \([^ ;\*]*\).*$/\1/' | \
+    sort | uniq | \
+	fgrep -v "(" | \
+	fgrep -v "{" | \
+	grep -v '^istream$' | \
+	grep -v '^iostream$' | \
+	grep -v '^ostream$' | \
+	grep -v '^Xf' | \
+	grep -v '^Xtf' | \
+	grep -v '^_Xtf' \
+	>> $tmp
+rm -f $defs $undefs
+sed -e 's/\(.*\)/#define \1 _lib_nurbs(\1)/' < $tmp > $defs
+sed -e 's/^/#undef /' < $tmp > $undefs
+chmod a-w $defs $undefs
+rm $tmp

@@ -1,0 +1,34 @@
+NAME SoClipPlane SoClpPln "" { clipping plane node }
+
+INCLUDE nodes/SoClipPlane.h
+
+DESC {
+This node clips all subsequent shapes in the scene graph to the
+half-space defined by the \cplane\. field. The half-space is the side
+of the plane in the direction of the plane normal. 
+For example, if the plane is positioned at the origin 
+and the normal is pointing down the positive X axis,
+everything in the negative X space will be clipped away.
+\p
+Any number of
+clipping planes may be active simultaneously, although the graphics
+library may place a limit on this number during rendering.
+}
+
+FIELD plane { Plane defining half-space. }
+
+FIELD on    { Whether clipping plane is active. }
+
+METHOD "" SoClipPlane() {
+Creates a clip plane node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction, SoRayPickAction {
+Adds the plane to the current list of clipping planes in the state.
+}
+
+ALSO { SoCamera, SoShapeHints }

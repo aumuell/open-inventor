@@ -1,0 +1,49 @@
+NAME SoCenterballManip SoCballManip "" { transform node with 3D interface for editing rotation and center }
+
+INCLUDE manips/SoCenterballManip.h
+
+DESC { 
+\cSoCenterballManip\. 
+is derived from \cSoTransform\. (by way of \cSoTransformManip\.). 
+When its fields 
+change, nodes following it in the scene graph rotate, scale, and/or translate.
+\p
+As a subclass of \cSoTransformManip\., this manipulator
+also has a 3D interface to edit some of its fields.
+In this case, the interface edits the \vrotation\. and \vcenter\. fields.
+\p
+A manipulator differs from a dragger. When you move a dragger,
+no other nodes are affected.  When you move an \cSoTransformManip\.,
+other nodes move along with it.
+(See the reference page for \cSoTransformManip\..)
+\p
+The interface for an \cSoCenterballManip\. is exactly the same as that
+of the \cSoCenterballDragger\..  
+To find out more about the interface, see the reference page 
+for \cSoCenterballDragger\..  To find out how the manipulator uses a 
+dragger to provide its interface, see the reference page for \cSoTransformManip\..
+\p
+On screen, this manipulator will surround the objects influenced by its motion.
+This is because it turns on the \esurroundScale\. part of the dragger.
+(See the reference page for \cSoSurroundScale\..)
+}
+
+METHOD "" SoCenterballManip() {
+Constructor.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ALSO {
+SoCenterballDragger,
+SoHandleBoxManip,
+SoJackManip,
+SoTabBoxManip,
+SoTrackballManip,
+SoTransformBoxManip,
+SoTransformerManip,
+SoTransform,
+SoTransformManip
+}

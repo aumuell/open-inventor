@@ -1,0 +1,71 @@
+NAME SoSFImage SoSImage "" {
+Field containing a 2D image
+}
+
+INCLUDE fields/SoSFImage.h
+
+DESC {
+A field containing a two-dimensional image.  Images can be greyscale
+(intensity), greyscale with transparency information, RGB, or RGB with
+transparency.  Each component of the image (intensity, red, green,
+blue or transparency (alpha)) can have an unsigned one-byte value from
+0 to 255.
+\p
+Values are returned as arrays of unsigned chars.  The image is stored
+in this array starting at the bottom left corner of the image with the
+intensity or red component of that pixel, followed by either the alpha,
+the green and blue, or the green, blue and alpha components (depending
+on the number of components in the image).  The next value is the
+first component of the next pixel to the right.
+\p
+\cSoSFImages\. are written to file as three integers representing the
+width, height and number of components in the image, followed by
+width*height hexadecimal values representing the pixels in the
+image, separated by whitespace.  A one-component image will have
+one-byte hexadecimal values representing the intensity of the image.
+For example, 0xFF is full intensity, 0x00 is no intensity.  A two-component
+image puts the intensity in the first (high) byte and the transparency
+in the second (low) byte.  Pixels in a three-component image have the red
+component in the first (high) byte, followed by the green and blue
+components (so 0xFF0000 is red).  Four-component images put the
+transparency byte after red/green/blue (so 0x0000FF80 is
+semi-transparent blue).  Note:  each pixel is actually read as a single
+unsigned number, so a 3-component pixel with value "0x0000FF" can also
+be written as "0xFF" or "255" (decimal).
+\p
+For example,
+\b
+1 2 1 0xFF 0x00
+\.
+is a 1 pixel wide by 2 pixel high greyscale image, with the bottom pixel 
+white and the top pixel black.  And:
+\b
+2 4 3 0xFF0000 0xFF00   0 0   0 0   0xFFFFFF 0xFFFF00
+\.
+is a 2 pixel wide by 4 pixel high RGB image, with the bottom left pixel red, 
+the bottom right pixel green, the two middle rows of pixels black, the top
+left pixel white, and the top right pixel yellow.
+
+}
+
+METHOD "" const unsigned char *getValue(SbVec2s &size, int &nc) const {
+Returns the pixels in the image as an array of unsigned chars.  The
+\asize\. and \anc\. arguments are filled in with the dimensions of the 
+image and the number of components in the image; the number of bytes
+in the array returned will be \asize\.[0]*\asize\.[1]*\anc\..
+}
+METHOD "" 
+  void setValue(const SbVec2s &size, int nc, const unsigned char *bytes) {
+Sets the value of this field to be an image of the given size, with
+the given number of components, and with the given pixel values.
+\asize\.[0]*\asize\.[1]*\anc\. bytes from the given array will be copied into
+internal storage maintained by the \cSoSFImage\. field.
+}
+METHOD "" unsigned char *startEditing(SbVec2s &size, int &nc) {}
+METHOD "" void finishEditing() {
+These methods can be used to efficiently edit the values in an image
+field.  \mstartEditing()\. returns the size of the image in the \asize\. 
+and \anc\.  arguments; writing past the end of the array returned is a 
+good way to cause hard-to-find core dumps.
+}
+ALSO { SoField, SoSField }

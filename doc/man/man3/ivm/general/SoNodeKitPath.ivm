@@ -1,0 +1,103 @@
+NAME SoNodeKitPath SoNkitPath "" { path that points to a list of hierarchical nodekits }
+
+INCLUDE SoNodeKitPath.h
+
+DESC {
+\cSoNodeKitPath\. is a subclass of \cSoPath\. that lets you 
+look at nodekits below the top nodekit in the path. Since nodekits have 
+hidden children, when you call \m\+getTail()\.\-SoPathGetTail()\.\. on 
+a regular path, it returns the top-most
+nodekit on the path.  This occurs even though the path might contain extra
+internal information leading to a node far deeper in the scene graph.
+For example, when picking an object inside an \cSoSceneKit\., the 
+\eregular\. path would end at the scenekit. But a \enodekit\. 
+path would 
+continue further down listing the other nodekits below it in the path.
+\p
+Intermediary (private) nodes between nodekits are not included in the 
+nodekit path.
+\p 
+Note that there is no constructor for an \cSoNodeKitPath\.,  so 
+you can not create one. Rather, you cast an \c(SoPath *)\. into
+an \c(SoNodeKitPath *)\.,  which returns nodekit-style values from all
+the same questions as \cSoPath\..
+\p
+Also, some methods of \cSoPath\. may not be called on an \cSoNodeKitPath\..
+Any methods which take a regular \cSoNode\. as an argument (except for
+\msetHead()\.) are not accessible, and replaced by methods that take an 
+\cSoBaseKit\. as an argument instead.  Methods which allow the programmer to 
+refer to the child index of a node beneath its parent are also inaccessible; 
+since a \cSoNodeKitPath\. only shows nodekits and hides any private parts,
+successive nodekits in the path may not actually be parent and child.
+}
+
+METHOD "" void append(SoBaseKit *childKit) {
+Adds \achildKit\. to end of chain; uses first occurrence of \achildKit\.
+as a part within current last nodekit. If the path is empty, this is
+equivalent to
+\+\msetHead(childKit)\..\.
+\-\mSoNkitPathSetHead(childKit)\..\.
+}
+
+METHOD AppendPath void append(const SoNodeKitPath *fromPath) {
+Adds all nodekits in \afromPath\.'s chain to end of chain; the head node
+of \afromPath\. must be the same as or a child of the current tail node.
+}
+
+METHOD "" void pop() {
+Pops the last nodekit off the end of the path.
+}
+
+METHOD "" SoNode * getTail() const {
+Return the last nodekit in a path chain. Note that 
+\m\+getHead()\.\-SoNkitPathGetHead()\.\. is not redefined from \cSoPath\.,
+since an \cSoNodeKitPath\. need not begin with a nodekit; the restriction is
+placed only on successive nodes on the path.
+}
+
+METHOD "" SoNode * getNode(int i) const  {
+Returns a pointer to the \ai\.'th node in the nodekit path.
+}
+
+
+METHOD "" SoNode * getNodeFromTail(int i) const {
+Returns a pointer to the \ai\.'th nodekit 
+in the chain, counting backward from
+the tail nodekit. Passing 0 for \ai\. returns the tail nodekit.
+}
+
+METHOD getLen int  getLength() const {
+Returns length of path chain (number of nodekits).
+}
+
+METHOD "" void truncate(int start) {
+Truncates the path chain, removing all nodes from index \astart\. on.
+Calling
+\+\mtruncate(0)\.\.
+\-\mSoNkitPathTruncate(0)\.\.
+empties the path entirely.
+}
+
+METHOD "" SbBool containsNode(const SoNodeKit *nodeKit) const {
+Returns TRUE if the passed nodekit is found anywhere in the path chain.
+}
+
+METHOD "" int findFork(const SoNodeKitPath *path) const {
+If the two paths have different head nodes, this returns -1.
+Otherwise, it returns the path chain index of the last nodekit (starting
+at the head) that is the same for both paths.
+}
+
+METHOD "" friend int operator ==(const SoNodeKitPath &p1, 
+const SoNodeKitPath &p2) {
+Returns TRUE if all node pointers in the two nodekit path chains are equal.
+}
+
+METHOD AppendInd      hidden void append(int childIndex) {}
+METHOD AppendNode     hidden void append(SoNode *childNode) {}
+METHOD AppendPath     hidden void append(const SoPath *fromPath) {}
+METHOD ""             hidden void push(int childIndex) {}
+METHOD getInd         hidden  int getIndex(int i) const {}
+METHOD GetIndFromTail hidden  int getIndexFromTail(int i) const {}
+
+ALSO { SoBaseKit, SoPath, SoRayPickAction, SoSearchAction }

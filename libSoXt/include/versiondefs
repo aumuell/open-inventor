@@ -1,0 +1,7 @@
+TOP_OF_TREE = ../..
+
+CAPI_LIB    = $(DEPTH)/../libInventorXt_c.a
+
+LC++INCS = -I$(DEPTH) -I$(IVSRC)/lib/interaction/include \
+	-I$(IVSRC)/lib/nodekits/include \
+	-I$(IVSRC)/lib/database/include

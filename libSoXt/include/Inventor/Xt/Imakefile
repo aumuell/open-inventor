@@ -1,0 +1,22 @@
+#define IncludeMakefile
+
+DEPTH = ../..
+
+HFILES = \
+	SoXt.h \
+	SoXtCursors.h \
+	SoXtClipboard.h \
+	SoXtComponent.h \
+	SoXtDirectionalLightEditor.h \
+	SoXtGLWidget.h \
+	SoXtIcons.h \
+	SoXtLightSliderSet.h \
+	SoXtMaterialEditor.h \
+	SoXtMaterialList.h \
+	SoXtMaterialSliderSet.h \
+	SoXtPrintDialog.h \
+	SoXtRenderArea.h \
+	SoXtResource.h \
+	SoXtSliderSet.h \
+	SoXtSliderSetBase.h \
+	SoXtTransformSliderSet.h

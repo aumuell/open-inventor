@@ -1,0 +1,25 @@
+NAME SoComposeRotation SoCmpsRot "" { 
+composes a rotation from axis and angle values 
+}
+
+DESC { 
+This engine has two inputs, representing an \vaxis\. of rotation
+and a rotation \vangle\. in radians.  As output, the engine composes the
+inputs into a rotation field.
+\p
+The input fields can have multiple values, allowing the engine to 
+compose several rotations in parallel.
+Some inputs may have more values than others.  In such cases,
+the last value of the shorter inputs will be repeated as necessary.
+}
+
+INCLUDE engines/SoCompose.h
+
+INPUT axis { Axis of rotation. }
+INPUT angle { Angle of rotation. }
+
+OUTPUT rotation { Rotation field, defined by the inputs. }
+
+METHOD Create SoComposeRotation() { Constructor }
+
+ALSO { SoComposeRotationFromTo, SoDecomposeRotation, SoEngineOutput }

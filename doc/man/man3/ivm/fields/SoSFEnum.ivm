@@ -1,0 +1,39 @@
+NAME SoSFEnum SoSEnum "" {
+field containing an enumerated value
+}
+DESC {
+A single-value field that contains an enumerated type
+value, stored as an integer. Nodes that use this field class define
+mnemonic names for the values. These names should be used when setting
+or testing the values of the field, even though the values are treated
+as integers in the methods.
+\p
+\cSoSFEnums\. are written to file as a 
+mnemonic enumerated type name.  The name differs among uses of this
+field in various node or engine classes.  See the man pages for
+specific nodes or engines
+for the names (e.g. \cSoDrawStyle\.).
+}
+
+METHOD setStr void setValue(const SbName &name) {
+Sets this field to contain the given mnemonic name, passed in as a
+name or string.
+}
+
+ALSO { SoField, SoSField, SoMFEnum }
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get int getValue() const {
+Returns this field's value.
+}
+METHOD " " int operator =(int newValue) {}
+METHOD Set void setValue(int newValue) {
+Sets this field to \anewValue\..
+}
+METHOD IsEq int operator ==(const SoSFEnum &f) const {}
+METHOD IsNEq int operator !=(const SoSFEnum &f) const {
+Returns TRUE if \af\. is of the same type and has the same value as this
+field.
+}

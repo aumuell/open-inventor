@@ -1,0 +1,73 @@
+NAME SoType "" "" { stores runtime type information }
+
+INCLUDE SoType.h
+
+DESC {
+The \cSoType\. class keeps track of runtime type information in
+Inventor. Each type is associated with a given name, so lookup is
+possible in either direction.
+\p
+Many Inventor classes request a unique \cSoType\. when they
+are initialized.  This type can then be used to find out the actual
+class of an instance when only its base class is known, or to obtain
+an instance of a particular class given its type or name.
+\p
+Note that the names associated with types of Inventor classes do not
+contain the "So" prefix.
+}
+
+METHOD "" static SoType fromName(SbName name) {
+Returns the type associated with the given name.
+}
+
+METHOD "" SbName getName() const { Returns the name associated with a type. }
+
+METHOD "" SoType getParent() const { Returns the type of the parent class. }
+
+METHOD "" static SoType badType() {
+Returns an always-illegal type. Useful for returning errors.
+}
+
+METHOD "" SbBool isBad() const { Returns TRUE if the type is a bad type. }
+
+METHOD "" SbBool isDerivedFrom(SoType t) const {
+Returns TRUE if the type is derived from type \at\..
+}
+
+METHOD "" static int getAllDerivedFrom(SoType type, SoTypeList &list) {
+Adds all types derived from the given type to the given type list.
+Returns the number of types added.
+}
+
+METHOD "" SbBool canCreateInstance() const {
+Some types are able to create instances; for example, most nodes and
+engines (those which are not abstract classes) can be created this
+way. This method returns TRUE if the type supports such creation.
+}
+
+METHOD "" void * createInstance() const {
+Creates and returns a pointer to an instance of the type. Returns NULL
+if an instance could not be created for some reason. The pointer is
+returned as a generic pointer, but can be cast to the appropriate
+type. For example:
+\+\b\k
+SoCube *c = (SoCube *) SoCube::getClassTypeId().createInstance();
+\.\.\.
+\-\b\k
+SoCube *c = (SoCube *) SoTypeCreateInstance(SoCubeGetClassTypeId());
+\.\.\.
+is a convoluted way of creating a new instance of an \cSoCube\..
+}
+
+METHOD "" int operator ==(const SoType t) const {}
+METHOD "" int operator !=(const SoType t) const {
+Returns TRUE if this type is the same as or not the same as the given type.
+}
+
+METHOD "" int operator <(const SoType t) const {
+Less-than comparison operator that can be used to sort types. This is
+pretty useless otherwise.
+}
+
+ALSO { SoAction, SoBase, SoDetail, SoError, SoEvent, SoField }
+

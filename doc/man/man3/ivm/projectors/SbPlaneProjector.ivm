@@ -1,0 +1,75 @@
+NAME SbPlaneProjector "SbPlnProj" "" { plane projector }
+
+INCLUDE projectors/SbPlaneProjector.h
+
+DESC { \cSbPlaneProjector\. 
+projects the mouse onto a plane.
+This is typically used to write
+interactive 3D manipulators and viewers.
+}
+
+METHOD "" SbPlaneProjector(SbBool orient = FALSE) {
+Constructor. The default plane passes through the origin and is
+oriented perpendicular to the Z axis.
+}
+    
+METHOD "createPln" SbPlaneProjector(const SbPlane &plane,
+		     SbBool orient = FALSE) {
+Constructor which is passed a plane. If orient to eye is TRUE,
+the plane will be reoriented to the eye.
+}
+
+METHOD "" ~SbPlaneProjector() { Destructor. }
+    
+METHOD "setPln" void setPlane(const SbPlane &plane) {}
+METHOD "getPln" const SbPlane &	getPlane() const {
+Set and get the plane to use.
+}
+
+METHOD "" void setOrientToEye(SbBool orientToEye) {}
+METHOD "" SbBool isOrientToEye() const { 
+Set and get whether the projector should be oriented towards the eye.
+If \vorientToEye\. is set to TRUE, the given plane's direction
+is ignored, and the plane will be oriented to the eye. 
+It will pass through the same point from the origin defined
+by the original dir * dist.
+Set to FALSE if the plane's direction should remain in working space.
+}
+
+METHOD "getVecMouse2" virtual SbVec3f getVector(const SbVec2f &mousePosition1,
+				  const SbVec2f &mousePosition2) {
+Get a vector on this plane given two normalized mouse positions.
+}
+					    
+METHOD "getVecMouse1" virtual SbVec3f getVector(const SbVec2f &mousePosition) {
+Get a vector given the current mouse point.
+Uses the last point on this projector from the previous
+call to 
+\+\mgetVector()\. or \msetStartPostion()\..\.
+\-\mSbPlnProjGetVecMouse1()\., \mSbPlnProjSetStartPosMouse()\.,
+or  \mSbPlnProjSetStartPosPt()\..\.
+Do not use this
+if the working space transform is changing since
+the new point will be in a different space than
+the old one.
+}
+					    
+METHOD "setStartPosMouse" void setStartPosition(const SbVec2f &mousePosition) {
+Set the initial mouse position.
+}
+
+METHOD "setStartPosPt" void setStartPosition(const SbVec3f &point) {
+Set the initial position from a point on the projector.
+}
+    
+ALSO { 
+SbCylinderProjector,
+SbCylinderPlaneProjector,
+SbCylinderSectionProjector,
+SbCylinderSheetProjector,
+SbLineProjector, SbSpherePlaneProjector,
+SbSphereProjector, SbSphereSectionProjector, SbSphereSheetProjector
+}
+
+
+

@@ -1,0 +1,49 @@
+NAME SoNonIndexedShape SoNonIndexedShape "" {
+abstract base class for all non-indexed vertex-based shapes
+}
+
+INCLUDE nodes/SoNonIndexedShape.h
+
+DESC {
+This node is the abstract base class for all vertex-based shapes that
+are not constructed from indices, such as \cSoFaceSet\.,
+\cSoLineSet\., and \cSoQuadMesh\..
+\p
+All subclasses of \cSoNonIndexedShape\. construct objects by using the
+coordinates specified in the \vvertexProperty\. field (from
+\cSoVertexShape\.), or the current inherited coordinates. 
+
+The \vstartIndex\.
+field defined by this class is now obsolete, and is provided
+here only for compatibility with old files and programs.
+\p
+The subclass decides what to do with this
+and any subsequent coordinates. The shape is drawn with the current
+lighting model and drawing style and is transformed by the current
+transformation matrix.
+\p
+Material, normal, and texture coordinate bindings for shapes derived
+from this class ignore any index specifications. That is, a binding
+value of \kPER_FACE_INDEXED\. is treated the same way as \kPER_FACE\.,
+and so on.
+\p
+If there aren't sufficient values in the current coordinates,
+material, or texture coordinates, errors will occur.
+}
+
+FIELD startIndex { Obsolete field, provided only for compatibility
+reasons.  Index of first coordinate of shape. }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ALSO {
+SoFaceSet,
+SoIndexedShape,
+SoLineSet,
+SoPointSet,
+SoQuadMesh,
+SoTriangleStripSet,
+SoVertexProperty
+}

@@ -1,0 +1,92 @@
+'\"macro stdmacro
+.TH ivfix 1
+.SH NAME
+ivfix \- restructures an Inventor object for improved rendering performance
+.SH SYNOPSIS
+.B ivfix 
+[
+.B \-ahntvV
+]
+[
+.B \-d
+dir ] [infile] [outfile]
+.SH DESCRIPTION
+.I ivfix
+reads an Inventor object and restructures it
+to improve the object's rendering performance.
+.I ivfix 
+processes the scene graph in two phases:
+.TP
+Phase 1)
+.br
+Analyzes the organization of the input scene graph, and tries to sort it
+a better way to take advantage of coherence. For example, it tries to organize
+subgraphs by common textures, since switching textures is expensive.
+Once sorted, it also tries to combine subgraphs so that the final
+result has fewer nodes.
+.TP
+Phase 2)
+.br
+"Flattens" the subgraphs that result from the first phase. 
+This tessellates all shapes into triangles
+that are then organized into triangle strips.
+For example, two spheres may be combined into one triangle strip.
+.PP
+.B Warning!
+.I ivfix
+does not try to preserve any non-appearance attributes, such as
+names.  It will also remove most engines, animation nodes, and
+field-to-field connections.
+.I ivfix
+is best run on individual objects, not on entire scenes.
+When rendered, the output object will be equivalent to the
+original file, but much of the object hierarchy will be lost.
+.PP
+Note also that the output file may be larger than the input file.
+For example, a sphere node will be converted into triangle strips.  
+.PP
+The following command line options are allowed:
+.TP 5
+.B \-a
+Write an ASCII file.  The output file is binary by default.
+.TP 5
+.B \-d dir
+Add 
+.I dir
+to the list of directories to search, e.g. for file nodes.
+.TP 5
+.B \-h
+Print the usage message.
+.TP 5
+.B \-n
+Do not generate any normals.
+.TP 5
+.B \-p
+ivfix usually tries to define properties as SoVertexProperty nodes.
+This option prevents that.
+.TP 5
+.B \-t
+Do not generate any texture coordinates.
+.TP 5
+.B \-v
+(Verbose) Display status information during processing.
+.TP 5
+.B \-V
+(Very verbose) Display more detailed status information.
+.SH SOURCE CODE
+Note that the source code to 
+.I ivfix 
+comes with the
+.I Open Inventor 3d Toolkit.
+.SH FILES
+/usr/share/data/models/* - Sample 3D data files
+/usr/share/src/Inventor/tools/ivfix/* - Source to ivfix
+.SH EXAMPLES
+.IP
+.B ivfix < slowObject.iv > quickObject.iv
+.SH SEE ALSO
+inventor, ivview, ivcat, ivinfo, SceneViewer, gview,
+drop, maze, noodle, revo, showcase, textomatic
+.SH KNOWN BUGS
+Ignore flags are not properly handled.
+

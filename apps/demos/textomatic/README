@@ -1,0 +1,11 @@
+This directory contains source code for the Open Inventor demo program
+'textomatic' (a very simple 3D text editor).
+
+When you run textomatic, you will first see only flat text.  
+To give the text depth, select "Edit Parts" and turn on 
+the "Sides" and "Back" parts.
+
+Select "About..." to bring up a showcase document with more information
+on textomatic.  The showcase document is installed with the 
+'inventor_eoe.demo.progs' subsystem.
+

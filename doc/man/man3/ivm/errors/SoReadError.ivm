@@ -1,0 +1,25 @@
+NAME SoReadError "SoReadErr" "SO_READ_ERR_" { read error handling }
+
+INCLUDE errors/SoReadError.h
+
+DESC { \cSoReadError\.  is used for errors reported
+while reading Inventor data files.
+}
+
+METHOD "setHndlrCB" static void setHandlerCallback(SoErrorCB *cb, void *data) {}
+METHOD "getHndlrCB" static SoErrorCB * getHandlerCallback() {}
+METHOD "getHndlrData" static void * getHandlerData() {
+Sets/returns handler callback for \cSoReadError\. class.
+}
+
+METHOD "" static SoType	getClassTypeId() { 
+Returns type identifier for SoReadError class.
+}
+
+ALSO { 
+SoDebugError,
+SoMemoryError
+}
+
+
+

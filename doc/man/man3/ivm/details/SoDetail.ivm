@@ -1,0 +1,44 @@
+NAME SoDetail SoDtl "" {
+base class for describing detail information about a shape node
+}
+
+INCLUDE details/SoDetail.h
+
+DESC {
+\cSoDetail\. is the abstract base class for all detail classes. A
+detail contains shape-specific information about a particular shape
+during picking and primitive generation. Subclasses store information
+based on the particular type of shape.
+}
+
+METHOD virtual SoDetail *copy() const {
+Returns an instance that is a copy of this instance. The caller
+is responsible for deleting the copy when it is no longer needed.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+METHOD "" virtual SoType getTypeId() const {
+Returns the type identifier for a specific instance.
+}
+
+METHOD "" SbBool isOfType(SoType type) const {
+Returns TRUE if this object is of the type specified in \atype\. or is
+derived from that type.  Otherwise, it returns FALSE.
+}
+
+ALSO  {
+SoConeDetail,
+SoCubeDetail,
+SoCylinderDetail,
+SoDetailList,
+SoFaceDetail,
+SoLineDetail,
+SoNodeKitDetail,
+SoPickedPoint,
+SoPointDetail,
+SoPrimitiveVertex,
+SoTextDetail
+}

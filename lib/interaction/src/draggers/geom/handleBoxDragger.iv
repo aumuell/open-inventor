@@ -1,0 +1,451 @@
+#Inventor V2.0 ascii
+DEF HANDLE_BOX_DRAGGER_TRANSLATOR_STYLE Group {
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    DrawStyle { style LINES lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    ShapeHints {
+	vertexOrdering COUNTERCLOCKWISE
+    }
+    Complexity { value .01 }
+}
+DEF handleBoxTranslator1 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_TRANSLATOR_STYLE
+    NormalBinding { value OVERALL }
+    MaterialBinding { value OVERALL }
+    Normal { vector [ 0 1 0 ] }
+    Coordinate3 { point [ 1  1  1, 1  1 -1, -1  1 -1, -1  1  1 ] }
+    FaceSet { }
+}
+DEF handleBoxTranslator2 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_TRANSLATOR_STYLE
+    NormalBinding { value OVERALL }
+    MaterialBinding { value OVERALL }
+    Normal { vector [ 0 -1 0 ] }
+    Coordinate3 { point [ 1  -1  1, 1  -1 -1, -1  -1 -1, -1  -1  1 ] }
+    FaceSet { }
+}
+DEF handleBoxTranslator3 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_TRANSLATOR_STYLE
+    NormalBinding { value OVERALL }
+    MaterialBinding { value OVERALL }
+    Normal { vector [ -1 0 0 ] }
+    Coordinate3 { point [ -1  1  1, -1  1 -1, -1  -1 -1, -1  -1  1 ] }
+    FaceSet { }
+}
+DEF handleBoxTranslator4 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_TRANSLATOR_STYLE
+    NormalBinding { value OVERALL }
+    MaterialBinding { value OVERALL }
+    Normal { vector [ 1 0 0 ] }
+    Coordinate3 { point [ 1  1  1, 1  1 -1, 1  -1 -1, 1  -1  1 ] }
+    FaceSet { }
+}
+DEF handleBoxTranslator5 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_TRANSLATOR_STYLE
+    NormalBinding { value OVERALL }
+    MaterialBinding { value OVERALL }
+    Normal { vector [ 0 0 1 ] }
+    Coordinate3 { point [ 1  1  1, 1  -1 1, -1  -1 1, -1  1  1 ] }
+    FaceSet { }
+}
+DEF handleBoxTranslator6 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_TRANSLATOR_STYLE
+    NormalBinding { value OVERALL }
+    MaterialBinding { value OVERALL }
+    Normal { vector [ 0 0 -1 ] }
+    Coordinate3 { point [ 1  1  -1, 1  -1 -1, -1  -1 -1, -1  1  -1 ] }
+    FaceSet { }
+}
+DEF HANDLE_BOX_DRAGGER_TRANSLATOR_STYLE_ACTIVE Group {
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    DrawStyle { style LINES lineWidth 3 }
+    LightModel { model PHONG }
+    Texture2 {}
+    ShapeHints {
+	vertexOrdering COUNTERCLOCKWISE
+    }
+    Complexity { value .01 }
+}
+DEF handleBoxTranslator1Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_TRANSLATOR_STYLE_ACTIVE
+    NormalBinding { value OVERALL }
+    MaterialBinding { value OVERALL }
+    Normal { vector [ 0 1 0 ] }
+    Coordinate3 { point [ 1  1  1, 1  1 -1, -1  1 -1, -1  1  1 ] }
+    FaceSet { }
+}
+DEF handleBoxTranslator2Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_TRANSLATOR_STYLE_ACTIVE
+    NormalBinding { value OVERALL }
+    MaterialBinding { value OVERALL }
+    Normal { vector [ 0 -1 0 ] }
+    Coordinate3 { point [ 1  -1  1, 1  -1 -1, -1  -1 -1, -1  -1  1 ] }
+    FaceSet { }
+}
+DEF handleBoxTranslator3Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_TRANSLATOR_STYLE_ACTIVE
+    NormalBinding { value OVERALL }
+    MaterialBinding { value OVERALL }
+    Normal { vector [ -1 0 0 ] }
+    Coordinate3 { point [ -1  1  1, -1  1 -1, -1  -1 -1, -1  -1  1 ] }
+    FaceSet { }
+}
+DEF handleBoxTranslator4Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_TRANSLATOR_STYLE_ACTIVE
+    NormalBinding { value OVERALL }
+    MaterialBinding { value OVERALL }
+    Normal { vector [ 1 0 0 ] }
+    Coordinate3 { point [ 1  1  1, 1  1 -1, 1  -1 -1, 1  -1  1 ] }
+    FaceSet { }
+}
+DEF handleBoxTranslator5Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_TRANSLATOR_STYLE_ACTIVE
+    NormalBinding { value OVERALL }
+    MaterialBinding { value OVERALL }
+    Normal { vector [ 0 0 1 ] }
+    Coordinate3 { point [ 1  1  1, 1  -1 1, -1  -1 1, -1  1  1 ] }
+    FaceSet { }
+}
+DEF handleBoxTranslator6Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_TRANSLATOR_STYLE_ACTIVE
+    NormalBinding { value OVERALL }
+    MaterialBinding { value OVERALL }
+    Normal { vector [ 0 0 -1 ] }
+    Coordinate3 { point [ 1  1  -1, 1  -1 -1, -1  -1 -1, -1  1  -1 ] }
+    FaceSet { }
+}
+
+
+
+DEF HANDLE_BOX_DRAGGER_SCALING_STYLE Group {
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    Complexity { value .01 }
+    MaterialBinding { value OVERALL }
+}
+DEF HANDLE_BOX_DRAGGER_SCALING_STYLE_ACTIVE Group {
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    DrawStyle { lineWidth 3 }
+    LightModel { model PHONG }
+    Texture2 {}
+    Complexity { value .01 }
+    MaterialBinding { value OVERALL }
+}
+DEF HANDLE_BOX_DRAGGER_EXTRUDER_1 Group {
+    NormalBinding { value PER_VERTEX_INDEXED }
+    Coordinate3 { point [ 0 0 0, 0 1.25 0 ] }
+    LineSet {}
+    Translation { translation 0 1.25 0 }
+    Complexity { value .01 }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF HANDLE_BOX_DRAGGER_EXTRUDER_2 Group {
+    NormalBinding { value PER_VERTEX_INDEXED }
+    Coordinate3 { point [ 0 0 0, 0 -1.25 0 ] }
+    LineSet {}
+    Translation { translation 0 -1.25 0 }
+    Complexity { value .01 }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF HANDLE_BOX_DRAGGER_EXTRUDER_3 Group {
+    NormalBinding { value PER_VERTEX_INDEXED }
+    Coordinate3 { point [ 0 0 0, -1.25 0 0 ] }
+    LineSet {}
+    Translation { translation -1.25 0 0 }
+    Complexity { value .01 }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF HANDLE_BOX_DRAGGER_EXTRUDER_4 Group {
+    NormalBinding { value PER_VERTEX_INDEXED }
+    Coordinate3 { point [ 0 0 0, 1.25 0 0 ] }
+    LineSet {}
+    Translation { translation 1.25 0 0 }
+    Complexity { value .01 }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF HANDLE_BOX_DRAGGER_EXTRUDER_5 Group {
+    NormalBinding { value PER_VERTEX_INDEXED }
+    Coordinate3 { point [ 0 0 0, 0 0 1.25 ] }
+    LineSet {}
+    Translation { translation 0 0 1.25 }
+    Complexity { value .01 }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF HANDLE_BOX_DRAGGER_EXTRUDER_6 Group {
+    NormalBinding { value PER_VERTEX_INDEXED }
+    Coordinate3 { point [ 0 0 0, 0 0 -1.25 ] }
+    LineSet {}
+    Translation { translation 0 0 -1.25 }
+    Complexity { value .01 }
+    Cube { width .1 height .1 depth .1 }
+}
+
+DEF handleBoxExtruder1 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE
+    USE HANDLE_BOX_DRAGGER_EXTRUDER_1
+}
+DEF handleBoxExtruder2 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE
+    USE HANDLE_BOX_DRAGGER_EXTRUDER_2
+}
+DEF handleBoxExtruder3 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE
+    USE HANDLE_BOX_DRAGGER_EXTRUDER_3
+}
+DEF handleBoxExtruder4 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE
+    USE HANDLE_BOX_DRAGGER_EXTRUDER_4
+}
+DEF handleBoxExtruder5 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE
+    USE HANDLE_BOX_DRAGGER_EXTRUDER_5
+}
+DEF handleBoxExtruder6 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE
+    USE HANDLE_BOX_DRAGGER_EXTRUDER_6
+}
+DEF handleBoxExtruder1Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE_ACTIVE
+    USE HANDLE_BOX_DRAGGER_EXTRUDER_1
+}
+DEF handleBoxExtruder2Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE_ACTIVE
+    USE HANDLE_BOX_DRAGGER_EXTRUDER_2
+}
+DEF handleBoxExtruder3Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE_ACTIVE
+    USE HANDLE_BOX_DRAGGER_EXTRUDER_3
+}
+DEF handleBoxExtruder4Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE_ACTIVE
+    USE HANDLE_BOX_DRAGGER_EXTRUDER_4
+}
+DEF handleBoxExtruder5Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE_ACTIVE
+    USE HANDLE_BOX_DRAGGER_EXTRUDER_5
+}
+DEF handleBoxExtruder6Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE_ACTIVE
+    USE HANDLE_BOX_DRAGGER_EXTRUDER_6
+}
+
+DEF HANDLE_BOX_DRAGGER_UNIFORM_1 Group {
+    Translation { translation 1 1 1 }
+    Complexity { value .01 }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF HANDLE_BOX_DRAGGER_UNIFORM_2 Group {
+    Translation { translation 1 1 -1 }
+    Complexity { value .01 }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF HANDLE_BOX_DRAGGER_UNIFORM_3 Group {
+    Translation { translation 1 -1 1 }
+    Complexity { value .01 }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF HANDLE_BOX_DRAGGER_UNIFORM_4 Group {
+    Translation { translation 1 -1 -1 }
+    Complexity { value .01 }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF HANDLE_BOX_DRAGGER_UNIFORM_5 Group {
+    Translation { translation -1 1 1 }
+    Complexity { value .01 }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF HANDLE_BOX_DRAGGER_UNIFORM_6 Group {
+    Translation { translation -1 1 -1 }
+    Complexity { value .01 }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF HANDLE_BOX_DRAGGER_UNIFORM_7 Group {
+    Translation { translation -1 -1 1 }
+    Complexity { value .01 }
+    Cube { width .1 height .1 depth .1 }
+}
+DEF HANDLE_BOX_DRAGGER_UNIFORM_8 Group {
+    Translation { translation -1 -1 -1 }
+    Complexity { value .01 }
+    Cube { width .1 height .1 depth .1 }
+}
+
+DEF handleBoxUniform1 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE
+    USE HANDLE_BOX_DRAGGER_UNIFORM_1
+}
+DEF handleBoxUniform2 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE
+    USE HANDLE_BOX_DRAGGER_UNIFORM_2
+}
+DEF handleBoxUniform3 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE
+    USE HANDLE_BOX_DRAGGER_UNIFORM_3
+}
+DEF handleBoxUniform4 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE
+    USE HANDLE_BOX_DRAGGER_UNIFORM_4
+}
+DEF handleBoxUniform5 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE
+    USE HANDLE_BOX_DRAGGER_UNIFORM_5
+}
+DEF handleBoxUniform6 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE
+    USE HANDLE_BOX_DRAGGER_UNIFORM_6
+}
+DEF handleBoxUniform7 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE
+    USE HANDLE_BOX_DRAGGER_UNIFORM_7
+}
+DEF handleBoxUniform8 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE
+    USE HANDLE_BOX_DRAGGER_UNIFORM_8
+}
+DEF handleBoxUniform1Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE_ACTIVE
+    USE HANDLE_BOX_DRAGGER_UNIFORM_1
+}
+DEF handleBoxUniform2Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE_ACTIVE
+    USE HANDLE_BOX_DRAGGER_UNIFORM_2
+}
+DEF handleBoxUniform3Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE_ACTIVE
+    USE HANDLE_BOX_DRAGGER_UNIFORM_3
+}
+DEF handleBoxUniform4Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE_ACTIVE
+    USE HANDLE_BOX_DRAGGER_UNIFORM_4
+}
+DEF handleBoxUniform5Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE_ACTIVE
+    USE HANDLE_BOX_DRAGGER_UNIFORM_5
+}
+DEF handleBoxUniform6Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE_ACTIVE
+    USE HANDLE_BOX_DRAGGER_UNIFORM_6
+}
+DEF handleBoxUniform7Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE_ACTIVE
+    USE HANDLE_BOX_DRAGGER_UNIFORM_7
+}
+DEF handleBoxUniform8Active Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_SCALING_STYLE_ACTIVE
+    USE HANDLE_BOX_DRAGGER_UNIFORM_8
+}
+
+DEF HANDLE_BOX_DRAGGER_ARROW_STYLE Group {
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.36 0.05 0.44 ]
+	emissiveColor	[ 0.36 0.05 0.44 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    Complexity { value .01 }
+    MaterialBinding { value OVERALL }
+}
+
+DEF HANDLE_BOX_DRAGGER_ARROW Group {
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding {value OVERALL }
+    Coordinate3 { point [ 0 0 0, 0 0.5 0 ] }
+    LineSet {}
+    Complexity { value 0.3 }
+    Translation { translation 0 .5 0 }
+    Scale { scaleFactor .75 .75 .75 }
+    Cone { height 0.1 bottomRadius 0.05 }
+}
+
+DEF handleBoxArrow1 Separator {
+    renderCaching ON
+    USE HANDLE_BOX_DRAGGER_ARROW_STYLE
+    USE HANDLE_BOX_DRAGGER_ARROW
+}
+DEF handleBoxArrow2 Separator {
+    renderCaching ON
+    RotationXYZ { axis X angle 3.14159 }
+    USE HANDLE_BOX_DRAGGER_ARROW_STYLE
+    USE HANDLE_BOX_DRAGGER_ARROW
+}
+DEF handleBoxArrow3 Separator {
+    renderCaching ON
+    RotationXYZ { axis Z angle 1.57079 }
+    USE HANDLE_BOX_DRAGGER_ARROW_STYLE
+    USE HANDLE_BOX_DRAGGER_ARROW
+}
+DEF handleBoxArrow4 Separator {
+    renderCaching ON
+    RotationXYZ { axis Z angle -1.57079 }
+    USE HANDLE_BOX_DRAGGER_ARROW_STYLE
+    USE HANDLE_BOX_DRAGGER_ARROW
+}
+DEF handleBoxArrow5 Separator {
+    renderCaching ON
+    RotationXYZ { axis X angle 1.57079 }
+    USE HANDLE_BOX_DRAGGER_ARROW_STYLE
+    USE HANDLE_BOX_DRAGGER_ARROW
+}
+DEF handleBoxArrow6 Separator {
+    renderCaching ON
+    RotationXYZ { axis X angle -1.57079 }
+    USE HANDLE_BOX_DRAGGER_ARROW_STYLE
+    USE HANDLE_BOX_DRAGGER_ARROW
+}

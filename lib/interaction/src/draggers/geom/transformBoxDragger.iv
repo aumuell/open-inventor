@@ -1,0 +1,237 @@
+#Inventor V2.0 ascii
+
+# Geometry for the scaler part. 
+DEF TRANSFORM_BOX_DRAGGER_SCALER Group {
+
+    Complexity { value .01 }
+
+    # 8 cubes, one at each corner.
+    # front upper left
+    Translation { translation -1.1 1.1 1.1 }
+    Cube { height 0.1 width 0.1 depth 0.1 }
+
+    # front upper right
+    Translation { translation 2.2 0 0 }
+    Cube { height 0.1 width 0.1 depth 0.1 }
+
+    # front lower right
+    Translation { translation 0 -2.2 0 }
+    Cube { height 0.1 width 0.1 depth 0.1 }
+
+    # front lower left
+    Translation { translation -2.2 0 0 }
+    Cube { height 0.1 width 0.1 depth 0.1 }
+
+    # rear upper left
+    Translation { translation 0 2.2 -2.2 }
+    Cube { height 0.1 width 0.1 depth 0.1 }
+
+    # rear upper right
+    Translation { translation 2.2 0 0 }
+    Cube { height 0.1 width 0.1 depth 0.1 }
+
+    # rear lower right
+    Translation { translation 0 -2.2 0 }
+    Cube { height 0.1 width 0.1 depth 0.1 }
+
+    # rear lower left
+    Translation { translation -2.2 0 0 }
+    Cube { height 0.1 width 0.1 depth 0.1 }
+
+}
+
+DEF transformBoxScalerScaler Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    MaterialBinding { value OVERALL }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    Complexity { value .01 }
+    USE TRANSFORM_BOX_DRAGGER_SCALER
+}
+
+DEF transformBoxScalerScalerActive Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    MaterialBinding { value OVERALL }
+    DrawStyle { lineWidth 3 }
+    LightModel { model PHONG }
+    Texture2 {}
+    Complexity { value .01 }
+    USE TRANSFORM_BOX_DRAGGER_SCALER
+}
+
+#No feedback geometry for scaling
+DEF transformBoxScalerFeedback Separator {
+}
+DEF transformBoxScalerFeedbackActive Separator {
+}
+
+# Geometry for the rotator parts. 
+DEF TRANSFORM_BOX_DRAGGER_ROTATOR Group {
+
+    Complexity { value .01 }
+    Scale { scaleFactor 1.1 1.1 1.1 }
+
+    NormalBinding { value PER_VERTEX }
+    MaterialBinding { value OVERALL }
+    Coordinate3 { point [  1 -1  1,  1 1  1,
+    			   1 -1 -1,  1 1 -1,
+    			  -1 -1 -1, -1 1 -1,
+    			  -1 -1  1, -1 1  1 ] }
+
+    Normal { vector [  .707107 0  .707107,  .707107 0  .707107,
+    		       .707107 0 -.707107,  .707107 0 -.707107,
+    		      -.707107 0 -.707107, -.707107 0 -.707107,
+    		      -.707107 0  .707107, -.707107 0  .707107 ] }
+
+    LineSet { numVertices [ 2, 2, 2, 2 ] }
+
+    # now draw invisible cylinders to make picking easier
+    DrawStyle { style INVISIBLE }
+    Translation {  translation 1 0 1 }
+    Complexity { value .3 }
+    Cylinder { height 2 radius .04 }
+
+    Translation {  translation 0 0 -2 }
+    Cylinder { height 2 radius .04 }
+
+    Translation {  translation -2 0 0 }
+    Cylinder { height 2 radius .04 }
+    
+    Translation {  translation 0 0 2  }
+    Cylinder { height 2 radius .04 }
+}
+
+DEF transformBoxRotatorRotator Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    Complexity { value .01 }
+    USE TRANSFORM_BOX_DRAGGER_ROTATOR 
+}
+DEF transformBoxRotatorRotatorActive Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    DrawStyle { lineWidth 3 }
+    LightModel { model PHONG }
+    Texture2 {}
+    Complexity { value .01 }
+    USE TRANSFORM_BOX_DRAGGER_ROTATOR 
+}
+
+#No feedback unless active
+DEF transformBoxRotatorFeedback Separator {
+}
+
+DEF transformBoxRotatorFeedbackActive Separator {
+    renderCaching ON
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.36 0.05 0.44 ]
+	emissiveColor	[ 0.36 0.05 0.44 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    Complexity { value .01 }
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+    Coordinate3 { point [ 0 -1.25 0, 0 1.25 0 ] }
+    LineSet {}
+}
+
+
+# Geometry for the translator parts.
+
+DEF TRANSFORM_BOX_DRAGGER_TRANSLATOR Group {
+
+    DrawStyle { style INVISIBLE }
+    LightModel { model PHONG }
+    Texture2 {}
+
+    NormalBinding { value OVERALL }
+    MaterialBinding { value OVERALL }
+    Coordinate3 { 
+	point [1.1 -1.1  1.1,  1.1  1.1  1.1, -1.1  1.1  1.1, -1.1 -1.1  1.1]
+    }
+    Normal { vector [ 0 0 1 ] }
+    ShapeHints {
+	vertexOrdering COUNTERCLOCKWISE
+	shapeType SOLID
+    }
+    FaceSet {}
+}
+
+DEF transformBoxTranslatorTranslator Separator {
+    renderCaching ON
+    Complexity { value .01 }
+    USE TRANSFORM_BOX_DRAGGER_TRANSLATOR
+}
+
+DEF transformBoxTranslatorTranslatorActive Separator {
+    renderCaching ON
+    Complexity { value .01 }
+    USE TRANSFORM_BOX_DRAGGER_TRANSLATOR
+}
+
+DEF TRANSFORM_BOX_TRANSLATOR_AXIS_STYLE Group {
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.36 0.05 0.44 ]
+	emissiveColor	[ 0.36 0.05 0.44 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+    Complexity { value .01 }
+}
+
+DEF transformBoxTranslatorXAxisFeedback Separator {
+    renderCaching ON
+    USE TRANSFORM_BOX_TRANSLATOR_AXIS_STYLE
+
+    # little x axis
+    Coordinate3 { point [ -0.59125 0 1.1, 0.59125 0 1.1 ] }
+    LineSet {}
+
+    Coordinate3 { point [ -0.59125 0 1.1, -0.50875 .04125 1.1,
+			  -0.50875 -.04125 1.1, -0.59125 0 1.1 ] }
+    LineSet {}
+    Coordinate3 { point [ 0.59125 0 1.1, 0.50875 .04125 1.1,
+			  0.50875 -.04125 1.1, 0.59125 0 1.1 ] }
+    LineSet {}
+}
+
+DEF transformBoxTranslatorYAxisFeedback Separator {
+    renderCaching ON
+    USE TRANSFORM_BOX_TRANSLATOR_AXIS_STYLE
+
+    # little y axis
+    Coordinate3 { point [ 0 -0.59125 1.1, 0 0.59125 1.1 ] }
+    LineSet {}
+
+    Coordinate3 { point [ 0 -0.59125 1.1, -.04125 -0.50875 1.1,
+			  .04125 -0.50875 1.1, 0 -0.59125 1.1 ] }
+    LineSet {}
+    Coordinate3 { point [ 0 0.59125 1.1, -.04125 0.50875 1.1,
+			  .04125 0.50875 1.1, 0 0.59125 1.1 ] }
+    LineSet {}
+}

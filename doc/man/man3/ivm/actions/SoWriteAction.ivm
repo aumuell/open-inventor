@@ -1,0 +1,25 @@
+NAME SoWriteAction SoWriteAct "" {
+Writes a scene graph to a file
+}
+
+DESC {
+This class is used for writing scene graphs to files. It contains an
+\cSoOutput\. instance that by default writes to the standard output.
+Methods on the \cSoOutput\. can be called to specify what file or
+memory buffer to write to.
+}
+
+INCLUDE actions/SoWriteAction.h
+METHOD "" SoWriteAction() {
+Constructor.
+}
+
+METHOD CreateOut SoWriteAction(SoOutput *out) {
+Constructor that takes an \cSoOutput\. to use for output.
+}
+
+METHOD getOut SoOutput * getOutput() const {
+Returns pointer to \cSoOutput\. instance in action.
+}
+
+ALSO { SoOutput }

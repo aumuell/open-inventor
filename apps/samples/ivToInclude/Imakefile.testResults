@@ -1,0 +1,9 @@
+#define OneProgram
+
+TOP_OF_TREE = ../../..
+
+PROGRAM = testResults
+
+C++FILES = testResults.c++
+
+HFILES = foo.h

@@ -1,0 +1,15 @@
+/*
+ * Imakefile for longToInt32 perl script
+ *
+ */
+
+#define ScriptMakefile
+#define ScriptFiles longToInt32 
+#define OtherFiles README
+#define IdbTag -idb "inventor_dev.src.sample"
+#define InstallDir  /usr/share/src/Inventor/$(THISSUBDIR)
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../..
+#endif
+

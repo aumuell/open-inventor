@@ -1,0 +1,32 @@
+NAME SoFieldList "" "" { maintains a list of pointers to fields }
+
+INCLUDE SoLists.h
+
+DESC  {
+This subclass of \cSbPList\. holds lists of pointers to
+instances of classes derived from \cSoField\..
+}
+
+METHOD "" SoFieldList() { Constructor. }
+
+METHOD createSize SoFieldList(int size) {
+Constructor that pre-allocates storage for \asize\. pointers.
+}
+
+METHOD " " SoFieldList(const SoFieldList &l) {
+Constructor that copies the contents of another list.
+}
+
+METHOD "" ~SoFieldList() { Destructor. }
+
+METHOD "" void append(SoField *ptr) { Adds a pointer to the end of the list. }
+
+METHOD "" void insert(SoField *ptr, int addBefore) {
+Inserts given pointer in list before pointer with given index.
+}
+
+METHOD "" SoField * operator [\|](int i) const { Accesses an element of a list. }
+
+METHOD "" void set(int i, SoField *field) { Sets an element of a list. }
+
+ALSO { SoField }

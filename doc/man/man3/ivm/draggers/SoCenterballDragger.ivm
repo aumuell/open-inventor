@@ -1,0 +1,211 @@
+NAME SoCenterballDragger SoCballDrag "" { striped ball you rotate and re-center by dragging with the mouse }
+
+INCLUDE draggers/SoCenterballDragger.h
+
+DESC { \cSoCenterballDragger\. 
+is a composite dragger. Its shape is a sphere defined by three intersecting 
+circles. Where the circles intersect (at the ends of the x, y and z axes) 
+there are sets of small green crosshairs.
+Dragging a pair of crosshairs translates the entire centerball within the plane
+of the crosshairs.  
+The interface of the sphere and circles is just like \cSoTrackballDragger\..
+Dragging a circle rotates about a constrained axis and dragging the
+areas between them rotates the sphere freely about the center.
+An invisible but pickable sphere initiates the free-rotation dragging.
+\p
+When you drag the crosshairs, the 
+\vcenter\. field is updated; there is no \vtranslation\. field.
+Dragging other parts of the centerball updates the
+\vrotation\. field.  As with all draggers, if you change the 
+fields the dragger moves in response.
+\p
+The draggers used for the crosshair parts are \cSoTranslate2Draggers\., 
+so pressing the \k<Shift>\. key allows you to constrain motion to slide along
+either the local \vx axis\. or \vy axis\. of that crosshair..  The direction is determined by your initial
+mouse gesture after pressing the key.  Releasing the key removes the constraint.
+\p
+\eRemember:\. This is \enot\. an \cSoTransform\.!
+If you want to move other objects with this dragger, you can either: 
+\p
+[a] Use an \cSoCenterballManip\., which is subclassed from \cSoTransform\.. 
+The manipulator creates one of
+these draggers and uses it as the interface to edit the manipulator's fields.
+(See the \cSoCenterballManip\. man page.)
+\p
+[b] Use field-to-field connections to connect the fields of this dragger to
+those of any \cSoTransformation\. node.
+\p
+You can change the parts in any instance of this dragger using
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+The default part geometries are defined as resources for this 
+\cSoCenterballDragger\. class.  They are detailed in the 
+Dragger Resources section of the online reference page for this
+class.
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/centerballDragger.iv\.
+into your own directory, editing the file, and then
+setting the environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+FIELD rotation { Orientation of the centerball dragger. }
+FIELD center { Center of rotation and scale of the centerball dragger. }
+
+METHOD "" SoCenterballDragger() {
+Constructor.
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class. }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+DRAGGER_RESOURCE {
+  centerballRotator,
+  rotator.rotator,
+  "Invisible but pickable sphere",
+  "When picked, initiates free rotation about the center point.
+   Slightly smaller radius than the 
+   stripes, so you must pick between the stripes to use it."
+}
+
+DRAGGER_RESOURCE {
+  centerballRotatorActive,
+  rotator.rotatorActive,
+  "Invisible sphere",
+  "Displayed during unconstrained 3D rotation instead of centerballRotator."
+}
+
+DRAGGER_RESOURCE {
+  centerballStripe,
+  XRotator.rotator
+  YRotator.rotator
+  ZRotator.rotator,
+  "White circle aligned with rotation axis.",
+  "When picked, initiates constrained rotation.
+   Each rotator rotates locally about its Y axis. The centerball contains
+   private transform parts that orient the draggers along three different
+   axes."
+}
+
+DRAGGER_RESOURCE {
+  centerballStripeActive,
+  XRotator.rotatorActive
+  YRotator.rotatorActive
+  ZRotator.rotatorActive,
+  "White circle aligned with the rotation axis.",
+  "Displayed during constrained rotation instead of the rotator part.
+   The centerball orients
+   the draggers along three different axes."
+}
+
+DRAGGER_RESOURCE {
+  centerballCenterChanger,
+  XCenterChanger.translator
+  YCenterChanger.translator
+  ZCenterChanger.translator,
+  "Two sets of small green crosshairs, one located at each 
+   intersection of axis and ball.",
+  "When picked, initiates 2D translation of ball through space.  
+   Edits the \vcenter\. field,
+   which becomes center for subsequent rotations.
+   Each translator works locally in its X-Y plane. The centerball contains
+    private transform parts that place the draggers along three different
+    axes."
+}
+
+DRAGGER_RESOURCE {
+  centerballCenterChangerActive,
+  XCenterChanger.translatorActive
+  YCenterChanger.translatorActive
+  ZCenterChanger.translatorActive,
+  "Yellow version of centerballCenterChanger.",
+  "Displayed during 2D translation instead of regular translator part.
+   The centerball places
+   the draggers along three different axes."
+}
+
+DRAGGER_RESOURCE {
+  centerballCenterXAxisFeedback,
+  XCenterChanger.xAxisFeedback
+  YCenterChanger.xAxisFeedback
+  ZCenterChanger.xAxisFeedback,
+  "Double-headed purple arrows, one located at each 
+   intersection of axis and ball. Located atop X axis of crosshair.",
+  "Only shown if dragger is moving and the axis is a 
+   permitted direction of motion.
+   When pressing <shift>, motion is constrained, and this is 
+   displayed only if the primary motion is in the X direction of the 
+   child dragger's local space.
+   The centerball places the draggers along three different axes; so
+   not all of these parts aligns with the X axis in centerball space."
+}
+
+DRAGGER_RESOURCE {
+  centerballCenterYAxisFeedback,
+  XCenterChanger.yAxisFeedback
+  YCenterChanger.yAxisFeedback
+  ZCenterChanger.yAxisFeedback,
+  "Double-headed purple arrows, one located at each 
+   intersection of axis and ball. Located atop Y axis of crosshair.",
+  "Only shown if dragger is moving and the axis is a 
+   permitted direction of motion.
+   When pressing <shift>, motion is constrained, and this is 
+   displayed only if the primary motion is in the Y direction of the 
+   child dragger's local space.
+   The centerball places the draggers along three different axes; so
+   not all of these parts aligns with the Y axis in centerball space."
+}
+
+DRAGGER_RESOURCE {
+  centerballXAxis,
+  XAxis,
+  "Thin yellow line connecting left and right crosshairs.",
+  "Feedback shown alone during rotation about X axis; displayed with
+   centerballYAxis and centerballZAxis while center is dragged."
+}
+
+DRAGGER_RESOURCE {
+  centerballYAxis,
+  YAxis,
+  "Thin yellow line connecting lower and upper crosshairs.",
+  "Feedback shown alone during rotation about Y axis; displayed with
+   centerballXAxis and centerballZAxis while center is dragged."
+}
+
+DRAGGER_RESOURCE {
+  centerballZAxis,
+  ZAxis,
+  "Thin yellow line connecting near and far crosshairs.",
+  "Feedback shown alone during rotation about Z axis; displayed with
+   centerballXAxis and centerballYAxis while center is dragged."
+}
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}
+
+

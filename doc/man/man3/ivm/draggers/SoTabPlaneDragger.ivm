@@ -1,0 +1,122 @@
+NAME SoTabPlaneDragger SoTabPlnDrag "" { object you can translate or scale within a plane by dragging with the mouse }
+
+INCLUDE draggers/SoTabPlaneDragger.h
+
+DESC { \cSoTabPlaneDragger\. is a dragger which allows the user
+to interactively translate and scale in a plane.  It looks like
+a square white outline with smaller green squares (or \etabs\.) set 
+in the corners and along the center of each edge. Dragging a \vcorner tab\.
+scales the dragger in 2D by scaling about the opposite corner.
+Dragging an \vedge tab\. performs 1D scaling about the opposite edge.
+The rest of the dragger is invisible but pickable; selecting it
+initiates translation within the plane.
+\p
+The dragger tries to keep the small tabs a constant size in screen space.
+Every time a drag begins or ends, the size is recalculated based on the
+viewing and modeling matrix.
+\p
+When dragging the translator part, 
+press the \k<Shift>\. key and you can constrain motion to either the
+local \vx axis\. or the \vy axis\..  The direction is determined by your initial
+mouse gesture after pressing the key.  Releasing the key removes the constraint.
+\p
+When the translator part drags, the dragger updates its \vtranslation\.
+field.  The various scaling parts cause changes to both the 
+\vscaleFactor\. and \vtranslation\. field, since scaling about a point other
+than the center adds translation to the center of the dragger.
+If you set the field, the dragger will move accordingly.
+You can also connect fields of other nodes or engines from
+this one
+to make them follow the dragger's motion.
+\p
+  You can  not change the shape used to draw 
+the tabs.  This part is kept privately and may not be changed; the 
+coordinates for the tabs are edited during 
+\m\+adjustScaleTabSize()\.\-SoTabPlnDrag::adjustScaleTabSize()\.\..
+\p
+The \cSoTabPlaneDragger\. class does contain three other parts you can 
+change:  \etabPlaneTranslator\., \etabPlaneScaleTabMaterial\. and
+\etabPlaneScaleTabHints\..  
+\p
+Each of these is set by default from
+a resource described in the Dragger Resources section of the online
+reference page for this class.  You
+can change the parts in any instance of this dragger using
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+\p
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/tabPlaneDragger.iv\.
+into your own directory, editing the file, and then
+setting the environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+METHOD "" SoTabPlaneDragger() {
+Constructor.
+}
+
+METHOD "" void adjustScaleTabSize() {
+Cause the scale tab sizes to be re-adjusted
+so that they remain a near constant screen space size.
+This happens automatically upon dragger finish.
+Call this to adjust the scale tab sizes at other times, for instance
+after the camera has changed in a viewer finish callback.
+}
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+FIELD scaleFactor { Scale factor affecting the dragger. }
+FIELD translation { Position of the dragger. }
+
+DRAGGER_RESOURCE {
+  tabPlaneTranslator,
+  translator,
+  "Outline of a Square. The region within it is pickable",
+  "Begins translation within the plane"
+}
+
+DRAGGER_RESOURCE {
+  tabPlaneScaleTabMaterial,
+  scaleTabMaterial,
+  "Green - half diffuse, half emissive.",
+  "Used as material for scaling tabs."
+}
+
+DRAGGER_RESOURCE {
+  tabPlaneScaleTabHints,
+  scaleTabHints,
+  "shapeHints node:COUNTERCLOCKWISE/SOLID/CONVEX",
+  "Property for the tab nodes."
+}
+
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoCenterballDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTransformerDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}
+

@@ -1,0 +1,30 @@
+NAME SoSFInt32 SoSInt32 "" {
+field containing a int32_t integer
+}
+
+INCLUDE fields/SoSFInt32.h
+
+DESC {
+A field containing a single long (32-bit) integer.
+\p
+\cSoSFInt32s\. are written to file as an integer in decimal,
+hexadecimal (beginning with '0x') or octal (beginning with '0')
+format.
+}
+ALSO { SoField, SoSField, SoMFInt32, SoSFUInt32 }
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get int32_t getValue() const {
+Returns this field's value.
+}
+METHOD " " int32_t operator =(int32_t newValue) {}
+METHOD Set void setValue(int32_t newValue) {
+Sets this field to \anewValue\..
+}
+METHOD IsEq int operator ==(const SoSFInt32 &f) const {}
+METHOD IsNEq int operator !=(const SoSFInt32 &f) const {
+Returns TRUE if \af\. is of the same type and has the same value as this
+field.
+}

@@ -1,0 +1,40 @@
+NAME SoNodeKitDetail SoNkDtl "" { stores detail information about a nodekit }
+
+INCLUDE details/SoNodeKitDetail.h
+
+DESC {
+This class contains detail information about a nodekit.
+This consists of a pointer to the nodekit, a pointer to the 
+child part within the nodekit, and the name of the child part.
+\p
+During a pick action, each nodekit along the picked path creates its own
+\cSoNodeKitDetail\..   Together, the full set of details gives you 
+complete picture of the pickpath.  
+\p
+Since nodekits have hidden children (See the reference page for 
+\cSoBaseKit\.), a regular \cSoPath\. ends at the topmost nodekit in the 
+path. If you cast the pickpath from an \cSoPath\. pointer to an 
+\cSoNodeKitPath\. pointer, you can then retrieve all nodekits along the 
+path and examine their corresponding details.
+}
+
+METHOD "" SoNodeKitDetail() {}
+METHOD "" virtual ~SoNodeKitDetail() { Constructor and destructor. }
+
+METHOD "" SoBaseKit * getNodeKit() const {
+Returns a pointer to the nodekit that created this detail.
+}
+
+METHOD "" SoNode * getPart() const {
+Returns a pointer to the part selected within the nodekit 
+that created this detail.
+}
+
+METHOD "" const SbName &getPartName() const {
+Returns the name of the part selected within the nodekit that created 
+this detail. (See \cSoRayPickAction\.  in the ACTIONS section of 
+the \cSoBaseKit\. reference page for more information).
+}
+
+ALSO { SoBaseKit, SoNodeKitPath, SoDetail, SoPickedPoint }
+

@@ -1,0 +1,16 @@
+Open Inventor - Examples from the Inventor Toolmaker
+
+Chapter 10 - "Creating Viewers and Components"
+
+
+This directory contains source code that illustrates how to create
+new Xt components and viewers.  
+
+Components are C++ classes which can be used with Xt widgets
+to build an interface. Viewer components provide interaction
+and user interface for viewing and exploring Inventor data.
+
+See the Inventor Mentor, chapter 16 for an introduction to 
+viewers and components.
+
+*** This is for C++ programmers only! ***

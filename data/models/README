@@ -1,0 +1,26 @@
+This directory contains collections of 3D geometric models.
+Many of the files include credits (see ivinfo, below).
+
+By convention, Inventor format files are denoted by the .iv suffix.
+
+Useful tools that operate on .iv files include:
+  . ivcat
+      Converts binary Inventor files to ASCII (e.g. ivcat cube.iv)
+      Converts ASCII Inventor files to binary (e.g. ivcat -b ascii.iv > bin.iv)
+
+  . ivinfo
+      Lists a summary of an Inventor file contents, including the data credits
+      (if there are any)
+
+  . ivfix
+      Reads an Inventor file and restructures the data to improve the scene's
+      rendering performance.
+
+  . ivview
+      Simple viewer to view Inventor files.
+
+  . /usr/demos/Inventor/SceneViewer
+      More elaborate viewer to view and manipulate Inventor files.
+
+  . ivdowngrade
+      Converts an Inventor file to version 2.0 or 1.0

@@ -1,0 +1,20 @@
+NAME SoXtSliderSet SoXtSldrs "" {
+base class for Motif-only slider components
+}
+
+INCLUDE Xt/SoXtSliderSet.h
+
+DESC {
+This class is used as a base class for all editors which use sets of Motif
+sliders to edit fields in an Inventor scene graph node. The editor consists
+of a number of sliders each of which may change a different value in a
+field. This class is not meant to be instanced by programmers who want to
+use an editor in a program. It should only be used as a base class when
+designing new editors.
+\p
+This class has no public methods. The internal methods deal with managing
+the layout of the subcomponents.
+}
+
+ALSO { SoXtSliderSetBase, SoXtComponent, SoNode, SoXtLightSliderSet,
+SoXtMaterialSliderSet, SoXtTransformSliderSet }

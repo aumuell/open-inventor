@@ -1,0 +1,32 @@
+#Inventor V2.0 ascii
+Separator {
+    Link {
+	origin -2 1 0
+	endPoint -1 1 0
+    }
+
+    Crank {
+	origin 2 1 0
+	angle .7
+	size 2.5
+    }
+
+    RivetHinge {
+	origin -2 -2 0
+	hingePoint -1 -2 0
+	size 1.5
+    }
+
+    DoubleLink {
+	origin1 1 -2 0
+	origin2 3 -2 0
+	sharedPoint 2 0 0 
+	size1 2 
+	size2 3
+    }
+
+    Piston {
+	origin1 1 2 0
+	origin2 3 2 0
+    }
+}

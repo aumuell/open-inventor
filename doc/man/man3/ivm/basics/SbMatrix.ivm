@@ -1,0 +1,201 @@
+NAME SbMatrix SbMx "" { 4x4 matrix class }
+INCLUDE SbLinear.h
+DESC {
+4x4 matrix class/datatype used by many Inventor node and action classes.
+The matrices are stored in row-major order.
+\-
+Note that this class should be declared and/or malloc'd as an standard
+C struct:
+\b\k
+     /* This is defined in Inventor_c/SbMatrix.h: */
+     struct SbMatrix \{
+          float mx[4][4];
+     \};
+     typedef SbMatrix SbMx
+
+     /* Your code should look like this: */
+     SbMx  mx, mx_t;
+
+     mx = SbMxIdent();
+     mx.mx[0][0] = mx.mx[1][1] = mx.mx[2][2] = 3.0;
+     mx_t = SbMxTranspose( &mx );
+
+\.\.
+\.
+}
+BEGIN C++
+METHOD "" SbMatrix(){ }
+METHOD "" SbMatrix(float a11, float a12, float a13, float a14,
+             float a21, float a22, float a23, float a24, 
+             float a31, float a32, float a33, float a34, 
+             float a41, float a42, float a43, float a44) {}
+METHOD "" SbMatrix(const SbMat &m) {
+Constructors.
+}
+METHOD "" void setValue(const SbMat &m) {
+Sets value from 4x4 array of elements.
+}
+METHOD "" void        getValue(SbMat &m) const {}
+METHOD "" const SbMat &       getValue() const {
+Returns 4x4 array of elements.
+}
+END
+METHOD makeIdent void     makeIdentity() {
+Sets matrix to be identity.
+}
+METHOD ident static SbMatrix     identity() {
+Returns an identity matrix. 
+}
+METHOD setRot void        setRotate(const SbRotation &q) {
+Sets matrix to rotate by given rotation.
+}
+METHOD "" void            setScale(float s) {
+Sets matrix to scale by given uniform factor.
+}
+METHOD scaleVec void      setScale(const SbVec3f &s) {
+Sets matrix to scale by given vector.
+}
+METHOD setXlate void      setTranslate(const SbVec3f &t) {
+Sets matrix to translate by given vector.
+}
+BEGIN C++
+METHOD "" void setTransform(const SbVec3f &t, const SbRotation &r,
+                             const SbVec3f &s) {}
+METHOD "" void setTransform(const SbVec3f &t, const SbRotation &r,
+                             const SbVec3f &s, const SbRotation &so) {}
+END
+METHOD setXform void        setTransform(
+                        const SbVec3f &translation,
+                        const SbRotation &rotation,
+                        const SbVec3f &scaleFactor,
+                        const SbRotation &scaleOrientation,
+                        const SbVec3f &center) {
+Composes the matrix based on a translation, rotation, scale,
+orientation for scale, and center.  The \acenter\. is the
+center point for scaling and rotation.  The \ascaleOrientation\.
+chooses the primary axes for the scale.
+}
+BEGIN C++
+METHOD "" void        getTransform(SbVec3f &t, SbRotation &r,
+                          SbVec3f &s, SbRotation &so) const {
+Return translation, rotation, scale, and scale orientation
+components of the matrix.
+}
+END
+METHOD getXform void        getTransform(SbVec3f &translation,
+                          SbRotation &rotation,
+                          SbVec3f &scaleFactor,
+                          SbRotation &scaleOrientation,
+                          const SbVec3f &center) const {
+Decomposes the matrix into a translation, rotation, scale,
+and scale orientation.  Any projection information is discarded.
+The decomposition depends upon choice of center point for
+rotation and scaling, which is optional as the last parameter.
+Note that if the center is 0, decompose() is the same as
+factor() where \at\. is translation, \au\. is rotation, \as\. is scaleFactor,
+and \ar\. is ScaleOrientattion.
+}
+METHOD det3Mx float       det3(int r1, int r2, int r3, int c1, int c2, int c3) const {
+Returns determinant of 3x3 submatrix composed of given row and
+column indices (0-3 for each).
+}
+METHOD "" float       det3() const {
+Returns determinant of upper-left 3x3 submatrix.
+}
+METHOD "" float       det4() const {
+Returns determinant of entire matrix.
+}
+METHOD "" SbBool   factor(SbMatrix &r, SbVec3f &s, SbMatrix &u,
+                       SbVec3f &t, SbMatrix &proj) const {
+Factors a matrix m into 5 pieces: m = r s r^ u t, where r^
+means transpose of r, and r and u are rotations, s is a scale,
+and t is a translation. Any projection information is returned
+in \aproj\..
+}
+METHOD "" SbMatrix    inverse() const {
+Returns inverse of matrix. Results are undefined for
+singular matrices.  Uses LU decomposition.
+}
+METHOD LUDecomp SbBool      LUDecomposition(int index[4], float &d) {
+Perform in-place LU decomposition of matrix.  \aindex\. is index of rows
+in matrix. \ad\. is the parity of row swaps.  Returns FALSE if singular.
+}
+METHOD LUBackSub void        LUBackSubstitution(int index[4],
+					float b[4]) const {
+Perform back-substitution on LU-decomposed matrix. Index is
+permutation of rows from original matrix.
+}
+METHOD "" SbMatrix transpose() const {
+Returns transpose of matrix.
+}
+METHOD "" SbMatrix &  multRight(const SbMatrix &m) {}
+METHOD "" SbMatrix &  multLeft(const SbMatrix &m) {
+Multiplies matrix by given matrix on right or left.
+}
+METHOD multMxVec void        multMatrixVec(const SbVec3f &src,
+						SbVec3f &dst) const {
+Multiplies matrix by given column vector, giving vector result.
+}
+METHOD multVecMx void        multVecMatrix(const SbVec3f &src,
+						SbVec3f &dst) const {
+Multiplies given row vector by matrix, giving vector result.
+}
+METHOD multDirMx void        multDirMatrix(const SbVec3f &src,
+						SbVec3f &dst) const {
+Multiplies given row vector by matrix, giving vector result.
+\asrc\. is assumed to be a direction vector, so translation part of
+matrix is ignored. Note: if you wish to transform surface points and normals
+by a matrix, call
+\+\mmultVecMatrix()\.\.
+\-\mSbMxMultVecMatrix()\.\.
+for the points and call
+\+\mmultDirMatrix()\.\.
+\-\mSbMxMultDirMatrix()\.\.
+on the inverse transpose of the matrix for the normals.
+}
+METHOD multLineMx void        multLineMatrix(const SbLine &src,
+						SbLine &dst) const {
+Multiplies the given line's origin by the matrix, and the
+line's direction by the rotation portion of the matrix.
+}
+METHOD "" void     print(FILE *fp) const {
+Prints a formatted version of the matrix to the given file pointer.
+}
+BEGIN C++
+METHOD "" float *	operator float\|*() {
+Cast: returns pointer to storage of first element.
+}
+METHOD "" SbMat	operator SbMat\|&() {
+Cast: returns reference to 4x4 array.
+}
+METHOD "" float *       operator [\|](int i) {}
+METHOD "" const float * operator [\|](int i) const {
+Make it look like a usual matrix (so you can do m[3][2]).
+}
+METHOD "" SbMatrix &  operator =(const SbMat &m) {
+Sets value from 4x4 array of elements.
+}
+END
+METHOD "" SbMatrix &  operator =(const SbMatrix &m) {
+Set the matrix from another \cSbMatrix\..
+}
+BEGIN C++
+METHOD "" SbMatrix &  operator =(const SbRotation &q) {
+Set the matrix from an \cSbRotation\..
+}
+END
+METHOD "" SbMatrix &  operator *=(const SbMatrix &m) {
+Performs right multiplication with another matrix.
+}
+METHOD "" SbMatrix    operator *(const SbMatrix &m1, const SbMatrix &m2) {
+Binary multiplication of matrices.
+}
+METHOD "" int         operator ==(const SbMatrix &m1, const SbMatrix &m2) {}
+METHOD "" int         operator !=(const SbMatrix &m1, const SbMatrix &m2) {
+Equality comparison operators.
+}
+METHOD "" SbBool      equals(const SbMatrix &m, float tolerance) const {
+Equality comparison within given tolerance, for each component.
+}
+ALSO { SbVec3f, SbRotation }
+

@@ -1,0 +1,25 @@
+NAME SoConeDetail SoConeDtl "" {
+stores detail information about the SoCone node
+}
+
+INCLUDE details/SoConeDetail.h
+
+DESC {
+This class contains detail information about a point on a cone.
+It contains the part of the cone that was hit (sides or bottom).
+}
+
+METHOD "" SoConeDetail() {}
+METHOD "" virtual ~SoConeDetail() { Constructor and destructor. }
+
+METHOD "" int getPart() const {
+Returns the part in the detail. The returned value is one of the
+\cSoCone\. part flags.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ALSO { SoCone, SoDetail, SoPickedPoint, SoPrimitiveVertex }
+

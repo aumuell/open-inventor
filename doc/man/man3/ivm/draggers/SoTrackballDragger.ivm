@@ -1,0 +1,198 @@
+NAME SoTrackballDragger SoTballDrag "" { striped ball you can rotate or scale uniformly by dragging with the mouse }
+
+INCLUDE draggers/SoTrackballDragger.h
+
+DESC { \cSoTrackballDragger\. 
+is a ball wrapped in three circular stripes.  The stripes are oriented
+like wheels that spin around the x, y, and z axes.  Drag the stripes
+to rotate the trackball around those axes.  You do not have to hit the lines;
+pick anywhere within the stripe's outline.  To rotate the trackball
+freely in 3 dimensions, click the area 
+between the stripes and then drag.  An invisible but
+pickable sphere initiates this dragging.  If the mouse is still moving when
+you release it,  the trackball will continue to  spin.
+\p
+Press the \k<Control>\. key to scale the trackball uniformly instead of 
+rotating.
+\p
+Press the \k<Shift>\. key and the \euser axis\. appears; this is a
+draggable axis with an extra stripe around it.   
+Moving the mouse along the surface of the sphere drags the
+'pole' of the axis.  
+Release the \k<Shift>\. key and the user axis remains; drag the
+new stripe for constrained rotation around the user axis.
+To make the user axis disappear, press \k<Shift>\. and drag the pole to
+where two of other stripes intersect. This aligns the user axis with 
+a primary axis, at which point the user axis disappears.
+\p
+As you drag the trackball, it updates its
+\vrotation\. field, or its \vscaleFactor\. field if 
+the \k<Control>\. key is down. As with all draggers, if you change the 
+fields the dragger moves in response.
+\p
+\aRemember:\. This is \enot\. an \cSoTransform!\.. 
+If you want to move other objects with this dragger, you can either: 
+\p
+[a] Use an \cSoTrackballManip\., which is subclassed from \cSoTransform\.. 
+The manipulator creates one of
+these draggers and uses it as the interface to edit the manipulator's fields.
+(see the \cSoTrackballManip\. reference page).  
+\p
+[b] Use field-to-field connections to connect the fields of this dragger to
+those of any \cSoTransformation\. node.
+\p
+You can change the parts in any instance of this dragger using
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+The default part geometries are defined as resources for this 
+\cSoTrackballDragger\. class.  They are detailed in the 
+Dragger Resources section of the online reference page for this class.
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/trackballDragger.iv\.
+into your own directory, editing the file, and then
+setting the environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+MISC NOTE {  Unlike most multi-function draggers,  \cSoTrackballDragger\. is
+not a compound dragger made up of other draggers that
+perform its smaller tasks.  This is 
+not because it was inappropriate, but because
+the trackball was written before implementation of the methods that
+take care of synchronizing multiple child draggers. The younger 
+\cSoCenterballDragger\. is similar in form to the trackball, but 
+the centerball \eis\. a compound dragger. }
+
+METHOD "" SoTrackballDragger() {
+Constructor.
+}
+
+METHOD "isAnimEnabled" SbBool isAnimationEnabled() {}
+METHOD "setAnimEnabled" void setAnimationEnabled(SbBool newVal) {
+If the mouse is moving while you release it, the
+trackball will continue to spin afterwards.  
+These two methods will query and set whether this 
+feature is turned on or off.  By default, the animation feature is turned on.
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+FIELD scaleFactor { Scale of the dragger. }
+FIELD rotation { Orientation of the dragger. }
+
+DRAGGER_RESOURCE {
+  trackballRotator,
+  rotator,
+  "Invisible but pickable sphere",
+  "Initiates unconstrained 3D rotation. Slightly smaller radius than the 
+   stripes, so you must pick between the stripes to use it."
+}
+
+DRAGGER_RESOURCE {
+  trackballRotatorActive,
+  rotatorActive,
+  "Invisible sphere",
+  "Displayed during unconstrained 3D rotation."
+}
+
+DRAGGER_RESOURCE {
+  trackballXRotator,
+  XRotator,
+  "White outline of a stripe aligned with the X axis.",
+  "Pick this to initiate constrained rotation about the X axis."
+}
+
+DRAGGER_RESOURCE {
+  trackballXRotatorActive,
+  XRotatorActive,
+  "Yellow version of the regular XRotator",
+  "Displayed during constrained rotation about the X axis."
+}
+
+DRAGGER_RESOURCE {
+  trackballYRotator,
+  YRotator,
+  "White outline of a stripe aligned with the Y axis.",
+  "Pick this to initiate constrained rotation about the Y axis."
+}
+
+DRAGGER_RESOURCE {
+  trackballYRotatorActive,
+  YRotatorActive,
+  "Yellow version of the regular YRotator",
+  "Displayed during constrained rotation about the Y axis."
+}
+
+DRAGGER_RESOURCE {
+  trackballZRotator,
+  ZRotator,
+  "White outline of a stripe aligned with the Z axis.",
+  "Pick this to initiate constrained rotation about the Z axis."
+}
+
+DRAGGER_RESOURCE {
+  trackballZRotatorActive,
+  ZRotatorActive,
+  "Yellow version of the regular ZRotator",
+  "Displayed during constrained rotation about the Z axis."
+}
+
+DRAGGER_RESOURCE {
+  trackballUserAxis,
+  userAxis,
+  "Thin purple line",
+  "Displays the user axis. Dragging the \vuserRotator\.
+   rotates about this line."
+}
+
+DRAGGER_RESOURCE {
+  trackballUserAxisActive,
+  userAxisActive,
+  "Thin purple line",
+  "Displays the user axis. Dragging the \vuserRotator\.
+   rotates about this line."
+}
+
+DRAGGER_RESOURCE {
+  trackballUserRotator,
+  userRotator,
+  "Transparent green stripe circling the user axis.",
+  "Pick to initiate constrained rotation about the user axis."
+}
+
+DRAGGER_RESOURCE {
+  trackballUserRotatorActive,
+  userRotatorActive,
+  "Brighter green version of the regular userRotator",
+  "Displayed during constrained rotation about the user axis."
+}
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoCenterballDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTransformBoxDragger,
+SoTransformerDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}

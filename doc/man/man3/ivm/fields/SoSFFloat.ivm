@@ -1,0 +1,28 @@
+NAME SoSFFloat SoSFloat "" {
+field containing a floating-point value
+}
+
+INCLUDE fields/SoSFFloat.h
+
+DESC {
+A field that contains one single-precision floating point number.
+\p
+\cSoSFFloats\. are written to file in standard scientific notation.
+}
+ALSO { SoField, SoSField, SoMFFloat }
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get float getValue() const {
+Returns this field's value.
+}
+METHOD " " float operator =(float newValue) {}
+METHOD Set void setValue(float newValue) {
+Sets this field to \anewValue\..
+}
+METHOD IsEq int operator ==(const SoSFFloat &f) const {}
+METHOD IsNEq int operator !=(const SoSFFloat &f) const {
+Returns TRUE if \af\. is of the same type and has the same value as this
+field.
+}

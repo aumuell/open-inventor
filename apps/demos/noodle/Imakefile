@@ -1,0 +1,58 @@
+#define OneProgram
+
+#define ShipProgram
+#define BinDir /usr/demos/Inventor
+#define OtherBins noodle.RUNME
+#define IdbTagBin  -idb "inventor_eoe.demo.progs $(MACH_TAG)"
+#define IdbTagOtherBins  -idb "inventor_eoe.demo.progs $(MACH_TAG)\
+	exitop('if [ -x \$$rbase/usr/sbin/iconbookedit ]; then \
+		chroot \$$rbase /usr/sbin/iconbookedit \
+		-add \"Category:File Name:/usr/demos/Inventor/noodle.RUNME\" \
+		-syspage Demos; fi;')"
+
+#ifndef CreatingUserMakefile
+#define SubDirs SampleNoodles
+#endif
+
+#define LocalLibs ../../nodes/GeneralizedCylinder/NurbMaker.o \
+../../nodes/GeneralizedCylinder/Triangulator.o \
+../../nodes/GeneralizedCylinder/GeneralizedCylinder.o
+#define OtherLibs -lm -lX11 -lXt -lXm
+
+PROGRAM = noodle
+
+LC++INCS = -I../../nodes/GeneralizedCylinder
+
+C++FILES = NoodleSlider.c++ \
+    Interface.c++ NoodleSurfaceGizmo.c++ WorldInfo.c++ LineManip.c++ \
+    NoodleTextureGizmo.c++ noodle.c++ LineManipHilight.c++  \
+    profile.c++
+
+HFILES = NoodleSlider.h PullDowns.h Interface.h \
+    NoodleSurfaceGizmo.h LineManip.h NoodleTextureGizmo.h \
+    WorldInfo.h MyGrids.h
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../..
+
+OTHERSOURCE = README Grid.iv GridXY.iv defaultTexture.rgb noodle.about
+
+#ifdef CreatingSgiMakefile
+
+XCOMM The LOCALLIBS targets can't be done in parallel, because smake
+XCOMM will mess itself up trying to create Makefiles.
+.NOTPARALLEL: $(LOCALLIBS)
+
+IDBTAGEXTRA = -idb "inventor_eoe.demo.progs $(MACH_TAG)"
+
+default:
+install: extraInstall
+extraInstall:
+	$(INSTALL) -F /usr/demos/data/Inventor -u demos -g demos \
+		-m 444 $(IDBTAGEXTRA) defaultTexture.rgb
+	$(INSTALL) -F /usr/demos/data/Inventor -u demos -g demos \
+		-m 444 $(IDBTAGEXTRA) noodle.about
+
+#endif
+#endif
+

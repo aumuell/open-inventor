@@ -1,0 +1,17 @@
+#Inventor V2.0 ascii
+Separator {
+    DEF CRANK Crank {
+	origin 0 0 0
+	angle .7
+	size 1
+    }
+    DEF RIVET RivetHinge {
+	origin = USE LINK . endPoint
+	hingePoint = USE CRANK . endPoint
+	size 2.9
+    }
+    DEF LINK Link {
+	origin = USE CRANK . endPoint
+	endPoint -2 0 0
+    }
+}

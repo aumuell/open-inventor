@@ -1,0 +1,33 @@
+NAME SoTextureCoordinateEnvironment SoTexEnv "" {
+node that specifies texture coordinates by projection from a environment
+}
+
+INCLUDE nodes/SoTextureCoordinateEnvironment.h
+
+DESC {
+This node creates texture coordinates by projecting points on an
+object's surface to the interior of a surrounding sphere, along the
+reflection across the surface normal of the vector from the camera
+point to the surface. If the current texture image represents a
+spherical reflection map of the current surrounding environment,
+subsequent shapes will appear to reflect that environment.
+}
+
+METHOD "" SoTextureCoordinateEnvironment() {
+Creates a texture function node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction, SoRayPickAction {
+Sets the current texture function in the state.
+}
+
+ALSO {
+SoTexture2,
+SoTexture2Transform,
+SoTextureCoordinateDefault,
+SoTextureCoordinatePlane
+}

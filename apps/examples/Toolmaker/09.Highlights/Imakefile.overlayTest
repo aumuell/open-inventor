@@ -1,0 +1,11 @@
+#define OneProgram
+
+C++FILES = overlayTest.c++ OverlayHL.c++
+
+HFILES = OverlayHighlightRenderAction.h
+
+PROGRAM = overlayTest
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../../..
+#endif

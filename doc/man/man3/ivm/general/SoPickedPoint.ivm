@@ -1,0 +1,84 @@
+NAME SoPickedPoint SoPickPt "" { represents point on surface of picked object }
+
+INCLUDE SoPickedPoint.h
+
+DESC {
+An \cSoPickedPoint\. represents a point on the surface of an object
+that was picked by applying an \cSoRayPickAction\. to a scene. It
+contains a path to the picked shape, the point of intersection, the
+surface normal and texture coordinates at that point, and other
+information.
+\p
+Each node in the picked path may have a corresponding instance of a detail
+subclass. These detail instances are stored in the \cSoPickedPoint\..
+}
+
+METHOD "" SoPickedPoint(const SoPickedPoint &pp) { Copy constructor. }
+METHOD "" ~SoPickedPoint() { Destructor. }
+
+METHOD getPt const SbVec3f & getPoint() const {}
+METHOD getNorm const SbVec3f & getNormal() const {}
+METHOD getTexCoords const SbVec4f & getTextureCoords() const {
+These return the intersection point and surface normal in world space,
+and the texture coordinates in image space.
+}
+
+METHOD getMtlInd int getMaterialIndex() const {
+Returns the index into the current set of materials of the material
+active at the intersection point. Note that if the materials are
+interpolated between vertices, the index will correspond to the
+material at one of the vertices.
+}
+
+METHOD "" SoPath * getPath() const {
+Returns the path to the object that was intersected.
+}
+
+METHOD isOnGeom SbBool isOnGeometry() const {
+Returns whether the intersection is actually on the geometry of the
+character that was hit, as opposed to being on the bounding box. The
+pick style (see \cSoPickStyle\.) affects this decision.
+}
+
+METHOD getDtl const SoDetail * getDetail(const SoNode *node = NULL) const {
+Returns the detail that corresponds to the given node in the path
+returned by
+\+\mgetPath()\..\.
+\-\mSoPickPtGetPath()\..\.
+If the node pointer is NULL (the default), the detail corresponding to
+the tail of the (full) path is returned.
+}
+
+METHOD getObjToWorld const SbMatrix
+		getObjectToWorld(const SoNode *node = NULL) const {}
+METHOD getWorldToObj const SbMatrix
+		getWorldToObject(const SoNode *node = NULL) const {
+These return the transformation matrices between world space and the
+object space corresponding to the given node in the path.  If the node
+pointer is NULL (the default), the matrix corresponding to the tail of
+the (full) path is returned.
+}
+
+METHOD getObjToImage const SbMatrix
+		getObjectToImage(const SoNode *node = NULL) const {}
+METHOD getImageToObj const SbMatrix
+		getImageToObject(const SoNode *node = NULL) const {
+These return the texture transformation matrices between image space
+and the object space corresponding to the given node in the path.
+If the node pointer is NULL (the default), the matrix corresponding to
+the tail of the (full) path is returned.
+}
+
+METHOD getObjPt const SbVec3f
+		getObjectPoint(const SoNode *node = NULL) const {}
+METHOD getObjNorm const SbVec3f
+		getObjectNormal(const SoNode *node = NULL) const {}
+METHOD getObjTexCoords const SbVec4f
+		getObjectTextureCoords(const SoNode *node=NULL) const {
+These return the intersection point, surface normal, and texture
+coordinates in the object space corresponding to the given node in the
+path.  If the node pointer is NULL (the default), the information
+corresponding to the tail of the (full) path is returned.
+}
+
+ALSO { SoRayPickAction, SoPickStyle, SoDetail, SoPath }

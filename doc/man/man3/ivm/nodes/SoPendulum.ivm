@@ -1,0 +1,43 @@
+NAME SoPendulum SoPendulum "" { animated oscillating rotation node }
+
+INCLUDE nodes/SoPendulum.h
+
+DESC {
+The \cSoPendulum\. class is derived from \cSoRotation\., so it applies
+a rotation to the current transformation.  Using engines connected to
+the \vrealTime\. global field, the rotation value is animated over
+time between two fixed rotations, achieving the effect of a swinging
+pendulum. The period of the swing can be adjusted by changing the
+\vspeed\. field. The current rotation at any time is available in
+the \vrotation\. field, inherited from \cSoRotation\.
+}
+
+FIELD rotation0 {}
+FIELD rotation1 {
+These define the two fixed rotations that are interpolated to create
+the pendular motion.
+}
+
+FIELD speed { Defines the speed of the pendulum, in cycles per second. }
+
+FIELD on { Allows applications to enable or disable the motion easily. }
+
+METHOD "" SoPendulum() {
+Creates a pendulum node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+SoGetBoundingBoxAction, SoRayPickAction {
+Concatenates interpolated rotation value with the current
+transformation matrix.
+}
+
+ACTION SoGetMatrixAction {
+Returns transformation matrix specified by the interpolated rotation.
+}
+
+ALSO { SoRotor, SoShuttle }

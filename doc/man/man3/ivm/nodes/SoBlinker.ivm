@@ -1,0 +1,31 @@
+NAME SoBlinker "" "" { animated cycling switch node }
+
+INCLUDE nodes/SoBlinker.h
+
+DESC {
+The \cSoBlinker\. class is derived from \cSoSwitch\., so it selects
+one of its children to traverse. Using engines connected to the
+\vrealTime\. global field, the \vwhichChild\. field is animated over
+time. If the node has only one child, \vwhichChild\. toggles between
+\kSO_SWITCH_NONE\. and 0, causing the child to be switched on and off
+repeatedly. If the node has more than one child, they are cycled
+through continuously.
+}
+
+FIELD speed { Defines the speed of the blinker, in cycles per second. }
+
+FIELD on { Allows applications to enable or disable the blinking easily. }
+
+METHOD "" SoBlinker() {
+Creates a blinker node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction, SoGetBoundingBoxAction,
+       SoGetMatrixAction, SoHandleEventAction,
+       SoRayPickAction, SoSearchAction {
+Same as for \cSoSwitch\..
+}

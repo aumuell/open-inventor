@@ -1,0 +1,23 @@
+NAME SoDecomposeVec3f SoDecmpsV3f "" { 
+decomposes 3D vectors into floating-point values
+}
+
+DESC {  
+This engine takes as input a 3D vector,
+and decomposes it into three single floating-point values. 
+\p
+The input can have multiple values, allowing the engine to decompose
+several vectors in parallel.
+}
+
+INCLUDE engines/SoCompose.h
+
+INPUT vector { Vector to be decomposed. }
+
+OUTPUT x { First component of the vector. }
+OUTPUT y { Second component of the vector. }
+OUTPUT z { Third component of the vector. }
+
+METHOD Create SoDecomposeVec3f() { Constructor }
+
+ALSO { SoComposeVec3f, SoEngineOutput }

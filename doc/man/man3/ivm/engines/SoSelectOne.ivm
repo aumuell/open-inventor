@@ -1,0 +1,37 @@
+NAME SoSelectOne SoSelOne "" { 
+selects one value from a multiple-value field. 
+}
+
+DESC { 
+This engine selects a single value from a multiple-value field,
+based on the input field \vindex\..
+The type of the input field can be any subclass of \cSoMField\.,
+and the type of the output is the corresponding subclass of
+\cSoSField\.. For example, if the input type is \cSoMFVec3f\., the
+output type will be \cSoSFVec3f\..
+The type is specified when an instance of the class is created.
+For example,
+\+\cSoSelectOne(SoMFFloat::getClassTypeId())\.\.
+\-\cSoSelOneCreate(SoMFloatGetClassTypeId())\.\.
+creates an engine that selects one floating-point value.
+\p
+Note that unlike most other engine fields, the \vinput\. field and
+\voutput\. are pointers.
+Note also that by default \vinput\. does not contain any values,
+and no value is output from the engine.
+}
+
+
+INCLUDE engines/SoSelectOne.h
+
+INPUT index { Index of the value to select from the multiple-value field. }
+INPUT input { The multiple-value field from which the value will be selected. }
+
+OUTPUT output { The single value selected. }
+
+METHOD SoSelOneCreate SoSelectOne(SoType inputType)
+{ Constructor.  The argument specifies the type of the multiple-value
+input field. }
+  
+
+ALSO { SoEngineOutput, SoConcatenate, SoGate }

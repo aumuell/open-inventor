@@ -1,0 +1,53 @@
+/*
+ * Imakefile for ivdowngrade converter
+ *
+ */
+
+#define OneProgram
+#define NoShipUser
+#define NoInventorXt
+#define ShipProgram 
+
+PROGRAM = ivdowngrade
+
+C++FILES = main.c++ \
+	downgradeToV1.c++ \
+	downgradeToV2.c++ \
+	SoEnvironmentV1.c++ \
+	SoPickStyleV1.c++ \
+	SoShapeHintsV1.c++ \
+	SoTextureCoordinatePlaneV1.c++ \
+	SoIndexedTriangleMeshV1.c++ \
+	SoWWWAnchorV2.c++ \
+	SoWWWInlineV2.c++ \
+	SoAsciiTextV2.c++ \
+	SoFontStyleV2.c++ \
+	SoPackedColorV2.c++ \
+	SoVertexPropertyV2.c++ \
+	SoLODV2.c++ \
+	SoText2V2.c++ \
+	SoText3V2.c++
+
+HFILES = \
+	SoEnvironmentV1.h \
+	SoIndexedTriangleMeshV1.h \
+	SoPickStyleV1.h \
+	SoShapeHintsV1.h \
+	SoTextureCoordinatePlaneV1.h \
+	Util.h \
+	SoWWWAnchorV2.h \
+	SoWWWInlineV2.h \
+	SoAsciiTextV2.h \
+	SoFontStyleV2.h \
+	SoPackedColorV2.h \
+	SoVertexPropertyV2.h \
+	SoLODV2.h \
+	SoText2V2.h \
+	SoText3V2.h
+
+LLDOPTS += -lm
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../..
+#endif
+

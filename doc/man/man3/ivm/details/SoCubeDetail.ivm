@@ -1,0 +1,31 @@
+NAME SoCubeDetail SoCubeDtl "" {
+stores detail information about the SoCube node
+}
+
+INCLUDE details/SoCubeDetail.h
+
+DESC {
+This class contains detail information about a point on a cube.
+It contains the part of the cube that was hit.
+\p
+Part values are as follows:
+\b
+0	Front
+1	Back
+2	Left
+3	Right
+4	Top
+5	Bottom
+\.
+}
+
+METHOD "" SoCubeDetail() {}
+METHOD "" virtual ~SoCubeDetail() { Constructor and destructor. }
+
+METHOD "" int getPart() const { Returns the part in the detail. }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ALSO { SoCube, SoDetail, SoPickedPoint, SoPrimitiveVertex }

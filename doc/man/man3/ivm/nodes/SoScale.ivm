@@ -1,0 +1,33 @@
+NAME SoScale SoScale "" { node representing a 3D geometric scaling }
+
+INCLUDE nodes/SoScale.h
+
+DESC {
+This node defines a 3D scaling about the origin.
+If the components of the scaling vector are not all the same, this produces
+a non-uniform scale.
+}
+
+FIELD scaleFactor {
+The scaling factors in the x, y, and z dimensions. Non-positive values
+may cause undesirable results.
+}
+
+METHOD "" SoScale() {
+Creates a scale node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoRayPickAction {
+Accumulates scaling transformation into the current transformation.
+}
+
+ACTION SoGetMatrixAction {
+Returns the matrix corresponding to the scaling.
+}
+
+ALSO { SoTransform, SoUnits }

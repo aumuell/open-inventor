@@ -1,0 +1,52 @@
+NAME SoResetTransform SoResetXf SO_RESET_XF_ {
+node that resets the current transformation to identity
+}
+
+INCLUDE nodes/SoResetTransform.h
+
+DESC {
+This node resets the current transformation to identity. It can be
+used to apply an absolute world space transformation afterwards, such
+as translating to a specific point from within a hierarchy.
+
+An \cSoResetTransform\. node should probably be used under an
+\cSoSeparator\. or \cSoTransformSeparator\. so it won't change
+transformations for the rest of the scene graph.
+
+An \cSoResetTransform\. node can also be used to reset the current
+bounding box to empty during traversal of an
+\cSoGetBoundingBoxAction\., if the \vwhatToReset\. field has the
+\vBBOX\. bit set.
+}
+
+ENUM ResetType {
+    TRANSFORM	"Reset the current transformation to identity",
+    BBOX	"Reset the bounding box to empty"
+}
+
+FIELD whatToReset {
+Specifies which items to reset when the node is traversed.
+}
+
+METHOD "" SoResetTransform() {
+Creates a reset transformation node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction, SoRayPickAction {
+If specified, resets current transformation matrix to identity.
+}
+
+ACTION SoGetBoundingBoxAction {
+If specified, resets current transformation matrix to identity and
+current computed bounding box to be empty.
+}
+
+ACTION SoGetMatrixAction {
+Returns identity matrix.
+}
+
+ALSO { SoTransform }

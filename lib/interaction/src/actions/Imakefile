@@ -1,0 +1,8 @@
+#define LibraryMakefile
+
+DEPTH = ..
+
+C++FILES =  SoBoxHL.c++ SoLineHL.c++
+
+
+

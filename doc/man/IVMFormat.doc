@@ -1,0 +1,203 @@
+This file describes the new input format for Inventor man pages. The
+format is designed to be easy to specify and maintain. All of the hard
+work of creating cryptic troff code is done by a program, as it should
+be.
+
+The format consists of a series of statements. Although the input is
+not line-oriented, it will be easier to read/maintain if each
+statement begins on a new line. Blank lines are ignored. So are
+comments, which begin with a '#' and end at the end of a line.
+
+Each statement has a keyword (in all caps), possibly followed by
+arguments. Some arguments are within {} braces; these are for possibly
+lengthy items like descriptions. All other arguments (those not
+enclosed in braces) are assumed to be one word (not containing white
+space); to include white space in such an argument, enclose the whole
+argument in double quotes. To pass nothing to an argument (when one is
+required), use "".
+
+Within braces, blank lines and comments are not ignored. Also, several
+modifiers are available. Each is denoted by a backslash, followed by a
+single character. Most of these characters form delimiters around a
+piece of text, where the ending delimiter is "\.". For example,
+
+	The \cSoSeparator\. class...
+
+makes sure that the word "SoSeparator" is in the correct font for a
+class name. The only character that does not have an ending delimiter
+is "\p", which begins a new paragraph, like so:
+
+	Blah, blah, blah.
+	\p
+	This is a new paragraph.
+
+The sequences are:
+
+	\+	Begin C++-only stuff
+	\-	Begin C-only stuff
+	\.	End any thing that says "Begin"
+	\a	Begin argument (e.g., "the \aindex\. parameter specifies ...")
+	\b	Begin indented, unfilled block of code
+	\c	Begin class name
+	\e	Begin emphasis (e.g., "you \ereally don't want to call this\.")
+	\k	Begin kode (any code not in the other categories)
+	\m	Begin method name (e.g., "use \copen()\. instead")
+	\p	Start new paragraph
+	\v	Begin variable name (for fields, inputs, outputs)
+	\x	Begin external man page or method reference (e.g.,
+			"just like \xselect(2)\.")
+
+These can be inline, not inline, or nested, like so:
+
+	The \cSoGroup\. node lets you examine its children like so:
+	\b\k					# Begin block of code
+	\+					#   Begin C++ only
+	for (i = 0; i < g->getNumChildren(); i++)
+	    child = g->getChild(i);
+	\.					#   End C++ only
+	\-					#   Begin C only
+	/* insert appropriate C code here */
+	\.					#   End C only
+	\.\.					# End block of code
+
+To include a '{' or a '}' within a bracketed section, precede it by a
+'\', as in:
+
+	{ This contains \}, a single close brace }
+
+------------------------------------------------------------------
+
+	The statements are:
+
+NAME className CPrefix CEnumPrefix { short description }
+
+	Gives the name of the class, the C API prefix, the C API
+	prefix for enum values (if any; otherwise, pass ""), and a
+	brief description of the class for the man page title. Example:
+
+	NAME SoDirectionalLight SoDLight SO_D_LIGHT_
+	     { Node representing a directional light source }
+
+
+DESC { long description }
+
+	Describes the class in detail. Example:
+
+	DESC { This class defines a directional light source that
+	       illuminates ... blah }
+
+
+INCLUDE dir/file.h
+
+	Indicates the file to include to use the class. Example:
+
+	INCLUDE nodes/SoDirectionalLight.h
+
+
+TYPEDEF type name extraStuff
+
+	Declares a typedef. The extraStuff is used when declaring
+	typedefs for a function callback, as in:
+
+	TYPEDEF void SoFooCB "(void *userData, SoFoo *foo)"
+
+
+ENUM name { name1 description1, name2 description2 }
+
+	Declares an enumerated type associated with the class. Example:
+
+	ENUM Style { FILLED "Filled regions",
+		     LINES "Non-filled outlining (wire frame)",
+		     ... blah blah }
+
+
+DEFINE { line(s) of code without "#define" }
+
+	Inserts a #define in the man page. Example:
+
+	DEFINE { SO_KEY_PRESS_EVENT(EVENT,KEY)
+              (SoKeyboardEvent::isKeyPressEvent(EVENT,SoKeyboardEvent::KEY)) }
+
+
+MACRO name(arg, arg, ...) { description }
+
+	Describes a #define macro in the man page. Example:
+
+	MACRO SO_GET_PART (kit, partName, partClass)
+        	{ Calls blah blah blah. }
+
+
+FIELD  name { description }
+INPUT  name { description }
+OUTPUT name { description }
+
+	Describes a field of a node, or an input field or output of an
+	engine. The type info is looked up automatically. Example:
+
+	FIELD direction { Direction of the light rays. }
+
+
+PART name { description }
+
+	For node kits, this describes a part.
+
+
+METHOD cFunctionName declaration { description }
+
+	Describes a class method. The declaration should contain
+	"static", "virtual", and "const" as appropriate. Virtual
+	methods should be declared for ONLY the most base public class
+	for which they are defined. Constructors and destructors are
+	recognized as such. To hide a method that was defined in a
+	parent class, declare the method as "hidden" in this class;
+	it will not appear in the man page.
+
+	The C function name should be the name of the corresponding C
+	language function. If this name is "", the name will be the
+	same as the C++ name, with the first character upper case and
+	the prefix appended. For example, a method named fooBar on
+	SoNode will be called SoNodeFooBar in the C man page.
+	Constructors and destructors will be named correctly as well
+	in this case.
+
+	If the C function name is specified as " ", there will be no
+	corresponding function in the C api. This is equivalent to
+	putting the method within a C++-only block.
+
+Examples:
+
+	METHOD "" SoSearchAction() { Constructor. }
+	METHOD "" virtual ~SoSearchAction() { Destructor. }
+	METHOD "" static SoType getClassTypeId()
+	    { Returns the static class type id variable. }
+	METHOD "GetShSz" void getShoeSize(SbBool hasLaces) const
+
+
+ACTION actionName, actionName, ... { description }
+
+	For node classes, this describes what happens when an instance
+	of any of the given action classes is applied to the node.
+
+
+MISC SECTIONNAME { text }
+
+	Adds a miscellaneous section with the given name.
+	Miscellaneous sections appear right before the "SEE ALSO"
+	section, in the order specified in the input.
+
+
+ALSO { name, name, ... }
+
+	Class names for the SEE ALSO list.
+
+
+BEGIN C++
+END
+
+	Brackets stuff that should appear only in the C++ man pages.
+
+
+BEGIN C
+END
+
+	Brackets stuff that should appear only in the C man pages.

@@ -1,0 +1,113 @@
+NAME SoWWWInline "" "" { node that refers to children through a URL }
+
+INCLUDE nodes/SoWWWInline.h
+
+DESC {
+This node refers to children through a URL (Universal Resource Locator).
+The application is responsible for actually fetching data from the URL
+for an SoWWWInline node to display.
+}
+
+TYPEDEF void SoWWWInlineFetchURLCB "(const SbString &url, void *userData, SoWWWInline *node)"
+
+ENUM BboxVisibility {
+    NEVER	    "Do not show bounding box",
+    UNTIL_LOADED    "Show bounding box (if specified) until data is loaded",
+    ALWAYS	    "Show bounding box along with data"
+}
+
+FIELD name {
+Specifies the URL which the application should fetch as child data to this node
+(e.g. "http://bogus.com/homeWorld.wrl.gz").
+}
+
+FIELD bboxCenter {
+Defines the center of the bounding box surrounding the URL child data.
+}
+
+FIELD bboxSize {
+Defines the size of the bounding box surrounding the URL child data.
+}
+
+FIELD alternateRep {
+Specifies child data that can be used instead of fetching data from the URL.
+On read, if this field is set and there is no fetch URL callback registered,
+the alternateRep will be used as the child data. Otherwise, it is the applications
+responsibility to set the child data (see \ksetChildData()\.).
+}
+
+METHOD "" SoWWWInline() {
+Creates an inline node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+METHOD "" void setFullURLName(const SbString &url) {}
+METHOD "" const SbString & getFullURLName() {
+If the name field contains a relative URL (e.g. "foo.wrl" 
+instead of "http://bogus.com/foo.wrl"), the inline cannot 
+resolve the URL reference. This method allows the application 
+to tell the anchor what it's full URL should be. 
+\kgetFullURLName()\. returns the fullURL set here, or if not set, returns 
+the contents of the name field.
+}
+
+METHOD "" SoGroup * copyChildren() const {
+Return a copy of the hidden children as a Group. The children
+are set by the application through \ksetChildData()\..
+}
+    
+METHOD reqURLData void requestURLData() {
+Request that URL data be fetched. This will invoke the
+application callback to actually fetch the data and can be called
+before the inline does this for itself (see \ksetFetchURLCallBack()\.).
+}
+
+METHOD isURLDataReq SbBool isURLDataRequested() const {}
+METHOD "" SbBool isURLDataHere() const {
+Return whether URL data has been requested and whether that data
+is here (i.e. whether \ksetChildData()\. has been called.)
+}
+
+METHOD cancelURLDataReq void	cancelURLDataRequest() {
+Cancel the active URL data fetch request.
+}
+
+METHOD "" void setChildData(SoNode *urlData) {}
+METHOD "" SoNode * getChildData() const {
+Set/get the child data the inline should display. The application should set
+child data after it has fetched data for an inline node.
+}
+
+METHOD setFetchCB static void setFetchURLCallBack(SoWWWInlineFetchURLCB *f, void *userData) {
+Application callbacks invoked when the inline needs its URL data fetched.
+This happens the first time the inline is rendered, or if it needs to compute
+a bounding box and the bboxSize field is not set, or when \krequestURLData()\. is called.
+}
+
+METHOD setBboxVis static void setBoundingBoxVisibility(BboxVisibility b) {} 
+METHOD getBboxVis static BboxVisibility getBoundingBoxVisibility() {
+This allows the application to specify when bounding boxes are displayed.
+The bounding box can be rendered along with the
+children (\kALWAYS\.), only until the child data is loaded (\kUNTIL_LOADED\.),
+or not at all (\kNEVER\.). Default is \kUNTIL_LOADED\.
+}
+
+METHOD setBboxCol static void setBoundingBoxColor(SbColor &c) {}
+METHOD getBboxCol static const SbColor &getBoundingBoxColor() {
+This allows the application to specify the color of bounding boxes displayed.
+}
+
+ACTION SoGLRenderAction {
+This renders the child data if it has been set by the application.
+It will render a wireframe bounding box as specified by the \kbboxCenter\.
+and \kbboxSize\. fields, and the setting passed to \ksetBoundingBoxVisibility()\..
+If no fetch URL callback is set and the \kalternateRep\.
+is not NULL, the \kalternateRep\. will be rendered until child data has been set.
+}
+
+ALSO {
+SoWWWAnchor, SoFile
+}

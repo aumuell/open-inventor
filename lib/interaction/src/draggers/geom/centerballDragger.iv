@@ -1,0 +1,266 @@
+#Inventor V2.0 ascii
+
+DEF centerballRotator Separator {
+    renderCaching ON
+    DrawStyle { style INVISIBLE }
+    Complexity { value .3 }
+    Sphere { radius 1.0 }
+}
+
+DEF centerballRotatorActive Separator {
+    renderCaching ON
+    DrawStyle { style INVISIBLE }
+    Complexity { value .3 }
+    Sphere { radius 1.0 }
+}
+
+DEF CENTERBALL_DRAGGER_ACTIVE_MTL Material { 
+    diffuseColor .5 .5 0
+    emissiveColor .5 .5 0
+}
+DEF CENTERBALL_DRAGGER_STRIPE_MTL Material { 
+    diffuseColor .5 .5 .5 
+    emissiveColor .5 .5 .5 
+}
+DEF CENTERBALL_DRAGGER_CENTER_CHANGER_MTL Material {
+    diffuseColor  0 .5 0
+    emissiveColor 0 .5 0
+}
+
+DEF CENTERBALL_DRAGGER_SCALE Scale { scaleFactor 1.018 1.018 1.018 }
+DEF CENTERBALL_DRAGGER_ROT_Z_TO_X    Rotation { rotation 0 1 0 1.57079 }
+DEF CENTERBALL_DRAGGER_ROT_Z_TO_Y    Rotation { rotation 1 0 0 1.57079 }
+
+DEF CENTERBALL_DRAGGER_Y_RING_PICKER Separator {
+	renderCaching ON
+	DrawStyle { style INVISIBLE }
+	Complexity { value .3 }
+	Cylinder { height .1 radius 1 }
+}
+DEF CENTERBALL_DRAGGER_Y_RING Separator {
+	renderCaching ON
+	# should be 24 coords
+	NormalBinding { value PER_VERTEX }
+	MaterialBinding { value OVERALL}
+	Coordinate3 { point [
+		0.988771 0.0 0.149438, 0.919433 0.0 0.393246, 
+		0.791022 0.0 0.611788, 0.611788 0.0 0.791022, 
+		0.393246 0.0 0.919433, 0.149438 0.0 0.988771, 
+
+		-0.149438 0.0 0.988771, -0.393246 0.0 0.919433, 
+		-0.611788 0.0 0.791022, -0.791022 0.0 0.611788, 
+		-0.919433 0.0 0.393246, -0.988771 0.0 0.149438, 
+
+		-0.988771 0.0 -0.149438, -0.919433 0.0 -0.393246, 
+		-0.791022 0.0 -0.611787, -0.611788 0.0 -0.791022, 
+		-0.393246 0.0 -0.919433, -0.149438 0.0 -0.988771, 
+
+		0.149438 0.0 -0.988771, 0.393246 0.0 -0.919433, 
+		0.611788 0.0 -0.791022, 0.791022 0.0 -0.611787, 
+		0.919434 0.0 -0.393245, 0.988771 0.0 -0.149437
+	    ]
+	}
+	Normal { vector [
+		0.988771 0.0 0.149438, 0.919433 0.0 0.393246, 
+		0.791022 0.0 0.611788, 0.611788 0.0 0.791022, 
+		0.393246 0.0 0.919433, 0.149438 0.0 0.988771, 
+
+		-0.149438 0.0 0.988771, -0.393246 0.0 0.919433, 
+		-0.611788 0.0 0.791022, -0.791022 0.0 0.611788, 
+		-0.919433 0.0 0.393246, -0.988771 0.0 0.149438, 
+
+		-0.988771 0.0 -0.149438, -0.919433 0.0 -0.393246, 
+		-0.791022 0.0 -0.611787, -0.611788 0.0 -0.791022, 
+		-0.393246 0.0 -0.919433, -0.149438 0.0 -0.988771, 
+
+		0.149438 0.0 -0.988771, 0.393246 0.0 -0.919433, 
+		0.611788 0.0 -0.791022, 0.791022 0.0 -0.611787, 
+		0.919434 0.0 -0.393245, 0.988771 0.0 -0.149437
+	    ]
+	}
+	LineSet { numVertices [ 6, 6, 6, 6 ] }
+}
+
+DEF centerballStripe Separator {
+    renderCaching ON
+    USE CENTERBALL_DRAGGER_Y_RING_PICKER
+    PickStyle { style UNPICKABLE }
+    Separator {
+	USE CENTERBALL_DRAGGER_STRIPE_MTL
+	USE CENTERBALL_DRAGGER_SCALE
+	USE CENTERBALL_DRAGGER_Y_RING
+    }
+}
+DEF centerballStripeActive Separator {
+    renderCaching ON
+    USE CENTERBALL_DRAGGER_ACTIVE_MTL
+    USE CENTERBALL_DRAGGER_SCALE
+    USE CENTERBALL_DRAGGER_Y_RING
+}
+
+DEF CENTERBALL_DRAGGER_Z_ARROWS_PICKER Separator {
+    renderCaching ON
+    DrawStyle { style INVISIBLE }
+    Complexity { value .01 }
+    Separator {
+	Translation { translation 0 0 -1 }
+	Cube { width .2 height .2 depth .01 }
+    }
+    Separator {
+	Translation { translation 0 0 1 }
+	Cube { width .2 height .2 depth .01 }
+    }
+}
+DEF CENTERBALL_DRAGGER_Z_ARROWS Group {
+    Separator {
+	renderCaching ON
+	NormalBinding { value PER_VERTEX_INDEXED }
+	MaterialBinding {value OVERALL}
+	Coordinate3 { point [
+		    -.1   0  -1,  .1    0  -1, 
+		    -.08 .02 -1, -.08 -.02 -1, 
+		    .08 .02 -1,  .08 -.02 -1,
+		    -.1   0  1,  .1    0  1, 
+		    -.08 .02 1, -.08 -.02 1, 
+		    .08 .02 1,  .08 -.02 1, 
+		    0 -.1  -1,  0 .1  -1, 
+		    -.02 -.08 -1, .02 -.08  -1, 
+		    -.02 .08 -1,  .02 .08  -1,
+		    0 -.1  1,  0 .1  1, 
+		    -.02 -.08 1, .02 -.08  1, 
+		    -.02 .08 1,  .02 .08  1
+		    ]
+	}
+	Normal { vector [
+		    0 0 -1,  0 0 -1, 
+		    0 0 -1,  0 0 -1, 
+		    0 0 -1,  0 0 -1,
+		    0 0  1,  0 0  1, 
+		    0 0  1,  0 0  1, 
+		    0 0  1,  0 0  1, 
+		    0 0 -1,  0 0 -1, 
+		    0 0 -1,  0 0 -1, 
+		    0 0 -1,  0 0 -1,
+		    0 0  1,  0 0  1, 
+		    0 0  1,  0 0  1, 
+		    0 0  1,  0 0  1
+		    ]
+	}
+	IndexedLineSet {
+	    coordIndex [ 
+		0, 1, -1, 0, 2, -1, 0, 3, -1, 1, 4, -1, 1, 5, -1,
+		6, 7, -1, 6, 8, -1, 6, 9, -1, 7, 10, -1, 7, 11, -1,
+		12, 13, -1, 12, 14, -1, 12, 15, -1, 13, 16, -1, 13, 17, -1,
+		18, 19, -1, 18, 20, -1, 18, 21, -1, 19, 22, -1, 19, 23, -1,
+	    ]
+	}
+    }
+}
+
+DEF centerballCenterChanger Separator {
+    renderCaching ON
+    USE CENTERBALL_DRAGGER_Z_ARROWS_PICKER
+    PickStyle { style UNPICKABLE }
+    Separator {
+	USE CENTERBALL_DRAGGER_CENTER_CHANGER_MTL
+	USE CENTERBALL_DRAGGER_SCALE
+	USE CENTERBALL_DRAGGER_Z_ARROWS
+    }
+}
+DEF centerballCenterChangerActive Separator {
+    renderCaching ON
+    USE CENTERBALL_DRAGGER_ACTIVE_MTL
+    USE CENTERBALL_DRAGGER_SCALE
+    USE CENTERBALL_DRAGGER_Z_ARROWS
+}
+
+DEF CENTERBALL_AXIS_FEEDBACK_STYLE Group {
+    Material {
+	diffuseColor	[ 0.36 0.05 0.44 ]
+	emissiveColor	[ 0.36 0.05 0.44 ]
+    }
+    DrawStyle { lineWidth 3 }
+    LightModel { model PHONG }
+    Texture2 {}
+    NormalBinding { value PER_VERTEX_INDEXED }    
+    MaterialBinding { value OVERALL }
+}
+
+DEF centerballCenterXAxisFeedback Separator {
+    renderCaching ON
+    USE CENTERBALL_AXIS_FEEDBACK_STYLE 
+    USE CENTERBALL_DRAGGER_SCALE
+    Coordinate3 { point [
+		-.6   0  -1.01,  .6    0  -1.01, 
+		-.48 .06 -1.01, -.48 -.06 -1.01, 
+		.48 .06 -1.01,  .48 -.06 -1.01,
+		-.6   0  1.01,  .6    0  1.01, 
+		-.48 .06 1.01, -.48 -.06 1.01, 
+		.48 .06 1.01,  .48 -.06 1.01, 
+		]
+    }
+    IndexedLineSet {
+	coordIndex [ 
+	    0, 1, -1, 0, 2, -1, 0, 3, -1, 1, 4, -1, 1, 5, -1,
+	    6, 7, -1, 6, 8, -1, 6, 9, -1, 7, 10, -1, 7, 11, -1,
+	]
+    }
+}
+
+DEF centerballCenterYAxisFeedback Separator {
+    renderCaching ON
+    USE CENTERBALL_AXIS_FEEDBACK_STYLE 
+    USE CENTERBALL_DRAGGER_SCALE
+    Coordinate3 { point [
+		0 -.6  -1.01,  0 .6  -1.01, 
+		-.06 -.48 -1.01, .06 -.48  -1.01, 
+		-.06 .48 -1.01,  .06 .48  -1.01,
+		0 -.6  1.01,  0 .6  1.01, 
+		-.06 -.48 1.01, .06 -.48  1.01, 
+		-.06 .48 1.01,  .06 .48  1.01
+		]
+    }
+    IndexedLineSet {
+	coordIndex [ 
+	    0, 1, -1, 0, 2, -1, 0, 3, -1, 1, 4, -1, 1, 5, -1,
+	    6, 7, -1, 6, 8, -1, 6, 9, -1, 7, 10, -1, 7, 11, -1,
+	]
+    }
+}
+
+DEF CENTERBALL_DRAGGER_Z_AXIS Group {
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding {value OVERALL }
+    Coordinate3 { point [ 0 0 1, 0 0 -1 ] }
+    LineSet {}
+}
+
+DEF centerballXAxis  Separator {
+    renderCaching ON
+    PickStyle { style UNPICKABLE }
+    Separator {
+	USE CENTERBALL_DRAGGER_ACTIVE_MTL
+	USE CENTERBALL_DRAGGER_SCALE
+	USE CENTERBALL_DRAGGER_ROT_Z_TO_X
+	USE CENTERBALL_DRAGGER_Z_AXIS
+    }
+}
+DEF centerballYAxis  Separator {
+    renderCaching ON
+    PickStyle { style UNPICKABLE }
+    Separator {
+	USE CENTERBALL_DRAGGER_ACTIVE_MTL
+	USE CENTERBALL_DRAGGER_SCALE
+	USE CENTERBALL_DRAGGER_ROT_Z_TO_Y
+	USE CENTERBALL_DRAGGER_Z_AXIS
+    }
+}
+DEF centerballZAxis  Separator {
+    renderCaching ON
+    PickStyle { style UNPICKABLE }
+    Separator {
+	USE CENTERBALL_DRAGGER_ACTIVE_MTL
+	USE CENTERBALL_DRAGGER_SCALE
+	USE CENTERBALL_DRAGGER_Z_AXIS
+    }
+}

@@ -1,0 +1,49 @@
+NAME SoTextDetail SoTxtDtl "" { stores detail information about a text node }
+
+INCLUDE details/SoTextDetail.h
+
+DESC {
+This class contains detail information about a point on a text shape
+(\cSoText2\. or \cSoText3\.). It contains the part of the text, string,
+and character that were hit or generated.
+}
+
+METHOD "" SoTextDetail() {}
+METHOD "" virtual ~SoTextDetail() { Constructor and destructor. }
+
+METHOD getStrInd int32_t getStringIndex() const {
+Returns the index of the relevant string within a multiple-value
+\vstring\. field of a text node.
+}
+
+METHOD getCharInd int32_t getCharacterIndex() const {
+Returns the index of the relevant character within the string. For
+example, if the character of detail was the "u" within "Splurmph", the
+character index would be 3.
+}
+
+BEGIN C++
+METHOD "" SoText3::Part getPart() const {
+For \cSoText3\., this returns which part was picked or generated.
+}
+END
+BEGIN C
+METHOD "" SoText3Part getPart() const {
+For \cSoText3\., this returns which part was picked or generated.
+}
+END
+
+METHOD getBBox SbBox3f getBoundingBox() const {}
+METHOD getXfBBox SbXfBox3f getXfBoundingBox() const {
+When the detail is returned from picking, these return the
+object-space bounding box of the character that was intersected.
+Otherwise, they return an empty box. The second method returns an
+\cSbXfBox3f\. instead of a \cSbBox3f\.. These methods are implemented
+only for 3D text.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ALSO { SoText2, SoText3, SoDetail, SoPickedPoint, SoPrimitiveVertex }

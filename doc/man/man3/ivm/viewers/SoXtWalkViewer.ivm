@@ -1,0 +1,76 @@
+NAME SoXtWalkViewer SoXtWalkVwr "" {
+viewer component which moves the camera in a plane
+}
+
+INCLUDE Xt/viewers/SoXtWalkViewer.h
+
+BEGIN C
+DEFINE { SoXtWalkVwrCreateStd(parent, name) 
+SoXtWalkVwrCreate(parent, name, TRUE, SO_XT_FULL_VWR_BUILD_ALL, SO_XT_VWR_BROWSER)
+}
+END 
+
+DESC {
+The paradigm for this viewer is a walkthrough of an architectural model.
+Its primary behavior is forward, backward, and left/right turning motion
+while maintaining a constant "eye level". It is also possible to stop and
+look around at the scene. The eye level plane can be disabled, allowing the
+viewer to proceed in the "look at" direction, as if on an escalator. The
+eye level plane can also be translated up and down \(em similar to an
+elevator.
+}
+
+METHOD "" SoXtWalkViewer(
+	Widget parent = NULL,
+	const char *name = NULL, 
+	SbBool buildInsideParent = TRUE, 
+	SoXtFullViewer::BuildFlag flag = BUILD_ALL, 
+	SoXtViewer::Type type = BROWSER) {}
+METHOD "" ~SoXtWalkViewer()
+{
+Constructor and destructor which specifies the viewer type.
+Please refer to the
+\cSoXtViewer\.
+man pages for a description of the viewer types.
+\-For a constructor short cut look at the \mSoXtWalkVwrCreateStd\. #define.\.
+}
+
+MISC RESOURCES {
+\b
+*SoXtWalkViewer.decoration: on (on | off)
+*SoXtWalkViewer.seekAnimationTime: 2.0 (float)
+*SoXtWalkViewer.seekTo: point (point | object)
+*SoXtWalkViewer.seekDistanceUsage: percentage (percentage | absolute)
+*SoXtWalkViewer.zoomMin: 1.0 (float)
+*SoXtWalkViewer.zoomMax: 179.0 (float)
+*SoXtWalkViewer.autoClipping: on (on | off)
+*SoXtWalkViewer.nearDistance: 2.4 (float, when autoClipping is off)
+*SoXtWalkViewer.farDistance: 2.8 (float, when autoClipping is off)
+*SoXtWalkViewer*BackgroundColor: black (color name or hex value)
+\.
+}
+
+MISC USAGE {
+
+\vLeft Mouse:\. walk mode. Click down and move up/down for fowards/backwards
+motion.  Move right and left for turning. Speed increases exponentially
+with the distance from the mouse-down origin.
+
+\p\vMiddle Mouse\. - or
+\p\vCtrl + Left Mouse:\. Translate up, down, left and right.
+
+\p\vCtrl + Middle Mouse:\. tilt the camera up/down and right/left. This 
+allows you to look around while stopped.
+
+\p\v<s> + click:\. Alternative to the Seek button. Press (but do not
+hold down) the <s> key, then click on a target object.
+
+\p\v<u> + click:\. Press (but do not hold down) the <u> key, then
+click on a target object to set the "up" direction to the surface normal.
+By default +y is the "up" direction.
+
+\p\vRight Mouse:\. Open the popup menu.
+}
+
+ALSO { SoXtFullViewer, SoXtViewer, SoXtComponent, SoXtRenderArea, SoXtPlaneViewer, 
+SoXtExaminerViewer, SoXtFlyViewer }

@@ -1,0 +1,21 @@
+#!smake
+
+include /usr/include/make/commondefs
+
+MKDEPFILE=Makedepend.shapes
+
+TARGETS = quadCube quadSphere quadSheet
+
+C++FILES = quadSheet.c++ quadCube.c++ quadSphere.c++ \
+	QuadThing.c++
+
+LLDLIBS = -lInventor -lm
+
+OPTIMIZER = -g
+
+default: $(TARGETS)
+
+include $(COMMONRULES)
+
+quadCube quadSheet quadSphere: $$@.o QuadThing.o
+	$(C++F) -o $@ $@.o QuadThing.o $(LDFLAGS)

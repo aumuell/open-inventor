@@ -1,0 +1,128 @@
+NAME SoCamera SoCam SO_CAM_ { abstract base class for camera nodes }
+
+INCLUDE nodes/SoCamera.h
+
+DESC {
+This is the abstract base class for all camera nodes. It defines the
+common methods and fields that all cameras have. Cameras are used to
+view a scene. When a camera is encountered during rendering, it sets
+the projection and viewing matrices and viewport appropriately; it
+does not draw geometry. Cameras should be placed before any shape
+nodes or light nodes in a scene graph; otherwise, those shapes or
+lights cannot be rendered properly. Cameras are affected by the
+current transformation, so you can position a camera by placing a
+transformation node before it in the scene graph . The default
+position and orientation of a camera is at (0,0,1) looking along the
+negative z-axis.
+\p
+You can also use a node kit to create a camera; see the reference page for
+\cSoCameraKit\..
+}
+
+DEFINE { SO_ASPECT_SQUARE        1.00 }
+DEFINE { SO_ASPECT_VIDEO         1.333333333 }
+DEFINE { SO_ASPECT_35mm_ACADEMY  1.371 }
+DEFINE { SO_ASPECT_16mm          1.369 }
+DEFINE { SO_ASPECT_35mm_FULL     1.33333 }
+DEFINE { SO_ASPECT_70mm          2.287 }
+DEFINE { SO_ASPECT_CINEMASCOPE   2.35 }
+DEFINE { SO_ASPECT_HDTV          1.777777777 }
+DEFINE { SO_ASPECT_PANAVISION    2.361 }
+DEFINE { SO_ASPECT_35mm          1.5 }
+DEFINE { SO_ASPECT_VISTAVISION   2.301 }
+
+ENUM ViewportMapping {
+    CROP_VIEWPORT_FILL_FRAME	"Crops the viewport within the current
+				 window, so that the aspect ratio
+				 matches that of the camera. As the
+				 window size changes, the aspect ratio
+				 remains unchanged. The cropped region
+				 is drawn as a filled gray area.",
+    CROP_VIEWPORT_LINE_FRAME	"Crops the viewport, but draws a thin
+				 frame around the viewport",
+    CROP_VIEWPORT_NO_FRAME	"Crops the viewport, but gives no
+				 visual feedback as to the viewport
+				 dimensions within the window",
+    ADJUST_CAMERA		"Adjusts the camera aspect ratio and
+				 height to make it fit within the
+				 given window. (The camera's fields are
+				 not affected, just the values sent to
+				 the graphics library.)",
+    LEAVE_ALONE			"Do nothing. Camera image may
+				 become stretched out of proportion"
+}
+
+FIELD viewportMapping {
+Defines how to map the rendered image into the current viewport, when the
+aspect ratio of the camera differs from that of the viewport.
+}
+
+FIELD position {
+The location of the camera viewpoint.
+}
+
+FIELD orientation {
+The orientation of the camera viewpoint, defined as a rotation of the
+viewing direction from its default (0,0,-1) vector.
+}
+
+FIELD aspectRatio {
+The ratio of camera viewing width to height. This value must be greater
+than 0.0. There are several standard camera aspect ratios defined
+in \cSoCamera.h\..
+}
+
+FIELD nearDistance {}
+FIELD farDistance {
+The distance from the camera viewpoint to the near and far clipping planes.
+}
+
+FIELD focalDistance {
+The distance from the viewpoint to the point of focus. This is
+typically ignored during rendering, but may be used by some viewers to
+define a point of interest.
+}
+
+METHOD ptAt void pointAt(const SbVec3f &targetPoint) {
+Sets the orientation of the camera so that it points toward the
+given target point while keeping the "up" direction of the
+camera parallel to the positive y-axis. If this is not
+possible, it uses the positive z-axis as "up."
+}
+
+METHOD "" virtual void scaleHeight(float scaleFactor) {
+Scales the height of the camera. Perspective cameras scale their
+\vheightAngle\. fields, and orthographic cameras scale their
+\vheight\. fields.
+}
+
+METHOD getViewVol virtual SbViewVolume
+			getViewVolume(float useAspectRatio = 0.0) const {
+Returns a view volume structure, based on the camera's viewing
+parameters. If the \auseAspectRatio\. argument is not 0.0 (the default),
+the camera uses that ratio instead of the one it has.
+}
+
+METHOD "" void viewAll(SoNode *sceneRoot, const SbViewportRegion &vpRegion,
+			float slack = 1.0) {}
+METHOD viewAllPath void viewAll(SoPath *path, const SbViewportRegion &vpRegion,
+				float slack = 1.0) {
+Sets the camera to view the scene rooted by the given node or defined
+by the given path. The near and far clipping planes will be positioned
+\aslack\. bounding sphere radii away from the bounding box's
+center. A value of 1.0 will make the clipping planes the tightest
+around the bounding sphere.
+}
+
+METHOD getVpBounds SbViewportRegion
+		getViewportBounds(const SbViewportRegion &region) const {
+Returns the viewport region this camera would use to render into the
+given viewport region, accounting for cropping.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ALSO { SoOrthographicCamera, SoPerspectiveCamera, SoCameraKit }
+

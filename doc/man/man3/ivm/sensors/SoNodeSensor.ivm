@@ -1,0 +1,33 @@
+NAME SoNodeSensor SoNodeSens "" {
+sensor class that can be attached to Inventor nodes
+}
+
+INCLUDE sensors/SoNodeSensor.h
+
+DESC {
+Node sensors detect changes to nodes, calling a callback function
+whenever any field of the node or, if the node is a group node, any
+children of the node change.
+}
+
+METHOD "" SoNodeSensor() {}
+METHOD CreateCB SoNodeSensor(SoSensorCB *func, void *data) {
+Creation methods.  The second method takes the callback function and
+data to be called when the sensor is triggered.
+}
+METHOD "" ~SoNodeSensor() {
+Destroys the sensor, freeing up any memory associated with it after
+unscheduling it.
+}
+
+METHOD "" void attach(SoNode *node) {}
+METHOD "" void detach() {}
+METHOD "" SoNode * getAttachedNode() const {
+The \mattach()\. method  makes this sensor detect changes to the given
+node.  The \mdetach()\. method unschedules this sensor (if it is
+scheduled) and makes it ignore changes to the scene graph.  The
+\mgetAttachedNode()\. method returns the node that this sensor is
+sensing, or NULL if it is not attached to any node.
+}
+
+ALSO { SoFieldSensor, SoPathSensor, SoDataSensor }

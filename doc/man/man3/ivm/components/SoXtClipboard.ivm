@@ -1,0 +1,85 @@
+NAME SoXtClipboard SoClpBrd "" {
+Provides Inventor copy/paste support
+}
+
+INCLUDE Xt/SoXtClipboard.h
+
+DEFINE { _XA_CLIPBOARD_ ((Atom) 0) }
+
+TYPEDEF void SoXtClipboardPasteCB "(void *userData, SoPathList *pathList)"
+TYPEDEF void SoXtClipboardImportCB "(void *userData, Atom dataType, void *data, uint32_t numBytes)"
+
+DESC {
+This class manages data transfers for copy and paste. Transfers may occur
+within the same process, or between different processes. 
+This uses the Xt selection mechanism to implement the ICCCM protocol
+for the transfer of data.
+}
+
+METHOD "" SoXtClipboard(Widget w, Atom selectionAtom = _XA_CLIPBOARD_) {}
+METHOD "" ~SoXtClipboard()
+{
+Constructor and destructor. \vw\. is the Xt widget for which this clipboard
+acts as an agent. \aselectionAtom\. is the X selection through which
+data should be transferred. For quick data transfers, this should be
+XA_PRIMARY. The default is _XA_CLIPBOARD_ which uses the X clipboard selection.
+}
+
+METHOD copyNode void    copy(SoNode *node, Time eventTime) {}
+METHOD copyPath void    copy(SoPath *path, Time eventTime) {}
+METHOD copyPathList void    copy(SoPathList *pathList, Time eventTime)
+{
+This copies the passed scene graph object, and tells the X server that
+the clipboard now owns the selection which was specified by
+\aselectionAtom\. in the constructor. When a paste happens (in this
+window, another window, or another process), the X server will ask this
+clipboard for the data it copied here. The \aeventTime\. should be the time
+found in the X event structure which triggered the copy operation, and
+is used to ensure synchronization of copy and paste requests. Data
+targets supported for export are INVENTOR_2_1, INVENTOR_2_1_FILE,
+INVENTOR_2_0, INVENTOR_2_0_FILE, VRML_1_0, VRML_1_0_FILE. Also exported
+for backwards compatibility are INVENTOR and INVENTOR_FILE, which are
+equivalent to INVENTOR_2_0 and INVENTOR_2_0_FILE.
+}
+
+METHOD copyData void    copy(Atom dataType, void *data, uint32_t numBytes, Time eventTime)
+{
+This behaves like the above copy routines, but the data can be in any
+format as specified by \adataType\..
+}
+
+METHOD "" void    paste(Time eventTime,
+		  SoXtClipboardPasteCB *pasteDoneFunc,
+		  void *userData = NULL)
+{
+This makes a request to the X server for data to paste from the
+selection atom specified in the constructor (\aselectionAtom\.), then
+returns. When the data is retrieved from the selection owner, the
+\apasteDoneFunc\. callback is invoked. The newly pasted data is passed
+as the callback function's \apathList\. argument (an \cSoPathList\.).
+Data targets supported for import are INVENTOR_2_1, INVENTOR_2_1_FILE,
+INVENTOR_2_0, INVENTOR_2_0_FILE, VRML_1_0, VRML_1_0_FILE. Also imported
+for backwards compatibility are INVENTOR and INVENTOR_FILE, which are
+equivalent to INVENTOR_2_0 and INVENTOR_2_0_FILE.
+}
+
+METHOD "" void    addPasteInterest(Atom dataType,
+		  SoXtClipboardImportCB *pasteImportFunc,
+		  void *userData = NULL)
+{
+This extends the paste interest to recognize an additional target as
+specified by \adataType\.. It can be called multiple times to register
+interest in more than one extension. The \apasteImportFunc\. will be called when
+data of the registered type is pasted.
+
+Passing NULL as the pasteImportFunc will remove paste interest for that
+data type (even if the data type is one of the defaults).
+
+This should be called before \apaste()\. so that \apaste()\. will accept
+pastes of data types that have been registered here.
+
+A dataType atom can be created with XmInternAtom, e.g.:
+    XmInternAtom(XtDisplay(widget),"INVENTOR",False);
+}
+
+ALSO { SoSelection, SoByteStream, SoXt, X Selections }

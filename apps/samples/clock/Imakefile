@@ -1,0 +1,11 @@
+#define OneProgram
+
+PROGRAM = ivclock
+
+C++FILES = ivclock.c++
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../..
+
+OTHERSOURCE = README clockData.iv
+#endif

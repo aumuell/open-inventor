@@ -1,0 +1,42 @@
+#define OneProgram
+
+PROGRAM = SceneViewer
+
+
+#define ShipProgram
+#define BinDir /usr/demos/Inventor
+#define OtherBins SceneViewer.RUNME
+#define OtherLibs -lGL -lXm -lXt -lX11 -lm
+#define LocalLibs ../../samples/widgets/libInventorWidget.a
+
+#define IdbTagBin  -idb "inventor_eoe.demo.progs $(MACH_TAG)"
+#define IdbTagOtherBins  -idb "inventor_eoe.demo.progs $(MACH_TAG) \
+	exitop('if [ -x \$$rbase/usr/sbin/iconbookedit ]; then \
+		chroot \$$rbase /usr/sbin/iconbookedit \
+		-add \"Category:File Name:/usr/demos/Inventor/SceneViewer.RUNME\" \
+		-syspage Demos; fi;')"
+
+C++FILES = SceneViewer.c++ SoSceneViewer.c++ SvManipList.c++
+HFILES = SoSceneViewer.h SoSceneMenu.h SvManipList.h
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../..
+OTHERSOURCE = README jackInTheBox.iv
+
+#ifdef CreatingSgiMakefile
+IDBTAGEXTRA = -idb "inventor_eoe.demo.progs $(MACH_TAG)"
+IDBTAGDEMOJPN = -idb "inventor_eoe.demo.japanese $(MACH_TAG)"
+
+default:
+install: extraInstall
+extraInstall:
+	$(INSTALL) -F /usr/demos/data/Inventor -u demos -g demos \
+		-m 444 $(IDBTAGEXTRA) jackInTheBox.iv
+	$(INSTALL) -F /usr/demos/Inventor -u demos -g demos \
+		-m 444 $(IDBTAGEXTRA) SceneViewer.about
+	$(INSTALL) -F /usr/lib/X11/app-defaults \
+		-m 444 $(IDBTAGEXTRA) -src SceneViewer.eg SceneViewer
+	$(INSTALL) -F /usr/lib/X11/ja_JP.EUC/app-defaults \
+		-m 444 $(IDBTAGDEMOJPN) -src SceneViewer.jp SceneViewer
+#endif /* CreatingSgiMakefile */
+#endif /* !CreatingUserMakefile */

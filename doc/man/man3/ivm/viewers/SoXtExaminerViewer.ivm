@@ -1,0 +1,105 @@
+NAME SoXtExaminerViewer SoXtExamVwr "" {
+viewer component which uses a virtual trackball to view the data
+}
+
+INCLUDE Xt/viewers/SoXtExaminerViewer.h
+
+BEGIN C
+DEFINE { SoXtExamVwrCreateStd(parent, name) 
+SoXtExamVwrCreate(parent, name, TRUE, SO_XT_FULL_VWR_BUILD_ALL, SO_XT_VWR_BROWSER)
+}
+END
+
+DESC {
+The Examiner viewer component allows you to rotate the view 
+around a point of
+interest using a virtual trackball. The viewer uses the camera 
+\vfocalDistance\.
+field to figure out the point of rotation, which is usually set 
+to be at the center of the scene. In addition to allowing you to rotate the
+camera around the point of interest, this viewer also allows you to
+translate the camera in the viewer plane, as well as dolly (move forward
+and backward) to get closer to or further away from the point of interest. 
+The viewer also supports
+seek to quickly move the camera to a desired object or point.
+}
+
+METHOD "" SoXtExaminerViewer(
+	Widget parent = NULL,
+	const char *name = NULL, 
+	SbBool buildInsideParent = TRUE, 
+	SoXtFullViewer::BuildFlag flag = BUILD_ALL, 
+	SoXtViewer::Type type = BROWSER) {}
+METHOD "" ~SoXtExaminerViewer()
+{
+Constructor and destructor which specifies the viewer type.
+Please refer to the
+\cSoXtViewer\.
+reference page for a description of the viewer types.
+\-For a constructor short cut look at the \mSoXtExamVwrCreateStd\. #define.\.
+}
+
+METHOD setFeedbackVis void	setFeedbackVisibility(SbBool onOrOff) {}
+METHOD isFeedbackVis SbBool	isFeedbackVisible() const
+{
+Show/Hide the point of rotation feedback, which only appears while in 
+viewing mode (default in off).
+}
+
+METHOD "" void	setFeedbackSize(int newSize) {}
+METHOD "" int		getFeedbackSize() const	
+{
+Set/get the point of rotation feedback size in pixels (default 20 pix).
+}
+
+METHOD SetAnimEnabled void    	setAnimationEnabled(SbBool onOrOff) {}
+METHOD IsAnimEnabled SbBool  	isAnimationEnabled()
+{
+Enable/disable the spinning animation feature of the viewer
+(enabled by default).
+}
+
+METHOD StopAnim void    	stopAnimating() {}
+METHOD IsAnim SbBool  	isAnimating()
+{
+Stop animation, if it is occurring, and query if the viewer is 
+currently animating.
+}
+
+MISC RESOURCES {
+\b
+*SoXtExaminerViewer.spinAnimation: on (on | off)
+*SoXtExaminerViewer.pointOfRotationAxes: off (on | off)
+*SoXtExaminerViewer.axesSize: 20 (short, pixels if axes is on)
+*SoXtExaminerViewer.decoration: on (on | off)
+*SoXtExaminerViewer.seekAnimationTime: 2.0 (float)
+*SoXtExaminerViewer.seekTo: point (point | object)
+*SoXtExaminerViewer.seekDistanceUsage: percentage (percentage | absolute)
+*SoXtExaminerViewer.zoomMin: 1.0 (float)
+*SoXtExaminerViewer.zoomMax: 179.0 (float)
+*SoXtExaminerViewer.autoClipping: on (on | off)
+*SoXtExaminerViewer.nearDistance: 2.4 (float, when autoClipping is off)
+*SoXtExaminerViewer.farDistance: 2.8 (float, when autoClipping is off)
+*SoXtExaminerViewer*BackgroundColor: black (color name or hex value)\.
+}
+
+MISC USAGE {
+\b
+\vLeft Mouse:\. Rotate the virtual trackball.
+
+\p\vMiddle Mouse:\.
+\vCtrl + Left Mouse:\. Translate up, down, left and right.
+
+\p\vCtrl + Middle Mouse:\.
+\vLeft + Middle Mouse:\. Dolly in and out (gets closer to and further
+away from the object).
+
+\p\v<s> + click:\. Alternative to the Seek button. Press (but do not
+hold down) the <s> key, then click on a target object.
+
+\p\vRight Mouse:\. Open the popup menu.
+\.
+}
+
+ALSO { SoXtFullViewer, SoXtViewer, SoXtComponent, SoXtRenderArea, SoXtWalkViewer, 
+SoXtFlyViewer, SoXtPlaneViewer }

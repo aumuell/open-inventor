@@ -1,0 +1,7 @@
+#define MultiProgram
+
+#define Programs selectionTest overlayTest
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../../..
+#endif

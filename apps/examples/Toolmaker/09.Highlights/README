@@ -1,0 +1,12 @@
+Open Inventor - Examples from The Inventor Toolmaker
+
+Chapter 9 - "Creating a Selection Highlight Style"
+
+
+This directory contains source code for a short program
+that illustrates how to create a new highlight styles
+for the selection node.
+
+See The Inventor Mentor, chapter 10, for an introduction to this topic.
+
+*** This is for C++ programmers only! ***

@@ -1,0 +1,42 @@
+#define OneProgram
+
+PROGRAM = viewerTest
+
+#define OtherLibs -lGLU -lGL -lX11 -lm -lXt -lXm -lXext -lSgm 
+
+C++FILES = MyExamVwr.c++ \
+	MyFullVwr.c++ \
+	MyViewer.c++ \
+	MyBitmapButton.c++ \
+	viewerTest.c++
+
+HFILES = MyExaminerViewer.h \
+	MyFullViewer.h \
+	MyViewer.h \
+	MyBitmapButton.h
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../..
+
+OTHERSOURCE = nameScript README
+
+#ifdef CreatingSgiMakefile
+
+/* Some really ugly rules to grab the source from the tree: */
+
+HF = MyExaminerViewer.h MyFullViewer.h MyViewer.h
+CF = MyExamVwr.c++ MyFullVwr.c++ MyViewer.c++ MyBitmapButton.c++ MyBitmapButton.h
+
+getFiles: $(HF) $(CF)
+
+$(HF): $(TOP_OF_TREE)/libSoXt/include/Inventor/Xt/viewers/$$(@:S/My/SoXt/)
+	./nameScript $(TOP_OF_TREE)/libSoXt/include/Inventor/Xt/viewers/$(@:S/My/SoXt/) \
+		> $@
+$(CF): $(TOP_OF_TREE)/libSoXt/src/viewers/$$(@:S/My/SoXt/)
+	./nameScript $(TOP_OF_TREE)/libSoXt/src/viewers/$(@:S/My/SoXt/) \
+		> $@
+
+LDIRT += $(HF) $(CF)
+
+#endif
+#endif

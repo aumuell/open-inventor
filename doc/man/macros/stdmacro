@@ -1,0 +1,635 @@
+.\"		Copyright (c) 1984 AT&T
+.\"		  All Rights Reserved
+.\"     THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF AT&T
+.\"   The copyright notice above does not evidence any actual
+.\"   or intended publication of such source code.
+.\"
+.\"	Assumes troff loads these font positions:
+.\"	    1	roman
+.\"	    2	italic
+.\"	    3	bold
+.\"	    6	sans serif bold (for headers and footers)
+.\"	    7	typewriter (fixed-width)
+.\"
+.\"	The value in number register C controls several things:
+.\"	    4	embolddening is turned off (.bd is redefined to be a 
+.\"		null macro).
+.\"	    5	an off-page footer containing the strings Dm, Xs, and Dp
+.\"		is printed
+.\"
+.\"	The following string registers are initialized by "magic" from the
+.\"	makefiles:
+.\"	    Vn	version string for footer, typically "Version <m>.<n>"
+.\"	    Dt	publication date for footer, typically "<alpha month> <year>"
+.\"	    Re	release string for footer, typically "Release <m>.<n>"
+.\"	    Dm	file last modified date for hardcopy off-page footer
+.\"	    Dp	print date for hardcopy off-page footer
+.\"	    Xs	file checksum for hardcopy off-page footer
+.\"	
+.\" $Revision: 1.1 $
+.deth
+.tmwrong version of man entry macros - use -man6
+.ab
+..
+.ifn .ds Tm \uTM\d
+.ift .ds Tm \v'-0.5m'\s-4TM\s+4\v'0.5m'
+.de}E
+.}f
+.in\\n()Ru+\\n(INu
+.ll\\n(LLu
+.lt\\n(LLu
+.pl\\n()Lu
+..
+.deDT
+.ift .ta 3.6m 7.2m 10.8m 14.4m 18m 21.6m 25.2m 28.8m 32.4m 36m 39.6m 43.2m 46.8m
+.ifn .ta 5n 10n 15n 20n 25n 30n 35n 40n 45n 50n 55n 60n 65n
+..
+.de}f
+.ift .vs \\n()Vp
+.ps\\n()S
+.ft1
+..
+.de}H
+.ev1
+.}C
+.}E
+.ie\\n()s 'sp 2v
+.el'sp 3v
+.ps\\n()S-1
+.bd1 3
+.ie\\*(]P .tl \\*(]E\\*(]D\\*(]E
+.el.tl \\*(]E\\*(]D \|\\*(]P\\*(]E
+.bd1
+.ps\\n()S
+.ie\\n()s 'sp 1.5v
+.el'sp 3v
+.ev
+.ns
+..
+.de}F
+.ev1
+.}E
+.if\\n()s 'sp |\\n(.pu-1v-1p
+.if\\n()t 'sp |\\n(.pu-3v
+.ifn 'sp |\\n(.pu-4v
+.\" .ifn .tl Page %\\*(Re\\*(]T
+.\"  Delete "Release" for Cypres (SFChesson)
+.ifn .tl Page %\\*(]T
+.nr z
+.if\\n()s \{ .ie \\nz .tl \\nz\-%
+.\".el \{ .if o .tl \\f6\\s9\\*(Dt- % -\\*(Vn\\s0\\fP  
+.\".if e .tl \\f6\\s9\\*(Dt- % -\\*(Vn\\s0\\fP \} \}
+.\"  chg footer for Cypress man pages (SFChesson)
+.el \{ .if o .tl \\f6\\s9\\*(Dt%
+.if e .tl \\f6\\s9\\*(Dt% \} \}
+.if \\nC==5 \{ .pl 11i
+.lt 6.5i
+.ch }F 11i	    \" move footer trap out of the way
+'sp |10.5i
+.tl [\s-2file last modified: \\*(Dmchecksum: \\*(Xsprinted: \\*(Dp\s+2]
+.lt
+.ch }F -\\n(:mu	    \" move it back
+.pl \}
+'bp
+.ev
+..
+.if n .ig
+'\" no cut marks if psroff
+.if '\*(.T'psc' .ig
+.de}C
+.po0i
+.lt7.5i
+.if\\n()s .tl \l0.25i\l0.25i\h1i\l0.25i
+.if\\n()t .tl \l0.25i\l0.25i
+.lt
+.po
+..
+.de}M
+.}N
+.wh-.5p }C
+.ll\\n(LLu
+.bp
+..
+.de}K
+.}N
+.pl1
+.ll\\n(LLu
+.af 1 %
+.tm \\n% pages
+..
+.deTH
+.Ne					\" 6/12/89 csk
+.PD
+.nrIN \\n()Mu
+.ift .ds ]E \\$1
+.ifn .ds ]E \\$1
+.if!\\$2 .as ]E (\^\\$2\^)
+.if\\n()s .ds ]D Silicon Graphics
+.if\\n()t .ds ]D Silicon Graphics
+.ifn .ds ]D Silicon Graphics
+.ds]P
+'\" Print Silicon Graphics instead of the 3rd and 4th arguments
+'\".if!\\$3 .ds ]P (\^\\$3\^)
+'\" .if!\\$4 .ds ]D \\$4
+.wh0 }H
+.wh-\\n(:mu }F
+.em}M
+.if\\n(nl .bp 1
+.nr)I \\n()Mu
+.nr)R 0
+.}E
+.DT
+.ifn \{.na
+.nh\}
+.ift \{.bd S 3 3
+.hy14 \}
+..
+.deSH
+.}X 0 "\\$1" smaller
+.nr)E 2
+.ft \\n(HF
+\&\\$1 \|\\$2 \|\\$3 \|\\$4 \|\\$5 \|\\$6
+.ft 1
+..
+.deSS
+.}X 3n "" ""
+.nr)E 2
+.ft \\n(HF
+\&\\$1 \|\\$2 \|\\$3 \|\\$4 \|\\$5 \|\\$6
+.ft 1
+..
+.de}X
+.}E
+.ti\\$1
+.sp\\n(PDu
+.ne\\n(Neu
+.Ne
+.nr)R 0
+.fi
+.ss12
+.if\\$2SYNOPSIS .ss 18
+.it1 }N
+.if!\\$3 .SM
+.bd1 3
+.if\\n(RR .na		\" optional ragged right (see -rs<n> settings)
+..
+.de}2
+.nr)E 0
+.}E
+.nr)I \\n()Mu
+.ns
+.bd1
+..
+.deSM
+.ps\\n()S-1
+.if!\\$1 \&\\$1
+.if!\\$2 \&\\$2
+.if!\\$3 \&\\$3
+.if!\\$4 \&\\$4
+.if!\\$5 \&\\$5
+.if!\\$6 \&\\$6
+.if!\\$1 .ps \\n()S
+.if\\$1 .it 1 }N
+..
+.deI
+.ft2
+.it1 }N
+.if!\\$1 \&\\$1 \\$2 \\$3 \\$4 \\$5 \\$6
+..
+.deB
+.ft3
+.it1 }N
+.if!\\$1 \&\\$1 \\$2 \\$3 \\$4 \\$5 \\$6
+..
+.deRI
+.}S 1 2 \& "\\$1" "\\$2" "\\$3" "\\$4" "\\$5" "\\$6"
+..
+.deIR
+.}S 2 1 \& "\\$1" "\\$2" "\\$3" "\\$4" "\\$5" "\\$6"
+..
+.deIB
+.ift .}S 2 3 \& "\\$1" "\\$2" "\\$3" "\\$4" "\\$5" "\\$6"
+.ifn .}S 2 3 \& "\\$1" "\\$2" "\\$3" "\\$4" "\\$5" "\\$6"
+..
+.deRB
+.ift .}S 1 3 \& "\\$1" "\\$2" "\\$3" "\\$4" "\\$5" "\\$6"
+.ifn .}S 1 3 \& "\\$1" "\\$2" "\\$3" "\\$4" "\\$5" "\\$6"
+..
+.deBR
+.ift .}S 3 1 \& "\\$1" "\\$2" "\\$3" "\\$4" "\\$5" "\\$6"
+.ifn .}S 3 1 \& "\\$1" "\\$2" "\\$3" "\\$4" "\\$5" "\\$6"
+..
+.deBI
+.ift .}S 3 2 \& "\\$1" "\\$2" "\\$3" "\\$4" "\\$5" "\\$6"
+.ifn .}S 3 2 \& "\\$1" "\\$2" "\\$3" "\\$4" "\\$5" "\\$6"
+..
+.de}S
+.ds]C
+.if\\$12 .if !\\$5 .ds ]C\^
+.ie!\\$4 .}S \\$2 \\$1 "\\$3\f\\$1\\$4\\*(]C" "\\$5" "\\$6" "\\$7" "\\$8" "\\$9"
+.el\\$3
+.}f
+..
+.dePP
+.sp\\n(PDu
+.ne\\n(Neu
+.Ne
+.}E
+.nr)I \\n()Mu
+.ns
+..
+.deP
+.PP
+..
+.deLP
+.PP
+..
+.dePD
+.ift .nr PD .4v
+.ifn .nr PD 1v
+.if!\\$1 .nr PD \\$1v
+..
+.\" Use this macro to set the Ne register, before a call to .SH, .SS, .PP, 
+.\" .HP, .IP, or .TP .  The Ne register is the value given to the .ne 
+.\" issued by this macros.  The register is reset to the default 3v after 
+.\" each use by these macros.
+.\" Added by CSK  6/12/89
+.de Ne	
+.nr Ne 3v
+.if!\\$1 .nr Ne \\$1v
+..
+.deHP
+.sp\\n(PDu
+.ne\\n(Neu
+.Ne
+.if!\\$1 .nr )I \\$1n
+.ll\\n(LLu
+.in\\n()Ru+\\n(INu+\\n()Iu
+.ti\\n()Ru+\\n(INu
+.}f
+..
+.deIP
+.TP \\$2
+\&\\$1
+..
+.deTP
+.if!\\$1 .nr )I \\$1n
+.sp\\n(PDu
+.ne\\n(Neu
+.Ne
+.in\\n()Ru
+.lg0
+.ns
+.it1 }N
+.nr)E 1
+.di]B
+..
+.de}1
+.ds]Y \&\\*(]B\\
+.rm]B
+.nr)E 0
+.if!\\$1 .nr )I \\$1n
+.}f
+.ll\\n(LLu
+.in\\n()Ru+\\n(INu+\\n()Iu
+.ti\\n(INu
+.ie!\\n()Iu+\\n()Ru-\w\\*(]Yu-3p \{\\*(]Y
+.br\}
+.el\\*(]Y\h|\\n()Iu+\\n()Ru\c
+.}f
+.lg
+..
+.de}N
+.if\\n()E .br
+.di
+.if\\n()E0 .}f
+.if\\n()E1 .}1
+.if\\n()E2 .}2
+..
+.deRS
+.nr]\\n+()p \\n()I
+.nr)\\n()p \\n()R
+.ie!\\$1 .nr )R +\\$1n
+.el.nr )R +\\n()I
+.nr)I \\n()Mu
+.}E
+..
+.deRE
+.if!\\$1 \{.ie \\$10 .nr )p 1 1
+.el.nr )p \\$1 1 \}
+.ds]a \\*(]N\\n()p
+.ds]r \\*(]S\\n()p
+.nr)I \\*(]a
+.nr)R \\*(]r
+.if\\n()p .nr )p -1
+.}E
+..
+.ig	\" use V.3 version
+.dePM
+.ie\\$1 .		nr ;t 0
+.el.ie \\$1CI-II .	nr ;t 6
+.el.ie \\$1PM6 .	nr ;t 6
+.el.ie \\$1ILL .	nr ;t 5
+.el.ie \\$1PM5 .	nr ;t 5
+.el.ie \\$1BPP .	nr ;t 4
+.el.ie \\$1BR .	nr ;t 4
+.el.ie \\$1PM4 .	nr ;t 4
+.el.ie \\$1CP .	nr ;t 3
+.el.ie \\$1PM3 .	nr ;t 3
+.el.ie \\$1CA .	nr ;t 2
+.el.ie \\$1PM2 .	nr ;t 2
+.el.nr ;t 1
+.ie\\n(;t=0 \{\
+.(B
+.(E 2 0
+.(B
+.(E 3 0 \}
+.el.ie \\n(;t=6 \{\
+.(B
+\!.	tl \\*(]m
+\!.	tl \\*(]o
+\!.     tl \\*(]p
+\!.     tl \\*(]q
+.(E 2 4v \}
+.el.ie \\n(;t=5 \{\
+.(B
+\!.	tl \\*(]i
+\!.	tl \\*(]j
+\!.	tl \\*(]k
+\!.	tl \\*(]l
+.(E 3 4v \}
+.el.ie \\n(;t=4 \{\
+.(B
+\!.	tl \\*(]U
+\!.	tl \\*(]V
+\!.	tl \\*(]W
+\!.	tl \\*(]X
+.(E 3 4v \}
+.el.ie \\n(;t=3 \{\
+.(B
+\!.	tl \\*(]I
+\!.	tl \\*(]J
+\!.	tl \\*(]K
+\!.	tl \\*(]L
+.(E 3 4v \}
+.el.ie \\n(;t=2 \{\
+.(B
+\!.	tl \\*(]A
+\!.	tl \\*(]F
+\!.	tl \\*(]G
+\!.	tl \\*(]H
+.(E 3 4v \}
+.el\{\
+.(B
+\!.	tl \\*(]M
+\!.	tl \\*(]O
+\!.	tl \\*(]Q
+\!.	tl \\*(]R
+.(E 3 4v \}
+..
+.dePM
+.ie\\$1 \{\
+.(B
+.(E 2 0
+.(B
+.(E 3 0 \}
+.el.ie \\$1CI-II \{\
+.(B
+\!.	tl \fICI-II\fR
+\!.	tl Not for disclosure to AT&T Information Systems.
+\!.	tl Subject to FCC separation requirements under Computer Inquiry II.
+\!.	tl 
+.(E 2 4v \}
+.el.ie \\$1P \{\
+.(B
+\!.	tl \fIAT&T BELL LABORATORIES \- PROPRIETARY (RESTRICTED)\fR
+\!.	tl Solely for authorized persons having a need to know
+\!.	tl pursuant to G.E.I. 2.2
+.(E 3 3v \}
+.el.ie \\$1BP \{\
+.(B
+\!.	tl \fIAT&T BELL LABORATORIES \- PROPRIETARY\fR
+\!.	tl Use pursuant to G.E.I. 2.2
+.(E 3 2v \}
+.el.ie \\$1BPP \{\
+.(B
+\!.	tl \fIAT&T BELL LABORATORIES \- PROPRIETARY (RESTRICTED)\fR
+\!.	tl Solely for authorized persons having a need to know
+\!.	tl pursuant to G.E.I. 2.2
+.(E 3 3v \}
+.el.ie \\$1BR \{\
+.(B
+\!.	tl \fIAT&T BELL LABORATORIES \- PROPRIETARY (RESTRICTED)\fR
+\!.	tl Solely for authorized persons having a need to know
+\!.	tl pursuant to G.E.I. 2.2
+.(E 3 3v \}
+.el.ie \\$1BPN \{\
+.(B
+\!.	tl \fIAT&T BELL LABORATORIES \- PROPRIETARY\fR
+\!.	tl Use pursuant to G.E.I. 2.2
+.(E 3 2v \}
+.el.ie \\$1ILL \{\
+.(B
+\!.	tl THIS DOCUMENT CONTAINS PROPRIETARY INFORMATION OF
+\!.	tl AT&T BELL LABORATORIES AND IS NOT TO BE DISCLOSED,
+\!.	tl REPRODUCED, OR PUBLISHED WITHOUT WRITTEN CONSENT.
+\!.	tl THIS DOCUMENT MUST BE RENDERED ILLEGIBLE WHEN BEING DISCARDED.
+.(E 3 4v \}
+.el\{\
+.(B
+\!.	tl \fIAT&T BELL LABORATORIES \- PROPRIETARY\fR
+\!.	tl Use pursuant to G.E.I. 2.2
+.(E 3 2v \}
+..
+.de)G
+.ev2
+.nf
+.sp1
+.?1
+.?2
+.?3
+.?4
+.br
+.ev
+'bp
+..
+.de(B
+.ev1
+'fi
+.di>K
+..
+.de(E
+.ifn.br
+.di
+.ev
+.ie(\\n(dn=0)&(0\\$2=0) \{\
+.nr?\\$1 0
+.rm>K ?\\$1
+'br\}
+.el\{\
+.ie0\\$2>0 .nr ?\\$1 0\\$2
+.el.nr ?\\$1 \\n(dn \}
+.nr:U \\n(:mu+\\n(?1+\\n(?2+\\n(?3+\\n(?4+\\n(?5+1v
+.if\\n(:Uu>(\\n(.pu-\\n(nlu-.5v) 'bp
+.ch)G
+.rn>K ?\\$1
+.wh-\\n(:Uu )G
+..
+.>S>NOCOMPACT<<name>>
+.
+.\" Start of default processing; this stuff is executed directly, right now.
+.
+.if t .fp 1 PA
+.if t .fp 2 PI
+.if t .fp 3 PB
+.fp 4 HO
+.fp 5 H
+.fp 6 HB
+.
+.\"
+.\" Based on the -rs<n> command line switch, set the various dimensions.
+.\"
+.\" Additional formats can be defined by following this pattern for the
+.\" next higher values of "s".  It is probably better to add new combinations
+.\" than to change the existing ones.  E.g. add -rs4, -rs5, etc., rather
+.\" than changing -rs2.
+.
+.	ie \ns=1 \{.\"		-rs1	\" 6x9, old fonts, Roman hds, flush
+.		fp 1 R
+.		fp 2 I
+.		fp 3 B
+.		fp 4 HO
+.		fp 5 H
+.		fp 6 HB
+.		nr )L 8.5i		\" page length
+.		nr LL 4.75i		\" page width (line length)
+.		nr )O .75i		\" page offset
+.		nr )S 10		\" point size
+.		nr )V 11		\" vertical spacing
+.		nr HF 1			\" roman heads and sub heads
+.		nr RR 0			\" ragged right (0 = no, 1 = yes)
+.	\}
+.
+.	el .ie \ns=2 \{.\"	-rs2, 	was mn7.5
+.		nr )L 8.1875i		\" gives a proper 9" page somehow.
+.		nr LL 6i
+.		nr )O .75i
+.		nr )S 10
+.		nr )V 12
+.		nr HF 6			\" helvetica bold heads and sub heads
+.		nr RR 1
+.	\}
+.
+.	el .ie \ns=3 \{.\"	-rs3,	was mn7.5 -rs1  (UNUSED)
+.		nr )L 9i
+.		nr LL 6.25i
+.		nr )O .75i
+.		nr )S 11
+.		nr )V 13
+.		nr HF 6			\" helvetica bold heads and sub heads
+.		nr RR 1
+.	\}
+.
+.	el .ie \ns=4 \{.\"	-rs4, 	6x9, new fonts
+.		nr )L 8.5i		\" page length
+.		nr LL 4.75i		\" page width (line length)
+.		nr )O .75i		\" page offset
+.		nr )S 10		\" point size
+.		nr )V 12		\" vertical spacing
+.		nr HF 6			\" helvetica bold heads and sub heads
+.		nr RR 1			\" ragged right (0 = no, 1 = yes)
+.	\}
+.
+.	el \{.\"		Everything else, or no "-rs<n>" specified:
+.		nr )L 8.5i		\" gives a proper 9" page somehow.
+.		nr LL 6i
+.		nr )O .75i
+.		nr )S 10
+.		nr )V 12
+.		nr HF 6			\" helvetica bold heads and sub heads
+.		nr RR 1
+.	\}
+.
+.	nr)s 0
+.	ift .if \ns .nr )s 1
+.	nr)t 0
+.	ift .if !\ns .nr )t 1
+.
+.	if n .if \ns>1 .nr s 0	\" if nroff, and s>1, reset it to 0.
+.
+.ift \{.ds R \(rg
+.dsS \s\n()S
+'br\}
+.ifn \{\
+.ie!\ns \{\
+.nr)L 11i
+'\" On-line pages need no left-margin offset and can be 78 characters wide
+'\" CSK 6/14/89
+'\" .nrLL 6.5i
+'\" .nr)O .463i
+.nrLL 78n
+.nr)O 0n
+'br\}
+.el\{\
+.nr)L 9i
+.nrLL 4.75i
+.nr)O .75i
+'br\}
+.dsR (Reg.)
+.dsS
+'br\}
+'\" include lq and rq string definitions from 4.3  CSK 2/8/87
+.ie n \{\
+.	ds lq \&"\"
+.	ds rq \&"\"
+.\}
+.el \{\
+.	ds rq ''
+.	ds lq ``
+.\}
+.if\nT .nr LL 80n
+.if\nV>1 \{
+.nrLL 82n
+.nr)L 84v
+.rmul \}
+.nr)p 0 1
+.ds]N \\\\n(]
+.ds]S \\\\n()
+.if\nd0 .nr m \n(mo-1
+.if\nm0 .ds ]b January
+.if\nm1 .ds ]b February
+.if\nm2 .ds ]b March
+.if\nm3 .ds ]b April
+.if\nm4 .ds ]b May
+.if\nm5 .ds ]b June
+.if\nm6 .ds ]b July
+.if\nm7 .ds ]b August
+.if\nm8 .ds ]b September
+.if\nm9 .ds ]b October
+.if\nm10 .ds ]b November
+.if\nm11 .ds ]b December
+.ifn \{.nr m \nm+1
+'\" Show release date, not file modification date (defer evaluation of Dt since
+'\" the makefiles add it to the end of the source file)
+.ds ]T \\*(Dt
+'\" .ie\nd .ds ]T (last mod. \nm/\nd/\ny)
+'\" .el.ds ]T (printed \n(mo/\n(dy/\n(yr)
+'br\}
+.if\n()s .ds ]T
+.if\n()t \{.ie \nd .ds ]T \*(]b \nd, 19\ny
+.el.ds ]T \*(]b \n(dy, 19\n(yr
+'br\}
+.pl\n()Lu
+.ll\n(LLu
+.lt\n(LLu
+.po\n()Ou
+.}f
+.if\n()s .nr :m 3.5v
+.if\n()t .nr :m 6v
+.ifn .nr :m 7v
+.ift .nr )M 3.6m
+.ifn .nr )M 5n
+.em}K
+.>E>NOCOMPACT<<name>>
+.if \nC==4 \{ .de bd
+.. \}

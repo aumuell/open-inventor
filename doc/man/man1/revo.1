@@ -1,0 +1,106 @@
+'\"macro stdmacro
+.TH revo 1
+.SH NAME
+revo \- creates revolved 3d surfaces
+.SH SYNOPSIS
+.B revo
+.SH DESCRIPTION
+.I revo
+is an interactive Inventor program for creating 3d objects by drawing 
+a curve and then revolving it around an axis.
+.PP
+The program has two main viewing windows: the curve view and the
+3d rendered view.  To create a object, click the left mouse button
+in the curve view near the default blue line.
+Hold the button down and continue to move the mouse, 
+the point will be dragged.  You can drag existing
+points on the curve by clicking and dragging.  To delete a point
+from the curve, simply click the point to select it, and then
+press the BACKSPACE key to remove it.
+.PP
+As you draw the curve in the curve view, the 3d object is automatically
+draw in 3d in the other view.  The 3d rendered view allows you 
+to view your masterpiece by clicking and dragging in the view.
+Experiment with the various mouse buttons to gain control over the viewing.
+Press the right mouse button in the 3d rendered view, and
+select the `Functions/Help' entry for more help on 3d viewing.
+.PP
+.I Revo
+allows you to sketch out a line which is then rotated around an 
+axis to form a surface of revolution.  
+The left-hand window allows you to edit the line, 
+and the right-hand window lets you view the resulting surface.
+.PP
+Initially, a very simple surface of revolution is shown; 
+a single line segment is rotated about the vertical axis to form a cylinder.
+To add points onto the end (bottom) of this cylinder, 
+just click the left mouse button where you want the new point to appear.
+To move an existing point, just position the mouse near the point 
+(a small cross will appear), then press the left mouse button 
+and drag the point to its new position.  When you are satisfied with 
+its location, release the left mouse button. You can also insert 
+points in the middle of a line segment by placing the mouse near the segment, 
+pressing the left mouse and dragging the new point to the desired location.
+.PP
+The 
+.I Clear
+button below the main windows is an easy way of deleting 
+all the points.  You can also use the Backspace or Delete keys on the 
+keyboard to delete points. The 
+.I Copy
+button will copy the shape you have 
+created to the Xt clipboard.  You can then paste the shape into an 
+Open Inventor application that supports paste, like the SceneViewer 
+(revo does not support paste). You can change the number of sides 
+used in the surface of revolution by typing into the 
+.I #sides
+Motif text widget.
+.PP
+Normals are calculated automatically whenever the line changes.  
+If the angle between two segments is small enough, a "smooth" normal 
+will be generated.  If the angle is too great, a "crease" will be 
+automatically generated.  Putting two consecutive profile points at 
+the same location is another way of generating sharp creases.
+To save your objects you must first copy them to an application 
+(such as the SceneViewer) that supports save.  
+The 3d view is a standard Open Inventor Examiner Viewer.  
+Press the right mouse button for a menu that will allow you to 
+turn on the Examiner Viewer decorations, change drawing styles, and get help.
+This program is a lot like the 
+.I revolve
+demo program, which was 
+written using only the Iris GL.  This program is approximately half the 
+number of lines of code as the GL version, and has more features 
+(e.g. changing the number of sides of the surface, copy to the Xt 
+clipboard, the different drawstyles supported by the Examiner Viewer).  
+No GL calls are made in the source code to this program, 
+only Inventor calls (which uses Open GL).
+.TP
+.I Number of sides
+This number sets the number of sides the object will have around
+the revolution.  
+.TP
+.I Copy
+Will copy your object onto the X clipboard, where it can be pasted
+into another Inventor program (e.g., showcase, SceneViewer).
+.TP
+.I Clear
+Removes your masterpiece and starts over again.
+.TP
+.I About
+Displays a short description about revo.
+.TP
+.I Quit
+Exits revo.  Note that the data copied to the X clipboard with
+the copy button will disappear when revo exits, so be sure to
+paste your creations before exiting.
+.SH SOURCE CODE
+Note that the source code to 
+.I revo 
+comes with the
+.I Open Inventor 3d Toolkit.
+.SH FILES
+/usr/share/src/Inventor/demos/revo/* - Source to revo
+.SH SEE ALSO
+SceneViewer, drop, gview, inventor, ivview, maze,
+noodle, qmorf, showcase, textomatic

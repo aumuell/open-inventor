@@ -1,0 +1,100 @@
+NAME SoGroup "" "" { base class for all group nodes }
+
+INCLUDE nodes/SoGroup.h
+
+DESC {
+This node defines the base class for all group nodes. \cSoGroup\. is a
+node that contains an ordered list of child nodes. The ordering of the
+child nodes represents the traversal order for all operations (for
+example, rendering, picking, and so on). This node is simply a
+container for the child nodes and does not alter the traversal state
+in any way. During traversal, state accumulated for a child is passed
+on to each successive child and then to the parents of the group
+(\cSoGroup\. does not push or pop traversal state as \cSoSeparator\.
+does).
+}
+
+METHOD "" SoGroup() {
+Creates an empty group node.
+}
+
+METHOD CreateN SoGroup(int nChildren) {
+Constructor that takes approximate number of children. Space is
+allocated for pointers to the children, but the group does not contain
+any actual child nodes.
+}
+
+METHOD "" void addChild(SoNode *child) {
+Adds a child as last one in group.
+}
+
+METHOD "" void insertChild(SoNode *child, int newChildIndex) {
+Adds a child so that it becomes the one with the given index.
+}
+
+METHOD "" SoNode * getChild(int index) const {
+Returns pointer to child node with the given index.
+}
+
+METHOD "" int findChild(const SoNode *child) const {
+Finds index of given child within group. Returns -1 if not found.
+}
+
+METHOD "" int getNumChildren() const {
+Returns number of children.
+}
+
+METHOD "" void removeChild(int index) {
+Removes child with given index from group.
+}
+
+METHOD RemoveChildNode void removeChild(SoNode *child) {
+Removes first instance of given child from group.
+}
+
+METHOD "" void removeAllChildren() {
+Removes all children from group.
+}
+
+METHOD "" void replaceChild(int index, SoNode *newChild) {
+Replaces child with given index with new child.
+}
+
+METHOD ReplaceChildNode void replaceChild(SoNode *oldChild, SoNode *newChild) {
+Replaces first instance of given child with new child.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction, SoGetBoundingBoxAction,
+       SoHandleEventAction, SoRayPickAction {
+Traverses each child in order.
+}
+
+ACTION SoGetMatrixAction {
+Does nothing unless the group is in the middle of the path chain the
+action is being applied to. If so, the children up to and including
+the next node in the chain are traversed.
+}
+
+ACTION SoSearchAction {
+If searching for group nodes, compares with this group. Otherwise,
+continues to search children.
+}
+
+ACTION SoWriteAction {
+Writes out the group node. This method also deals with any field data
+associated with the group node. As a result, this method is used for
+most subclasses of \cSoGroup\. as well.
+}
+
+ALSO {
+SoArray,
+SoLevelOfDetail,
+SoMultipleCopy,
+SoPathSwitch,
+SoSeparator,
+SoSwitch
+}

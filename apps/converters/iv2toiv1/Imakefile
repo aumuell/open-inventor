@@ -1,0 +1,17 @@
+/*
+ * Imakefile for iv2toiv1 converter
+ *
+ */
+
+#define ScriptMakefile
+#define ScriptFiles iv2toiv1
+#define InstallDir  /usr/sbin
+
+#define SpecialInstallRule \
+	$(INSTALL) -F /usr/lib/Showcase/ift \
+	    $(IDBTAG) -lns ../../../sbin/iv2toiv1 iv2toiv1
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../..
+#endif
+

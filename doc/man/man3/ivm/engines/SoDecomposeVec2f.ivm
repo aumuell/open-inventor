@@ -1,0 +1,22 @@
+NAME SoDecomposeVec2f SoDecmpsV2f "" { 
+decomposes 2D vectors into floating-point values
+}  
+
+DESC { 
+This engine takes as input a 2D vector, 
+and decomposes it into two single floating-point values. 
+\p
+The input can have multiple values, allowing the engine to decompose
+several vectors in parallel.
+}
+
+INCLUDE engines/SoCompose.h
+
+INPUT vector { Vector to be decomposed. }
+
+OUTPUT x { First component of the vector. }
+OUTPUT y { Second component of the vector. }
+
+METHOD Create SoDecomposeVec2f() { Constructor }
+
+ALSO { SoComposeVec2f, SoEngineOutput }

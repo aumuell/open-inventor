@@ -1,0 +1,54 @@
+NAME SoNode SoNode "" { abstract base class for all database nodes }
+
+INCLUDE nodes/SoNode.h
+
+DESC {
+This is the abstract base class from which all scene graph node
+classes are derived.
+}
+
+METHOD "" void setOverride(SbBool state) { Turns override flag on or off. }
+
+METHOD "" SbBool isOverride() const { Returns the state of the override flag. }
+
+METHOD "" SoNode * copy(SbBool copyConnections = FALSE) const {
+Creates and returns an exact copy of the node. If the node is a group,
+it copies the children as well. If \acopyConnections\. is
+TRUE (it is FALSE by default), any connections to (but not from)
+fields of the node are copied, as well. Note that multiple references to
+a node under the node to be copied will result in multiple references to
+the copy of that node.
+}
+
+METHOD "" virtual SbBool affectsState() const {
+Returns TRUE if a node has an effect on the state during traversal.
+The default method returns TRUE. Node classes (such as
+\cSoSeparator\.)  that isolate their effects from the rest of the
+graph override this method to return FALSE.
+}
+
+METHOD "" static SoNode * getByName(const SbName &name) {}
+METHOD getByNameList static int getByName(const SbName &name, SoNodeList &list) {
+A node's name can be set using
+\+\mSoBase::setName()\..\.
+\-\mSoBaseSetName()\..\.
+These methods allow nodes to be looked up by name. The first one
+returns the last node given the specified name. The second one returns
+the number of nodes with the given name, and adds to \alist\. pointers
+to those nodes.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for the \cSoNode\. class.
+}
+
+ACTION SoSearchAction {
+If the node pointer, type, or name matches the search criteria,
+returns a path to the node.
+}
+
+ACTION SoWriteAction {
+Writes the contents of the node to the current \cSoOutput\..
+}
+
+ALSO { SoPath, SoAction, SoNodeKit }

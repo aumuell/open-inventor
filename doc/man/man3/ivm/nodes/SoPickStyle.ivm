@@ -1,0 +1,35 @@
+NAME SoPickStyle SoPickStyle SO_PICK_STYLE_ { picking style node }
+
+INCLUDE nodes/SoPickStyle.h
+
+DESC {
+This node determines how subsequent geometry nodes in the scene graph
+are to be picked, as indicated by the \vstyle\. field.
+\p
+Note that this is the only way to change the pick behavior of shapes;
+drawing style, complexity, and other rendering-related properties have
+no effect on picking.
+}
+
+ENUM Style {
+    SHAPE		"Points on the surfaces of shapes may be picked",
+    BOUNDING_BOX	"Points on the surfaces of 3D bounding boxes
+			 of shapes may be picked",
+    UNPICKABLE		"Subsequent objects are transparent to picks"
+}
+
+FIELD style { Picking style. }
+
+METHOD "" SoPickStyle() {
+Creates a pick style node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoRayPickAction, SoCallbackAction {
+Sets the current pick style in the state.
+}
+
+ALSO { SoComplexity, SoDrawStyle, SoRayPickAction }

@@ -1,0 +1,14 @@
+/*
+ * Imakefile for extender examples top-level directory.
+ */
+
+#define BranchMakefile
+
+#define SubDirs  02.Nodes 03.Fields 04.Actions 05.Elements 06.Engines \
+ 07.Nodekits 08.Manips 09.Highlights 10.Components 11.Events
+
+#define InstallSource
+#ifndef CreatingUserMakefile
+OTHERSOURCE = README
+TOP_OF_TREE = ../../..
+#endif

@@ -1,0 +1,33 @@
+NAME SoSFVec4f SoSVec4f "" {
+field containing a homogeneous three-dimensional vector
+}
+
+INCLUDE fields/SoSFVec4f.h
+
+DESC {
+Field containing a homogeneous three-dimensional vector.
+\p
+\cSoSFVec4fs\. are written to file as four floating
+point values separated by whitespace.
+}
+METHOD SetX_Y_Z_W void setValue(float x, float y, float z, float w) {}
+METHOD SetXYZW void setValue(const float xyzw[4]) {
+Sets the field to the given value.
+}
+ALSO { SoField, SoSField, SoMFVec4f }
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get const SbVec4f & getValue() const {
+Returns this field's value.
+}
+METHOD " " const SbVec4f & operator =(const SbVec4f & newValue) {}
+METHOD Set void setValue(const SbVec4f & newValue) {
+Sets this field to \anewValue\..
+}
+METHOD IsEq int operator ==(const SoSFVec4f &f) const {}
+METHOD IsNEq int operator !=(const SoSFVec4f &f) const {
+Returns TRUE if \af\. is of the same type and has the same value as this
+field.
+}

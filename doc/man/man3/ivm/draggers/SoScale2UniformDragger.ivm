@@ -1,0 +1,98 @@
+NAME SoScale2UniformDragger SoScale2UniDrag "" { object you can scale uniformly in two dimensions by dragging with the mouse }
+
+INCLUDE draggers/SoScale2UniformDragger.h
+
+DESC { \cSoScale2UniformDragger\. 
+is a simple dragger that scales uniformly in the x and y dimensions when
+dragged within the x-y plane with the mouse.  The local space is
+determined by its location in the scene graph.  Transformation nodes
+placed before it will affect both the dragger and the plane of motion.
+\p
+This node has a \vscaleFactor\. field which always reflects its size in
+local space.  If you set the field, the dragger will change
+accordingly.  You can also connect fields of other nodes or engines from
+this one to make them follow the dragger's motion.
+\p
+This dragger contains four parts, \escaler\., \escalerActive\.,
+\efeedback\., and \efeedbackActive\..
+\p
+Each of these is set by default from
+a resource described in the Dragger Resource section of the online 
+reference page for this class.  You
+can change the parts in any instance of this dragger using
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+\p
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/scale2UniformDragger.iv\.
+into your own directory, editing the file, and then
+setting the environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+METHOD "" SoScale2UniformDragger() {
+Constructor.
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+FIELD scaleFactor { Scale factor affecting the dragger. }
+
+DRAGGER_RESOURCE {
+  scale2UniformScaler,
+  scaler,
+  "white outline of square with photo-corner shapes at vertices. 
+   Lies within plane of motion",
+  "picking this initiates the scaling"
+}
+
+DRAGGER_RESOURCE {
+  scale2UniformScalerActive,
+  scalerActive,
+  "yellow version of scaler, but with an extra yellow surrounding box",
+  "displayed instead of scaler while in motion"
+}
+
+DRAGGER_RESOURCE {
+  scale2UniformFeedback,
+  feedback,
+  "thin purple 3-D crosshair",
+  "shows center of scale when still"
+}
+
+DRAGGER_RESOURCE {
+  scale2UniformFeedbackActive,
+  feedbackActive,
+  "thin, slightly brighter purple 3-D crosshair",
+  "shows center of scale while in motion"
+}
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoCenterballDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTransformerDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}

@@ -1,0 +1,132 @@
+#ident $Revision: 1.1 $
+#
+# Generic rules for making manpages
+#
+# Usage:
+#   make <name>.psv		# view page with $(PSVIEW) (no file created)
+#   make <name>.xpsv		# view page with $(XPSVIEW) (no file created)
+#   make <name>.dit		# view page with $(DITVIEW) (no file created)
+#   make <name>.p		# print page (no file created)
+#   make <name>.ps		# create PostScript for page
+#   make <name>.z		# create online packed version; view with
+#				# man -d <name>.z
+#   make print-list		# writes a list of the hardcopy (.p) targets 
+#				#  for the current directory to stdout
+#
+#   make default		# the standard SGI targets
+#   make install
+#   make clean
+#   make clobber
+#
+#
+
+TT = $${TMPDIR:-/usr/tmp}/mmdoc$$$$
+
+# To provide override, define MANPREF
+$(MANPREF)default: $(MANPREF)_force
+	@$(LISTLEGAL) \
+	    | sed -e 's/\.$(LEGALSUF1)$$/.z/' -e 's/\.$(LEGALSUF2)$$/.z/' \
+	    	-e 's/\.$(LEGALSUF3)$$/.z/' -e 's/\.$(LEGALSUF4)$$/.z/' \
+	    	-e 's/\.$(LEGALSUF5)$$/.z/' \
+	    | xargs -l4 smake
+
+# remove all .z, .ps, and unsuffixed versions of legal man filenames (except
+# a, c, f, and p).
+$(MANPREF)clean:
+	find . \( -name '*.z' -o -name '*.ps' \) -print | xargs rm -f
+	$(LISTLEGAL) \
+	    | sed -e 's/\.$(LEGALSUF1)$$//' -e 's/\.$(LEGALSUF2)$$//' \
+	    	-e 's/\.$(LEGALSUF3)$$//' -e 's/\.$(LEGALSUF4)$$//' \
+	    	-e 's/\.$(LEGALSUF5)$$//' \
+	    | sed '/^[acfp]$$/d' \
+	    | xargs rm -f
+	rm -f $(LDIRT)
+
+$(MANPREF)clobber: $(MANPREF)clean
+
+#
+# Define generic build rules
+#
+# Some directories have multiple sections in them (like 3c, 3, 3x, etc)
+# and so we must define more than 1 default rule.
+#
+# The .mn suffix is for pages that are part of the printed GL Reference Manual
+# but not of the online man pages.
+#
+.SUFFIXES:.z .p .ps .dit .psv .xpsv .nroff .1 .1c .1g .1m .1w .1X .2 .2b .3 .3a .3b .3c .3f .3g .3m .3n .3p .3r .3s .3t .3w .3x .3y .4 .5 .5w .6 .6d .7 .7p .7m .3X11 .3Xt .3i .mn .3l .3iv
+
+.1.z .1c.z .1g.z .1m.z .1w.z .1X.z .2.z .2b.z .3.z .3a.z .3f.z .3c.z .3p.z .3y.z .3r.z .3x.z .3n.z .3w.z .3s.z .3b.z .3m.z .3t.z .4.z .5.z .5w.z .6.z .6d.z .7.z .7p.z .7m.z .3g.z .3X11.z .3Xt.z .3i.z .3l.z .3iv.z:
+	@echo "\t$(MMDOC) Op=$(LANGOPT) $< | pack > $*.z"
+	@$(ADDMAGIC) | $(THTOUPPER) > $(TT) ; $(RUNMMDOC) $(TT) > $* ; \
+								rm -f $(TT)
+	@rm -f $*.z; pack -f $* > /dev/null
+
+.1.nroff .1c.nroff .1g.nroff .1m.nroff .1w.nroff .1X.nroff .2.nroff .2b.nroff .3.nroff .3a.nroff .3f.nroff .3c.nroff .3p.nroff .3y.nroff .3r.nroff .3x.nroff .3n.nroff .3w.nroff .3s.nroff .3b.nroff .3m.nroff .3t.nroff .4.nroff .5.nroff .5w.nroff .6.nroff .6d.nroff .7.nroff .7p.nroff .7m.nroff .3g.nroff .3X11.nroff .3Xt.nroff .3i.nroff .3l.nroff .3iv.nroff:
+	@echo "\t$(MMDOC) Op=$(LANGOPT)"
+	@$(ADDMAGIC) | $(THTOUPPER) > $(TT) ; $(RUNMMDOC) $(TT) >  /tmp/man.tmp; \
+								rm -f $(TT)
+	@more -67 /tmp/man.tmp
+
+.1.p .1c.p .1g.p .1m.p .1w.p .1X.p .2.p .2b.p .3.p .3a.p .3f.p .3c.p .3p.p .3y.p .3r.p .3x.p .3n.p .3w.p .3s.p .3b.p .3m.p .3t.p .4.p .5.p .5w.p .6.p .6d.p .7.p .7p.p .7m.p .3X11.p .3Xt.p .3i.p .3l.p .3iv.p:
+	@echo "\t$(MMDOC) -Tpsc -rC5 Op=$(LANGOPT) $<"
+	@$(ADDMAGIC) > $(TT) ; $(RUNMMDOC) -Tpsc -rC5 $(TT) ; rm -f $(TT)
+
+.3g.p .mn.p :
+	@echo "\t$(MMDOC) -Tpsc -rC5 Op=$(LANGOPT) $<"
+	@$(ADDGLMAGIC) > $(TT) ; $(RUNMMDOC) -Tpsc -rC5 $(TT) ; rm -f $(TT)
+
+.1.ps .1c.ps .1g.ps .1m.ps .1w.ps .1X.ps .2.ps .2b.ps .3.ps .3a.ps .3f.ps .3c.ps .3p.ps .3y.ps .3r.ps .3x.ps .3n.ps .3w.ps .3s.ps .3b.ps .3m.ps .3t.ps .4.ps .5.ps .5w.ps .6.ps .6d.ps .7.ps .7p.ps .7m.ps .3X11.ps .3Xt.ps .3i.ps .3l.ps .3iv.ps:
+	@echo "\t$(MMDOC) -TPS Op=$(LANGOPT) $< > $@"
+	@$(ADDMAGIC) > $(TT) ; $(RUNMMDOC) -TPS $(TT) > $@ ; rm -f $(TT)
+
+.3g.ps .mn.ps :
+	@echo "\t$(MMDOC) -TPS Op=$(LANGOPT) $< > $@"
+	@$(ADDGLMAGIC) > $(TT) ; $(RUNMMDOC) -TPS $(TT) > $@ ; rm -f $(TT)
+
+.1.psv .1c.psv .1g.psv .1m.psv .1w.psv .1X.psv .2.psv .2b.psv .3.psv .3a.psv .3f.psv .3c.psv .3p.psv .3y.psv .3r.psv .3x.psv .3n.psv .3w.psv .3s.psv .3b.psv .3m.psv .3t.psv .4.psv .5.psv .5w.psv .6.psv .6d.psv .7.psv .7p.psv .7m.psv .3X11.psv .3Xt.psv .3i.psv .3l.psv .3iv.psv:
+	@echo "\t$(MMDOC) -TPS -rC4 Op=$(LANGOPT) $< | $(PSVIEW) $(PSVIEWOPTS)"
+	@$(ADDMAGIC) > $(TT) ; $(RUNMMDOC) -TPS -rC4 $(TT) | $(PSVIEW) $(PSVIEWOPTS); rm -f $(TT)
+
+.3g.psv .mn.psv :
+	@echo "\t$(MMDOC) -TPS -rC4 Op=$(LANGOPT) $< | $(PSVIEW) $(PSVIEWOPTS)"
+	@$(ADDGLMAGIC) > $(TT) ; $(RUNMMDOC) -TPS -rC4 $(TT) | $(PSVIEW) $(PSVIEWOPTS); rm -f $(TT)
+
+.1.xpsv .1c.xpsv .1g.xpsv .1m.xpsv .1w.xpsv .1X.xpsv .2.xpsv .2b.xpsv .3.xpsv .3a.xpsv .3f.xpsv .3c.xpsv .3p.xpsv .3y.xpsv .3r.xpsv .3x.xpsv .3n.xpsv .3w.xpsv .3s.xpsv .3b.xpsv .3m.xpsv .3t.xpsv .4.xpsv .5.xpsv .5w.xpsv .6.xpsv .6d.xpsv .7.xpsv .7p.xpsv .7m.xpsv .3X11.xpsv .3Xt.xpsv .3i.xpsv .3l.xpsv .3iv.xpsv:
+	@echo "\t$(MMDOC) -TPS -rC4 Op=$(LANGOPT) $< | $(XPSVIEW) $(XPSVIEWOPTS)"
+	@$(ADDMAGIC) > $(TT) ; $(RUNMMDOC) -TPS -rC4 $(TT) | $(XPSVIEW) $(XPSVIEWOPTS); rm -f $(TT)
+
+.3g.xpsv .mn.xpsv:
+	@echo "\t$(MMDOC) -TPS -rC4 Op=$(LANGOPT) $< | $(XPSVIEW) $(XPSVIEWOPTS)"
+	@$(ADDGLMAGIC) > $(TT) ; $(RUNMMDOC) -TPS -rC4 $(TT) | $(XPSVIEW) $(XPSVIEWOPTS); rm -f $(TT)
+
+.1.dit .1c.dit .1g.dit .1m.dit .1w.dit .1X.dit .2.dit .2b.dit .3.dit .3a.dit .3f.dit .3c.dit .3p.dit .3y.dit .3r.dit .3x.dit .3n.dit .3w.dit .3s.dit .3b.dit .3m.dit .3t.dit .4.dit .5.dit .5w.dit .6.dit .6d.dit .7.dit .7p.dit .7m.dit .3X11.dit .3Xt.dit .3i.dit .3l.dit .3iv.dit:
+	@echo "\t$(MMDOC) -TX100 -rC4 Op=$(LANGOPT) $< | $(DITVIEW)"
+	@$(ADDMAGIC) > $(TT) ; $(RUNMMDOC) -TX100 -rC4 $(TT) | $(DITVIEW)
+
+.3g.dit .mn.dit:
+	@echo "\t$(MMDOC) -TX100 -rC4 Op=$(LANGOPT) $< | $(DITVIEW)"
+	@$(ADDGLMAGIC) > $(TT) ; $(RUNMMDOC) -TX100 -rC4 $(TT) | $(DITVIEW)
+
+# write a list of the hardcopy (.p) targets for the current directory to stdout
+# use LOCALPRINTLISTFILTER to do directory-dependent filtering, e.g reordering
+# to put intro.p first
+print-list: $(MANPREF)_force
+	@$(LISTLEGAL) \
+	    | sed -e 's/\.$(LEGALSUF1)$$/.p/' -e 's/\.$(LEGALSUF2)$$/.p/' \
+	    	-e 's/\.$(LEGALSUF3)$$/.p/' -e 's/\.$(LEGALSUF4)$$/.p/' \
+	    	-e 's/\.$(LEGALSUF5)$$/.p/' \
+	    | sort -t. +0 -1 \
+	    $(LOCALPRINTLISTFILTER)
+
+$(MANPREF)install: $(MANPREF)default MakeOtherInstalls
+	$(INSTALL) -idb $(IDB_TAG) -m 444 -F $(IDB_PATH) *.z
+
+# only look for aliases in legal man page filenames
+MakeOtherInstalls: $(MANPREF)_force
+	@echo "\tmaking symlink install lines"
+	@$(LISTLEGAL) \
+	    | xargs $(GETNAMES) opt=$(LANGOPT) \
+	    | $(ADDINST) $(IDB_TAG) $(IDB_PATH) $(INSTALL) > $(TT); \
+	    sh $(TT); rm -f $(TT)
+
+$(MANPREF)_force:

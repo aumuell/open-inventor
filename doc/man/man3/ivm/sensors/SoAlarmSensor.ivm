@@ -1,0 +1,44 @@
+NAME SoAlarmSensor SoAlarmSens "" {
+triggers a callback once sometime in the future
+}
+INCLUDE sensors/SoAlarmSensor.h
+DESC {
+This type of sensor can be used to schedule a one-time callback for
+some time in the future.  The sensor is not guaranteed to be called at
+exactly that time, but will be called sometime after the specified
+time.
+}
+
+METHOD "" SoAlarmSensor() {}
+METHOD CreateCB SoAlarmSensor(SoSensorCB *func, void *data) {
+Creation methods.  The second method takes the callback function and
+data to be called when the sensor is triggered.
+}
+METHOD "" ~SoAlarmSensor() {
+Destroys the sensor, freeing up any memory associated with it after
+unscheduling it.
+}
+METHOD "" void setTime(const SbTime &absTime) {
+Sets the sensor to go off at the specified time.  You \emust\. also
+call \m\+schedule()\.\-SoAlarmSensSched()\.\. for the sensor to be
+triggered.  If the sensor is already scheduled, it must be unscheduled
+and then rescheduled for the change in the trigger time to take
+effect.
+}
+METHOD "" void setTimeFromNow(const SbTime &relTime) {
+Sets the sensor to go off the given amount of time from now. You
+\emust\. also call \m\+schedule()\.\-SoAlarmSensSched()\.\. for the
+sensor to be
+triggered.  If the sensor is already scheduled, it must be unscheduled
+and then rescheduled for the change in the trigger time to take
+effect.
+}
+METHOD "" const SbTime &getTime() const {
+Returns the time at which the sensor is set to be triggered.  This is
+similar to the \m\+getTriggerTime\.\-SoAlarmSensGetTrigTime\.\.
+method, but
+returns the time even if the sensor has not yet been scheduled.
+}
+
+ALSO { SoOneShotSensor, SoTimerSensor, SoTimerQueueSensor, SbTime }
+

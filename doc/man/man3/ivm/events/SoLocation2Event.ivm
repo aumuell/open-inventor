@@ -1,0 +1,22 @@
+NAME SoLocation2Event SoLoc2Ev "" { 2D location events }
+
+INCLUDE events/SoLocation2Event.h
+
+DESC { \cSoLocation2Event\. represents 2D location events in the Inventor
+event model.
+}
+
+METHOD "" SoLocation2Event() { Constructor. }
+
+METHOD "" static SoType getClassTypeId() {
+Return the type id for the \cSoLocation2Event\. class.
+}
+
+ALSO { 
+SoEvent, SoButtonEvent, SoKeyboardEvent, SoMotion3Event,
+SoMouseButtonEvent, SoSpaceballButtonEvent,
+SoHandleEventAction, SoEventCallback, SoSelection, SoInteraction,
+SoXtDevice }
+
+
+

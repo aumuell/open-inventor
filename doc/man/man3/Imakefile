@@ -1,0 +1,7 @@
+#define BranchMakefile
+
+#define NoShipUser
+
+#define SubDirs ivm
+
+TOP_OF_TREE = ../../..

@@ -1,0 +1,140 @@
+#ident $Revision: 1.1 $
+#
+# Common definitions for man page Makefiles
+#
+
+include $(ROOT)/usr/include/make/commondefs
+#include $(PRODUCTDEFS)
+#include $(RELEASEDEFS)
+
+MMDOC	    = sh $(DEPTH)/tools/mmdoc
+MPATH	    = $(DEPTH)/macros
+GETNAMES    = nawk -f $(DEPTH)/tools/getnames
+ADDINST	    = nawk -f $(DEPTH)/tools/addinst
+
+# Global version and (published) date values for man page footers.  Can override
+# for a particular directory by reassigning after the inclusion of mandefs.
+VERSION	    = Version 1.0
+DATE	    = August 1991
+
+#
+# directories - these may exist under some or all of the man sections
+# and correspond to option man pages
+# we list them all here once
+
+OPTIONS=standard nfs dwb trans ftn emacs pascal pl1 5080 ada t3270 pfa diags \
+	x11 xt noship sna sna_3770 sna_3270 sna_server sna_lu6.2 spaceball \
+	x25 netvis netman softpc c++ sna_lu0-3 bsdlpr 4DDN dgl gpib slip \
+	nonstandard libil pca t3270dft vc nqs seiko5500 vfr bvo tcp3270 \
+	smt sqa fddi fddivis c cmplrs dbx edge ld efast cdrom gltools \
+	moregltools imagetools imgtools gldebug libsphere audio eoe ido \
+	 distgen libblas showcase video debug dat imagevision tokenring \
+	inventor
+
+# Change /pubs/tools symbolic name to $(MPATH) in .so's
+FIXPUBS	    = sed 's:^\.so[	 ]*/pubs/tools/:.so $(MPATH)/:'
+
+# Convert .TH lines to all uppercase when making online pages (mostly 
+# for GL man pages).  If line is .TH \*(}x, don't uppercase it.
+THTOUPPER   = \
+	sed '/^\.TH[^}]*$$/y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/'
+
+# Add string definitions containing VERSION, DATE, and RELEASE (only 
+# the portion after the "-", if it exists) to man page input.  Also 
+# define strings with print date (i.e. "now"), last modified date of 
+# input file, and result of "sum <input file>".
+ADDSTRINGS  = awk  'BEGIN { \
+			first = 1; \
+			if (split("$(RELEASE)", r, "-") > 1) \
+			    release = r[2]; \
+			else \
+			    release="$(RELEASE)"; \
+		    } \
+		    first == 1 && $$0 !~ /^'"'"'\\"/ { \
+			print ".ds Vn $(VERSION)"; \
+			print ".ds Dt $(DATE)"; \
+			print ".ds Re Release", release; \
+			print ".ds Dp '"`date '+%b %d %H:%M'`"'"; \
+			print ".ds Dm '"`ls -l $< | cut -c42-53`"'"; \
+			print ".ds Xs '"`sum $<`"'"; \
+			first = 0; \
+		    } \
+		    { print }'
+
+# If page doesn't start with a magic '\", add a default one.
+ADDMAGIC    = ( case `head -1 $<` in \
+		    "'\\\""*)	;; \
+		    *)	echo "'\\\"macro stdmacro" ;; \
+		esac ; cat $< ) | $(FIXPUBS) | $(ADDSTRINGS)
+
+# If GL page starts '\"!, second line is assumed to contain '\"macro stdmacro,
+# and it is changed to '\"macro mn; if page doesn't start with '\", 
+# '\"macro mn is added (if it's not there already).  Only use the "mn"
+# macros for hardcopy; online man pages use stdmacro like all other man pages.
+ADDGLMAGIC  = ( case `head -1 $<` in \
+		    "'\\\"macro mn")	cat $< ;; \
+		    "'\\\""!*)	sed '2 s/stdmacro/mn/' $< ;; \
+		    *)		echo "'\\\"macro mn" ; cat $< ;; \
+		esac ) | $(FIXPUBS) | $(ADDSTRINGS)
+
+RUNMMDOC    = TMMACRO=$(MPATH) PATH=$(DEPTH)/tools:$$PATH \
+		OTHERFILES="$(MPATH)/Op $(LANGOPT) $(MPATH)/localmacs" \
+		$(MMDOC) $(MMFLAGS)
+
+
+LEGALBASE = [0-z+,%-]*#
+LEGALSUF1 = [1-7]#
+LEGALSUF2 = [1-7][a-z]*#
+LEGALSUF3 = [1-7]X11#
+LEGALSUF4 = [1-7]Xt#
+LEGALNAME1= $(LEGALBASE).$(LEGALSUF1)#
+LEGALNAME2= $(LEGALBASE).$(LEGALSUF2)#
+LEGALNAME3= $(LEGALBASE).$(LEGALSUF3)#
+LEGALNAME4= $(LEGALBASE).$(LEGALSUF4)#
+LISTLEGAL = find . \( -name '$(LEGALNAME1)' -o -name '$(LEGALNAME2)' \
+		-o -name '$(LEGALNAME3)' -o -name '$(LEGALNAME4)' \) -print \
+		| sed -e 's/^..//' -e '/\//d'
+
+#
+# The following defintions are release-note specific.
+#
+
+# File that should be included before each chapter is formatted
+CHAPHEAD = Templates/cFront
+
+# Files that should be included before each appendix is formatted
+APPDXHEAD = Templates/cFront Templates/aFront
+
+# Between start and end put file names for generating
+# the TC files in the right order.
+
+BASE	   = ch*#
+CHAPSUF    = cmm#
+APPSUF     = amm#
+
+LEGALCHAP  = $(BASE).$(CHAPSUF)
+LEGALAPP   = $(BASE).$(APPSUF)
+RELNOTES   = find . \( -name '$(LEGALCHAP)' -o -name '$(LEGALAPP)' \) -print \
+	| sed -e 's/^..//' -e '/\//d' | sort
+
+TCFILES = ToC/TC.start ToC/ch*.TC ToC/TC.end
+
+MMFILES = `$(RELNOTES)`
+
+IXFILES = Index/ch*.IX
+
+CHAP_PP = pic $(CHAPHEAD) $? | tbl
+APP_PP  = pic $(APPDXHEAD) $? | tbl
+
+# these should to be macros, so they can be overridden
+# psview is for 3.3 systems; xpsview for 4.0
+PSVIEWOPTS = -F1.2 -0,2-6,11
+PSVIEW = psview
+# this scale and geom works to show 6x9 pages on a 1280x1024
+# display.
+XPSVIEWOPTS = -wp -skipc -sc 1.1 -maxp 1200000 -geom 800x1020 -
+XPSVIEW = xpsview
+
+# this can be used under X for previewing
+DITVIEW = xditview -geom 640x950 -
+

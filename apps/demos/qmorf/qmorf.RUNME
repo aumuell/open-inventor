@@ -1,0 +1,6 @@
+#!/bin/sh
+#Tag 0x00010510
+QMORF=./qmorf
+#QMORF=/usr/demos/Inventor/qmorf 
+$QMORF /usr/share/data/models/CyberHeads/*.iv
+

@@ -1,0 +1,36 @@
+NAME SoLightModel SoLModel SO_L_MODEL_ {
+node that defines the lighting model to use when rendering
+}
+
+INCLUDE nodes/SoLightModel.h
+
+DESC {
+This node defines the lighting model to be used when rendering
+subsequent shapes. The lighting model is specified in the \vmodel\.
+field. When the default model (Phong lighting) is used, light sources
+are required in a scene for objects to be easily visible.
+}
+
+ENUM Model {
+    BASE_COLOR	"Use only the base (diffuse) object color",
+    PHONG	"Use Phong lighting model"
+}
+
+FIELD model { Lighting model to use }
+
+METHOD "" SoLightModel() { Creates a light model node with default settings. }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction {
+Sets the current lighting model in the state.
+}
+
+ALSO {
+SoBaseColor,
+SoEnvironment,
+SoLight,
+SoMaterial
+}

@@ -1,0 +1,33 @@
+
+This sample builds and views a working 3d clock.
+The geometry description for the clock is specified
+in a file, and is passed into ivclock as a command
+line argument. The ivclock program uses the examiner
+viewer so you can zoom in or otherwise move the camera
+around the clock geometry.
+
+There is one geometry file in this directory which
+builds a very simple clock - just the hands and numbers.
+Feel free to customize this data, or create your own
+from scratch!
+
+Customizing your own clock
+--------------------------
+The ivclock program searches the input file for named separators 
+which specify the hour, minute, and second hand geometry.
+For example, DEF MinuteHand Separator { ... }. Make sure to name
+the separators that define the clock hand geometry in the 
+file (HourHand, MinuteHand, and SecondHand). If you leave out 
+the second hand name, then ivclock will run with just the hour 
+and minute hands. (This means it only updates once every minute, 
+rather than once every second).
+
+If you don't specify a custom file on the command line, ivclock
+will use the default clock geometry file clockData.iv.
+
+The ivclock program will rotate the hour, minute, and
+second hands about the z axis to display the current time.
+If you want more moving parts than this in your custom clock,
+you'll have to edit the ivclock.c++ source file.
+
+

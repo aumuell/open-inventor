@@ -1,0 +1,49 @@
+NAME SbProjector "SbProj" "" { base class for representing projectors }
+
+INCLUDE projectors/SbProjector.h
+
+DESC { \cSbProjector\. is the base class for all projector classes.
+Projector classes
+are used to convert from window space (usually based on the mouse location)
+into a 3D point. This is done by projecting the window coordinate as a
+3D vector onto a geometric function in 3-space, and computing the
+intersection point. Most projectors actually compute incremental
+changes and produce incremental rotations and translation as needed.
+Projectors are used to write 3D interactive manipulators and viewers.
+}
+
+METHOD "" virtual SbVec3f project(const SbVec2f &point) {
+Apply the projector using the given point, returning the
+point in three dimensions that it projects to.
+The point should be normalized (lie in the range [0.0,1.0]), with (0,0) at
+the lower-left.
+}
+
+METHOD "setViewVol" virtual void setViewVolume(const SbViewVolume &vol) {}
+METHOD "getViewVol" const SbViewVolume & getViewVolume() const {
+Set and get the view volume to use for the projection.
+This is typically supplied from
+\+\mSoCamera::getViewVolume()\.\.\-\mSoCamGetViewVol()\.\..
+}
+
+METHOD "setWorkSpace" virtual void setWorkingSpace(const SbMatrix &space) {}
+METHOD "getWorkSpace" const SbMatrix & getWorkingSpace() const {
+Set and get the transform space to work in. This matrix should transform
+working space coordinates into world space.
+The default matrix is identity, meaning that the default working
+space is world space.
+}
+
+METHOD "" virtual SbProjector * copy() const {
+Creates and returns an exact copy of the projector.
+}
+
+ALSO { 
+SbCylinderProjector, SbCylinderPlaneProjector,
+SbCylinderSectionProjector, SbCylinderSheetProjector,
+SbLineProjector, SbPlaneProjector, SbSpherePlaneProjector,
+SbSphereProjector, SbSphereSectionProjector, SbSphereSheetProjector
+}
+
+
+

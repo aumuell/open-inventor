@@ -1,0 +1,12 @@
+#define OneProgram
+
+C++FILES = tumble.c++ SceneTumble.c++
+HFILES = SceneTumble.h
+
+#define OtherLibs -lXm -lXt
+
+PROGRAM = tumble
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../../..
+#endif

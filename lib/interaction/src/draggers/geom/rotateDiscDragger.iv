@@ -1,0 +1,238 @@
+#Inventor V2.0 ascii
+
+#from: File { name "pieces/yCircle.iv" }
+DEF ROTATE_DISC_DRAGGER_Y_CIRCLE Group {
+    Coordinate3 {
+	point [
+
+	    # first quadrant
+	    1.0  0  0.0,
+
+	    0.980785  0  0.195090,
+	    0.923880  0  0.382683,
+	    0.831470  0  0.555570,
+	    0.707107  0  0.707107,
+	    0.555570  0  0.831470,
+	    0.382683  0  0.923880,
+	    0.195090  0  0.980785,
+
+	    # second quadrant
+	    0.0  0  1.0,
+
+	    -0.195090  0  0.980785,
+	    -0.382683  0  0.923880,
+	    -0.555570  0  0.831470,
+	    -0.707107  0  0.707107,
+	    -0.831470  0  0.555570,
+	    -0.923880  0  0.382683,
+	    -0.980785  0  0.195090,
+
+	    # third quadrant
+	    -1.0  0  0.0,
+
+	    -0.980785  0  -0.195090,
+	    -0.923880  0  -0.382683,
+	    -0.831470  0  -0.555570,
+	    -0.707107  0  -0.707107,
+	    -0.555570  0  -0.831470,
+	    -0.382683  0  -0.923880,
+	    -0.195090  0  -0.980785,
+
+	    # fourth quadrant
+	    0.0  0  -1.0,
+
+	    0.195090  0  -0.980785,
+	    0.382683  0  -0.923880,
+	    0.555570  0  -0.831470,
+	    0.707107  0  -0.707107,
+	    0.831470  0  -0.555570,
+	    0.923880  0  -0.382683,
+	    0.980785  0  -0.195090,
+
+	    1.0  0  0.0,
+
+	]
+    }
+    Normal {
+	vector [ 
+
+	    # first quadrant
+	    1.0  0  0.0,
+
+	    0.980785  0  0.195090,
+	    0.923880  0  0.382683,
+	    0.831470  0  0.555570,
+	    0.707107  0  0.707107,
+	    0.555570  0  0.831470,
+	    0.382683  0  0.923880,
+	    0.195090  0  0.980785,
+
+	    # second quadrant
+	    0.0  0  1.0,
+
+	    -0.195090  0  0.980785,
+	    -0.382683  0  0.923880,
+	    -0.555570  0  0.831470,
+	    -0.707107  0  0.707107,
+	    -0.831470  0  0.555570,
+	    -0.923880  0  0.382683,
+	    -0.980785  0  0.195090,
+
+	    # third quadrant
+	    -1.0  0  0.0,
+
+	    -0.980785  0  -0.195090,
+	    -0.923880  0  -0.382683,
+	    -0.831470  0  -0.555570,
+	    -0.707107  0  -0.707107,
+	    -0.555570  0  -0.831470,
+	    -0.382683  0  -0.923880,
+	    -0.195090  0  -0.980785,
+
+	    # fourth quadrant
+	    0.0  0  -1.0,
+
+	    0.195090  0  -0.980785,
+	    0.382683  0  -0.923880,
+	    0.555570  0  -0.831470,
+	    0.707107  0  -0.707107,
+	    0.831470  0  -0.555570,
+	    0.923880  0  -0.382683,
+	    0.980785  0  -0.195090,
+
+	    1.0  0  0.0,
+	]
+    }
+
+    LineSet {}
+}
+
+DEF ROTATE_DISC_DRAGGER_Y_CYLINDER Group {
+    
+    NormalBinding { value PER_VERTEX }
+    MaterialBinding { value OVERALL }
+    Coordinate3 { point [ -1 -1 0, -1 1 0 ,
+			   1 -1 0, 1 1 0 ,
+			   0 -1 1, 0 1 1 ,
+			   0 -1 -1, 0 1 -1,
+			   .707107 -1 .707107, .707107 1 .707107,
+			   -.707107 -1 .707107, -.707107 1 .707107,
+			   -.707107 -1 -.707107, -.707107 1 -.707107,
+			   .707107 -1 -.707107, .707107 1 -.707107,
+			   ] }
+    Normal { vector [ -1 0 0, -1 0 0 ,
+			   1 0 0, 1 0 0 ,
+			   0 0 1, 0 0 1 ,
+			   0 0 -1, 0 0 -1,
+			   .707107 0 .707107, .707107 0 .707107,
+			   -.707107 0 .707107, -.707107 0 .707107,
+			   -.707107 0 -.707107, -.707107 0 -.707107,
+			   .707107 0 -.707107, .707107 0 -.707107,
+			   ] }
+    LineSet { numVertices [ 2, 2, 2, 2, 2, 2, 2, 2 ] }
+
+    Translation { translation 0 1 0 }
+    USE ROTATE_DISC_DRAGGER_Y_CIRCLE
+
+    Translation { translation 0 -2 0 }
+    USE ROTATE_DISC_DRAGGER_Y_CIRCLE
+}
+
+DEF rotateDiscRotator Separator {
+    renderCaching ON
+
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    LightModel { model PHONG }
+    Texture2 {}
+    NormalBinding { value PER_VERTEX }
+    MaterialBinding { value OVERALL }
+
+
+    # So we have something nice and big to pick on
+    Separator {
+	DrawStyle { style INVISIBLE }
+        Complexity { value .01 }
+	Cube { width 2.2 height 2.2 depth 2.2 }
+    }
+
+    # A thin cylinder aligned with z
+    RotationXYZ { axis X    angle 1.57079 }
+    Scale { scaleFactor 1.73 0.1 1.73}
+
+    USE ROTATE_DISC_DRAGGER_Y_CYLINDER
+
+    DrawStyle { style INVISIBLE }
+    Complexity { value .3 }
+    Cylinder {}
+}
+
+DEF rotateDiscRotatorActive Separator {
+    renderCaching ON
+
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    LightModel { model PHONG }
+    Texture2 {}
+    NormalBinding { value PER_VERTEX }
+    MaterialBinding { value OVERALL }
+
+
+    Separator {
+	DrawStyle { style LINES lineWidth 1 }
+        Complexity { value .01 }
+	Cube { width 2.2 height 2.2 depth 2.2 }
+    }
+
+    # A thin cylinder aligned with z
+    RotationXYZ { axis X    angle 1.57079 }
+    Scale { scaleFactor 1.73 0.1 1.73}
+
+    USE ROTATE_DISC_DRAGGER_Y_CYLINDER
+
+    DrawStyle { style INVISIBLE }
+    Complexity { value .3 }
+    Cylinder {}
+}
+
+DEF rotateDiscFeedback Separator {
+    renderCaching ON
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.25 0.05 0.36 ]
+	emissiveColor	[ 0.25 0.05 0.36 ]
+    }
+    DrawStyle { lineWidth 2 } 
+    LightModel { model PHONG } 
+    Texture2 {}
+
+    # An arrow aligned with z
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+    Coordinate3 { point [ 0 0 -1.25, 0 0 1.25 ] }
+    LineSet {}
+}
+
+DEF rotateDiscFeedbackActive Separator {
+    renderCaching ON
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.36 0.05 0.44 ]
+	emissiveColor	[ 0.36 0.05 0.44 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+
+    # An arrow aligned with z
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+    Coordinate3 { point [ 0 0 -1.25, 0 0 1.25 ] }
+    LineSet {}
+}
+
+

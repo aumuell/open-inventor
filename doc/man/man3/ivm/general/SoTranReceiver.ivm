@@ -1,0 +1,31 @@
+NAME SoTranReceiver "" "" { interprets database changes for transcription }
+
+INCLUDE misc/SoTranscribe.h
+
+DESC {
+This class is used for transcribing Inventor data. Transcription is
+the process of packaging changes to a database and sending them over a
+"wire" to another database.
+\p
+The \cSoTranReceiver\. class is used on the receiving side of
+transcription. It interprets changes to a Inventor database packaged
+up by an \cSoTranSender\..
+}
+
+METHOD "" SoTranReceiver(SoGroup *rootNode) {
+The constructor takes a pointer to an SoGroup instance that is the
+root node of the scene graph on the receiving end. All changes to the
+database are made relative to this root.
+}
+
+METHOD "" ~SoTranReceiver() { Destructor. }
+
+METHOD "" SbBool interpret(SoInput *in) {
+Interprets the transcription commands found in the given input stream.
+Returns FALSE on any error. Note: some errors (such as invalid node
+references) are recoverable, while others (such as syntax errors) are
+not.
+}
+
+ALSO { SoInput, SoTranSender }
+

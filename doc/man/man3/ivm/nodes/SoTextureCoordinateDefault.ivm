@@ -1,0 +1,32 @@
+NAME SoTextureCoordinateDefault SoTexDflt "" {
+node that removes texture coordinates from state
+}
+
+INCLUDE nodes/SoTextureCoordinateDefault.h
+
+DESC {
+This node changes the current traversal state to indicate that there
+are no currently defined texture coordinates or texture coordinate
+function. This forces subsequent shapes to use their own default
+texture coordinates. The net result is that this node turns off any
+previous texture coordinate specification.
+}
+
+METHOD "" SoTextureCoordinateDefault() {
+Creates a node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction, SoRayPickAction {
+Removes any texture coordinates or function.
+}
+
+ALSO {
+SoTexture2,
+SoTexture2Transform,
+SoTextureCoordinateEnvironment,
+SoTextureCoordinatePlane
+}

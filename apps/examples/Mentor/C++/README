@@ -1,0 +1,32 @@
+Open Inventor - Examples from The Inventor Mentor.
+--------------------------------------------------
+
+This directory contains source code for all the examples in the
+The Inventor Mentor.  
+
+
+How to make C++ example programs
+--------------------------------
+Type `make <ch#.ex#.name>', to make an individual C++ example,
+where   ch# is the chapter number from the Programming Guide,
+	ex# is the example number from the Programming Guide,
+	name is the short name describing the example.
+
+e.g. `make 02.3.Trackball'
+      makes the chapter 2, example 3, trackball example (see The Inventor Mentor)
+
+To create all of the C++ examples, type `make'.
+To reclaim your disk space, type 'make clobber'.
+
+
+How to Run
+----------
+To run the example, simply type in the program name:
+e.g. `02.3.Trackball' 
+
+
+WARNING
+-------
+Compiling and linking all of these programs will take up a large amount
+of disk space.  Use the default make rules with caution.  The executable
+files may also be stripped to reduce their size.

@@ -1,0 +1,62 @@
+NAME SoCube "" "" { cube shape node }
+
+INCLUDE nodes/SoCube.h
+
+DESC {
+
+This node represents a cuboid aligned with the coordinate axes. By
+default, the cube is centered at (0,0,0) and measures 2 units in each
+dimension, from -1 to +1. The cube is transformed by the current
+cumulative transformation and is drawn with the current lighting
+model, drawing style, material, and geometric complexity.
+\p
+If the current material binding is \kPER_PART\., \kPER_PART_INDEXED\.,
+\kPER_FACE\., or \kPER_FACE_INDEXED\., materials will be bound to the
+faces of the cube in this order: front, back, left, right, top, and
+bottom.
+\p
+Textures are applied individually to each face of the cube; the entire
+texture goes on each face. On the front, back, right, and left sides
+of the cube, the texture is applied right side up. On the top, the
+texture appears right side up when the top of the cube is tilted
+toward the camera. On the bottom, the texture appears right side up
+when the top of the cube is tilted away from the camera.
+}
+
+FIELD width  {}
+FIELD height {}
+FIELD depth  { Sizes in the x, y, and z dimensions, respectively. }
+
+METHOD "" SoCube() {
+Creates a cube node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Draws cube based on the current coordinates, materials,
+drawing style, and so on.
+}
+
+ACTION SoRayPickAction {
+Intersects the ray with the cube. The face of the cube that was picked
+is available from the \cSoCubeDetail\..
+}
+
+ACTION SoGetBoundingBoxAction {
+Computes the bounding box that encloses the cube.
+}
+
+ACTION SoCallbackAction {
+If any triangle callbacks are registered with the action, they will
+be invoked for each successive triangle that approximates the cube.
+}
+
+ALSO {
+SoCone,
+SoCubeDetail,
+SoCylinder,
+SoSphere
+}

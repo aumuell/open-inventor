@@ -1,0 +1,18 @@
+#define OneProgram
+
+#define NoInventorXt
+
+#define OtherLibs -lm
+
+PROGRAM = ivnorm
+
+C++FILES = ivnorm.c++ FindNormals.c++ \
+	Faces.c++ Edges.c++
+HFILES = Edges.h Faces.h FindNormals.h
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../..
+
+OTHERSOURCE = README
+#endif
+

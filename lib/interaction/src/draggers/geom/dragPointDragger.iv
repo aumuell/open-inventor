@@ -1,0 +1,225 @@
+#Inventor V2.0 ascii
+
+DEF INACTIVE_STYLE Group {
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    LightModel { model PHONG }
+    Texture2 {}
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+    DrawStyle { style FILLED lineWidth 1 }
+}
+
+DEF ACTIVE_STYLE Group {
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    LightModel { model PHONG }
+    Texture2 {}
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+    DrawStyle { style FILLED lineWidth 1 }
+}
+
+DEF DRAG_POINT_DRAGGER_X_TRANSLATOR Separator {
+    renderCaching ON
+    RotationXYZ { axis Z angle 1.57079 }
+    Complexity { value .3 }
+    Cylinder { height 1.5 radius 0.2 }
+}
+
+DEF DRAG_POINT_DRAGGER_INACTIVE_X_TRANSLATOR Separator {
+    renderCaching ON
+    USE INACTIVE_STYLE
+    USE DRAG_POINT_DRAGGER_X_TRANSLATOR
+}
+DEF DRAG_POINT_DRAGGER_ACTIVE_X_TRANSLATOR Separator {
+    renderCaching ON
+    USE ACTIVE_STYLE
+    USE DRAG_POINT_DRAGGER_X_TRANSLATOR
+}
+DEF dragPointXTranslatorTranslator Separator { 
+    renderCaching ON
+    USE INACTIVE_STYLE
+    USE DRAG_POINT_DRAGGER_X_TRANSLATOR 
+} 
+DEF dragPointXTranslatorTranslatorActive Separator { 
+    renderCaching ON
+    USE ACTIVE_STYLE
+    USE DRAG_POINT_DRAGGER_X_TRANSLATOR  
+}
+DEF dragPointYTranslatorTranslator Separator { 
+    renderCaching ON
+    USE INACTIVE_STYLE
+    USE DRAG_POINT_DRAGGER_X_TRANSLATOR  
+}
+DEF dragPointYTranslatorTranslatorActive Separator { 
+    renderCaching ON
+    USE ACTIVE_STYLE
+    USE DRAG_POINT_DRAGGER_X_TRANSLATOR  
+}
+DEF dragPointZTranslatorTranslator Separator { 
+    renderCaching ON
+    USE INACTIVE_STYLE
+    USE DRAG_POINT_DRAGGER_X_TRANSLATOR  
+}
+DEF dragPointZTranslatorTranslatorActive Separator { 
+    renderCaching ON
+    USE ACTIVE_STYLE
+    USE DRAG_POINT_DRAGGER_X_TRANSLATOR  
+}
+
+DEF DRAG_POINT_DRAGGER_XY_TRANSLATOR Separator {
+    renderCaching ON
+    Complexity { value .01 }
+    Cube { width 1 height 1 depth .1 }
+}
+
+DEF dragPointYZTranslatorTranslator Separator {
+    renderCaching ON
+    USE INACTIVE_STYLE
+    USE DRAG_POINT_DRAGGER_XY_TRANSLATOR
+}
+DEF dragPointYZTranslatorTranslatorActive Separator {
+    renderCaching ON
+    USE ACTIVE_STYLE
+    USE DRAG_POINT_DRAGGER_XY_TRANSLATOR
+}
+DEF dragPointXZTranslatorTranslator Separator {
+    renderCaching ON
+    USE INACTIVE_STYLE
+    USE DRAG_POINT_DRAGGER_XY_TRANSLATOR
+}
+DEF dragPointXZTranslatorTranslatorActive Separator {
+    renderCaching ON
+    USE ACTIVE_STYLE
+    USE DRAG_POINT_DRAGGER_XY_TRANSLATOR
+}
+DEF dragPointXYTranslatorTranslator Separator {
+    renderCaching ON
+    USE INACTIVE_STYLE
+    USE DRAG_POINT_DRAGGER_XY_TRANSLATOR
+}
+DEF dragPointXYTranslatorTranslatorActive Separator {
+    renderCaching ON
+    USE ACTIVE_STYLE
+    USE DRAG_POINT_DRAGGER_XY_TRANSLATOR
+}
+
+DEF DRAG_POINT_DRAGGER_Y_FEEDBACK Group {
+    Scale { scaleFactor 10 10 10 }
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+    Coordinate3 { point [ 0 -1 0, 0 1 0 ] }
+    LineSet {}
+
+    Complexity { value 0.3 }
+    Separator {
+	renderCaching ON
+	Transform { translation 0 1.025 0 }
+	Cone { height 0.05 bottomRadius 0.025 }
+    }
+    Transform { translation 0 -1.025 0 }
+    RotationXYZ { axis Z angle 3.14159 }
+    Cone { height 0.05 bottomRadius 0.025 }
+}
+DEF DRAG_POINT_DRAGGER_X_FEEDBACK Group {
+    RotationXYZ { axis Z angle 1.57079 }
+    USE DRAG_POINT_DRAGGER_Y_FEEDBACK
+}
+DEF DRAG_POINT_DRAGGER_Z_FEEDBACK Group {
+    RotationXYZ { axis X angle 1.57079 }
+    USE DRAG_POINT_DRAGGER_Y_FEEDBACK
+}
+
+DEF DRAG_POINT_DRAGGER_FEEDBACK_LINE_STYLE Group {
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.36 0.05 0.44 ]
+	emissiveColor	[ 0.36 0.05 0.44 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+}
+
+DEF dragPointXFeedback Separator {
+    renderCaching ON
+    USE DRAG_POINT_DRAGGER_FEEDBACK_LINE_STYLE
+    USE DRAG_POINT_DRAGGER_X_FEEDBACK
+}
+DEF dragPointYFeedback Separator {
+    renderCaching ON
+    USE DRAG_POINT_DRAGGER_FEEDBACK_LINE_STYLE
+    USE DRAG_POINT_DRAGGER_Y_FEEDBACK
+}
+DEF dragPointZFeedback Separator {
+    renderCaching ON
+    USE DRAG_POINT_DRAGGER_FEEDBACK_LINE_STYLE
+    USE DRAG_POINT_DRAGGER_Z_FEEDBACK
+}
+
+DEF DRAG_POINT_DRAGGER_XZ_CONSTRAINT_PLANE Group {
+    Scale { scaleFactor 10 10 10 }
+    NormalBinding { value OVERALL }
+    MaterialBinding {value OVERALL }
+    Coordinate3 {
+	point [ -1 0 -1, -1 0 1 , 1 0 1, 1 0 -1, -1 0 -1 ]
+    }
+    Normal {
+	vector [ 0 1 0 ]
+    }
+    # outline of the square
+    LineSet {}
+    NormalBinding {
+	value OVERALL
+    }
+    MaterialBinding { value OVERALL }
+    ShapeHints { 
+	vertexOrdering COUNTERCLOCKWISE
+    }
+    # filled square 
+    FaceSet {
+    }
+}
+
+DEF DRAG_POINT_DRAGGER_PLANE_FEEDBACK_STYLE Group {
+    Material {
+	diffuseColor	[ 0.05 0.2025 0.18 ]
+	emissiveColor	[ 0.05 0.2025 0.18 ]
+
+	transparency	0.5
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+}
+
+DEF dragPointYZFeedback Separator {
+    renderCaching ON
+    RotationXYZ {
+	axis  Z
+	angle 1.57079
+    }
+    USE DRAG_POINT_DRAGGER_PLANE_FEEDBACK_STYLE
+    USE DRAG_POINT_DRAGGER_XZ_CONSTRAINT_PLANE
+}
+
+DEF dragPointXZFeedback Separator {
+    renderCaching ON
+    USE DRAG_POINT_DRAGGER_PLANE_FEEDBACK_STYLE
+    USE DRAG_POINT_DRAGGER_XZ_CONSTRAINT_PLANE
+}
+
+DEF dragPointXYFeedback Separator {
+    renderCaching ON
+    RotationXYZ {
+	axis  X
+	angle 1.57079
+    }
+    USE DRAG_POINT_DRAGGER_PLANE_FEEDBACK_STYLE
+    USE DRAG_POINT_DRAGGER_XZ_CONSTRAINT_PLANE
+}

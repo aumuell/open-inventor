@@ -1,0 +1,36 @@
+NAME SoPathSensor SoPathSens "" {
+sensor class that can be attached to Inventor paths
+}
+
+INCLUDE sensors/SoPathSensor.h
+
+DESC {
+Path sensors detect changes to paths, calling a callback function
+whenever the path or any node in the path changes.  The definition of
+"in the path" is the same as the definition used when applying an
+action to the path \(em any node that can possibly affect the node at the
+end of the path chain is considered in the path.  See the \cSoPath\.
+manual page for more information on paths.
+}
+
+METHOD "" SoPathSensor() {}
+METHOD CreateCB SoPathSensor(SoSensorCB *func, void *data) {
+Creation methods.  The second method takes the callback function and
+data to be called when the sensor is triggered.
+}
+METHOD "" ~SoPathSensor() {
+Destroys the sensor, freeing up any memory associated with it after
+unscheduling it.
+}
+
+METHOD "" void attach(SoPath *path) {}
+METHOD "" void detach() {}
+METHOD "" SoPath * getAttachedPath() const {
+The \mattach()\. method  makes this sensor detect changes to the given
+path.  The \mdetach()\. method unschedules this sensor (if it is
+scheduled) and makes it ignore changes to the scene graph.  The
+\mgetAttachedPath()\. method returns the path that this sensor is
+sensing, or NULL if it is not attached to any path.
+}
+
+ALSO { SoNodeSensor, SoPathSensor, SoDataSensor }

@@ -1,0 +1,166 @@
+NAME SoSceneManager "SoSceneMgr" "" { manages scene graph rendering and event handling }
+
+INCLUDE SoSceneManager.h
+
+DESC { \cSoSceneManager\. provides Inventor rendering and event handling
+inside a window provided by the caller.
+The scene manager is able to render in only a portion of a window if desired.
+The \cSoXtRenderArea\. class employs a \cSoSceneManager\.,
+and handles most all the details for setting up a window, 
+converting X events to Inventor events, automatically redrawing
+the scene when necessary, and so on.
+It is simplest to use a render area when rendering in an entire window.
+The \cSoSceneManager\. class is available for programmers not working
+with the \eInventor Xt Component and Utility Library\..
+}
+
+TYPEDEF void SoSceneManagerRenderCB "(void *userData, SoSceneManager *mgr)"
+
+METHOD "" SoSceneManager() {}
+METHOD "" ~SoSceneManager() {
+Constructor and destructor. 
+}
+    
+METHOD "" virtual void render(SbBool clearWindow = TRUE, SbBool clearZbuffer = TRUE) {
+Apply an \cSoGLRenderAction\. to the scene graph managed here.
+The caller is responsible for setting up a window to render into.
+If \aclearWindow\. is \eTRUE\., this clears the graphics window before rendering.
+If \aclearZbuffer\. is \eTRUE\., the z buffer will be cleared before rendering.
+}
+
+METHOD "processEv" virtual SbBool processEvent(const SoEvent *event) {
+Process the passed event by applying an \cSoHandleEventAction\.
+to the scene graph managed here. Returns TRUE if the event was
+handled by a node.
+}
+
+METHOD "reinit" void reinitialize() {
+Reinitialize graphics. This should be called, for instance, when
+there is a new window.
+}    
+
+METHOD "" void scheduleRedraw() {
+Schedule a redraw for some time in the near future.
+If there is no render callback set, or this is not active,
+no redraw will be scheduled.
+}
+    
+METHOD "setScene" virtual void setSceneGraph(SoNode *newScene) {}
+METHOD "getScene" virtual SoNode * getSceneGraph() const {
+Set and get the scene graph which is managed here. This is the
+Inventor scene which will be traversed for rendering and event
+processing.
+}
+    
+METHOD "setWinSize" void setWindowSize(const SbVec2s &newSize) {}
+METHOD "getWinSize" const SbVec2s & getWindowSize() const {
+Set and get the size of the window in which the scene manager should render.
+This size must be set before
+\+\mrender()\. and \mprocessEvent()\.\.
+\-\mSoSceneMgrRender()\. and \mSoSceneMgrProcessEv()\.\.
+are called.
+}
+    
+METHOD "" void setSize(const SbVec2s &newSize) {}
+METHOD "" const SbVec2s &	getSize() const {}
+METHOD "" void setOrigin(const SbVec2s &newOrigin) {}    
+METHOD "" const SbVec2s & getOrigin() const {
+Set and get the size and origin of the viewport within the window.
+Default is to render the entire window region. The origin (0,0) is
+the lower left corner of the window.
+}
+
+
+METHOD "setBkgCol" void setBackgroundColor(const SbColor &c) {}
+METHOD "getBkgCol" const SbColor & getBackgroundColor() const {
+Set and get the window background color when in RGB mode.
+This is the color the scene manager viewport is cleared to when
+\+\mrender()\.\.
+\-\mSoSceneMgrRender()\.\.
+is called with \aclearWindow\. set to \eTRUE\..
+Default is black (0,0,0).
+}    
+
+METHOD "setBkgInd" void setBackgroundIndex(int index) {}
+METHOD "getBkgInd" int getBackgroundIndex() const {
+Set and get the window background color when in color index mode.
+This is the color the scene manager viewport is cleared to when
+\+\mrender()\.\.
+\-\mSoSceneMgrRender()\.\.
+is called with \aclearWindow\. set to \eTRUE\..
+Default is black (index 0).
+}
+    
+METHOD "" void setRGBMode(SbBool onOrOff) {}
+METHOD "" SbBool isRGBMode() const {
+Set and get the color mode (TRUE \(em RGB mode, FALSE \(em color map mode).
+Default is RGB mode. Only a subset of Inventor nodes will render
+correctly in color map mode. Basically, when in color index mode,
+lighting should be turned off (the \vmodel\. field of \cSoLightModel\.
+should be set to \e\+BASE_COLOR\.\-SO_L_MODEL_BASE_COLOR\.\.),
+and the \cSoColorIndex\. node should be used to specify colors.
+}
+    
+METHOD "" virtual void activate() {}
+METHOD "" virtual void deactivate() {
+Activate and deactivate the scene manager.
+The scene manager will only employ sensors for automatic redraw
+while it is active. Typically, the scene manager should be activated
+whenever its window is visible on the screen, and deactivated
+when its window is closed or iconified.
+}
+
+METHOD "setRenderCB" void setRenderCallback(
+			    SoSceneManagerRenderCB *f,
+			    void *userData = NULL) {
+The render callback provides a mechanism for automatically redrawing
+the scene in response to changes in the scene graph.
+The scene manager employs a sensor to monitor scene graph changes.
+When the sensor is triggered, the render callback registered here
+is invoked. The callback should set up its graphics window, then
+call the scene manager
+\+\mrender()\. method.\.
+\-\mSoSceneMgrRender()\. function.\.
+If the callback is set to NULL
+(the default), auto-redraw is turned off.
+}
+
+METHOD "" SbBool isAutoRedraw() const {
+Returns \eTRUE\. if there is currently a render callback registered.
+}
+    
+METHOD "" void setRedrawPriority(uint32_t priority) {}
+METHOD "" uint32_t	getRedrawPriority() const {}
+METHOD "" static uint32_t getDefaultRedrawPriority() {
+Set and get the priority of the redraw sensor. Sensors are
+processed based on priority, with priority values of 0
+processed immediately. The default priority for the scene
+manager redraw sensor is 10000.
+}
+
+METHOD enableRTUpdate static void	enableRealTimeUpdate(SbBool flag) {}
+METHOD isRTUpdate static SbBool		isRealTimeUpdateEnabled()
+{
+Enable/Disable the realTime global field update which normally
+happen right after a redraw.
+}
+
+
+METHOD "" void setAntialiasing(SbBool smoothing, int numPasses) {}
+METHOD "" void getAntialiasing(SbBool &smoothing, int &numPasses) const
+{
+Set/get the antialiasing for rendering. There are two kinds of
+antialiasing available: smoothing and multipass antialiasing.
+If \asmoothing\. is set to TRUE, smoothing is enabled.
+Smoothing uses OpenGL's line- and point-smoothing features
+to provide cheap antialiasing of lines and points.
+The value of \anumPasses\. controls multipass antialiasing. Each time
+a render action is applied, Inventor renders the scene \anumPasses\.
+times from slightly different camera positions, averaging the results.
+\anumPasses\. can be from one to 255, inclusive. Setting \anumPasses\. to
+one disables multipass antialiasing. You can use either, both, or neither
+of these antialiasing techniques. By default, both smoothing and
+multipass antialiasing are disabled.
+}
+
+ALSO { SoXtRenderArea, SoGLRenderAction, SoHandleEventAction }

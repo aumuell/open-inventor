@@ -1,0 +1,41 @@
+#define OneProgram
+
+PROGRAM = textomatic
+
+#define ShipProgram
+#define BinDir /usr/demos/Inventor
+#define IdbTagBin  -idb "inventor_eoe.demo.progs $(MACH_TAG) \
+	exitop('if [ -x \$$rbase/usr/sbin/iconbookedit ]; then \
+		chroot \$$rbase /usr/sbin/iconbookedit \
+	   	-add \"Category:File Name:/usr/demos/Inventor/textomatic\" \
+                -syspage Demos; fi;')"
+
+#define LocalLibs ../../samples/common/common.a
+#define OtherLibs -lGL -lXm -lXt -lX11
+
+C++FILES = textomatic.c++ TextGraph.c++ TextWrapper.c++
+HFILES = TextGraph.h TextWrapper.h labels.h
+LC++INCS = -I../../samples/common
+
+#ifndef CreatingUserMakefile
+
+TOP_OF_TREE = ../../..
+OTHERSOURCE = README
+
+#ifdef CreatingSgiMakefile
+
+IDBTAGEXTRA = -idb "inventor_eoe.demo.progs $(MACH_TAG)"
+IDBTAGDEMOJPN = -idb "inventor_eoe.demo.japanese $(MACH_TAG)"
+
+default:
+install: extraInstall
+extraInstall:
+	$(INSTALL) -F /usr/demos/Inventor -u demos -g demos -m 444 \
+		   $(IDBTAGEXTRA) textomatic.about
+	$(INSTALL) -F /usr/lib/X11/app-defaults -m 444 \
+		   $(IDBTAGEXTRA) Textomatic
+	$(INSTALL) -F /usr/lib/X11/ja_JP.EUC/app-defaults -m 444 \
+		   $(IDBTAGDEMOJPN) -src Textomatic.jp Textomatic
+ 
+#endif /* CreatingSgiMakefile */
+#endif /* ! CreatingUserMakefile */

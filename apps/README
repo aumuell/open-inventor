@@ -1,0 +1,6 @@
+GNUMakefile- Makefile that builds ALL apps
+demos      - contains demo programs (installed as binaries AND source)
+examples   - contains example code from the programming guides
+samples	   - contains Inventor sample programs (installed as source only)
+tools	   - contains the Inventor end-user tools
+converters - contains file translators

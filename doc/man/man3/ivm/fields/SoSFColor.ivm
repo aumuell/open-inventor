@@ -1,0 +1,38 @@
+NAME SoSFColor SoSCol "" {
+field containing an RGB color
+}
+DESC {
+A single-value field containing an \cSbColor\..
+Values may be set in either RGB (red,
+green, blue) or HSV (hue, saturation, value) color spaces.
+\p
+\cSoSFColors\. are written to file as an RGB triple of
+floating point numbers in standard scientific notation, in the range
+0.0 to 1.0.
+}
+
+METHOD SetV3f void setValue(const SbVec3f &vec) {}
+METHOD SetR_G_B void setValue(float red, float green, float blue) {}
+METHOD SetRGB void setValue(const float rgb[3]) {}
+METHOD SetH_S_V void setHSVValue(float hue, float saturation, float value) {}
+METHOD SetHSV void setHSVValue(const float hsv[3]) {
+Convenience methods for setting the value.
+}
+
+ALSO { SoField, SoSField, SoMFColor, SbColor }
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get const SbColor & getValue() const {
+Returns this field's value.
+}
+METHOD " " const SbColor & operator =(const SbColor & newValue) {}
+METHOD Set void setValue(const SbColor & newValue) {
+Sets this field to \anewValue\..
+}
+METHOD IsEq int operator ==(const SoSFColor &f) const {}
+METHOD IsNEq int operator !=(const SoSFColor &f) const {
+Returns TRUE if \af\. is of the same type and has the same value as this
+field.
+}

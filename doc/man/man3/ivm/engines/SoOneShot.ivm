@@ -1,0 +1,49 @@
+NAME SoOneShot SoOneShot "SO_ONE_SHOT_" { 
+timer that runs for a pre-set amount of time 
+}
+
+DESC { 
+This engine is a timer that runs for a pre-set amount of time and then stops.
+By default, the \vtimeIn\. input is connected to the \vrealTime\. global field.
+It can, however, by connected to any other time source.
+\p
+The timer is started when the \vtrigger\. input is touched.
+It then runs for the specified \vduration\., and updates the \vtimeOut\. 
+output with the time that has elapsed.
+During that time, the \vramp\. output is also updated.  The \vramp\. output
+starts at 0.0 at the beginning of the cycle, and linearly increases
+until it reaches 1.0 at the end of the cycle.  
+\p
+You can disable the timer by setting the \vdisable\. input to TRUE.
+The output value remains 0.0 while the timer is disabled.
+If the timer is disabled in the middle of a cycle the output values
+will be set to 0.0.
+\p
+The \vflags\. input contains control flags. Using the flags
+you can set the timer to be retriggerable in the middle of a cycle,
+and set the output values to stay high after the cycle has 
+been completed.  By default, these flags are not set.
+}
+
+INCLUDE engines/SoOneShot.h
+
+ENUM Flags { 
+	RETRIGGERABLE "Can start over during the cycle",
+	HOLD_FINAL "Output values stay high after cycle" 
+}
+
+INPUT timeIn { Running time. }
+INPUT duration { Duration of the active cycle. }
+INPUT trigger { Start the cycle. The trigger will be ignored if it 
+is touched in the middle of a cycle and the RETRIGGERABLE flag 
+is not set. }
+INPUT flags { Control flags. }
+INPUT disable { If TRUE, the timer is disabled. }
+
+OUTPUT timeOut { Elapsed time from the start. }
+OUTPUT isActive { Is TRUE during the active cycle. }
+OUTPUT ramp { Ramps linearly from 0.0 to 1.0. }
+
+METHOD Create SoOneShot() { Constructor }
+
+ALSO { SoElapsedTime, SoEngineOutput }

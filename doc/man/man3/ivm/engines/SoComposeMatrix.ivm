@@ -1,0 +1,31 @@
+NAME SoComposeMatrix SoCmpsMx "" { 
+composes a transformation matrix
+}
+
+DESC { 
+This engine has inputs that specify values for translation, rotation,
+scale, and center of transformation.  
+As output, it produces a transformation matrix that 
+transforms objects into the space specified by the scale, rotation,
+and translation inputs (in that order).
+\p
+The input fields can have multiple values, allowing the engine to 
+compose several matrices in parallel.
+Some inputs may have more values than others.  In such cases,
+the last value of the shorter inputs will be repeated as necessary.
+}
+
+INCLUDE engines/SoCompose.h
+
+INPUT translation { Translation in x, y, and z. }
+INPUT rotation { Rotation. }
+INPUT scaleFactor { Scale factors in x, y, and z. }
+INPUT scaleOrientation { Rotational space for scaling. }
+INPUT center { Center point for scaling and rotating. }
+
+OUTPUT matrix { Transformation matrix that transforms from
+object space into the space specified by the inputs. }
+
+METHOD Create SoComposeMatrix() { Constructor }
+
+ALSO { SoDecomposeMatrix, SoEngineOutput }

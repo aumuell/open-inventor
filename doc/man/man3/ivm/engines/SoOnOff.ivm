@@ -1,0 +1,23 @@
+NAME SoOnOff SoOnOff "" { engine that functions as an on/off switch }
+
+DESC { 
+This engine has three triggers as input and two Boolean values as output.  
+The \visOn\. output is a switch that can be turned \von\. or \voff\. by
+triggering the corresponding input.
+You can toggle the value by triggering the \vtoggle\. input.
+By default \visOn\. is FALSE.
+The \visOff\. output value is the inverse of \visOn\.
+} 
+
+INCLUDE engines/SoOnOff.h
+
+INPUT on { Turn the \visOn\. switch on. }
+INPUT off { Turn the \visOn\. switch off. }
+INPUT toggle { Toggle the switch value. }
+
+OUTPUT isOn { Switch value. }
+OUTPUT isOff  { The inverse of \visOn\.. }
+
+METHOD Create SoOnOff() { Constructor. }
+
+ALSO { SoEngineOutput }

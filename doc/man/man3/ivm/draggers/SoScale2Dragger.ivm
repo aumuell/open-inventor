@@ -1,0 +1,103 @@
+NAME SoScale2Dragger SoScale2Drag "" { object you can scale in two dimensions by dragging with the mouse }
+
+INCLUDE draggers/SoScale2Dragger.h
+
+DESC { \cSoScale2Dragger\. 
+is a simple dragger that scales
+freely and independently in two dimensions when dragged with the mouse.
+It moves within the x-y plane of its local space, as determined by its
+location in the scene graph.
+Transformation nodes placed before it will
+affect both the dragger and the plane of motion.
+\p
+This node has a \vscaleFactor\. field
+which always reflects
+its size in local space.
+If you set the field, the dragger will change accordingly.
+You can also connect fields of other nodes or engines from
+this one
+to make them follow the dragger's motion.
+\p
+This dragger contains four parts, \escaler\., \escalerActive\.,
+\efeedback\., and \efeedbackActive\..
+\p
+Each of these is set by default from a resource described in the 
+Dragger Resources section of the online reference page for this 
+class.  You can change the parts in any instance of this 
+dragger using \m\+setPart()\.\-SoDraggerSetPart()\.\..
+\p
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/scale2Dragger.iv\.
+into your own directory, editing the file, and then
+setting the environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+
+}
+
+METHOD "" SoScale2Dragger() {
+Constructor.
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+FIELD scaleFactor { Scale factor affecting the dragger. }
+
+DRAGGER_RESOURCE {
+  scale2Scaler,
+  scaler,
+  "white photo-corners at corners of 2-by-2 square in plane of motion",
+  "picking this initiates the scaling"
+}
+
+DRAGGER_RESOURCE {
+  scale2ScalerActive,
+  scalerActive,
+  "yellow version of scaler, but with an extra yellow box",
+  "displayed instead of scaler while in motion"
+}
+
+DRAGGER_RESOURCE {
+  scale2Feedback,
+  feedback,
+  "thin purple 3-D crosshair",
+  "shows center of scale when still"
+}
+
+DRAGGER_RESOURCE {
+  scale2FeedbackActive,
+  feedbackActive,
+  "thin, slightly brighter purple 3-D crosshair",
+  "shows center of scale while in motion"
+}
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoCenterballDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTransformerDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}
+

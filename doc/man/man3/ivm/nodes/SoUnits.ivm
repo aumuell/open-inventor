@@ -1,0 +1,54 @@
+NAME SoUnits SoUnits SO_UNITS_ { node that scales to convert units of length }
+
+INCLUDE nodes/SoUnits.h
+
+DESC {
+This node defines a uniform 3D scale about the origin relative to the
+previously defined units. The default units for all data are meters.
+Adding a units node with the value \kINCHES\. will have the same
+effect as adding an \cSoScale\. node with the \vscaleFactor\. of
+(.0254, .0254, .0254). Any subsequent \cSoUnits\. node will take the
+previous units into account. When building a composite object out of
+a bunch of pieces, it would be a good practice to add an \cSoUnits\.
+node at the beginning of each of the pieces, under an \cSoSeparator\.
+node, to make sure all the pieces fit together with the same scale.
+}
+
+ENUM Units {
+    METERS		"",
+    CENTIMETERS		"",
+    MILLIMETERS		"",
+    MICROMETERS		"",
+    MICRONS		"",
+    NANOMETERS		"",
+    ANGSTROMS		"",
+    KILOMETERS		"",
+    FEET		"",
+    INCHES		"",
+    POINTS		"",
+    YARDS		"",
+    MILES		"",
+    NAUTICAL_MILES	""
+}
+
+FIELD units { Defines the current unit. }
+
+METHOD "" SoUnits() {
+Creates a unit conversion node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoRayPickAction {
+Accumulates the scale that is the ratio of the size from the previous
+unit to the current unit into the current transformation.
+}
+
+ACTION SoGetMatrixAction {
+Returns the matrix corresponding to the units scaling.
+}
+
+ALSO { SoScale, SoTransform }

@@ -1,0 +1,78 @@
+	Release notes for Open Inventor(TM) (August 15th, 2000)
+	Alexandre Naaman, Thomas Flynn: OpenGL Performer (TM)
+	Jonathan Lim: Global Product Support
+	SGI
+
+INTRODUCTION
+
+	These notes briefly describe the structure of the Open Inventor (TM)
+	source tree and how it can be built.
+
+	For the latest news concerning Open Inventor (TM) please consult the
+	following URL:
+
+		http://oss.sgi.com/projects/inventor/
+
+
+TREE STRUCTURE
+
+	The source tree containing the Open Inventor (TM) source is structured
+	as follows:
+
+apps     - sample programs and examples
+data     - sample data
+doc      - technical documentation
+lib      - primary Inventor source
+libSoXt  - Inventor Xt Component and Utility Library source
+make     - Makefile tools
+tools    - assorted Inventor development tools
+libimage - library to read SGI RGB files
+
+
+DEPENDENCIES
+
+	The source in it's current form will compile on IRIX and Linux.
+
+	Currently the only dependecies include OpenGL(R) and X11R6 and
+	Motif(R) 1.2x. See the file FAQ.misc for more detailed
+	information.
+
+BUILDING THE TREE
+
+	QUICK RECIPE:
+
+	1) set the environment variable IVROOT to point to the
+	   root directory for the installed libraries and binaries.
+
+		setenv IVROOT /
+
+	2) set your DISPLAY environment variable:
+
+		setenv DISPLAY :0
+
+	3) type 'gmake' from the directory where you unpacked the
+	   Open Inventor source code.
+
+INSTALLATION TREE STUCTURE
+
+	When typing 'gmake install' the files generated during the
+	build will end up in the following locations:
+
+	$(IVROOT)/usr/include/Inventor  -> include files (.h)
+	$(IVROOT)/usr/lib/		-> shared libraries (.so)
+	$(IVROOT)/usr/man/		-> man pages 
+	$(IVROOT)/bin			-> commonly used binaries (ivview,
+					   SceneViewer, ivcat, ...)
+	$(IVROOT)/opt/SGIDemos/Inventor/bin -> Miscelaneous SGI demos
+	$(IVROOT)/usr/share/data	-> 3d models
+
+THANKS
+
+	Special thanks goes out to all the original Open Inventor 
+	developers, especially Paul Strauss and Gavin Bell for 
+	graciously agreeing to act in an ongoing advisory capacity 
+	at this exciting moment in Open Inventor's history.
+
+	We would also like to thank Chris Insinger and Jenny Zhao
+	for their unwavering support and persistence. Without them
+	this open source project would not have happened.         

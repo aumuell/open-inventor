@@ -1,0 +1,16 @@
+The Inventor Files in this directory contain the default scene graphs
+used for the geometry of all Inventor draggers.
+
+Each dragger has some parts that are each set from a "resource name."
+The man pages and header files detail the resource name used for each
+part of each dragger.
+
+To override the defaults, copy one or more of these files to a working
+directory and set the environment variable SO_DRAGGER_DIR to be the path
+to that directory.  Then, edit the scene graphs of the resources you want
+to change. For more information, see "The Inventor Mentor"
+
+When you start up an Inventor program, it will let any resources defined
+here take precedence over the compiled-in defaults.  Note that a dragger
+class will only read resources from the file corresponding to the class name.
+(e.g., SoTranslate1Dragger looks in translate1Dragger.iv)

@@ -1,0 +1,15 @@
+#define ManMakefile
+#define UsingIVM
+
+DEPTH = ../../..
+
+MANPAGES =	SoConeDetail.ivm \
+	SoCubeDetail.ivm \
+	SoCylinderDetail.ivm \
+	SoDetail.ivm \
+	SoDetailList.ivm \
+	SoFaceDetail.ivm \
+	SoLineDetail.ivm \
+	SoNodeKitDetail.ivm \
+	SoPointDetail.ivm \
+	SoTextDetail.ivm

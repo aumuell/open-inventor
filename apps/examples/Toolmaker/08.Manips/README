@@ -1,0 +1,19 @@
+Open Inventor - Examples from The Inventor Toolmaker
+
+Chapter 8 - "Creating Draggers and Manipulators"
+
+
+This directory contains source code that illustrates how to create
+new Inventor dragger and manipulator nodes. 
+The examples show how to create a simple dragger and a compound dragger.
+It also shows how to make manipulators that employ each of these two
+draggers.  The manipulators are SoTransformManips; derived from SoTransform,
+they employ the draggers to make transforms which the user can edit 
+interactively.
+Finally, we show how to make a new flavor of manipulator, one that is derived
+from SoCoordinate3. This new manip employs an SoDragPointDragger to edit
+the points in 3-space.
+
+See The Inventor Mentor for an introduction to draggers and manipulators.
+
+*** This is for C++ programmers only! ***

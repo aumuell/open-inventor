@@ -1,0 +1,50 @@
+NAME SbPList "" "" { list of generic (void *) pointers }
+INCLUDE SbPList.h
+DESC {
+This class manages a dynamic list of generic \kvoid *\. pointers.
+This class allows random access, insertion, and removal.
+}
+METHOD "" SbPList() {}
+BEGIN C++
+METHOD "" SbPList(const SbPList &pl) {}
+END
+METHOD createN SbPList(int initSize) {}
+METHOD "" ~SbPList() {
+Constructors and destructor.
+\ainitSize\. specifies an initial size for the list, which is useful as an
+optimization if you can estimate the length of the list before you construct
+it. If another \cSbPList\. is given, it returns a copy of that list.
+}
+METHOD "" void        append(void * ptr) {
+Adds given pointer to end of list.
+}
+METHOD "" int         find(const void *ptr) const {
+Returns index of given pointer in list, or -1 if not found.
+}
+METHOD "" void        insert(void *ptr, int addBefore) {
+Inserts given pointer in list before pointer with given index.
+}
+METHOD "" void        remove(int which) {
+Removes pointer with given index.
+}
+METHOD getLen int         getLength() const {
+Returns number of pointers in list.
+}
+METHOD "" void        truncate(int start) {
+Removes all pointers after one with given index, inclusive.
+}
+METHOD "" void        copy(const SbPList &pl) {
+Copy a list.
+}
+BEGIN C++
+METHOD "" SbPList &   operator =(const SbPList &pl) {
+Assignment operator; copies list into this list.
+}
+END
+METHOD "" void *&     operator [\|](int i) const {
+Returns pointer with given index.
+}
+METHOD "" int         operator ==(const SbPList &pl) const {}
+METHOD "" int         operator !=(const SbPList &pl) const {
+Equality and inequality operators.
+}

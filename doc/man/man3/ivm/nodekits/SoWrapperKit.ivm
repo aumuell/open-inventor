@@ -1,0 +1,59 @@
+NAME SoWrapperKit SoWrapKit "" { wrapper nodekit class }
+
+INCLUDE nodekits/SoWrapperKit.h
+
+DESC { 
+\cSoWrapperKit\. is derived from \cSoSeparatorKit\..
+It adds the capability to wrap an arbitrary scene graph, (non-nodekit),
+within an \cSoSeparatorKit\., so that it may be used along with other
+shape kits in a hierarchy. There are two additional parts
+included in \cSoWrapperKit\.: \elocalTransform\. and \econtents\..
+\p
+The part \econtents\. is an \cSoSeparator\. node beneath which
+any arbitrary scene graph can be added. This is especially useful
+for importing scene graphs of unknown structure (non-nodekits)
+into nodekit format.
+\p
+Since an \cSoWrapperKit\. is a class descended from \cSoSeparatorKit\.,
+it may be put into another \cSoSeparatorKit\.'s \echildList\.. 
+}
+
+
+METHOD "" SoWrapperKit() { Constructor. }
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for the class \cSoWrapperKit\.. }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+
+PART localTransform
+	{ This part is an \cSoTransform\. node that is used to
+	affect the scene graph defined in \econtents\. part.
+	This part is \kNULL\. by default and is automatically
+	created if requested. }
+
+PART contents
+	{ This part is an \cSoSeparator\. node that contains
+	a user-supplied scene graph.  This scene graph can contain
+	any nodes.  This part is \kNULL\. by default and an \cSoSeparator\.
+	is automatically 
+	created if the user asks the nodekit to build the part.}
+
+
+ALSO {
+SoAppearanceKit,
+SoBaseKit,
+SoCameraKit,
+SoLightKit,
+SoNodeKit,
+SoNodeKitDetail,
+SoNodeKitListPart,
+SoNodeKitPath,
+SoNodekitCatalog,
+SoSceneKit,
+SoSeparatorKit,
+SoShapeKit }

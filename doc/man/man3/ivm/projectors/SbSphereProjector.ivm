@@ -1,0 +1,57 @@
+NAME SbSphereProjector "SbSphProj" "" { sphere projector }
+
+INCLUDE projectors/SbSphereProjector.h
+
+DESC { \cSbSphereProjector\. 
+is an abstract base class for projectors that use a sphere in
+their projection.
+Sphere projectors are typically used to write
+interactive 3D manipulators and viewers.
+}
+
+METHOD "projectGetRot" SbVec3f projectAndGetRotation(const SbVec2f &point,
+  SbRotation &rot) {
+Apply the projector using the given point, returning the
+point in three dimensions that it projects to.
+This also returns in \vrot\. a rotation on the surface of the sphere
+from the last projected point to this one.
+The passed \vpoint\. should be normalized (i.e. lie in the range [0.0,1.0]),
+with (0,0) at the lower-left.
+}
+
+METHOD "getRot" virtual SbRotation getRotation(const SbVec3f &point1,
+				    const SbVec3f &point2) {
+Get a rotation given two points on this sphere projector.
+The rotation will be on the surface of the sphere.
+}
+
+METHOD "setSph" void setSphere(const SbSphere &sph) {}
+METHOD "getSph" const SbSphere & getSphere() const {
+Set and get the sphere on which to project points.
+The default sphere has radius 1.0.
+}
+
+METHOD "" void setOrientToEye(SbBool orientToEye) {}
+METHOD "" SbBool isOrientToEye() const {
+Set and get whether the projector should always be oriented towards the eye.
+Set to FALSE if the tolerance should be evaluated in working space.
+}
+
+METHOD "" void setFront(SbBool isFront) {}
+METHOD "" SbBool isFront() const {}
+METHOD "" SbBool isPointInFront(const SbVec3f &point) const {
+Set and get whether the projector should intersect the half of the
+sphere that faces the eye.
+Set to FALSE if the projector should intersect with the rear half.
+}
+    
+ALSO { 
+SbCylinderProjector, SbCylinderPlaneProjector,
+SbCylinderSectionProjector,
+SbCylinderSheetProjector,
+SbLineProjector, SbPlaneProjector, SbSpherePlaneProjector,
+SbSphereSectionProjector, SbSphereSheetProjector
+}
+
+
+

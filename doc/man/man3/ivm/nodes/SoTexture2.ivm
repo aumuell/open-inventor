@@ -1,0 +1,99 @@
+NAME SoTexture2 SoTex2 SO_TEX2_ { texture mapping node }
+
+INCLUDE nodes/SoTexture2.h
+
+DESC {
+This property node defines a texture map and parameters for that map. This
+map is used to apply texture to subsequent shapes as they are rendered.
+\p
+The texture can be read from the file specified by the \vfilename\.
+field. Once the texture has been read, the \vimage\. field contains
+the texture data. However, this field is marked so the image is not
+written out when the texture node is written to a file.  To turn off
+texturing, set the \vfilename\. field to an empty string ("").
+\p
+Textures can also be specified in memory by setting the \vimage\.
+field to contain the texture data. Doing so resets the \vfilename\. to
+the empty string.
+\p
+If the texture image's width or height is not a power of 2, or the
+image's width or height is greater than the maximum supported by
+OpenGL, then the image will be automatically scaled up or down to the
+next power of 2 or the maximum texture size.  For maximum speed,
+point-sampling is used to do the scale; if you want more accurate
+resampling, pre-filter images to a power of 2 smaller than the maximum
+texture size (use the OpenGL glGetIntegerv(GL_MAX_TEXTURE_SIZE...)
+call to determine maximum texture for a specific OpenGL
+implementation).
+\p
+The quality of the texturing is affected by the \vtextureQuality\.
+field of the \cSoComplexity\. node.  The \vtextureQuality\. field
+affects what kind of filtering is done to the texture when it must be
+minified or magnified.  The mapping of a particular texture quality
+value to a particular OpenGL filtering technique is implementation
+dependent, and varies based on the texturing performance.
+If mipmap filtering is required, mipmaps are automatically created
+using the simple box filter.
+
+}
+
+ENUM Model {
+    MODULATE	"The texture color is multiplied by the surface color",
+    DECAL	"The texture color replaces the surface color",
+    BLEND	"Blends between the surface color and a specified blend color"
+}
+
+ENUM Wrap {
+    REPEAT	"Repeats texture outside 0-1 texture coordinate range",
+    CLAMP	"Clamps texture coordinates to lie within 0-1 range"
+}
+
+FIELD filename {
+Names file from which to read texture image. Currently only SGI .rgb
+files are supported. If the filename is not an absolute path name, the
+list of directories maintained by \cSoInput\. is searched. If the
+texture is not found in any of those directories, then the file is
+searched for relative to the directory from which the \cSoTexture2\.
+node was read. For example, if an \cSoTexture2\. node with a filename
+of \k"../tofu.rgb"\. is read from \k/usr/people/bob/models/food.iv\.,
+then \k/usr/people/bob/tofu.rgb\. will be read (assuming \ktofu.rgb\.
+isn't found in the directories maintained by \cSoInput\.).
+}
+
+FIELD image {
+Contains an in-memory representation of the texture map. It is either
+the contents of the file read from \vfilename\., an image read
+directly from an Inventor file, or an image set programmatically using
+the methods provided by \cSoSFImage\..
+}
+
+FIELD wrapS {}
+FIELD wrapT {
+Indicates what to do when texture coordinates in the S (horizontal) or
+T (vertical) direction lie outside the range 0-1.
+}
+
+FIELD model { Specifies how to map texture onto surface. }
+
+FIELD blendColor { Color used for \kBLEND\. model. }
+
+METHOD "" SoTexture2() {
+Creates a texture node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction {
+Sets current texture in state.
+}
+
+ALSO {
+SoComplexity,
+SoMaterial,
+SoTexture2Transform,
+SoTextureCoordinate2,
+SoTextureCoordinateBinding,
+SoTextureCoordinateFunction
+}

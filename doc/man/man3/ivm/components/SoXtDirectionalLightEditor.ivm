@@ -1,0 +1,67 @@
+NAME SoXtDirectionalLightEditor SoXtDirLtEd "" {
+component for editing directional lights
+}
+
+INCLUDE Xt/SoXtDirectionalLightEditor.h
+
+TYPEDEF void SoXtDirectionalLightEditorCB "(void *userData, const SoDirectionalLight *light)"
+
+DESC {
+This class is used to edit an \cSoDirectionalLight\.
+node (color, intensity, and direction are changed). In addition to
+directly editing directional light nodes, the editor can also be used
+with callbacks which will be called whenever the light is changed.  The
+component consists of a render area and a value slider in the main window,
+with controls to display a color picker. In the render area there appears
+a sphere representing the world, and a directional light manipulator
+representing the direction of the light. Picking on the manipulator and
+moving the mouse provides direct manipulation of the light direction. The
+color picker is used to edit the color, and the value slider edits the
+intensity.
+
+\p
+The editor can currently be attached to only one light at a time.
+Attaching to two different lights will automatically detach the
+first one before attaching the second.
+}
+
+METHOD "" SoXtDirectionalLightEditor(
+	Widget parent = NULL,
+	const char *name = NULL, 
+	SbBool buildInsideParent = TRUE) {}
+METHOD "" ~SoXtDirectionalLightEditor()
+{
+Constructor and destructor.
+}
+
+METHOD "" void		attach(SoPath *pathToLight) {}
+METHOD "" void		detach()
+{
+Attach/detach the editor to/from a directional light. When attached,
+changes made in the editor directly affect the attached light.
+}
+
+METHOD "" SbBool		isAttached()
+{
+Returns TRUE if the editor is attached.
+}
+
+METHOD addLtChangedCB void addLightChangedCallback(
+				SoXtDirectionalLightEditorCB *f, 
+				void *userData = NULL) {}
+METHOD removeLtChangedCB void removeLightChangedCallback(
+				SoXtDirectionalLightEditorCB *f, 
+				void *userData = NULL)
+{
+Additional way of using the directional light editor, by 
+registering a callback and setting the light.
+}
+
+METHOD setLt void    	    	setLight(const SoDirectionalLight &newLight) {}
+METHOD getLt const SoDirectionalLight &getLight() const
+{
+Set new light values, and get the current light values.
+}
+
+
+ALSO { SoXtComponent, SoDirectionalLight }

@@ -1,0 +1,67 @@
+#Inventor V2.0 ascii
+
+Separator {
+    Separator {
+	Transform { 
+	    translation -1.5 -1 0
+	    scaleFactor .05 .05 .05
+	}
+	DEF STOP_BUTTON Button {
+	    buttonText       Separator { Text3 { string "STOP" } }
+	    buttonActiveText Separator { Text3 { string "STOP" } }
+	    buttonGeom Separator {
+		Material { diffuseColor .5 .5 1 }
+		DEF MY_BUTTON_GEOM Group {
+    		    Transform { translation 15. 4 -.251 }
+		    Cube { width 45.0 height 15.0 depth .5 }
+		}
+	    }
+	    buttonActiveGeom Separator {
+		Material { diffuseColor 1 .5 0 }
+		USE MY_BUTTON_GEOM 
+	    }
+	}
+	Transform { 
+	    translation 60 0 0
+	}
+	DEF START_BUTTON Button {
+	    buttonText       Separator { Text3 { string "START" } }
+	    buttonActiveText Separator { Text3 { string "START" } }
+	    buttonGeom Separator {
+		Material { diffuseColor .5 .5 1 }
+		USE MY_BUTTON_GEOM 
+	    }
+	    buttonActiveGeom Separator {
+		Material { diffuseColor 1 .5 0 }
+		USE MY_BUTTON_GEOM 
+	    }
+	}
+    }
+    DEF CRANK Crank {
+	origin	0 0 0
+	angle	= ElapsedTime { on TRUE = DEF MY_ON_OFF OnOff {
+				    off = USE STOP_BUTTON . isActive
+				    on = USE START_BUTTON . isActive
+				} . isOn
+				speed 1.5 
+		  } . timeOut 
+	size	0.75
+    }
+    DEF DOUBLE DoubleLink {
+	origin1	= USE CRANK . endPoint
+	size1    2.0 
+	size2    1.5
+	sharedPoint 2 1.2 0
+    }
+    DEF RIVET RivetHinge {
+	origin	= USE DOUBLE . sharedPoint
+	size	3.5
+	hingePoint	0.5 2.0 0
+    }
+    DEF PISTON Piston {
+	origin1	-3 0 0
+	origin2 = USE RIVET . endPoint
+	size1    2.7 
+	size2    2.7
+    }
+}

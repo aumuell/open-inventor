@@ -1,0 +1,37 @@
+#Inventor V2.0 ascii
+
+DEF tabBoxBoxGeom Separator {
+    renderCaching ON
+    PickStyle { style UNPICKABLE }
+    DrawStyle { style LINES }
+    BaseColor { rgb .2 .2 .2 }
+    MaterialBinding { value OVERALL }
+    LightModel { model BASE_COLOR }
+    Complexity { value .01 }
+    Cube {}
+}
+
+DEF tabBoxTranslator Separator {
+    renderCaching ON
+    DrawStyle { style INVISIBLE }
+    Transform { 
+	scaleFactor 1.001 1.001 1
+	translation 0 0 .001
+    }
+    NormalBinding { value OVERALL }
+    MaterialBinding { value OVERALL }
+    Normal { vector [ 0 0 1 ] }
+    Coordinate3 { point [ 1 -1 0, 1 1 0, -1 1 0, -1 -1 0 ] }
+    FaceSet {}
+}
+
+DEF tabBoxScaleTabMaterial  Material {
+    diffuseColor  0 .5 0 
+    emissiveColor 0 .5 0 
+}
+
+DEF tabBoxScaleTabHints  ShapeHints {
+    vertexOrdering COUNTERCLOCKWISE
+    shapeType SOLID
+    faceType CONVEX
+}

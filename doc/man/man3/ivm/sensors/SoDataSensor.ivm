@@ -1,0 +1,51 @@
+NAME SoDataSensor SoDataSens "" {
+abstract base class for sensors attached to parts of a scene
+}
+
+INCLUDE sensors/SoDataSensor.h
+
+DESC {
+Data sensors detect changes to scene graph objects (paths, nodes, or
+fields) and trigger their callback function when the object changes.
+\p
+Data sensors provide a delete callback that is called just before the
+object the data sensor is attached to is deleted; note that the
+callback should not attempt to modify the object in any way, or core
+dumps may result.
+\p
+Priority zero data sensors also provide methods that can be called in
+the callback function to determine exactly which node, field, or path
+caused the sensor to be triggered.
+}
+
+METHOD setDelCB void setDeleteCallback(SoSensorCB *function, void *data) {
+Sets a callback that will be called when the object the sensor is
+sensing is deleted.
+}
+
+METHOD getTrigNode SoNode * getTriggerNode() const {}
+METHOD getTrigField SoField *getTriggerField() const {
+If this is a priority 0 data sensor,
+returns the node/field that was modified that caused this sensor to
+trigger. Returns NULL if the sensor was not triggered because a
+node/field changed (for example, if \mschedule()\. is called on the
+sensor) or if this sensor is not a priority 0 sensor.  Note that
+because one change to the scene
+graph may cause multiple nodes or fields to be modified (because of
+field-to-field connections), the node or field returned may not be the
+only one that changed.
+}
+
+METHOD getTrigPath SoPath *getTriggerPath() const {}
+METHOD setTrigPathFlag void setTriggerPathFlag(SbBool flag) {}
+METHOD getTrigPathFlag SbBool getTriggerPathFlag() const {
+If this is a priority 0 data sensor,
+returns a path to the node that caused this sensor to trigger.
+Because recreating the path to the node that changed is relatively
+expensive, \msetTriggerPathFlag(TRUE)\. must be called before the
+sensor is scheduled.  If it is not called, or if the sensor wasn't
+triggered because a node changed, this returns NULL.  NULL is also
+returned if this is not a priority 0 sensor.
+}
+
+ALSO { SoNodeSensor, SoPathSensor, SoFieldSensor, SoDelayQueueSensor }

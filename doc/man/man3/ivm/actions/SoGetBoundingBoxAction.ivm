@@ -1,0 +1,110 @@
+NAME SoGetBoundingBoxAction SoBBoxAct "SO_BBOX_ACT_" {
+computes bounding box of a scene
+}
+
+INCLUDE actions/SoGetBoundingBoxAction.h
+
+DESC {
+This class is used to compute a 3D bounding box enclosing objects
+defined by a scene graph. The box is a rectangular prism. The action
+also computes the center point, which is defined differently for
+different objects.  (For example, the center of an \cSoFaceSet\. is
+the average of its vertices' coordinates.) For a group, the center
+point is defined as the average of the centers of all shapes in it.
+\p
+Each bounding box is calculated as a \cSbXfBox3f\., where the
+transformation matrix is defined so that the bounding box can be
+stored in the object space of the \cSoShape\.. When two bounding boxes
+are combined by a group node, the combination is performed so as to
+produce the smaller untransformed box.  The result of the calculation
+by the action can be returned as an \cSbXfBox3f\. or as a
+world-space-aligned \cSbBox3f\..
+\p
+To calculate the bounding box of a subgraph bounded by two paths,
+specify the left edge of the subgraph with \msetResetPath()\., and
+apply the action to the path that defines the right edge of the
+subgraph. The accumulated bounding box and transformation will be
+reset when the tail of the reset path is traversed.
+\p
+If the subgraph being traversed does not contain any shapes, the returned
+bounding box will be empty (that is,
+\m\+box.isEmpty()\.\-SbBox3fIsEmpty()\.\.
+will return TRUE).
+}
+
+ENUM ResetType {
+    TRANSFORM	"Transformation",
+    BBOX	"Bounding Box",
+    ALL		"Both Transform and Bounding Box"
+}
+
+METHOD "" SoGetBoundingBoxAction(const SbViewportRegion &viewportRegion) {
+Constructor takes viewport region to use for picking. Even
+though the bounding box computation may not involve a window
+per se, some nodes need this information to determine their
+size and placement.
+}
+
+METHOD setVPReg void setViewportRegion(const SbViewportRegion &newRegion) {}
+METHOD getVPReg const SbViewportRegion &getViewportRegion() const {
+Sets/returns current viewport region to use for action.
+}
+
+METHOD getBBox SbBox3f getBoundingBox() const {
+Returns computed bounding box in world space.
+}
+
+METHOD getXfBBox SbXfBox3f & getXfBoundingBox() {
+Returns computed bounding box before transformation into world space.
+}
+
+METHOD "" const SbVec3f & getCenter() const {
+Returns computed center point in world space.
+}
+
+METHOD setInCamSpace void setInCameraSpace(SbBool flag) {
+Set this flag to TRUE if you want the returned bounding box to be in
+the space of whatever camera is in the graph. Camera space is defined
+to have the viewpoint at the origin, with the direction of view along
+the negative z axis. This space can be used to determine distances of
+objects from the camera.
+}
+
+METHOD isInCamSpace SbBool isInCameraSpace() const {
+Returns camera space flag.
+}
+
+METHOD "" void setResetPath(const SoPath *path, SbBool resetBefore = TRUE,
+				ResetType what = ALL) {
+If a non-NULL path is specified, the action will reset the computed
+bounding box to be empty and/or the current transformation to
+identity. The \aresetBefore\. flag indicates whether to perform the
+reset before or after the tail node of the path is traversed.
+}
+
+METHOD "" const SoPath * getResetPath() const {
+Returns the current reset path, or NULL.
+}
+
+METHOD "" SbBool isResetPath() const {
+Returns TRUE if the current reset path is not NULL.
+}
+
+METHOD "" SbBool isResetBefore() const {
+Returns TRUE if the \aresetBefore\. flag was specified for the reset path.
+}
+
+BEGIN C++
+METHOD "" SoGetBoundingBoxAction::ResetType getWhatReset() const {
+Returns what flags were specified to be reset for the reset path.
+}
+END
+BEGIN C
+METHOD "" SoBBoxActResetType getWhatReset() const {
+Returns what flags were specified to be reset for the reset path.
+}
+END
+
+ALSO { SbBox3f, SbXfBox3f, SoGetMatrixAction }
+
+

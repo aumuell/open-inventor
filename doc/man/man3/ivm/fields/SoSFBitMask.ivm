@@ -1,0 +1,55 @@
+NAME SoSFBitMask SoSBitMask "" {
+single-value field containing a set of bit flags
+}
+
+INCLUDE fields/SoSFBitMask.h
+
+DESC {
+A single-value field that contains a mask of bit flags,
+stored as an integer. Nodes that use this field class define mnemonic
+names for the bit flags. These names should be used when setting or testing
+the values of the field, even though the values are treated as
+integers in the methods.
+\p
+The bit-wise "&" and "|" operators should be used when testing and
+setting flags in a mask.  For example, to turn on the sides of a 3D
+text node and turn off the back you would write:
+\+\b
+text3->parts = text3->parts.getValue() | SoText3::SIDES;
+text3->parts = text3->parts.getValue() & ~SoText3::BACK;
+\.\.
+\-\b
+SoSBitMaskSetValue(text3->parts,
+	SoSBitMaskGetValue(text3->parts) | SO_TXT3_SIDES);
+SoSBitMaskSetValue(text3->parts,
+	SoSBitMaskGetValue(text3->parts) & ~SO_TXT3_BACK);
+\.\.
+\cSoSFBitMasks\. are written to file as one or more mnemonic enumerated type
+names, in this format:
+\b
+( flag1 | flag2 | ... )
+\.
+If only one flag is used in a mask, the parentheses are optional.
+These names differ among uses of this field in various node or engine
+classes.  See their man pages for the names.
+\p
+The field values may also be represented as integers, but this is not
+guaranteed to be portable.
+}
+ALSO { SoField, SoSField, SoMFBitMask }
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get int getValue() const {
+Returns this field's value.
+}
+METHOD Set void setValue(int newValue) {}
+METHOD " " int operator =(int newValue) {
+Sets this field to \anewValue\..
+}
+METHOD IsEq int operator ==(const SoSFBitMask &f) const {}
+METHOD IsNEq int operator !=(const SoSFBitMask &f) const {
+Returns TRUE if \af\. is of the same type and has the same value as this
+field.
+}

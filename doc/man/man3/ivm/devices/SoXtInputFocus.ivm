@@ -1,0 +1,31 @@
+NAME SoXtInputFocus SoXtInFocus "" {
+reports input focus change events}
+
+INCLUDE Xt/devices/SoXtInputFocus.h
+
+DEFINE { SO_XT_ALL_FOCUS_EVENTS (EnterWindowMask | LeaveWindowMask) }
+
+DESC {
+This class reports input focus change events (i.e. when the
+cursor crosses into or out of the window). There are no input focus
+events in Inventor, so this always returns NULL when asked to translate
+events. When this class is registered on a render area, 
+the render area will receive X input focus change events.
+(This class is extensively employed by the viewer classes.)
+}
+
+METHOD "" SoXtInputFocus(EventMask mask = SO_XT_ALL_FOCUS_EVENTS) {}
+METHOD "" ~SoXtInputFocus() {
+Constructor and destructor. To the constructor, pass
+which input focus events you are interested in as a bitwise OR
+of the following values: 
+
+\pEnterWindowMask \(em Input focus entered the window 
+
+\pLeaveWindowMask \(em Input focus left the window
+
+\pOr simply pass the defined value SO_XT_ALL_FOCUS_EVENTS
+for all input focus events.
+}
+
+ALSO { SoXtDevice }

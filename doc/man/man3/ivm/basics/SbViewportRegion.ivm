@@ -1,0 +1,80 @@
+NAME SbViewportRegion SbVPReg "" { class for representing a viewport }
+INCLUDE SbViewportRegion.h
+DESC {
+This class represents the active viewport region in a display
+window. It contains the screen-space size of the window as well as
+the origin and size of the viewport within the window. By default,
+the viewport is the same as the full window. Methods allow the
+viewport to be set either in terms of screen-space pixels or as
+normalized coordinates, where (0,0) is the lower-left corner of
+the window and (1,1) is the upper-right corner.
+}
+METHOD "" SbViewportRegion() {}
+METHOD CreateWH SbViewportRegion(short width, short height) {}
+METHOD CreateVec SbViewportRegion(SbVec2s winSize) {}
+METHOD CreateReg SbViewportRegion(const SbViewportRegion &vpReg) {
+Constructors of various kinds.
+}
+METHOD SetWin void                setWindowSize(short width, short height) {
+Changes window size to given width and height in pixels.
+}
+METHOD SetWinVec void                setWindowSize(SbVec2s winSize) {
+Changes window size to given width and height in pixels, given
+as \cSbVec2s\..
+}
+METHOD SetVP void                setViewport(float left, float bottom,
+                                float width, float height) {
+Sets viewport to given region, specified as normalized window
+coordinates: (0,0) is the lower-left corner, (1,1) is the upper-right.
+}
+METHOD SetVPVec void                setViewport(SbVec2f origin, SbVec2f size) {
+Sets viewport to region with given origin (lower-left corner)
+and size, given as normalized coordinate vectors.
+}
+METHOD SetVPPix void                setViewportPixels(short left, short bottom,
+                                          short width, short height) {
+Sets viewport to given region, specified as pixel coordinates
+in window: (0,0) is the lower-left corner.
+}
+METHOD SetVPPixVec void       setViewportPixels(SbVec2s origin, SbVec2s size) {
+Sets viewport to region with given origin (lower-left corner)
+and size, given as pixel coordinates.
+}
+METHOD getWinSize const SbVec2s &     getWindowSize() const {
+Returns window size in pixels.
+}
+METHOD getVPOrigin const SbVec2f &     getViewportOrigin() const {
+Returns viewport origin in normalized coordinates.
+}
+METHOD getVPOriginPix const SbVec2s &     getViewportOriginPixels() const {
+Returns viewport origin in pixels.
+}
+METHOD getVPSize const SbVec2f &     getViewportSize() const {
+Returns viewport size in normalized coordinates.
+}
+METHOD getVPSizePix const SbVec2s &     getViewportSizePixels() const {
+Returns viewport size in pixels.
+}
+METHOD getVPAspect float               getViewportAspectRatio() const {
+Returns aspect ratio (width/height) of viewport.
+}
+METHOD "" void                scaleWidth(float ratio) {}
+METHOD "" void                scaleHeight(float ratio) {
+Scales viewport within window to be the given ratio of its
+current width or height, leaving the resulting viewport
+centered about the same point as the current one.
+}
+METHOD setPixPerInch void     setPixelsPerInch(float ppi){}
+METHOD getPixPerInch float    getPixelsPerInch() const {
+Sets/returns the pixel-per-inch ratio for the display device
+the viewport is part of. The default value is 72 (1 pixel per
+printer's point).
+}
+METHOD getPixPerPt float               getPixelsPerPoint() const {
+Convenience function that returns number of pixels per printer's point.
+}
+METHOD "" friend int          operator ==(const SbViewportRegion &reg1,
+                                    const SbViewportRegion &reg2) {
+Equality comparison operator.
+}
+ALSO { SbVec2f, SbVec2s }

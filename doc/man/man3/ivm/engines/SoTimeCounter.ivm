@@ -1,0 +1,69 @@
+NAME SoTimeCounter SoTimeCounter "" { timed integer counter }
+
+DESC { 
+This engine is a counter that outputs numbers, starting
+at a minimum value, increasing by a step value, and ending with
+a number that does not exceed the maximum value.  When the 
+maximum number is reached, it starts counting from the beginning again. 
+\p
+The difference between this engine and the \cSoCounter\. engine, is
+that this engine also has a \vtimeIn\. input, which allows the
+counting cycles to be timed.  This engine counts automatically over time;
+it does not need to be triggered to go to the next step.
+By default, the \vtimeIn\. input is connected to the \vrealTime\. global field.  
+It can, however, be connected to any time source. 
+\p
+The \vfrequency\. input field controls how many min-to-max cycles
+are performed per second.  For example, a \vfrequency\. value of 0.5 means
+that it will take 2 seconds to complete a single min-to-max cycle.
+\p
+The steps in the count cycle do not necessarily all have the same duration.
+Using the \vduty\. input field, you can arbitrarily split the time period
+of the count cycle between the steps.
+For example, if there are 5 steps in the cycle, a duty input of 
+(1., 2., 2., 2., 1.) 
+will make the second, third, and fourth steps take twice as long as the 
+first and last steps.
+\p
+At any time the counter can be reset to a specific value.  If you
+set the \vreset\. input field to a value, the engine will
+continue counting from there.  Note that the counter will
+always output numbers based on the \vmin\., \vmax\. and \vstep\. values, 
+and setting the \vreset\. value does not affect the those input fields.
+If the reset value is not a legal counter value, the counter will still
+behave as though it is:
+\b
+If \vreset\. is greater than \vmax\., the counter is set to \vmax\..
+If \vreset\. is less than \vmin\., the counter is set to \vmin\..
+If \vreset\. is between step values, the counter is set to the lower step.
+\.
+Each time a counting cycle is started, the \vsyncOut\. output is triggered.  
+This output can be used to synchronize some other event with the 
+counting cycle.
+Other events can also synchronize the counter by triggering the 
+\vsyncIn\. input.
+\p
+You can pause the engine, by setting the \von\. input to FALSE, and
+it will stop updating the output field. 
+When you turn off the pause, by setting \von\. to TRUE, it 
+will start counting again from where it left off.
+}
+
+INCLUDE engines/SoTimeCounter.h
+
+INPUT timeIn { Running time. }
+INPUT min { Minimum value for the counter. }
+INPUT max { Maximum value for the counter. }
+INPUT step { Counter step value. }
+INPUT on { Counter pauses if this is set to FALSE. }
+INPUT frequency { Number of \vmin\.-to-\vmax\. cycles per second. }
+INPUT duty { Duty cycle values. }
+INPUT reset { Reset the counter to the specified value. }
+INPUT syncIn { Restart at the beginning of the cycle. }
+
+OUTPUT output { Counts \vmin\.-to-\vmax\., in \vstep\. increments. }
+OUTPUT syncOut { Triggers at cycle start. }
+
+METHOD Create SoTimeCounter() { Constructor }
+
+ALSO { SoCounter, SoElapsedTime, SoEngineOutput }

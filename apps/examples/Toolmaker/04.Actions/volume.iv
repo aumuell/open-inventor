@@ -1,0 +1,40 @@
+#Inventor V2.0 ascii
+
+#
+# Input file for "printVolume" program. Resulting volume is:
+#
+#         60      (cube)
+#       + 33.5103 (sphere)
+#         -------
+#         93.5103 (total)
+#       *  2      (scale from Transform node)
+#         -------
+#        187.021  (grand total)
+#
+
+Separator {
+
+   Transform {
+      rotation        1 1 1 .5        # Has no effect on volume
+      scaleFactor     2 1 1           # Doubles volume
+      translation     3 3 0           # Has no effect on volume
+   }
+
+   Separator {
+
+      # Cube with volume 60
+      Cube {
+	 width       3
+	 height      4
+	 depth       5
+      }
+   }
+
+   Separator {
+
+      # Sphere with volume 33.5103
+      Sphere {
+	 radius      2
+      }
+   }
+}

@@ -1,0 +1,94 @@
+'\"macro stdmacro
+.TH SceneViewer 1
+.SH NAME
+SceneViewer \- 3d editor and viewer for Inventor scenes
+.SH SYNOPSIS
+.B SceneViewer
+.RB [ \-e
+env_file]
+[file]
+.SH DESCRIPTION
+.I SceneViewer
+is a program for viewing and interacting with Inventor scene graph files (the
+SGI 3D file format standard).
+.I SceneViewer
+was written to demonstrate Inventor features, and serves as the 
+basis for the IRIS Explorer Render Module.
+.PP
+When SceneViewer is run, a window appears containing the Inventor 
+.I examiner viewer
+and a menu bar. The viewer allows the user to interactively
+change the view of the scene through direct manipulation, or
+indirect slider and push button controls.
+The menu bar contains the following menus:
+.TP
+.I File
+.br
+This menu supports file reading and writing, and launches a
+dialog for printing to a printer or to PostScript file.
+.TP
+.I Edit
+.br
+This menu enables copy and paste of 3D data, selecting all objects, 
+and deleting the currently selected objects.
+.TP
+.I Viewing
+.br
+This menu controls viewing options.
+It allows different viewing paradigms to be employed: the 
+.I examiner
+viewer which provides a virtual trackball interface, the
+.I fly-through
+viewer for traveling through expansive data sets, the
+.I walk
+viewer for architectural walk-throughs, and the
+.I plane
+viewer for orthographic projections.
+The menu also enables different types of transparency,
+fog effects, antialiasing, and background color controls.
+.TP
+.I Selection
+.br
+This menu allows the different selection policies to be demonstrated.
+A selection policy determines how objects get added and removed from
+the collection of selected objects.
+.TP
+.I Editors
+.br
+This menu launches the material editor and transform sliders.
+An object must be selected for the menu to be active.
+.TP
+.I Manips
+.br
+This menu allows different manipulators to act on the current
+selection, including the
+.I "trackball, handle box, jack, center ball,"
+and
+.I "transform box."
+Manipulators can also be turned off, in which case selected objects
+are surrounded with a red wireframe box highlight.
+.TP
+.I Lights
+.br
+This menu allows directional, point, and spot lights to be
+created and edited. It also allows lights to be turned on and off.
+.PP
+For more information on how to use the viewers and editors
+employed by the scene viewer, please see SceneViewer's runtime help cards.
+.SH SOURCE CODE
+Note that the source code to 
+.I SceneViewer 
+comes with the 
+.I Open Inventor 3d Toolkit.
+.SH OPTIONS
+The following command line options are allowed:
+.TP
+.BI \-e " env_file"
+Read the passed environment file, and use the lights,
+camera, and environment settings found there.
+.SH FILES
+/usr/share/data/models/* - Sample 3D data files
+/usr/share/src/Inventor/demos/SceneViewer/* - Source to SceneViewer
+.SH SEE ALSO
+drop, gview, inventor, ivcat, ivview, 
+maze, noodle, qmorf, revo, showcase, textomatic

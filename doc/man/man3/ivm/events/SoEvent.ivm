@@ -1,0 +1,65 @@
+NAME SoEvent SoEv "" { base class for all events }
+
+INCLUDE events/SoEvent.h
+
+DESC { \cSoEvent\. is the base class for events in the Inventor
+event model. An event typically represents a user action, such as
+a mouse button being pressed or a keyboard key being released.
+\cSoEvent\. contains general information found in all Inventor
+events, including the time the event occurred, the position of the
+locater when the event occurred, and the state of the modifier
+keys when the event occurred.
+}
+
+METHOD "" SoEvent() {}
+METHOD "" virtual ~SoEvent() { Constructor and destructor. }
+METHOD "" virtual SoType getTypeId() const {
+Return the type id for this event instance.
+}
+METHOD "" static SoType getClassTypeId() {
+Return the type id for the \cSoEvent\. class.
+}
+METHOD "" SbBool isOfType(SoType type) const {
+This returns TRUE if the event is an instance of
+or derived from an event of the passed type.
+}
+METHOD "" void setTime(SbTime t) {}
+METHOD "" SbTime getTime() const { 
+Set and get the time at which the event occurred.
+}
+METHOD "setPos" void setPosition(const SbVec2s &p) {}
+METHOD "getPos" const SbVec2s & getPosition() const { 
+Set the window pixel location of the cursor when the event occurred.
+The position is relative to the lower left corner of the window
+in which the event occurred.
+}  
+METHOD "getPosInVP" const SbVec2s & getPosition(const SbViewportRegion &vpRgn) const { 
+Get the viewport pixel location of the cursor when the event occurred,
+relative to the specified viewport region.
+}
+METHOD "getNormPos" const SbVec2f & getNormalizedPosition(const SbViewportRegion &vpRgn) const { 
+Get the normalized location of the cursor when the event occurred,
+relative to the specified viewport region. The returned value will
+lie between 0.0 and 1.0.
+}
+
+METHOD "" void setShiftDown(SbBool isDown) {}
+METHOD "" void setCtrlDown(SbBool isDown) {}
+METHOD "" void setAltDown(SbBool isDown) {
+Set whether the modifier keys were down when the event occurred.
+}
+    
+METHOD "" SbBool wasShiftDown() const {}
+METHOD "" SbBool wasCtrlDown() const {}
+METHOD "" SbBool wasAltDown() const {
+Get whether the modifier keys were down when the event occurred.
+}
+
+ALSO { 
+SoButtonEvent, SoKeyboardEvent, SoLocation2Event, SoMotion3Event,
+SoMouseButtonEvent, SoSpaceballButtonEvent,
+SoHandleEventAction, SoEventCallback, SoSelection, SoInteraction,
+SoXtDevice, SoXtRenderArea }
+
+
+

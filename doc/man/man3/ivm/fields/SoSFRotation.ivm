@@ -1,0 +1,45 @@
+NAME SoSFRotation SoSRotation "" {
+field containing a rotation
+}
+
+INCLUDE fields/SoSFRotation.h
+
+DESC {
+A field containing a single \cSbRotation\. (an arbitrary rotation).
+\p
+\cSoSFRotations\. are written to file as four floating point values
+separated by whitespace.  The 4 values represent an axis of rotation
+followed by the amount of right-handed rotation about that axis, in
+radians.  For example, a 180 degree rotation about the Y axis is:
+\b
+0 1 0  3.14159265
+\.
+}
+
+METHOD GetAxisAngle void getValue(const SbVec3f &axis, float &angle) const {
+Gets the value of the field as an axis/angle.
+}
+METHOD SetQ_U_A_T void setValue(float q0, float q1, float q2, float q3) {}
+METHOD SetQuat setValue(float q[4]) {
+Set the field to the given quaternion.
+}
+METHOD SetAxisAngle void setValue(const SbVec3f &axis, float angle) {
+Set the field to the rotation given by axis/angle.
+}
+ALSO { SbRotation, SoField, SoSField, SoMFRotation }
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get const SbRotation & getValue() const {
+Returns this field's value.
+}
+METHOD " " const SbRotation & operator =(const SbRotation & newValue) {}
+METHOD Set void setValue(const SbRotation & newValue) {
+Sets this field to \anewValue\..
+}
+METHOD IsEq int operator ==(const SoSFRotation &f) const {}
+METHOD IsNEq int operator !=(const SoSFRotation &f) const {
+Returns TRUE if \af\. is of the same type and has the same value as this
+field.
+}

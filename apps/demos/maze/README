@@ -1,0 +1,74 @@
+This directory contains the maze program.  The program is a marble
+maze game, where the user must tilt the maze, maneuvering the marble.
+The object is to traverse the maze to the end without falling in any of
+the holes.
+
+The game uses the examiner viewer with viewing mode turned off.  The left
+mouse button controls the tilt of the maze.    
+
+The game is restarted by pressing the R key.  There are three levels
+of difficulty, level 1 being the easiet.  The levels are switched by
+pressing the 1, 2, or 3 keys.
+
+
+Custom Maze files:
+-----------------
+Custom mazes can be creating a file as described below,
+and running maze with the maze file argument:
+
+	maze myMaze
+
+
+The top array specifies the location of horizontal walls,
+the middle array specifies the location of vertical walls, 
+and the bottom array specifies locations of holes.
+
+A 1 means the wall or hole is present, and a 0 means not present.
+A 2 in the holes array specifies the starting position and a 3 specifies
+the finishing position.
+
+starter maze:
+------------
+1 1 1 1 1 1 1 1 1 1 1 1
+0 0 1 1 0 0 1 1 0 0 0 1
+0 1 0 0 1 1 0 0 0 0 0 1
+1 0 0 1 1 0 1 1 0 0 1 1
+0 0 1 0 0 0 0 0 0 1 0 1
+0 0 0 0 1 0 0 1 0 0 0 1
+0 1 0 1 0 0 0 0 0 0 0 1
+0 0 0 0 0 1 1 0 0 0 0 1
+1 1 0 0 1 0 0 0 0 0 0 1
+0 1 1 1 0 0 1 0 0 0 0 1
+0 0 0 0 0 0 0 1 0 0 0 1
+1 1 1 1 1 1 1 1 1 1 1 1
+
+1 1 0 0 0 1 0 0 1 0 0 1
+1 0 0 0 1 0 0 0 0 1 0 1
+1 0 1 0 0 0 0 0 0 0 0 1
+1 0 1 0 0 0 0 1 0 0 1 1
+1 0 1 0 0 1 0 0 1 0 0 1
+1 0 1 0 0 0 0 0 1 0 0 1
+1 0 0 0 1 1 0 0 1 0 0 1
+1 0 1 0 1 0 0 1 1 0 1 1
+1 0 0 0 0 0 0 1 0 0 1 1
+1 0 0 0 0 1 0 0 1 0 1 1
+1 0 0 0 1 0 0 0 0 0 1 1
+1 1 1 1 1 1 1 1 1 1 1 1
+
+1 0 0 0 0 0 0 2 0 0 0
+0 0 1 0 0 0 1 0 0 1 0
+0 0 0 0 0 0 0 0 1 0 0
+0 0 0 0 0 1 0 0 0 0 1
+0 0 0 0 0 0 0 0 1 0 0
+0 1 1 0 0 1 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 1 0 0 0 0 1 0 0
+0 0 1 0 0 1 0 0 0 0 0
+0 0 0 0 1 0 0 0 0 0 3
+
+
+box.iv is the geometry for the box containing the maze.  This geometry has
+been converted to an include file, box.h using the ivToInclude tool.
+
+- Dave Immel

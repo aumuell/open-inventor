@@ -1,0 +1,20 @@
+This directory contains source code for the 'ivcat' utility, used
+to convert from binary to ASCII Inventor format.
+
+It works like the standard unix 'cat' utility, reading the named files
+(standard input if no files are specified or a filename of '-' is
+given) and writing a Inventor file to standard output.
+
+If the argument '-b' a binary file is written; otherwise, an ASCII
+file is written.
+
+Examples:
+
+To convert from ASCII Inventor to binary:
+
+ivcat -b asciifile.iv > binaryfile.iv
+
+To convert from binary Inventor to ASCII:
+
+ivcat binaryfile.iv > asciifile.iv
+

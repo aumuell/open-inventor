@@ -1,0 +1,34 @@
+NAME SoPerspectiveCamera SoPerspCam "" { perspective camera node }
+
+INCLUDE nodes/SoPerspectiveCamera.h
+
+DESC {
+A perspective camera defines a perspective projection from a
+viewpoint. The viewing volume for a perspective camera is a truncated
+right pyramid.
+\p
+By default, the camera is located at (0,0,1) and looks along the
+negative z-axis; the \vposition\. and \vorientation\. fields can be
+used to change these values. The \vheightAngle\. field defines the
+total vertical angle of the viewing volume; this and the
+\caspectRatio\. field determine the horizontal angle.
+}
+
+FIELD heightAngle { Vertical angle of the viewing volume. }
+
+METHOD "" SoPerspectiveCamera() {
+Creates a perspective camera node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction, SoGetBoundingBoxAction,
+       SoHandleEventAction, SoRayPickAction {
+Sets the viewport and camera information in the state.
+}
+
+ALSO {
+SbViewVolume, SoOrthographicCamera
+}

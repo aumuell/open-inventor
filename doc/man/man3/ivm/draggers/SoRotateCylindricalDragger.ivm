@@ -1,0 +1,112 @@
+NAME SoRotateCylindricalDragger SoRotCylDrag "" { object you rotate along a cylindrical surface by dragging with the mouse }
+
+INCLUDE draggers/SoRotateCylindricalDragger.h
+
+DESC { \cSoRotateCylindricalDragger\. 
+is a simple dragger that rotates about the y axis of its local space.
+The feel of the rotation is as if you were spinning a cylinder about
+its axis of rotation.  The local space is determined by its location in the
+scene graph.  Transformation nodes placed before it will affect both the
+dragger and the direction of motion.
+\p
+This node has a \vrotation\. field which always reflects its orientation
+in local space.  If you set the field, the dragger will rotate
+accordingly.  You can also connect fields of other nodes or engines from
+this one to make them follow the dragger's orientation.
+\p
+This dragger contains four parts, \erotator\., \erotatorActive\.,
+\efeedback\., and \efeedbackActive\..
+\p
+Each of these is set by default from a resource described in the Dragger
+Resources section of the online reference page for this class.  You can
+change the parts in any instance of this dragger using
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+\p
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/rotateCylindricalDragger.iv\.
+into your own directory, editing the file, and then setting the 
+environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+METHOD "" SoRotateCylindricalDragger() {
+Constructor.
+}
+
+FIELD rotation { Orientation of the dragger. }
+
+METHOD "setProj" void setProjector(SbCylinderProjector *p) {}
+METHOD "getProj" const SbCylinderProjector *getProjector() const {
+Set and get a different cylinder projector. See the \cSbCylinderProjector\.
+man pages to find out how each kind affects the feel of your dragger's motion.
+The default uses an \cSbCylinderPlaneProjector\.. 
+\p
+Passing in NULL will cause this default type of projector to be used.
+Any projector you pass in will be deleted by this dragger when 
+this dragger is deleted.
+Note that the axis and radius of the cylinder are determined by the
+dragger, based on the \vy-axis\. in local space and how far the initial mouse
+click occured from the center of rotation.
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+DRAGGER_RESOURCE {
+  rotateCylindricalRotator,
+  rotator,
+  "white cylinder (with vertical axis) made of lines",
+  "picking this initiates rotation"
+}
+
+DRAGGER_RESOURCE {
+  rotateCylindricalRotatorActive,
+  rotatorActive,
+  "yellow version of rotator",
+  "displayed while in motion instead of the rotator"
+}
+
+DRAGGER_RESOURCE {
+  rotateCylindricalFeedback,
+  feedback,
+  "thin purple line along local y-axis",
+  "shows center of rotation when not moving"
+}
+
+DRAGGER_RESOURCE {
+  rotateCylindricalFeedbackActive,
+  feedbackActive,
+  "thin, slightly brighter purple line along local y-axis",
+  "shows center of rotation when moving"
+}
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoCenterballDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTransformerDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}
+

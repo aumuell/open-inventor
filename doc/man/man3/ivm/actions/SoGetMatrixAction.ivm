@@ -1,0 +1,51 @@
+NAME SoGetMatrixAction SoMxAct "" {
+computes transformation matrix for subgraph
+}
+
+INCLUDE actions/SoGetMatrixAction.h
+
+DESC {
+This action computes transformation matrices for a given subgraph.  It
+computes the cumulative transformation matrix and its inverse, along
+with a cumulative texture transformation matrix and its inverse.
+\p
+This action is unlike most others in that it does not traverse
+downwards from groups. When applied to a node, it computes the matrix
+for just that node. (This makes sense for transformation nodes, but
+not for others, really.) It is much more useful when applied to a
+path. When applied to a path, it gathers the transformation info for
+all nodes in the path and those that affect nodes in the path, but it
+stops when it hits the last node in the path; it does not traverse
+downwards from it as other actions (such as rendering) do. This
+behavior makes the most sense for this action.
+}
+
+METHOD "" SoGetMatrixAction(const SbViewportRegion &newRegion) {
+Constructor takes viewport region to use for picking. Even
+though the matrix computation may not involve a window
+per se, some nodes need this information to determine their
+placement.
+}
+
+METHOD setVPReg void setViewportRegion(const SbViewportRegion &newRegion) {}
+METHOD getVPReg const SbViewportRegion &getViewportRegion() const {
+Sets/returns current viewport region to use for action.
+}
+
+METHOD getMx SbMatrix & getMatrix() {}
+METHOD getInv SbMatrix & getInverse() {
+Returns cumulative transformation matrix and its inverse.  Warning:
+the matrices returned by these routines should not be changed (unless
+you are implementing your own transformation nodes).
+}
+
+METHOD getTexMx SbMatrix & getTextureMatrix() {}
+METHOD getTexInv SbMatrix & getTextureInverse() {
+Returns cumulative texture transformation matrix and its inverse.
+Warning: the matrices returned by these routines should not be changed
+(unless you are implementing your own transformation nodes).
+}
+
+ALSO { SoGetBoundingBoxAction }
+
+

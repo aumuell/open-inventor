@@ -1,0 +1,18 @@
+Open Inventor - Examples from The Inventor Toolmaker
+
+Chapter 2 - "Creating a Node"
+
+
+This directory contains source code that illustrates how to create
+new Inventor nodes. The examples show how to create a new
+property node, a new shape node, and a new group node.
+
+See The Inventor Mentor for an introduction to nodes.
+
+*** This is for C++ programmers only! ***
+
+Changes from Inventor 2.0 to 2.1:
+
+Minor changes were made to the Pyramid and Glow classes for
+compatibility with Inventor 2.1.  When a change has been made, the
+previous code and comments are identified with the comment "//2.0".

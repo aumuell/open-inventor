@@ -1,0 +1,109 @@
+NAME SoFieldContainer SoFldCont "" {
+abstract base class for objects that contain fields
+}
+
+INCLUDE fields/SoFieldContainer.h
+
+DESC {
+\cSoFieldContainer\. is the abstract base class for engines and nodes.
+It contains methods for finding out what fields an object has,
+controlling notification, and for dealing with all of the fields of an
+object at once.
+\p
+The fields of an engine are its inputs.  Note that even though an
+engine's output corresponds to a specific type of field, an engine
+output is not a field.
+}
+METHOD "" static SoType getClassTypeId() {
+Returns the type of this class.
+}
+METHOD setToDflts void setToDefaults() {
+Sets all fields in this object to their default values.
+}
+METHOD hasDfltVals SbBool hasDefaultValues() const {
+Returns TRUE if all of the object's fields have their default values.
+This will return TRUE even if a field's \misDefault()\. method returns 
+FALSE \(em for example, if a field's default value is 0.0 and you
+\m\+setValue(0.0)\.\-SetValue(0.0)\.\.  that field, the default flag
+will be set to FALSE (because it would be too slow to compare the
+field against its default value every time \msetValue\. is called).
+However, \m\+hasDefaultValues()\.\-HasDfltVals()\.\. would return TRUE
+in this case.
+}
+METHOD fldsAreEq SbBool fieldsAreEqual(const SoFieldContainer *fc) const {
+Returns TRUE if this object's fields are exactly equal to \afc\.'s fields.
+If \afc\. is not exactly same type as this object, FALSE is returned.
+}
+METHOD copyFieldVals void copyFieldValues(const SoFieldContainer *fc,
+	SbBool copyConnections = FALSE) {
+Copies the contents of \afc\.'s fields into this object's fields.  \afc\. must
+be the same type as this object.  If \acopyConnections\. is TRUE, then if
+any of \afc\.'s fields are connected then this object's fields will also
+be connected to the same source.
+}
+METHOD "" SbBool set(const char *fieldDataString) {
+Sets one or more fields in this object to the values specified in the
+given string, which should be a string in the Inventor file format.
+TRUE is returned if the string was valid Inventor file format.  For
+example, you could set the fields of an \cSoCube\. by doing:
+\b
+SoCube *cube = ....
+cube->set("width 1.0 height 2.0 depth 3.2");
+\.
+}
+METHOD "" void get(SbString &fieldDataString) {
+Returns the values of the fields of this object in the Inventor ASCII
+file format in the given string.  Fields whose
+\m\+isDefault()\.\-IsDflt()\.\. bit is set
+will not be part of the string.  You can use the
+\m\+field->get()\.\-SoFieldGet()\.\. method to get a field's value
+as a string even if has its default value.
+}
+METHOD "" virtual int getFields(SoFieldList &resultList) const {
+Appends pointers to all of this object's fields to resultList, and
+returns the number of fields appended.  The types of the fields can be
+determined using \m\+field->isOfType()\.\-SoFldIsOfType\.\.
+and \m\+field->getTypeId()\.\-SoFldGetTypeId()\.\., and their
+names can be determined by passing the field pointers to the
+\m\+getFieldName()\.\-GetFieldName()\.\. method (see below).
+}
+METHOD "" virtual SoField *getField(const SbName &fieldName) const {
+Returns a pointer to the field of this object whose name is \afieldName\..
+Returns NULL if there is no field with the given name.
+}
+METHOD "" SbBool getFieldName(const SoField *field,
+	SbName &fieldName) const {
+Returns the name of the given field in the \afieldName\. argument.
+Returns FALSE if field is not a member of this object.
+}
+
+METHOD "" SbBool isNotifyEnabled() const {
+Notification is the process of telling interested objects that this
+object has changed.  Notification is needed to make engines and
+sensors function, is used to keep \cSoPaths\. up to date when the
+scene graph's topology changes, and is also used to invalidate
+rendering or bounding box caches.
+\p
+Notification is normally enabled, but can be disabled on a node by
+node (or engine by engine) basis.  If you are making extensive changes
+to a large part of the scene graph then disabling notification can
+increase performance, at the expense of increased
+responsibility for making sure that any interested engines, sensors or
+paths are kept up to date.
+\p
+For example, if you will be making a lot of changes to a small part of
+your scene graph and you know that there are no engines or sensors
+attached to nodes in that part of the scene graph, you might disable
+notification on the nodes you are changing, modify them, re-enable
+notification, and then touch() one of the nodes to cause a redraw.
+\p
+However, you should profile your application and make sure that
+notification is taking a significant amount of time before going to
+the trouble of manually controlling notification.
+}
+METHOD "" SbBool enableNotify(SbBool flag) {
+Notification at this Field Container is enabled (if flag == TRUE) or 
+disabled (if flag == FALSE).  The returned boolean value indicates
+whether notification was enabled immediately prior to applying this method.
+}
+ALSO { SoSField, SoMField, SoNode, SoDB }

@@ -1,0 +1,20 @@
+#define DSOMakefile
+
+#define ShipDSO
+
+XCOMM OBJECT_STYLE = N32
+
+DSO = GeneralizedCylinder.so
+
+C++FILES = GeneralizedCylinder.c++ Triangulator.c++ \
+	NurbMaker.c++
+
+HFILES = GeneralizedCylinder.h Triangulator.h \
+	NurbMaker.h
+
+#ifndef CreatingUserMakefile
+
+TOP_OF_TREE = ../../..
+OTHERSOURCE = README
+
+#endif /* ! CreatingUserMakefile */

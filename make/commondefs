@@ -1,0 +1,650 @@
+# Copyright 1990-1995 Silicon Graphics, Inc.  All rights reserved.
+#
+#ident "$Revision: 1.1 $"
+#
+# Common makefile definitions.
+#
+# Notes:
+#   - Definitions with the same names only need to be passed on the
+#     command line of recursive makes if they would be redefined by
+#     the sub-makefile.  Definitions passed on the command line are
+#     not reset by the environment or the definitions in the makefile.
+#   - C++ style macros are deprecated and will be removed when out of use.
+#     They must be interwoven in definitions to keep upward compatibility.
+#
+#   - The contents of this header are changed based on some variables
+#     should be defined BEFORE including this file:
+#     OBJECT_STYLE - define basic ABI/ISA that should be used to create product.
+#	this also sets LD search paths, C/C++/Fortran/Pascal options.
+#     NO_OBJECT_STYLE - disable all this new OBJECT_STYLE business.
+#	Note that if one does this all the info in releasedefs about
+#	compiler versions, default compilation modes etc will be ignored.
+#	Only smake-files can do this.
+#     NO_LSRCH - do not set any library searching rules for LD options.
+#     ASTYLE  - by default, the ABI/ISA for C is used for assembler -
+#	setting ASTYLE (to be assembler options) can override the OBJECT_STYLE
+#	to permit fine-tuning of asm code.
+#     NO_STARTOPT - don't set any of the DSO start option macros - this
+#	will keep the global so_locations files from being updated.
+#
+
+COMMONRULES= $(IVDEPTH)/make/commonrules
+COMMONTARGS= clobber clean rmtargets fluff tags
+PRODUCTDEFS= $(IVDEPTH)/make/$(PRODUCT)defs
+RELEASEDEFS= $(IVDEPTH)/make/releasedefs
+
+# include releasedefs by default
+ifndef NO_RELEASEDEFS
+include $(RELEASEDEFS)
+endif
+
+# Build tools, i.e., programs which are used as part of the build
+# process.  These must run on all supported build environments
+# (currently IRIX 6.2 and up).
+
+AR	= $(TOOLROOT)/usr/bin/ar
+AS	= $(TOOLROOT)/usr/bin/as $(ENDIAN)
+BISON   = $(TOOLROOT)/usr/bin/bison
+# ugly thing to check for linux or Linux ...
+ifeq ($(OSTYPE),linux)
+  usingLinux = 1
+else
+ifeq ($(OSTYPE),Linux)
+  usingLinux = 1
+else
+  usingLinux = 0
+endif
+endif
+ifeq ($(usingLinux),1)
+	C++	= $(TOOLROOT)/usr/bin/g++
+	C++C	= $(TOOLROOT)/usr/bin/g++
+	CC	= $(TOOLROOT)/usr/bin/gcc
+else
+	C++	= $(TOOLROOT)/usr/bin/CC
+	C++C	= $(TOOLROOT)/usr/bin/CC
+	CC	= $(TOOLROOT)/usr/bin/cc
+endif
+CORD    = $(TOOLROOT)/usr/bin/cord
+CXX	= $(C++)
+F77	= $(TOOLROOT)/usr/bin/f77
+FC	= $(TOOLROOT)/usr/bin/f77
+FLEX    = $(TOOLROOT)/usr/bin/flex
+GNUM4	= $(TOOLROOT)/usr/bin/gnum4
+LEX	= $(TOOLROOT)/usr/bin/lex -l $(ROOT)/usr/lib/lex/ncform
+LD	= $(TOOLROOT)/usr/bin/ld
+LIBSPEC	= $(TOOLROOT)/usr/sbin/libspec
+LINT	= $(TOOLROOT)/usr/bin/lint
+LORDER	= $(TOOLROOT)/usr/bin/lorder
+MKF2C   = $(TOOLROOT)/usr/bin/mkf2c
+NM	= $(TOOLROOT)/usr/bin/nm
+PC	= $(TOOLROOT)/usr/bin/pc
+SETMAGIC= $(TOOLROOT)/usr/sbin/setmagic
+SIZE	= $(TOOLROOT)/usr/bin/size
+STRIP	= $(TOOLROOT)/usr/bin/strip
+TAG	= $(TOOLROOT)/usr/sbin/tag
+TLINK	= $(TOOLROOT)/usr/sbin/tlink
+YACC    = $(TOOLROOT)/usr/bin/yacc -P $(ROOT)/usr/lib/yaccpar
+
+# Old TOOLROOT-prefixed macros.  References should be replaced with
+# native 'echo', sh, etc. since special versions shouldn't really be
+# needed
+
+SHELL	= /bin/sh
+AWK	= awk
+NAWK	= awk
+ECHO	= echo
+M4	= m4
+
+#
+# The native tools, which must be used when building programs that are
+# run on the build host from a makefile.  Use of these macros are
+# deprecated, since we don't want to make assumptions about what's
+# installed on the host.  
+
+ifeq ($(CXX),g++)
+	HOST_CC		= TOOLROOT= /usr/bin/gcc
+	HOST_C++	= TOOLROOT= /usr/bin/g++
+else
+	HOST_CC		= TOOLROOT= /usr/bin/CC
+	HOST_C++	= TOOLROOT= /usr/bin/cc
+endif
+HOST_CXX	= $(HOST_C++)
+HOST_LD		= TOOLROOT= /usr/bin/ld
+HOST_YACC	= _XPG= TOOLROOT= /usr/bin/yacc -p /usr/lib/yaccpar
+HOST_LEX	= TOOLROOT= /usr/bin/lex -l /usr/lib/lex/ncform
+
+HOST_CFLAGS	= $(CFLAGS:S/$(ROOT)//g)
+HOST_C++FLAGS	= $(C++FLAGS:S/$(ROOT)//g)
+HOST_CXXFLAGS	= $(HOST_C++FLAGS)
+HOST_LDFLAGS	= $(LDFLAGS:S/$(ROOT)//g)
+
+HOST_CCF	= $(HOST_CC) $(HOST_CFLAGS)
+HOST_C++F	= $(HOST_C++) $(HOST_C++FLAGS)
+HOST_CXXF	= $(HOST_C++F)
+HOST_LDF	= $(HOST_LD) $(HOST_LDFLAGS)
+HOST_YACCF	= $(HOST_YACC) $(YFLAGS)
+HOST_LEXF	= $(HOST_LEX) $(LFLAGS)
+
+ALLSTYLES=IA32
+
+#
+# ENDIAN is defined only when cross-compiling
+# it normally comes from the $(PRODUCT)defs file.
+#
+# The -nostdinc flag is defined to defeat searches of /usr/include in
+# a cross development environment.  Where it is placed on the command line
+# does not matter. This replaces the nullary -I flag.
+# Turn off some silly ansi warnings:
+# The $(LWOFF) allows makefiles to set local warnings to ignore
+# (note that a leading ',' with no whitespace is required).
+#
+# Criteria for adding a global woff:
+#	a) it in no way could indicate a potential bug in the software.
+#		This assumes that the software is required only to run on
+#		SGI equipment with SGI compilers.
+#	b) The infraction is ubiquitous. If only a few pieces of software
+#		suffer from a given warning - they should turn it off in
+#		their own Makefile (or fix it!).
+#
+# The ignored 3.XX compiler warnings are as followings:
+#
+#	515 - Constant is out of range and may be truncated
+#	608 - Undefined the ANSI standard library defined macro <macro>
+#	658 - bit-field <name> type required to be int, unsigned int,
+#	      or signed int
+#	799 - <keyword/type> is not standard ANSI
+#	803 - Ignored invalid warning number(s) in -woff option
+#	852 - can be const qualified (-wlint)
+#
+# The ignored 4.XX compiler warnings are as follows:
+#	1048 - cast between pointer-to-object and pointer-to-function
+#	1233 - explicit type is missing ("int" assumed)
+#	1499 - -woff arguments must be in the range ...
+#	1685 - The v6.02 compiler changes woff #1499 to 1685.
+#	       The specific error is "invalid error number <warning number>"
+
+WOFF=
+
+#
+# Default C version, optimizer, common global options, and make-depend options.
+#
+CVERSION   = 
+OPTIMIZER  = -O
+ifeq ($(usingLinux),1)
+MKDEPOPT   = -MD
+endif
+COMMONGOPTS=$(OPTIMIZER) $(MKDEPOPT) $(ENDIAN)
+
+#
+# Pick appropriate STYLE - releasedefs defines the default
+#
+CSTYLE_IA32 = 
+
+#
+# Set OBJECT_STYLE if it hasn't already been set - note that std 'make'files
+# will get this value. This is somewhat convoluted to be sure that
+# 'make'-files will get the 'correct' value
+#
+ifdef NO_OBJECT_STYLE
+OBJECT_STYLE=NONE
+endif
+
+ifndef OBJECT_STYLE
+OBJECT_STYLE = $(DEF_OBJECT_STYLE)
+endif
+
+ifeq ($(OBJECT_STYLE),IA32)
+CSTYLE=$(CSTYLE_IA32)
+else
+ifeq ($(OBJECT_STYLE),NONE)
+CSTYLE=
+else
+# set in releasedefs
+# This is one that 'make' sees
+CSTYLE=$(DEF_CSTYLE)
+endif
+endif
+
+GCOPTS	= $(CSTYLE) $(OPTIMIZER) $(ENDIAN) $(MKDEPOPT) $(WOFF)
+GCDEFS	=
+GCINCS	= 
+
+#
+# Cc flags, composed of:
+#	variable (V*) (set on the command line),
+#	local (L*) (defined in the makefile),
+#	global (defined in this file),
+# parts, in that order.  This ordering has been used so that the variable or
+# locally specified include directories are searched before the globally
+# specified ones.
+#
+CFLAGS	= $(CVERSION) $(VCFLAGS) $(LCFLAGS) $(GCFLAGS)
+
+#
+# Each of these three components is divided into defines (-D's and -U's),
+# includes (-I's), and other options.  By segregating the different
+# classes of flag to cc, the defines (CDEFS) and includes (CINCS) can be
+# easily given to other programs, e.g., lint.
+#
+# Notes:
+#   - The local assignments should be to LCOPTS, LCDEFS, and LCINCS, not to
+#     LCFLAGS, although CFLAGS will be correctly set if this is done.
+#   - If a program cannot be optimized, it should override the setting of
+#     OPTIMIZER with a line such as "OPTIMIZER=" in its make file.
+#   - If a program cannot be compiled with ANSI C, its makefile
+#     should set CVERSION=-cckr
+#
+VCFLAGS	= $(VCDEFS) $(VCINCS) $(VCOPTS)
+LCFLAGS	= $(LCDEFS) $(LCINCS) $(LCOPTS)
+GCFLAGS	= $(GCDEFS) $(GCINCS) $(GCOPTS)
+
+COPTS	= $(VCOPTS) $(LCOPTS) $(GCOPTS)
+CDEFS	= $(VCDEFS) $(LCDEFS) $(GCDEFS)
+CINCS	= $(VCINCS) $(LCINCS) $(GCINCS)
+
+#
+# CXX flags are decomposed using the same hierarchy as C flags.
+#
+C++FLAGS  = $(CVERSION) $(VCXXFLAGS) $(LCXXFLAGS) $(GCXXFLAGS)
+CXXFLAGS  = $(C++FLAGS)
+
+VCXXFLAGS = $(VCXXDEFS) $(VCXXINCS) $(VCXXOPTS) $(VC++FLAGS)
+LCXXFLAGS = $(LCXXDEFS) $(LCXXINCS) $(LCXXOPTS) $(LC++FLAGS)
+GCXXFLAGS = $(GC++FLAGS)
+
+CXXOPTS   = $(VCXXOPTS) $(LCXXOPTS) $(GCXXOPTS) $(C++OPTS)
+CXXDEFS   = $(VCXXDEFS) $(LCXXDEFS) $(GCXXDEFS) $(C++DEFS)
+CXXINCS   = $(VCXXINCS) $(LCXXINCS) $(GCXXINCS) $(C++INCS)
+
+VC++FLAGS = $(VC++DEFS) $(VC++INCS) $(VC++OPTS)
+LC++FLAGS = $(LC++DEFS) $(LC++INCS) $(LC++OPTS)
+GC++FLAGS = $(GC++DEFS) $(GC++INCS) $(GC++OPTS)
+
+C++OPTS   = $(VC++OPTS) $(LC++OPTS) $(GC++OPTS)
+C++DEFS   = $(VC++DEFS) $(LC++DEFS) $(GC++DEFS)
+C++INCS   = $(VC++INCS) $(LC++INCS) $(GC++INCS)
+
+GC++OPTS  = $(CSTYLE) $(OPTIMIZER) $(ENDIAN) $(MKDEPOPT)
+GC++INCS  = 
+GC++DEFS  = 
+
+#
+# Loader flags, composed of library (-l's) and option parts, with
+# the libraries appearing last.  Both of these are divided into variable,
+# local, and global parts.  The composition of LDFLAGS is done in the
+# other "direction" from CFLAGS so that all the -L's, which are part of
+# LDOPTS, appear before any of the -l's, which are part of LDLIBS.
+# Another benefit of segregating the libraries from the remaining of the
+# loader options is that the libraries alone can easily be given to
+# another program, e.g., lint.
+#
+# Notes:
+#   - -s belongs in GCOPTS or in the IDB program that does the actual
+#     installation.
+#
+
+# Note: To turn off -quickstart_info for specific Makefile add:
+#		LD_QUICKSTART_INFO=
+LD_QUICKSTART_INFO=
+
+#
+# locations to search for libs. We search the 'generic' locations such
+# as usr/lib64 even though those are installed in a machine specific manner.
+# This permits library writers that only want to have one 'least-common-
+# denominator' version per ABI to install it directly in the generic location
+# without having to create links. This should be OK in the build environment
+# since we always search the specific directories first.
+#
+# Some user's may not want all this searching help - they can specify
+# NO_LSRCH
+#
+ifndef NO_LSRCH
+LSRCH_IA32 =	-L$(ROOT)/lib -L$(ROOT)/usr/lib `
+endif
+
+#
+# each 'popular' combination of ABI and ISA gets its own set of
+# GLDOPTS_*
+# It is assumed that a command that needs to be built with more than
+# one ABI uses cmdcommon* - thus the appropriate versiondefs file will
+# contain any needed VERSION_LDOPTS.
+#
+# DSO's don't follow this rule - they typically create all versions at the
+# top - thus, they need access to all possible LDOPTS_* values, and need
+# a way to add additional options per object style. So, we add a set of LDOPTS_*
+# this can also be used for makefiles that would rather not use cmdcommon*.
+#
+GLDOPTS_IA32 =
+
+GLDLIBS= 
+
+#
+# LDFLAG layout
+#
+# Incompatibility from previous commondefs:
+#	a) setting of LDOPTS in a makefile is probably wrong
+#
+LDFLAGS	= $(LDOPTS) $(LDLIBS) $(ENDIAN)
+LDOPTS	= $(VLDOPTS) $(LLDOPTS) $(GLDOPTS)
+
+LDLIBS	= $(VLDLIBS) $(LLDLIBS) $(GLDLIBS)
+
+#
+# Pick appropriate GLDOPTS - releasedefs defines the default
+# Note that binaries that don't have absolute ISA requirements should use
+# the generic OBJECT_STYLE={64, 32, N32}. This permits the default to be
+# set by releasedefs
+#
+ifeq ($(OBJECT_STYLE),IA32)
+GLDOPTS=$(GLDOPTS_IA32)
+else
+ifeq ($(OBJECT_STYLE),NONE)
+GLDOPTS=
+else
+# set in releasedefs
+# This is one that 'make' sees
+GLDOPTS=$(DEF_GLDOPTS)
+endif
+endif
+
+LDOPTS_IA32    =$(VLDOPTS) $(LLDOPTS)
+
+DSONAMEOPT  = -Wl,-soname,$@
+
+#
+# Note:  To turn off -no_unresolved for a specific library Makefile, add:
+#		LD_NO_UNRESOLVED=
+LD_NO_UNRESOLVED=
+
+#
+# Linux doesn't do DSO versioning as far as I can tell.
+#
+DSOVERSION  = 
+DSOVERSIONOPT  = 
+
+#
+# Export files - each build can have up to 2 exports file - a common
+# one (DSOEXPORTS) and a per-ABI version (DSOEXPORTS_XXX)
+# Note that _ABI (MIPS ABI) ONLY uses the DSOEXPORTS_XX_ABI) exports file
+# This feature not available for make ...
+# Note that these macros must be set BEFORE including commondefs/librootdefs
+#
+ifdef DSOEXPORTS
+DSOEXPORTSOPT=-exports_file $(DSOEXPORTS)
+else
+# this is what make sees
+DSOEXPORTSOPT=
+endif
+
+#
+# Each ABI gets the generic *LDDSOOPTS as well as a set of ABI specific ones
+#
+LDDSOOPTS_IA32  = $(VLDDSOOPTS) $(VLDDSOOPTS_IA32) \
+		$(LLDDSOOPTS) $(LLDDSOOPTS_IA32) \
+		$(GLDDSOOPTS) $(GLDDSOOPTS_IA32)
+
+# Totally generic - common options for all ABIs
+GLDDSOOPTS  = -shared $(DSONAMEOPT)
+
+GLDDSOOPTS_IA32  = $(LD_NO_UNRESOLVED) $(LD_QUICKSTART_INFO) \
+			$(DSOEXPORTSOPT) $(DSOEXPORTSOPT_IA32) \
+			$(DSOSTARTOPT_IA32) $(DSOVERSIONOPT)
+
+#
+# set LDDSOOPTS based on OBJECT_STYLE - makes it easier to make .so's
+# when one doesn't use lib*defs
+#
+ifneq (,$(findstring IA32,$(OBJECT_STYLE)))
+LDDSOOPTS=$(LDDSOOPTS_IA32)
+else
+ifeq ($(OBJECT_STYLE),NONE)
+LDDSOOPTS=
+else
+# this is what 'make' sees
+LDDSOOPTS=$(LDDSOOPTS_IA32)
+endif
+endif
+
+#
+# F77 flags are just like cc flags.
+#
+FFLAGS= $(VFFLAGS) $(LFFLAGS) $(GFFLAGS)
+
+VFFLAGS	= $(VF77DEFS) $(VF77INCS) $(VF77OPTS)
+LFFLAGS	= $(LF77DEFS) $(LF77INCS) $(LF77OPTS)
+GFFLAGS	= $(GF77DEFS) $(GF77INCS) $(GF77OPTS)
+
+F77OPTS	= $(VF77OPTS) $(LF77OPTS) $(GF77OPTS)
+F77DEFS	= $(VF77DEFS) $(LF77DEFS) $(GF77DEFS)
+F77INCS	= $(VF77INCS) $(LF77INCS) $(GF77INCS)
+
+GF77OPTS= $(CSTYLE) $(OPTIMIZER) $(ENDIAN) $(MKDEPOPT)
+GF77DEFS= $(GCDEFS)
+GF77INCS= $(GCINCS)
+
+#
+# Pc flags are just like cc flags.
+#
+PFLAGS	= $(VPFLAGS) $(LPFLAGS) $(GPFLAGS)
+
+VPFLAGS	= $(VPDEFS) $(VPINCS) $(VPOPTS)
+LPFLAGS	= $(LPDEFS) $(LPINCS) $(LPOPTS)
+GPFLAGS	= $(GPDEFS) $(GPINCS) $(GPOPTS)
+
+POPTS	= $(VPOPTS) $(LPOPTS) $(GPOPTS)
+PDEFS	= $(VPDEFS) $(LPDEFS) $(GPDEFS)
+PINCS	= $(VPINCS) $(LPINCS) $(GPINCS)
+
+GPOPTS	= $(CSTYLE) $(OPTIMIZER) $(ENDIAN) $(MKDEPOPT)
+GPDEFS	= $(GCDEFS)
+GPINCS	= $(GCINCS)
+
+#
+# as flags are just like cc flags.
+# By default, ASTYLE is the same as CSTYLE, but some may need to make
+# the asm more aggressive than 'C' and can set ASTYLE. Users of 'make'
+# always get ASTYLE == CSTYLE
+#
+ifndef ASTYLE
+ASTYLE=$(CSTYLE)
+endif
+
+ASFLAGS	= $(VASFLAGS) $(LASFLAGS) $(GASFLAGS)
+
+VASFLAGS = $(VASDEFS) $(VASINCS) $(VASOPTS)
+LASFLAGS = $(LASDEFS) $(LASINCS) $(LASOPTS)
+GASFLAGS = $(GASDEFS) $(GASINCS) $(GASOPTS)
+
+ASOPTS	= $(VASOPTS) $(LASOPTS) $(GASOPTS)
+ASDEFS	= $(VASDEFS) $(LASDEFS) $(GASDEFS)
+ASINCS	= $(VASINCS) $(LASINCS) $(GASINCS)
+
+GASOPTS	= $(ASTYLE) $(OPTIMIZER) $(ENDIAN) $(MKDEPOPT)
+GASDEFS	= $(GCDEFS)
+GASINCS	= $(GCINCS)
+
+#
+# The install command to use.
+#
+ifeq ($(usingLinux),1)
+INSTALL	= $(TOOLROOT)/usr/bin/install
+else
+INSTALL	= $(TOOLROOT)/sbin/install
+endif
+
+
+#
+#  For people who want to run etags on other types of files
+#
+CTAGFILES = \( -name '*.[cfhlpy]' -o -name '*.c++' \)
+
+#
+# MKDEPFILE is the name of the dependency database, included by commonrules.
+#
+MKDEPFILE = Makedepend
+
+#
+# Name of the runtime linker in /
+#
+# Note: this is used to set the PR_INTERP_NAME, but the DT_RPATH elf var must
+# be set to the root of the $ROOTRLDNAME as well.
+#
+# To allow the changing of the default object style ... we now have
+# two different ROOTRLDNAME's which then can be mapped to ROOTRLDNAME.
+# The variable ROOTRLDNAME is set in the releasedefs file.
+#
+ROOTRLDNAME_IA32=
+
+#
+# Flags to handle yacc and lex automatic dependency generation
+# We also use this to place woff's that are specific to yacc and lex.
+#
+YACCMKDEPFLAGS=
+LEXMKDEPFLAGS=
+
+#
+# Include directory shorthands, used in CFLAGS and LDFLAGS components.
+#
+IA32	= $(ROOT)/usr/include
+
+#
+# Convenient command macros that include the flags macros.
+#
+# You should always invoke make in makefiles via $(MAKE), as make passes
+# all command-line variables through the environment to sub-makes.
+#
+# Never use just $(CCF), etc. in rules that link executables; LDFLAGS
+# needs to be included after your objects in the command line.
+#
+ASF	= $(AS) $(ASFLAGS)
+C++F	= $(CXX) $(CXXFLAGS)
+CXXF	= $(C++F)
+CCF	= $(CC) $(CFLAGS)
+F77F	= $(F77) $(FFLAGS)
+LDF	= $(LD) $(LDFLAGS)
+LEXF	= $(LEX) $(LFLAGS)
+PCF	= $(PC) $(PFLAGS)
+YACCF	= $(YACC) $(YFLAGS)
+
+VCC=
+VCXX=
+VLD=
+
+#
+# Rule macros for nonterminal makefiles that iterate over subdirectories,
+# making the current target.  Set *SUBDIRS to the relevant list of kids.
+#
+# Set NOSUBMESG to any value to suppress a warning that subdirectories 
+# are not present. This is useful with mandefs/rules
+#
+SUBDIR_MAKERULE= \
+	if test ! -d $$d; then \
+		if test "$(NOSUBMESG)" = "" ; then \
+			echo "SKIPPING $$d: No such directory."; \
+		fi \
+	else \
+		echo "	(cd $$d; $(MAKE) $${RULE:=$@})"; \
+		(cd $$d; ${MAKE} $${RULE:=$@}); \
+	fi
+
+SUBDIRS_MAKERULE= \
+	@for d in $(SUBDIRS); do $(SUBDIR_MAKERULE); done
+
+HEADERS_SUBDIRS_MAKERULE= \
+	@for d in $(HEADERS_SUBDIRS); do $(SUBDIR_MAKERULE); done
+
+EXPORTS_SUBDIRS_MAKERULE= \
+	@for d in $(EXPORTS_SUBDIRS); do $(SUBDIR_MAKERULE); done
+
+#
+# One problem with the above rules is that if a make fails, and -k is
+# set, the entire for loop might stop. This is because make still can
+# (and XPG requires it) exit with an error status if the -k option is set.
+# This is an alternate rule for SUBDIRS when it is desired that -k keep
+# working on the next SUBDIR if the previous one failed. Its not quite
+# as compact a rule as the previous ones.
+# A standard usage would be:
+#	default install $(COMMONTARGS): $(_FORCE)
+#		$(MAKE) __DORULE=$@ $(SUBDIRS)
+#	$(SUBDIRS): $(_FORCE)
+#		@$(NSUBDIR_MAKERULE)
+
+NSUBDIR_MAKERULE= \
+        if test ! -d $@; then \
+                if test "$(NOSUBMESG)" = "" ; then \
+                        echo "SKIPPING $@: No such directory."; \
+                fi \
+        else \
+                echo "\t(cd $@; $(MAKE) $(__DORULE))"; \
+                (cd $@; ${MAKE} $(__DORULE)); \
+        fi
+
+#
+# The macro naming commonrules' always-unsatisfied target, which is useful
+# in directory dependencies to guarantee that even directories having future
+# mtimes due to timewarps will be "made".
+#
+_FORCE=$(COMMONPREF)_force
+
+#
+# Permit dependencies for Null-suffix targets
+#
+.MAKEOPTS: -N
+
+
+#
+# Convenience file list macros:
+#	- Commondefs defines the following lists: SOURCES, enumerating all
+#	  source files; OBJECTS, the .o files derived from compilable source;
+#	  and DIRT, which lists intermediates and temporary files to be
+#	  removed by clean.
+#	- The including (parent) makefile may define source file lists for
+#	  the standard suffixes: CFILES for .c, ASFILES for .s, YFILES for
+#	  .y, etc.  We combine all such lists into SOURCES.  The including
+#	  makefile need not define CFILES &c before including commondefs.
+#
+SOURCES=$(HFILES) $(ASFILES) $(C++FILES) $(CXXFILES) $(CFILES) $(EFILES) \
+	$(FFILES) $(LFILES) $(PFILES) $(RFILES) $(SHFILES) $(YFILES)
+
+CXXO1=$(CXXFILES:.c++=.o) $(C++FILES:.c++=.o)
+CXXO2=$(CXXO1:.cxx=.o)
+CXXO3=$(CXXO2:.C=.o)
+CXXO4=$(CXXO3:.cpp=.o)
+CXXOALL=$(CXXO4)
+YO1=$(YFILES:.y=.o)
+YO2=$(YO1:.yxx=.o)
+YO3=$(YO2:.Y=.o)
+YOALL=$(YO3)
+LO1=$(LFILES:.l=.o)
+LO2=$(LO1:.lxx=.o)
+LO3=$(LO2:.L=.o)
+LOALL=$(LO3)
+OBJECTS=$(ASFILES:.s=.o) $(CXXOALL) $(CFILES:.c=.o) $(EFILES:.e=.o) \
+	$(FFILES:.f=.o) $(LOALL) $(PFILES:.p=.o) $(RFILES:.r=.o) \
+	$(YOALL) 
+
+
+#
+# Makefiles should set LDIRT only 
+#
+# Make include files that extend commondefs should set XDIRT for dirt
+# generated by the extension. It should also provide an XfooDIRT macro for
+# the benefit of any extensions to itself. The intent is that the user's
+# Makefile will just worry about its own dirt.
+#
+DIRT=$(GDIRT) $(VDIRT) $(LDIRT) $(XDIRT)
+GDIRT=*.[oue] a.out core lex.yy.[co] y.tab.[cho] $(_FORCE) ar.tmp.*
+
+#
+# Local definitions.  These are used for debugging purposes.  Make sure that
+# the product builds properly without the local definitions, unless you check
+# in the local definitions!
+#
+# To access a localdefs file outside the current directory, set LOCALDEFS on
+# the command line, and likewise for localrules.  Or you can have localdefs
+# just sinclude the appropriate other include file.
+#
+LOCALDEFS  = ./localdefs
+LOCALRULES = ./localrules
+
+#-include $(LOCALDEFS)

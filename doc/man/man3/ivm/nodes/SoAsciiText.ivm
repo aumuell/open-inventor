@@ -1,0 +1,90 @@
+NAME SoAsciiText "" "" { simple 3D text shape node }
+
+INCLUDE nodes/SoAsciiText.h
+
+DESC {
+This node defines one or more strings of 3D text. In contrast with
+\cSoText2\., 3D text can be rotated, scaled, lighted, and textured,
+just like all other 3D shapes. In constrast with
+\cSoText3\., this 3D ascii text cannot be extruded.
+\p
+The text origin is at (0,0,0) after applying the current
+transformation. The scale of the text is affected by the \vsize\.
+field of the current \cSoFont\. as well as the current transformation.
+\p
+\cSoAsciiText\. uses the current material when rendering.
+Textures are applied to ascii text as follows.  On the front
+face of the text, the texture origin is at the base point of the
+first string; the base point is at the lower left for justification
+\kLEFT\., at the lower right for \kRIGHT\., and at the lower center
+for \kCENTER\.. The texture is scaled equally in both S and T
+dimensions, with the font height representing 1 unit. S increases to
+the right on the front face.
+}
+
+ENUM Justification {
+    LEFT	"Left edges of all strings are aligned",
+    RIGHT	"Right edges of all strings are aligned",
+    CENTER	"Centers of all strings are aligned"
+}
+
+FIELD string {
+The text string(s) to display. Each string will appear on its own line.
+}
+
+FIELD spacing {
+Defines the distance (in the negative y direction) between the base
+points of successive strings, measured with respect to the current
+font height. A value of 1 indicates single spacing, a value of 2
+indicates double spacing, and so on.
+}
+
+FIELD justification {
+Indicates placement and alignment of strings. With \kLEFT\.
+justification, the left edge of the first line is at the (transformed)
+origin, and all left edges are aligned. \kRIGHT\. justification is
+similar.  \kCENTER\. justification places the center of the first
+string at the (transformed) origin, with the centers of all remaining
+strings aligned under it.
+}
+
+FIELD width {
+Defines the width of each text string. Each string will be scaled so
+that it spans this many units.
+}
+
+METHOD "" SoAsciiText() {
+Creates an ascii text node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Draws text based on the current font, transformation,
+drawing style, material, texture, complexity, and so on.
+}
+
+ACTION SoRayPickAction {
+Performs a pick on the text. The string index and character position
+are available from the \cSoTextDetail\..
+}
+
+ACTION SoGetBoundingBoxAction {
+Computes the bounding box that encloses the text.
+}
+
+ACTION SoCallbackAction {
+If any triangle callbacks are registered with the action, they will be
+invoked for each successive triangle used to approximate the text
+geometry.
+}
+
+ALSO {
+SoFont,
+SoFontStyle,
+SoText2,
+SoText3,
+SoTextDetail
+}

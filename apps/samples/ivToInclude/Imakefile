@@ -1,0 +1,7 @@
+#define MultiProgram
+
+#define Programs ivToIncludeFile testResults
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../..
+#endif

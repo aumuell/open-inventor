@@ -1,0 +1,42 @@
+NAME SoEngineOutputList "" "" { maintains a list of pointers to engine outputs }
+
+INCLUDE SoLists.h
+
+DESC {
+This subclass of \cSbPlist\. holds lists of pointers to
+\cSoEngineOutput\.s.  It updates reference counts to engine outputs in the list
+whenever adding or removing pointers.
+}
+
+METHOD "" SoEngineOutputList() { Constructor. }
+
+METHOD createSize SoEngineOutputList(int size) {
+Constructor that pre-allocates storage for \asize\. pointers.
+}
+
+METHOD " " SoEngineOutputList(const SoEngineOutputList &l) {
+Constructor that copies the contents of another list.
+}
+
+METHOD "" ~SoEngineOutputList() { Destructor. }
+
+METHOD "" void append(SoEngineOutput *engineOutput) { 
+Adds an engine output to the end of the list. 
+}
+
+METHOD "" void insert(SoEngineOutput *engineOutput, int addBefore) { 
+Inserts the given engine output in the list before the 
+element of the given index.
+}
+
+METHOD "" void set(int i, SoEngineOutput *engineOutput) { 
+Sets an element of a list.
+}
+
+METHOD "" SoEngineOutput * operator [\|](int i) const { 
+Accesses an element of a list. 
+}
+
+
+ALSO { SoEngineOutput }
+

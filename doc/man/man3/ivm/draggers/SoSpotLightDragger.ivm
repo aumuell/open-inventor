@@ -1,0 +1,223 @@
+NAME SoSpotLightDragger SoSpotLtDrag "" {spotlight shaped dragger that allows you to change position, direction, and width of the beam }
+
+INCLUDE draggers/SoSpotLightDragger.h
+
+DESC { \cSoSpotLightDragger\. 
+is a composite dragger. It is shaped like a beam of light emanating from a
+sun-like ball. An arrow runs along the axis of the
+beam and extends past the end of the beam.
+\p
+When you click and drag the beam, it opens and closes with 
+an umbrella-like motion. The angle
+between the center and edge of the beam is stored in
+the \vangle\. field of this dragger; setting the \vangle\. field causes the
+beam to widen or narrow in response.  The spotlight dragger does not
+use a standard dragger class to execute this motion.  More details are
+given later in this section.
+\p
+Dragging the arrow rotates it arount the sun, and the beam moves with it.
+The arrow is an \cSoRotateSphericalDragger\. that controls the \vrotation\.
+field. See the reference page for \cSoDirectionalLightDragger\., which 
+works the same way, for details.
+\p
+The sun-shape can be dragged to translate all three pieces together
+through 3-space. Its movement controls the \vtranslation\. field and
+works exactly as described in the reference pages for
+\cSoDirectionalLightDragger\.  and \cSoPointLightDragger\. (which goes
+into more detail).
+\p
+\eRemember:\. This is \enot\. a light source! It just looks like one.  
+If you want to move a light with this dragger, you can do the following:
+\p
+[a] Use an \cSoSpotLightManip\., which is subclassed from \cSoLight\.. 
+It creates an \cSoSpotLightDragger\. 
+and uses it as the interface to change the \vlocation\., \vdirection\.,
+and \vcutOffAngle\. of its  light source 
+(see the \cSoSpotLightManip\. man page). 
+The manip also edits the \vmaterial\. part of this dragger to match the
+color of light the manip is producing.
+\p
+[b] Connect the \vangle\. field of this dragger to the \vcutOffAngle\.
+field of an \cSoSpotLight\. with a field-to-field connection.
+\p
+See the \cSoPointLightDragger\. and \cSoDirectionalLightDragger\.
+man pages for other ways to control light parameters with the 
+\vrotation\. and \vtranslation\. fields.
+\p
+This class  creates its own projector and 
+handles mouse events to do it's own dragging of the beam angle.
+When the mouse picks a point on the beam, that point is dragged in a
+circle just like in an \cSoRotateDiscDragger\., but the
+plane of the disc is re-defined every time a drag is initiated.
+Imagine placing the metal tip of a compass at the apex of the cone and the
+pencil tip at the picked point.
+If you swing an arc through the central axis of the cone, 
+you will be drawing the arc
+used to drag the beam open and closed.
+\p
+The beam is opened and closed not by rotating, but by scaling.  
+The dragger scales the beam-cone so that the height and 
+radius change to move the picked point along the circle.  Then the 
+\vangle\. field is calculated from the height and radius.
+\p
+You can change the geometry of parts in any instance of this dragger using
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+The default part geometries are defined as resources for this 
+\cSoSpotLightDragger\. class.  They are detailed below in the 
+\kDRAGGER RESOURCE\. section.
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/spotLightDragger.iv\.
+into your own directory, editing the file, and then
+setting the environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+METHOD "" SoSpotLightDragger() {
+Constructor.
+}
+
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+FIELD rotation { Orientation of the rotating part (an arrow by default). }
+FIELD translation { Position of the dragger. }
+FIELD angle { Angle between center and edge of beam. }
+
+DRAGGER_RESOURCE {
+  spotLightBeam,
+  beam,
+  "wire-frame cone with no \cSoMaterial\. node",
+  "picking this initiates dragging of the beam angle. The beam 
+  inherits colors from the \vmaterial\. part, just like the stationary 
+  version of the sun shape."
+}
+
+DRAGGER_RESOURCE {
+  spotLightBeamActive,
+  beamActive,
+  "yellow wire-frame cone",
+  "displayed during dragging of the beam angle."
+}
+
+DRAGGER_RESOURCE {
+  spotLightBeamPlacement,
+  beamPlacement,
+  "translation of (0,0,-1)",
+  "This translation node moves the beam parts relative to the rest 
+   of the dragger. In this case, moving by (0,0,-1) slides the cone outward
+   along rotator part toward its arrow-head.  The distance 
+  chosen places the apex of the cone on the surface of the sun shape."
+}
+
+DRAGGER_RESOURCE {
+  spotLightRotatorRotator,
+  rotator.rotator,
+  "white arrow that goes through the sun",
+  "picking this begins rotation of the arrow about the sun-shape"
+}
+
+DRAGGER_RESOURCE {
+  spotLightRotatorRotatorActive,
+  rotator.rotatorActive,
+  "yellow arrow that goes through the sun",
+  "displayed while the arrow is being rotated"
+}
+
+DRAGGER_RESOURCE {
+  spotLightRotatorFeedback,
+   rotator.feedback,
+  "empty Separator",
+  "this disables display of the axes that a rotateSpherical dragger uses
+   by default"
+}
+
+DRAGGER_RESOURCE {
+  spotLightRotatorFeedbackActive,
+  rotator.feedbackActive,
+  "empty Separator",
+  "this disables display of the axes that a rotateSpherical dragger uses
+   by default"
+}
+
+DRAGGER_RESOURCE {
+  spotLightOverallMaterial,
+  material,
+  "white. half strength emissive, half strength diffuse",
+  "sets material for the sun shape when stationary. 
+   Resource for the moving sun, 
+   spotLightTranslatorPlaneTranslatorActive, 
+   contains a yellow material for highlighting."
+}
+DRAGGER_RESOURCE {
+  spotLightTranslatorPlaneTranslator,
+  translator.yzTranslator.translator
+  translator.xzTranslator.translator
+  translator.xyTranslator.translator,
+  "sun shape with no material",
+  "picking these parts initiates dragging 
+   by the yz, xz, and xy planar draggers 
+   respectively."
+}
+
+DRAGGER_RESOURCE {
+  spotLightTranslatorPlaneTranslatorActive,
+  translator.yzTranslator.translatorActive
+  translator.xzTranslator.translatorActive
+  translator.xyTranslator.translatorActive,
+  "yellow sun shape",
+  "shown during planar dragging in the yz, xz, 
+   and xy planes respectively."
+}
+
+
+DRAGGER_RESOURCE {
+  spotLightTranslatorLineTranslator,
+  translator.xTranslator.translator
+  translator.yTranslator.translator
+  translator.zTranslator.translator,
+  "white cylinder",
+  "picking these parts initiates dragging 
+   in the x, y, and z linear draggers respectively."
+}
+
+DRAGGER_RESOURCE {
+  spotLightTranslatorLineTranslatorActive,
+  translator.xTranslator.translatorActive
+  translator.yTranslator.translatorActive
+  translator.zTranslator.translatorActive,
+  "yellow cylinder",
+  "shown during linear dragging in the x, y, 
+   and z directions respectively."
+}
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoCenterballDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTransformerDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}
+

@@ -1,0 +1,287 @@
+# NOTE: any unnumbered file type here is assumed to be Inventor 2.0 format.
+# This is for legacy reasons only: all future file format versions
+# should have a number in their TYPE.
+
+# Add these CONVERT rules to allow routeprint/fileconvert to convert
+# Inventor data files into Ascii
+#
+CONVERT InventorAsciiData AsciiTextFile
+	COST 500
+# No FILTER is needed since these are equivalent: no conversion required.
+
+CONVERT InventorBinaryData AsciiTextFile
+	COST 500
+	FILTER /usr/sbin/ivcat
+
+CONVERT InventorDataFile AsciiTextFile
+	COST 500
+	FILTER /usr/sbin/ivcat
+
+# Add these CONVERTs for efficiency, even though there is already a path
+# from the 2.1 to the older InventorDataFile which will work: 
+# it is more efficient to skip the extra ivcat.
+
+CONVERT Inventor2.1File AsciiTextFile
+	COST 500
+	FILTER /usr/sbin/ivcat
+
+CONVERT Inventor2.1Ascii AsciiTextFile
+	COST 500
+# No FILTER is needed since these are equivalent: no conversion required.
+
+CONVERT Inventor2.1Binary AsciiTextFile
+	COST 500
+	FILTER /usr/sbin/ivcat
+
+
+CONVERT InventorAsciiData InventorDataFile
+	COST 50
+# No FILTER necessary, these types are equivalent
+
+CONVERT InventorBinaryData InventorDataFile
+	COST 50
+	FILTER /usr/sbin/ivcat
+
+CONVERT Inventor2.1Ascii Inventor2.1File
+	COST 50
+# No FILTER necessary, these types are equivalent
+
+CONVERT Inventor2.1Binary Inventor2.1File
+	COST 50
+	FILTER /usr/sbin/ivcat
+
+CONVERT InventorDataFile Inventor2.1File
+	COST 50
+	FILTER /usr/sbin/ivcat
+
+CONVERT Inventor2.1File InventorDataFile
+	COST 125
+	FILTER /usr/sbin/ivdowngrade -v 2.0
+
+CONVERT Inventor2.1Ascii InventorAsciiData
+	COST 200
+	FILTER /usr/sbin/ivdowngrade -v 2.0
+
+CONVERT Inventor2.1Binary InventorAsciiData
+	COST 200
+	FILTER /usr/sbin/ivdowngrade -v 2.0
+
+
+# These conversions are for compressed Inventor files:
+# Since we can't tell exactly what it is, assume 2.1.
+# (There are no compressed Inventor 2.0 or earlier files: we
+#  have to assume the least compatible format for any compressed files.)
+#
+CONVERT Inventor2.1FilePacked Inventor2.1File
+	COST 50
+	FILTER /usr/bin/pcat
+
+CONVERT Inventor2.1FileCompressed Inventor2.1File
+	COST 50
+	FILTER /usr/bsd/zcat
+
+#CONVERT for Inventor2.1FileZipped Inventor2.1File is in webspace 1.1
+
+
+# OK, now put in the TYPE rules for the basic file formats and executables
+#
+# NOTE: The textual ORDER of the Inventor* file TYPEs is important, 
+#       because we want to type more strictly for the 2.1 file and 
+#	less strictly for the older files.  Because of the way the FTR
+#       compiler/parser works, these rules are scanned in the order
+#       in which they appear in the file, and the first MATCH to return TRUE
+#       is the type returned by the filetyper.  
+# SUMMARY:
+#   Do *NOT* put a MORE restrictive MATCH rule after a LESS restrictive rule!
+# -- story
+
+
+TYPE Inventor2.1File
+# This is a dummy type used only as an intermediate TYPE for CONVERTs:
+# therefore the MATCH rule is explicitly false.  Further, there is no CONVERT
+# to this type from the more specific Inventor*{Ascii,Binary}DataFile TYPEs.
+    MATCH       false;
+    LEGEND	:654:Open Inventor 2.1 data file
+    CMD OPEN	/usr/sbin/ivview $LEADER
+    CMD ALTOPEN	/usr/sbin/ivview $LEADER
+    CMD PRINT   routeprint -t $LEADERTYPE $LEADER $REST
+    MENUCMD 	:458:"Edit" $WINEDITOR $LEADER		
+    SETVAR      "DefaultExtension"      iv
+    ICON {
+	include ("iconlib/inventor.data.fti");
+    }
+# less restrictive must follow more restrictive TYPE
+TYPE InventorDataFile
+# This is a dummy type used only as an intermediate TYPE for CONVERTs:
+# therefore the MATCH rule is explicitly false.  Further, there is no CONVERT
+# to this type from the more specific Inventor*{Ascii,Binary}DataFile TYPEs.
+    MATCH       false;
+    LEGEND	:654:Open Inventor data file
+    CMD OPEN	/usr/sbin/ivview $LEADER
+    CMD ALTOPEN	/usr/sbin/ivview $LEADER
+    CMD PRINT   routeprint -t $LEADERTYPE $LEADER $REST
+    MENUCMD 	:458:"Edit" $WINEDITOR $LEADER		
+    SETVAR      "DefaultExtension"      iv
+    ICON {
+	include ("iconlib/inventor.data.fti");
+    }
+
+TYPE Inventor2.1Ascii
+    MATCH	ascii && (string(0,20) == "#Inventor V2.1 ascii");
+    SUPERTYPE	Ascii Inventor2.1File
+    LEGEND	:265:Open Inventor 2.1 ascii data file
+    CMD OPEN	/usr/sbin/ivview $LEADER
+    CMD ALTOPEN	launch -c '/usr/sbin/ivview $LEADER'
+    CMD PRINT   routeprint -t $LEADERTYPE $LEADER $REST
+    MENUCMD 	:458:"Edit" $WINEDITOR $LEADER		
+    SETVAR      "DefaultExtension"      iv
+    MAP         "SelectionTarget"   INVENTOR_2_1_FILE
+# NOTE: MAP is not valid in 5.3
+    ICON {
+	include ("iconlib/inventor.data.fti");
+    }
+# less restrictive must follow more restrictive TYPE
+TYPE InventorAsciiData
+    MATCH	ascii && (string(0,9) == "#Inventor");
+    SUPERTYPE	Ascii InventorDataFile
+    LEGEND	:265:Open Inventor ascii data file
+    CMD OPEN	/usr/sbin/ivview $LEADER
+    CMD ALTOPEN	launch -c '/usr/sbin/ivview $LEADER'
+    CMD PRINT   routeprint -t $LEADERTYPE $LEADER $REST
+    MENUCMD 	:458:"Edit" $WINEDITOR $LEADER		
+    SETVAR      "DefaultExtension"      iv
+    MAP         "SelectionTarget"   INVENTOR_2_0_FILE
+# NOTE: MAP is not valid in 5.3
+    ICON {
+	include ("iconlib/inventor.data.fti");
+    }
+    
+TYPE Inventor2.1Binary
+    MATCH	(! ascii) && (string(0,21) == "#Inventor V2.1 binary");
+    SUPERTYPE	Inventor2.1File
+    LEGEND	:266:Open Inventor 2.1 binary data file
+    CMD OPEN	/usr/sbin/ivview $LEADER
+    CMD ALTOPEN	launch -c '/usr/sbin/ivview $LEADER'
+    CMD PRINT   routeprint -g -t $LEADERTYPE $LEADER $REST
+    SETVAR      "DefaultExtension"      iv
+    MAP         "SelectionTarget"   INVENTOR_2_1_FILE
+# NOTE: MAP is not valid in 5.3
+    ICON {
+	include ("iconlib/inventor.data.fti");
+    }
+# less restrictive must follow more restrictive TYPE
+TYPE InventorBinaryData
+    MATCH	(! ascii) && (string(0,9) == "#Inventor");
+    SUPERTYPE	InventorDataFile
+    LEGEND	:266:Open Inventor binary data file
+    CMD OPEN	/usr/sbin/ivview $LEADER
+    CMD ALTOPEN	launch -c '/usr/sbin/ivview $LEADER'
+    CMD PRINT   routeprint -g -t $LEADERTYPE $LEADER $REST
+    SETVAR      "DefaultExtension"      iv
+    MAP         "SelectionTarget"   INVENTOR_2_0_FILE
+# NOTE: MAP is not valid in 5.3
+    ICON {
+	include ("iconlib/inventor.data.fti");
+    }
+
+TYPE Inventor2.1FileCompressed
+# for files which were compressed with "compress"
+# actually we have a problem distinguishing between 2.0 and 2.1 files (GEF)
+# so we will assume it is a 2.1 file and run ivdowngrade if we need 2.0 (story)
+    MATCH	short(0) == 0x1f9d && glob("*.iv.Z");
+    SUPERTYPE	Inventor2.1File
+    LEGEND	:265:Open Inventor 2.1 data file (compressed)
+    CMD OPEN	/usr/sbin/zcat $LEADER | /usr/sbin/ivview
+    CMD ALTOPEN	launch -c '/usr/sbin/gzcat $LEADER | /usr/sbin/ivview'
+    CMD PRINT   routeprint -t $LEADERTYPE $LEADER $REST
+    MENUCMD 	:458:"Edit" $WINEDITOR $LEADER		
+    SETVAR      "DefaultExtension"      iv.Z
+    MAP         "SelectionTarget"   INVENTOR_2_1_COMPRESSED_FILE
+# NOTE: MAP is not valid in 5.3
+    ICON {
+	include ("iconlib/inventor.data.fti");
+    }
+
+TYPE Inventor2.1FilePacked
+# for files which were compressed with "pack"
+# actually we have a problem distinguishing between 2.0 and 2.1 files (GEF)
+# so we will assume it is a 2.1 file and run ivdowngrade if we need 2.0 (story)
+    MATCH	short(0) == 017436 && glob("*.iv.z");
+    SUPERTYPE	Inventor2.1File
+    LEGEND	:265:Open Inventor 2.1 data file (compressed)
+    CMD OPEN	/usr/sbin/pcat $LEADER | /usr/sbin/ivview
+    CMD ALTOPEN	launch -c '/usr/sbin/gzcat $LEADER | /usr/sbin/ivview'
+    CMD PRINT   routeprint -t $LEADERTYPE $LEADER $REST
+    MENUCMD 	:458:"Edit" $WINEDITOR $LEADER		
+    MAP         "SelectionTarget"   INVENTOR_2_1_COMPRESSED_FILE
+# NOTE: MAP is not valid in 5.3
+    SETVAR      "DefaultExtension"      iv.z
+    ICON {
+	include ("iconlib/inventor.data.fti");
+    }
+
+TYPE Inventor2.1FileZipped
+# for files which were compressed with "gzip"
+# actually we have a problem distinguishing between 2.0 and 2.1 files (GEF)
+# so we will assume it is a 2.1 file and run ivdowngrade if we need 2.0 (story)
+# NOTE: the CONVERT rule is temporarily in WebSpace, until gzip
+#       can be prereq'ed by Inventor (ie, when it is bundled on the OS)
+    MATCH	(glob("*.iv.gz")
+	        || glob("*.iv-gz")
+	        || glob("*.iv_z")
+		|| glob("*.iv-z"));
+    SUPERTYPE	Inventor2.1File
+    LEGEND	:265:Open Inventor 2.1 data file (compressed)
+    CMD OPEN	/usr/sbin/pcat $LEADER | /usr/sbin/ivview
+    CMD ALTOPEN	launch -c '/usr/sbin/gzcat $LEADER | /usr/sbin/ivview'
+    CMD PRINT   routeprint -t $LEADERTYPE $LEADER $REST
+    MENUCMD 	:458:"Edit" $WINEDITOR $LEADER		
+    SETVAR      "DefaultExtension"      iv.gz
+    MAP         "SelectionTarget"   INVENTOR_2_1_COMPRESSED_FILE
+# NOTE: MAP is not valid in 5.3
+    ICON {
+	include ("iconlib/inventor.data.fti");
+    }
+
+TYPE InventorExecutable
+    MATCH	tag == 0x00010510;
+    SUPERTYPE	Executable
+    LEGEND	:267:Inventor Executable
+    CMD OPEN	$LEADER $REST
+    CMD ALTOPEN	launch -c $LEADER $REST
+    CMD DROP	$TARGET $SELECTED
+    ICON {
+	if (opened) {
+	    include ("iconlib/inventor.open.fti");
+	} else {
+	    include ("iconlib/inventor.closed.fti");
+	}
+    }    	
+
+TYPE InventorExecutable2arg
+    MATCH	tag == 0x00010511;
+    SUPERTYPE	Executable
+    LEGEND	:267:Inventor Executable
+    CMD OPEN	if [ $ARGC -eq 3 ]
+                then
+                        $LEADER $REST
+                else
+                        launch -m "$LEADER `gettxt uxsgidesktop:495 'expects 2 file names.'`" \
+                        -c $LEADER $REST
+                fi
+    CMD ALTOPEN	launch -m "$LEADER `gettxt uxsgidesktop:495 'expects 2 file names.'`" \
+                -c $LEADER $REST
+    CMD DROP	if [ $ARGC -eq 2 ]
+                then
+                        $TARGET $SELECTED
+                else
+                        launch -m "$TARGET `gettxt uxsgidesktop:495 'expects 2 file names.'`" \
+                        -c $TARGET $SELECTED
+                fi
+    ICON {
+	if (opened) {
+	    include ("iconlib/inventor.open.fti");
+	} else {
+	    include ("iconlib/inventor.closed.fti");
+	}
+    }    	

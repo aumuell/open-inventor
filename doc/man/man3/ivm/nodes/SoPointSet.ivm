@@ -1,0 +1,61 @@
+NAME SoPointSet SoPtSet "" { point set shape node }
+
+INCLUDE nodes/SoPointSet.h
+
+DESC {
+This node represents a set of points located at the 
+coordinates specified by the \vvertexProperty\. field (from \cSoVertexShape\.)
+or the current inherited coordinates. For optimal performance, 
+the \vvertexProperty\. field is recommended.
+\p
+\cSoPointSet\. uses the coordinates in order,
+starting with the first one. The
+number of points in the set is specified by the \vnumPoints\. field.
+\p
+The coordinates of the point set are transformed by the current
+cumulative transformation. The points are drawn with the current light
+model and drawing style (drawing styles \kFILLED\. and \kLINES\. are
+treated as \kPOINTS\.).
+\p
+Treatment of the current material and normal binding is as follows:
+\kPER_PART\., \kPER_FACE\., and \kPER_VERTEX\. bindings bind one
+material or normal to each point. The default material binding is
+ \kOVERALL\.. The default normal binding is 
+\kPER_VERTEX\..
+}
+
+FIELD numPoints { Number of points. }
+
+METHOD "" SoPointSet() { Creates a point set node with default settings. }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Draws points based on the current coordinates, normals, materials,
+drawing style, and so on.
+}
+
+ACTION SoRayPickAction {
+Picks points based on the current coordinates and transformation.
+Details about the intersection are returned in an \cSoPointDetail\..
+}
+
+ACTION SoGetBoundingBoxAction {
+Computes the bounding box that encloses all points in the set with the
+current transformation applied to them.  Sets the center to the
+average of the coordinates of all points.
+}
+
+ACTION SoCallbackAction {
+If any point callbacks are registered with the action, they will be
+invoked for each point in the set.
+}
+
+ALSO {
+SoCoordinate3,
+SoDrawStyle,
+SoPointDetail,
+SoVertexProperty
+}

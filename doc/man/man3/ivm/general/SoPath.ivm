@@ -1,0 +1,153 @@
+NAME SoPath SoPath "" { path that points to a list of hierarchical nodes }
+
+INCLUDE SoPath.h
+
+DESC {
+
+A path represents a scene graph or subgraph.  It contains a list of
+pointers to nodes forming a chain from some root to some descendent.
+Each node in the chain is a child of the previous node. Paths are used
+to refer to some object in a scene graph precisely and unambiguously,
+even if there are many instances of the object. Therefore, paths are
+returned by both the \cSoRayPickAction\. and \cSoSearchAction\..
+\p
+When an action is applied to a path, only the nodes in the subgraph
+defined by the path are traversed. These include: the nodes in the
+path chain, all nodes (if any) below the last node in the path, and
+all nodes whose effects are inherited by any of these nodes.
+\p
+\cSoPath\. attempts to maintain consistency of paths even when the
+structure of the scene graph changes. For example, removing a child
+from its parent when both are in a path chain cuts the path chain at
+that point, leaving the top part intact. Removing the node to the left
+of a node in a path adjusts the index for that node. Replacing a child
+of a node when both the parent and the child are in the chain replaces
+the child in the chain with the new child, truncating the path below
+the new child.
+\p
+Note that only public children of nodes are accessible from an
+\cSoPath\.. Nodes like node kits that limit access to their children
+may provide other ways to get more information, such as by using the
+\cSoNodeKitPath\. class.
+}
+
+METHOD "" SoPath() {
+Constructs an empty path.
+}
+
+METHOD CreateLen SoPath(int approxLength) {
+Constructs a path with a hint to length (number of nodes in chain).
+}
+
+METHOD CreateNode SoPath(SoNode *node) {
+Constructs a path and sets the head node to the given node.
+}
+
+METHOD "" void setHead(SoNode *node) {
+Sets head node (first node in chain). The head node must be set before the
+\+\mappend()\. or \mpush()\. methods\.
+\-\mSoPathAppend()\. or \mSoPathPush()\. functions\.
+may be called.
+}
+
+METHOD AppendInd void append(int childIndex) {
+Adds node to end of chain; the node is the \achildIndex\.'th child of
+the current tail node.
+}
+
+METHOD AppendNode void append(SoNode *childNode) {
+Adds node to end of chain; uses the first occurrence of \achildNode\.
+as child of current tail node. If the path is empty, this is
+equivalent to
+\+\msetHead(childNode)\..\.
+\-\mSoPathSetHead(childNode)\..\.
+}
+
+METHOD AppendPath void append(const SoPath *fromPath) {
+Adds all nodes in \afromPath\.'s chain to end of chain; the head node
+of \afromPath\. must be the same as or a child of the current tail node.
+}
+
+METHOD "" void push(int childIndex) {}
+METHOD "" void pop() {
+These allow a path to be treated as a stack; they push a node at the
+end of the chain and pop the last node off.
+}
+
+METHOD "" SoNode * getHead() const {}
+METHOD "" SoNode * getTail() const {
+These return the first and last nodes in a path chain.
+}
+
+METHOD "" SoNode * getNode(int i) const {}
+METHOD getInd int getIndex(int i) const {
+These return a pointer to the \ai\.'th node or the index of the
+\ai\.'th node (within its parent) in the chain.
+\+Calling \mgetNode(0)\. is equivalent to calling \mgetHead()\..\.
+\-Calling \mSoPathGetNode(path, 0)\. is equivalent to calling
+\mSoPathGetHead(path)\..\.
+}
+
+METHOD "" SoNode * getNodeFromTail(int i) const {}
+METHOD getIndFromTail int getIndexFromTail(int i) const {
+These return a pointer to the \ai\.'th node or the index of the
+\ai\.'th node (within its parent) in the chain, counting backward from
+the tail node. Passing 0 for \ai\. returns the tail node or its index.
+}
+
+METHOD getLen int  getLength() const {
+Returns length of path chain (number of nodes).
+}
+
+METHOD "" void truncate(int start) {
+Truncates the path chain, removing all nodes from index \astart\. on.
+Calling
+\+\mtruncate(0)\.\.
+\-\mSoPathTruncate(0)\.\.
+empties the path entirely.
+}
+
+METHOD "" SbBool containsNode(const SoNode *node) const {
+Returns TRUE if the node is found anywhere in the path chain.
+}
+
+METHOD "" SbBool containsPath(const SoPath *path) const {
+Returns TRUE if the nodes in the chain in the passed path are
+contained (in consecutive order) in this path chain.
+}
+
+METHOD "" int findFork(const SoPath *path) const {
+If the two paths have different head nodes, this returns -1.
+Otherwise, it returns the path chain index of the last node (starting
+at the head) that is the same for both paths.
+}
+
+METHOD "" SoPath * copy(int startFromNodeIndex = 0, int numNodes = 0) const {
+Creates and returns a new path that is a copy of some or all of this
+path. Copying starts at the given index (default is 0, which is the
+head node). A \anumNodes\. of 0 (the default) means copy all nodes
+from the starting index to the end. Returns NULL on error.
+}
+
+METHOD "" friend int operator ==(const SoPath &p1, const SoPath &p2) {
+Returns TRUE if all node pointers in the two path chains are identical.
+}
+
+METHOD "" static SoPath * getByName(const SbName &name) {}
+METHOD getByNameList static int getByName(const SbName &name,
+					  SoPathList &list) {
+These methods lookup and return paths with a given name.  Paths are
+named by calling their
+\+\msetName()\. method\.\-\mSoPathSetName()\. function\.
+(defined by the \cSoBase\. class). The first form returns the last
+path that was given that name, either by
+\+\msetName()\.\.\-\mSoPathSetName()\.\.
+or by reading in a named path from a file. If there is no path with
+the given name, NULL will be returned.  The second form appends all
+paths with the given name to the given path list and returns the
+number of paths that were added. If there are no paths with the given
+name, zero will be returned and nothing will be added to the list.
+}
+
+ALSO { SoNode, SoRayPickAction, SoSearchAction, SoNodeKitPath }
+

@@ -1,0 +1,26 @@
+NAME SoTextureCoordinateFunction SoTexCoordFunc "" {
+abstract base class for texture coordinate function nodes
+}
+
+INCLUDE nodes/SoTextureCoordinateFunction.h
+
+DESC {
+This is an abstract base class for texture coordinate functions. The
+subclasses of this node enable texture coordinates to be created by
+mapping object-space points on the surfaces of shapes into texture
+space, according to some function.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ALSO {
+SoTexture2,
+SoTexture2Transform
+SoTextureCoordinate2,
+SoTextureCoordinateBinding,
+SoTextureCoordinateDefault,
+SoTextureCoordinateEnvironment,
+SoTextureCoordinatePlane,
+}

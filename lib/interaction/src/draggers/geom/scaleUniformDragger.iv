@@ -1,0 +1,114 @@
+#Inventor V2.0 ascii
+
+
+DEF SCALE_UNIFORM_DRAGGER_SCALING_OBJECT Group {
+
+    Complexity { value .01 }
+
+    # 8 cubes, one at each corner.
+    # front upper left
+    Translation { translation -1.1 1.1 1.1 }
+    Cube { height 0.1 width 0.1 depth 0.1 }
+
+    # front upper right
+    Translation { translation 2.2 0 0 }
+    Cube { height 0.1 width 0.1 depth 0.1 }
+
+    # front lower right
+    Translation { translation 0 -2.2 0 }
+    Cube { height 0.1 width 0.1 depth 0.1 }
+
+    # front lower left
+    Translation { translation -2.2 0 0 }
+    Cube { height 0.1 width 0.1 depth 0.1 }
+
+    # rear upper left
+    Translation { translation 0 2.2 -2.2 }
+    Cube { height 0.1 width 0.1 depth 0.1 }
+
+    # rear upper right
+    Translation { translation 2.2 0 0 }
+    Cube { height 0.1 width 0.1 depth 0.1 }
+
+    # rear lower right
+    Translation { translation 0 -2.2 0 }
+    Cube { height 0.1 width 0.1 depth 0.1 }
+
+    # rear lower left
+    Translation { translation -2.2 0 0 }
+    Cube { height 0.1 width 0.1 depth 0.1 }
+
+}
+
+DEF scaleUniformScaler Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    USE SCALE_UNIFORM_DRAGGER_SCALING_OBJECT
+}
+
+DEF scaleUniformScalerActive Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    LightModel { model PHONG }
+    Texture2 {}
+
+
+    Complexity { value .01 }
+    DrawStyle { style LINES lineWidth 1 }
+    Cube { width 2.2 height 2.2 depth 2.2 }
+
+    DrawStyle {}
+    USE SCALE_UNIFORM_DRAGGER_SCALING_OBJECT
+}
+
+DEF SCALE_UNIFORM_DRAGGER_FEEDBACK Group {
+    # A skinny set of axes.
+
+    # x-axis
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+    Coordinate3 { point [ -1.25 0 0, 1.25 0 0 ] }
+    LineSet {}
+
+    #y-axis
+    Coordinate3 { point [ 0 -1.25 0, 0 1.25 0 ] }
+    LineSet {}
+
+    #z-axis
+    Coordinate3 { point [ 0 0 -1.25, 0 0 1.25 ] }
+    LineSet {}
+}
+
+DEF scaleUniformFeedback Separator {
+    renderCaching ON
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.25 0.05 0.36 ]
+	emissiveColor	[ 0.25 0.05 0.36 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    USE SCALE_UNIFORM_DRAGGER_FEEDBACK
+}
+DEF scaleUniformFeedbackActive Separator {
+    renderCaching ON
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.36 0.05 0.44 ]
+	emissiveColor	[ 0.36 0.05 0.44 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    USE SCALE_UNIFORM_DRAGGER_FEEDBACK
+}

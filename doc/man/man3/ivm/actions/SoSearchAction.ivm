@@ -1,0 +1,91 @@
+NAME SoSearchAction SoSearchAct SO_SEARCH_ACT_ {
+searches for nodes in a scene graph
+}
+
+INCLUDE actions/SoSearchAction.h
+
+DESC {
+This class is used to search scene graphs for specific nodes, nodes of
+a specific type, nodes with a specific name, or any combination of
+these. It can search for just the first or last node satisfying the
+criteria or for all such nodes. The actions return paths to each node
+found.
+\p
+Note that by default nodekits do not search their children when a search 
+action is applied.  The man page for \cSoBaseKit\. discusses the methods
+\m\+SoBaseKit::isSearchingChildren()\.\-SoKitIsSearchingChildren()\.\. and
+\m\+SoBaseKit::setSearchingChildren()\.\-SoKitSetSearchingChildren()\.\.,
+which allow you to query and control this behavior.
+}
+
+ENUM LookFor {
+    NODE	"Search for a particular node (by pointer)",
+    TYPE	"Search for a particular type of node",
+    NAME	"Search for a node with a particular name"
+}
+
+ENUM Interest {
+    FIRST	"Return only the first path found",
+    LAST	"Return only the last path found",
+    ALL		"Return all paths found"
+}
+
+METHOD "" SoSearchAction() {
+Constructor.
+}
+
+METHOD "" void setNode(SoNode *n) {}
+METHOD "" SoNode * getNode() const {
+Sets/returns the node to search for.
+}
+
+METHOD "" void setType(SoType t, SbBool derivedIsOk = TRUE) {}
+METHOD "" SoType getType(SbBool &derivedIsOk) const {
+Sets/returns the node type to search for. If \aderivedIsOk\. is TRUE,
+a node that is of a type that is derived from \at\. will pass this
+search criterion.
+}
+
+METHOD "" void setName(const SbName &n) {}
+METHOD "" const SbName & getName() const {
+Sets/returns the name of the node to search for.
+}
+
+METHOD "" void setFind(int what) {}
+METHOD "" int getFind() {
+Sets/returns what to look for; \awhat\. is a bitmask of \kLookFor\.
+enum values. Default is no flags at all. Note that setting a node,
+type, and/or name to search for activates the relevant flag, so you
+may never need to call this method directly.
+}
+
+METHOD "" void setInterest(Interest interest) {}
+METHOD "" Interest getInterest() const {
+Sets/returns which paths to return. Default is FIRST.
+}
+
+METHOD setSearchAll void setSearchingAll(SbBool flag) {}
+METHOD isSearchAll SbBool isSearchingAll() const {
+Sets/returns whether searching uses regular traversal or whether it
+traverses every single node. For example, if this flag is FALSE, an
+\cSoSwitch\. node will traverse only the child or children it would
+normally traverse for an action. If the flag is TRUE, the switch would
+always traverse all of its children. The default is FALSE.
+}
+
+METHOD "" SoPath * getPath() const {
+Returns resulting path, or NULL if no path was found. This should be
+used if the interest is FIRST or LAST.
+}
+
+METHOD "" SoPathList & getPaths() {
+Returns resulting path list. This should be used if the interest is ALL.
+}
+
+METHOD "" void reset() {
+Resets options back to default values; clears list of returned paths.
+This can be used to apply the action again with a different set of
+search criteria.
+}
+
+ALSO { SoPath, SoBaseKit }

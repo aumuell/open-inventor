@@ -1,0 +1,103 @@
+NAME SoScale1Dragger SoScale1Drag "" { object you can scale in one dimension by dragging with the mouse }
+
+INCLUDE draggers/SoScale1Dragger.h
+
+DESC { \cSoScale1Dragger\. 
+is a simple dragger that scales
+in one dimension when dragged with the mouse.
+It moves along the x axis of its local space, as determined by its
+location in the scene graph.
+Transformation nodes placed before it will
+affect both the dragger and the direction of motion.
+\p
+This node has a \vscaleFactor\. field
+which always reflects
+its size in local space.
+If you set the field, the dragger will change accordingly.
+You can also connect fields of other nodes or engines from
+this one
+to make them follow the dragger's motion.
+\p
+This dragger contains four parts, \escaler\., \escalerActive\.,
+\efeedback\., and \efeedbackActive\..
+\p
+Each of these is set by default from
+a resource described in the Dragger Resources section of the online
+reference page for this class.  You
+can change the parts in any instance of this dragger using
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+\p
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/scale1Dragger.iv\.
+into your own directory, editing the file, and then
+setting the environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+METHOD "" SoScale1Dragger() {
+Constructor.
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+FIELD scaleFactor { Scale factor affecting the dragger. }
+
+DRAGGER_RESOURCE {
+  scale1Scaler,
+  scaler,
+  "white line, small cubes ends",
+  "picking this initiates scaling"
+}
+
+DRAGGER_RESOURCE {
+  scale1ScalerActive,
+  scalerActive,
+  "yellow version of scaler, adds wireframe yellow cube",
+  "displayed during scaling instead of the scaler"
+}
+
+DRAGGER_RESOURCE {
+  scale1Feedback,
+  feedback,
+  "thin purple 3-D crosshair",
+  "shows center of scale when still"
+}
+
+DRAGGER_RESOURCE {
+  scale1FeedbackActive,
+  feedbackActive,
+  "thin, slightly brighter purple 3-D crosshair",
+  "shows center of scale while in motion"
+}
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoCenterballDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTransformerDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}
+

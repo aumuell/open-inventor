@@ -1,0 +1,37 @@
+NAME SoXtSliderSetBase SoXtSldrsBase "" {
+abstract base class for Motif-only slider components
+}
+
+INCLUDE Xt/SoXtSliderSetBase.h
+
+DESC {
+This class is used as a base class for all editors which use Motif sliders
+to edit fields in an Inventor scene graph node. This class is not meant to
+be instanced by programmers who want to use an editor in a program. It
+should only be used as a base class when designing new editors.
+
+\p
+\cSoXtSliderSetBase\.
+is derived from
+\cSoXtComponent\., but adds three
+concepts. First, there is a node to edit. Second, there are subcomponents.
+When an \cSoXtSliderSetBase\.
+is shown or hidden, so are its
+subcomponents. (As an example, an
+\cSoXtTransformSliderSet\.
+is composed of many subcomponents). Third, an
+\cSoXtSliderSetBase\.
+has a layout size, which is used to lay out the subcomponents.
+}
+
+METHOD "" virtual void setNode(SoNode *newNode)
+{
+Sets a new node as the node to be modified by this editor component.
+}
+
+METHOD "" SoNode * getNode() const {
+Returns a pointer to the node currently being modified by this editor component.
+}
+
+
+ALSO { SoXtComponent, SoXtSliderSet }

@@ -1,0 +1,10 @@
+This sample demonstrates how to show Inventor components
+on different X displays. The program creates and shows an
+examiner viewer on the display on which the program is run.
+When launched with a command line argument which is the name
+of an X display, the program also creates and shows another
+viewer on the named display.
+
+For instance, if there is another display named "fred:0",
+this program would be run:  'example fred:0'
+

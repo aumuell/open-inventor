@@ -1,0 +1,19 @@
+This directory contains collections of 3D geometric scenes.
+
+File format is denoted by the suffix.
+For example, files with `.iv' are IRIS Inventor format.
+
+The .env files are environment files denote camera and light positions,
+fog, etc. These are used by the SceneViewer program, which views
+IRIS Inventor format files. For example:
+SceneViewer -e chesschairs.env chesschairs.iv
+
+IRIS Inventor Notes:
+    . use `ivcat' to convert binary Inventor files to ascii
+      (e.g. ivcat cube.iv)
+    . use `ivinfo' to get a summary of an Inventor file contents
+
+
+
+
+

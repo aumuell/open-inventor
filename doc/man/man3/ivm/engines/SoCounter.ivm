@@ -1,0 +1,41 @@
+NAME SoCounter SoCounter "" { triggered integer counter }
+
+DESC { 
+This engine is a counter that outputs numbers, starting at a
+minimum value, increasing by a step value, and ending with a number
+that does not exceed the maximum value.  It outputs the next
+number whenever the \vtrigger\. input is touched. When the maximum number
+is reached, it starts counting from the beginning again.  
+\p
+At any time the counter can be reset to a specific value by setting
+the \vreset\. input field to that value.  The next time the counter
+is triggered it will start counting from there.  Note that the counter will
+always output numbers based on the min, max and step values, and
+setting the reset value does not affect those input fields.
+If the reset value is not a legal counter value, the counter will still
+behave as though it is.
+\b
+If \vreset\. is greater than \vmax\., the counter is set to \vmax\..
+If \vreset\. is less than \vmin\., the counter is set to \vmin\..
+If \vreset\. is between steps, the counter is set to the lower step value.
+\.
+\p
+Each time a counting cycle is started, the \vsyncOut\. output is triggered.  
+This output can be used to synchronize some other event with the 
+counting cycle.
+}
+
+INCLUDE engines/SoCounter.h
+
+INPUT min { Minimum value for the counter.}
+INPUT max { Maximum value for the counter.}
+INPUT step { Counter step value.}
+INPUT trigger { Go to the next step. }
+INPUT reset { At the next trigger, reset the counter to the specified value. }
+
+OUTPUT output { Counts min-to-max in step increments. }
+OUTPUT syncOut { Triggers at cycle start. }
+
+METHOD Create SoCounter() { Constructor }
+
+ALSO { SoTimeCounter, SoEngineOutput }

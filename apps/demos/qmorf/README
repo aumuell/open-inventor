@@ -1,0 +1,73 @@
+Qmorf - an Open Inventor 3D morphing program
+--------------------------------------------
+
+This directory contains source code and data for the Open Inventor
+qmorf demo program.
+
+Qmorf was written by Gavin Bell for Silicon Graphics to show off the
+capabilities of Open Inventor and Silicon Graphics workstations.
+Qmorf reads in Inventor model files and extracts geometry, texture and
+material information from the files.  It then creates an intermediate
+geometry that is a combination of two of the files.  Qmorf is not related to
+other morphing programs (like the program used to produce the effects in
+Michael Jackson's "Black or White" video).  Those programs use image warping
+techniques to modify 2D images; this program actually modifies an object's
+3D geometry.
+
+Currently, qmorf is only able to interpolate between files that contain
+QuadMeshes with 40 by 40 vertices (1521 quads).  Standard C++ code is used
+to linearly interpolate the positions of the vertices of the intermediate
+geometry.  Open Inventor is used to linearly interpolate the objects' textures
+or materials.  The intermediate geometry is drawn twice, first with the
+first set of materials or textures or materials applied.  Then the object is
+drawn again with the second set of materials or textures applied, modified
+to be semi-transparent.  Open Inventor (using the Open GL) blends the
+semi-transparent object with the already drawn geometry.  By varying the
+level of transparency, a smooth fade from one object's texture to the next
+ is achieved.
+
+The background is derived from code originally written by Drew Olbrich.
+It is a 21 by 21 QuadMesh (400 quads) with a different material at each vertex.
+The positions of the vertices are determined by various mathematical
+functions (e.g. sine waves, exponential functions, etc), while the colors
+are determined by a fractal noise function.  The positions and colors are 
+edited each frame of the animation using C++ code, interpolating from one 
+set of positions and colors to the next.  The total number of quads in 
+any given frame is 3,442 (1552*2+400).
+
+The main window of the program is the standard Inventor Examiner Viewer
+Xt component.  The button and sliders are Motif widgets.
+
+
+How to run qmorf:
+----------------
+qmorf /usr/share/data/models/CyberHeads/*.iv
+
+Data files
+----------
+The data files that work with qmorf are found in:
+
+	/usr/share/data/models/CyberHeads/*.iv
+
+YOU MUST INSTALL inventor_eoe.data.sample to get these data files!
+
+
+How to make quad meshes that work with qmorf:
+--------------------------------------------
+Makefile.shapes and quad*.c++ are files used to create the quad-mesh
+format geometric shapes used by qmorf.  To create them, type
+'make -f Makefile.shapes'.
+
+
+Data Credits:
+------------
+The data files in the CyberHeads/ directory were converted into Open
+Inventor format from data gathered by a Cyberware laser digitizer.  For
+more information on CyberWare products, contact:
+
+	Cyberware Laboratory Inc. 
+	8 Harris Court #3D
+	Monterey, California 93940
+
+	Phone: (408) 373-1441 8am-5pm Pacific Time
+	Fax: (408) 373-3582

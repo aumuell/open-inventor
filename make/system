@@ -1,0 +1,196 @@
+#
+# Pmake system makefile for IRIX
+#
+# $Revision: 1.1 $
+#
+# The following variables specify the nature of the system on which Pmake 
+# is running. These names may later be used in #if expressions for conditional 
+# reading of the enclosed portion of the makefile.
+
+ifeq ($(OSTYPE),linux)
+  usingLinux = 1
+else
+ifeq ($(OSTYPE),Linux)
+  usingLinux = 1
+else
+  usingLinux = 0
+endif
+endif
+
+ifeq ($(usingLinux),1)
+LINUX		= Linux operating system
+SYSV		= System V
+SVR4		= System V Release 4
+unix		= It runs UNIX
+else
+IRIX		= IRIX operating system
+SYSV		= System V
+SVR4		= System V Release 4
+unix		= It runs UNIX
+endif
+.SUFFIXES : .out .a .b .o .u .c .c++ .C .cxx .cpp .p .f .e .r .pl1 .pli \
+		.f90 .F .F90 \
+		.y .Y .yxx .ypp .l .L .lxx .lpp .s .sh .h .i
+
+ifndef NORCS
+.SUFFIXES : .c,v .c++,v .f,v .p,v .pl1,v .pli,v .y,v .l,v .s,v .sh,v .h,v \
+		.f90,v .F,v .F90,v \
+		.Y,v .L,v .C,v .cxx,v .cpp,v .lxx,v .lpp,v .yxx,v .ypp,v
+endif
+.INCLUDES : .h
+.LIBS: .a .b
+.NULL: .out
+
+CFLAGS		= -O
+ifeq ($(usingLinux),1)
+CC		= gcc
+C++		= g++
+C++C		= g++
+else
+CC		= cc
+C++		= CC
+C++C		= CC
+endif
+C++FLAGS	= -O
+CXX		= $(C++)
+CXXFLAGS	= $(C++FLAGS)
+AS		= as
+ASFLAGS		=
+PC		= pc
+PFLAGS		= -O
+PL1		= pl1
+PL1FLAGS	= -O
+FC		= f77
+F90C		= f90
+FFLAGS		= -O
+F90FLAGS	= -O
+RFLAGS		=
+EFLAGS		=
+MKF2C		= mkf2c
+F2CFLAGS	=
+YACC		= yacc
+YFLAGS		=
+LEX		= lex
+LFLAGS		=
+LD		= ld
+LDFLAGS		=
+LOADLIBES	=
+CO		= co
+COFLAGS		=
+CI		= ci
+CIFLAGS		=
+AR		= ar
+ARFLAGS		= crl
+INSTALL		= install
+EXTCENTRY	= extcentry
+
+
+ifndef NORCS
+.c,v.c .c++,v.c++ .y,v.y .l,v.l .s,v.s .f,v.f .p,v.p .pl1,v.pl1 .pli,v.pli \
+.f90,v.f90 .F,v.F .F90,v.F90 \
+ .sh,v.sh .h,v.h .C,v.C .L,v.L .Y,v.Y .cxx,v .cpp,v .yxx,v .ypp,v .lxx,v .lpp,v :
+	$(CO) $(COFLAGS) $< $@
+endif
+
+.s.out .c.out .o.out .s .c .o :
+	$(CC) $(CFLAGS) $< $(LDFLAGS) -o $@
+
+.s.o :
+	$(AS) $(ASFLAGS) -o $@ $<
+
+.c.o :
+	$(CC) $(CFLAGS) -c $<
+.c.s :
+	$(CC) $(CFLAGS) -S $<
+.c.i :
+	$(CC) $(CFLAGS) -E $< > $*.i
+.c.u :
+	$(CC) $(CFLAGS) -j $<
+
+
+.cpp.out .cxx.out .C.out .c++.out .cxx .C .c++:
+	$(CXX) $(CXXFLAGS) $< $(LDFLAGS) -o $@
+.cpp.o .cxx.o .C.o .c++.o :
+	$(CXX) $(CXXFLAGS) -c $<
+.cpp.s .cxx.s .C.s .c++.s :
+	$(CXX) $(CXXFLAGS) -S $<
+.cpp.i .cxx.i .C.i .c++.i :
+	$(CXX) $(CXXFLAGS) -E $< > $*.i
+
+
+.p.o :
+	$(PC) $(PFLAGS) -c $<
+.p.u :
+	$(PC) $(PFLAGS) -j $<
+.p.out .p :
+	$(PC) $(PFLAGS) $< $(LDFLAGS) -o $@
+
+
+.pl1.o .pli.o :
+	$(PL1) $(PL1FLAGS) -c $<
+.pl1.u .pli.u :
+	$(PL1) $(PL1FLAGS) -j $<
+.pl1.out .pli.out .pl1 .pli :
+	$(PL1) $(PL1FLAGS) $< $(LDFLAGS) -o $@
+
+
+.f.o :
+	$(FC) $(FFLAGS) -c $<
+.F.o :
+	$(F90C) $(F90FLAGS) -c $<
+.f90.o :
+	$(F90C) $(F90FLAGS) -c $<
+.F90.o :
+	$(F90C) $(F90FLAGS) -c $<
+.f.u :
+	$(FC) $(FFLAGS) -j $<
+.e.o .r.o :
+	$(FC) $(RFLAGS) $(EFLAGS) $(FFLAGS) -c $<
+.f.out .r.out .e.out .f .r .e :
+	$(FC) $(EFLAGS) $(RFLAGS) $(FFLAGS) $< $(LDFLAGS) -o $@
+	-rm -f $*.o
+.f90.out .F90.out .F.out :
+	$(F90C) $(EFLAGS) $(RFLAGS) $(F90FLAGS) $< $(LDFLAGS) -o $@
+	-rm -f $*.o
+
+
+.ypp.cpp .yxx.cxx .Y.C .y.c :
+	$(YACC) $(YFLAGS) $<
+	mv -f y.tab.c $@
+.y.o :
+	$(YACC) $(YFLAGS) $<
+	$(CC) $(YACCMKDEPFLAGS) $(CFLAGS) -c y.tab.c
+	rm -f y.tab.c
+	mv -f y.tab.o $@
+.y.out .y :
+	$(YACC) $(YFLAGS) $<
+	$(CC) $(CFLAGS) y.tab.c $(LDFLAGS) -ly -o $@
+	rm -f y.tab.c
+.ypp.o .Y.o .yxx.o :
+	$(YACC) $(YFLAGS) $<
+	mv y.tab.c $*.cxx
+	$(CXX) $(CXXFLAGS) -c $*.cxx
+	rm -f $*.cxx
+
+
+.lpp.cpp .lxx.cxx .L.C .l.c :
+	$(LEX) $(LFLAGS) $<
+	mv -f lex.yy.c $@
+.l.o :
+	$(LEX) $(LFLAGS) $<
+	$(CC) $(LEXMKDEPFLAGS) $(CFLAGS) -c lex.yy.c
+	rm -f lex.yy.c
+	mv -f lex.yy.o $@
+.l.out .l :
+	$(LEX) $(LFLAGS) $<
+	$(CC) $(CFLAGS) lex.yy.c $(LDFLAGS) -ll -o $@
+	rm -f lex.yy.c
+.lpp.o .L.o .lxx.o :
+	$(LEX) $(LFLAGS) $<
+	mv lex.yy.c $*.cxx
+	$(CXX) $(CXXFLAGS) -c $*.cxx
+	rm -f $*.cxx
+
+.sh.out .sh :
+	rm -f $@
+	cp $< $@; chmod a+x,u+w  $@

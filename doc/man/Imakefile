@@ -1,0 +1,9 @@
+#define BranchMakefile
+
+#define SubDirs tools macros ivman man1 man3
+
+#define NoShipUser
+
+OTHERSOURCE = README mandefs manrules
+
+TOP_OF_TREE = ../..

@@ -1,0 +1,34 @@
+Open Inventor - Examples from The Inventor Toolmaker
+
+Chapter 3 - "Creating a Field"
+
+
+*** THIS IS FOR EXPERTS ONLY! ***
+
+This directory contains fragments of source code that 
+illustrate how to create new fields.  No executable
+program is created here.
+
+Fields are the lightweight datatypes that all Inventor 
+nodes (3D objects) are made of.  Each field class defines
+a specific type of data.  For example, the existing 
+field classes include:
+
+	short
+	int
+	enum
+	float
+	Vector 3D
+	Rotation
+
+Note that fields come in two varieties:
+
+	single-valued
+	multiple-valued (arrays)
+
+See the The Inventor Mentor, chapter 3 for an introduction to fields.
+
+
+*** THIS IS FOR EXPERTS ONLY! ***
+
+*** This is for C++ programmers only! ***

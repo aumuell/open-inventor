@@ -1,0 +1,53 @@
+NAME SoDetailList SoDtlList "" { maintains a list of instances of details }
+
+INCLUDE SoLists.h
+
+DESC {
+This subclass of \cSbPList\. holds lists of instances of
+classes derived from \cSoDetail\..
+}
+
+METHOD "" SoDetailList() { Constructor. }
+
+METHOD createSize SoDetailList(int size) {
+Constructor that pre-allocates storage for \asize\. pointers.
+}
+
+METHOD " " SoDetailList(const SoDetailList &l) {
+Constructor that copies the contents of another list.
+}
+
+METHOD "" ~SoDetailList() { Destructor. }
+
+METHOD "" void append(SoDetail *detail) {
+Adds a detail to the end of the list.
+}
+
+METHOD "" void insert(SoDetail *detail, int addBefore) {
+Inserts given detail in list before detail with given index.
+}
+
+METHOD "" void truncate(int start) {
+Removes all details after one with given index, inclusive. Removed
+detail instances are deleted.
+}
+
+METHOD "" void copy(const SoDetailList &l) {
+Copies a list, making a copy of each detail instance in the list.
+}
+
+BEGIN C++
+METHOD "" SoDetailList & operator =(const SoDetailList &l) {
+Copies a list, making a copy of each detail instance in the list.
+}
+END
+
+METHOD "" SoDetail * operator [\|](int i) const {
+Accesses an element of a list.
+}
+
+METHOD "" void set(int i, SoDetail *detail) {
+Sets an element of a list, deleting the old entry first.
+}
+
+ALSO { SoDetail }

@@ -1,0 +1,248 @@
+NAME SoXtRenderArea SoXtRA "" {
+Xt Component for rendering Inventor scene graphs
+}
+
+BEGIN C
+DEFINE { SoXtRACreateStd(parent, name) SoXtRACreate(parent, name, TRUE, TRUE, TRUE) }
+END
+
+TYPEDEF SbBool SoXtRenderAreaEventCB "(void *userData, XAnyEvent *anyevent)"
+
+INCLUDE Xt/SoXtRenderArea.h
+
+DESC {
+This class provides Inventor rendering
+and event handling inside a GLX Motif widget. There
+is a routine to specify the scene to render. The scene is automatically
+rendered whenever anything under it changes (a data sensor is attached to
+the root of the scene), unless explicitly told not to do so (manual
+redraws). Users can also set Inventor rendering attributes such as the
+transparency type, antialiasing on or off, etc. This class employs
+an \cSoSceneManager\. to manage rendering and event handling.
+\p
+
+X events that occur in the render area can be handled by the
+application, by the viewer (if this is really a viewer) or by the nodes
+in the scene graph. When an event occurs, it is first passed to the
+application event callback function registered with the
+\msetEventCallback()\. method on \cSoXtRenderArea\.. If this function
+does not exist or returns FALSE, the X event is either used directly by
+the viewer or translated to an \cSoEvent\. for further scene graph
+processing.  If the viewer does not handle the event, and an overlay
+scene graph exists, the \cSoEvent\.  is sent to that scene graph by way
+of an \cSoHandleEventAction\.. If no node in the overlay scene graph
+handles the event (i.e., calls \msetHandled()\.  on the
+\cSoHandleEventAction\.), the \cSoEvent\. is passed to the normal scene
+graph in the same manner.  }
+
+METHOD "" SoXtRenderArea(
+	Widget parent = NULL,
+	const char *name = NULL, 
+	SbBool buildInsideParent = TRUE, 
+	SbBool getMouseInput = TRUE,
+	SbBool getKeyboardInput = TRUE) {}
+METHOD "" ~SoXtRenderArea()
+{
+Constructor which is passed arguments which tell it whether to register the
+mouse and keyboard devices by default (\cSoXtMouse\. and \cSoXtKeyboard\.).
+\-For a constructor short cut look at the \mSoXtRACreateStd\. #define.\.
+}
+
+METHOD setScene virtual void setSceneGraph(SoNode *newScene) {}
+METHOD getScene virtual SoNode *	    getSceneGraph()
+{
+Set/get the scene graph to be rendered in this component's window.
+}
+
+METHOD setOverScene void setOverlaySceneGraph(SoNode *newScene) {}
+METHOD getOverScene SoNode * getOverlaySceneGraph()
+{
+Sets/gets the scene graph to render in the overlay bit planes.
+\p
+Note: since the overlay bit planes are in color index mode, single
+buffer with a limited number of colors, the user should limit rendering
+in the overlay planes to simple objects. 
+\p
+Typically rendering in color index mode is done using the \cSoColorIndex\.
+node with a \cSoLightModel\. set to BASE_COLOR.
+}
+
+METHOD "" void		    registerDevice(SoXtDevice *) {}
+METHOD "" void		    unregisterDevice(SoXtDevice *)
+{
+Register/unregister interest in devices. When a device is registered,
+events from that device will be processed by the render area, and passed
+into the scene graph. Events from unregistered devices will be ignored.
+}
+
+METHOD setBkgCol void setBackgroundColor(const SbColor &c) {}
+METHOD getBkgCol const SbColor &	    getBackgroundColor() const
+{
+Set/get the background color for this window. Default is black (0,0,0).
+}
+
+METHOD setBkgInd void setBackgroundIndex(int index) {}
+METHOD getBkgInd int getBackgroundIndex() const
+{
+Sets/gets the window background color when in color index mode.
+(default to black (index 0)).
+}
+
+METHOD setOverBkgInd void setOverlayBackgroundIndex(int index) {}
+METHOD getOverBkgInd int getOverlayBackgroundIndex() const
+{
+Sets/gets the overlay window background color index.
+(default to 0 (clear color)).
+}
+
+METHOD setColMap void	setColorMap(int startIndex, int num, const SbColor *colors)
+{
+Sets the colors to use when displaying in color index mode. This will
+load the color map with the given colors at the starting index.
+}
+
+METHOD setOverColMap void	setOverlayColorMap(int startIndex, int num, const SbColor *colors)
+{
+Sets the colors to use for overlay bit planes.This will
+load the color map with the given colors at the starting index.
+}
+
+METHOD setVPReg void setViewportRegion(const SbViewportRegion &newRegion) {}
+METHOD getVPReg const SbViewportRegion &getViewportRegion() const
+{
+Sets/gets current viewport region to use for rendering
+}
+
+METHOD setTranspType void setTransparencyType(SoGLRenderAction::TransparencyType type) {}
+METHOD getTranspType SoGLRenderAction::TransparencyType	getTransparencyType() const
+{
+Set/get the quality level for rendering transparent objects. See
+\cSoGLRenderAction\.
+for possible transparency types.
+}
+
+METHOD "" void setAntialiasing(SbBool smoothing, int numPasses) {}
+METHOD "" void getAntialiasing(SbBool &smoothing, int &numPasses) const
+{
+Set/get the antialiasing for rendering. There are two kinds of 
+antialiasing available: smoothing and multipass antialiasing. 
+If \asmoothing\. is set to TRUE, smoothing is enabled.
+Smoothing uses OpenGL's line- and point-smoothing features 
+to provide cheap antialiasing of lines and points.
+The value of \anumPasses\. controls multipass antialiasing. Each time
+a render action is applied, Inventor renders the scene \anumPasses\. 
+times from slightly different camera positions, averaging the results.
+\anumPasses\. can be from one to 255, inclusive. Setting \anumPasses\. to 
+one disables multipass antialiasing. You can use either, both, or neither 
+of these antialiasing techniques. By default, both smoothing and 
+multipass antialiasing are disabled.
+}
+
+METHOD "" void setClearBeforeRender(SbBool trueOrFalse) {}
+METHOD "" SbBool		    isClearBeforeRender() const
+{
+Enable/prevent window clearing from happening before a rendering starts
+(default is clear TRUE). This can be useful to limit flickering when doing
+single buffering and geometry covers the entire window (used in the
+material editor).
+}
+
+METHOD setClearBeforeOverRender void setClearBeforeOverlayRender(SbBool trueOrFalse) {}
+METHOD isClearBeforeOverRender SbBool isClearBeforeOverlayRender() const
+{
+Enable/prevent overlay window clearing from happening before a rendering starts
+(default is clear TRUE).
+}
+
+METHOD "" void		    setAutoRedraw(SbBool trueOrFalse) {}
+METHOD "" SbBool isAutoRedraw() const
+{
+The render area will automatically redraw whenever something in the scene
+graph changes. Passing FALSE will disable this feature.
+}
+
+METHOD "" void setRedrawPriority(uint32_t priority) {}
+METHOD "" uint32_t	getRedrawPriority() const {}
+METHOD "" static uint32_t getDefaultRedrawPriority()
+{
+Sets/gets the priority of the redraw sensor and get the default 
+priority number.
+}
+
+METHOD "" void render() {}
+METHOD "" void renderOverlay()
+{
+Calling this forces the render area to be redrawn now.
+It is not necessary to call this method if auto redraw is enabled
+(which is the default).
+}
+
+METHOD "" void scheduleRedraw() {}
+METHOD scheduleOverRedraw void scheduleOverlayRedraw()
+{
+Schedule a redraw to happen sometime soon (as opposed to immediately).
+This can be used to compress multiple redraws.
+}
+
+METHOD redrawOnSelChange void redrawOnSelectionChange(SoSelection *s) {}
+METHOD redrawOverOnSelChange void redrawOverlayOnSelectionChange(SoSelection *s)
+{
+Call this convenience method to have this render area redraw
+whenever the selection list changes in the passed node. This
+is useful if using a highlight render action like the
+\cSoBoxHighlightRenderAction\. to correctly render whenever the
+selection changes. Pass NULL to turn this off.
+}
+
+METHOD setEvCB void setEventCallback(
+		    	    SoXtRenderAreaEventCB *fcn, 
+			    void *userData = NULL)
+{
+
+X events which occur in the render area window are either directly
+handled by the viewer (when this is really a viewer) or automatically
+translated to \cSoEvents\., then passed into the scene graph (via the
+\cSoHandleEventAction\.) so that live scene graph objects can handle
+the event (when viewers are not in viewing mode).  This
+\+method\.\-function\.  allows the application to register a callback
+for handling events that occur in the window, instead of sending them
+to the viewers or down the graph.  The callback is passed the X event,
+and should return TRUE if it handled the event.  If the callback
+returns FALSE, then the event will be handled by the render area.
+
+}
+
+METHOD setGLRenderAct void setGLRenderAction(SoGLRenderAction *ra) {}
+METHOD getGLRenderAct SoGLRenderAction	*getGLRenderAction() const
+{
+Sets/gets the GL render action to use.
+This is used to set selection highlighting with the
+\cSoBoxHighlightRenderAction\. and \cSoLineHighlightRenderAction\.
+classes.
+}
+
+METHOD setOverGLRenderAct void setOverlayGLRenderAction(SoGLRenderAction *ra) {}
+METHOD getOverGLRenderAct SoGLRenderAction *getOverlayGLRenderAction() const
+{
+Sets/gets the GL render action for the overlay window.
+}
+
+METHOD setSceneMgr void setSceneManager(SoSceneManager *sm) {}
+METHOD getSceneMgr SoSceneManager *	getSceneManager() const {}
+METHOD setOverSceneMgr void		setOverlaySceneManager(SoSceneManager *sm) {}
+METHOD getOverSceneMgr SoSceneManager *	getOverlaySceneManager() const
+{
+Sets/gets the normal and overlay plane scene managers.
+\p
+Note: for convenience most of the \cSoSceneManager\. methods have already
+been added to this class.
+}
+
+MISC RESOURCES {
+\b
+*SoXtRenderArea*BackgroundColor: black (color name or hex value)
+\.
+}
+
+ALSO { SoXtGLWidget, SoXtComponent, SoXtViewer, SoSceneManager,
+SoBoxHighlightRenderAction, SoLineHighlightRenderAction }

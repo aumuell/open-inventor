@@ -1,0 +1,22 @@
+#Inventor V2.1 ascii
+
+Separator {
+    IndexedFaceSet {
+	vertexProperty		VertexProperty {
+	    vertex	[ 0.81649703 -0.471405 -0.33333299,
+			      1.7881401e-07 0.94280899 -0.33333299,
+			      -0.81649601 -0.471405 -0.33333299,
+			      0 0 1 ]
+	    normal	[ 0 0 -1,
+			      0.81649601 0.47140399 0.33333299,
+			      -0.81649703 0.47140399 0.33333299,
+			      0 -0.94280899 0.333334 ]
+	    texCoord	[  ]
+	    orderedRGBA	[  ]
+	    normalBinding	PER_FACE
+	}
+
+	coordIndex	[ 1, 0, 2, -1, 0, 1, 3, -1,
+			  3, 1, 2, -1, 0, 3, 2 ]
+    }
+}

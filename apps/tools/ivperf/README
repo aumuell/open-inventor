@@ -1,0 +1,25 @@
+ivperf reads in an Inventor scene graph and analyzes its rendering
+performance.  If you know that caches at certain separators will be
+invalidated because your application changes data under them, name
+these separators "NoCache" (i.e. DEF NoCache ...).  ivperf will
+then correctly simulate the autocaching behavior on the scene graph.
+
+Running ivperf without any arguments will list the usage message.
+
+ivperf's output can be graphically displayed in the form of a bar
+chart.  The first bar (red) is the total time taken to render a
+frame, and the other bars (yellow) are the approximate times spent
+in each rendering stage.  They are (in order):
+
+	- Clearing the graphics window
+	- Traversing the Inventor scene graph
+	- Changing material state
+	- Changing the GL transformation matrix
+	- Texture mapping
+	- Texture management
+	- Lighting
+	- Transforming verties in the pipeline
+	- Filling polygons
+	
+See the "Open Inventor 2.1 Porting and Performance Tips" for more
+information on using ivperf.

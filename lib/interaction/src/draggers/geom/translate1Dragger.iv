@@ -1,0 +1,61 @@
+#Inventor V2.0 ascii
+
+DEF TRANSLATE_1_DRAGGER_ARROW Separator {
+    Scale { scaleFactor 1.1 1.1 1.1 }
+
+    #stick
+    Complexity { value .01 }
+    Cube { width 2 height .1 depth .1 }
+
+    Complexity { value 0.3 }
+
+    #left arrowhead
+    Separator {
+        Translation { translation -1.25 0 0 }
+	RotationXYZ { axis Z angle 1.57079 }
+        Cone { height 0.5 bottomRadius 0.25 }
+    }
+
+    #right arrowhead
+    Separator {
+        Translation { translation 1.25 0 0 }
+	RotationXYZ { axis Z angle -1.57079 }
+        Cone { height 0.5 bottomRadius 0.25 }
+    }
+
+    #extra object to facilitate picking
+    DrawStyle { style INVISIBLE }
+    Complexity { value .01 }
+    Cube { width 2 height .5 depth .5 }
+}
+
+DEF translate1Translator Separator {
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    Complexity { value .2 }
+    USE TRANSLATE_1_DRAGGER_ARROW
+}
+
+DEF translate1TranslatorActive Separator {
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    DrawStyle { lineWidth 3 }
+    LightModel { model PHONG }
+    Texture2 {}
+    Complexity { value .2 }
+    USE TRANSLATE_1_DRAGGER_ARROW
+}
+
+# These parts don't get used in the default case
+DEF translate1Feedback Separator {}
+DEF translate1FeedbackActive Separator {}
+
+
+

@@ -1,0 +1,29 @@
+NAME SoShape SoShape "" { abstract base class for all shape nodes }
+
+INCLUDE nodes/SoShape.h
+
+DESC {
+This node is the abstract base class for all shape (geometry) nodes.
+All classes derived from \cSoShape\. draw geometry during render
+traversal.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ALSO {
+SoCone,
+SoCube,
+SoCylinder,
+SoIndexedNurbsCurve,
+SoIndexedNurbsSurface,
+SoNurbsCurve,
+SoNurbsSurface,
+SoShapeHints,
+SoShapeKit,
+SoSphere,
+SoText2,
+SoText3,
+SoVertexShape
+}

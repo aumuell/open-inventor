@@ -1,0 +1,25 @@
+NAME SoComposeVec3f SoCmpsV3f "" { 
+composes 3D vectors from floating-point values
+}
+
+DESC { 
+This engine takes three floating-point inputs and composes 
+a 3D vector.
+\p
+The input fields can have multiple values, allowing the engine to 
+compose several vectors in parallel.
+Some inputs may have more values than others.  In such cases,
+the last value of the shorter inputs will be repeated as necessary.
+}
+
+INCLUDE engines/SoCompose.h
+
+INPUT x { The x component }
+INPUT y { The y component }
+INPUT z { The z component. }
+
+OUTPUT vector { Vector composed of x, y, and z. }
+
+METHOD Create SoComposeVec3f() { Constructor }
+
+ALSO { SoDecomposeVec3f, SoEngineOutput }

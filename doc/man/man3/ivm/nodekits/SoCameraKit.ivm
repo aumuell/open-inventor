@@ -1,0 +1,69 @@
+NAME  SoCameraKit SoCamKit "" { camera nodekit class }
+
+INCLUDE nodekits/SoCameraKit.h
+
+
+DESC { This nodekit class is used to create camera nodes that have
+a local transformation.  
+\cSoCameraKit\. adds two public parts to the basic nodekit:
+\etransform\. and \ecamera\.. 
+\p
+The \ecamera\. part is created by default as an \cSoPerspectiveCamera\.
+node, but may later be changed to any subclass of \cSoCamera\..
+\p
+You can move the camera relative to the rest of the scene by creating 
+and editing the \etransform\. part.
+\p
+\cSoCameraKit\. also adds a private part, \etransformGroup\., which is
+of type \cSoTransformSeparator\.. The kit uses this part to contain the
+effect of \etransform\. to move only the \ecamera\., while allowing the
+\ecamera\. to affect the rest of the scene.
+\p
+\cSoCameraKit\. is derived from \cSoBaseKit\.
+and thus also includes a \ecallbackList\. part for adding callback nodes.
+}
+
+
+METHOD "" SoCameraKit() { Constructor. }
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for the class \cSoCameraKit\.. }
+
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+
+
+PART transform
+  { A transform that positions and orients the camera relative to the
+  rest of the scene. 
+  Private parts keep the effect of the \etransform\. part localized.
+  This part is \kNULL\. by default, but may be set to any subclass of 
+  \cSoTransform\.
+  }
+
+
+PART camera
+  { The camera node for this nodekit.
+The \ecamera\. part is created by default as an \cSoPerspectiveCamera\.
+node, but may later be changed to any subclass of \cSoCamera\..
+(e.g., \cSoPerspectiveCamera\., \cSoOrthographicCamera\.).
+}
+
+
+ALSO {
+SoAppearanceKit,
+SoBaseKit,
+SoLightKit,
+SoNodeKit,
+SoNodeKitDetail,
+SoNodeKitListPart,
+SoNodeKitPath,
+SoNodekitCatalog,
+SoSceneKit,
+SoSeparatorKit,
+SoShapeKit,
+SoWrapperKit }

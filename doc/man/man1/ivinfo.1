@@ -1,0 +1,35 @@
+'\"macro stdmacro
+.TH ivinfo 1
+.SH NAME
+ivinfo \- Prints information about Inventor files
+.SH SYNOPSIS
+.B ivinfo
+.RB [ \-h ]
+[file]
+.SH DESCRIPTION
+.I ivinfo
+prints (to standard output) information about the named file. (If no
+input file is given,
+.I ivinfo
+reads from the standard input.)
+The information includes whether the file is in ASCII or binary format,
+and, for each scene graph in the file, the number of nodes in the graph
+and the contents of any
+.I SoInfo
+nodes contained in it.
+.SH OPTIONS
+The following command line options are allowed:
+.TP 5
+.B \-h
+Prints out the usage for the command.
+.SH SOURCE CODE
+Note that the source code to 
+.I ivinfo
+comes with the
+.I Open Inventor 3d Toolkit.
+.SH FILES
+/usr/share/data/models/* - Sample 3D data files
+/usr/share/src/Inventor/tools/ivinfo/* - Source to ivinfo
+.SH SEE ALSO
+gview, inventor, ivcat, ivview, drop, 
+maze, noodle, qmorf, revo, showcase, textomatic

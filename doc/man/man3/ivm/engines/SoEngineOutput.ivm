@@ -1,0 +1,33 @@
+NAME SoEngineOutput SoEngineOutput "" { class for all engine outputs }
+
+DESC { 
+\cSoEngineOuput\. is the class for all engine output fields.
+There is no public constructor routine for this class.  
+Only the engine classes create instances of \cSoEngineOutput\.\.
+\p
+Each engine creates one or more engine outputs.
+The type of the output is documented in the engine reference pages.
+There is also an \cSoEngineOutput\.  method for querying 
+the connection type.  
+\p
+The application can at any time enable or disable the engine outputs.
+By default the engine outputs are enabled.
+}
+
+INCLUDE engines/SoEngine.h
+
+METHOD getConnType SoType getConnectionType() const
+	{ Returns the type of field this output can connect to. }
+METHOD getForwardConn int getForwardConnections(SoFieldList &list) const
+	{ Returns the number of fields this output is writing to,
+	and adds pointers to those fields to the given list. }
+METHOD "" void enable(SbBool flag)
+	{ Enables or disables all connections from this ouptut. If the
+	connections are disabled, values will not be output along them.  
+	By default, outputs are enabled. }
+METHOD "" SbBool isEnabled() const
+	{ Returns TRUE if this output is currently enabled. }
+METHOD "" SoEngine* getContainer() const
+	{ Returns containing engine. }
+
+ALSO { SoEngine }

@@ -1,0 +1,45 @@
+NAME SoBoolOperation SoBoolOper SO_BOOL_OPER_ { 
+performs Boolean operations 
+}
+
+DESC { 
+This engine performs a Boolean operation on two inputs,
+and returns both the result of the operation and its inverse.
+\p
+The input fields can have multiple values, allowing the engine to 
+perform several Boolean operations in parallel. 
+One input may have more values than the other.  In that case,
+the last value of the shorter input will be repeated as necessary.
+}
+
+INCLUDE engines/SoBoolOperation.h
+
+ENUM Operation { 
+	CLEAR "",
+	SET "",
+	A "",
+        NOT_A "",
+        B "",
+        NOT_B "",
+        A_OR_B "",
+        NOT_A_OR_B "",
+        A_OR_NOT_B "",
+        NOT_A_OR_NOT_B "",
+        A_AND_B "",
+        NOT_A_AND_B "",
+        A_AND_NOT_B "",
+        NOT_A_AND_NOT_B "",
+        A_EQUALS_B "",
+        A_NOT_EQUALS_B "" 
+}
+
+INPUT a { First argument to the Boolean operation.}
+INPUT b { Second argument to the Boolean operation. }
+INPUT operation { The Boolean operation. }
+
+OUTPUT output { Result of the Boolean operation applied to the inputs. }
+OUTPUT inverse { Inverse of \voutput\.. }
+
+METHOD Create SoBoolOperation() { Constructor. }
+
+ALSO { SoEngineOutput, SoCalculator }

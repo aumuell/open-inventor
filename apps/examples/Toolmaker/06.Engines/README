@@ -1,0 +1,12 @@
+Open Inventor - Examples from The Inventor Toolmaker
+
+Chapter 6 - "Creating an Engine"
+
+
+This directory contains fragments of source code that illustrate
+how to create new Inventor engines.  No executable program is
+created here.
+
+See The Inventor Mentor, chapter 13, for an introduction to engines.
+
+*** This is for C++ programmers only! ***

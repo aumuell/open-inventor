@@ -1,0 +1,6 @@
+GeneralizedCylinder is a node that represents an arbitrary
+cross-section extruded along an arbitrary path, with scales and twists
+applied along the extrusion.
+
+See the "noodle" demo program for a program that creates these
+beasties.

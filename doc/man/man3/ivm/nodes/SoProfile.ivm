@@ -1,0 +1,60 @@
+NAME SoProfile SoProf SO_PROF_ { abstract base class for all profile nodes }
+
+INCLUDE nodes/SoProfile.h
+
+DESC {
+This node is the abstract base class for all profile nodes, which
+define 2D curves. A profile is not itself geometry, but is used to
+change or delimit the geometry of something else. For an \cSoText3\.
+node, the profile determines the cross-section of the side of each
+text character. For an \cSoNurbsSurface\. node, the profile is used to
+specify trim curves for the surface.
+\p
+The current profile state can consist of one or more profiles, each of
+which can be made up of one or more instances of \cSoProfile\.
+subclass nodes. Each profile node specifies (in the \vindex\. field) a
+set of indices that refer to the current set of profile coordinates,
+specified using either an \cSoProfileCoordinate2\. or an
+\cSoProfileCoordinate3\. node. No profile curve should intersect
+itself or another profile curve.
+\p
+Profiles are part of the state, just like all other properties. The
+state contains a current list of profiles.  Depending on the
+\vlinkage\. field, a profile can clear the list and begin a new
+profile, begin a new profile at the end of those already in the list,
+or append to the last profile in the current list. Note that when
+appending profile B to the end of profile A, B must begin at the same
+2D point at which A ends.
+}
+
+ENUM Profile {
+    START_FIRST		"Start a new profile and remove any existing profiles
+			 from the current list",
+    START_NEW		"Start a new profile and add it to the current list",
+    ADD_TO_CURRENT	"Add to end of the last profile in the current list"
+}
+
+FIELD index { Indices into profile coordinates. }
+
+FIELD linkage {
+Specifies connectivity of profile curve with respect to profiles in
+current list in state.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoRayPickAction {
+Adds profile to current traversal state.
+}
+
+ALSO {
+SoLinearProfile,
+SoNurbsProfile,
+SoNurbsSurface,
+SoProfileCoordinate2,
+SoProfileCoordinate3,
+SoText3
+}

@@ -1,0 +1,24 @@
+NAME SoComposeVec2f SoCmpsV2f "" { 
+composes 2D vectors from floating-point values
+}
+
+DESC {
+This engine takes two floating-point inputs and composes a
+2D floating-point vector.
+\p
+The input fields can have multiple values, allowing the engine to 
+compose several vectors in parallel.
+One of the inputs may have more values than others.  In such cases,
+the last value of the shorter input will be repeated as necessary.
+}
+
+INCLUDE engines/SoCompose.h
+
+INPUT x { The x component. }
+INPUT y { The y component. }
+
+OUTPUT vector { Vector composed of x and y components. }
+
+METHOD Create SoComposeVec2f() { Constructor }
+
+ALSO { SoDecomposeVec2f, SoEngineOutput }

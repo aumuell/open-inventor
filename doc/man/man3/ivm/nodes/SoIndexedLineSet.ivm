@@ -1,0 +1,70 @@
+NAME SoIndexedLineSet SoIndLSet "" { indexed polyline shape node }
+
+INCLUDE nodes/SoIndexedLineSet.h
+
+DESC {
+This node represents a 3D shape formed by constructing polylines from
+vertices located at the coordinates specified in the \vvertexProperty\.
+field (from \cSoVertexShape\.), or the current inherited coordinates. 
+For optimal performance, the \vvertexProperty\. field is recommended. 
+\p
+\cSoIndexedLineSet\.
+uses the indices in the \vcoordIndex\. field (from \cSoIndexedShape\.)
+to specify the polylines. An index of \kSO_END_LINE_INDEX\. (-1)
+indicates that the current polyline has ended and the next one begins.
+\p
+The coordinates of the line set are transformed by the current
+cumulative transformation. The lines are drawn with the current light
+model and drawing style (drawing style \kFILLED\. is treated as
+\kLINES\.).
+\p
+Treatment of the current material and normal binding is as follows:
+The \kPER_PART\. binding specifies a material or normal for each
+segment of the line. The \kPER_FACE\. binding specifies a material or
+normal for each polyline.  \kPER_VERTEX\. specifies a material or
+normal for each vertex.  The corresponding \k_INDEXED\. bindings are
+the same, but use the \vmaterialIndex\. or \vnormalIndex\. indices
+(see \cSoIndexedShape\.). The default material binding is 
+\kOVERALL\.. The default normal binding is 
+\kPER_VERTEX_INDEXED\. 
+\p
+The current complexity value has no effect on the rendering of indexed
+line sets.
+}
+
+METHOD "" SoIndexedLineSet() {
+Creates an indexed line set node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Draws lines based on the current coordinates, normals, materials,
+drawing style, and so on.
+}
+
+ACTION SoRayPickAction {
+Picks lines based on the current coordinates and transformation.
+Details about the intersection are returned in an \cSoLineDetail\..
+}
+
+ACTION SoGetBoundingBoxAction {
+Computes the bounding box that encloses all vertices of the line set
+with the current transformation applied to them.  Sets the center to
+the average of the coordinates of all vertices.
+}
+
+ACTION SoCallbackAction {
+If any line segment callbacks are registered with the action, they will
+be invoked for each successive segment in the line set.
+}
+
+ALSO {
+SoCoordinate3,
+SoDrawStyle,
+SoLineDetail,
+SoLineSet,
+SoVertexProperty
+}

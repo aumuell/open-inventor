@@ -1,0 +1,4 @@
+#!/bin/sh
+#Tag 0x00010510
+cd /usr/share/data/models
+/opt/SGIDemos/Inventor/bin/SceneViewer /opt/SGIDemos/Inventor/data/jackInTheBox.iv

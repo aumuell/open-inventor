@@ -1,0 +1,21 @@
+#define OneProgram
+#define NoProgram
+
+XCOMM There is really no program; these are just fragments.
+PROGRAM =
+
+C++FILES = ConvertSFShortToSFFloat.c++ \
+	FanIn.c++ MultFloatVec3f.c++ \
+	SoComposeVec2f.c++ SoDecomposeVec2f.c++ \
+	Ticker.c++
+HFILES = ConvertSFShortToSFFloat.h \
+	FanIn.h MultFloatVec3f.h \
+	SoComposeVec2f.h SoDecomposeVec2f.h \
+	Ticker.h
+
+#ifndef CreatingUserMakefile
+OTHERSOURCE = README
+TOP_OF_TREE = ../../../..
+#endif
+
+

@@ -1,0 +1,14 @@
+#define DSOMakefile
+
+DSO = Decal.so
+
+C++FILES = Decal.c++
+
+HFILES = Decal.h
+
+#ifndef CreatingUserMakefile
+
+TOP_OF_TREE = ../../..
+OTHERSOURCE = README coplanar.iv decal.iv
+
+#endif /* ! CreatingUserMakefile */

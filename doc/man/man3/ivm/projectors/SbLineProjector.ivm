@@ -1,0 +1,56 @@
+NAME SbLineProjector "SbLineProj" "" { line projector }
+
+INCLUDE projectors/SbLineProjector.h
+
+DESC { \cSbLineProjector\. 
+projects a 2D point, typically the location of the cursor, onto a 3D line.
+}
+
+METHOD "" SbLineProjector() {}
+METHOD "" ~SbLineProjector() { 
+Constructor and destructor. The default line passes through the origin
+and is aligned with the Y axis.
+}
+
+METHOD "" void setLine(const SbLine &line) {}
+METHOD "" const SbLine & getLine() const {
+Set and get the line on which to project 2D points.
+}
+
+METHOD "getVecMouse2" virtual SbVec3f getVector(const SbVec2f &mousePosition1,
+				  const SbVec2f &mousePosition2) {
+Get a vector on this line given two normalized mouse points.
+}
+					    
+METHOD "getVecMouse1" virtual SbVec3f getVector(const SbVec2f &mousePosition) {
+Get a vector given the current mouse point.
+Uses the last point on this projector from the previous
+call to
+\+\mgetVector()\. or \msetStartPostion()\..\.
+\-\mSbLineProjGetVecMouse1()\., \mSbLineProjSetStartPosMouse()\.,
+or \mSbLineProjSetStartPosPt()\..\.
+Do not use this if the working space transform is changing since
+the new point will be in a different space than
+the old one.
+}
+					    
+METHOD "setStartPosMouse" void setStartPosition(const SbVec2f &mousePosition) {
+Set the initial position from a mouse position.
+}
+
+METHOD "setStartPosPt" void setStartPosition(const SbVec3f &point) {
+Set the initial position from a point on the projector.
+}
+
+ALSO { 
+SbCylinderProjector,
+SbCylinderPlaneProjector,
+SbCylinderSectionProjector,
+SbCylinderSheetProjector,
+SbPlaneProjector,
+SbSpherePlaneProjector,
+SbSphereProjector, SbSphereSectionProjector, SbSphereSheetProjector
+}
+
+
+

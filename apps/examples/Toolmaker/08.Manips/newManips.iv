@@ -1,0 +1,83 @@
+#Inventor V2.0 ascii
+#
+# Data file for the Inventor Toolmaker,
+# chapter 8. Contains examples of all the new
+# classes of draggers and manipulators 
+# created in this chapter.
+#
+Separator {
+    Separator {
+	Translation { translation -3 -3 0 }
+	TranslateRadialDragger {
+	    fields [ SFEnum renderCaching,
+		    SFEnum boundingBoxCaching,
+		    SFEnum renderCulling,
+		    SFEnum pickCulling,
+		    SFBool isActive,
+		    SFVec3f translation,
+		    SFNode motionMatrix,
+		    SFNode translator,
+		    SFNode translatorActive,
+		    SFNode feedbackRotate,
+		    SFNode feedback,
+		    SFNode feedbackActive,
+		    SFNode translatorSwitch,
+		    SFNode feedbackSwitch ]
+	}
+    }
+    Separator {
+	Translation { translation -3  3 0 }
+	RotTransDragger {
+	    fields [ SFEnum renderCaching,
+		    SFEnum boundingBoxCaching,
+		    SFEnum renderCulling,
+		    SFEnum pickCulling,
+		    SFBool isActive,
+		    SFRotation rotation,
+		    SFVec3f translation,
+		    SFNode motionMatrix,
+		    SFNode antiSquish,
+		    SFNode translator,
+		    SFNode XRotatorRot,
+		    SFNode XRotator,
+		    SFNode YRotator,
+		    SFNode ZRotatorRot,
+		    SFNode ZRotator ]
+	}
+    }
+    Separator {
+	Translation { translation  3 -3 0 }
+	TranslateRadialManip {
+	    fields [ SFVec3f translation,
+		    SFRotation rotation,
+		    SFVec3f scaleFactor,
+		    SFRotation scaleOrientation,
+		    SFVec3f center ]
+	}
+	Scale { scaleFactor .3 .7 .1 }
+	Cube {}
+    }
+    Separator {
+	Translation { translation  3  3 0 }
+	RotTransManip {
+	    fields [ SFVec3f translation,
+		    SFRotation rotation,
+		    SFVec3f scaleFactor,
+		    SFRotation scaleOrientation,
+		    SFVec3f center ]
+	}
+	Scale { scaleFactor .3 1.5 1 }
+	Cube {}
+    }
+    Separator {
+	Translation { translation  0  0 0 }
+	Coordinate3Manip { 
+	    fields [ MFVec3f point,
+		    SFInt32 editIndex ]
+	    editIndex 1
+	    point [ -1 -1 0, -1 1 0, 1 1 0, 1 -1 0, -1 -1 0 ] 
+	}
+	Material { diffuseColor 1 1 1 }
+	LineSet {}
+    }
+}

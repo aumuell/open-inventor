@@ -1,0 +1,45 @@
+NAME SoFaceDetail SoFaceDtl "" {
+stores detail information about vertex-based shapes made of faces
+}
+
+INCLUDE details/SoFaceDetail.h
+
+DESC {
+This class contains detail information about a point on a face in a
+vertex-based shape made of faces.  The information includes the number
+of points in the face, the points forming the vertices of the face,
+and the index of the face within the shape.
+\p
+Note that when an \cSoFaceDetail\. is returned from picking (in an
+\cSoPickedPoint\.), it will contain details for all points defining
+the face that was intersected. However, when an \cSoFaceDetail\. is
+created for a triangle produced during primitive generation (in an
+\cSoPrimitiveVertex\.), it will contain details for only the three
+vertices of the triangle.
+}
+
+METHOD "" SoFaceDetail() {}
+METHOD "" virtual ~SoFaceDetail() { Constructor and destructor. }
+
+METHOD getNumPts long getNumPoints() const {
+Returns the number of points in the face.
+}
+
+METHOD getPt const SoPointDetail * getPoint(int i) const {
+Returns information about the point forming the \ai\.'th vertex of the
+face, represented as an \cSoPointDetail\..
+}
+
+METHOD getFaceInd int32_t getFaceIndex() const {
+Returns the index of the face within the shape.
+}
+
+METHOD getPartInd int32_t getPartIndex() const {
+Returns the index of the part containing the face within the shape.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ALSO { SoDetail, SoPickedPoint, SoPrimitiveVertex, SoVertexShape }

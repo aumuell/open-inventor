@@ -1,0 +1,9 @@
+#define ManySingleMakefile
+
+PROGRAMS = spaceball spballViewer
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../..
+
+OTHERSOURCE = README
+#endif

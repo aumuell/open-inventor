@@ -1,0 +1,176 @@
+NAME SoXt "" "" {
+routines for Inventor/Xt compatibility.
+}
+
+INCLUDE Xt/SoXt.h
+
+DESC {
+The SoXt class initializes Inventor for use with the Xt toolkit and
+Motif.
+\m\+SoXt::init()\.\-SoXtInit()\.\. 
+must be called in order for Inventor to work properly with Xt. 
+\m\+SoXt::mainLoop()\.\-SoXtMainLoop()\.\.
+must be called in order for extension
+device events to be passed to Inventor render areas. The other methods are
+convenience functions.
+
+\p
+Refer to the
+\cSoXtComponent\.
+man pages for examples on how this class should be used when using Inventor
+Xt components.
+}
+
+METHOD "" static Widget init(const char *appName, 
+const char *className = "Inventor")
+{
+This is called to initialize Inventor and Xt, and bind Inventor with Xt
+event handling so that Inventor sensors will work correctly. This returns
+the top level shell widget. This method will call 
+\+\mSoDB::init()\., \mSoNodeKit::init()\., 
+\mSoInteraction::init()\.\.\-\mSoDBInit()\., 
+\mSoNodeKitInit()\., \mSoInteractionInit()\.\.
+and \xXtAppInitialize()\..
+}
+
+METHOD initWithWidget static void init(Widget topLevelWidget)
+{
+This alternate form of init allows the application to initialize Xt. The
+passed widget should be the top level shell widget returned from the Xt
+initializiation. This method will call
+\+\mSoDB::init()\., \mSoNodeKit::init()\., 
+\mSoInteraction::init()\.\.\-\mSoDBInit()\., 
+\mSoNodeKitInit()\., \mSoInteractionInit()\.\.
+and \xXtAppInitialize()\..
+}
+
+METHOD "" static void mainLoop()
+{
+This retrieves and dispatches events (loops forever). 
+Unlike Xt which ignores extension devices (i.e. any device besides
+mouse and keyboard), this main loop will dispatch events
+from input extension devices like the spaceball.
+It calls \+\mSoXt::nextEvent()\. and 
+\mSoXt::dispatchEvent()\.\.\-\mSoXtNextEvent()\. and 
+\mSoXtDispatchEvent()\.\.
+to do this.
+If only the mouse and keyboard devices are used, this is equivalent to calling
+\xXtAppMainLoop()\..
+}
+
+METHOD "" static void nextEvent(XtAppContext appContext, XEvent *event) {
+Get the nextEvent by calling \xXtAppNextEvent()\..
+The \vappContext\. can be had by calling
+\+\mSoXt::getAppContext()\..\.\-\mSoXtGetAppContext()\..\.
+}
+
+METHOD "" static Boolean dispatchEvent(XEvent *event) {
+Dispatch the passed event to a handler. Mouse and keyboard events are dispatched
+by calling \xXtDispatchEvent()\.. Events from input extension devices
+are dispatched by code implemented in this routine.
+This returns True if a handler was found, else it returns False.
+}
+
+METHOD "" static XtAppContext     getAppContext() {}
+METHOD "" static Display *        getDisplay() {}
+METHOD "" static Widget           getTopLevelWidget()
+{
+These return information based on the top level widget returned by or
+passed to init.
+}
+
+METHOD "" static void		    show(Widget widget) {}
+METHOD "" static void		    hide(Widget widget)
+{
+Convenience routines to show and hide the passed widget. 
+\p
+For a shell widget, this is equivalent to calling
+\xRealizeWidget()\. + \xXMapWindow()\. or \xXMapRaised()\.
+if window already exists (raise and de-iconify). \mhide()\. will then
+call \xXUnmapWindow()\..
+\p
+For a subwidget, those simply calls 
+\xXtManageChild()\. and \xXtUnmanageChild()\..
+}
+
+METHOD encodeStr static XmString	    encodeString(char *s) {}
+METHOD decodeStr static char *	    decodeString(XmString xs)
+{
+These are convenience routines for encoding a character string
+as an
+\cXmString\.,
+and decoding an
+\cXmString\.
+back to a character string. (\cXmString\. is a Motif string).
+The application is responsible for freeing up the memory pointed
+to by these return values. Use
+\xXmStringFree()\.
+to free an \cXmString\., and
+\xfree()\.
+to free a character pointer.
+}
+
+METHOD "" static void setWidgetSize(Widget w, const SbVec2s &size) {}
+METHOD "" static SbVec2s	    getWidgetSize(Widget w)
+{
+Convenience routines to set/get the size of the given widget. Those
+are equivalent to calling 
+\xXtSetValues()\. and \xXtGetValues()\.
+on \xXtNheight\. and \xXtNwidth\. widget resources.
+}
+
+METHOD "" static Widget	    getShellWidget(Widget w)
+{
+Convenience routine which will return the ShellWidget 
+containing the given widget. The widget tree is traversed up until
+a shell widget is found using 
+\xXtIsShell()\..
+}
+
+METHOD createSimpleErrDlg static void createSimpleErrorDialog(
+Widget widget, char *dialogTitle, char *errorStr1, char *errorStr2 = NULL)
+{
+Convenience routine which brings a simple motif error dialog
+box displaying the given error string(s) and window title. The OK
+button, which destroys the dialog, is the only button displayed.
+The widget argument is used to create and center the dialog (
+using \xXmCreateErrorDialog()\.).
+}
+
+METHOD "" static void getPopupArgs(Display *d, int scr, ArgList args, int *n)
+{
+Convenience routine which gets visual args for the popup planes.
+These args can then be passed in to \xXmCreatePulldownMenu()\. or
+\xXmCreatePopupMenu()\. to create menus in the popup planes.
+\mregisterColormapLoad()\. must be called for each pulldown menu to
+properly load/unload the overlay color map on the shell when needed.
+}
+
+METHOD regColMapLoad static void registerColormapLoad(Widget widget,
+							Widget shell)
+{
+Convenience routine which will register map/unmap callbacks to 
+load and unload the pulldown menu color map right before the menu
+is about to be posted. This should be called when creating 
+pulldown or popup menus in the overlays. This will make sure that
+the right color map is loaded into the shell widget (to make
+the pulldown/popup look right) and remove it when no longer needed 
+(to make sure the OpenGL overlay widget color map is correctly loaded
+for 8 bit machines).
+}
+
+METHOD "" static void addColormapToShell(Widget widget, Widget shell) {}
+METHOD remColMapFromShell static void removeColormapFromShell(Widget widget,
+							Widget shell)
+{
+Convenience routine to insert/remove the given widget colormap onto the
+supplied shell widget. This will not replace the existing
+installed colormaps (or list of windows), but instead insert 
+the new colormap first into the existing list using \xXGetWMColormapWindows()\. 
+and \xXSetWMColormapWindows()\..
+}
+
+
+
+
+ALSO { SoXtComponent }

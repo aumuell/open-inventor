@@ -1,0 +1,9 @@
+#! /bin/sed -f
+s,SoXtExaminerViewer,MyExaminerViewer,g
+s,SoXtFullViewer,MyFullViewer,g
+s,SoXtViewer,MyViewer,g
+s,Inventor/Xt/viewers/,,g
+s,<MyExaminerViewer.h>,"MyExaminerViewer.h",g
+s,<MyFullViewer.h>,"MyFullViewer.h",g
+s,<MyViewer.h>,"MyViewer.h",g
+s,SoXtBitmapButton,MyBitmapButton,g

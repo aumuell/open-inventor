@@ -1,0 +1,281 @@
+NAME SoXtViewer SoXtVwr SO_XT_VWR_ {
+viewer component lowest base class
+}
+
+TYPEDEF void SoXtViewerCB "(void *userData, SoXtViewer *viewer)"
+
+ENUM Type {
+BROWSER "camera views scene, but is not added to scene",
+EDITOR "camera is added to user's scene"
+}
+
+ENUM DrawStyle {
+VIEW_AS_IS "unchanged",
+VIEW_HIDDEN_LINE "render only the front most lines",
+VIEW_NO_TEXTURE "render withought textures",
+VIEW_LOW_COMPLEXITY "render low complexity and no texture",
+VIEW_LINE "wireframe draw style",
+VIEW_LOW_RES_LINE "low complexity wireframe with no depth comparison", 
+VIEW_POINT "point draw style",
+VIEW_LOW_RES_POINT "low complexity point with no depth comparison", 
+VIEW_BBOX "bounding box draw style with no depth comparison", 
+VIEW_SAME_AS_STILL "forces the INTERACTIVE draw style to automatically match STILL"
+}
+
+ENUM DrawType {
+STILL "applies to static rendering",
+INTERACTIVE "applies to rendering while interactive viewing"
+}
+
+ENUM BufferType {
+BUFFER_SINGLE "single buffer",
+BUFFER_DOUBLE "double buffer",
+BUFFER_INTERACTIVE "double buffer while interactive viewing"
+}
+
+INCLUDE Xt/viewers/SoXtViewer.h
+
+DESC {
+This is the lowest base class for viewer components. This class
+adds the notion of a camera to the
+\cSoXtRenderArea\.
+class. Whenever a new scene is specified with
+\m\+setSceneGraph()\.\-SoXtVwrSetScene()\.\., the first camera encountered
+will be by default used as the edited camera. If no camera is found
+in the scene, the viewer will automatically create one.
+If the viewer type is
+\v\+SoXtViewer::BROWSER\.\-SO_XT_VWR_BROWSER\.\.
+then the camera is told to view the supplied scene graph
+but is not added beneath that scene graph root.
+If the viewer type is
+\v\+SoXtViewer::EDITOR\.\-SO_XT_VWR_EDITOR\.\.
+then the camera is added beneath the supplied scene graph root.
+
+\p
+In addition to automatically creating a camera if needed, this base class
+also creates a headlight (directional light which is made to follow the
+camera), enables the user to change drawing styles (like wireframe or move
+wireframe), and buffering types. This base class also provides a
+convenient way to have the camera near and far clipping planes be
+automatically adjusted to minimize the clipping of objects in the scene.
+
+\p
+Viewers allow the application to shadow event processing. When the
+application registers an event processing callback by calling
+\m\+setEventCallback()\.\-SoXtVwrSetEvCB()\.\.
+the viewer will invoke this callback for every X event it receives.
+However, unlike the render area, the viewer ignores the return value
+of this callback, and processes the event as usual. This allows the
+application to expand viewing capabilities without breaking the
+viewing paradigm. It is an easy way to hook up other devices, like the
+spaceball, to an existing viewer.
+}
+
+METHOD setCam virtual void    setCamera(SoCamera *cam) {}
+METHOD getCam SoCamera	    *getCamera()
+{
+Set and get the edited camera. Setting the camera is only needed
+if the first camera found in the scene when setting the scene graph
+isn't the one the user really wants to edit.
+}
+
+METHOD setCamType virtual void    setCameraType(SoType type) {}
+METHOD getCamType SoType	    getCameraType()
+{
+Set and get the camera type that will be created by the viewer if no
+cameras are found in the scene graph (see \cSoPerspectiveCamera\.
+and \cSoOrthographicCamera\.). By default an \cSoPerspectiveCamera\.
+will be created if no camera are found.
+
+\p
+Note: the set method will only take effect next time a scene graph
+is specified (and if no camera are found).
+}
+
+METHOD "" virtual void    viewAll()
+{
+Changes the camera position to view the entire scene (the camera zoom
+or orientation isn't changed).
+}
+
+METHOD saveHomePos virtual void    saveHomePosition() {}
+METHOD resetToHomePos virtual void    resetToHomePosition()
+{
+Saves and restores the camera values.
+}
+
+METHOD "" virtual void	    setHeadlight(SbBool onOrOff) {}
+METHOD "" SbBool  	    isHeadlight() {}
+METHOD "" SoDirectionalLight *getHeadlight()
+{
+Turns the headlight on/off (default on) and return the headlight
+node.
+}
+
+METHOD setDStyle virtual void	setDrawStyle(SoXtViewer::DrawType type, 
+				SoXtViewer::DrawStyle style) {}
+METHOD getDStyle SoXtViewer::DrawStyle getDrawStyle(SoXtViewer::DrawType type)
+{
+Sets/gets the current drawing style in the main view \(em The user
+can specify the INTERACTIVE draw style (draw style used when 
+the scene changes) independently from the STILL style.
+STILL defaults to VIEW_AS_IS.
+INTERACTIVE defaults to VIEW_NO_TEXTURE on machine that do not support
+fast texturing, VIEW_SAME_AS_STILL otherwise. Possible draw styles are:
+
+\p\+VIEW_AS_IS\.\-SO_XT_VWR_VIEW_AS_IS\. \(em Leaves the objects unchanged.
+
+\p\+VIEW_HIDDEN_LINE\.\-SO_XT_VWR_VIEW_HIDDEN_LINE\. \(em Renders the object 
+as wireframe, but only show the object front faces. This is accomplished
+using a two pass rendering. In the first pass, the objects are rendered
+as FILLED using the background BASE_COLOR (this sets up the wanted z-buffer
+values). The second pass then renders the objects as LINES, while adjusting
+the z-buffer range to limit overlapping polygons problems.
+
+\p\+VIEW_NO_TEXTURE\.\-SO_XT_VWR_VIEW_NO_TEXTURE\. \(em Renders the objects
+withought any textures. This is done by setting the override flag on an
+\cSoComplexity\. node with textureQuality = 0.
+
+\p\+VIEW_LOW_COMPLEXITY\.\-SO_XT_VWR_VIEW_LOW_COMPLEXITY\. \(em Renders
+the objects withought any textures and with a low complexity. This is done
+by setting the override flag on an \cSoComplexity\. node with 
+textureQuality = 0 and complexity value = 0.15.
+
+\p\+VIEW_LINE\.\-SO_XT_VWR_VIEW_LINE\. \(em Renders the objects as LINES
+(no texture) with lighting model set to BASE_COLOR.
+
+\p\+VIEW_LOW_RES_LINE\.\-SO_XT_VWR_VIEW_LOW_RES_LINE\. \(em Renders the objects as LINES
+(no texture) using a low complexity, with lighting model set to BASE_COLOR and no depth comparison.
+
+\p\+VIEW_POINT\.\-SO_XT_VWR_VIEW_POINT\. \(em Renders the objects as POINTS
+(no texture) with lighting model set to BASE_COLOR.
+
+\p\+VIEW_LOW_RES_POINT\.\-SO_XT_VWR_VIEW_LOW_RES_POINT\. \(em Renders the objects as POINTS
+(no texture) using a low complexity, with lighting model set to BASE_COLOR and no depth comparison.
+
+\p\+VIEW_BBOX\.\-SO_XT_VWR_VIEW_BBOX\. \(em Renders the objects with complexity
+BOUNDING_BOX, lighting model set to BASE_COLOR and drawing style LINES (no texture)
+with no depth comparison.
+
+\p\+VIEW_SAME_AS_STILL\.\-SO_XT_VWR_VIEW_SAME_AS_STILL\. \(em This only applies to
+\+INTERACTIVE\.\-SO_XT_VWR_INTERACTIVE\. draw type. It enables the interactive draw
+style mode to match the regular draw style mode withough having to set it explicitly.
+}
+
+METHOD setBufType virtual void	setBufferingType(SoXtViewer::BufferType type) {}
+METHOD getBufType SoXtViewer::BufferType getBufferingType()
+{
+Sets/gets the current buffering type in the main view (default
+\+SoXtViewer::BUFFER_DOUBLE\.\-SO_XT_VWR_BUFFER_DOUBLE\.).
+}
+
+METHOD "" virtual void    setViewing(SbBool onOrOff) {}
+METHOD "" SbBool  	    isViewing() const
+{
+Set/get whether the viewer is turned on or off. When turned on,
+events are consumed by the viewer. When viewing is off, events are processed
+by the viewers render area. This means events will be sent down
+to the scene graph for processing (i.e. picking can occur).
+Note that if the application has registered an event callback,
+it will be invoked on every event, whether viewing is turned on or not.
+However, the return value of this callback (which specifies whether
+the callback handled the event or not) is ignored when viewing is on.
+That is, the viewer will process the event even if the callback already did.
+This is to ensure that the viewing paradigm is not broken
+(default viewing is ON).
+}
+
+METHOD "" virtual void	    setCursorEnabled(SbBool onOrOff) {}
+METHOD "" SbBool  	    isCursorEnabled() const
+{
+Set/get whether the viewer is allowed to change the cursor over
+the renderArea window. When disabled, the cursor is undefined
+by the viewer and will not change as the mode of the viewer changes.
+When re-enabled, the viewer will reset it to the appropriate icon.
+\p
+Disabling the cursor enables the application to set the cursor
+directly on the viewer window or on any parent widget of the viewer.
+This can be used when setting a busy cursor on the application shell.
+\p
+Subclasses should redefine this routine to call XUndefineCursor()
+or XDefineCursor() with the appropariate glyth. The base class 
+routine only sets the flag.
+}
+
+METHOD setAutoClip void	    setAutoClipping(SbBool onOrOff) {}
+METHOD isAutoClip SbBool	    isAutoClipping() const
+{
+Set and get the auto clipping plane. When auto clipping is ON, the 
+camera near and far planes are dynamically adjusted to be as tight 
+as possible around the objects being viewed. When OFF, the user
+is expected to manually set those planes within the preference sheet
+(default is on).
+}
+
+METHOD "" virtual void setStereoViewing(SbBool onOrOff) {}
+METHOD "" virtual SbBool isStereoViewing() {}
+METHOD "" void	    setStereoOffset(float dist) {}
+METHOD "" float	    getStereoOffset()
+{
+Turns stereo viewing on/off on the viewer (default off). When in
+stereo mode, which may not work on all machines, the scene is rendered
+twice (in the left and right buffers) with an offset between the
+two views to simulate stereo viewing. Stereo glasses have to be used
+to see the effect and /usr/gfx/setmon needs to be called to set the
+monitor in stereo mode.
+\p
+The user can also specify what the offset between the two views 
+should be.
+}
+
+METHOD setDtlSeek void    	    setDetailSeek(SbBool onOrOff) {}
+METHOD isDtlSeek SbBool  	    isDetailSeek()
+{
+When the viewer is in seek
+mode, left mouse clicks initiate a pick, and the viewer
+changes its orientation and position to look at the picked object.
+This routine tells the seeking viewer whether to orient the camera towards
+the picked point (detail on), or the center of the object's bounding box
+(detail off). Default is detail on.
+}
+
+METHOD "" void    	    setSeekTime(float seconds) {}
+METHOD "" float	    getSeekTime()
+{
+Set the time a seek takes to change to the new camera location.
+A value of zero seeks directly to the point without any animation.
+Default value is 2 seconds.
+}
+
+METHOD addStartCB void    addStartCallback(SoXtViewerCB *f, void *userData = NULL) {}
+METHOD addFinishCB void    addFinishCallback(SoXtViewerCB *f, void *userData = NULL) {}
+METHOD removeStartCB void    removeStartCallback(SoXtViewerCB *f, void *userData = NULL) {}
+METHOD removeFinishCB void    removeFinishCallback(SoXtViewerCB *f, void *userData = NULL)
+{
+Add/remove start and finish callback routines on the viewer. Start callbacks 
+are called whenever the user starts doing interactive viewing 
+(for example, mouse down), and finish callbacks are called when user 
+is done doing interactive work (for example, mouse up).
+\p
+Note: The viewer "this" pointer is passed as callback data.
+}
+
+METHOD "" void		copyView(Time eventTime) {}
+METHOD "" void		pasteView(Time eventTime) 
+{
+Copy/paste the view. \aeventTime\. should be the time of the X event
+which initiated the copy or paste (e.g. if copy/paste is initiated
+from a keystroke, \aeventTime\. should be the time in the X KeyPress event.)
+}
+
+METHOD recompSceneSiz virtual void		recomputeSceneSize()
+{
+This can be used to let the viewer know that the scene graph
+has changed so that the viewer can recompute things like speed which
+depend on the scene graph size. Note: 
+This routine is automatically called whenever 
+\m\+setSceneGraph()\.\-SoXtVwrSetScene()\.\. is called.
+}
+
+ALSO { SoXtComponent, SoXtRenderArea, SoXtExaminerViewer, 
+SoXtWalkViewer, SoXtFlyViewer, SoXtPlaneViewer }

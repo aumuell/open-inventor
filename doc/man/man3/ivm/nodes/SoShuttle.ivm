@@ -1,0 +1,43 @@
+NAME SoShuttle SoShuttle "" { animated oscillating translation node }
+
+INCLUDE nodes/SoShuttle.h
+
+DESC {
+The \cSoShuttle\. class is derived from \cSoTranslation\., so it
+applies a translation to the current transformation.  Using engines
+connected to the \vrealTime\. global field, the translation value is
+animated over time between two fixed translations, achieving a
+shuttling effect. The period of the motion can be adjusted by changing
+the \vspeed\. field. The current translation at any time is available
+in the \vtranslation\. field, inherited from \cSoTranslation\.
+}
+
+FIELD translation0 {}
+FIELD translation1 {
+These define the two fixed translations that are interpolated to
+create the shuttling motion.
+}
+
+FIELD speed { Defines the speed of the shuttle, in cycles per second. }
+
+FIELD on { Allows applications to enable or disable the motion easily. }
+
+METHOD "" SoShuttle() {
+Creates a shuttle node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoRayPickAction {
+Concatenates interpolated translation value with the current
+transformation matrix.
+}
+
+ACTION SoGetMatrixAction {
+Returns transformation matrix specified by the interpolated translation.
+}
+
+ALSO { SoPendulum, SoRotor }

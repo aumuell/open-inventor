@@ -1,0 +1,63 @@
+NAME SoXtResource "" "" {
+used to retrieve X resources for SoXtComponents and widgets
+}
+
+INCLUDE Xt/SoXtResource.h
+
+DESC {
+This class provides an easy to use interface for retrieving X resource
+values for widgets and components. Rather than use standard Xt calls to
+traverse up a widget hierarchy, this class performs its own traversal so
+that it may provide special care for widgets which are Inventor
+components. For instance, the Inventor Material Editor top level widget is
+a Motif form widget. Its class name is thus XmForm. \cSoXtResource\. knows 
+that the editor is an Inventor component, though, so it uses the class name
+provided by the editor (in this case "SoXtMaterialEditor") when looking up
+resource values.
+
+\p
+EXAMPLE:
+\b\k\+
+SoXtResource xr( materialEditor->getWidget() );
+xr.getResource("tile1Color", "Tile1Color", color);
+xr.getResource("updateFrequency", "UpdateFrequency", freq);
+\.\-
+SoXtResource *xr;
+xr = SoXtResourceCreate( SoXtMtlEdGetWidget( materialEditor ) );
+SoXtResourceGetCol(xr, "tile1Color", "Tile1Color", &color);
+SoXtResourceGetInt(xr, "updateFrequency", "UpdateFrequency", &freq);
+\.\.\.
+}
+
+METHOD "" SoXtResource(Widget w) {}
+METHOD "" ~SoXtResource()
+{
+Constructor and destructor. The constructor takes the widget for which it
+will retrieve resource values.
+}
+
+METHOD getCol SbBool   	getResource(char *resName, char *resClass, SbColor &c) {}
+METHOD getInt SbBool   	getResource(char *resName, char *resClass, short &i) {}
+METHOD getUShort SbBool   	getResource(char *resName, char *resClass, unsigned short &u) {}
+METHOD getStr SbBool   	getResource(char *resName, char *resClass, char *&s) {}
+METHOD getBool SbBool   	getResource(char *resName, char *resClass, SbBool &b) {}
+METHOD getFloat SbBool   	getResource(char *resName, char *resClass, float &f)
+{
+This returns the X resource value for the specified resource name and
+class. There is no need to specify the widget hierarchy; this is
+automatically computed in the constructor.
+}
+
+BEGIN C++
+MISC NOTES {
+Components will typically look up their own resources during 
+\mbuildWidget()\..
+In order for a component to have its Inventor class name recognized by
+\cSoXtResource\.,
+it must call \mSoXtComponent::registerWidget()\.
+in its \mbuildWidget()\.
+method. (This is done in every Inventor component.)
+}
+END
+
+ALSO { X Resources (Xrm), X Intrinsics (Xt), SoXt, SoXtComponent }

@@ -1,0 +1,42 @@
+#Inventor V2.0 ascii
+
+Separator {
+    Separator {
+	GeneralizedCylinder {
+	    crossSectionClosed	1
+	    withTopCap	1
+	    withBottomCap	1
+	    profileCoords		    DEF +0 Coordinate3 {
+		point	[ 0.997029 0.00920422 0,
+				  0.0121752 1.00326 0 ]
+	    }
+
+	    crossSectionCoords		    DEF +1 Coordinate3 {
+		point	[ 1 0 1,
+				  1 0 -1,
+				  -1 0 -1,
+				  -1 0 1,
+				  1 0 1 ]
+	    }
+
+	    spineCoords		    DEF +2 Coordinate3 {
+		point	[ 0 0 0,
+				  0 1 0 ]
+	    }
+
+	    twistCoords		    DEF +3 Coordinate3 {
+		point	[ 0 -1 0,
+				  0 1 0 ]
+	    }
+
+	    inputSwitch		    Switch {
+		whichChild	-1
+		USE +0
+		USE +1
+		USE +2
+		USE +3
+	    }
+
+	}
+    }
+}

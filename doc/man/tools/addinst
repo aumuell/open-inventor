@@ -1,0 +1,27 @@
+#! /usr/bin/nawk -f 
+#  
+# AWK script: addinst.
+# Usage: find . <predicates to select valid man page filenames> \
+#    | xargs getnames opt=<langopt> | addinst idb_tag install_path install_prog
+# Generates INSTALL lines for file OtherInstall
+# Called from manrules
+
+BEGIN { idbtag = ARGV[1]
+  	install_path = ARGV[2]
+	install_prog = ARGV[3]
+  	ARGV[1] = "-" 
+	ARGV[2] = ""
+	ARGV[3] = ""
+}
+{	NAMELIST = ""
+	gsub(/\.[0-9](.?)*:/, "", $1)
+	for (i=2; i<=NF; i++) {
+		# only create links for names that are different from filename
+		if ($i != $1)
+			NAMELIST = NAMELIST $i ".z "
+        }
+	if (NAMELIST != "" && $1 != "mail_att" && $1 != "mail_bsd") {
+		printf("\t%s -idb \"%s\" -F %s -lns %s.z %s\n", \
+		       install_prog, idbtag, install_path, $1, NAMELIST)
+	}
+}

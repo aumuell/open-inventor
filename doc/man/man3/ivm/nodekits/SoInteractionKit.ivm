@@ -1,0 +1,113 @@
+NAME SoInteractionKit SoInteractKit SO_INTERACT_KIT_ { base class for all interaction nodekit classes }
+
+INCLUDE nodekits/SoInteractionKit.h
+
+DESC {
+This is the base class for all classes of interaction nodekits.  Currently,
+the only subclass is \cSoDragger\.,  which reacts to click-drag-release 
+events from the mouse. 
+\p
+This node has four fields corresponding to those of an 
+\cSoSeparator\.:  They are \vrenderCaching\., \vboundingBoxCaching\.,
+\vrenderCulling\., and \vpickCulling\..  They behave the same here as they
+do for an \cSoSeparator\.
+\p
+The 
+\+\msetPartAsPath()\. method\.\-\mSoInteractKitSetPartAsPath()\. function\.
+provides support for creating "stand-in" objects for parts in the interaction
+kit.  The "stand-in", or "surrogate" part, is a path to an object that lies
+somewhere else in the scene graph.
+}
+
+
+METHOD "" SoInteractionKit() { Constructor. }
+
+METHOD "" virtual SbBool setPartAsPath( const SbName &partName, 
+				        SoPath *surrogatePath ) {
+Sets any public part in the interaction kit as a
+"surrogate" path instead.  The object at the end of the path serves as 
+a stand-in when a pick occurs, and can thus initiate interaction.  
+\p
+Instead of the usual \m\+setPart()\.\-SoInteractKitSetPart()\.\., which 
+replaces \apartName\. with a new node, this will
+remove the node being used for \apartName\. from the scene and remember the
+\asurrogatePath\. you give it.  Later, any pick on \asurrogatePath\. will
+be regarded as a pick on \apartName\..
+\p
+For example, set the \eXRotator\. part of an \cSoTrackballDragger\.
+to be the path to an object in the scene.  The rest of the
+trackball will look the same, but the \eXRotator\. stripe will disappear. 
+However, click the mouse on the object at the end of \asurrogatePath\. and the 
+ball will start to drag in rotation around its X axis.
+\p
+Note that this is different from setting the part to be the node at the end
+of the path. When you set the part as a node, a second instance will be 
+drawn in the local space of the interaction kit.  When you set it as a path, 
+the object itself is used, not a copy.
+\p
+The \apartName\. may be any part name that follows the nodekit syntax for 
+parts, such as \achildList[0].shape\. or \arotator.rotatorActive\..
+(See the \+\mgetPart()\. method\.\-\mSoKitGetPart()\. function\. in the 
+\cSoBaseKit\. reference page for a complete description.)
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for the class \cSoInteractionKit\.. }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+
+ENUM CacheEnabled {
+	OFF  "Never build or use a cache",
+	ON   "Always try to build a cache",
+	AUTO "Automatic caching" 
+}
+
+
+FIELD renderCaching { Set render caching mode.  Default is \kAUTO\.. }
+
+
+FIELD boundingBoxCaching { Set bounding box caching mode.
+	Default is \kON\..  Setting this value to \kAUTO\. is equivalent
+	to \kON\ - automatic culling is not implemented. }
+
+
+FIELD renderCulling { Set render culling mode.  Default is \kOFF\..
+	Setting this value to \kAUTO\. is equivalent to \kON\ -
+	automatic culling is not implemented. }
+
+
+FIELD pickCulling { Set pick caching mode.  Default is \kAUTO\.. }
+
+
+ALSO {
+SoBaseKit,
+SoInteraction,
+SoNodeKitDetail,
+SoNodeKitPath,
+SoNodekitCatalog, 
+SoDragger,
+SoCenterballDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}

@@ -1,0 +1,26 @@
+NAME SoComposeVec4f SoCmpsV4f "" { 
+composes 4D vectors from floating-point values
+}
+
+DESC { 
+This engine takes four floating-point inputs and composes a 
+4D vector.
+\p
+The input fields can have multiple values, allowing the engine to 
+compose several vectors in parallel.
+Some inputs may have more values than others.  In such cases,
+the last value of the shorter inputs will be repeated as necessary.
+}
+
+INCLUDE engines/SoCompose.h
+
+INPUT x { The x component. }
+INPUT y { The y component. }
+INPUT z { The z component. }
+INPUT w { The w component. }
+
+OUTPUT vector { Vector composed of x, y, z, and w. }
+
+METHOD Create SoComposeVec4f() { Constructor }
+
+ALSO { SoDecomposeVec4f, SoEngineOutput }

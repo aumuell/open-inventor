@@ -1,0 +1,23 @@
+NAME SoInterpolate SoInterp "" { 
+base class for all interpolator engines 
+}
+
+DESC { 
+\cSoInterpolate\. is the abstract base class for all interpolator engines.
+An interpolator engine linearly interpolates between two values, based
+on the \valpha\. input value.  The \valpha\. value should
+be between 0.0 and 1.0. 
+The interpolator engines derived from this class define the input 
+fields that are to be interpolated.
+}
+
+INCLUDE engines/SoInterpolate.h
+
+INPUT alpha { Interpolation control value. }
+
+OUTPUT output { Interpolated value. The type of the output value is
+the same as the type of the input values, which is specified by the 
+derived classes. }
+
+ALSO { SoEngineOutput, SoInterpolateFloat, SoInterpolateRotation,
+SoInterpolateVec2f, SoInterpolateVec3f, SoInterpolateVec4f }

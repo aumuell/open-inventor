@@ -1,0 +1,10 @@
+#define ManMakefile
+#define UsingIVM
+
+DEPTH = ../../..
+
+MANPAGES =	SoXtDevice.ivm \
+	SoXtInputFocus.ivm \
+	SoXtKeyboard.ivm \
+	SoXtMouse.ivm \
+	SoXtSpaceball.ivm

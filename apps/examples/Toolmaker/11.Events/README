@@ -1,0 +1,12 @@
+Open Inventor - Examples from The Inventor Toolmaker
+
+Chapter 11 - "Creating an Event"
+
+
+This directory contains source code that illustrates how to create
+new Inventor events. 
+
+See the Inventor Mentor, chapter 10, for an introduction to events
+and event handling.
+
+*** This is for C++ programmers only! ***

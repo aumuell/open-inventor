@@ -1,0 +1,6 @@
+This directory contains the source code for the Drop game.  The game
+uses timer and alarm sensors to animate falling pieces and event callbacks
+to get user input.
+
+Run the program by first doing a "make" then executing "drop".  A screen
+of instructions will be displayed, explaining how to play the game.

@@ -1,0 +1,14 @@
+#define BranchMakefile
+
+#define InstallSource
+
+#ifndef CreatingUserMakefile
+#define SubDirs Mentor Toolmaker data
+OTHERSOURCE = README
+
+TOP_OF_TREE = ../..
+#else
+
+#define SubDirs Mentor Toolmaker
+
+#endif

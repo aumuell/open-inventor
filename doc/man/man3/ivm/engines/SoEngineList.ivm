@@ -1,0 +1,32 @@
+NAME SoEngineList "" "" { maintains a list of pointers to engines }
+
+INCLUDE SoLists.h
+
+DESC {
+This subclass of \cSoBaseList\. holds lists of pointers to
+\cSoEngine\.s.  It updates reference counts to engines in the list
+whenever adding or removing pointers.
+}
+
+METHOD "" SoEngineList() { Constructor. }
+
+METHOD createSize SoEngineList(int size) {
+Constructor that pre-allocates storage for \asize\. pointers.
+}
+
+METHOD " " SoEngineList(const SoEngineList &l) {
+Constructor that copies the contents of another list.
+}
+
+METHOD "" ~SoEngineList() { Destructor. }
+
+METHOD "" void append(SoEngine *engine) { Adds an engine to the end of the list. }
+
+METHOD "" SoEngine * operator [\|](int i) const { Accesses an element of a list. }
+
+METHOD "" SoEngineList & operator =(const SoEngineList &l) {
+Copies a list, keeping all reference counts correct.
+}
+
+ALSO { SoEngine }
+

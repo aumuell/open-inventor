@@ -1,0 +1,64 @@
+NAME SbCylinderSectionProjector "SbCylSectProj" "" { cylinder-section projector }
+
+INCLUDE projectors/SbCylinderSectionProjector.h
+
+DESC { \cSbCylinderSectionProjector\. 
+projects a window space point (usually based on the mouse location)
+onto the section of a cylinder that has been sliced by a plane.
+Two projected points can produce a rotation
+along the cylinder's axis.
+The tolerance slice can be specified as a fraction of the radius
+of the cylinder. The projection point will not extend beyond the
+sliced portion of the cylinder.
+\p
+Incremental changes (delta rotation) can be computed during
+interactive sessions. Cylinder projectors are typically used to write
+interactive 3D manipulators and viewers.
+}
+
+METHOD "" SbCylinderSectionProjector(float edgeTol = .9, SbBool orientToEye = TRUE) {}
+METHOD "createCyl" SbCylinderSectionProjector( const SbCylinder &cyl,
+			      float edgeTol = .9, SbBool orientToEye = TRUE) {
+Constructors. The first uses a default cylinder aligned with the Y axis
+with radius 1.0; the cylinder is supplied in the second.
+The position of the plane which slices the cylinder into
+a section is specified as a fraction of the cylinder radius
+with the parameter \vedgeTol\..
+A tolerance value of 1.0 positions the plane
+down the center of the cylinder. A tolerance value of 0.5 defines
+the longitudinal plane halfway between the center and the outside
+edge of the cylinder.  The default value is .9, so that almost
+half the cylinder is in front of the plane.
+The \vorientToEye\.
+parameter determines whether the plane is perpendicular to the
+eye, or perpendicular to the cylinder's Z axis.  Setting that parameter to TRUE
+(the default) specifies that the plane be perpendicular to the
+eye, which is most often the desired behavior.
+\p
+The default view volume is undefined, and the working space is identity.
+}
+
+METHOD "" ~SbCylinderSectionProjector() { Destructor. }
+
+METHOD "setTol" void setTolerance(float edgeTol) {}
+METHOD "getTol" float getTolerance() const {
+Set and get the edge tolerance as a fraction of the
+radius of the cylinder. If this is 1.0, the projector is a
+half cylinder. If this is .1, the projector is a slice of
+the cylinder with radius .1*radius.  Default is .9.
+}
+
+METHOD "isWithinTol" SbBool isWithinTolerance(const SbVec3f &point) {
+Find whether this point on the cylinder or tolerance
+plane is within tolerance.
+}
+    
+ALSO { 
+SbCylinderPlaneProjector,
+SbCylinderSheetProjector,
+SbLineProjector, SbPlaneProjector, SbSpherePlaneProjector,
+SbSphereProjector, SbSphereSectionProjector, SbSphereSheetProjector
+}
+
+
+

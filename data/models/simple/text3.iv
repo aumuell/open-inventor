@@ -1,0 +1,131 @@
+#Inventor V2.1 ascii
+
+Separator {
+    Font {
+	name	"Courier-Bold"
+	size	1
+    }
+    ProfileCoordinate2 {
+	point	[ 0 0,
+			  0.050000001 0.050000001,
+			  0.25 0.050000001,
+			  0.30000001 0 ]
+    }
+    LinearProfile {
+	index	[ 0, 1, 2, 3 ]
+    }
+    Separator {
+	Material {
+	    diffuseColor	0.60000002 0.60000002 0.60000002
+	}
+	Transform {
+	    translation	-1 1 1
+	}
+	Text3 {
+	    string	"The"
+	    spacing	1
+	    justification	RIGHT
+	    parts	ALL
+	}
+    }
+    Separator {
+	Material {
+	    diffuseColor	0.2 0.2 1
+	}
+	Transform {
+	    translation	-1 1 -1
+	}
+	Text3 {
+	    string	"quick"
+	    spacing	1
+	    justification	RIGHT
+	    parts	ALL
+	}
+    }
+    Separator {
+	Material {
+	    diffuseColor	0.2 1 0.2
+	}
+	Transform {
+	    translation	-1 -1 -1
+	}
+	Text3 {
+	    string	"brown"
+	    spacing	1
+	    justification	RIGHT
+	    parts	ALL
+	}
+    }
+    Separator {
+	Material {
+	    diffuseColor	0.2 1 1
+	}
+	Transform {
+	    translation	-1 -1 1
+	}
+	Text3 {
+	    string	"fox"
+	    spacing	1
+	    justification	RIGHT
+	    parts	ALL
+	}
+    }
+    Separator {
+	Material {
+	    diffuseColor	1 0.2 0.2
+	}
+	Transform {
+	    translation	1 1 1
+	}
+	Text3 {
+	    string	"jumped"
+	    spacing	1
+	    justification	LEFT
+	    parts	ALL
+	}
+    }
+    Separator {
+	Material {
+	    diffuseColor	1 0.2 1
+	}
+	Transform {
+	    translation	1 1 -1
+	}
+	Text3 {
+	    string	"over the"
+	    spacing	1
+	    justification	LEFT
+	    parts	ALL
+	}
+    }
+    Separator {
+	Material {
+	    diffuseColor	1 1 0.2
+	}
+	Transform {
+	    translation	1 -1 -1
+	}
+	Text3 {
+	    string	"lazy"
+	    spacing	1
+	    justification	LEFT
+	    parts	ALL
+	}
+    }
+    Separator {
+	Material {
+	    diffuseColor	1 1 1
+	}
+	Transform {
+	    translation	1 -1 1
+	}
+	Text3 {
+	    string	"dog"
+	    spacing	1
+	    justification	LEFT
+	    parts	ALL
+	}
+    }
+    Cube {
+    }
+}

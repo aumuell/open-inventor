@@ -1,0 +1,36 @@
+The program in this directory, ivAddVP, is a tool that converts 
+inventor files (either version 2.0 or version 2.1) into inventor 2.1 files 
+that use the Vertex Property node.
+
+If the input file contains vertex-based shapes, then the coordinates, texture
+coordinates, normal vectors, and normal bindings that they use are put
+into a vertex property node.  If there are multiple diffuse colors, or
+if the material binding is not OVERALL, the diffuse colors will also be
+put into that vertex property node.
+
+Normals and normalBinding in the state will only be put in a vertex property 
+node if the light model is PHONG.  To put them into the vertex property node 
+anyway, the option -n should be specified.
+
+If there is only one diffuse color in a material node then it will not be put
+into the vertexProperty node.  This is to permit users to apply color
+editors (using material nodes) to shapes that use vertex property nodes.
+  
+If other shapes in the scene graph do not inherit the coordinates, texture 
+coordinates, normals, normal binding, and material binding, then such property 
+nodes are deleted from the scene graph.  If multiple diffuse colors are in a 
+material node, and no shapes (other than the vertex shapes) depend on that 
+material node, then the diffuse colors will be deleted from that material node.
+
+If VertexProperty nodes are used as nodes in the scene graph (i.e. not
+as vertexProperty fields in vertex shapes, but instead using scene graph
+inheritance) then these will also be deleted if remaining shapes no longer 
+depend on them.
+
+If a vertex shape node is instanced (or a node above it in the scene
+graph), then it will not be converted to use a vertexProperty node, since
+that could cause errors if different instances inherit different properties.
+However, if the option -c is specified, then the instanced nodes will be copied,
+and the copied nodes will be converted to use vertex property nodes.
+This is optional because it will in some cases degrade performance by
+making scene graphs too large.

@@ -1,0 +1,33 @@
+NAME SoMatrixTransform SoMx "" {
+node that specifies a 3D geometric transformation as a matrix
+}
+
+INCLUDE nodes/SoMatrixTransform.h
+
+DESC {
+This node defines a geometric 3D transformation with a single
+\cSbMatrix\.. Note that some matrices (such as singular ones) may
+result in errors in bounding boxes, picking, and lighting.
+}
+
+FIELD matrix { Transformation matrix. }
+
+METHOD "" SoMatrixTransform() {
+Creates a matrix transformation node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+SoGetBoundingBoxAction, SoRayPickAction {
+Concatenates matrix given in the \vmatrix\. field with the current
+transformation matrix.
+}
+
+ACTION SoGetMatrixAction {
+Returns transformation matrix specified in the \vmatrix\. field.
+}
+
+ALSO { SoTransform, SoMultipleCopy }

@@ -1,0 +1,33 @@
+NAME SoSFVec2f SoSVec2f "" {
+Field containing a two-dimensional vector
+}
+
+INCLUDE fields/SoSFVec2f.h
+
+DESC {
+Field containing a two-dimensional vector.
+\p
+\cSoSFVec2fs\. are written to file as a pair of floating
+point values separated by whitespace.
+}
+METHOD SetX_Y void setValue(float x, float y) {}
+METHOD SetXY void setValue(const float xy[2]) {
+Sets the field to the given value.
+}
+ALSO { SoField, SoSField, SoMFVec2f }
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get const SbVec2f & getValue() const {
+Returns this field's value.
+}
+METHOD " " const SbVec2f & operator =(const SbVec2f & newValue) {}
+METHOD Set void setValue(const SbVec2f & newValue) {
+Sets this field to \anewValue\..
+}
+METHOD IsEq int operator ==(const SoSFVec2f &f) const {}
+METHOD IsNEq int operator !=(const SoSFVec2f &f) const {
+Returns TRUE if \af\. is of the same type and has the same value as this
+field.
+}

@@ -1,0 +1,87 @@
+NAME SoSpaceballButtonEvent SoSpballEv SO_SPBALL_EV_ { spaceball button press and release events }
+
+INCLUDE events/SoSpaceballButtonEvent.h
+
+DESC { \cSoSpaceballButtonEvent\. represents spaceball button press and release events
+in the Inventor event model.
+}
+
+ENUM Button {
+    ANY "Any spaceball button", 
+    BUTTON1 "Spaceball button 1", 
+    BUTTON2 "Spaceball button 2", 
+    BUTTON3 "Spaceball button 3", 
+    BUTTON4 "Spaceball button 4", 
+    BUTTON5 "Spaceball button 5", 
+    BUTTON6 "Spaceball button 6", 
+    BUTTON7 "Spaceball button 7", 
+    BUTTON8 "Spaceball button 8", 
+    PICK "Spaceball pick button"
+}
+
+BEGIN C++
+DEFINE { SO_SPACEBALL_PRESS_EVENT(EVENT,BUTTON)
+    (SoSpaceballButtonEvent::isButtonPressEvent(EVENT,
+			SoSpaceballButtonEvent::BUTTON)) }
+
+DEFINE { SO_SPACEBALL_RELEASE_EVENT(EVENT,BUTTON)
+    (SoSpaceballButtonEvent::isButtonReleaseEvent(EVENT,
+			SoSpaceballButtonEvent::BUTTON)) }
+END
+BEGIN C
+DEFINE { SO_SPBALL_PRESS_EV(EVENT,BUTTON)
+	(SoSpballEvIsBtnPressEv(EVENT,BUTTON)) }
+DEFINE { SO_SPBALL_RELEASE_EV(EVENT,BUTTON)
+	(SoSpballEvIsBtnReleaseEv(EVENT,BUTTON)) }
+END
+
+METHOD "" SoSpaceballButtonEvent() { Constructor. }
+
+METHOD "" static SoType getClassTypeId() {
+Return the type id for the \cSoSpaceballButtonEvent\. class.
+}
+
+BEGIN C++
+METHOD "setBtn" void setButton(SoSpaceballButtonEvent::Button b) {}
+METHOD "getBtn" SoSpaceballButtonEvent::Button getButton() const
+{ Set and get which spaceball button generated the event. }
+END
+BEGIN C
+METHOD "setBtn" void setButton(SoSpaceballButtonEventButton b) {}
+METHOD "getBtn" SoSpaceballButtonEventButton getButton() const
+{ Set and get which spaceball button generated the event. }
+END
+
+BEGIN C++
+METHOD "isBtnPressEv" static SbBool isButtonPressEvent(
+			    const SoEvent *e,
+			    SoSpaceballButtonEvent::Button whichButton) {}
+METHOD "isBtnReleaseEv" static SbBool isButtonReleaseEvent(
+			    const SoEvent *e,
+			    SoSpaceballButtonEvent::Button whichButton)
+{ Returns whether the passed event is a spaceball button press or release event
+of the passed button. When \eSoSpaceballButtonEvent::ANY\. is passed,
+this returns \eTRUE\. if the event represents a button press
+or release of any spaceball button. }
+END		    
+BEGIN C
+METHOD "isBtnPressEv" static SbBool isButtonPressEvent(
+			    const SoEvent *e,
+			    SoSpaceballButtonEventButton whichButton) {}
+METHOD "isBtnReleaseEv" static SbBool isButtonReleaseEvent(
+			    const SoEvent *e,
+			    SoSpaceballButtonEventButton whichButton)
+{ Returns whether the passed event is a spaceball button press or release event
+of the passed button. When \eSO_SPBALL_EV_ANY\. is passed,
+this returns \eTRUE\. if the event represents a button press
+or release of any spaceball button. }
+END		    
+
+ALSO { 
+SoEvent, SoButtonEvent, SoKeyboardEvent, SoLocation2Event, SoMotion3Event,
+SoMouseButtonEvent,
+SoHandleEventAction, SoEventCallback, SoSelection, SoInteraction,
+SoXtDevice }
+
+
+

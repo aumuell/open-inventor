@@ -1,0 +1,43 @@
+NAME SoRotationXYZ SoRotXYZ SO_ROT_XYZ_ {
+node representing a 3D rotation about the x-, y-, or z-axis
+}
+
+INCLUDE nodes/SoRotationXYZ.h
+
+DESC {
+This node defines a 3D rotation about one of the three principal axes.
+The rotation is accumulated into the current transformation, which is
+applied to subsequent shapes.
+}
+
+ENUM Axis {
+    X	"The x-axis",
+    Y	"The y-axis",
+    Z	"The z-axis"
+}
+
+FIELD axis { Rotation axis. }
+FIELD angle { Rotation angle (in radians), using the right-hand rule. }
+
+METHOD "" SoRotationXYZ() {
+Creates a rotation node with default settings.
+}
+
+METHOD "" SbRotation getRotation() const {
+Returns an \cSbRotation\. equivalent to the specified rotation.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoRayPickAction {
+Accumulates rotation transformation into the current transformation.
+}
+
+ACTION SoGetMatrixAction {
+Returns the matrix corresponding to the rotation.
+}
+
+ALSO { SoRotation, SoTransform }

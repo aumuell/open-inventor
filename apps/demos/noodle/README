@@ -1,0 +1,16 @@
+This directory contains source code for the 'noodle' demo program.
+The subDirectory SampleNoodles contains some data files created with noodle.
+Read them into noodle to see how to get the most out of the program.
+
+Type "make" to create the 'noodle' executable and also 
+GeneralizedCylinder.so
+
+
+Type 
+--> noodle 
+to run the program.
+
+
+If you setenv LD_LIBRARY_PATH to include the directory where 
+GeneralizedCylinder.so resides, you will be able to read noodle files into
+other Inventor 2.1 applications.

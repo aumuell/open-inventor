@@ -1,0 +1,58 @@
+NAME SbLine "" "" { directed line in 3D }
+INCLUDE SbLinear.h
+DESC {
+Represents a directed line in 3D. This is a basic Inventor datatype that is
+used for representing a 3D line. It is used as input and output by a variety of
+Inventor classes.
+\-
+Note that it does not have
+\mCreate\.
+or
+\mDelete\.
+functions. This is because is is a lightweight datatype that
+should be declared or malloc'd as a standard C struct:
+\b\k
+     /* This is defined in Inventor_c/SbLinear.h: */
+     struct SbLine \{
+         struct SbVec3f  pos;
+         struct SbVec3f  dir;
+     \};
+ 
+ 
+     /* This is what your code should look like: */
+     SbLine  line;
+ 
+     line.pos.vec[0] = 0.0;
+     line.pos.vec[1] = 0;
+     line.pos.vec[2] = 0.0;
+     SbV3fSetX_Y_Z( line.dir, 0, 1, 0 );
+\.\.
+\.
+}
+BEGIN C++
+METHOD "" SbLine() {}
+METHOD "" SbLine(const SbVec3f &p0, const SbVec3f &p1) {
+Constructors. To construct a line from a position and direction,
+use:  \kSbLine(p0, p0 + dir)\..  The line is directed from \ap0\. to \ap1\..
+}
+METHOD "" void setValue(const SbVec3f &p0, const SbVec3f &p1) {
+Sets line to pass through points \ap0\. and \ap1\..
+}
+END
+METHOD getClosestPts SbBool getClosestPoints(const SbLine  &line2,
+        SbVec3f &ptOnThis, SbVec3f &ptOnLine2 ) const {
+Finds the two closest points between this line and \aline2\.,
+and loads them into \aptOnThis\. and \aptOnLine2\..
+Returns \kFALSE\. if the lines are parallel (results undefined), and returns
+\kTRUE\. otherwise.
+}
+METHOD getClosestPt SbVec3f getClosestPoint(const SbVec3f &point) const {
+Returns the closest point on the line to the given point.
+}
+BEGIN C++
+METHOD "" const SbVec3f &     getPosition() const {}
+METHOD "" const SbVec3f &     getDirection() const {
+Returns position of line origin point and direction vector of line.
+}
+ALSO {SbVec3f, SbPlane }
+

@@ -1,0 +1,75 @@
+NAME SbString SbStr "" { class for smart character strings }
+INCLUDE SbString.h
+DESC {
+Strings which have many convenience methods to make
+string manipulation easier.
+}
+METHOD "" SbString() {}
+METHOD CreateStr SbString(const char *str) {}
+METHOD CreateSubStr SbString(const char *str, int start, int end) {}
+METHOD CreateCopy SbString(const SbString &str) {}
+METHOD CreateInt SbString(int digitString) {}
+METHOD "" ~SbString() {
+Constructors and destructor. Constructors take a character string, the
+subset of a character string from start to end (inclusive), or an
+integer to be turned into a string.
+\+
+For example,
+\kSbString(1234)\.
+creates the string "1234".
+\kSbString("Testing",1,3)\.
+creates the string "est".
+\.
+}
+METHOD "" uint32_t              hash() {
+Returns a reasonable hash key for string.
+}
+METHOD getLen int                 getLength() const {
+Returns length of string.
+}
+METHOD empty void                makeEmpty(SbBool freeOld = TRUE) {
+Sets string to be the empty string (""). If freeOld is TRUE
+(default), any old storage is freed up.
+}
+METHOD getStr const char *        getString() const {
+Returns pointer to the character string.
+}
+METHOD getSubStr SbString getSubString(int startChar, int endChar = -1) const {
+Returns new string representing sub-string from \astartChar\. to
+\aendChar\., inclusive. If \aendChar\. is -1 (the default), the
+sub-string from \astartChar\. until the end is returned.
+}
+METHOD deleteSubStr void deleteSubString(int startChar, int endChar = -1) {
+Deletes the characters from \astartChar\. to \aendChar\., inclusive,
+from the string. If \aendChar\. is -1 (the default), all characters
+from \astartChar\. until the end are deleted.
+}
+METHOD CopyStr SbString &     operator =(const char *str) {}
+METHOD "" SbString &          operator =(const SbString &str) {
+Assignment operators for character string, \cSbString\..
+}
+METHOD concatStr SbString &   operator +=(const char *str) {}
+METHOD concat SbString &      operator +=(const SbString &str) {
+Concatenation operators "+=" for string, \cSbString\..
+}
+METHOD "" int                 operator !() const {
+Unary "not" operator; returns TRUE if string is empty ("").
+}
+BEGIN C++
+METHOD "" int          operator ==(const char *s, const SbString &str) {}
+END
+METHOD IsEqStr int     operator ==(const SbString &str, const char *s) {}
+METHOD "" int          operator ==(const SbString &str1, const SbString &str2) {
+Equality operator for \cSbString\./\kchar*\. and \cSbString\./\cSbString\.
+comparison.
+}
+BEGIN C++
+METHOD "" int          operator !=(const char *s, const SbString &str) {}
+END
+METHOD IsNEqStr int    operator !=(const SbString &str, const char *s) {}
+METHOD "" int          operator !=(const SbString &str1, const SbString &str2) {
+Inequality operator for \cSbString\./\kchar*\. and
+\cSbString\./\cSbString\. comparison.
+}
+ALSO { SbName }
+

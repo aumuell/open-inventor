@@ -1,0 +1,17 @@
+README for Inventor "4view" sample
+----------------------------------
+
+Run with no arguments to get the usage message.
+
+This program reads in a scene graph from the file named on the command
+line and displays four views of it, using different viewer components
+glued together in a Motif form widget. Three of the viewers are plane
+viewers, showing top, front, and right side orthographic views, and
+the other is an examiner viewer showing an arbitrary perspective view.
+The window configuration is like this:
+
+		Top		Right
+		View		View
+
+		Front		Perspective
+		View		View

@@ -1,0 +1,102 @@
+NAME SoRotateDiscDragger SoRotDiscDrag "" { object you can rotate like a knob by dragging With the mouse }
+
+INCLUDE draggers/SoRotateDiscDragger.h
+
+DESC { \cSoRotateDiscDragger\. 
+is a simple dragger that rotates about the z axis of its local space.
+The feel of the rotation is as if you were spinning a record on a turntable
+or rotating the volume knob of a radio.
+The local space is determined by its location in the scene graph.
+Transformation nodes placed before it will
+affect both the dragger and the direction of motion.
+\p
+This node has a \vrotation\. field
+which always reflects
+its orientation in local space.
+If you set the field, the dragger will rotate accordingly.
+You can also connect fields of other nodes or engines from
+this one
+to make them follow the dragger's rotation.
+\p
+This dragger contains four parts, \erotator\., \erotatorActive\.,
+\efeedback\., and \efeedbackActive\..
+\p
+Each of these is set by default from a resource described in the Dragger
+Resources section of the online reference page for this class.  You can
+change the parts in any instance of this dragger using
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+\p
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/rotateDiscDragger.iv\.  into your own
+directory, editing the file, and then setting the environment variable
+\vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+METHOD "" SoRotateDiscDragger() {
+Constructor.
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+FIELD rotation { Orientation of the dragger. }
+
+DRAGGER_RESOURCE {
+  rotateDiscRotator,
+  rotator,
+  "white cylinder (with axis along z-direction) made of lines",
+  "picking this initiates rotation"
+}
+
+DRAGGER_RESOURCE {
+  rotateDiscRotatorActive,
+  rotatorActive,
+  "yellow version of rotator, with added yellow cube",
+  "displayed while in motion instead of the rotator"
+}
+
+DRAGGER_RESOURCE {
+  rotateDiscFeedback,
+  feedback,
+  "thin purple line along local z-axis",
+  "shows center of rotation when not moving"
+}
+
+DRAGGER_RESOURCE {
+  rotateDiscFeedbackActive,
+  feedbackActive,
+  "thin, slightly brighter purple line along local z-axis",
+  "shows center of rotation when moving"
+}
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoCenterballDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTransformerDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}
+

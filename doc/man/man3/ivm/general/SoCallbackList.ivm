@@ -1,0 +1,39 @@
+NAME SoCallbackList SoCBList "" {
+manages a list of callback functions and associated data
+}
+
+INCLUDE misc/SoCallbackList.h
+
+TYPEDEF void SoCallbackListCB "(void *userData, void *callbackData)"
+
+DESC {
+This class manages a list of callback functions and user data.  The
+user can add a callback function to the list, along with user data.
+When the callback is invoked, it is passed this user data, along with
+callback data specified by the invoking routine.  The type of this
+callback data is determined by the invoking routine.
+}
+
+METHOD ""  SoCallbackList() {}
+METHOD "" ~SoCallbackList() { Constructor and destructor. }
+
+METHOD addCB void addCallback(SoCallbackListCB *f, void *userData = NULL) {}
+METHOD removeCB void removeCallback(SoCallbackListCB *f,
+				      void *userData = NULL) {
+Adds a function to or removes a function from the list of callback
+functions.
+}
+
+METHOD clearCB void clearCallbacks() {
+Clears all callback functions from the list.
+}
+
+METHOD getNumCB int getNumCallbacks() const {
+Returns the number of callback functions in the list.
+}
+
+METHOD invokeCB void invokeCallbacks(void *callbackData) {
+Invokes each callback function in the list, passing each function the
+user data supplied when they were registered here, and
+\acallbackData\., the callback-specific data supplied by the caller.
+}

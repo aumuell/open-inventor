@@ -1,0 +1,99 @@
+NAME SoMFRotation SoMRotation "" {
+Multiple-value field containing any number of SbRotations.
+}
+
+INCLUDE fields/SoMFRotation.h
+
+DESC {
+multiple-value field that contains any number of SbRotations.
+\p
+\cSoMFRotations\. are written to file as one or more sets of four
+floating point values.  Each set of 4 values is an axis of rotation
+followed by the amount of right-handed rotation about that axis, in
+radians.
+\p
+When more than one value is present, all of the
+values are enclosed in square brackets and separated by commas; for
+example:
+\b
+[ 1 0 0 0, -.707 -.707 0 1.57 ]
+\.
+}
+METHOD Set1AxisAngle void
+	set1Value(int index, const SbVec3f &axis, float angle) {
+Sets the \aindex\.'th value to the given axis/angle.
+}
+METHOD SetAxisAngle void setValue(const SbVec3f &axis, float angle) {
+Makes this field have exactly one value, given by \aaxis\. and \aangle\..
+}
+METHOD Set1Q_U_A_T void
+    set1Value(int index, float q0, float q1, float q2, float q3) {}
+METHOD Set1Quat void set1Value(int index, const float q[4]) {
+Sets the \aindex\.'th value to the given quaternion.
+}
+METHOD SetQ_U_A_T void setValue(float q0, float q1, float q2, float q3) {}
+METHOD SetQuat void setValue(float q[4]) {
+Makes this field have exactly one value, given by the quaternion.
+}
+ALSO { SbRotation }
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get const SbRotation & operator [\|](int i) const {
+Returns the \ai\.'th value of the field.  Indexing past the end of the
+field (passing in \ai\. greater than \mgetNum()\.) will return garbage.
+}
+METHOD GetN const SbRotation * getValues(int start) const {
+Returns a pointer into the array of values in the field, starting at
+index \astart\..  The values are read-only; see the
+\mstartEditing()\./\mfinishEditing()\. methods for a way of modifying values
+in place.
+}
+METHOD "" int find(const SbRotation & targetValue,
+	SbBool addIfNotFound = FALSE) {
+Finds the given value in the array and returns the index of that value
+in the array.  If the value is not found, -1 is returned.  If
+\aaddIfNotFound\. is set, then \atargetValue\. is added to the end of the
+array (but -1 is still returned).
+}
+METHOD SetQuats void setValues(int start, int num,
+	const SbRotation *newValues) {
+Sets \anum\. values starting at index \astart\. to the values in \anewValues\..
+The array will be automatically be made larger to accomodate the new
+values, if necessary.
+}
+METHOD Set1 void set1Value(int index, const SbRotation & newValue) {
+Sets the \aindex\.'th value in the array to \anewValue\..  The array will be
+automatically expanded, if necessary.
+}
+METHOD " " const SbRotation & operator =(const SbRotation & newValue) {}
+METHOD Set void setValue(const SbRotation & newValue) {
+Sets the first value in the array to \anewValue\., and deletes the second
+and subsequent values.
+}
+METHOD IsEq int operator ==(const SoMFRotation &f) const {}
+METHOD IsNEq int operator !=(const SoMFRotation &f) const {
+Returns TRUE if all of the values of this field equal (do not
+equal) those of the given field.  If the fields are different types FALSE will
+always be returned (even if one field is an \cSoMFFloat\. with one
+value of 1.0 and the other is an \cSoMFInt\. with a value of 1, for
+example).
+}
+METHOD StartEdit SbRotation *startEditing() {}
+METHOD FinishEdit void finishEditing() {
+\mstartEditing()\. returns a pointer to the internally-maintained array that 
+can be modified.  The values in the array may be changed, but values cannot
+be added or removed.  It is illegal to call any other editing methods between 
+\+\mstartEditing()\. and \mfinishEditing()\. (e.g.
+\mset1Value()\., \msetValue()\., etc).\.\-\mStartEdit()\. and \mFinishEdit()\. 
+(e.g. \mSet1()\., \mSet()\., etc).\.
+\p
+Fields, engines or sensors connected to this field and sensors are not
+notified that this field has changed until 
+\+\mfinishEditing()\.\.\-\mFinishEdit()\.\. is called.  Calling
+\+\mfinishEditing()\.\.\-\mFinishEdit()\.\. always sets the
+\+\misDefault()\.\.\-\mIsDflt\.\. flag to FALSE and informs
+engines and sensors that the field changed, even if none of the values
+actually were changed.
+}

@@ -1,0 +1,47 @@
+NAME SoDebugError "SoDbgErr" "SO_DBG_ERR_" { debug error handling }
+
+INCLUDE errors/SoDebugError.h
+
+DESC { \cSoDebugError\. is used for all errors reported from the debugging
+version of the Inventor library. These errors are typically
+programmer errors, such as passing a NULL pointer or an
+out-of-range index. 
+\+The \mpost()\. method takes the name of the
+Inventor method that detected the error, to aid the programmer in
+debugging.\.
+}
+
+ENUM Severity {
+ERROR "Error",
+WARNING "Just a warning",
+INFO "No error, just information"
+}
+
+METHOD "setHndlrCB" static void setHandlerCallback(SoErrorCB *cb, void *data) {}
+METHOD "getHndlrCB" static SoErrorCB * getHandlerCallback() {}
+METHOD "getHndlrData" static void * getHandlerData() {
+Sets/returns handler callback for \cSoDebugError\. class.
+}
+
+METHOD "" static SoType	getClassTypeId() { 
+Returns type identifier for \cSoDebugError\. class.
+}
+
+BEGIN C++
+METHOD "" SoDebugError::Severity getSeverity() const { 
+Returns severity of error (for use by handlers).
+}
+END
+BEGIN C
+METHOD "" SoDebugErrorSeverity getSeverity() const { 
+Returns severity of error (for use by handlers).
+}
+END
+
+ALSO { 
+SoMemoryError,
+SoReadError
+}
+
+
+

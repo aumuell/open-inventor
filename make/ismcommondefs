@@ -1,0 +1,33 @@
+#
+# Common definitions for building ism idb's and images
+#
+#ident "$Revision: 1.1 $"
+
+GENDIST=$(TOOLROOT)/usr/sbin/gendist
+IDBJOIN=$(TOOLROOT)/usr/sbin/idbjoin
+IDBPROTO=$(TOOLROOT)/usr/sbin/idbproto
+IDBINST=$(TOOLROOT)/usr/sbin/idbinst
+GGENDISTFLAGS=-verbose
+GENDISTFLAGS=$(VGENDISTFLAGS) $(LGENDISTFLAGS) $(GGENDISTFLAGS)
+GIDBJOINFLAGS=
+IDBJOINFLAGS=$(VIDBJOINFLAGS) $(LIDBJOINFLAGS) $(GIDBJOINFLAGS)
+
+ISMCOMMONRULES=$(IVDEPTH)/make/ismcommonrules
+# permit use of ismcommonrules even if user doesn't specify ALLIMAGES or SPEC
+# If ALLIMAGES is reset from this default value then it is only possible to
+# build the products that are enumerated in the ALLIMAGES list instead of 
+# all the products defined by the spec file.
+# It only needs to be set during the period you need to build a proper subset
+# of the set of products defined by the spec file.
+ALLIMAGES=no_images_supplied
+#
+# Given the images names contruct appropriate wildcard versions for
+# shell
+#
+SHELLIMAGES=$(ALLIMAGES:=.*)
+
+# provide dirt macro (XISMDIRT) to any enclosing set of definitions
+XDIRT = *.version *.sorted extra missing finalidb $(RAWIDB) $(ALLIMAGES) \
+	$(SHELLIMAGES) joinedidb dryrun $(XISMDIRT) words
+
+include $(IVDEPTH)/make/commondefs

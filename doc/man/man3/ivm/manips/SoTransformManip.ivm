@@ -1,0 +1,173 @@
+NAME SoTransformManip SoXfManip "" { base class for all transform Nodes with built-in 3D user interfaces }
+
+INCLUDE manips/SoTransformManip.h
+
+DESC { 
+\cSoTransformManip\. 
+is the base class for all \cSoTransform\. nodes that have a built-in 
+3D user interface.
+Since it is derived from \cSoTransform\., any changes to its
+fields result in the rotation, scaling, and/or translation of nodes that
+follow it in the scene graph.
+\p
+Typically, you will want to replace a regular \cSoTransform\. with an
+\cSoTransformManip\. (as when the user selects an object to be moved),
+or vice versa (as when the object is deselected, and the motion interface
+should go away).
+Use the
+\+\mreplaceNode()\. method\.
+\-\mSoXfManipReplaceNode()\. function\.
+to insert a manipulator into a scene graph, and the
+\+\mreplaceManip()\. method\.
+\-\mSoXfManipReplaceManip()\. function\.
+to remove it when done.
+\p
+Every subclass of \cSoTransformManip\. utilizes a dragger of some sort to 
+provide a 3D interface. (This class does not have dragger; but all the 
+subclasses do.)
+However a manipulator differs from a dragger; it
+influences other objects in the scene because, as an \cSoTransform\.,
+it alters the state. 
+The fields values and movement of a dragger, on the other hand, affect only 
+the dragger itself.
+\p
+Each \cSoTransformManip\. subclass utilizes its dragger by adding it
+as a hidden child.  When an action is applied to the manipulator,
+such as rendering or handling events, the manipulator first traverses the
+dragger, and then the manipulator adds its transformation matrix to the state.
+When you click-drag-release over the manipulator, it passes these events down
+to the dragger, which moves as a result ("I can't \ehelp\. it, I'm a dragger!").
+\p
+The manipulator maintains consistency between the fields
+of the dragger and its own fields. Let's say you use the mouse to rotate
+the \edragger\.. Callbacks insure that the 
+\vrotation\. field of the \emanipulator\. will change by the same 
+amount, resulting in the rotation of nodes which follow in the scene graph.
+Similarly, if you set any of the \cSoTransformManip\. fields
+the manipulator will
+move the dragger accordingly. You can use this feature
+to impose contraints on a manipulator:  If the user moves the manipulator so
+that a field value becomes too large, you can set 
+the field back to your desired maximum, and the whole thing will move back to 
+where you specified.
+\p 
+Since each \cSoTransformManip\. uses a dragger to provide its interface,
+you will generally be told to look at the dragger's reference page for 
+details of how it moves and what the different parts are for.
+The interface for the dragger and the manipulator will always be exactly the
+same.
+Usually, a \cSoTransformManip\. will surround the
+objects that it influences (i.e., those that move along with it).  
+This is because the manipulator 
+turns on the \esurroundScale\. part of its dragger; so the 
+dragger geometry expands to envelope the other objects (see the reference
+page for \cSoSurroundScale\.).  
+\p
+Because the dragger is a \ehidden\. child, you can see the dragger on screen
+and interact with it, but the dragger 
+does not show up when you write the manipulator to file. Also, any \cSoPath\.
+will end at the manipulator. (See the Actions section of this reference page 
+for a complete description of when the dragger is traversed).
+\p
+If you want to get a pointer to the dragger
+you can get it from the manipulator using the 
+\m\+getDragger()\.\-SoXfManipGetDragger()\.\. method.  You will need to 
+do this if you want to change the geometry of a manipulator, since the
+geometry actually belongs to the dragger.
+}
+
+METHOD "" SoTransformManip() {
+Constructor.
+}
+
+METHOD getDrag SoDragger *getDragger() {
+Returns a pointer to the dragger being used by this manipulator.
+Given this pointer, you can customize the dragger just like you would
+any other dragger.  You can change geometry using 
+the \m\+setPart()\.\-SoDragSetPart()\.\. method, or add callbacks using 
+the methods found in the \cSoDragger\. reference page.
+}
+
+METHOD "" SbBool replaceNode( SoPath *p ) {
+Replaces the tail of the path with this manipulator.
+The tail of the path must be an \cSoTransform\. node (or subclass thereof).
+If the path has a nodekit, this will try to use
+\m\+setPart()\.\-SoBaseKitSetPart()\.\. to insert the manipulator.
+Otherwise, the manipulator requires that the
+next to last node in the path chain be a group.
+\p
+The field values from the transform node will be copied to
+this manipulator, and the transform will be replaced.
+\p
+The manipulator will not call
+\m\+ref()\.\-SoXfRef()\.\.  on the node it is replacing.
+The old node will disappear if
+it has no references other than from the input path \ap\. and its parent,
+since this manipulator will be replacing it in both of those places.
+Nor will the manipulator make any
+changes to field connections of the old node.  
+The calling process is thus responsible for keeping
+track of its own nodes and field connections.
+}
+
+METHOD "" SbBool replaceManip(SoPath *p, SoTransform *newOne ) const {
+Replaces the tail of the path, which must be this manipulator,
+with the given \cSoTransform\. node.
+If the path has a nodekit, this will try to use
+\m\+setPart()\.\-SoBaseKitSetPart()\.\. to insert the new node.
+Otherwise, the manipulator requires that the
+next to last node in the path chain be a group.
+\p
+The field values from the manipulator will be copied
+to the transform node, and the manipulator will be replaced.
+\p
+The manipulator will not call
+\+\mref()\. or \munref()\.\.
+\-\mSoXfRef()\. or \mSoXfUnref()\.\.
+on the node which is replacing it, nor will it make any
+changes to field connections.
+The calling process is thus responsible for keeping
+track of its own nodes and field connections.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoGetMatrixAction,
+       SoHandleEventAction, SoRayPickAction {
+First, traverses the dragger the way an \cSoGroup\. would. All draggers
+place themselves in space, but leave the current transformation unchanged
+when finished. 
+Then the \cSoTransformManip\. accumulates a transformation into the 
+current transformation just like its base class, \cSoTransform\..
+}
+
+ACTION SoSearchAction {
+Searches just like an \cSoTransform\..  Does not search the dragger,
+which is a hidden child.
+}
+
+ACTION SoWriteAction {
+Writes out just like an \cSoTransform\.. Does not write the dragger,
+which is a hidden child.   If you really need to write valuable information 
+about the dragger, such as customized geometry, you 
+can retrieve the dragger with the 
+\m\+getDragger()\.\-SoXfManipGetDragger()\.\. method and then write 
+it out separately.
+}
+
+ALSO {
+SoDragger,
+SoTransform,
+SoCenterballManip,
+SoHandleBoxManip,
+SoJackManip,
+SoSurroundScale,
+SoTabBoxManip,
+SoTrackballManip,
+SoTransformBoxManip,
+SoTransformerManip
+}

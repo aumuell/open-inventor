@@ -1,0 +1,80 @@
+NAME SoMFUShort SoMUShort "" {
+multiple-value field containing any number of unsigned short integers
+}
+
+INCLUDE fields/SoMFUShort.h
+
+DESC {
+A multiple-value field that contains any number of unsigned short integers.
+\p
+\cSoMFUShorts\. are written to file as one or more unsigned short integer
+values, represented as decimal, hexadecimal (beginning with '0x') or
+octal (beginning with '0') values.
+When more than one value is present, all of the
+values are enclosed in square brackets and separated by commas; for
+example:
+\b
+[ 7, 0xFF, 033 ]
+\.
+}
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get unsigned short operator [\|](int i) const {
+Returns the \ai\.'th value of the field.  Indexing past the end of the
+field (passing in \ai\. greater than \mgetNum()\.) will return garbage.
+}
+METHOD GetN const unsigned short * getValues(int start) const {
+Returns a pointer into the array of values in the field, starting at
+index \astart\..  The values are read-only; see the
+\mstartEditing()\./\mfinishEditing()\. methods for a way of modifying values
+in place.
+}
+METHOD "" int find(unsigned short targetValue,
+	SbBool addIfNotFound = FALSE) {
+Finds the given value in the array and returns the index of that value
+in the array.  If the value is not found, -1 is returned.  If
+\aaddIfNotFound\. is set, then \atargetValue\. is added to the end of the
+array (but -1 is still returned).
+}
+METHOD SetN void setValues(int start, int num,
+	const unsigned short *newValues) {
+Sets \anum\. values starting at index \astart\. to the values in \anewValues\..
+The array will be automatically be made larger to accomodate the new
+values, if necessary.
+}
+METHOD Set1 void set1Value(int index, unsigned short newValue) {
+Sets the \aindex\.'th value in the array to \anewValue\..  The array will be
+automatically expanded, if necessary.
+}
+METHOD " " unsigned short operator =(unsigned short newValue) {}
+METHOD Set void setValue(unsigned short newValue) {
+Sets the first value in the array to \anewValue\., and deletes the second
+and subsequent values.
+}
+METHOD IsEq int operator ==(const SoMFUShort &f) const {}
+METHOD IsNEq int operator !=(const SoMFUShort &f) const {
+Returns TRUE if all of the values of this field equal (do not
+equal) those of the given field.  If the fields are different types FALSE will
+always be returned (even if one field is an \cSoMFFloat\. with one
+value of 1.0 and the other is an \cSoMFInt\. with a value of 1, for
+example).
+}
+METHOD StartEdit unsigned short *startEditing() {}
+METHOD FinishEdit void finishEditing() {
+\mstartEditing()\. returns a pointer to the internally-maintained array that 
+can be modified.  The values in the array may be changed, but values cannot
+be added or removed.  It is illegal to call any other editing methods between 
+\+\mstartEditing()\. and \mfinishEditing()\. (e.g. \mset1Value()\., 
+\msetValue()\., etc).\.\-\mStartEdit()\. and \mFinishEdit()\. (e.g. 
+\mSet1()\., \mSet()\., etc).\.
+\p
+Fields, engines or sensors connected to this field and sensors are not
+notified that this field has changed until 
+\+\mfinishEditing()\.\.\-\mFinishEdit()\.\. is called.  Calling
+\+\mfinishEditing()\.\.\-\mFinishEdit()\.\. always sets the
+\+\misDefault()\.\.\-\mIsDflt\.\. flag to FALSE and informs
+engines and sensors that the field changed, even if none of the values
+actually were changed.
+}

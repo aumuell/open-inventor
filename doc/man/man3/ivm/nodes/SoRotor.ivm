@@ -1,0 +1,47 @@
+NAME SoRotor SoRotor "" { animated rotation node }
+
+INCLUDE nodes/SoRotor.h
+
+DESC {
+The \cSoRotor\. class is derived from \cSoRotation\., so it applies a
+rotation to the current transformation.  Using engines connected to
+the \vrealTime\. global field, the rotation value is animated over
+time, achieving a spinning effect. The period of the rotation can be
+adjusted by changing the \vspeed\. field.
+\p
+The current rotation at any time is available in the \vrotation\.
+field, inherited from \cSoRotation\.. This field can also be set to
+specify the axis of rotation. Note that unless a non-zero rotation is
+specified for the rotation, the node will not know which axis to use.
+For example, to set a rotor to spin about the y-axis, use the
+following:
+\b\k
+\+rotor->rotation.setValue(axis, 0.1);\.\-SoSRotSetAxisAngle(&(rotor->rotation), &axis, 0.1);\.
+\.\.
+where \aaxis\. is a vector containing (0,1,0). Any non-zero angle can
+be used in this code.
+}
+
+FIELD speed { Defines the speed of the rotor, in revolutions per second. }
+
+FIELD on { Allows applications to enable or disable the motion easily. }
+
+METHOD "" SoRotor() {
+Creates a rotor node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoRayPickAction {
+Concatenates current rotation value with the current
+transformation matrix.
+}
+
+ACTION SoGetMatrixAction {
+Returns transformation matrix specified by the rotation.
+}
+
+ALSO { SoPendulum, SoShuttle }

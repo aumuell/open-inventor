@@ -1,0 +1,10 @@
+#define OneProgram
+
+PROGRAM = menu
+
+C++FILES = menu.c++
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../..
+OTHERSOURCE = README
+#endif

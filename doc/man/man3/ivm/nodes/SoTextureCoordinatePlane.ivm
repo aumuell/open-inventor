@@ -1,0 +1,48 @@
+NAME SoTextureCoordinatePlane SoTexPln "" {
+node that specifies texture coordinates by projection from a plane
+}
+
+INCLUDE nodes/SoTextureCoordinatePlane.h
+
+DESC {
+This node creates texture coordinates for points on an object's
+surface by projecting them onto a plane.
+The \vdirectionS\. and \vdirectionT\. fields define the plane.
+The S coordinate is computed as the distance from the object-space
+origin along the vector specified in the \vdirectionS\. field. 
+The T coordinate is computed similarly,
+using the \vdirectionT\. field.
+\p
+The length of the direction vector is also taken into account.
+For example, assume \vdirectionS\. is (0.5, 0, 0) and \vdirectionT\. is
+(0, 1, 0).  The square defined by the (x, y, z) vertices:
+\b
+(-1, -1, 0) (1, -1, 0) (1, 1, 0) (-1, 1, 0) 
+\.
+will be assigned the (s, t) texture coordinates:
+\b
+(-2, -1) (2, -1) (2, 1) (-2, 1)
+\.
+}
+
+FIELD directionS {}
+FIELD directionT { Directions of projection for S and T coordinates. }
+
+METHOD "" SoTextureCoordinatePlane() {
+Creates a texture function node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction, SoRayPickAction {
+Sets the current texture function in the state.
+}
+
+ALSO {
+SoTexture2,
+SoTexture2Transform,
+SoTextureCoordinateDefault,
+SoTextureCoordinateEnvironment
+}

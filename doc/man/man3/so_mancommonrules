@@ -1,0 +1,77 @@
+#
+# Copyright (C) 19931  Silicon Graphics, Inc.
+#
+#_______________________________________________________________________
+#______________  S I L I C O N   G R A P H I C S   I N C .  ____________
+#
+#   toolkits/Inventor/man/man3/so_mancommonrules
+#   $Revision: 1.1 $
+#
+#   Description:
+#      Inventor man page common rules - primary deals with generating a 
+#   C or C++ man page from the ascii .ivm files.
+#    
+# 
+#   Author(s):  Dave Immel, Paul S. Strauss
+#
+#______________  S I L I C O N   G R A P H I C S   I N C .  ____________
+#_______________________________________________________________________
+#
+#
+#
+
+TOOLDIR=$(WORKAREA)/toolkits/Inventor/doc/man/ivman
+TREEFILE=$(TOOLDIR)/classTree
+
+.SUFFIXES: .3iv .z .ps .ivm _c.3iv _c.z _c.ps _c.s _c
+
+LISTLEGAL = find . -name '*.ivm' -print | sed -e 's/^..//' -e '/\//d'
+LISTDIRT  = find . \( -name '*.3iv' -o -name '*.z' -o -name '*.ps' \) -print
+
+#
+# The default rule makes all of the .z files in a directory
+#
+default: _force
+	@$(LISTLEGAL) \
+            | sed -e 's/\.ivm$$/.z/' | xargs -l4 smake
+	@$(LISTLEGAL) \
+            | sed -e 's/\.ivm$$/_c.z/' | xargs -l4 smake
+
+# remove all .3iv, .z, .ps filenames
+clean:
+	(cd ../../c;   $(LISTDIRT) | xargs rm -f)
+	(cd ../../c++; $(LISTDIRT) | xargs rm -f)
+	rm -f $(LDIRT)
+
+clobber: clean
+_force:
+
+# the files are actually installed in ivm/Makefile
+# so simply build the C++ and C man pages
+install: default
+
+.ivm.3iv:
+	(cd ../../c++; make "SOURCES=`$(TOOLDIR)/makeManDirs $*`" $*.3iv)
+
+.ivm.z:
+	(cd ../../c++; make "SOURCES=`$(TOOLDIR)/makeManDirs $*`" $*.z)
+
+.ivm.ps:
+	(cd ../../c++; make "SOURCES=`$(TOOLDIR)/makeManDirs $*`" $*.ps)
+
+.ivm:
+	@echo ".ivm rule"
+	(cd ../../c++; make "SOURCES=`$(TOOLDIR)/makeManDirs $*`" $*)
+
+.ivm_c.3iv:
+	(cd ../../c; make "SOURCES=`$(TOOLDIR)/makeManDirs $*`" $*.3iv)
+
+.ivm_c.z:
+	(cd ../../c; make "SOURCES=`$(TOOLDIR)/makeManDirs $*`" $*.z)
+
+.ivm_c.ps:
+	(cd ../../c; make "SOURCES=`$(TOOLDIR)/makeManDirs $*`" $*.ps)
+
+.ivm_c:
+	@echo "_c rule"
+	(cd ../../c; make "SOURCES=`$(TOOLDIR)/makeManDirs $*`" $*)

@@ -1,0 +1,26 @@
+README for SGI's Desktop issues:
+-------------------------------
+
+The ftr and fti files used by the SGI Desktop are in:
+
+    usr/src/cmd/envm/filetype/system/sgiinventor.ftr
+    usr/src/cmd/envm/filetype/system/iconlib/sgiinventor.fti
+
+The fti file contains the icons, (drawn by Delle Maxwell using iconsmith).
+
+
+The official tags that have been assigned to Inventor for executables are:
+
+	0x00010510 thru 0x0001051F.
+
+So far, only tag 0x00010510 has been used to tag generic Inventor executables.
+All generic executables (e.g., SceneViewer, demos, examples, etc) should
+have this line in their makefile after the target is built:
+
+	tag 0x00010510 ${TARGETS}
+
+
+
+
+
+-- Howard, 4/23/92

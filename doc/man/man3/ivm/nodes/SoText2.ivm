@@ -1,0 +1,78 @@
+NAME SoText2 SoTxt2 SO_TXT2_ { screen-aligned 2D text shape node }
+
+INCLUDE nodes/SoText2.h
+
+DESC {
+This node defines one or more strings of 2D text. The text is always
+aligned horizontally with the screen and does not change size with
+distance in a perspective projection. The text origin is at (0,0,0)
+after applying the current transformation. Rotations and scales have
+no effect on the orientation or size of 2D text, just the location.
+\p
+\cSoText2\. uses the current font to determine the typeface and size.
+The text is always drawn with the diffuse color of the current
+material; it is not lit, regardless of the lighting model.
+Furthermore, 2D text can not be textured, and it ignores the current
+drawing style and complexity.
+\p
+Because 2D text is screen-aligned, it has some unusual
+characteristics.  For example, the 3D bounding box surrounding a 2D
+text string depends on the current camera and the current viewport
+size, since changing the field of view or the mapping onto the window
+changes the relative size of the text with respect to the rest of the
+scene. This has implications for caching as well, since a render cache
+in an \cSoSeparator\. that contains an \cSoText2\. node depends on the
+current camera.
+}
+
+ENUM Justification {
+    LEFT	"Left edges of all strings are aligned",
+    RIGHT	"Right edges of all strings are aligned",
+    CENTER	"Centers of all strings are aligned"
+}
+
+FIELD string {
+The text string(s) to display. Each string will appear on its own line.
+The string(s) can be ascii or UTF-8.
+}
+
+FIELD spacing {
+Defines the distance (in the negative y direction) between the base
+points of successive strings, measured with respect to the current
+font height. A value of 1 indicates single spacing, a value of 2
+indicates double spacing, and so on.
+}
+
+FIELD justification {
+Indicates placement and alignment of strings. With \kLEFT\.
+justification, the left edge of the first line is at the (transformed)
+origin, and all left edges are aligned. \kRIGHT\. justification is
+similar. \kCENTER\. justification places the center of the first
+string at the (transformed) origin, with the centers of all remaining
+strings aligned under it.
+}
+
+METHOD "" SoText2() {
+Creates a 2D text node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Draws text based on the current font, at a location based on the current
+transformation.
+}
+
+ACTION SoRayPickAction {
+Performs a pick on the text. Text will be picked if the picking ray
+intersects the bounding box of the strings. The string index and
+character position are available from the \cSoTextDetail\..
+}
+
+ACTION SoGetBoundingBoxAction {
+Computes the bounding box that encloses the text.
+}
+
+ALSO { SoFont, SoText3, SoTextDetail }

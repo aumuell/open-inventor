@@ -1,0 +1,46 @@
+This directory contains source code for the 'ivNodeKitStructure' utility, used
+to produce an ascii diagram and a table of information about all parts 
+(both public and private) in the catalog of a nodekit class.
+
+Note that this program will work on non-standard Inventor classes, provided that
+the DSO (dynamic shared object) is accessible. Hence, this is a good utility
+for checking the structures of nodekits you develop yourself.
+
+SYNTAX
+------
+ivNodeKitStructure [-h] className
+
+    -h : Print help message.
+
+"className" is the name of any node class derived from SoBaseKit. 
+            This includes all dragger classes as well.
+
+
+DIAGRAMS
+--------
+The 'diagram' is really just a list of all possible parts in the kit, printed in
+the same order as they would be traversed in a scene graph.
+When a part name is indented, this means that it is the child of the previous
+part.
+When a part name is not indented, this means it is the right sibling of the
+previous part.
+Parts preceded by an arrow '-->' are new in this class. All other parts 
+are inherited from the base class.
+
+TABLES
+------
+The 'table' lists the parts of the nodekit in the same order as the diagram,
+but with no indentations.  It contains the following information:
+
+1st column -- PVT means that this is a private part. 
+              If the first column if empty, the part is public.
+2nd column -- The part name.
+3rd column -- The partType. This is the type of node you may install using 
+	      setPart(), etc.
+4th column -- If the part is a list part, the types of nodes that the list
+	      will accept as children.
+	      If the part is not a list part, then "---" is printed.
+5th column -- If the  partType is an abstract node type, the default type will
+	      be printed here, as in:
+	      "(default type = SoCube)"
+           

@@ -1,0 +1,18 @@
+#define OneProgram
+
+PROGRAM = ivperf
+
+#define LocalLibs ../../nodes/BarChart/BarChart.o
+#define OtherLibs -lGL
+
+LC++INCS = -I../../nodes/BarChart
+
+C++FILES = ivperf.c++ 
+
+/* End of generic stuff, start of tricky stuff: */
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../..
+OTHERSOURCE = README 
+#endif
+

@@ -1,0 +1,46 @@
+NAME SoSpotLight SoSpotLt "" {
+node representing a spotlight source
+}
+
+INCLUDE nodes/SoSpotLight.h
+
+DESC {
+This node defines a spotlight style light source.
+A spotlight is placed at a
+fixed location in 3-space and illuminates in a cone along a particular
+direction. The intensity of the illumination drops off exponentially
+as a ray of light diverges from this direction toward the edges of the
+cone. The rate of drop-off and the angle of the cone are controlled by
+the \vdropOffRate\. and \vcutOffAngle\. fields.
+}
+
+FIELD location  { Location of the source. }
+
+FIELD direction { Principal direction of illumination (center axis of cone). }
+
+FIELD dropOffRate {
+Rate of intensity drop-off per change in angle from primary direction:
+0 = constant intensity, 1 = very sharp drop-off
+}
+
+FIELD cutOffAngle {
+Angle (in radians) outside of which intensity is zero, measured from
+the center axis of the cone to an edge.
+}
+
+METHOD "" SoSpotLight() {
+Creates a spotlight source node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Activates this light (if so specified) during traversal. All shape
+nodes that come after this light in the scene graph are illuminated by
+this light. The light's location is affected by the current
+transformation.
+}
+
+ALSO { SoDirectionalLight, SoPointLight }

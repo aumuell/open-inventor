@@ -1,0 +1,26 @@
+NAME SoComposeRotationFromTo SoCmpsRotFromTo "" { 
+composes a rotation that rotates from one vector into another 
+}
+
+DESC { 
+This engine takes two inputs, representing a vector before
+and after a rotation has been applied.
+As output, it produces the rotation value that would cause the first
+vector to transform into the other.
+\p
+The input fields can have multiple values, allowing the engine to 
+compose several rotations in parallel.
+Some inputs may have more values than others.  In such cases,
+the last value of the shorter inputs will be repeated as necessary.
+}
+
+INCLUDE engines/SoCompose.h
+
+INPUT from { Vector before the rotation. }
+INPUT to { Vector after the rotation. }
+
+OUTPUT rotation { A rotation that transforms one vector into another. }
+
+METHOD Create SoComposeRotationFromTo() { Constructor }
+
+ALSO { SoComposeRotation, SoDecomposeRotationFromTo, SoEngineOutput }

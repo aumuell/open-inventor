@@ -1,0 +1,11 @@
+#define OneProgram
+
+PROGRAM = ivNodeKitStructure
+
+C++FILES = ivNodeKitStructure.c++
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../..
+
+OTHERSOURCE = README
+#endif

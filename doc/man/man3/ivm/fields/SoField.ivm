@@ -1,0 +1,250 @@
+NAME SoField "" "" { base class for all fields }
+
+INCLUDE fields/SoField.h
+
+DESC {
+\cSoField\. is the abstract base class for all fields. Fields
+are the data elements contained within nodes and are the input values
+for engines.
+Each node or engine class specifies a set of fields and associates a
+name with each.
+These names define the semantics of the field (e.g., the \cSoCube\.
+node contains three float fields named width, height, and depth).
+Field classes provide the access methods that indirectly allow editing
+and querying of data within nodes.
+\p
+There are two abstract subclasses of \cSoField\.: \cSoSField\.
+is the base class for all single-valued field classes and
+\cSoMField\. is the base class for all multiple-valued fields, which
+contain dynamic arrays of values. Subclasses of \cSoSField\. have an
+\cSoSF\. prefix, and subclasses of \cSoMField\. have an \cSoMF\.
+prefix.  See the reference pages for \cSoSField\. and \cSoMField\. for
+additional methods.
+\p
+Fields are typically constructed only within node or engine
+instances; if you need a field that is not part of a node or engine,
+you can create a \cGlobalField\.; see the methods on \cSoDB\. for
+creating global fields.
+\p
+Fields can be connected either directly to another field, or can be
+connected to the output of an engine.  The value of a field with a
+connection will change when the thing it is connected to changes.  For
+example, consider a field "A" that is connected from "B" (by
+\m\+A->connectFrom(B)\.\-SoFieldConnectFrom((SoField *)A, (SoField *)B)\.\.).
+When B's value is changed, A's value will also
+change.  Note that A and B may have different values, even if they are
+connected: if A's value is set after B's value, A's value will be
+different from B's until B's value is set.
+\p
+A field can be connected to several other fields, but can be connected
+from only one source.
+\p
+It is possible (and often useful) to create loops of field
+connections (for example, A connected from B and B connected from A).
+If there are loops, then the rule is that the last 
+\m\+setValue()\.\-SetValue()\.\. done
+overrides any connections in to that value.  You can think of setting
+the value of a field as immediately propagating that value forward
+into all the fields it is connected to, with the propagation stopping
+at the place where the original \msetValue()\. occurred if there is a
+connection loop.  (Actually, a more efficient mechanism than this is
+used, but the semantics are the same.)
+\p
+If you try to connect two fields of differing types, Inventor will
+automatically try to insert a field converter engine between them to
+convert values from one type into the other.  Inventor has most
+reasonable conversions built-in (multiple-valued field to single-valued 
+and vice versa, anything to \mSoSFString\., anything to
+\mSoSFTrigger\., float/short/unsigned short/int32_t/uint32_t/etc
+numeric conversions, etc). \+You can add field converters using \cSoDB\.'s
+extender method \maddConverter()\.; see the SoDB.h header file for
+details.  You can also find out if a converter is available with the
+\mSoDB::getConverter()\. method.\.
+\p
+Fields each define their own file format for reading and being written
+to files, but all fields follow the same conventions:
+\p
+Fields in a node or engine are written as the name of the field
+followed by the field's value; fields are not written if they have not
+been modified since they were created (if they have their default
+value).
+\p
+The ignored flag is written as a "~" character after the field's
+value (if the field's value is its default value, just the "~" is
+written).
+\p
+Field connections are written as an "=" followed by the container of
+the field or engine output that the field is connected to, followed by
+a "." and the name of the field or engine output.  For example:
+\b
+DEF node1 Transform \{ translation 1 1 1 \}
+DEF node2 Scale \{ scaleFactor 1 1 1 = USE node1.translation \}
+\.
+\p
+Global fields are written as part of an internal \cSoFieldContainer\.
+class called \cGlobalField\., which writes out an \vSoSFName\. field named
+\vtype\. whose value is the type of the global field, followed by
+a field of that type whose name is the name of the global field.  For
+example, a global uint32_t field called "FrameCounter" whose
+value is 494 would be written as:
+\b
+GlobalField \{
+	type SoSFUInt32
+	FrameCounter 494
+\}
+\.
+}
+
+METHOD "" void setIgnored(SbBool ignore) {}
+METHOD "" SbBool isIgnored() const {
+Sets/gets the ignore flag for this field. When a field's ignore flag
+is set to TRUE, the field is not used during traversal for rendering
+and other actions. The default value for this flag is FALSE.
+}
+METHOD isDflt SbBool isDefault() const {
+Gets the state of default flag of the field. This flag will be TRUE
+for any field whose value is not modified after construction and will
+be FALSE for those that have changed (each node or engine determines
+what the default values for its fields are).  Note: the state of this
+flag should not be set explicitly from within applications.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Return the type identifier for this field class.
+}
+METHOD "" virtual SoType getTypeId() const {
+Return the type identifier for this field instance (SoField *).
+}
+METHOD "" virtual SbBool isOfType(SoType type) const {
+Returns TRUE if this field is the given type or derived from that
+type. This is typically used
+with the getClassTypeId() method to determine the type of an SoField *
+at run-time:
+\b\+
+SoField *field = ....;
+if (field->isOfType(SoSFFloat::getClassTypeId())) \{
+    SoSFFloat *floatField = (SoSFFloat *)field);
+    floatField->setValue(4.5);
+\}
+\.\-SoField *field = ...;
+if (SoFieldIsOfType(field, SoSFFloatGetClassTypeId())) \{
+    SoSFFloat *floatField = (SoSFFloat *)field);
+    SoSFFloatSetValue(floatField, 4.5);
+\} \.\.
+}
+METHOD setFromStr SbBool set(const char *valueString) {
+Sets the field to the given value, which is an ASCII string in the
+Inventor file format.  Each field subclass defines its own file
+format; see their reference pages for information on their file format.
+The string should contain only the field's value, \enot\. the field's
+name (e.g., "1.0", \enot\. "width 1.0"). This method 
+returns TRUE if the string is valid, FALSE if it is not.
+}
+METHOD getIntoStr void get(SbString &valueString) {
+Returns the value of the field in the Inventor file format, even if
+the field has its default value.
+}
+METHOD IsEq int operator ==(const SoField &f) const {}
+METHOD IsNEq int operator !=(const SoField &f) const {
+Return TRUE (FALSE) if this field is of the same type and has the same
+value as \af\..
+}
+METHOD "" void touch() {
+Simulates a change to the field, causing attached sensors to fire,
+connected fields and engines to be marked as needing evaluation, and so
+forth. Calling \mtouch()\. on an instance of a derived field class is
+equivalent to calling \msetValue(getValue())\. using the derived class's
+methods, except that the field's \misDefault()\. status remains
+unchanged.
+}
+METHOD connFromField SbBool connectFrom(SoField *fromField) {}
+METHOD connFrom SbBool connectFrom(SoEngineOutput *fromEngine) {
+Connects this field to another field or from an engine output.
+If the field was connected to
+something before, it will be automatically disconnected (a field may
+have only one connection writing into it at a time).  Unless
+connections to the field are disabled (see
+\m\+enableConnection()\.\-EnableConn()\.\.), the field's value will be
+set to the value of the thing it is connected to.
+}
+METHOD disconn void disconnect() {
+Disconnect the field from whatever it was connected to.  This does
+nothing if the field was not connected.
+}
+METHOD isConn SbBool isConnected() const {
+Returns TRUE if the field is connected to anything.
+}
+METHOD isConnFromField SbBool isConnectedFromField() const {
+Returns TRUE if the field is connected to another field.
+}
+METHOD getConnField
+  SbBool getConnectedField(SoField *&writingField) const {
+Returns TRUE if this field is being written into by another field, and
+returns the field it is connected to in \awritingField\..  Returns
+FALSE and does not modify \awritingField\. if it is not connected to a
+field.
+}
+METHOD isConnFromEngine SbBool isConnectedFromEngine() const {
+Returns TRUE if the field is connected to an engine's output.
+}
+METHOD getConnEngine
+  SbBool getConnectedEngine(SoEngineOutput *&engineOutput) const {
+Returns TRUE if this field is being written into by an engine, and
+returns the engine output it is connected to in \aengineOutput\..  Returns
+FALSE and does not modify \aengineOutput\. if it is not connected to an
+engine.
+}
+METHOD enableConn void enableConnection(SbBool flag) {
+Field connections may be enabled and disabled.  Disabling a field's
+connection is almost exactly like disconnecting it; the only
+difference is that you can later re-enable the connection by calling
+enableConnection(TRUE).  Note that disconnecting an engine output can
+cause the engine's reference count to be decremented and the engine to
+be deleted, but disabling the connection does not decrement its
+reference count.
+\p
+Re-enabling a connection will cause the value of the field to be
+changed to the engine output or field to which it is connected.
+\p
+A field's connection-enabled status is maintained even if the field is
+disconnected or reconnected.  By default, connections are enabled.
+}
+METHOD isConnEnabled SbBool isConnectionEnabled() const {
+Returns FALSE if connections to this field are disabled.  Note that this
+may return FALSE even if the field is not connected to anything.
+}
+METHOD getForwardConn int getForwardConnections(SoFieldList &list) const {
+Adds pointers to all of the fields that this field is writing into
+(either fields in nodes, global fields or engine inputs) to the given
+field list, and returns the number of forward connections.
+}
+METHOD "" SoFieldContainer *getContainer() const {
+Returns the object that contains this field.  The type of the
+object will be either \cSoNode\., \cSoEngine\., or will be a 
+global field container (note that the global field container 
+class is internal to Inventor; see the methods for creating and accessing
+global fields on \cSoDB\.).  For example:
+\b\+
+SoFieldContainer *f = field->getContainer();
+if (f->isOfType(SoNode::getClassTypeId())) \{
+     ... do something ...
+\} else if (f->isOfType(SoEngine::getClassTypeId())) \{
+     ... do someting else ...
+\} else \{
+     ... it must be a global field.  We can figure out its name, but
+	that is about it:
+     const SbName &globalFieldName = f->getName();
+\}
+\.\-
+SoFieldContainer *f = SoFieldGetContainer(field);
+if (SoFieldContIsOfType(f, SoNodeGetClassTypeId())) \{
+     ... do something ...
+\} else if (SoFieldContIsOfType(f, SoEngineGetClassTypeId())) \{
+     ... do someting else ...
+\} else \{
+     ... it must be a global field.  We can figure out its name, but
+	that is about it:
+     const char *globalFieldName = SoFieldContGetName(f);
+\}\.\.
+}
+ALSO { SoSField, SoMField, SoNode, SoDB }

@@ -1,0 +1,84 @@
+# Every time we clone a new tree, i.e. every time you need to change 
+# the RELEASE macro, you will need to consider each of the macro's in this
+# group. RELEASE_NUM must be < 214 and preserves the monotonicity of the 
+# inst version numbers. See man page for mkversionnum for more details.
+# RELEASE_NAME is the human readable product name string for hardware
+# specific releases.  it must be empty (no spaces or anything) for the
+# base release.  It should match reasonably well the label printed on the CD
+RELEASE=2.2
+RELEASE_MAJOR=2
+RELEASE_MINOR=2
+RELEASE_MAINT=0
+RELEASE_NUM=1
+RELEASE_NAME=2.2
+
+#
+# Default STYLE for binaries - this sets what the base level (i.e. no
+# explicit makefile flags) binaries will be made up of. This defines
+# both the ABI and ISA defaults.
+#
+# Note that 'make'-files (as opposed to 'smake'-files) will use
+#	DEF_CSTYLE and DEF_GLDOPTS - and OBJECT_STYLE will be set to
+#	DEF_OBJECT_STYLE - thus ALL 3 must agree for both make/smake-files
+#	to produce the same results.
+# The 'DEF_GLDOPTS/DEF_CSTYLE' is for makefiles that have no specific
+#	ABI/ISA requirements
+#
+# If DEF_CSTYLE should change then LIB_LOCATION and ROOTRLDNAME should also
+# reflect the change to the DEF_CSTYLE.
+#
+DEF_CSTYLE=$(CSTYLE_IA32)
+DEF_GLDOPTS=$(GLDOPTS_IA32)
+
+#
+# LIB_LOCATION is for Makefile's who have hardcoded pathnames
+# to a lib.  For example, 
+#       LLDLIBS=$(ROOT)/usr/lib/libw.a
+#       should be changed to ...
+#       LLDLIBS=$(ROOT)/usr/$(LIB_LOCATION)/libw.a
+#
+# This way when the default object style changes we only
+# need to change it here.
+#
+LIB_LOCATION=lib
+
+#
+# Set ROOTRLDNAME for the correct default object style.
+#
+ROOTRLDNAME=$(ROOTRLDNAME_IA32) 
+
+#
+# Define default OBJECT_STYLE - this can be changed to 'N32' to
+#	change ALL makefiles that don't explicitly set OBJECT_STYLE
+# The '32_' and '64_' defines can be used in makefiles that need to
+# compile both 32 and 64 bit versions but just want 1 of each and to
+# pick up the current favorite.
+# setting OBJECT_STYLE=$(DEF_32_OBJECT_STYLE) in a versiondefs file
+# would permit it to be easily changed to compile N32.
+#
+DEF_OBJECT_STYLE=IA32
+
+#
+# default ISA's for 32, N32, and 64 bit programs
+# If a makefile specifies OBJECT_STYLE={32, N32, 64} this is what they'll get
+#
+DEF_CSTYLE_IA32	= $(CSTYLE_IA32)
+
+#
+# For this release - which styles should be built? Built from the list in
+# commondefs
+#
+STYLES_TO_BUILD=IA32
+
+#
+# Turn on generation of api information for libraries built using the
+# libcommondefs/libcommonrules conventions.  To override this setting
+# for a given library, add "NO_CHECK_API=1" to the appropriate
+# versiondefs files
+#
+# (temporarily undefining CHECK_API pending 7.2+ linker fixes)
+# CHECK_API=1
+
+# this only needs to be changed when doing a hardware specific OS release.
+# See man page for mkversionnum for more details.
+TREE_ID=0

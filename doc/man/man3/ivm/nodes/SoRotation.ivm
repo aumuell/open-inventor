@@ -1,0 +1,33 @@
+NAME SoRotation SoRot "" {
+node representing a 3D rotation about an arbitrary axis
+}
+
+INCLUDE nodes/SoRotation.h
+
+DESC {
+This node defines a 3D rotation about an arbitrary axis through the
+origin. The rotation is accumulated into the current transformation,
+which is applied to subsequent shapes.  The \vrotation\. field
+provides a variety of methods for specifying the rotation.
+}
+
+FIELD rotation { Rotation specification. }
+
+METHOD "" SoRotation() {
+Creates a rotation node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoRayPickAction {
+Accumulates rotation transformation into the current transformation.
+}
+
+ACTION SoGetMatrixAction {
+Returns the matrix corresponding to the rotation.
+}
+
+ALSO { SoRotationXYZ, SoTransform }

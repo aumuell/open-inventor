@@ -1,0 +1,23 @@
+#Inventor V2.0 ascii
+
+DEF tabPlaneTranslator Separator {
+    renderCaching ON
+    DrawStyle { style LINES }
+    NormalBinding { value OVERALL }
+    MaterialBinding {value OVERALL }
+    Normal { vector [ 0 0 1 ] }
+    Coordinate3 { point [ 1 -1 0, 1 1 0, -1 1 0, -1 -1 0 ] }
+    FaceSet {}
+}
+
+DEF tabPlaneScaleTabMaterial Material {
+    diffuseColor  0 .5 0 
+    emissiveColor 0 .5 0 
+}
+
+DEF tabPlaneScaleTabHints ShapeHints {
+    vertexOrdering COUNTERCLOCKWISE
+    shapeType SOLID
+    faceType CONVEX
+}
+ 

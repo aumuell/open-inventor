@@ -1,0 +1,57 @@
+NAME SoLocateHighlight SoLocHigh SO_LOC_ {
+special separator that performs locate highlighting
+}
+
+INCLUDE nodes/SoLocateHighlight.h
+
+DESC {
+This is a subclass of \cSoSeparator\. that redraws itself in a different color
+when the cursor is over the contents of the separator. 
+\p
+The redraw happens for that separator only and not the entire window (redraw along 
+the handle event pick path) and in the front buffer, to efficiently
+track the mouse motion. The highlighted redraw overrides the emissive and/or diffuse
+color of the subgraph based on the field values in this node.
+\p
+NOTE: when using \kSoLightModel::BASE_COLOR\. (to turn lighting off) only the diffuse color
+will be used to render objects, so \kEMISSIVE_DIFFUSE\. must be used for
+this node to have any effect.
+}
+
+ENUM Modes {
+    AUTO "highlight when mouse is over (default)",
+    ON   "always highlight",
+    OFF	 "never highlight"
+}
+
+ENUM Styles {
+    EMISSIVE		"changes emissive color only (default)",
+    EMISSIVE_DIFFUSE	"changes emissive and diffuse colors"
+}
+
+FIELD color     { highlighting color - default [.3, .3, .3] }
+FIELD style	{ highlighting draw style - default EMISSIVE }
+FIELD mode      { Whether to highlight or not - default AUTO }
+
+
+METHOD "" SoLocateHighlight() {
+Creates a LocateHighlight node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoHandleEventAction {
+Checks to see if the cursor moves onto or off of the contents of the separator,
+and redraws appropriately (if \vmode\. is \kAUTO\.), otherwise traverses 
+as a normal separator.
+}
+
+ACTION SoGLRenderAction {
+Redraws either highlighted (if cursor is over the contents of the separator
+when \vmode\. == \kAUTO\. or always if \vmode\. == \kON\.), otherwise traverses 
+as a normal separator.
+}
+
+ALSO { SoSeparator, SoSelection, SoMaterial }

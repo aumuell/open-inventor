@@ -1,0 +1,102 @@
+NAME SbXfBox3f "" "" { 3D box with an associated transformation matrix }
+INCLUDE SbBox.h
+DESC {
+A 3D box with an arbitrary transformation applied.  This class is useful when
+a box will be transformed frequently; if an \cSbBox3f\. is used for this
+purpose it will expand each time it is transformed in order to keep itself
+axis-aligned.  Transformations can be accumulated on an \cSbXfBox3f\.
+without expanding the box, and after all transformations have been done, the
+box can be expanded to an axis-aligned box if necessary.
+}
+METHOD "" SbXfBox3f() {}
+METHOD CreateMinMax SbXfBox3f(const SbVec3f &_min, const SbVec3f &_max) {}
+METHOD CreateBox3f SbXfBox3f(const SbBox3f &box) {}
+METHOD "" ~SbXfBox3f() {
+Constructors and destructor.
+}
+METHOD setXf void                setTransform(const SbMatrix &m) {
+Sets the transformation on the box.
+}
+METHOD "" const SbMatrix &    getTransform() const {}
+METHOD "" const SbMatrix &    getInverse() const {
+Gets the transformation on the box, and its inverse.
+}
+METHOD "" SbVec3f             getCenter() const {
+Returns the center of the box.
+}
+METHOD extendByPt void                extendBy(const SbVec3f &pt) {
+Extends the box (if necessary) to contain the given 3D point.  If the
+box has had a non-identity transformation applied using the
+setTransform() method, the point is assumed to be in the transformed
+space.  For example, the following code sequence:
+\b\k
+SbXfBox3f bbox; bbox.extendBy(SbVec3f(0,0,0));
+SbMatrix trans; trans.setTranslate(SbVec3f(1,1,1));
+bbox.setTransform(trans);
+bbox.extendBy(SbVec3f(0,0,0));
+\.\.
+will result in a bounding box extending from (-1,-1,-1) to
+(0,0,0) in bbox'es local (untransformed) space.
+}
+METHOD extendByBox void                extendBy(const SbBox3f &bb) {
+Extends the box (if necessary) to contain the given \cSbBox3f\..  If
+the box has had a non-identity transformation applied using the
+setTransform() method, the given \cSbBox3f\. is assumed to be in the
+transformed space.
+}
+METHOD extendByXfBox void                extendBy(const SbXfBox3f &bb) {
+Extends the box (if necessary) to contain the given \cSbXfBox3f\..
+}
+METHOD intersectPt SbBool              intersect(const SbVec3f &pt) const {
+Returns TRUE if intersection of given point and this box is not empty.
+}
+METHOD intersectBox SbBool              intersect(const SbBox3f &bb) const {
+Returns TRUE if intersection of given box and this box is not empty.
+}
+METHOD "" void        setBounds(float xmin, float ymin, float zmin,
+                          float xmax, float ymax, float zmax) {}
+METHOD setBoundsMinMax void        setBounds(const SbVec3f &_min,
+                                             const SbVec3f &_max) {}
+METHOD "" void        getBounds(float &xmin, float &ymin, float &zmin,
+                          float &xmax, float &ymax, float &zmax) const {}
+METHOD getBoundsMinMax void     getBounds(SbVec3f &_min, SbVec3f &_max) const {
+Set and get the bounds of the box.
+}
+METHOD "" void        getOrigin(float &originX,
+                          float &originY,
+                          float &originZ) {
+Returns origin (minimum point) of the box.
+}
+METHOD "" void        getSize(float &sizeX, float &sizeY, float &sizeZ) {
+Returns size of the box.
+}
+METHOD getVol float       getVolume() const {
+Gives the volume of the box (0 for an empty box).
+}
+METHOD "" void                makeEmpty() {
+Sets the box to contain nothing.
+}
+METHOD "" SbBool              isEmpty() const {
+Checks if the box is empty (degenerate).
+}
+METHOD hasVol SbBool       hasVolume() const {
+Checks if the box has volume; i.e., all three dimensions have
+positive size.
+}
+METHOD "" void                getSpan(const SbVec3f &direction,
+                                float &dMin, float &dMax) const {
+Finds the extent of the box along a particular direction.
+}
+METHOD xf void                transform(const SbMatrix &m) {
+Transforms the box by the given matrix.
+}
+METHOD "" SbBox3f             project() const {
+Projects an \cSbXfBox3f\. to an \cSbBox3f\.
+}
+METHOD "" int          operator ==(const SbXfBox3f &b1, const SbXfBox3f &b2) {}
+METHOD "" int          operator !=(const SbXfBox3f &b1, const SbXfBox3f &b2) {
+Equality comparisons.
+}
+ALSO { SbBox3f, SbBox2f, SbBox2s, SbVec3f, SbVec2f, SbVec2s,
+     SbMatrix, SoGetBoundingBoxAction }
+

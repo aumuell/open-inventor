@@ -1,0 +1,18 @@
+Open Inventor - Examples from the Inventor Toolmaker
+
+Chapter 6 - "Creating a Node Kit"
+
+
+This directory contains source code that illustrates how to create
+a new node kit object.  Node Kits are macro nodes that group
+a bunch of Inventor nodes into a fixed structure.
+
+***NOTE*****
+You must first compile the programs in the ../02.Nodes directory
+before compiling here. This program depends on the pyramid 
+class defined there. 
+***NOTE*****
+
+See The Inventor Mentor, chapter 14 for an introduction to node kits.
+
+*** This is for C++ programmers only! ***

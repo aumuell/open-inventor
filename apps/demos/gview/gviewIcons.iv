@@ -1,0 +1,291 @@
+#Inventor V2.0 ascii
+
+Separator {
+
+    # Define main group geometry
+    Switch {
+	DEF groupGeom+0 Separator {
+	    Material {
+		diffuseColor	0.3 0.3 0.9
+		specularColor	0.7 0.7 0.7
+		shininess	0.2
+	    }
+	    DEF nodeGeom+1 Separator {
+		Complexity {
+		    value	0.3
+		}
+		Sphere {
+		}
+	    }
+	}
+	DEF plainNode+2 Separator {
+	    Material {
+		diffuseColor	0.6 0.3 0.3
+		specularColor	0.5 0.5 0.5
+		shininess	0.2
+	    }
+	    USE nodeGeom+1
+	}
+	DEF arrow+3 Separator {
+	    Cylinder {
+		radius	0.1
+		height	1.5
+	    }
+	    Translation {
+		translation	0 1 0
+	    }
+	    Cone {
+		bottomRadius	0.3
+		height	0.5
+	    }
+	}
+	DEF standOutMaterial+4 Material {
+	    ambientColor	0 0 0
+	    diffuseColor	0 0 0
+	    emissiveColor	0.9 0 0
+	}
+    }
+    Separator {
+	Label {
+	    label	"Instance"
+	}
+	BaseColor {
+	    rgb	0.5 0.5 0.1
+	}
+	Separator {
+	    Cube {
+		width	0.6
+		height	1.2
+	    }
+	}
+	Separator {
+	    Translation {
+		translation	0 0.8 0
+	    }
+	    DEF instanceBar+5 Cube {
+		width	1.2
+		height	0.4
+	    }
+	}
+	Separator {
+	    Translation {
+		translation	0 -0.8 0
+	    }
+	    USE instanceBar+5
+	}
+    }
+    Separator {
+	Label {
+	    label	"Closed"
+	}
+	Scale {
+	    scaleFactor	0.75 0.75 0.75
+	}
+	USE groupGeom+0
+	Separator {
+	    Transform {
+		translation	0 -1.3 0
+		scaleFactor	1 0.5 1
+	    }
+	    BaseColor {
+		rgb	0.6 0.4 0.3
+	    }
+	    Cone {
+	    }
+	}
+    }
+    Separator {
+	Label {
+	    label	"Node"
+	}
+	USE plainNode+2
+    }
+    Separator {
+	Label {
+	    label	"Group"
+	}
+	USE groupGeom+0
+    }
+    Separator {
+	Label {
+	    label	"Separator"
+	}
+	USE groupGeom+0
+	Separator {
+	    Material {
+		ambientColor	0 0 0
+		diffuseColor	0 0 0
+	    }
+	    Cube {
+		height	0.3
+	    }
+	}
+    }
+    Separator {
+	Label {
+	    label	"Switch"
+	}
+	USE groupGeom+0
+	Separator {
+	    Transform {
+		translation	0 0 1
+		rotation	0 0 1  2.7
+		scaleFactor	0.7 0.7 0.7
+	    }
+	    USE standOutMaterial+4
+	    USE arrow+3
+	}
+    }
+    Separator {
+	Label {
+	    label	"Shape"
+	}
+	Separator {
+	    Material {
+		diffuseColor	0.3 0.7 0.3
+		specularColor	0.5 0.5 0.5
+		shininess	0.2
+	    }
+	    USE nodeGeom+1
+	}
+	Separator {
+	    USE standOutMaterial+4
+	    Translation {
+		translation	0 0 0.9
+	    }
+	    Cube {
+		width	0.8
+		height	0.8
+		depth	0.2
+	    }
+	}
+    }
+    Separator {
+	Label {
+	    label	"Transformation"
+	}
+	USE plainNode+2
+	Separator {
+	    USE standOutMaterial+4
+	    Separator {
+		Transform {
+		    translation	0.35 0.05 1
+		    rotation	0 0 1  2.356
+		}
+		DEF transformArrow+6 Separator {
+		    Scale {
+			scaleFactor	0.9 0.4 0.9
+		    }
+		    USE arrow+3
+		}
+	    }
+	    Separator {
+		Transform {
+		    translation	-0.35 -0.05 1
+		    rotation	0 0 -1  0.785
+		}
+		USE transformArrow+6
+	    }
+	}
+    }
+    Separator {
+	Label {
+	    label	"BaseColor"
+	}
+	Label {
+	    label	"DrawStyle"
+	}
+	Label {
+	    label	"Environment"
+	}
+	Label {
+	    label	"Font"
+	}
+	Label {
+	    label	"LightModel"
+	}
+	Label {
+	    label	"Material"
+	}
+	Label {
+	    label	"MaterialBinding"
+	}
+	Label {
+	    label	"PackedColor"
+	}
+	Label {
+	    label	"Texture2"
+	}
+	Label {
+	    label	"Texture2Transform"
+	}
+	Label {
+	    label	"TextureCoordinateBinding"
+	}
+	Label {
+	    label	"TextureCoordinateFunction"
+	}
+	USE plainNode+2
+	Separator {
+	    USE standOutMaterial+4
+	    Transform {
+		rotation	1 0 0  0.2
+	    }
+	    Cylinder {
+		radius	1.02
+		height	0.3
+	    }
+	}
+    }
+    Separator {
+	Label {
+	    label	"Complexity"
+	}
+	Label {
+	    label	"Coordinate3"
+	}
+	Label {
+	    label	"Coordinate4"
+	}
+	Label {
+	    label	"Normal"
+	}
+	Label {
+	    label	"NormalBinding"
+	}
+	Label {
+	    label	"Profile"
+	}
+	Label {
+	    label	"ProfileCoordinate2"
+	}
+	Label {
+	    label	"ProfileCoordinate3"
+	}
+	Label {
+	    label	"ShapeHints"
+	}
+	USE plainNode+2
+	Separator {
+	    USE standOutMaterial+4
+	    Coordinate3 {
+		point	[ -0.5 0.5 1,
+				  0 0.5 1,
+				  0.5 0.5 1,
+				  -0.5 0 1,
+				  0 0 1,
+				  0.5 0 1,
+				  -0.5 -0.5 1,
+				  0 -0.5 1,
+				  0.5 -0.5 1 ]
+	    }
+	    DrawStyle {
+		style	LINES
+	    }
+	    QuadMesh {
+		verticesPerColumn	3
+		verticesPerRow	3
+	    }
+	}
+    }
+}

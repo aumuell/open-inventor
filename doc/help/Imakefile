@@ -1,0 +1,13 @@
+#define DataMakefile
+
+#define IdbTag -idb "inventor_eoe.sw.help $(MACH_TAG)"
+
+#define DataFiles SoXtBaseEditor.help \
+	SoXtBaseViewer.help SoXtColorEditor.help \
+	SoXtDirectionalLightEditor.help SoXtExaminerViewer.help \
+	SoXtFlyViewer.help SoXtMaterialEditor.help \
+	SoXtPlaneViewer.help SoXtWalkViewer.help
+
+#define InstallDirectory /usr/share/help/Inventor
+
+TOP_OF_TREE = ../..

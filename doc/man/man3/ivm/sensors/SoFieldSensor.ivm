@@ -1,0 +1,33 @@
+NAME SoFieldSensor SoFieldSens "" {
+sensor class that can be attached to Inventor fields
+}
+
+INCLUDE sensors/SoFieldSensor.h
+
+DESC {
+Field sensors detect changes to fields, calling a callback function
+whenever the field changes.  The field may be part of a node, an input
+of an engine, or a global field.
+}
+
+METHOD "" SoFieldSensor() {}
+METHOD CreateCB SoFieldSensor(SoSensorCB *func, void *data) {
+Creation methods.  The second method takes the callback function and
+data to be called when the sensor is triggered.
+}
+METHOD "" ~SoFieldSensor() {
+Destroys the sensor, freeing up any memory associated with it after
+unscheduling it.
+}
+
+METHOD "" void attach(SoField *field) {}
+METHOD "" void detach() {}
+METHOD "" SoField * getAttachedField() const {
+The \mattach()\. method  makes this sensor detect changes to the given
+field.  The \mdetach()\. method unschedules this sensor (if it is
+scheduled) and makes it ignore changes to the scene graph.  The
+\mgetAttachedField()\. method returns the field that this sensor is
+sensing, or NULL if it is not attached to any field.
+}
+
+ALSO { SoNodeSensor, SoPathSensor, SoDataSensor }

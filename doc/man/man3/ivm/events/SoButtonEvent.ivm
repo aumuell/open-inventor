@@ -1,0 +1,44 @@
+NAME SoButtonEvent SoBtnEv SO_BTN_EV_ { base class for all button events }
+
+INCLUDE events/SoButtonEvent.h
+
+DESC { \cSoButtonEvent\. represents generic button press
+and release events in the Inventor event model. It is the base class
+for device-specific button events, namely 
+\cSoKeyboardEvent\., \cSoMouseButtonEvent\., and
+\cSoSpaceballButtonEvent\..
+This class stores the down/up state of the button
+when the event occurred.
+}
+
+ENUM State {
+UP "Button up event", 
+DOWN "Button down event", 
+UNKNOWN "Button in unknown state"
+}
+
+METHOD "" SoButtonEvent() { Constructor. }
+
+METHOD "" static SoType getClassTypeId() {
+Return the type id for the \cSoButtonEvent\. class.
+}
+
+BEGIN C++
+METHOD "" void setState(SoButtonEvent::State s) {}
+METHOD "" SoButtonEvent::State getState() const
+{ Set and get the state of the button. }
+END
+BEGIN C
+METHOD "" void setState(SoButtonEventState s) {}
+METHOD "" SoButtonEventState getState() const
+{ Set and get the state of the button. }
+END
+
+ALSO { 
+SoEvent, SoKeyboardEvent, SoLocation2Event, SoMotion3Event,
+SoMouseButtonEvent, SoSpaceballButtonEvent,
+SoHandleEventAction, SoEventCallback, SoSelection, SoInteraction,
+SoXtDevice }
+
+
+

@@ -1,0 +1,18 @@
+		README for Inventor "vortex" sample
+		-----------------------------------
+
+Run with no arguments to get the usage message.
+
+This program reads in a scene graph from the file named on the command
+line and then uses the primitive generation feature of the
+SoCallbackAction to produce an SoFaceSet consisting of triangles that
+represent the shapes in the original graph. It then displays the face
+set with a nice gold material in an examiner viewer.
+
+Using an SoTimerSensor, the triangles in the face set are exploded
+away from the center and rotated around, creating a vortex effect,
+which then reverses. The relative speeds of the translation and
+rotation can be controlled with command-line switches.
+
+This sample is intended solely to show how to use primitive
+generation.

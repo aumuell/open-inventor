@@ -1,0 +1,151 @@
+NAME SbViewVolume SbViewVol SB_VIEW_VOL_ { 3D viewing volume class }
+INCLUDE SbLinear.h
+DESC {
+Class used to represent a 3D viewing volume. This class is used
+to represent viewing frusta and picking volumes.  For perspective projection,
+the view volume is a frustum. For orthographic (parallel) projection, the
+view volume is a rectangular prism.
+}
+METHOD "" SbViewVolume() {}
+METHOD "" ~SbViewVolume() {
+Constructor and destructor.
+}
+METHOD getMxs void      getMatrices(SbMatrix &affine, SbMatrix &proj) const {
+Returns two matrices corresponding to the view volume.  The
+first is a viewing matrix, which is guaranteed to be an affine
+transformation.  The second is suitable for use as a projection
+matrix in OpenGL.
+}
+METHOD getMx SbMatrix        getMatrix() const {
+Like the method above, but returns the affine and projection parts
+together in one matrix (i.e., \caffine.multRight( proj )\. ).
+}
+METHOD getBoxMx SbMatrix     getCameraSpaceMatrix() const {
+Returns a matrix that transforms the view volume into camera
+space: it translates the view volume so the viewpoint is at
+the origin, and rotates it so the view direction is along the
+negative z axis.
+}
+METHOD projPtToLine void     projectPointToLine(const SbVec2f &pt,
+                                        SbLine &line) const {}
+METHOD projPtToLinePts void  projectPointToLine(const SbVec2f &pt,
+                                       SbVec3f &line0, SbVec3f &line1) const {
+Maps a 2D point (in 0 <= x,y <= 1) to a 3D line.
+}
+METHOD projToScreen void     projectToScreen(const SbVec3f &src,
+                                        SbVec3f &dst) const {
+Maps the 3D point in world coordinates to a 2D point in
+normalized screen coordinates (0 <= x,y,z <= 1).
+The z-screen coordinate represents the homogenized z coordinate
+which goes (nonlinearly) from 0 at the near clipping plane to
+1 at the far clipping plane.
+}
+METHOD getPln SbPlane             getPlane(float distFromEye) const {
+Returns a plane parallel to the near (or far) plane of the view
+volume at a given distance from the projection point (eye).
+}
+METHOD getSightPt SbVec3f             getSightPoint(float distFromEye) const {
+Returns the point along the line of sight at the given distance
+from the projection point (eye).
+}
+METHOD getPlnPt SbVec3f             getPlanePoint(float distFromEye,
+                                      const SbVec2f &normPoint) const {
+Returns the projection of a given point in normalized screen
+coordinates (see \mprojectToScreen()\.) onto the plane parallel to the
+near plane that is at \adistFromEye\. units from the eye.
+}
+METHOD getAlignRot SbRotation  getAlignRotation(
+                                   SbBool rightAngleOnly = FALSE) const {
+Returns a rotation that would align a viewed object so that
+its positive x-axis (of its object space) is to the right in
+the view and its positive y-axis is up. If \arightAngleOnly\. is
+TRUE, it will come as close as it can to this goal by using
+only 90 degree rotations.
+}
+METHOD "" float               getWorldToScreenScale(const SbVec3f &worldCenter,
+                                              float normRadius) const {
+Returns a scale factor that would scale a unit sphere centered
+at \aworldCenter\. so that it would appear to have the given radius
+in normalized screen coordinates when projected onto the near plane.
+}
+METHOD projBox SbVec2f             projectBox(const SbBox3f &box) const {
+Projects the given 3D bounding box onto the near plane and
+returns the size (in normalized screen coordinates) of the
+rectangular region that encloses it.
+}
+METHOD narrow2d SbViewVolume        narrow(float left,  float bottom,
+                               float right, float top) const {
+Given a view volume, narrows the view to the given sub-rectangle
+of the near plane. The coordinates of the rectangle are between
+0 and 1, where (0,0) is the lower-left corner of the near plane
+and (1,1) is the upper-right corner.
+}
+METHOD narrow3d SbViewVolume        narrow(const SbBox3f &box) const {
+Narrows a view volume by the given box.  The box must lie inside
+the unit cube, and the view will be shrunk according to the
+size of the box.
+}
+METHOD "" void                ortho(float left,   float right,
+                              float bottom, float top,
+                              float near,   float far) {
+Sets up an orthographic view volume with the given sides.
+The parameters are the same as for the OpenGL \mglOrtho()\. routine.
+}
+METHOD persp void                perspective(float fovy, float aspect,
+                                    float near, float far) {
+Sets up a perspective view volume with the given field of view
+and aspect ratio. The parameters are the same as for the OpenGL
+\mgluPerspective()\. routine, except that the field of view angle is
+specified in radians.
+}
+METHOD rotCam void                rotateCamera(const SbRotation &q) {
+Rotate the camera view direction.  Note that this accomplishes
+the reverse of doing an OpenGL \mglRotate()\. command after defining a
+camera, which rotates the scene viewed by the camera.
+}
+METHOD xlateCam void                translateCamera(const SbVec3f &v) {
+Translate the camera viewpoint.  Note that this accomplishes
+the reverse of doing an OpenGL \mglTranslate()\. command after defining a
+camera, which translates the scene viewed by the camera.
+}
+METHOD zVec SbVec3f             zVector() const {
+Returns the positive z axis in eye space.  In this coordinate
+system, the z value of the near plane should be GREATER than the
+z value of the far plane.
+}
+METHOD "" SbViewVolume        zNarrow(float near, float far) const {
+Returns a narrowed view volume which contains as tightly as
+possible the given interval on the z axis (in eye space).  The
+returned view volume will never be larger than the current volume,
+however.  \anear\. and \afar\. are given in terms of \mzVector()\.: this
+means that \anear\. > \afar\. must hold.
+}
+METHOD "" void                scale(float factor) {
+Scales width and height of view volume by given factor.
+}
+METHOD "" void                scaleWidth(float ratio) {}
+METHOD "" void                scaleHeight(float ratio) {
+Scales view volume to be the given ratio of its current width
+or height, leaving the resulting view volume centered about the
+same point (in the near plane) as the current one.
+}
+ENUM ProjectionType { 
+        ORTHOGRAPHIC "Orthographic projection", 
+        PERSPECTIVE  "Perspective projection"
+}
+METHOD getProjType ProjectionType      getProjectionType() const {}
+METHOD getProjPt const SbVec3f &     getProjectionPoint() const {}
+METHOD getProjDir const SbVec3f &     getProjectionDirection() const {
+Returns projection information.
+}
+METHOD "" float               getNearDist() const {
+Returns distance from projection point to near plane.
+}
+METHOD "" float               getWidth() const {}
+METHOD "" float               getHeight() const {}
+METHOD "" float               getDepth() const {
+Returns bounds of viewing frustum.
+}
+ALSO { SbVec3f, SbVec2f, SbBox3f, SbMatrix, SbRotation }
+
+

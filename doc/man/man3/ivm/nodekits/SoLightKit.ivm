@@ -1,0 +1,78 @@
+NAME SoLightKit SoLtKit "" { light nodekit class }
+
+INCLUDE nodekits/SoLightKit.h
+
+DESC { This nodekit class is used to create light nodes that have
+a local transformation and a geometry icon to represent the light source.
+\cSoLightKit\. adds three public parts to the basic nodekit:
+\etransform\., \elight\., and \eicon\..
+\p
+\cSoLightKit\. creates an \cSoDirectionalLight\. as the \elight\. part 
+by default - all other parts are \kNULL\. at creation.
+\p
+You can move the light relative to the rest of the scene by creating 
+and editing the \etransform\. part.
+\p
+You can add a geometrical representation for the light by
+setting the \eicon\. part to be any scene graph you like.
+\p
+\cSoLightKit\. also adds two private parts. An \cSoTransformSeparator\. 
+contains the effect of \etransform\. to move only the \elight\. and \eicon\., 
+while allowing the \elight\. to illuminate the rest of the scene.
+The second private part is an \cSoSeparator\., which keeps property nodes 
+within the \eicon\. geometry from affecting the rest of the scene.
+It also serves to cache the \eicon\. even when the \elight\. 
+or \etransform\. is changing.
+\p
+\cSoLightKit\. is derived from \cSoBaseKit\. and thus also includes a
+\ecallbackList\. part for adding callback nodes.
+}
+
+
+METHOD "" SoLightKit() { Constructor. }
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for the class \cSoLightKit\.. }
+
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+PART transform
+  { This part positions and orients the light and icon relative to the rest
+  of the scene.  
+  Its effect is kept local to this nodekit
+    by a private part of type \cSoTransformSeparator\.. The \etransform\. 
+    part is \kNULL\. by default. If you ask for \etransform\. using 
+    \m\+getPart()\.\-SoKitGetPart()\.\.,  an \cSoTransform\. will be returned.
+    But you may set the part to be any subclass of \cSoTransform\..
+    For example, set the \etransform\. to be an \cSoDragPointManip\.
+    and the \elight\. to be an \cSoPointLight\.. Then you can move the light
+    by dragging the manipulator with the mouse. } 
+
+PART light
+  { The light node for this nodekit. This can be set to any node derived
+    from \cSoLight\..  An \cSoDirectionalLight\. is created by default,
+    and it is also the type of light returned when the you request that
+    the nodekit build a light for you. }
+
+PART icon
+  { This part is a user-supplied scene graph that represents the light
+    source. It is \kNULL\. by default \(em an \cSoCube\. is created by the
+    lightkit when a method requires it to build the part itself. }
+
+ALSO {
+SoAppearanceKit,
+SoBaseKit,
+SoCameraKit,
+SoNodeKit,
+SoNodeKitDetail,
+SoNodeKitListPart,
+SoNodeKitPath,
+SoNodekitCatalog,
+SoSceneKit,
+SoSeparatorKit,
+SoShapeKit,
+SoWrapperKit }

@@ -1,0 +1,249 @@
+#Inventor V1.0 ascii
+
+Separator {
+    Transform {
+	translation 0 0 0 
+	scaleFactor 0.08 0.08 0.08
+    }
+    Group {
+	NormalBinding {
+	    value PER_FACE
+	}
+	LightModel {
+	    model    PHONG
+	}
+	Group {
+	    Separator {
+		Label {
+		    label "bird body"
+		}
+		Transform {
+		    translation 0 0 0
+		}
+		Coordinate3 {
+		    point [ 0.0  0.0  0.4,
+			    1.8  0.0  0.3,
+			    1.8  0.0 -0.3,
+			    0.0  0.0 -0.4,
+			    0.2 -1.0  0.0,
+			    1.7 -0.8  0.0]
+		}
+		Normal {
+		    vector [ 0 1 0,
+			    0 -.5 1,
+			    0 -.5 -1,
+			    -1 -.2 0,
+			    1 .2 0]
+		}
+		IndexedFaceSet {
+		    coordIndex [ 0, 1, 2, 3, -1,
+			    0, 4, 5, 1, -1,
+			    2, 5, 4, 3, -1,
+			    0, 3, 4, -1,
+			    1, 5, 2, -1 ]
+		}
+	    }
+	    Separator {
+		    Label {
+			label "bird head"
+		    }
+		    Coordinate3 {
+			point [ 0.0  0.0  0.4,
+				0.0  0.0 -0.4,
+			       -1.2 -0.6  0.0,
+			       -0.2 -1.1  0.0]
+		    }
+		    Normal {
+			vector [ -.5 1 0,
+				0 -.5  1,
+				0 -.5 -1,
+				.5 -.5 0]
+		    }
+
+		    IndexedFaceSet {
+			coordIndex [ 0, 1, 2, -1,
+				3, 0, 2, -1,
+				1, 3, 2, -1,
+				3, 1, 0, -1]
+		    }
+	    }
+	    Separator {
+		    Label {
+			label "bird tail"
+		    }
+		    Transform {
+			translation 1.8 0 0
+		    }
+		    Coordinate3 {
+			point [ 0.0  0.0  0.3,
+				1.4 -0.6  0.7,
+				1.4 -0.6 -0.7,
+				0.0  0.0 -0.3,
+				0.2 -0.8  0.0]
+		    }
+		    Normal {
+			vector [ .3 1 0,
+				 -.1 -.5 1,
+				 .25 -1  0,
+				 -.1 -.5 -1,
+				 -.5 -.5 0
+				]
+		    }
+
+		    IndexedFaceSet {
+			coordIndex [ 0, 1, 2, 3, -1,
+				0, 4, 1, -1,
+				1, 4, 2, -1,
+				2, 4, 3, -1,
+				0, 3, 4, -1]
+		    }
+	    }
+	    Separator {
+		Label {
+		    label "bird left wing"
+		}
+		Transform {
+		    translation 0 0 0.4
+			rotation 0 1 0 0
+		}
+		Coordinate3 {
+		    point [ 0.0 0.0  0.0,
+			    1.8 0.0 -0.1,
+			    1.4 0.2  2.0,
+			    0.0 0.2  2.0,
+			    0.0 -.02  0.0,
+			    1.8 -.02 -0.1,
+			    1.4 0.18  2.0,
+			    0.0 0.18  2.0]
+		}
+		Normal {
+		    vector [ 0  1 -.1,
+			     0 -1 -.1,
+			     0  0   1,
+			     1  0   0,
+			     0  0  -1,
+			    -1  0   0]
+		}
+		NormalBinding {
+		    value PER_FACE
+		}
+		IndexedFaceSet {
+		    coordIndex [3, 2, 1, 0, -1,
+				4, 5, 6, 7, -1,
+				0, 1, 5, 4, -1,
+				1, 2, 6, 5, -1,
+				2, 3, 7, 6, -1,
+				3, 0, 4, 7, -1
+				]
+		}
+		Transform {
+		    translation 0 0.2 2.0
+			rotation 0 1 0 0
+		}
+		Coordinate3 {
+		    point [ 0.0  0.0 0.0,
+			    1.4  0.0 0.0,
+			    1.8 -.1 1.6,
+			    1.0 -.1 1.4,
+			    0.0 -.02 0.0,
+			    1.4 -.02 0.0,
+			    1.8 -.12 1.6,
+			    1.0 -.12 1.4]
+		}
+		Normal {
+		    vector [ 0  1 .05,
+			     0 -1 .05,
+			     0  0  1,
+			     1  0  0,
+			     0  0 -1,
+			    -1 0  0]
+		}
+		NormalBinding {
+		    value PER_FACE
+		}
+		IndexedFaceSet {
+		    coordIndex [3, 2, 1, 0, -1,
+				4, 5, 6, 7, -1,
+				0, 1, 5, 4, -1,
+				1, 2, 6, 5, -1,
+				2, 3, 7, 6, -1,
+				3, 0, 4, 7, -1
+				]
+		}
+	    }
+	    Separator {
+		Label {
+		    label "bird right wing"
+		}
+		Transform {
+		    translation 0 0 -0.4
+			rotation 0 1 0 0
+		}
+		Coordinate3 {
+		    point [ 0.0 0.00  0.0,
+			    1.8 0.00  0.1,
+			    1.4 0.20 -2.0,
+			    0.0 0.20 -2.0,
+			    0.0 -0.02 0.0,
+			    1.8 -0.02  0.1,
+			    1.4  0.18 -2.0,
+			    0.0  0.18 -2.0]
+		}
+		Normal {
+		    vector [ 0 1 .1,
+			     0 -1 .1,
+			     0  0  1,
+			     1  0  0,
+			     0  0 -1,
+			     -1 0  0]
+		}
+		NormalBinding {
+		    value PER_FACE
+		}
+		IndexedFaceSet {
+		    coordIndex [ 0, 1, 2, 3, -1,
+				 7, 6, 5, 4, -1,
+				 4, 5, 1, 0, -1,
+				 5, 6, 2, 1, -1,
+				 6, 7, 3, 2, -1,
+				 7, 4, 0, 3, -1
+			       ]
+		}
+		Transform {
+		    translation 0 0.2 -2.0
+			rotation 0 1 0 0
+		}
+		Coordinate3 {
+		    point [ 0.0 0.0 0.0,
+			    1.4 0.0 0.0,
+			    1.8 -.1 -1.6,
+			    1.0 -.1 -1.4,
+			    0.0 -.02 0.0,
+			    1.4 -.02 0.0,
+			    1.8 -.12 -1.6,
+			    1.0 -.12 -1.4]
+		}
+		Normal {
+		    vector [ 0  1  -.05,
+			     0 -1  -.05,
+			     0  0  1,
+			     1  0  0,
+			     0  0 -1,
+			     -1 0  0]
+		}
+		NormalBinding {
+		    value PER_FACE
+		}
+		IndexedFaceSet {
+		    coordIndex [ 0, 1, 2, 3, -1,
+				 7, 6, 5, 4, -1,
+				 4, 5, 1, 0, -1,
+				 5, 6, 2, 1, -1,
+				 6, 7, 3, 2, -1,
+				 7, 4, 0, 3, -1
+		    ]
+		}
+	    }
+	}
+    }
+}

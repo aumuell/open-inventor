@@ -1,0 +1,61 @@
+#Inventor V2.0 ascii
+Separator {
+    DEF CRANK Crank {
+	origin 0 0 0
+	angle 1.57079
+	size 0.5
+	angleRotateGeom     Separator {
+	    Translation { translation 0 0 -.25 }
+	    RotationXYZ { axis X angle -1.57079 }
+	    Cylinder { height .1 }
+	}
+    }
+    DEF RIVET RivetHinge {
+	origin -4 1 0
+	hingePoint = USE CRANK . endPoint
+	size 5.5
+	angleRotateGeom Separator {
+	    Translation { translation 0 0 -.5 }
+	    Separator {
+		Translation { translation -1.5 -13 0 }
+		Cube { width 4 height .5 depth 1 }
+	    }
+	    Separator {
+		Translation { translation 3 0 0 }
+		Cube { width 8 height 1 depth .1 }
+	    }
+	    Separator {
+		Material {
+		    diffuseColor	0 0.35 0.4
+		    emissiveColor	0 0.045 0.05
+		}
+		Translation { translation 4 0 0 }
+		Cube { width 4 height .75 depth .14 }
+	    }
+	    Separator {
+		Translation { translation 0 -6 0 }
+		Cube { width 1 height 14 depth .1 }
+	    }
+	}
+    }
+    DEF RIVET RivetHinge {
+	origin 4 1 0
+	hingePoint = USE CRANK . endPoint
+	size 5.5
+	angleRotateGeom Separator {
+	    Translation { translation 0 0 -.5 }
+	    Separator {
+		Translation { translation 1.5 13 0 }
+		Cube { width 4 height .5 depth 1 }
+	    }
+	    Separator {
+		Translation { translation 3 0 0 }
+		Cube { width 8 height 1 depth .1 }
+	    }
+	    Separator {
+		Translation { translation 0 6 0 }
+		Cube { width 1 height 14 depth .1 }
+	    }
+	}
+    }
+}

@@ -1,0 +1,3 @@
+#!/bin/sh
+#Tag 0x00010510
+/usr/demos/Inventor/gview /usr/demos/data/Inventor/windmill.iv

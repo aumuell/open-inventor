@@ -1,0 +1,25 @@
+NAME SoTriggerAny SoTriggerAny "" { provides fan-in for triggers }
+
+DESC { 
+This engine takes up to 10 input triggers, and produces one trigger
+output.  The output is triggered whenever one of the inputs is touched.
+}
+
+INCLUDE engines/SoSoTriggerAny.h
+
+INPUT input0 { }
+INPUT input1 { }
+INPUT input2 { }
+INPUT input3 { }
+INPUT input4 { }
+INPUT input5 { }
+INPUT input6 { }
+INPUT input7 { }
+INPUT input8 { }
+INPUT input9 { }
+
+OUTPUT output { Triggered when any of the inputs is touched. }
+
+METHOD Create SoTriggerAny() { Constructor }
+
+ALSO { SoEngineOutput, SoSFTrigger }

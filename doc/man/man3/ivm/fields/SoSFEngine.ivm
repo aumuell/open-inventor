@@ -1,0 +1,42 @@
+NAME SoSFEngine SoSEngine "" {
+field containing a pointer to a engine
+}
+
+INCLUDE fields/SoSFEngine.h
+
+DESC {
+This field maintains a pointer to an \cSoEngine\. instance,
+correctly maintaining its reference count.
+\p
+\cSoSFEngines\. are written to file as the engine they are pointing to.
+For example:
+\b
+mySoSFEngineField ElapsedTime \{\}
+\.
+is an \cSoSFEngine\. field named 'mySoSFEngineField', pointing to an
+\cSoElapsedTime\.
+engine.  If the engine is used elsewhere, the regular DEF/USE instancing
+mechanism applies:
+\b
+anotherSoSFEngineField USE calculator
+\.
+is an \cSoSFEngine\. field that points to a engine named 'calculator' that
+was DEF'ed earlier in the scene.
+}
+ALSO { SoField, SoSField, SoMFEngine, SoEngine }
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get SoEngine * getValue() const {
+Returns this field's value.
+}
+METHOD " " SoEngine * operator =(SoEngine * newValue) {}
+METHOD Set void setValue(SoEngine * newValue) {
+Sets this field to \anewValue\..
+}
+METHOD IsEq int operator ==(const SoSFEngine &f) const {}
+METHOD IsNEq int operator !=(const SoSFEngine &f) const {
+Returns TRUE if \af\. is of the same type and has the same value as this
+field.
+}

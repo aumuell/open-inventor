@@ -1,0 +1,59 @@
+NAME SoBaseList "" "" {
+maintains a list of pointers to instances of the \cSoBase\. classes
+}
+
+INCLUDE SoLists.h
+
+DESC  {
+This subclass of \cSbPList\. holds lists of pointers to
+instances of classes derived from \cSoBase\. (an abstract class). A
+flag indicates whether adding an instance pointer to the list should
+add a reference to the instance. If this flag is TRUE, then adding and
+removing pointers from the list updates reference counts in the
+corresponding instances.
+}
+
+METHOD "" SoBaseList() { Constructor. }
+
+METHOD createSize SoBaseList(int size) {
+Constructor that pre-allocates storage for \asize\. pointers.
+}
+
+METHOD " " SoBaseList(const SoBaseList &l) {
+Constructor that copies the contents of another list.
+}
+
+METHOD "" ~SoBaseList() { Destructor. }
+
+METHOD "" void append(SoBase *ptr) { Adds a pointer to the end of the list. }
+
+METHOD "" void insert(SoBase *ptr, int addBefore) {
+Inserts given pointer in list before pointer with given index.
+}
+
+METHOD "" void remove(int which) { Removes pointer with given index. }
+
+METHOD "" void truncate(int start) {
+Removes all pointers after one with given index, inclusive.
+}
+
+METHOD "" void copy(const SoBaseList &l) {
+Copies a list, keeping all reference counts correct.
+}
+
+BEGIN C++
+METHOD "" SoBaseList & operator =(const SoBaseList &l) {
+Copies a list, keeping all reference counts correct.
+}
+END
+
+METHOD "" SoBase * operator [\|](int i) const { Accesses an element of a list. }
+
+METHOD "" void set(int i, SoBase *ptr) { Sets an element of a list. }
+
+METHOD "" void addReferences(SbBool flag) {
+Indicates whether to call \mref()\. and \munref()\. for bases in the
+list when adding/removing them. The default value is TRUE.
+}
+
+ALSO { SoBase, SoNodeList, SoPathList }

@@ -1,0 +1,35 @@
+NAME SoNodeKit SoNkit "" { initializes nodekit classes }
+
+INCLUDE nodekits/SoNodeKit.h
+
+DESC { This class is used to initialize all nodekit classes. }
+
+METHOD "" static void init()
+
+{ Initialize all nodekit classes by registering
+them with the database.  This function needs to be called before \eany\.
+other nodekit class may be constructed or accessed. Note that 
+this is called automatically by 
+\m\+SoInteraction::init()\.\-SoInteractionInit()\.\. and
+\m\+SoXt::init()\.\-SoXtInit()\.\., so if you have made either of 
+these calls, there is no need to call 
+\m\+SoNodeKit::init()\.\-SoNodeKitInit()\.\. directly.
+}
+
+
+ALSO {
+SoAppearanceKit,
+SoBaseKit,
+SoCameraKit,
+SoInteraction,
+SoLightKit,
+SoNodeKitDetail,
+SoNodeKitListPart,
+SoNodeKitPath,
+SoNodekitCatalog,
+SoSceneKit,
+SoSeparatorKit,
+SoShapeKit,
+SoWrapperKit,
+SoXt
+}

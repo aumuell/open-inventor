@@ -1,0 +1,22 @@
+#define OneProgram
+
+PROGRAM = linkages
+
+C++FILES = linkages.c++ LinkClasses.c++ LinkEngines.c++
+HFILES = LinkClasses.h LinkEngines.h
+
+#define OtherLibs -lm
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../..
+
+OTHERSOURCE = README  \
+	linkagesResourceFile.iv menu.iv oneOfEach.iv pairOfLegs.iv \
+	threeThings.iv crankPlusRivet.iv \
+	crankTwoRivetsDoubleLink.iv \
+	crankTwoRivetsLink.iv \
+	doubleLinkPlusCrankAndRivet.iv \
+	motorizedMechanism.iv \
+	linkPlusCrankAndRivet.iv
+
+#endif

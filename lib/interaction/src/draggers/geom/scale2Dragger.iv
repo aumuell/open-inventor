@@ -1,0 +1,119 @@
+#Inventor V2.0 ascii
+
+DEF SCALE_2_DRAGGER_KNOB
+Group {
+    Complexity { value .01 }
+    Translation { translation 0.025 0.025 0 } 
+    Cube { height 0.05 width 0.05 depth 0.05 }
+    Translation { translation 0.0 -0.05 0 } 
+    Cube { height 0.05 width 0.05 depth 0.05 }
+    Translation { translation -0.05 0 0 } 
+    Cube { height 0.05 width 0.05 depth 0.05 }
+}
+
+
+DEF SCALE_2_DRAGGER_SCALING_KNOBS
+Separator {
+    renderCaching ON
+
+    # lower right scale knob
+    Separator {
+	Translation { translation 1.1 -1.1 0 }
+	USE SCALE_2_DRAGGER_KNOB
+    }
+
+    # lower left scale knob
+    Separator {
+	Translation { translation -1.1 -1.1 0 }
+	RotationXYZ { axis Z angle -1.57079 }
+	USE SCALE_2_DRAGGER_KNOB
+    }
+
+    # upper left scale knob
+    Separator {
+	Translation { translation -1.1 1.1 0 }
+	RotationXYZ { axis Z angle 3.14159 }
+	USE SCALE_2_DRAGGER_KNOB
+    }
+
+    # upper right scale knob
+    Separator {
+	Translation { translation 1.1 1.1 0 }
+	RotationXYZ { axis Z angle 1.57079 }
+	USE SCALE_2_DRAGGER_KNOB
+    }
+
+}
+
+DEF scale2Scaler Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    USE SCALE_2_DRAGGER_SCALING_KNOBS
+}
+
+DEF scale2ScalerActive Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    LightModel { model PHONG }
+    Texture2 {}
+
+    USE SCALE_2_DRAGGER_SCALING_KNOBS
+
+    # wire box
+    DrawStyle { style LINES lineWidth 1 }
+    Complexity { value .01 }
+    Cube { width 2.2 height 2.2 depth 2.2 }
+
+}
+
+DEF SCALE_2_DRAGGER_FEEDBACK Group {
+    # A skinny set of axes.
+    #x-axis
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+    Coordinate3 { point [ -1.25 0 0, 1.25 0 0 ] }
+    LineSet {}
+
+    #y-axis
+    Coordinate3 { point [ 0 -1.25 0, 0 1.25 0 ] }
+    LineSet {}
+
+    #z-axis
+    Coordinate3 { point [ 0 0 -1.25, 0 0 1.25 ] }
+    LineSet {}
+}
+
+DEF scale2Feedback Separator {
+    renderCaching ON
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.25 0.05 0.36 ]
+	emissiveColor	[ 0.25 0.05 0.36 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    USE SCALE_2_DRAGGER_FEEDBACK
+}
+
+DEF scale2FeedbackActive Separator {
+    renderCaching ON
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.36 0.05 0.44 ]
+	emissiveColor	[ 0.36 0.05 0.44 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    USE SCALE_2_DRAGGER_FEEDBACK
+}

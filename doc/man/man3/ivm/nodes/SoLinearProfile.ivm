@@ -1,0 +1,33 @@
+NAME SoLinearProfile SoLProf "" { Piecewise-linear profile curve }
+
+INCLUDE nodes/SoLinearProfile.h
+
+DESC {
+This node specifies a piecewise-linear curve that is used as a profile
+for either a trimming patch of a Nurbs surface or for the bevel of
+\cSoText3\..  The \vindex\. field indexes into the current profile
+coordinates (specified in an \cSoProfileCoordinate2\. or
+\cSoProfileCoordinate3\. node).
+If the last value of the \vindex\. field is
+\kSO_LINEAR_PROFILE_USE_REST_OF_VERTICES\. (-1), all remaining
+coordinates in the current coordinates will be used, starting with
+the coordinate after the previous index (all coordinates will be used
+if \kSO_LINEAR_PROFILE_USE_REST_OF_VERTICES\. is the only value in the
+\vindex\. field).  For example, if \vindex\. contains the values
+\k[2,0,-1]\. and there are 4 profile coordinates (0-3), it is as if
+the \vindex\. field contains \k[2,0,1,2,3]\..
+}
+
+METHOD "" SoLinearProfile() {
+Creates a linear profile node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoRayPickAction, SoCallbackAction {
+Adds a profile to the current state.
+}
+
+ALSO { SoNurbsProfile, SoProfileCoordinate2, SoProfileCoordinate3 }

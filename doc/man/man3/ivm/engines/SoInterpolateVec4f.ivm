@@ -1,0 +1,25 @@
+NAME SoInterpolateVec4f SoInterpV4f "" { 
+interpolates 4D floating-point vectors
+}
+
+DESC { 
+This engine linearly interpolates between two 4D vectors, based
+on the \valpha\. input value.  The \valpha\. value should be
+between 0.0 and 1.0. 
+\p
+The input fields can have multiple vectors, allowing the engine to 
+interpolate several objects in parallel.  
+One of the inputs may have more values than the other.  In that case,
+the last value of the shorter input will be repeated as necessary.
+}
+
+INCLUDE engines/SoInterpolate.h
+
+INPUT input0 { }
+INPUT input1 { The engine linearly interpolates from
+\vinput0\. to \vinput1\.. }
+
+METHOD Create SoInterpolateVec4f() { Constructor. }
+
+ALSO { SoEngineOutput, SoInterpolateFloat, SoInterpolateRotation,
+SoInterpolateVec2f, SoInterpolateVec3f }

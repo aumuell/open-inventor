@@ -1,0 +1,43 @@
+NAME SoTimerSensor SoTimerSens "" {
+sensor that triggers callback repeatedly at regular intervals
+}
+INCLUDE sensors/SoTimerSensor.h
+DESC {
+Timer sensors trigger their callback function at regular intervals.
+For example, a timer might be setup to call its callback function
+every second on the second by setting the base time to \mSbTime(0.0)\.
+and the interval to \mSbTime(1.0)\..  Timers are guaranteed to be
+triggered only once when the timer queue is processed, so if the
+application only processes the timer queue once every 5 seconds
+(because it is busy doing something else) the once-a-second sensor's
+callback will be called only once every 5 seconds.
+\p
+Note also that \cSoTimer\.s always schedule themselves to be triggered the
+next even multiple of the interval time after the base time; so, for
+example, if the once-a-second sensor is triggered at time 2.9 (because
+the application way busy doing something at time 2.0 and didn't get
+around to processing the sensor queue for a while) it will reschedule
+itself to go off at time 3.0, not at time 3.9.  If the base time was
+never set, the sensor would be scheduled for time 3.9.
+}
+
+METHOD "" SoTimerSensor() {}
+METHOD CreateCB SoTimerSensor(SoSensorCB *func, void *data) {
+Creation methods.  The second method takes the callback function and
+data to be called when the sensor is triggered.
+}
+METHOD "" ~SoTimerSensor() {
+Destroys the sensor, freeing up any memory associated with it after
+unscheduling it.
+}
+METHOD "" void setBaseTime(const SbTime &base) {}
+METHOD "" const SbTime &getBaseTime() const {}
+METHOD "" void setInterval(const SbTime &interval) {}
+METHOD "" const SbTime &getInterval() const {
+Sets/gets the base time and the interval.  The default base time is
+the time when the sensor is scheduled or rescheduled, and the default
+interval is 1/30th of a second.
+}
+
+ALSO { SoOneShotSensor, SoAlarmSensor, SoTimerQueueSensor, SbTime }
+

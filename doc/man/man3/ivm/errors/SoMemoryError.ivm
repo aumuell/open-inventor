@@ -1,0 +1,28 @@
+NAME SoMemoryError "SoMemErr" "SO_MEM_ERR_" { memory error handling }
+
+INCLUDE errors/SoMemoryError.h
+
+DESC { \cSoMemoryError\.  is used for errors reported
+due to lack of memory.
+}
+# removed the following text from description --
+# \+The post() method takes a string describing the item that was to be
+# allocated, such as "cylinder vertex array".\.
+
+METHOD "setHndlrCB" static void setHandlerCallback(SoErrorCB *cb, void *data) {}
+METHOD "getHndlrCB" static SoErrorCB * getHandlerCallback() {}
+METHOD "getHndlrData" static void * getHandlerData() {
+Sets/returns handler callback for \cSoMemoryError\. class.
+}
+
+METHOD "" static SoType	getClassTypeId() { 
+Returns type identifier for SoMemoryError class.
+}
+
+ALSO { 
+SoDebugError,
+SoReadError
+}
+
+
+

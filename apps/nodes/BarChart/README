@@ -1,0 +1,10 @@
+This directory contains code for the BarChart node, a Shape node that
+displays a set of data as a set of bars.
+
+A sample data file (BarChart.iv) is provided.  Once you have compiled
+the BarChart.so DSO by typing 'make' in this directory, run:
+
+ivview BarChart.iv
+
+... to see an example use of the BarChart node.  You'll have to read
+the source (in BarChart.c++ and BarChart.h) for more information!

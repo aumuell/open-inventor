@@ -1,0 +1,262 @@
+#Inventor V2.0 ascii
+
+# Geometry for the scaler part. The default is
+# six small cubes, one at each end of each primary 
+# axis. 
+DEF JACK_DRAGGER_SCALER Group {
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+
+    Complexity { value .01 }
+    
+    MaterialBinding { value OVERALL }
+
+    Translation {  translation  1.5 0   0 }
+    DEF SMALL_CUBE Cube { width .1 height .1 depth .1 }
+    Translation {  translation -3.0   0   0 }
+    USE SMALL_CUBE
+    Translation {  translation  1.5  1.5 0 }
+    USE SMALL_CUBE
+    Translation {  translation  0  -3.0   0 }
+    USE SMALL_CUBE
+    Translation {  translation  0   1.5 1.5 }
+    USE SMALL_CUBE
+    Translation {  translation  0   0  -3.0 }
+    USE SMALL_CUBE
+}
+
+DEF jackScalerScaler Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    USE JACK_DRAGGER_SCALER
+}
+DEF jackScalerScalerActive Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    USE JACK_DRAGGER_SCALER
+}
+
+DEF jackScalerFeedback Separator {
+}
+DEF jackScalerFeedbackActive Separator {
+}
+
+# Geometry for the rotator part. The default for
+# this is a set of three axes (the little scale
+# cubes appear to be stuck at the ends of these
+# axes).
+DEF JACK_DRAGGER_ROTATOR Group {
+    LightModel { model PHONG }
+    Texture2 {}
+    DrawStyle { lineWidth 3 }
+
+    # an X axis
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+    Coordinate3 { point [ -1.5 0 0, 1.5 0 0 ] }
+    LineSet {}
+
+    # a Y axis
+    Coordinate3 { point [ 0 -1.5 0, 0 1.5 0 ] }
+    LineSet {}
+
+    # a Z axis
+    Coordinate3 { point [ 0 0 -1.5, 0 0 1.5 ] }
+    LineSet {}
+}
+
+DEF jackRotatorRotator Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    USE JACK_DRAGGER_ROTATOR
+}
+DEF jackRotatorRotatorActive Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    USE JACK_DRAGGER_ROTATOR
+}
+
+DEF jackRotatorFeedback Separator {
+}
+DEF jackRotatorFeedbackActive Separator {
+}
+
+DEF jackTranslatorLineTranslator Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    MaterialBinding { value OVERALL }
+    DrawStyle { style FILLED lineWidth 1 }
+    LightModel { model PHONG }
+    Texture2 {}
+    Rotation { rotation 0 0 1 1.57079 }
+    Complexity { value .3 }
+    Cylinder { height 2.3 radius 0.06 }
+}
+
+DEF jackTranslatorLineTranslatorActive Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    MaterialBinding { value OVERALL }
+    DrawStyle { style FILLED lineWidth 1 }
+    LightModel { model PHONG }
+    Texture2 {}
+    Rotation { rotation 0 0 1 1.57079 }
+    Complexity { value .3 }
+    Cylinder { height 2.3 radius 0.06 }
+}
+
+DEF jackTranslatorPlaneTranslator Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    MaterialBinding { value OVERALL  }
+    DrawStyle { style LINES lineWidth 1 }
+    LightModel { model PHONG }
+    Texture2 {}
+    Complexity { value .01 }
+    Cube { width 2.05 height 2.05 depth 0.2 }
+}
+
+DEF jackTranslatorPlaneTranslatorActive Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    MaterialBinding { value OVERALL }
+    DrawStyle { style LINES lineWidth 1 }
+    LightModel { model PHONG }
+    Texture2 {}
+    Complexity { value .01 }
+    Cube { width 2.05 height 2.05 depth 0.2 }
+}
+
+DEF JACK_DRAGGER_Y_AXIS Group {
+
+    Scale { scaleFactor 3.125 3.125 3.125 }
+
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+    Coordinate3 { point [ 0 -1 0, 0 1 0 ] }
+    LineSet {}
+    Complexity { value 0.3 }
+    Separator {
+	renderCaching ON
+	Transform { translation 0 1.025 0 }
+	Cone { height 0.05 bottomRadius 0.025 }
+    }
+    Transform { translation 0 -1.025 0 }
+    RotationXYZ { axis Z angle 3.14159 }
+    Cone { height 0.05 bottomRadius 0.025 }
+}
+
+DEF JACK_DRAGGER_X_AXIS Group {
+    RotationXYZ { axis  Z angle 1.57079 }
+    USE JACK_DRAGGER_Y_AXIS
+}
+
+DEF JACK_DRAGGER_Z_AXIS Group {
+    RotationXYZ { axis  X angle 1.57079 }
+    USE JACK_DRAGGER_Y_AXIS
+}
+
+DEF JACK_DRAGGER_FEEDBACK_AXIS_STYLE Group {
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.36 0.05 0.44 ]
+	emissiveColor	[ 0.36 0.05 0.44 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+}
+
+DEF jackTranslatorXFeedback Separator {
+    renderCaching ON
+    USE JACK_DRAGGER_FEEDBACK_AXIS_STYLE
+    USE JACK_DRAGGER_X_AXIS
+}
+
+DEF jackTranslatorYFeedback Separator {
+    renderCaching ON
+    USE JACK_DRAGGER_FEEDBACK_AXIS_STYLE
+    USE JACK_DRAGGER_Y_AXIS
+}
+
+DEF jackTranslatorZFeedback Separator {
+    renderCaching ON
+    USE JACK_DRAGGER_FEEDBACK_AXIS_STYLE
+    USE JACK_DRAGGER_Z_AXIS
+}
+
+
+DEF JACK_DRAGGER_XZ_PLANE Group {
+    
+    Scale { scaleFactor 3.125 3.125 3.125 }
+
+    Coordinate3 { point [ -1 0 -1, -1 0 1 , 1 0 1, 1 0 -1, -1 0 -1 ] }
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+    # outline of the square
+    LineSet { }
+    NormalBinding { value OVERALL }
+    Normal { vector [ 0 1 0 ] }
+    ShapeHints { 
+	vertexOrdering COUNTERCLOCKWISE
+    }
+    # filled square 
+    FaceSet { }
+}
+
+DEF JACK_DRAGGER_PLANE_STYLE Group {
+    Material {
+	diffuseColor	[ 0.05 0.2025 0.18 ]
+	emissiveColor	[ 0.05 0.2025 0.18 ]
+	transparency	0.5
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+}
+
+DEF jackTranslatorYZFeedback Separator {
+    renderCaching ON
+    RotationXYZ { axis  Z angle 1.57079 }
+    USE JACK_DRAGGER_PLANE_STYLE
+    USE JACK_DRAGGER_XZ_PLANE
+}
+
+DEF jackTranslatorXZFeedback Separator {
+    renderCaching ON
+    USE JACK_DRAGGER_PLANE_STYLE
+    USE JACK_DRAGGER_XZ_PLANE
+}
+
+DEF jackTranslatorXYFeedback Separator {
+    renderCaching ON
+    USE JACK_DRAGGER_PLANE_STYLE
+    RotationXYZ { axis  X angle 1.57079 }
+    USE JACK_DRAGGER_XZ_PLANE
+}
+

@@ -1,0 +1,10 @@
+The SceneViewer program is a 3d editor/demonstration program 
+which exercises many of the features of Inventor.  
+The program lets the user read in various Inventor data files 
+and arrange them to form a scene.  The main viewer for the SceneViewer 
+is initially the SoXtExaminerViewer, although other viewers may
+be used by selecting from the menu bar.  The menu bar allows many different
+editors and manipulators to be used in modifying the scene.
+
+The SceneViewer can save Environment files which contain camera,
+lighting, and environment data SEPARATE from the scene.

@@ -1,0 +1,14 @@
+#define OneProgram
+
+PROGRAM = pyramidKitTest
+
+#define OtherLibs -lGL -lm
+#define LocalLibs ../02.Nodes/Pyramid.o
+
+C++FILES = PyramidKit.c++ pyramidKitTest.c++
+
+HFILES = PyramidKit.h
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../../..
+#endif

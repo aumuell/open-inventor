@@ -1,0 +1,55 @@
+NAME SbName "" "" { character string stored in a hash table }
+INCLUDE SbString.h
+DESC {
+This class of strings stores the string in a hash table. It is
+used by the Inventor toolkit for keywords and other unique names.
+It is not recommended for general use (only in the context of Inventor
+objects). When a string is stored in this table, a pointer to the
+storage is returned. Two identical strings will return the same pointer.
+This means that comparison of two \cSbName\.s
+for equality can be accomplished by comparing their identifiers.
+\cSbName\.s
+are used for strings which are expected to show up frequently, such as
+node names.
+}
+METHOD "" SbName() {}
+METHOD CreateStr SbName(const char *s) {}
+METHOD CreateSbStr SbName(const SbString &s) {}
+METHOD CreateSbName SbName(const SbName &n) {}
+METHOD "" ~SbName() {
+Constructors and destructor.
+}
+METHOD getStr const char          *getString() const {
+Returns pointer to the character string.
+}
+METHOD getLen int                 getLength() const {
+Returns length of string.
+}
+METHOD "" static SbBool       isIdentStartChar(char c) {
+Returns TRUE if given character is a legal starting character
+for an identifier.
+}
+METHOD ""  static SbBool       isIdentChar(char c) {
+Returns TRUE if given character is a legal nonstarting
+character for an identifier.
+}
+METHOD "" int                 operator !() const {
+Unary "not" operator; returns TRUE if string is empty ("").
+}
+BEGIN C++
+METHOD "" int          operator ==(const char *s, const SbName &n) {}
+END
+METHOD "" int          operator ==(const SbName &n1, const SbName &n2) {}
+METHOD IsEqStr int          operator ==(const SbName &n, const char *s) {
+Equality operator for SbName/char* and SbName/SbName comparison.
+}
+BEGIN C++
+METHOD "" int          operator !=(const char *s, const SbName &n) {}
+END
+METHOD "" int          operator !=(const SbName &n1, const SbName &n2) {}
+METHOD IsNEqStr int    operator !=(const SbName &n, const char *s) {
+Inequality operator for SbName/char* and SbName/SbName comparison.
+}
+ALSO {  SbString }
+
+

@@ -1,0 +1,7 @@
+#define IncludeMakefile
+
+DEPTH = ../..
+
+HFILES = SoAntiSquish.h SoSelection.h SoSurroundScale.h
+
+

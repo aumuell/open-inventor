@@ -1,0 +1,47 @@
+NAME SbSphereSheetProjector "SbSphSheetProj" "" { sphere-sheet projector }
+
+INCLUDE projectors/SbSphereSheetProjector.h
+
+DESC { \cSbSphereSheetProjector\. 
+projects a window space point (usually based on the mouse location)
+onto the surface of a sphere with a hyperbolic sheet draped over it.
+This allows smooth transitions onto and off of the sphere.
+Two projected points can produce a rotation
+about the sphere's center.
+When the mouse position projects on to the sheet, the
+rotations will be as if the sheet is being dragged,
+causing the sphere to roll beneath it.
+\p
+Incremental changes (delta rotation) can be computed during
+interactive sessions. Sphere projectors are typically used to write
+interactive 3D manipulators and viewers.
+}
+
+METHOD "" SbSphereSheetProjector(SbBool orientToEye = TRUE) {}
+METHOD "createSph" SbSphereSheetProjector( const SbSphere &sph,
+			      SbBool orientToEye = TRUE) {
+Constructors. The first uses a default sphere centered at the origin
+with radius 1.0; the sphere is supplied in the second.
+The \vorientToEye\.
+parameter determines whether the sheet is perpendicular to the
+eye, or perpendicular to the sphere's Z axis.  Setting that parameter to TRUE
+(the default) specifies that the sheet be perpendicular to the
+eye, which is most often the desired behavior.
+\p
+The default view volume is undefined, and the working space is identity.
+}
+
+METHOD "" ~SbSphereSheetProjector() { Destructor. }
+    
+ALSO { 
+SbCylinderProjector,
+SbCylinderPlaneProjector,
+SbCylinderSectionProjector,
+SbCylinderSheetProjector,
+SbLineProjector,
+SbPlaneProjector,
+SbSpherePlaneProjector
+}
+
+
+

@@ -1,0 +1,17 @@
+This directory contains the source code for some
+unsupported Open Inventor nodes:
+
+BarChart   - displays data as a bar chart
+Decal      - a group that allows co-planar geometries to be drawn
+             without z-buffer ugliness
+GeneralizedCylinder - a shape node that is a cross-section swept out
+                      along an arbitrary spine
+
+Each subdirectory contains the source code and include files needed to
+make a dynamic shared object (DSO) for the node.  If you put the
+DSO's into /usr/local/lib/InventorDSO/ all Inventor programs will be
+able to read files containing the new nodes.
+
+Note that you need superuser permissions to build or modify the installed
+demo programs.  Alternatively, you can copy the programs that interest you
+into your local directory.

@@ -1,0 +1,379 @@
+#! /usr/sbin/perl 
+#
+#  Perl script to change longs to int32_ts.
+#  --------------------
+#   longToInt32  changes longs to int32_ts and all the changes
+#   associated with this (see the s/from/to/ lines for all the
+#   gory details).
+#
+#   Note:  This perl script will not change any longs on a line with
+#    either of the strings "system long" or "System long".  
+#    Therefore, if you have a long that must remain in the code, 
+#    then insert a comment on the same line as the long and 
+#    include one of the above strings.  The comment may appear
+#    anywhere on the line.
+#
+#   Suggestions for use:
+#   --------------------
+#      Work in manageable chunks by identifing a directory whose
+#      contents (and subdirectory contents) will not overwhelm you.
+#
+#	  cd to that directory, and run the following command to
+#          get a list of filenames.  Each file will contain the
+#	  string "long" (case insensitive) in it:
+#
+#	  find . -print | xargs grep -l -i long > /tmp/long.files
+#
+#      In one window, edit /tmp/long.files  and in another run
+#
+#	  longToInt32 /tmp/long.files -m | more
+#
+#      and consider whether you want the script to edit the file for  
+#      you, the file should be removed from the list, or whether you
+#      want to add the special string "system long" to one or more 
+#      lines of the file.  Execute the script with no arguments to
+#      get a list of options.
+#
+#       run: longToInt32               to see the options
+#
+#      (the -m option enables printing of modification information to 
+#      stdout).  
+#
+#      When you are ready to replace the files with their int32 counterparts,
+#
+#        longToInt32 /tmp/long.files -r    (plus your choice of options)
+#
+#      The -r enables REPLACEMENT of the original file.  The original files
+#      will be retained with the extension  ".old".
+#   --------------------
+#
+#      One last thing...  If this script is changing something that you
+#      would rather it didn't, then let us know and we will fix it.
+#
+#     Daniel Woods
+#  --------------------
+
+
+# Good programming habits? :
+
+    $True  = 1;
+    $False = 0;
+    $MyName = "longToInt32";    # how do I get this?
+
+# Default settings:
+
+    $showmods	= $False;
+    $replace	= $False;
+    $saveold	= $False;
+    $oldextension = ".old";
+    $verbose	= $False;
+    $logmods	= $True;
+    $logappend	= $False;
+    $logfile	= "/tmp/log.int32";
+    $tmpfile	= "/tmp/tmp.int32";
+
+# Process arguments:
+
+    if ($#ARGV < 0) {
+	do sub_USAGE($MyName);
+        exit(1) ;
+    }
+	
+    if ("-" eq $ARGV[0]) {
+	if (!open(input, "-")) {
+	    print STDERR $MyName, ": Can't open stdin!\n";
+	    exit(1);
+	}
+    }
+    elsif (!open(input, $ARGV[0])) {
+	print STDERR $MyName, ": Can't open ", $ARGV[0], "\n";
+	exit(1);
+    }
+
+    foreach $i (1 .. $#ARGV) {
+	if ("-m" eq $ARGV[$i]) 
+	    { $showmods = $True; }
+
+	elsif ("-r" eq $ARGV[$i]) 
+	    { $replace = $True; }
+
+	elsif ("-s" eq $ARGV[$i]) 
+	    { $saveold = $True; }
+
+	elsif ("-x" eq $ARGV[$i]) { 
+	    $i = $i+1; 
+	    $oldextension = $ARGV[$i]; 
+	}
+
+	elsif ("-v" eq $ARGV[$i]) 
+	    { $verbose = $True; }
+
+	elsif ("-nl" eq $ARGV[$i]) 
+	    { $logmods = $False; }
+
+	elsif ("-a" eq $ARGV[$i]) 
+	    { $logappend = $True; }
+
+	elsif ("-lf" eq $ARGV[$i]) { 
+	    $i = $i+1; 
+	    $logfile = $ARGV[$i]; 
+	}
+
+	elsif ("-tf" eq $ARGV[$i]) { 
+	    $i = $i+1; 
+	    $tmpfile = $ARGV[$i]; 
+	}
+    }
+
+    if ( $verbose ) 
+	{ print "Arguments processed successfully\n"; }
+
+
+##################
+# Open a log file?
+
+    if ( $verbose ) {
+	if ($logmods ) 
+	    { print STDOUT "Modifications logged to ", $logfile, "\n"; }
+	else
+	    { print STDOUT "Modifications not being logged.\n"; }
+    }
+    if ( $logmods ) {
+	if ( $logappend ) 
+	    { $bleah = ">>" . $logfile; }
+	else 
+	    { $bleah = ">" . $logfile; }
+
+	if (!open (LOGFILE, $bleah)) {
+	    print STDERR $MyName, ": Can't open ", $logfile, "\n";
+	    exit(1);
+    	}
+    }
+
+#######################
+# Foreach input file
+# 
+    while (<input>) {
+	$linenum  = 0;
+	$modcount = 0;
+        $filename = $_;
+	print STDOUT "\nFILE: ", $filename; 
+
+	if ( $logmods )
+	    { print LOGFILE "\nFILE: ", $filename; }
+
+
+	if ( $verbose ) 
+	    { print STDOUT "Modifying ", $filename; }
+	chop ($filename);
+
+
+#####################
+# Open an output file
+
+	if ( $verbose ) 
+	    { print STDOUT "Temporary file is ", $tmpfile, "\n"; }
+
+	if (!open (TMPFILE, ">" . $tmpfile)) {
+	    print STDERR $MyName, ": Can't open ", $tmpfile, "\n";
+	    exit(1);
+	}
+
+
+#####################
+# Open the input file
+
+	if (!open (INFILE, $filename)) {
+	    print STDERR $MyName, ": Can't open ", $filename, "\n";
+	    exit(1);
+	}
+
+
+#################################
+# Foreach line in the input file:
+
+	while ( <INFILE> ) {
+	    $linenum++ ;
+            $lineBefore = $_;
+
+
+# Exclude changing these strings (temporarily change them)
+# Be sure to change them back (see below).
+
+	    s/o long/o loong/;		# too long, to long [sic]
+	    s/y long/y loong/;		# really long, very long
+	    s/s long/s loong/;		# [Aa]s long, bits long, ...
+	    s/r long/r loong/;		# for long
+	    s/e long/e loong/;		# are long
+	    s/a long p/a loong p/;		# a long period
+	    s/how long/how loong/;
+	    s/unit long/unit loong/;
+	    s/LONGEST_/LOONGEST_/;
+	    s/LONG_DIM/LOONG_DIM/;
+	    s/AS LONG/AS LOONG/;
+	    s/_SZLONG/_SZLOONG/;
+	    s/Longitude/Loongitude/;
+	    s/long motions/loong motions/;   # Manipulator comments
+	    s/one long/one loong/;
+	    s/long enough/loong enough/;
+	    s/long run/lung run/;	
+	    s/a long time/a loong time/;
+
+# Change longs to int32_t and, ...
+
+	    if (!(/[Ss]ystem long/)) {
+		s/\bunsigned long long int\b/uint64_t/g;
+		s/\bunsigned long long\b/uint64_t/g;
+
+		s/\bsigned long long int\b/int64_t/g;
+		s/\bsigned long long\b/int64_t/g;
+
+		s/\bulong int\b/uint32_t/g;
+		s/\bulong\b/uint32_t/g;
+		s/\bu_long int\b/uint32_t/g;
+		s/\bu_long\b/uint32_t/g;
+		s/\bunsigned long int\b/uint32_t/g;
+		s/\bunsigned long\b/uint32_t/g;
+
+		s/\blong\b/int32_t/g;
+		s/\blongs\b/int32_ts/g;
+
+		s/Long/Int32/g;
+		s/LONG/INT32/g;
+	    }
+
+# Restore (some) exclusions ...
+
+	    s/s loong/s long/;		# [Aa]s long, bits long, ...
+	    s/o loong/o long/;		# too long, to long [sic]
+	    s/y loong/y long/;		# really long, very long
+	    s/r loong/r long/;		# for long
+	    s/e loong/e long/;		# are long
+	    s/a loong p/a long p/;
+	    s/a loong time/a long time/;
+	    s/how loong/how long/;
+	    s/unit loong/unit long/;
+	    s/lung run/long run/;
+	    s/LOONGEST_/LONGEST_/;
+	    s/LOONG_DIM/LONG_DIM/;
+	    s/AS LOONG/AS LONG/;
+	    s/_SZLOONG/_SZLONG/;
+	    s/Loongitude/Longitude/;
+	    s/loong motions/long motions/;   # Manipulator comments
+	    s/one loong/one long/;
+	    s/loong enough/long enough/;
+
+# If requested, print "after" line
+
+	    if ( $_ ne $lineBefore ) {
+		$modcount++;
+		if ( $showmods ) {
+		    printf(STDOUT "\n%5d: ", $linenum);
+		    print STDOUT $lineBefore;
+		    printf(STDOUT "     : ", $linenum);
+		    print STDOUT $_;
+		}
+	        if ( $logmods ) {
+		    printf(LOGFILE "\n%5d: ", $linenum);
+		    print LOGFILE $lineBefore;
+		    printf(LOGFILE "     : ", $linenum);
+		    print LOGFILE $_;
+		}
+	    }
+
+# Output line, changed or not, to tmpfile
+
+	    print TMPFILE $_;
+	}
+
+# Finished processing input file, clean up, print useful info...
+
+        if ($modcount == 1) 
+	    { print STDOUT "   ", $modcount, " line modified\n\n"; }
+        else
+	    { print STDOUT "   ", $modcount, " lines modified\n\n"; }
+
+	if ( $logmods ) {
+            if ($modcount == 1) 
+	        { print LOGFILE "   ", $modcount, " line modified\n\n"; }
+            else
+	        { print LOGFILE "   ", $modcount, " lines modified\n\n"; }
+        }
+
+	close (INFILE);
+	close (TMPFILE);
+
+	if ( $replace ) {
+            if (!-w $filename) {
+		print STDERR "   ERROR:",  $filename, " not writable.\n";
+            }
+	    else {
+	        if (!rename($filename, $filename . $oldextension)) {
+		    print STDERR "   ERROR: Could not rename ", $filename;
+		    print STDERR " to ", $filename . $oldextension, "\n\n";
+		    exit(1);
+	        }
+    
+	        if (!rename($tmpfile, $filename)) {
+		    print STDERR "   ERROR: Could not rename ", $tmpfile;
+		    print STDERR " to ", $filename, "\n";
+		    print STDERR "     perl needs these on the same filesystem";
+		    print STDERR "\n     use the -tf option to enable.";
+		    print STDERR "\n\n   Restoring ", $filename, "\n";
+	            if (!rename($filename . $oldextension, $filename)) {
+		        print STDERR "\n*** could not restore ", $filename, " ";
+		        print STDERR "from ", $filename . $oldextension, "\n\n";
+		    }
+		    exit(1); 
+		}
+	    }
+	}		
+    }   # end of :  Foreach input file
+    close (LOGFILE);
+
+# Should remove  $tmpfile,  but how?
+    if ( $replace )
+	{ rename ($tmpfile, "/dev/null"); }
+
+
+# END OF  "MAIN" 
+#########################################################################
+
+
+
+#########################################################################
+#
+#  Subroutine to print usage
+#
+sub sub_USAGE {
+	print STDERR "\n";
+	print STDERR "Usage: ", $_[0] , " {-,filename} [options]";
+	print STDERR "\n\n";
+	print STDERR "  where  ";
+	print STDERR "{-,filename}   lists the set of files to be modified\n";
+	print STDERR "            -   to read names from stdin\n";
+	print STDERR "     filename   to read names from file\n";
+	print STDERR "\n";
+	print STDERR "  optional arguments are:\n";
+	print STDERR "         -m";
+	print STDERR "         enables echo of modifications to STDOUT\n";
+	print STDERR "         -r";
+	print STDERR "         enables replacement of the original file\n";
+	print STDERR "         -s";
+	print STDERR "         saves the original file with a new extension\n";
+	print STDERR "         -x ext";
+	print STDERR "     defines a new extension for the saved original\n";
+	print STDERR "         -v";
+	print STDERR "         turns on verbose debugging (not recommended)\n";
+	print STDERR "         -lf fname";
+	print STDERR "  defines the logfile name\n";
+	print STDERR "         -a";
+	print STDERR "         enables appending to the logfile\n";
+	print STDERR "         -nl";
+	print STDERR "        disables modification logging\n";
+	print STDERR "         -tf fname";
+	print STDERR "  defines the temporary file name\n";
+	print STDERR "\n";
+	print STDERR "  Check out the script file header for useful info.\n";
+	print STDERR "\n";
+    }

@@ -1,0 +1,108 @@
+NAME SoEventCallback "SoEvCB" "" { node which invokes callbacks for events }
+
+INCLUDE nodes/SoEventCallback.h
+
+DESC { \cSoEventCallback\. will invoke application supplied
+callback functions during \cSoHandleEventAction\. traversal.
+Methods allow the application to specify which Inventor events should
+trigger callbacks, and which path must be picked, if any, for the callback
+invocation to occur. The application callback is able to get information about
+the event and the pick detail, and may grab events, release events, and set
+whether the event was handled.
+\p
+If you register more than one callback
+function in an \cSoEventCallback\. node, all the callback functions
+will be invoked when an event occurs, even if one of the callbacks handles
+the event. However, if the event is handled by any of the callback functions,
+no other node in the scene graph will see the event.
+}
+
+TYPEDEF void SoEventCallbackCB "(void *userData, SoEventCallback *node)"
+
+METHOD "" static SoType getClassTypeId() {
+Return the type id for the \cSoEventCallback\. class.
+}
+
+METHOD "" SoEventCallback() {
+Constructor creates an event callback node with no event interest
+and a NULL path.
+}
+
+METHOD "" void setPath(SoPath *path) {}
+METHOD "" const SoPath * getPath() {
+Set and get the path which must be picked in order for the callbacks
+to be invoked. If the path is NULL, the callbacks will be invoked
+for every interesting event, as specified by
+\+\maddEventCallback()\.,\.
+\-\mSoEvCBAddEvCB()\.,\.
+regardless of what is picked. The
+\+\msetPath()\. method\.\-\mSoEvCBSetPath()\. function\.
+makes its own copy of the passed path.
+}
+
+METHOD "addEvCB" void addEventCallback(SoType eventType,
+			 SoEventCallbackCB *f,
+			 void *userData = NULL) {}
+METHOD "removeEvCB" void removeEventCallback(SoType eventType,
+			    SoEventCallbackCB *f,
+			    void *userData = NULL) {
+Specifies the callback functions to be invoked for different event types.
+When invoked, the callback function will be passed the \auserData\.,
+along with a pointer to this \cSoEventCallback\. node.
+For example, passing
+\+\mSoMouseButtonEvent::getClassTypeId()\.\.
+\-\mSoMouseEvGetClassTypeId()\.\.
+means callbacks will be invoked only when a mouse button is pressed
+or released.
+Passing
+\+\mSoEvent::getClassTypeId()\.\.\-\mSoEvGetClassTypeId()\.\.
+for the \aeventType\. will cause the callback to be invoked for every event
+which passes through this event callback node.
+}
+
+METHOD "getAct" SoHandleEventAction * getAction() const {
+Returns the \cSoHandleEventAction\. currently traversing this node,
+or NULL if traversal is not taking place. This should be called
+only from callback functions.
+}
+
+METHOD "getEv" const SoEvent * getEvent() const {
+Returns the event currently being handled,
+or NULL if traversal is not taking place. This should be called
+only from callback functions.
+}
+
+METHOD "getPckPt" const SoPickedPoint * getPickedPoint() const {
+Returns pick information during \cSoHandleEventAction\. traversal,
+or NULL if traversal is not taking place. This should be called
+only from callback functions.
+}
+
+METHOD "" void setHandled() {
+Tells the node the event was handled. The callback function is
+responsible for setting whether the event was handled or not.
+If there is more than one callback function registered
+with an \cSoEventCallback\. node, all of them will be
+invoked, regardless of whether one has handled
+the event or not.
+This should be called only from callback functions.
+}
+
+METHOD "" SbBool isHandled() const {
+Returns whether the event has been handled.
+This should be called only from callback functions.
+}
+    
+METHOD "grabEv" void grabEvents() {}
+METHOD "releaseEv" void releaseEvents() {
+Tells the event callback node to grab events or release the
+grab. While grabbing, the node will consume all events;
+however, each callback function will only be invoked for
+events of interest.
+}
+
+
+ALSO { SoInteraction, SoSelection, SoHandleEventAction, SoDragger }
+
+
+

@@ -1,0 +1,30 @@
+NAME SoSFTime SoSTime "" {
+field containing an SbTime
+}
+
+INCLUDE fields/SoSFTime.h
+
+DESC {
+A multiple-value field that contains any number of time values.
+\p
+\cSoSFTimes\. are written to file as a double-precision
+floating point value representing the length of time in seconds.
+Absolute times are measured relative to 00:00:00 GMT, January 1, 1970.
+}
+ALSO { SbTime, SoField, SoSField, SoMFTime }
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get const SbTime & getValue() const {
+Returns this field's value.
+}
+METHOD " " const SbTime & operator =(const SbTime & newValue) {}
+METHOD Set void setValue(const SbTime & newValue) {
+Sets this field to \anewValue\..
+}
+METHOD IsEq int operator ==(const SoSFTime &f) const {}
+METHOD IsNEq int operator !=(const SoSFTime &f) const {
+Returns TRUE if \af\. is of the same type and has the same value as this
+field.
+}

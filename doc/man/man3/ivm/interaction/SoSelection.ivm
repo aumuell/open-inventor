@@ -1,0 +1,238 @@
+NAME SoSelection "SoSel" "SO_SEL_" { manages a list of selected objects }
+
+INCLUDE nodes/SoSelection.h
+
+DESC { \cSoSelection\. defines a node which can be inserted into a scene graph
+and will generate and manage a selection list from picks on any node
+in the subgraph below it. Nodes are selected based on a current
+selection policy.
+Callback functions report back to the application when a path has been
+selected or deselected. The selection list can also be managed
+programmatically.
+\p
+When handling events, \cSoSelection\. makes sure that the mouse release
+event was over the same object as the mouse press event before
+changing the list of selected objects. This allows users to mouse
+down on an object, change their mind and move the cursor off the object,
+then release the mouse button without altering the selection.
+\p
+The selection can be highlighted automatically through the \cSoXtRenderArea\.,
+or the application can provide custom highlights. Please see the
+chapter "Creating a Selection Highlight Style" in the
+\eInventor Toolmaker\..
+}
+
+TYPEDEF void SoSelectionPathCB "(void *userData, SoPath *path)"
+TYPEDEF void SoSelectionClassCB "(void *userData, SoSelection *sel)"
+TYPEDEF "SoPath *" SoSelectionPickCB "(void *userData, const SoPickedPoint *pick)"
+
+ENUM Policy {
+SINGLE "Left mouse pick on object clears selection, then selects object.
+	Left mouse pick on nothing clears selection.
+	Only one object may be selected at a time.",
+
+	
+TOGGLE "Left mouse pick on object toggles its selection status.
+	Left mouse pick on nothing does nothing.
+	Multiple objects may be selected.",
+	
+SHIFT  "When shift key is down, selection policy is TOGGLE.
+	When shift key is up, selection policy is SINGLE.
+	Multiple objects may be selected."
+}
+
+
+FIELD policy { 
+Selection policy that is followed in response to user interaction.
+This can be set to \+\kSoSelection::SINGLE\., \kSoSelection::TOGGLE\., or
+\kSoSelection::SHIFT\.\.\-\kSO_SEL_SINGLE\.,
+\kSO_SEL_TOGGLE\., or \kSO_SEL_SHIFT\.\..
+}
+
+METHOD "" SoSelection() {
+Creates a selection node with the default settings.
+}
+
+METHOD "" SoSelection(int nChildren) {
+Constructor that specifies the
+approximate number of children.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Return the type id for the \cSoSelection\. class.
+}
+
+METHOD "sel" void select(const SoPath *path) {
+Select the passed path by adding it to the selection list.
+The selection node must lie in the path. The path is copied and
+truncated such that the selection node is the head of the path.
+If the selection node does not lie in the path, the selection list
+remains unchanged.
+This \+method\.\-function\. ignores the current selection policy. 
+}
+   
+METHOD "selNode" void select(SoNode *node) {
+Select the passed node by creating a path to it, and adding
+the path to the selection list by calling
+\+\mselect(path)\.\.\-\mSoSelSel()\.\.. If there is more than one
+instance of \anode\. beneath the selection node, the created
+path will be the first instance found. 
+}
+
+METHOD "desel" void deselect(const SoPath *path) {
+Deselect the passed path by removing it from the selection list.
+}
+
+METHOD "deselByInd" void deselect(int which) {
+Deselect a path by removing it from the selection list.
+The argument \awhich\. specifies which path in the list to be removed.
+}
+
+METHOD "deselNode" void deselect(SoNode *node) {
+Deselect the passed node by creating a path to it, and removing
+the node from the selection list by calling
+\+\mdeselect(path)\.\.\-\mSoSelDesel()\.\.. If there is more than one
+instance of \anode\. beneath the selection node, the created
+path will be the first instance found.
+}
+
+METHOD "" void toggle(const SoPath *path) {
+Toggle the selection status of the passed path \(em if the path is in
+the selection list, it is removed; if not in the list, it is added.
+}
+
+METHOD "toggleNode" void toggle(SoNode *node) {
+Toggle the selection status of the passed node by creating a path to it,
+then calling \+\mtoggle(path)\.\.\-\mSoSelToggle()\.\..
+If there is more than one
+instance of \anode\. beneath the selection node, the created
+path will be the first instance found.
+}
+
+METHOD "isSel" SbBool isSelected(const SoPath *path) const {
+Returns \eTRUE\. if the passed path is selected, that is, if it is in
+the selection list.
+}
+
+METHOD "isSelNode" SbBool isSelected(SoNode *node) const {
+Returns \eTRUE\. if the passed node is selected by creating a path to it,
+then calling \+\misSelected()\.\.\-\mSoSelIsSel()\.\.. If there is more than one
+instance of \anode\. beneath the selection node, the created
+path will be the first instance found.
+}
+    
+METHOD "deselAll" void deselectAll() {
+Deselect all paths in the selection list, that is, clear the list.
+}
+
+METHOD "getNumSel" int getNumSelected() const {
+Return the number of paths in the selection list.
+}
+
+METHOD "" const SoPathList *getList() const {
+Return the list of selected paths.
+}
+
+METHOD "" SoPath *getPath(int index) const {}
+METHOD "" SoPath * operator [\|](int i) const {
+Return the \ai\.th path in the selection list.
+}
+
+METHOD "addSelCB" void addSelectionCallback(SoSelectionPathCB *f, void *userData = NULL) {}
+METHOD "removeSelCB" void removeSelectionCallback(SoSelectionPathCB *f, void *userData = NULL) {
+The selection callbacks are invoked every time an object is selected, whether
+it be from user interaction or from \+method\.\-function\. call.
+The callbacks are invoked after the object has been added to the selection list.
+}
+    
+METHOD "addDeselCB" void addDeselectionCallback(SoSelectionPathCB *f, void *userData = NULL) {}
+METHOD "removeDeselCB" void removeDeselectionCallback(SoSelectionPathCB *f, void *userData = NULL) {
+The deselection callbacks are invoked every time an object is deselected, whether
+it be from user interaction or from \+method\.\-function\. call.
+This is invoked after the object has been removed from the selection list.
+}
+
+METHOD "addStartCB" void addStartCallback(SoSelectionClassCB *f, void *userData = NULL) {}
+METHOD "removeStartCB" void removeStartCallback(SoSelectionClassCB *f, void *userData = NULL) {
+The start callbacks are invoked when the user has initiated an interactive
+change to the selection list (by picking objects). This will be followed by
+invocations of the
+select and/or deselect callbacks, finally followed by each finish callback.
+A start callback can be used, for instance, to save the current selection
+for later restoration (e.g. undo/redo). The start callbacks are not called
+when the selection list is changed programmatically.
+}
+    
+METHOD "addFinishCB" void addFinishCallback(SoSelectionClassCB *f, void *userData = NULL) {}
+METHOD "removeFinishCB" void removeFinishCallback(SoSelectionClassCB *f, void *userData = NULL) {
+The finish callbacks are invoked when the user has finished interactively
+changing the selection list (by picking objects).
+This was preceded by an invocation of each start
+callback, and invocations of the select and/or deselect callbacks.
+The finish callbacks are not called
+when the selection list is changed programmatically.
+}
+
+METHOD "setPickFilterCB" void setPickFilterCallback(
+		SoSelectionPickCB *f,
+		void *userData = NULL, 
+		SbBool callOnlyIfSelectable = TRUE) {
+The pick filter callback is invoked when a pick has occurred
+and the selection node is about
+to change the selection list.
+The callback function returns the
+path that the selection node should use when selecting and deselecting.
+If no pick callback is registered (the default), the selection node
+will use the path returned by
+\+\mSoPickedPoint::getPath()\.\.\-\mSoPickPtGetPath()\.\. on the picked
+point associated with the event being processed.
+The returned path should not be ref'd - selection will \mref()\. and 
+\munref()\. it.
+(See \+\mSoPath::unrefNoDelete()\.\.\-\mSoPathUnrefNoDelete()\.\..)
+\p
+Note that a picked object may or may not be a child of the selection
+node. A selection node will only select paths that pass through it.
+Possible return values from the callback:
+\p
+[a] NULL \(em selection behaves as if nothing was picked
+(i.e. for SINGLE and SHIFT policies, this clears
+the selection list). Handle event action traversal
+halts.
+\p
+[b] Path \(em this path will be selected/deselected according
+to the selection policy (it must lie under the
+selection node). Handle event action traversal halts.
+\p
+[c] Path containing \eonly\. the selection node \(em apply the
+selection policy as if nothing was picked. Handle
+event action traversal continues.
+\p
+[d] Path not passing through the selection node \(em selection
+ignores this pick event and no change is made to the
+selection list. Handle event action traversal continues.
+\p
+A simple way to tell selection to ignore the pick is to return
+an \cSoPath\. with no nodes in it. (i.e. \mreturn new SoPath;\.)
+Selection will always ref the path returned by the callback, make a
+copy of the path, then unref the path.
+\p
+The \acallOnlyIfSelectable\. argument, when set to TRUE, means the pick
+callback function will only be invoked on picks which pass through
+the selection node. When FALSE, all picks will be passed to the callback
+whether they pass through the selection or not.
+} 
+
+METHOD "" void setPickMatching(SbBool pickTwice) {}
+METHOD "" SbBool getPickMatching() const {
+\cSoSelection\. will pick once on mouse down
+and once on mouse up, and make sure the picks match before changing
+the selection list. This allows the user to pick down on an object,
+change their mind and drag off the object, release the mouse button
+and not affect the selection. Pass TRUE to enable this behavior.
+Pass FALSE to disable this, meaning whatever is picked on a mouse
+release is added to/removed from the selection list.
+Default is pick-matching on.
+}
+
+ALSO { SoEventCallback, SoXtRenderArea,
+SoBoxHighlightRenderAction, SoLineHighlightRenderAction }

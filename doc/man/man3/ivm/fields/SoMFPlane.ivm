@@ -1,0 +1,82 @@
+NAME SoMFPlane SoMPlane "" {
+field containing several plane equations
+}
+
+INCLUDE fields/SoMFPlane.h
+
+DESC {
+A field containing one or more plane equations.
+\p
+\cSoMFPlanes\. are written to file as groups of four floating point
+values separated by whitespace.  In each set of four values, the first
+three are the normal direction of the plane, the fourth is the
+distance of the plane from the origin (in the direction of the normal).
+\p
+When more than one value is present, all of the
+values are enclosed in square brackets and separated by commas; for
+example:
+\b
+[ 1 0 0 0, .707 .707 0 100, ]
+\.
+}
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get SbPlane operator [\|](int i) const {
+Returns the \ai\.'th value of the field.  Indexing past the end of the
+field (passing in \ai\. greater than \agetNum()\.) will return garbage.
+}
+METHOD GetN const SbPlane * getValues(int start) const {
+Returns a pointer into the array of values in the field, starting at
+index \astart\..  The values are read-only; see the
+\mstartEditing()\./\mfinishEditing()\. methods for a way of modifying values
+in place.
+}
+METHOD "" int find(SbPlane targetValue,
+	SbBool addIfNotFound = FALSE) {
+Finds the given value in the array and returns the index of that value
+in the array.  If the value is not found, -1 is returned.  If
+\aaddIfNotFound\. is set, then \atargetValue\. is added to the end of the
+array (but -1 is still returned).
+}
+METHOD SetN void setValues(int start, int num,
+	const SbPlane *newValues) {
+Sets num values starting at index \astart\. to the values in \anewValues\..
+The array will be automatically be made larger to accomodate the new
+values, if necessary.
+}
+METHOD Set1 void set1Value(int index, SbPlane newValue) {
+Sets the \aindex\.'th value in the array to \anewValue\..  The array will be
+automatically expanded, if necessary.
+}
+METHOD " " SbPlane operator =(SbPlane newValue) {}
+METHOD Set void setValue(SbPlane newValue) {
+Sets the first value in the array to \anewValue\., and deletes the second
+and subsequent values.
+}
+METHOD IsEq int operator ==(const SoMFPlane &f) const {}
+METHOD IsNEq int operator !=(const SoMFPlane &f) const {
+Returns TRUE if all of the values of this field equal (do not
+equal) those of the given field.  If the fields are different types FALSE will
+always be returned (even if one field is an \cSoMFFloat\. with one
+value of 1.0 and the other is an \cSoMFInt\. with a value of 1, for
+example).
+}
+METHOD StartEdit SbPlane *startEditing() {}
+METHOD FinishEdit void finishEditing() {
+\mstartEditing()\. returns a pointer to the internally-maintained array that 
+can be modified.  The values in the array may be changed, but values cannot
+be added or removed.  It is illegal to call any other editing methods between 
+\+\mstartEditing()\. and \mfinishEditing()\. (e.g.
+\mset1Value()\., \msetValue()\., etc).\.\-\mStartEdit()\. and \mFinishEdit()\. 
+(e.g. \mSet1()\., \mSet()\., etc).\.
+\p
+Fields, engines or sensors connected to this field and sensors are not
+notified that this field has changed until 
+\+\mfinishEditing()\.\.\-\mFinishEdit()\.\. is called.  Calling
+\+\mfinishEditing()\.\.\-\mFinishEdit()\.\. always sets the
+\+\misDefault()\.\.\-\mIsDflt\.\. flag to FALSE and informs
+engines and sensors that the field changed, even if none of the values
+actually were changed.
+}

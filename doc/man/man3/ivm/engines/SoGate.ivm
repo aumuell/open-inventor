@@ -1,0 +1,35 @@
+NAME SoGate SoGate "" { 
+selectively copies its input to its output 
+}
+
+DESC { 
+This engine selectively copies its input to its output.
+The type of the input field can be any subclass of \cSoMField\..
+The type is specified when an instance of the class is created.
+For example,
+\+\cSoGate(SoMFFloat::getClassTypeId())\.\.
+\-\cSoGateCreate(SoMFloatGetClassTypeId())\.\.
+creates an engine that copies floating-point values.
+\p
+The \venable\. input controls continous flow-through of values.
+While \venable\. is TRUE, the input will be copied to the output. 
+Alternatively, by touching the \vtrigger\. input, you can 
+copy a single value from the input to the output.
+\p 
+Note that unlike most other engine fields, \vinput\. and
+\voutput\. are pointers.
+Note also that by default \vinput\. does not contain any values.
+}
+
+INCLUDE engines/SoGate.h
+
+INPUT enable { Enable continous flow-through. }
+INPUT trigger { Copy a single value. }
+INPUT input { The value that is copied to the output when the gate is open. }
+
+OUTPUT output { Contains a copy of the input value if the gate is open. }
+
+METHOD SoGateCreate SoGate(SoType inputType)
+{ Constructor.  The argument specifies the type of the input field. }
+
+ALSO { SoEngineOutput, SoConcatenate, SoSelectOne }

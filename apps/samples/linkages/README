@@ -1,0 +1,87 @@
+linkages  - An Interactive linkage program.
+
+This program reads and displays Inventor files containing connected linkages.
+Each piece has a 'link' (rendered in Blue by default) and a set of
+draggers (rendered in Magenta by default).   So you can click on anything
+Magenta and drag it around, and the linkage will remain connected.
+
+The links are connected end-to-end using simple field connections defined in
+the input files.  The classes "Link", "Crank", "RivetHinge", "DoubleLink",
+and "Piston" are special classes written for this application. Their header
+and source files are in this directory.
+
+Each of the new classes is a nodekit that contains draggers as parts.
+When you drag a dragger, internal connections and engines make changes to
+some parameter of the node (see below for more details).   The "Piston" and
+"DoubleLink" nodes will turn Red if you pull them apart too far. The linkage
+will continue to work, and the node will turn Blue again when you 
+stop hurting it.
+
+
+How to run the program:
+-----------------------
+prompt> linkages [-m] filename
+
+If no filename is given, linkages looks for:  motorizedMechanism.iv
+The file oneOfEach.iv brings up one of each kind of piece, as described below.
+
+The -m option brings up an extra window with buttons you can press to
+add pieces to the scene.
+
+
+ABOUT THE TYPES OF PIECES:
+-------------------------
+Each class its own interface. Clicking the middle mouse over any of them 
+will toggle the draggers on and off.
+
+"Link" ------- A simple strut with draggable ends 
+	       -2D translate dragger moves origin
+               -2D translate dragger moves endPoint
+
+"Crank" ------ A crank you can turn. Good for driving the motion of a
+	       mechanism. 
+	       -2D translate dragger moves origin
+               -rotate dragger turns crank
+	        (You can also hook up the rotation from an SoElapsedTime engine)
+               -1D translate dragger changes length
+
+"RivetHinge" - A strut that has an origin and a given length, but its 
+	       orientation is given by the fact that it must point toward the
+	       'hingePoint'
+	       -2D translate dragger moves origin
+               -2D translate dragger moves hinge point
+               -1D translate dragger changes length
+
+"DoubleLink" - This controls the two "Link" nodes that comprise it. It keeps 
+	       their endpoints connected even while the two origins are moved.
+	       -2D translate dragger moves origin of first link.
+	       -2D translate dragger moves origin of second link.
+	       -2D translate dragger moves the sharedPoint while leaving the
+		origins fixed. This changes the lengths of both links at once.
+
+"Piston" ----- This controls the two "RivetHinge" nodes that comprise it. It 
+	       keeps each one pointed toward the other, even as their origins 
+	       are moved.  So the two rivets remain aligned as they slide 
+	       in and out.
+	       -2D translate dragger moves origin of first link.
+	       -2D translate dragger moves origin of second link.
+
+BUILDING MECHANISMS WITH CONNECTIONS:
+------------------------------------
+Users can easily connect pieces with field-to-field connections 
+and build up mechanisms. (For example, one end of a Piston can
+be connected from the end point of a Crank).
+These connections must be specified in the input file.
+
+Also, pieces can be connected from engines. For example, the angle of a
+Crank can be driven by an SoElapsedTime engine. (Try RUNME_MOTORIZED to
+see how this works)
+
+CUSTOMIZING THE PIECES:
+----------------------
+The file linkagesResourceFile.iv defines the default geometry for each
+kind of link.  
+
+You can change this file to create different looking links,
+or you can change the links on individual basis.  The file pairOfLegs.iv 
+does this to make the angleRotateGeom of each leg look different.

@@ -1,0 +1,41 @@
+NAME SoTextureCoordinate2 SoTexCoord2 "" { 2D texture coordinate node }
+
+INCLUDE nodes/SoTextureCoordinate2.h
+
+DESC {
+This node defines a set of 2D coordinates to be used to map textures
+to subsequent vertex-based shapes (those derived from
+\cSoVertexShape\.). It replaces the current texture coordinates in the
+rendering state for the shapes to use.
+\p
+The current texture coordinate binding (see
+\cSoTextureCoordinateBinding\.) determines how texture coordinates are
+mapped to vertices of shapes. An alternative to using explicit texture
+coordinates is to generate them using a function; see
+\cSoTextureCoordinateFunction\..
+\p
+Texture coordinates range from 0 to 1 across the texture. The
+horizontal coordinate, called \kS\., is specified first, followed by
+the vertical coordinate, \kT\..
+}
+
+FIELD point { Texture coordinate points. }
+
+METHOD "" SoTextureCoordinate2() {
+Creates a texture coordinate node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction {
+Sets the current texture coordinates in the state.
+}
+
+ALSO {
+SoTexture2,
+SoTextureCoordinateBinding,
+SoTextureCoordinateFunction,
+SoVertexShape
+}

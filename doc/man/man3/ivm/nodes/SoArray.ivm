@@ -1,0 +1,71 @@
+NAME SoArray "" "" {
+group node that creates a regular IxJxK array of copies of its children
+}
+
+INCLUDE nodes/SoArray.h
+
+DESC {
+
+This group node traverses its children, in order, several times,
+creating a regular 3D array of copies of them. The number of copies
+in each of the three directions is specified by fields, as are the
+vectors used to separate the copies in each of the three dimensions.
+\p
+For example, an \cSoArray\. node can be used to create a 2x3x4 array
+of copies of its children, where the separation vectors between
+adjacent copies in the three array dimensions are (1,2,3), (-4,-5,-6),
+and (7,8,9), respectively. The base point of the array can be set to
+one of several values, as described in the \corigin\. field.
+\p
+Copies are traversed so that the first dimension cycles most quickly,
+followed by the second, and then the third. This order is important
+because \cSoArray\. sets the current switch value to N before
+traversing the children for the Nth time (for use with inherited
+switch values - see \cSoSwitch\.).
+}
+
+ENUM Origin {
+    FIRST	"First copy is rendered at the current local origin;
+		 all other copies are distributed relative to it",
+    CENTER	"Copies are distributed relative to the center of the array",
+    LAST	"Last copy is rendered at the current local origin;
+		 all other copies are distributed relative to it"
+}
+
+FIELD numElements1 {}
+FIELD numElements2 {}
+FIELD numElements3 {
+Number of elements in each of the three array dimensions.
+}
+
+FIELD separation1 {}
+FIELD separation2 {}
+FIELD separation3 {
+Separation vector in each of the three array dimensions.
+}
+
+FIELD origin {
+Defines the base point from which copies are distributed.
+}
+
+METHOD "" SoArray() {
+Creates an array node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoRayPickAction {
+Traverses all children for each array element, saving and restoring
+state before and after each traversal.
+}
+
+ACTION SoSearchAction {
+Traverses all children once, setting the inherited switch value to
+\cSO_SWITCH_ALL\. first.
+}
+
+ALSO { SoMultipleCopy, SoSwitch }
+

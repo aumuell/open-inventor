@@ -1,0 +1,78 @@
+NAME SoMouseButtonEvent SoMouseEv SO_MOUSE_EV_ { mouse button press and release events }
+
+INCLUDE events/SoMouseButtonEvent.h
+
+DESC { \cSoMouseButtonEvent\. represents mouse button press and release events
+in the Inventor event model.
+}
+
+ENUM Button {
+    ANY "Any button", 
+    BUTTON1 "First mouse button", 
+    BUTTON2 "Second mouse button", 
+    BUTTON3 "Third mouse button"
+}
+
+BEGIN C++
+DEFINE { SO_MOUSE_PRESS_EVENT(EVENT,BUTTON)
+    (SoMouseButtonEvent::isButtonPressEvent(EVENT,SoMouseButtonEvent::BUTTON)) }
+DEFINE { SO_MOUSE_RELEASE_EVENT(EVENT,BUTTON)
+    (SoMouseButtonEvent::isButtonReleaseEvent(EVENT,SoMouseButtonEvent::BUTTON)) }
+END
+BEGIN C
+DEFINE { SO_MOUSE_PRESS_EV(EVENT,BUTTON)
+    (SoMouseEvIsBtnPressEv(EVENT,BUTTON)) }
+DEFINE { SO_MOUSE_RELEASE_EV(EVENT,BUTTON)
+    (SoMouseEvIsBtnReleaseEv(EVENT,BUTTON)) }
+END
+
+METHOD "" SoMouseButtonEvent() { Constructor. }
+
+METHOD "" static SoType getClassTypeId() {
+Return the type id for the \cSoMouseButtonEvent\. class.
+}
+
+BEGIN C++
+METHOD "setBtn" void setButton(SoMouseButtonEvent::Button b) {}
+METHOD "getBtn" SoMouseButtonEvent::Button getButton() const
+{ Set and get which mouse button generated the event. }
+END
+BEGIN C
+METHOD "setBtn" void setButton(SoMouseButtonEventButton b) {}
+METHOD "getBtn" SoMouseButtonEventButton getButton() const
+{ Set and get which mouse button generated the event. }
+END
+
+BEGIN C++
+METHOD "isBtnPressEv" static SbBool isButtonPressEvent(
+			    const SoEvent *e,
+			    SoMouseButtonEvent::Button whichButton) {}
+METHOD "isBtnReleaseEv" static SbBool isButtonReleaseEvent(
+			    const SoEvent *e,
+			    SoMouseButtonEvent::Button whichButton)
+{ Returns whether the passed event is a mouse button press or release event
+of the passed button. When \mSoMouseButtonEvent::ANY\. is passed,
+this returns TRUE if the event represents a button press
+or release of any mouse button. }
+END		    
+BEGIN C
+METHOD "isBtnPressEv" static SbBool isButtonPressEvent(
+			    const SoEvent *e,
+			    SoMouseButtonEventButton whichButton) {}
+METHOD "isBtnReleaseEv" static SbBool isButtonReleaseEvent(
+			    const SoEvent *e,
+			    SoMouseButtonEventButton whichButton)
+{ Returns whether the passed event is a mouse button press or release event
+of the passed button. When \eSO_MOUSE_EV_ANY\. is passed,
+this returns \eTRUE\. if the event represents a button press
+or release of any mouse button. }
+END		    
+
+ALSO { 
+SoEvent, SoButtonEvent, SoKeyboardEvent, SoLocation2Event, SoMotion3Event,
+SoSpaceballButtonEvent,
+SoHandleEventAction, SoEventCallback, SoSelection, SoInteraction,
+SoXtDevice }
+
+
+

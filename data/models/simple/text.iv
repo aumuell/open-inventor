@@ -1,0 +1,102 @@
+#Inventor V2.1 ascii
+
+Separator {
+    Font {
+	name	"Courier-Bold"
+	size	20
+    }
+    Separator {
+	Material {
+	    diffuseColor	0.60000002 0.60000002 0.60000002
+	}
+	Transform {
+	    translation	-1 1 1
+	}
+	Text2 {
+	    string	"The"
+	    justification	RIGHT
+	}
+    }
+    Separator {
+	Material {
+	    diffuseColor	0.2 0.2 1
+	}
+	Transform {
+	    translation	-1 1 -1
+	}
+	Text2 {
+	    string	"quick"
+	    justification	RIGHT
+	}
+    }
+    Separator {
+	Material {
+	    diffuseColor	0.2 1 0.2
+	}
+	Transform {
+	    translation	-1 -1 -1
+	}
+	Text2 {
+	    string	"brown"
+	    justification	RIGHT
+	}
+    }
+    Separator {
+	Material {
+	    diffuseColor	0.2 1 1
+	}
+	Transform {
+	    translation	-1 -1 1
+	}
+	Text2 {
+	    string	"fox"
+	    justification	RIGHT
+	}
+    }
+    Separator {
+	Material {
+	    diffuseColor	1 0.2 0.2
+	}
+	Transform {
+	    translation	1 1 1
+	}
+	Text2 {
+	    string	"jumped"
+	}
+    }
+    Separator {
+	Material {
+	    diffuseColor	1 0.2 1
+	}
+	Transform {
+	    translation	1 1 -1
+	}
+	Text2 {
+	    string	"over the"
+	}
+    }
+    Separator {
+	Material {
+	    diffuseColor	1 1 0.2
+	}
+	Transform {
+	    translation	1 -1 -1
+	}
+	Text2 {
+	    string	"lazy"
+	}
+    }
+    Separator {
+	Material {
+	    diffuseColor	1 1 1
+	}
+	Transform {
+	    translation	1 -1 1
+	}
+	Text2 {
+	    string	"dog"
+	}
+    }
+    Cube {
+    }
+}

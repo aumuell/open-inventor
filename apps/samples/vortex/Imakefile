@@ -1,0 +1,11 @@
+#define OneProgram
+
+PROGRAM = vortex
+
+C++FILES = vortex.c++
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../..
+
+OTHERSOURCE = README
+#endif

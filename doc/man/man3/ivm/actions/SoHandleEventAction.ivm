@@ -1,0 +1,91 @@
+NAME SoHandleEventAction SoEvAct "" {
+allows nodes in a graph to receive input events
+}
+
+INCLUDE actions/SoHandleEventAction.h
+
+DESC {
+
+This class is used to allow nodes in a scene graph to handle input events.
+It is usually invoked from a
+component derived from \cSoXtRenderArea\. when the component receives a window
+system event.
+\p
+Manipulator, dragger and selection nodes respond to and process
+events. Most other group nodes just pass the event to their children,
+while most other nodes simply ignore the action entirely. Once a node
+has indicated to the action that it has handled the event, traversal
+stops.
+\p
+A node that handles an event can also grab future events. Once it has
+done so, all events will be sent directly to that node, with no
+traversal taking place, until the node releases the grab.
+}
+
+METHOD "" SoHandleEventAction(const SbViewportRegion &viewportRegion) {
+Constructor takes viewport region to use; this is needed to perform
+a pick operation when requested.
+}
+
+METHOD setVPReg void setViewportRegion(const SbViewportRegion &newRegion) {}
+METHOD getVPReg const SbViewportRegion &getViewportRegion() const {
+Sets/returns current viewport region to use for action.
+}
+
+METHOD setEv void setEvent(const SoEvent *ev) {}
+METHOD getEv const SoEvent * getEvent() const {
+Sets/returns the event being handled.
+}
+
+METHOD "" void setHandled() {}
+METHOD "" SbBool isHandled() const {
+Sets/returns whether any node has yet handled the event.
+}
+
+METHOD "" void setGrabber(SoNode *node) {
+Initiates grabbing of future events. All events will be sent to the
+given node until the grab is released.
+}
+
+METHOD "" void releaseGrabber() {
+Releases the grab.
+}
+
+METHOD "" SoNode * getGrabber() const {
+Returns the node that is currently grabbing events, or NULL if there is none.
+}
+
+METHOD "" void setPickRoot(SoNode *node) {}
+METHOD "" SoNode * getPickRoot() const {
+Sets/returns the root node used for initiating a pick action for those
+nodes that want to know what is under the cursor.
+}
+
+METHOD "" void setPickRadius(float radiusInPixels) {
+Set the radius (in pixels) around the viewport-space point
+through which the ray passes when doing ray picking. Ray picking
+is performed when 
+\+\mgetPickedPoint()\.\.
+\-\mSoEvActGetPickPt()\.\.
+is called. The pick radius set here is used when
+testing the ray against lines and points.
+}
+
+METHOD getPickPt const SoPickedPoint *getPickedPoint() {
+Returns the frontmost object hit (as an \cSoPickedPoint\.) by
+performing a pick based on the mouse location specified in the event
+for which the action is being applied. The first time this is called
+for a particular event, a \cSoRayPickAction\. is applied to find this
+object; subsequent calls for the same event return the same
+information. The storage for the picked point remains valid as long as
+the action is not re-applied or deleted.
+}
+
+METHOD getPickPtList const SoPickedPointList &getPickedPointList() {
+Returns a list of objects intersected by a picking operation, sorted
+from nearest to farthest.
+}
+
+ALSO { SoEvent, SoPickedPoint, SoRayPickAction }
+
+

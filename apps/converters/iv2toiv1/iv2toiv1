@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/sbin/ivdowngrade -v 1.0 $1 $2

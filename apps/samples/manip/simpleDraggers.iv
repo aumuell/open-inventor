@@ -1,0 +1,65 @@
+#Inventor V2.0 ascii
+
+Separator {
+    Coordinate3 {
+	point	[ -3 -3 0,
+			  -3 3 0,
+			  3 3 0,
+			  3 -3 0,
+			  -3 -3 0 ]
+    }
+    Translate1Dragger {
+    }
+    LineSet {
+    }
+    Translation {
+	translation	7 0 0
+    }
+    Translate2Dragger {
+    }
+    LineSet {
+    }
+    Translation {
+	translation	7 0 0
+    }
+    RotateDiscDragger {
+    }
+    Translation {
+	translation	7 0 0
+    }
+    RotateCylindricalDragger {
+    }
+    Translation {
+	translation	7 0 0
+    }
+    RotateSphericalDragger {
+    }
+    Translation {
+	translation	-28 -7 0
+    }
+    Scale1Dragger {
+    }
+    LineSet {
+    }
+    Translation {
+	translation	7 0 0
+    }
+    Scale2Dragger {
+    }
+    LineSet {
+    }
+    Translation {
+	translation	7 0 0
+    }
+    Scale2UniformDragger {
+    }
+    LineSet {
+    }
+    Translation {
+	translation	7 0 0
+    }
+    ScaleUniformDragger {
+    }
+    LineSet {
+    }
+}

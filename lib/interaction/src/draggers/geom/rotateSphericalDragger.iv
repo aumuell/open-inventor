@@ -1,0 +1,217 @@
+#Inventor V2.0 ascii
+
+#from:    File { name "pieces/yCircle.iv" }
+DEF ROTATE_SPHERICAL_DRAGGER_Y_CIRCLE Group {
+    NormalBinding { value PER_VERTEX }
+    MaterialBinding {value OVERALL }
+    Coordinate3 {
+	point [
+
+	    # first quadrant
+	    1.0  0  0.0,
+
+	    0.980785  0  0.195090,
+	    0.923880  0  0.382683,
+	    0.831470  0  0.555570,
+	    0.707107  0  0.707107,
+	    0.555570  0  0.831470,
+	    0.382683  0  0.923880,
+	    0.195090  0  0.980785,
+
+	    # second quadrant
+	    0.0  0  1.0,
+
+	    -0.195090  0  0.980785,
+	    -0.382683  0  0.923880,
+	    -0.555570  0  0.831470,
+	    -0.707107  0  0.707107,
+	    -0.831470  0  0.555570,
+	    -0.923880  0  0.382683,
+	    -0.980785  0  0.195090,
+
+	    # third quadrant
+	    -1.0  0  0.0,
+
+	    -0.980785  0  -0.195090,
+	    -0.923880  0  -0.382683,
+	    -0.831470  0  -0.555570,
+	    -0.707107  0  -0.707107,
+	    -0.555570  0  -0.831470,
+	    -0.382683  0  -0.923880,
+	    -0.195090  0  -0.980785,
+
+	    # fourth quadrant
+	    0.0  0  -1.0,
+
+	    0.195090  0  -0.980785,
+	    0.382683  0  -0.923880,
+	    0.555570  0  -0.831470,
+	    0.707107  0  -0.707107,
+	    0.831470  0  -0.555570,
+	    0.923880  0  -0.382683,
+	    0.980785  0  -0.195090,
+
+	    1.0  0  0.0,
+
+	]
+    }
+    Normal {
+	vector [ 
+
+	    # first quadrant
+	    1.0  0  0.0,
+
+	    0.980785  0  0.195090,
+	    0.923880  0  0.382683,
+	    0.831470  0  0.555570,
+	    0.707107  0  0.707107,
+	    0.555570  0  0.831470,
+	    0.382683  0  0.923880,
+	    0.195090  0  0.980785,
+
+	    # second quadrant
+	    0.0  0  1.0,
+
+	    -0.195090  0  0.980785,
+	    -0.382683  0  0.923880,
+	    -0.555570  0  0.831470,
+	    -0.707107  0  0.707107,
+	    -0.831470  0  0.555570,
+	    -0.923880  0  0.382683,
+	    -0.980785  0  0.195090,
+
+	    # third quadrant
+	    -1.0  0  0.0,
+
+	    -0.980785  0  -0.195090,
+	    -0.923880  0  -0.382683,
+	    -0.831470  0  -0.555570,
+	    -0.707107  0  -0.707107,
+	    -0.555570  0  -0.831470,
+	    -0.382683  0  -0.923880,
+	    -0.195090  0  -0.980785,
+
+	    # fourth quadrant
+	    0.0  0  -1.0,
+
+	    0.195090  0  -0.980785,
+	    0.382683  0  -0.923880,
+	    0.555570  0  -0.831470,
+	    0.707107  0  -0.707107,
+	    0.831470  0  -0.555570,
+	    0.923880  0  -0.382683,
+	    0.980785  0  -0.195090,
+
+	    1.0  0  0.0,
+	]
+    }
+
+    LineSet {}
+}
+
+DEF ROTATE_SPHERICAL_DRAGGER_ROTATOR Group {
+
+    # This is what the user will actually see.
+
+    # scale up so that a unit circle and sphere will surround
+    # the bounding box.
+    Scale { scaleFactor 1.732 1.732 1.732 }
+
+    # circle around x axis
+    Separator {
+	RotationXYZ { axis Z angle 1.57079 }
+	USE ROTATE_SPHERICAL_DRAGGER_Y_CIRCLE
+    }
+    # circle around y axis
+    USE ROTATE_SPHERICAL_DRAGGER_Y_CIRCLE
+
+    # circle around z axis
+    Separator {
+	RotationXYZ { axis X angle 1.57079 }
+	USE ROTATE_SPHERICAL_DRAGGER_Y_CIRCLE
+    }
+
+    # Draw a full sphere so there's something meaty
+    # for the mouse to pick
+    DrawStyle { style INVISIBLE }
+    Separator {
+        Complexity { value .3 }
+	Sphere {}
+    }
+}
+
+DEF rotateSphericalRotator Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    DrawStyle { style LINES lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+
+
+    USE ROTATE_SPHERICAL_DRAGGER_ROTATOR
+}
+
+DEF rotateSphericalRotatorActive Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    DrawStyle { style LINES lineWidth 3 }
+    LightModel { model PHONG }
+    Texture2 {}
+
+
+    USE ROTATE_SPHERICAL_DRAGGER_ROTATOR
+}
+
+
+DEF ROTATE_SPHERICAL_DRAGGER_FEEDBACK Group {
+    # A skinny set of axes.
+
+    #x-axis
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding {value OVERALL }
+    Coordinate3 { point [ -1.25 0 0, 1.25 0 0 ] }
+    LineSet {}
+
+    #y-axis
+    Coordinate3 { point [ 0 -1.25 0, 0 1.25 0 ] }
+    LineSet {}
+
+    #z-axis
+    Coordinate3 { point [ 0 0 -1.25, 0 0 1.25 ] }
+    LineSet {}
+}
+
+DEF rotateSphericalFeedback Separator {
+    renderCaching ON
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.25 0.05 0.36 ]
+	emissiveColor	[ 0.25 0.05 0.36 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+
+    USE ROTATE_SPHERICAL_DRAGGER_FEEDBACK
+}
+DEF rotateSphericalFeedbackActive Separator {
+    renderCaching ON
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.36 0.05 0.44 ]
+	emissiveColor	[ 0.36 0.05 0.44 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+
+    USE ROTATE_SPHERICAL_DRAGGER_FEEDBACK
+}
+
+

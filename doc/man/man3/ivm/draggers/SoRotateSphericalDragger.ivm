@@ -1,0 +1,115 @@
+NAME SoRotateSphericalDragger SoRotSphDrag "" { object you can rotate about a spherical surface by dragging with the mouse }
+
+INCLUDE draggers/SoRotateSphericalDragger.h
+
+DESC { \cSoRotateSphericalDragger\. 
+is a simple dragger that rotates freely in all directions.
+The feel of the rotation is as if you were rolling a ball.
+The center of rotation is the origin of the local space, 
+determined by the dragger's location in the scene graph.
+Transformation nodes placed before it will
+affect both the dragger and the direction of motion.
+\p
+This node has a \vrotation\. field which always reflects its orientation
+in local space.  If you set the field, the dragger will rotate
+accordingly.  You can also connect fields of other nodes or engines from
+this one to make them follow the dragger's orientation.
+\p
+This dragger contains four parts, \erotator\., \erotatorActive\.,
+\efeedback\., and \efeedbackActive\..
+\p
+Each of these is set by default from a resource described in the Dragger
+Resources section of the online reference page for this class.  You can
+change the parts in any instance of this dragger using
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+\p
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/rotateSphericalDragger.iv\.
+into your own directory, editing the file, and then
+setting the environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+METHOD "" SoRotateSphericalDragger() {
+Constructor.
+}
+
+FIELD rotation { Orientation of the dragger. }
+
+METHOD "setProj" void setProjector(SbSphereProjector *p) {}
+METHOD "getProj" const SbSphereProjector *getProjector() const {
+Set and get a different sphere projector. 
+See the \cSbSphereProjector\.
+man pages to find out how each kind affects the feel of your dragger's motion.
+The default uses an
+\cSbSpherePlaneProjector\..
+\p
+Passing in NULL will cause the default type of projector to be used.
+Any projector you pass in will be deleted by this dragger when 
+this dragger is deleted.
+Note that the center and radius of the sphere are determined by the
+dragger, based on the origin of the local space and the distance between 
+the initial mouse click and that origin.
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+DRAGGER_RESOURCE {
+  rotateSphericalRotator,
+  rotator,
+  "white sphere made of three intersecting circles. Each circle is 
+   in a different plane of local space",
+  "picking this initiates rotation"
+}
+
+DRAGGER_RESOURCE {
+  rotateSphericalRotatorActive,
+  rotatorActive,
+  "yellow version of rotator",
+  "displayed while in motion instead of the rotator"
+}
+
+DRAGGER_RESOURCE {
+  rotateSphericalFeedback,
+  feedback,
+  "thin purple 3-D crosshairs at origin",
+  "shows center of rotation when not moving"
+}
+
+DRAGGER_RESOURCE {
+  rotateSphericalFeedbackActive,
+  feedbackActive,
+  "thin, slightly brighter purple 3-D crosshairs at origin",
+  "shows center of rotation when moving"
+}
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoCenterballDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTransformerDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}

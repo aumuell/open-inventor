@@ -1,0 +1,33 @@
+Some source files for shapes are preprocessed by running them through
+"ppp". This allows similar rendering and primitive generation methods
+to be created from the same template. The format accepted by the
+preprocessor is documented in the ppp.c++ source file. Note that only
+the original .pp files should be edited, since the .c++ files are
+recreated whenever the .pp files change.
+
+Because some shapes have several GL rendering methods, we use an
+abbreviated naming scheme for these methods. The name indicates the
+material binding ("M"), normal binding ("N"), and texture coordinate
+case ("T") that the corresponding method handles. The names are:
+
+	For material bindings:
+	For material and normal bindings:
+		none = none (valid for normals only)
+		oall = OVERALL
+		part = PER_PART
+		face = PER_FACE
+		find = PER_FACE_INDEXED
+		vert = PER_VERTEX
+		vind = PER_VERTEX_INDEXED
+
+	For texture coordinate case:
+		none = none (no texture present or automatically generated)
+		shap = shape uses texture coordinates in state or
+			creates its own coordinates
+		func = generated using a texture coordinate function
+
+For example, the "GLRenderMoallNvertTshap" method uses overall
+materials, per-vertex normals, and the shape's texture coordinates. If
+a particular binding or case is not relevant, it can be left out. For
+example, "GLRenderNvertTnone" is a method on SoSphere, since spheres
+have only one material case: overall.

@@ -1,0 +1,32 @@
+NAME SoMotion3Event SoMotion3Ev "" { 3D motion events }
+
+INCLUDE events/SoMotion3Event.h
+
+DESC { \cSoMotion3Event\. represents 3D relative motion events in the Inventor
+event model.
+}
+
+METHOD "" SoMotion3Event() { Constructor. }
+
+METHOD "" static SoType getClassTypeId() {
+Return the type id for the \cSoMotion3Event\. class.
+}
+
+METHOD "setXlate" void setTranslation(const SbVec3f &t) {}
+METHOD "getXlate" const SbVec3f & getTranslation() const {
+Set and get the relative change in translation since the last translation event.
+}
+    
+METHOD "setRot" void setRotation(const SbRotation &r) {}
+METHOD "getRot" const SbRotation & getRotation() const { 
+Set and get the relative change in rotation since the last rotation event.
+}
+
+ALSO { 
+SoEvent, SoButtonEvent, SoKeyboardEvent, SoLocation2Event,
+SoMouseButtonEvent, SoSpaceballButtonEvent,
+SoHandleEventAction, SoEventCallback, SoSelection, SoInteraction,
+SoXtDevice }
+
+
+

@@ -1,0 +1,193 @@
+NAME SoKeyboardEvent SoKeyEv SO_KEY_EV_ { keyboard key press and release events }
+
+INCLUDE events/SoKeyboardEvent.h
+
+DESC { \cSoKeyboardEvent\. represents keyboard key press and release events
+in the Inventor event model.
+}
+
+ENUM Key {
+ANY "Special constant for any key", 
+LEFT_SHIFT "Modifiers",
+RIGHT_SHIFT "",
+LEFT_CONTROL "",
+RIGHT_CONTROL "",
+LEFT_ALT "",
+RIGHT_ALT "",
+NUMBER_0 "Numbers",
+NUMBER_1 "",
+NUMBER_2 "",
+NUMBER_3 "",
+NUMBER_4 "",
+NUMBER_5 "",
+NUMBER_6 "",
+NUMBER_7 "",
+NUMBER_8 "",
+NUMBER_9 "",
+A "Letters",
+B "",
+C "",
+D "",
+E "",
+F "",
+G "",
+H "",
+I "",
+J "",
+K "",
+L "",
+M "",
+N "",
+O "",
+P "",
+Q "",
+R "",
+S "",
+T "",
+U "",
+V "",
+W "",
+X "",
+Y "",
+Z "",
+HOME "Cursor control and motion",
+LEFT_ARROW "",
+UP_ARROW "",
+RIGHT_ARROW "",
+DOWN_ARROW "",
+PAGE_UP "",
+PAGE_DOWN "",
+PRIOR "",
+NEXT "",
+END "",
+PAD_ENTER "Keypad functions",
+PAD_F1 "",
+PAD_F2 "",
+PAD_F3 "",
+PAD_F4 "",
+PAD_0 "",
+PAD_1 "",
+PAD_2 "",
+PAD_3 "",
+PAD_4 "",
+PAD_5 "",
+PAD_6 "",
+PAD_7 "",
+PAD_8 "",
+PAD_9 "",
+PAD_ADD "",
+PAD_SUBTRACT "",
+PAD_MULTIPLY "",
+PAD_DIVIDE "",
+PAD_SPACE "",
+PAD_TAB "",
+PAD_INSERT "",
+PAD_DELETE "",
+PAD_PERIOD "",
+F1 "Function keys",
+F2 "",
+F3 "",
+F4 "",
+F5 "",
+F6 "",
+F7 "",
+F8 "",
+F9 "",
+F10 "",
+F11 "",
+F12 "",
+BACKSPACE "Miscellaneous",
+TAB "",
+RETURN "",
+ENTER "",
+PAUSE "",
+SCROLL_LOCK "",
+ESCAPE "",
+DELETE "",
+PRINT "",
+INSERT "",
+NUM_LOCK "",
+CAPS_LOCK "",
+SHIFT_LOCK "",
+SPACE "",
+APOSTROPHE "",
+COMMA "",
+MINUS "",
+PERIOD "",
+SLASH "",
+SEMICOLON "",
+EQUAL "",
+BRACKETLEFT "",
+BACKSLASH "",
+BRACKETRIGHT "",
+GRAVE ""
+}
+
+BEGIN C++
+DEFINE { SO_KEY_PRESS_EVENT(EVENT,KEY)
+      (SoKeyboardEvent::isKeyPressEvent(EVENT,SoKeyboardEvent::KEY)) }
+DEFINE { SO_KEY_RELEASE_EVENT(EVENT,KEY)
+      (SoKeyboardEvent::isKeyReleaseEvent(EVENT,SoKeyboardEvent::KEY)) }
+END
+BEGIN C
+DEFINE { SO_KEY_PRESS_EV(EVENT,KEY)
+	(SoKeyEvIsKeyPressEv(EVENT,KEY)) }
+DEFINE { SO_KEY_RELEASE_EV(EVENT,KEY)
+	(SoKeyEvIsKeyReleaseEv(EVENT,KEY)) }
+END
+
+METHOD "" SoKeyboardEvent() { Constructor. }
+
+METHOD "" static SoType getClassTypeId() {
+Return the type id for the \cSoKeyboardEvent\. class.
+}
+
+BEGIN C++
+METHOD "" void setKey(SoKeyboardEvent::Key whichKey) {}
+METHOD "" SoKeyboardEvent::Key getKey() const
+{ Set and get which key generated the event. }
+END
+BEGIN C
+METHOD "" void setKey(SoKeyboardEventKey whichKey) {}
+METHOD "" SoKeyboardEventKey getKey() const
+{ Set and get which key generated the event. }
+END
+
+BEGIN C++
+METHOD "" static SbBool	isKeyPressEvent(
+			    const SoEvent *e,
+			    SoKeyboardEvent::Key whichKey) {}
+METHOD "" static SbBool	isKeyReleaseEvent(
+			    const SoEvent *e,
+			    SoKeyboardEvent::Key whichKey)
+{ Returns whether the passed event is a keyboard press or release event
+of the passed key. When \vSoKeyboardEvent::ANY\. is passed,
+this returns TRUE if the event represents a keyboard press
+or release of any key. }
+END		    
+BEGIN C
+METHOD "" SbBool	isKeyPressEvent(
+			    const SoEvent *e,
+			    SoKeyboardEventKey whichKey) {}
+METHOD "" SbBool	isKeyReleaseEvent(
+			    const SoEvent *e,
+			    SoKeyboardEventKey whichKey)
+{ Returns whether the passed event is a keyboard press or release event
+of the passed key. When \eSO_KEY_EV_ANY\. is passed,
+this returns \eTRUE\. if the event represents a keyboard press
+or release of any key. }
+END		    
+
+METHOD "" char getPrintableCharacter() const {
+Convenience routine that returns the character representing the
+key, if it's printable. If not, this returns NULL ('\\0').
+}
+
+ALSO { 
+SoEvent, SoButtonEvent, SoLocation2Event, SoMotion3Event,
+SoMouseButtonEvent, SoSpaceballButtonEvent,
+SoHandleEventAction, SoEventCallback, SoSelection, SoInteraction,
+SoXtDevice }
+
+
+

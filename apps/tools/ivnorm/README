@@ -1,0 +1,73 @@
+This directory contains the source code to the Inventor program
+`ivnorm'.
+
+This program attempts to find outward-facing normals for all the
+SoIndexedFaceSet nodesfound in an Inventor scene file that do not
+ALREADY have Normal or NormalBinding nodes. It then computes face
+normals for each face set, inserts them into the database, and writes
+the result.
+
+It does not delete existing properties or hierarchy.
+
+By default, it generates facet normals, and determines the orientation
+of the polygons itself (the polygons do not have to be oriented
+consistently).
+
+To generate normals for other shapes, use 'ivquicken'.  However, note
+that 'ivquicken' assumes that your polygons are already consistently
+oriented; it will not re-orient them for you (yes, we should merge
+them, but we never seem to have enough time-- you have the source
+code, so if you manage to merge them, please send us the source!
+(gavin@sgi.com)).
+
+How to Run
+----------
+ivnorm [-c -C -v -V -a angle] [in_file] [out_file]
+
+-c       : Assume that all polygons are oriented counter-clockwise.
+-C       : Assume that all polygons are oriented clockwise.
+-v       : Find vertex normals  (default is face normals).
+-V       : Be verbose; prints messages as it works.
+-a angle : Use the given angle (given in degrees) as the "crease
+           angle".  If vertex normals are being generated and the
+           angle between two faces is greater than this angle, two
+           different normals will generated, creating a sharp crease.
+           Default is 30 degrees.
+
+It may be given 0, 1, or 2 filename arguments.  With 0 arguments, it
+will read from standard input and write to standard output.  With 1
+argument, it will read from the specified file and write to standard
+output.  With 2 filenames, it will read from the first file and write
+to the second.
+
+
+Examples:
+--------
+ivnorm foo.iv fooWithNormals.iv
+
+yourProgram myfile.other | ivnorm -C > myfile.iv
+
+
+Algorithm to attempt to find outward-facing normals:
+---------------------------------------------------
+First, mark all faces as UNKNOWN.
+
+Then create an edge dictionary that allows you to find all of the
+faces sharing a given edge (where an edge is two integers representing
+the two shared vertices).
+
+Pick an arbitrary face and mark it COUNTER_CLOCKWISE.  Using the edge
+dictionary, orient all surrounding faces based on the orientation of
+this face.  And recurse for all surrounding faces, consistently
+orienting the entire surface.
+
+Find the average of the vertices in this surface.  Using that point,
+calculate a volume measurement, taking into account the face's
+orientation.  If the volume turns out to be positive, assume the faces
+are oriented correctly.  If it is negative, reverse their orientations.
+
+If any faces are still UNKNOWN after this, choose another direction
+and go through the algorithm again.
+
+At the end, faces marked CLOCKWISE must have their indices reversed
+before facet normals are found.

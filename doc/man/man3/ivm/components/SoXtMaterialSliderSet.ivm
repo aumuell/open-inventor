@@ -1,0 +1,31 @@
+NAME SoXtMaterialSliderSet SoXtMtlSldrs "" {
+component with Motif sliders for editing SoMaterial nodes
+}
+
+INCLUDE Xt/SoXtMaterialSliderSet.h
+
+DESC {
+This class defines an editor that uses Motif Sliders to edit the fields in an
+\cSoMaterial\.
+node. There are sliders for editing the RGB values of
+\vambientColor\., \vdiffuseColor\., \vspecularColor\.
+and \vemissiveColor\.,
+as well as for editing the 
+\vtransparency\.
+and
+\vshininess\.
+values.
+}
+
+METHOD "" SoXtMaterialSliderSet(
+	Widget parent = NULL,
+	const char *name = NULL, 
+	SbBool buildInsideParent = TRUE,
+	SoNode *newEditNode = NULL ) {}
+METHOD "" ~SoXtMaterialSliderSet()
+{
+Constructor and destructor. At construction time the material node to edit
+can be supplied.
+}
+
+ALSO { SoXtMaterialEditor, SoXtSliderSet, SoXtSliderSetBase, SoXtComponent, SoMaterial, SoNode }

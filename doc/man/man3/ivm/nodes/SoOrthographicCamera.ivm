@@ -1,0 +1,35 @@
+NAME SoOrthographicCamera SoOrthoCam "" { orthographic camera node }
+
+INCLUDE nodes/SoOrthographicCamera.h
+
+DESC {
+An orthographic camera defines a parallel projection from a viewpoint.
+This camera does not diminish objects with distance, as an
+\cSoPerspectiveCamera\. does. The viewing volume for an orthographic
+camera is a rectangular parallelepiped (a box).
+\p
+By default, the camera is located at (0,0,1) and looks along the
+negative z-axis; the \vposition\. and \vorientation\. fields can be
+used to change these values. The \vheight\. field defines the total
+height of the viewing volume; this and the \caspectRatio\. field
+determine its width.
+}
+
+FIELD height { Height of the viewing volume. }
+
+METHOD "" SoOrthographicCamera() {
+Creates an orthographic camera node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction, SoGetBoundingBoxAction,
+       SoHandleEventAction, SoRayPickAction {
+Sets the viewport and camera information in the state.
+}
+
+ALSO {
+SbViewVolume, SoPerspectiveCamera
+}

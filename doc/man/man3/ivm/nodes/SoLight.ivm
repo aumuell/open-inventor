@@ -1,0 +1,42 @@
+NAME SoLight SoLight "" { abstract base class for all light source nodes }
+
+INCLUDE nodes/SoLight.h
+
+DESC {
+\cSoLight\. is the abstract base class for all light nodes. A light
+node defines an illumination source that may affect subsequent shapes
+in the scene graph, depending on the current lighting style.
+Light sources are affected by the current transformation. A light node
+under a separator does not affect any objects outside that separator.
+\p
+You can also use a node kit to create a light; see the reference page for
+\cSoLightKit\..
+}
+
+FIELD on {
+Determines whether the source is active or inactive. When inactive, the
+source does not illuminate at all.
+}
+
+FIELD intensity {
+Illumination intensity of light source. Valid values range from 0.0
+(no illumination) to 1.0 (maximum illumination).
+}
+
+FIELD color { Light source illumination color. }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Activates this light (if so specified) during traversal. All shape
+nodes that come after this light in the scene graph are illuminated by
+this light.
+}
+
+ALSO {
+SoDirectionalLight, SoEnvironment,
+SoLightKit, SoLightModel, SoMaterial, SoPointLight,
+SoSpotLight
+}

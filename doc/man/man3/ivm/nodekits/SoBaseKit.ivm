@@ -1,0 +1,395 @@
+NAME SoBaseKit SoKit "" { base class for all node kits }
+
+INCLUDE nodekits/SoBaseKit.h
+
+DESC { 
+This is the base class from which all nodekit nodes are derived.
+Nodekits provide a
+convenient mechanism for creating groups of scene graph nodes with some
+larger meaning. When you create a shape node such as an indexed face set,
+for example, you almost always precede it with a coordinate node. You 
+may also want to add a transform node or specify properties with
+material, drawing style, material binding, etc.
+Instead of creating each of these nodes
+individually and then arranging them into a subgraph,
+you can use a nodekit of the appropriate type (in this case, \cSoShapeKit\.).
+\p
+Each class of nodekit has a \enodekit catalog\. (\cSoNodekitCatalog\.)
+that describes the nodes in the subgraph, referred to as \eparts\..
+The catalog has an entry for each part, with information
+such as the \epartName\., \epartType\., and \enullByDefault\. (if FALSE 
+the constructor creates it).
+The catalog also describes the arrangement of parts in the subgraph. 
+(Other information is described below; a complete description is in the
+\cSoNodekitCatalog\. reference page.)
+\p
+If we regard the scene graph arrangement as a branching 
+tree, then the top node (root) of the arrangement is always the 
+nodekit itself. The leaf nodes are those at the bottom (containing no 
+children).  Some leaves of the tree are defined in the catalog to be 
+\epublic\. parts, while
+other leaves are \eprivate\.. All non-leaf parts are considered internal to
+the nodekit structure and are marked private.
+Public parts are accessible; they may be requested, changed, or set by the 
+programmer with member functions 
+such as \m\+getPart()\.\-SoKitGetPart()\.\..  Private parts are not 
+accessible, so
+methods such as \m\+getPart()\.\-SoKitGetPart()\.\. will have no effect on them. For example,
+if you call \m\+getPart()\.\-SoKitGetPart()\.\. to retrieve a private part, \kNULL\. will be returned even when the part exists.
+\p
+Every nodekit reference page has a Parts section describing
+the function of each public part it adds to those inherited from its parent 
+class. 
+Also, a Catalog Parts section has tables of often-needed 
+information from the
+catalog (part type, etc.). These tables include all public parts, 
+both new and inherited.
+Only the public parts of a nodekit are described in the reference pages.
+Nodekits take care of the rest for you; they automatically arrange the 
+subgraph, creating and deleting the private parts when necessary. 
+(The \cSoNodekitCatalog\. reference page has methods for finding out
+ the part names and arrangement of all parts, both public and private.)
+\p
+The nodekit catalog is a template shared by all instances of a class.
+They use the shared catalog  as a \eguide\. when creating parts 
+(i.e., constructing actual nodes), 
+but each instance stores its own parts separately.
+Moreover, nodekits are \enot\. \cSoGroup\. 
+nodes, and parts are added as \ehidden children\.;
+you can only access parts with the methods of \cSoBaseKit\. and its
+derived classes.
+\p
+Any public part may be retrieved with \m\+getPart()\.\-SoKitGetPart()\.\., 
+installed with \m\+setPart()\.\-SoKitSetPart()\.\., 
+or removed by giving a \kNULL\. argument to \m\+setPart()\.\-SoKitSetPart()\.\..
+Paths from the nodekit down to a part can be created by 
+\m\+createPathToPart()\.\-SoKitCreatePathToPart()\.\..
+\p
+By default, parts are not created until the user requests or sets them.
+This keeps the subgraph uncluttered and efficient for traversal.
+Additionally, removing a part (setting it to NULL) has the extra
+effect of removing any internal parts that are no longer needed.
+\p
+Since nodekits hide their children, any \cSoPath\. containing nodekits will
+end at the topmost nodekit.  However, since nodekits may be nested within 
+other nodekits, you may wish to cast an \c(SoPath *)\. into an
+\c(SoNodeKitPath *)\.. The methods of \cSoNodeKitPath\. allow you to view all 
+nodekits that lie on the path (see the reference page for \cSoNodeKitPath\.).
+\p
+Public parts in the nodekit catalog fall into three categories:
+\p
+[1] \eregular nodes\.
+\p
+[2] \enodekits\., or \enested nodekits\. (which may nest recursively).
+Any node which is public in a nested nodekit is accessible to 
+the higher level nodekit(s) that contains it.  The description 
+of \m\+getPart()\.\-SoKitGetPart()\.\. below shows how to refer to nested 
+parts by name (e.g., \a"appearance.material"\.).  This works for any 
+nodekit method that takes a part name for an argument.
+\p
+[3] \elists\., or \elist parts\.. These parts group together children 
+(\elist elements\.) of a particular type or types.  As with nested nodekits, 
+you can refer to individual elements using notation described in 
+\m\+getPart()\.\-SoKitGetPart()\.\.
+(e.g., \a"childList[0]"\., or if the list elements are in turn 
+nodekits, \a"childList[2].transform"\.).
+\p
+When the catalog denotes that a part is a list, 
+the part itself is always a node of type \cSoNodeKitListPart\..
+The catalog specifies a set of permissible \alistItemTypes\. and a 
+\alistContainerType\. for that part. It gives this information to 
+the \cSoNodeKitListPart\.
+when it creates it. From then on, the list part will enforce
+type checking. So even if you retrieve the \cSoNodeKitListPart\.
+with \m\+getPart()\.\-SoKitGetPart()\.\., you will not be able to 
+add illegal children. (See the \cSoNodeKitListPart\. reference page for more 
+information).  As an example, the \ecallbackList\. part of \cSoBaseKit\. 
+has an \cSoSeparator\. 
+container and allows only \cSoCallback\. and \cSoEventCallback\. nodes 
+in the list.
+Children may be added, retrieved, and removed from an \cSoNodeKitListPart\. 
+node using
+methods that parallel those of \cSoGroup\.. However, type-checking is strictly
+enforced.
+\p
+Note that, although all public parts are leaves in the nodekit catalog,
+you are free to add children to them (assuming that they are groups, nodekits,
+or list parts).  A part's status as a leaf in the catalog
+just means that the nodekit will not manage the part's  children.
+For example, \cSoWrapperKit\. has a part called \econtents\. with a 
+part type of \cSoSeparator\.. You can put whatever you want underneath the
+separator, as long as \econtents\. itself is an \cSoSeparator\..
+\p
+Thus, a nodekit only controls a section of the scene graph.  Above and
+below that section, anything goes.
+\p
+However, when nodekits are nested, they effectively create a larger
+`known' section of the scene graph.
+For example, the \eappearance\. part of the \cSoSeparatorKit\. is a leaf 
+node in the \cSoSeparatorKit\. catalog. But \eappearance\. is in turn an
+\cSoAppearanceKit\., containing parts such as \ematerial\. and \edrawStyle\..
+The two nodekits combine to make an even larger template, which the 
+\cSoSeparatorKit\. can examine by looking at the catalogs for both classes.
+So an \cSoSeparatorKit\. can successfully return a part named \a"material"\.;
+first it finds (or creates)  the \eappearance\. part, then it gets the 
+\ematerial\. by calling \m\+getPart()\.\-SoKitGetPart()\.\.
+on the \eappearance\..
+\p
+When the catalog defines the \alistItemTypes\. of a list part to be
+nodekits, the name-able space expands further. For example,
+\cSoSeparatorKit\. has a part \echildList\. which 
+permits only \cSoSeparatorKits\., so each list element can 
+be further searched. Hence the name 
+\v"childList[0].childList[1].childList[2].material"\. is perfectly legal.
+}
+
+
+
+METHOD "" SoBaseKit() { Constructor. }
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns the \cSoNodekitCatalog\. for the class \cSoBaseKit\.. }
+
+METHOD getCat virtual const SoNodekitCatalog *getNodekitCatalog() const
+	{ Returns the \cSoNodekitCatalog\. for this instance of \cSoBaseKit\.. 
+	 While each instance of a given class creates its own distinct set
+	 of parts (which are actual nodes), all instances
+	  share the same catalog (which 
+	  describes the parts but contains no actual node pointers). }
+
+METHOD "" virtual
+	SoNode *getPart(const SbName &partName, SbBool makeIfNeeded)
+
+{ Searches the nodekit catalog (and those of all nested nodekits) for the part
+named \apartName\.. 
+Returns a pointer to the part if a \ematch is found\., the part is \epublic\.,
+and the part has \ealready been built\..
+If no match is found, or if the part is \eprivate\., \kNULL\. is returned.
+If \apartName\. is in the catalog (or that of one of its nested nodekit parts),
+but the part has not been built yet, the argument \amakeIfNeeded\. 
+determines the course of action. When \amakeIfNeeded\. is \kFALSE\.,
+\kNULL\. is returned; when \amakeIfNeeded\. is \kTRUE\.,
+\m\+getPart()\.\-SoKitGetPart()\.\. will create the part (as well as any
+necessary intermediary parts), put it in the 
+correct place, and return a pointer to the newly created part.
+\p
+Elements of \elist parts\. and parts within nested nodekits can
+all be retrieved with \m\+getPart()\.\-SoKitGetPart()\.\.  The full syntax for legal \apartName\.
+arguments is given below.
+\p
+\ePart name BNF notation\.:
+\p
+\kpartName = singleName | compoundName\.
+\p
+\kcompoundName = singleName | compoundName.singleName\.
+\p
+\ksingleName = singlePartName | singleListElementName\.
+\p
+\ksinglePartName =\. the name of any single part in the catalog (including 
+those that are lists or nodekits), or in the recursively nested 
+catalogs of any of its parts.
+\p
+\ksingleListElementName = singleListName[index]\.
+\p
+\ksingleListName =\. the name of any single list-type part in the
+catalog, or in the recursively nested catalogs of any of its parts.
+\p
+\kindex = integer\.
+\p
+Examples of valid part names are:
+\p
+"transform", "appearance.material", "childList[2].drawStyle",
+"foot", "bird.leftLeg.foot", "octopus.leg[4].suctionCup[2].material"
+}
+
+
+METHOD "" SbString getPartString(const SoBase *part)
+{ Given a node or a path to a node, checks if the part exists in the
+nodekit, in a nested nodekit, or an element of a list part.
+If so, returns a string describing the part name; otherwise, returns an
+empty string ("").
+}
+		     
+METHOD "" virtual SoNodeKitPath *createPathToPart(const SbName &partName, 
+SbBool makeIfNeeded, const SoPath *pathToExtend = NULL)
+{ Returns a path that begins at this nodekit and ends at \apartName\..
+Searching for the part is the same as in \m\+getPart()\.\-SoKitGetPart()\.\..
+\kNULL\. is returned if \apartName\. cannot be found,  
+or if \amakeIfNeeded\. is \kFALSE\. and the part is not yet built.
+If the the part is retrieved and 
+the argument \apathToExtend\. is \kNULL\.,
+the path returned begins at \kthis\. and ends at \apartName\..
+If \apathToExtend\. is not \kNULL\., the path created is a copy of
+ \apathToExtend\. with entries appended all the way down to \apartName\..
+It is okay for \apathToExtend\. to go beyond the nodekit; extra nodes will
+be popped off the tail before continuing from \kthis\. down 
+to \apartName\..
+}
+
+METHOD ""  virtual SbBool setPart(const SbName &partName, SoNode *newPart)
+{ Inserts the given node (not a copy) as the new part specified by
+\apartName\..  See \m\+getPart()\.\-SoKitGetPart()\.\. for the syntax of \apartName\..
+This method adds any extra nodes needed to fit the part into the
+nodekit's catalog. For example, if you call:
+\b\k
+\+mySepKit->setPart("childList[0]", myNewChild);\.\-SoSepKitSetPart(mySepKit, "childList[0]", myNewChild);\.
+\.\.
+the kit may need to create the part 
+\echildList\. before it can install \amyNewChild\..
+Run-time type checking verifies that the node type of \anewPart\.
+matches the type called for by \apartName\..  For example,
+if \apartName\. was a \ematerial\. for an \cSoSeparatorKit\., but
+\anewPart\. was an \cSoTransform\. node, then the node would not be installed,
+and \kFALSE\. would be returned.
+\p
+If \anewPart\. is \kNULL\., then the node specified by \apartName\. is removed.
+If this renders any private parts useless (as occurs when you remove the last 
+child of an \cSoGroup\. node), they will also be removed. Hence nodekits do not
+retain unnecessary nodes.
+\p
+\kTRUE\. is returned on success, and \kFALSE\. upon error.
+}
+
+METHOD ""     SbBool set(char *partName, char *parameters) {}
+METHOD "set2" SbBool set(char *nameValuePairs)
+{
+These functions allow field values of parts (nodes) to be set.
+If \apartName\. and \aparameters\. are used, then a single part is
+specified by \apartName\.; the field values
+are specified in \aparameters\.. The format of \aparamaters\.
+is the Inventor File Format syntax.  For example,
+\b\k
+\+mySepKit->set("material", "diffuseColor 1 0 0 shininess 0.6");\.\-SoSepKitSet(mySepKit, "material", "diffuseColor 1 0 0 shininess 0.6");\.
+\.\.
+sets the part \ematerial\. to the values
+\k"diffuseColor 1 0 0 shininess 0.6"\..  The values
+used in \aparameters\. must of course be appropriate for the node-type 
+to which \apartName\. belongs.
+In this case, the nodekit \cSoSeparatorKit\. has a part named \ematerial\.
+which is of type \cSoMaterial\..
+\p
+The \anameValuePairs\. syntax can be used to set the field values
+in several different parts simultaneously.  In this case,
+the argument string, \anameValuePairs\. contains \ename-value\. pairs:
+\k"partName1 { parameters1 \} ... partNameN { parametersN \}"\..
+\p
+For example,
+\b\k
+\+mySepKit->set("material { diffuseColor 1 1 1 \}
+            transform { translation 4 3 .6 \}");
+mySepKit->set("childList[0].material { ambientColor .5 .5 .5 \}");\.\-SoSepKitSet2(mySepKit, "material { diffuseColor 1 1 1 \} 
+                            transform { translation 4 3 .6 \}");
+SoSepKitSet2(mySepKit, "childList[0].material { ambientColor .5 .5 .5 \}");\.\.\.
+}
+
+METHOD "" static SbBool isSearchingChildren() {}
+METHOD "" static void   setSearchingChildren(SbBool newVal)
+{ Sets and queries if nodekit children are searched during \cSoSearchAction\.
+traversal.  By default, they are not. }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+PART callbackList 
+  { This is the only part that the base class \cSoBaseKit\. creates.  
+    It is a public part that is inherited by \eall\. nodekits. 
+    It provides an easy way to add callbacks for a nodekit to use 
+    during action traversal 
+    (e.g. \cSoHandleEventAction\.).  It is a list part and may contain 
+    numerous \cSoCallback\. and/or \cSoEventCallback\. nodes.  }
+
+
+BEGIN C++
+MACRO SO_GET_PART (kit, partName, partClass)
+	{ Calls \mgetPart()\. with \amakeIfNeeded\. set to \kTRUE\.,
+	 then casts the result to the type \apartClass\.. Note that in the 
+	 debug library, this macro checks to see if the part is of type 
+	 \apartClass\., while the regular library does no type checking. }
+
+MACRO SO_CHECK_PART (kit, partName, partClass)
+	{ Calls \mgetPart()\., but with \amakeIfNeeded\. set to \kFALSE\.,
+	  then casts the result to the type \apartClass\..  Note that in the 
+	 debug library, this macro checks to see if the part is of type 
+	 \apartClass\., while the regular library does no type checking. }
+END
+
+
+ALSO {
+SoAppearanceKit,
+SoCameraKit,
+SoLightKit,
+SoNodeKit,
+SoNodeKitDetail,
+SoNodeKitListPart,
+SoNodeKitPath,
+SoNodekitCatalog,
+SoSceneKit,
+SoSeparatorKit,
+SoShapeKit,
+SoWrapperKit }
+
+
+ACTION SoGLRenderAction, SoCallbackAction, SoGetBoundingBoxAction,
+       SoHandleEventAction {
+Behaves like an \cSoGroup\.. Traverses each child in order.
+}
+
+ACTION SoRayPickAction {
+Traverses each child in order. Then, for any pick containing the kit
+on its path, makes an \cSoNodeKitDetail\. as follows:
+Sets the \k"detailNodeKit"\. (retrievable with
+\m\+SoNodeKitDetail::getNodeKit()\.\-SoNkDtlGetNodeKit()\.\.)
+to be a pointer to itself.
+Sets the \k"detailPart"\. (retrievable with
+\m\+SoNodeKitDetail::getPart()\.\-SoNkDtlGetPart()\.\.)
+to be a pointer to the kit's leaf-most part that lies on the pickPath.
+ Sets the \k"detailPartName"\. (retrievable with
+\m\+SoNodeKitDetail::getPartName()\.\-SoNkDtlGetPartName()\.\.)
+to be the partName of that part, as found in the catalog.
+\p
+Does not descend into nested nodekits. Each nodekit along the path
+ is the \k"detailPart"\. in its parent's detail. 
+ However, if the pick path goes through a list part, a pointer to the child
+ is used for the \k"detailPart"\., and  \k"detailPartName"\. is of the 
+ form \a"listName[i]"\..
+}
+
+ACTION SoGetMatrixAction {
+Behaves like an \cSoGroup\..
+Does nothing unless the kit is in the middle of the path chain the
+action is being applied to. If so, the children up to and including
+the next node in the chain are traversed.
+}
+
+ACTION SoSearchAction {
+First, searches itself like an \cSoNode\..
+Then, checks the value of 
+\m\+isSearchingChildren()\.\-SoKitIsSearchingChildren()\.\..
+If TRUE, traverses the children in order. If FALSE, returns.
+}
+
+ACTION SoWriteAction {
+Begins by writing out regular fields, then writes out the parts.
+A nodekit does \enot\. write out its parts the way an \cSoGroup\. writes
+out its children.  Instead, it writes each part as an \cSoSFNode\. field.
+First the partName is written, then the node being used for that part.
+\p
+To keep the files terse, nodekits write out as few parts as possible.
+However, nodekits \ealways\. write a part if another instance or a path is 
+writing it. If this is not the case, parts are left out according to 
+the following rules:
+\p
+[1] NULL parts only write if the catalog states they are created by default.
+\p
+[2] Empty \cSoGroup\. and \cSoSeparator\. nodes do not write.
+\p
+[3] Non-leaf parts only write if they have non-default field values.
+\p
+[4] List parts only write if they have children or if the container node has 
+non-default field values.
+\p
+[5] Nested nodekit parts only write if they need to write one or more parts, 
+or if they have non-default field values.
+}

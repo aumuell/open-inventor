@@ -1,0 +1,45 @@
+NAME SoTexture2Transform SoTex2Xf "" { 2D texture transformation node }
+
+INCLUDE nodes/SoTexture2Transform.h
+
+DESC {
+This node defines a 2D transformation applied to texture coordinates.
+This affects the way textures are applied to the surfaces of
+subsequent shapes. The transformation consists of (in order) a
+non-uniform scale about an arbitrary center point, a rotation about
+that same point, and a translation. (Note: while the transformations
+can be thought of as being applied in that order, the GL matrices are
+actually premultiplied in the opposite order. Therefore, the
+operations are listed in the reverse order throughout this reference page.)
+This allows a user to change the size and position of the textures on
+objects.
+}
+
+FIELD translation { Translation in S and T. }
+
+FIELD rotation {
+Counter-clockwise rotation of the coordinate space, in radians. This
+results in a clockwise rotation of the texture on the object.
+}
+
+FIELD scaleFactor { Scaling factors in S and T. }
+
+FIELD center { Center point used for scaling and rotation. }
+
+METHOD "" SoTexture2Transform() {
+Creates a texture transformation node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction {
+Concatenates transformation with the current texture transformation.
+}
+
+ALSO {
+SoTexture2,
+SoTextureCoordinate2,
+SoTextureCoordinateFunction
+}

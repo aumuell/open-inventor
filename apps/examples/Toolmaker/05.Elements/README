@@ -1,0 +1,17 @@
+Open Inventor - Examples from The Inventor Toolmaker
+
+Chapter 5 - "Creating an Element"
+
+
+*** THIS IS FOR EXPERTS ONLY! ***
+
+This directory contains fragments of source code that illustrate
+how to create a new elements in the Inventor 3D database.  No
+executable program is created here.
+
+See the Inventor Mentor, chapters 3 and 9 for an introduction to 
+elements and database traversal.
+
+*** THIS IS FOR EXPERTS ONLY! ***
+
+*** This is for C++ programmers only! ***

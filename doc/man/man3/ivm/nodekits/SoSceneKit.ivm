@@ -1,0 +1,98 @@
+NAME SoSceneKit "" "" { scene nodekit class }
+
+INCLUDE nodekits/SoSceneKit.h
+
+DESC {
+This nodekit is used to organize camera, (\cSoCameraKit\.),
+light, (\cSoLightKit\.), and object, (\cSoShapeKit\., \cSoSeparatorKit\.,
+and \cSoWrapperKit\.) nodekits into a scene.  A scene is composed
+of a list of cameras, a list of lights, and a list of children.
+There are three parts created by this nodekit:
+\ecameraList\., \elightList\., and \echildList\..
+\p
+The \ecameraList\. part is a \elist part\. of \cSoCameraKit\. nodes.
+The list itself is an \cSoNodeKitListPart\., and since
+only one camera can be active at a time, the
+\econtainer\. of the \elist part\. is an \cSoSwitch\. node. Use
+\m\+setCameraNumber()\.\-SoSceneKitSetCameraNumber()\.\., and the
+scene kit will set the switch to make that camera active.
+\p
+The \elightList\. part is a list of \cSoLightKit\. nodes.
+The \elightList\. is used to illuminate the objects
+contained in the \echildList\. part.
+\p
+The \echildList\. part contains a set of \cSoSeparatorKit\. nodes.
+You can add any kind of \cSoSeparatorKit\. to this list,
+including \cSoShapeKit\. and \cSoWrapperKit\..  Since each 
+\cSoSeparatorKit\. in turn contains a \echildList\., this part is used
+to describe a hierarchical scene. 
+(See the reference page for \cSoSeparatorKit\.).
+All members of \echildList\. are lit by the lights in
+\elightList\. and rendered by the active camera in \ecameraList\..
+}
+
+
+METHOD "" SoSceneKit() { Constructor. }
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for the class \cSoSceneKit\.. }
+
+METHOD getCamNum int  getCameraNumber() { }
+METHOD setCamNum void setCameraNumber(int camNum)
+	{ Gets and sets current camera index. This index refers to which
+	child is active in the \ecameraList\. part (\cSoSwitch\. node). }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+
+PART cameraList { This part is an \cSoNodeKitListPart\. It has a
+\econtainer\. that is an \cSoSwitch\. node. The list may contain 
+	only \cSoCameraKit\. nodekits.  The active child of
+	the \cSoSwitch\. is the \eactive\. camera.
+	This part is \kNULL\. by default, but is automatically created
+	whenever you add a camera, as with
+	\m\+setPart("cameraList[0]", myNewCamera)\.
+	\-SoSceneKitSetPart(mySceneKit, "cameraList[0]", myNewCamera)\.\..
+	}
+
+PART lightList { This part is an \cSoNodeKitListPart\. that uses an
+defines an \cSoGroup\. as its \econtainer\. The list may contain only
+	\cSoLightKit\. nodekits.  Add \cSoLightKits\. to this
+	list and they will  light the members of the \echildList\.
+	of this \cSoSceneKit\..
+	This part is \kNULL\. by default, but is automatically created
+	when you add a light. }
+	
+PART childList { This part is an \cSoNodeKitListPart\. that uses an
+	\cSoGroup\. for its \econtainer\.. The list may contain only
+	\cSoSeparatorKit\. nodekits or nodekits derived
+	from \cSoSeparatorKit\. (e.g., \cSoShapeKit\. and \cSoWrapperKit\.).
+	These children represent the objects in the scene.
+	This part is \kNULL\. by default, but is automatically created
+	whenever you add a child to the \echildList\.. 
+	Also, when asked to build a member of the \echildList\., the scenekit
+	will build an \cSoShapeKit\. by default.
+	So if the \echildList\. part is NULL, and you call:
+	\m\+getPart("childList[0]", TRUE)\.
+	\-SoSceneKitGetPart(mySceneKit, "childList[0]", TRUE)\.\..
+	the scene kit will create the \echildList\. and add an \cSoShapeKit\. 
+	as the new element in the list.
+	}
+
+
+ALSO {
+SoAppearanceKit,
+SoBaseKit,
+SoCameraKit,
+SoLightKit,
+SoNodeKit,
+SoNodeKitDetail,
+SoNodeKitListPart,
+SoNodeKitPath,
+SoNodekitCatalog,
+SoSeparatorKit,
+SoShapeKit,
+SoWrapperKit }

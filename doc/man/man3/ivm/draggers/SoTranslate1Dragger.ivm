@@ -1,0 +1,103 @@
+NAME SoTranslate1Dragger SoXlate1Drag "" { object you can translate along a line by dragging With the mouse }
+
+INCLUDE draggers/SoTranslate1Dragger.h
+
+DESC { \cSoTranslate1Dragger\. 
+is a simple dragger that translates 
+in one dimension when dragged with the mouse.  
+It moves along the x axis of its local space, determined by its 
+location in the scene graph. 
+Transformation nodes placed before it will 
+affect both the dragger and the direction of motion.
+\p 
+This node has a \vtranslation\. field 
+which always reflects 
+its position in local space.  
+If you set the field, the dragger will move accordingly.
+You can also connect fields of other nodes or engines from 
+this one
+to make them follow the dragger's motion.
+\p
+This dragger contains four parts, \etranslator\., \etranslatorActive\.,
+\efeedback\., and \efeedbackActive\..  
+\p
+Each of these is set by default from
+a resource described in the \kDragger Resources\. section of the online
+reference page for this class.  You 
+can change the parts in any instance of this dragger using 
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+\p
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/translate1Dragger.iv\.
+into your own directory, editing the file, and then 
+setting the environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+METHOD "" SoTranslate1Dragger() {
+Constructor.
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+FIELD translation { Position of the dragger. }
+
+DRAGGER_RESOURCE {
+  translate1Translator,
+  translator,
+  "white arrow",
+  "picking this initiates translation"
+}
+
+DRAGGER_RESOURCE {
+  translate1TranslatorActive,
+  translatorActive,
+  "yellow arrow",
+  "displayed during translation instead of the translator"
+}
+
+DRAGGER_RESOURCE {
+  translate1Feedback,
+  feedback,
+  "empty Separator by default",
+  "feedback displayed when not in motion"
+}
+
+DRAGGER_RESOURCE {
+  translate1FeedbackActive,
+  feedbackActive,
+  "empty Separator by default",
+  "feedback displayed while moving"
+}
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoCenterballDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTransformerDragger,
+SoTranslate2Dragger
+}
+

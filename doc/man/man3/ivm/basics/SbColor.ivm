@@ -1,0 +1,94 @@
+NAME SbColor SbCol "" { color vector class }
+INCLUDE SbColor.h
+DESC {
+This class is used to represent an RGB color. Each component of the vector
+is a floating-point number between 0.0 and 1.0. There are routines to
+convert back and forth between RGB and HSV.
+\-
+Note that this object does not have \mCreate\. or \mDelete\.
+functions. It is considered a simple datatype and should be
+declared and/or malloc'd as a simple C struct:
+\b\c
+     /* This is defined in Inventor_c/SbColor.h: */
+     struct SbColor \{
+	  float rgb[3];
+     \};
+     typedef SbColor SbCol;
+
+
+     /* This is what your code should look like: */
+     SbCol   c1, c2;
+
+     /* The next two lines show two ways to edit the color. */
+     c1.rgb[0] = 1.0; c1.rgb[1] = 0.0; c1.rgb[2] = 1.0;
+     SbColSetR_G_B( c2, 1.0, 0.0, 1.0 );
+\.\.
+NOTE: No constructors/destructor for C-api.
+\.
+}
+BEGIN C++
+METHOD "" SbColor(const SbVec3f vec3f) {}
+METHOD "" SbColor(const float rgb[3]) {}
+METHOD "" SbColor(float r, float g, float b) {
+Constructors for color vector.
+}
+END
+METHOD setH_S_V SbColor &   setHSVValue(float h, float s, float v) {
+Sets value of color vector from 3 HSV (Hue, Saturation, and Value)
+components.  Value is the same as brightness of the color.
+}
+METHOD setHSV SbColor &     setHSVValue(const float hsv[3]) {
+Sets value of color vector from array of 3 HSV components
+}
+METHOD getH_S_V void        getHSVValue(float &h, float &s, float &v) const {
+Returns 3 individual HSV components
+}
+METHOD getHSV void        getHSVValue(float hsv[3]) const {
+Returns an array of 3 HSV components
+}    
+METHOD setPacked SbColor &   setPackedValue(uint32_t rgba, float& transparency) {
+Sets value of color vector from an RGBA packed color value.
+The packed color format expressed in hexadecimal is 0xrrggbbaa, where
+\b
+	rr is the red value
+	gg is the green value
+	bb is the blue value
+	aa is the alpha value
+\.
+RGBA component values range from 0 to 0xFF (255).
+The returned transparency value is a
+floating point value between 0.0 (opaque) 
+and 1.0 (completely transparent).
+It is derived from the alpha component of the RGBA color.
+}
+METHOD getPacked uint32_t getPackedValue(float transparency = 0.0) const {
+Returns an RGBA packed color value, derived from the color
+vector and the passed transparency value. 
+The alpha component is set to (1.0 - transparency) * 255, 
+resulting in a hex value between 0 and 0xFF.  
+If transparency not specified, alpha is set to 0xFF (opaque).
+
+}
+BEGIN C
+MACRO  SbColGetRGB(float array[3], SbVec3f src) {}
+MACRO  SbColGetR_G_B(float r, float g, float b, _src) {
+Returns color components.
+}
+MACRO  SbColSetRGB(SbVec3f dest, float src[3]) {}
+MACRO  SbColSetR_G_B(SbVec3f dest, float r, float g, float b) {
+Sets the color.
+}
+MACRO  SbColMult(SbVec3f clr, float s) {
+Multiply the color components by a scalar value.
+}
+MACRO  SbColDiv(SbVec3f clr, float s) {
+Divide the color components by a scalar value.
+}
+MACRO  SbColAdd(SbVec3f dest, SbVec3f clr1, SbVec3f clr2) {
+Add two colors together.
+}
+MACRO  SbColSub(SbVec3f dest, SbVec3f clr1, SbVec3f clr2) {
+Subtract clr2 from clr1.
+}
+ALSO { SbVec3f }
+

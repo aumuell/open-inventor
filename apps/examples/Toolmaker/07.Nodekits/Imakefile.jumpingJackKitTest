@@ -1,0 +1,14 @@
+#define OneProgram
+
+PROGRAM = jumpingJackKitTest
+
+#define OtherLibs -lm
+
+C++FILES = JumpingJackKit.c++ jumpingJackKitTest.c++
+
+HFILES = JumpingJackKit.h
+
+#ifndef CreatingUserMakefile
+OTHERSOURCE = README
+TOP_OF_TREE = ../../../..
+#endif

@@ -1,0 +1,65 @@
+NAME SbSphere SbSph "" { class for representing a sphere }
+INCLUDE SbLinear.h
+DESC {
+Represents a sphere in 3D. This is a lightweight datatype that
+is used for arguments or return values in the Inventor toolkit. See
+\cSoSphere\. for a database sphere (used for rendering, picking, etc.).
+\-
+Note that there are no
+\mCreate\.
+and
+\mDelete\.
+functions for
+\cSbSphere\. .
+C programmers should treat spheres as standard C structs (declare them
+locally or use 
+\kmalloc()\. ):
+\b\k
+
+/* This is defined in Inventor_c/SbLinear.h: */
+
+struct \{
+    struct SbVec3f center;
+    float          radius;
+\}
+
+
+/* Your code should look something like this: */
+#include <Inventor_c/SbLinear.h>
+
+SbSphere   s;
+
+s.radius = 5.0;
+SbV3fSetX_Y_Z( s.center, 0.0, 2.0, 0.0 );
+
+\.\.
+\.
+}
+BEGIN C++
+METHOD "" SbSphere()  {}
+METHOD "" SbSphere(const SbVec3f &center, float radius) {
+Constructors.
+}
+METHOD "" void        setValue(const SbVec3f &center, float radius) {
+Change the center and radius.
+}
+METHOD "" void        setCenter(const SbVec3f &center) {}
+METHOD "" void        setRadius(float radius) {
+Set just the center or radius.
+}
+METHOD "" const SbVec3f &     getCenter() const {}
+METHOD "" float               getRadius() const {
+Return the center and radius.
+}
+END
+METHOD "" void        circumscribe(const SbBox3f &box) {
+Return a sphere containing a given box.
+}
+METHOD "" SbBool      intersect(const SbLine &l, SbVec3f &intersection) const {}
+METHOD intersect2 SbBool      intersect(const SbLine &l, SbVec3f &enter,
+                                        SbVec3f &exit) const {
+Intersect line and sphere, returning TRUE if there is an intersection.  The
+line is treated as a ray.
+}
+ALSO { SbVec3f, SbLine, SoSphere  }
+

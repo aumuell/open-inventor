@@ -1,0 +1,24 @@
+NAME SoXtLightSliderSet SoXtLtSldrs "" {
+component with Motif sliders for editing SoLight nodes
+}
+
+INCLUDE Xt/SoXtLightSliderSet.h
+
+DESC {
+This class is used to manipulate the intensity and color of an
+\cSoLight\.
+node using an arrangement of Motif sliders and buttons.
+}
+
+METHOD "" SoXtLightSliderSet( 
+	Widget parent = NULL,
+	const char *name = NULL, 
+	SbBool buildInsideParent = TRUE,
+	SoNode *newEditNode = NULL ) {}
+METHOD "" ~SoXtLightSliderSet()
+{
+Constructor and destructor. At construction time the light node to edit
+can be supplied.
+}
+
+ALSO { SoXtSliderSet, SoXtSliderSetBase, SoXtComponent, SoLight, SoNode }

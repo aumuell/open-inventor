@@ -1,0 +1,143 @@
+NAME SbVec3f SbV3f "" { 3D vector class }
+INCLUDE SbLinear.h
+DESC {
+3D vector class used to store 3D vectors and points. This class is used
+throughout Inventor for arguments and return values.
+\-
+This object does not have \mCreate\. or \mDelete\.
+functions because it is considered a simple datatype; instances of
+this class may be declared directly as local or global variables in C.
+C programmers can access the components of the vector as though it were
+a simple structure or use the access and operation functions described
+in this reference page:
+\b\k
+struct SbVec3f \{ float vec[3]; \};
+
+SbVec2f   v1, v2;
+
+/* The next two lines produce equivalent vectors. */
+v1.vec[0] = 1.0; v1.vec[1] = 1.0; v1.vec[2] = 1.0;
+SbV3fSetX_Y_Z( v2, 1.0, 1.0, 1.0 );
+\.\.\.
+}
+
+BEGIN C++
+METHOD "" SbVec3f() { Default constructor. }
+METHOD "" SbVec3f(const float v[3]) {}
+METHOD "" SbVec3f(float x, float y, float z) {
+Constructor given vector components.
+}
+METHOD "" SbVec3f(SbPlane &p0, SbPlane &p1, SbPlane &p2) {
+Constructor given 3 planes.
+}
+END
+
+METHOD "" SbVec3f cross(const SbVec3f &v) const {
+Returns right-handed cross product of vector and another vector.
+}
+
+BEGIN C++
+METHOD "" float dot(const SbVec3f &v) const {
+Returns dot (inner) product of vector and another vector.
+}
+END
+
+BEGIN C
+MACRO SbV3fDot(SbVec3f vec0, SbVec3f vec1) {
+Returns dot (inner) product of two vectors.
+}
+END
+
+METHOD "" SbBool      equals(const SbVec3f v, float tolerance) const {
+Equality comparison within given tolerance \(em the square of the
+length of the maximum distance between the two vectors.
+}
+METHOD "" SbVec3f     getClosestAxis() const {
+Returns principal axis that is closest (based on maximum dot
+product) to this vector.
+}
+
+BEGIN C++
+METHOD "" const float *getValue() const {}
+METHOD "" void        getValue(float &x, float &y, float &z) const {
+Returns vector components.
+}
+END
+
+BEGIN C
+MACRO SbV3fGetXYZ(float array[3], SbVec3f vec) {}
+MACRO SbV3fGetX_Y_Z(float x, float y, float z, SbVec3f vec) {
+Returns vector components.
+}
+END
+
+BEGIN C++
+METHOD "" float       length() const {
+Returns geometric length of vector.
+}
+METHOD "" void        negate() {
+Negates each component of vector in place.
+}
+END
+BEGIN C
+MACRO SbV3fLen(SbVec3f vec) {
+Returns geometric length of vector.
+}
+MACRO SbV3fNegate(SbVec3f vec) {
+Negates each component of vector in place.
+}
+MACRO SbV3fSetXYZ(SbVec3f vec, float array[3]) {}
+MACRO SbV3fSetX_Y_Z(SbVec3f vec, float x, float y, float z) {
+Sets the vector components.
+}
+MACRO SbV3fMultBy(SbVec3f vec, float scalar) {}
+MACRO SbV3fDivBy(SbVec3f vec, float scalar) {
+Component-wise scalar multiplication and division operators.
+}
+MACRO SbV3fAdd(SbVec3f dest, SbVec3f src1, SbVec3f src2) {}
+MACRO SbV3fSub(SbVec3f dest, SbVec3f src1, SbVec3f src2) {
+Component-wise binary vector addition and subtraction operators.
+}
+END
+METHOD norm float normalize() { 
+Changes vector to be unit length, returning the length before normalization.
+}
+BEGIN C++
+METHOD "" SbVec3f &   setValue(const float v[3]) {}
+METHOD "" SbVec3f &   setValue(float x, float y, float z) {
+Sets the vector components.
+}
+METHOD "" SbVec3f &   setValue(const SbVec3f &barycentic,
+                const SbVec3f &v0, const SbVec3f &v1, const SbVec3f &v2) {
+Sets value of vector as the weighted average of 3 other vectors.
+}
+METHOD "" float &       operator [\|](int i) {}
+METHOD "" const float & operator [\|](int i) {
+Accesses indexed component of vector.
+}
+METHOD "" SbVec3f &   operator *=(float d) {}
+METHOD "" SbVec3f &   operator /=(float d) {
+Component-wise scalar multiplication and division operators.
+}
+METHOD "" SbVec3f &   operator +=(const SbVec3f &u) {}
+METHOD "" SbVec3f &   operator -=(const SbVec3f &u) {
+Component-wise vector addition and subtraction operators.
+}
+METHOD "" SbVec3f     operator -() const {
+Nondestructive unary negation \(em returns a new vector.
+}
+METHOD "" SbVec3f      operator *(const SbVec3f &v, float d) {}
+METHOD "" SbVec3f      operator *(float d, const SbVec3f &v) {}
+METHOD "" SbVec3f      operator /(const SbVec3f &v, float d) {
+Component-wise binary scalar multiplication and division operators.
+}
+METHOD "" SbVec3f      operator +(const SbVec3f &v1, const SbVec3f &v2) {}
+METHOD "" SbVec3f      operator -(const SbVec3f &v1, const SbVec3f &v2) {
+Component-wise binary vector addition and subtraction operators.
+}
+END
+METHOD "" int          operator ==(const SbVec3f &v1, const SbVec3f &v2) {}
+METHOD "" int          operator !=(const SbVec3f &v1, const SbVec3f &v2) {
+Equality comparison operators.
+}
+ALSO { SbVec2f, SbVec4f, SbVec2s, SbRotation }

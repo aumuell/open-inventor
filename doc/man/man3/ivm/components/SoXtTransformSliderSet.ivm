@@ -1,0 +1,25 @@
+NAME SoXtTransformSliderSet SoXtXfSldrs "" {
+component with Motif sliders for editing SoTransform nodes
+}
+
+INCLUDE Xt/SoXtTransformSliderSet.h
+
+DESC {
+This class defines an editor that uses Motif Sliders to edit fields in an
+\cSoTransform\.
+node. There are sliders for editing the translation,
+scale, rotation, and transform center.
+}
+
+METHOD "" SoXtTransformSliderSet( 
+	Widget parent = NULL,
+	const char *name = NULL, 
+	SbBool buildInsideParent = TRUE,
+	SoNode *newEditNode = NULL ) {}
+METHOD "" ~SoXtTransformSliderSet()
+{
+Constructor and destructor. At construction time the transform node to edit
+can be supplied.
+}
+
+ALSO { SoXtSliderSet, SoXtSliderSetBase, SoXtComponent, SoTransform, SoNode }

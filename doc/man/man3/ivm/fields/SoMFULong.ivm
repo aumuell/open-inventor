@@ -1,0 +1,12 @@
+NAME SoMFULong SoMULong "" {
+synonym for SoMFUInt32
+}
+
+INCLUDE fields/SoMFUInt32.h
+
+DESC {
+This class is obsolete, and is provided for backwards compatibility
+only.  You should use the new SoMFUInt32 class instead.  If you compile
+your code -DIV_STRICT, #including the SoMFULong.h header file will cause
+a compile-time error.
+}

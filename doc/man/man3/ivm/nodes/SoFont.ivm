@@ -1,0 +1,39 @@
+NAME SoFont "" "" { node that defines font type and size for text }
+
+INCLUDE nodes/SoFont.h
+
+DESC {
+This node defines the current font type and point size for all
+subsequent text shapes in the scene graph.  Fonts are specified with
+PostScript names, except for the default font. The default font is
+called \k"defaultFont"\. and is the standard SGI graphics font for 2D
+text. \k"Utopia"\. is the standard Inventor font for 3D text.
+}
+
+FIELD name {
+This field defines the font name as a PostScript name. For example,
+Times Roman would be specified as \kTimes-Roman\..  Multiple fonts
+can be specified by separating the font names with semicolons.  When 
+multiple fonts are specified, the first font in the list that contains a 
+given character is used to render that character.
+}
+
+FIELD size { 
+This field defines the font size. The value is in points for
+2D text and is in the current units for 3D text.
+}
+
+METHOD "" SoFont() {
+Creates a font node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction, SoGetBoundingBoxAction,
+       SoRayPickAction {
+Sets the font name and size in the current traversal state.
+}
+
+ALSO { SoText2, SoText3 }

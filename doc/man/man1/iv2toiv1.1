@@ -1,0 +1,27 @@
+'\"macro stdmacro
+.TH iv2toiv1 1
+.SH NAME
+iv2toiv1 \- converts Inventor 2.0 files to the Inventor 1.0 format
+.SH SYNOPSIS
+.B iv2toiv1
+.RB infile
+.RB outfile
+.SH DESCRIPTION
+.I iv2toiv1
+reads the input file
+.I infile
+and writes it to the output file
+.I outfile
+in Inventor 1.0 format.
+.SH NOTES
+Because of differences between the 1.0 and 2.0 file formats,
+some data may be lost during the conversion to 1.0. For instance,
+the 2.0 file format for
+.I SoSeparator
+contains fields for caching and culling, but the 1.0 format for
+.I SoSeparator
+has no fields. This information is lost during the conversion process.
+.SH FILES
+/usr/share/data/models/* - Sample Inventor 2.0 data files
+.SH SEE ALSO
+inventor, ivdowngrade, ivcat

@@ -1,0 +1,240 @@
+NAME SoDB "" "" { scene graph database class }
+
+INCLUDE SoDB.h
+
+DESC {
+The \cSoDB\. class holds all scene graphs, each representing a 3D
+scene used by an application. A scene graph is a collection of SoNode
+objects which come in several varieties (see \cSoNode\.).
+Application programs must initialize the database by calling
+\m\+SoDB::init()\.\-SoDBInit()\.\.
+before calling any other database routines and before constructing any
+nodes, paths, functions, or actions. Note that 
+\m\+SoDB::init()\.\-SoDBInit()\.\. is called by 
+\m\+SoInteraction::init()\.\-SoInteractionInit()\.\.,
+\m\+SoNodeKit::init()\.\-SoNodeKitInit()\.\., and
+\m\+SoXt::init()\.\-SoXtInit()\.\., so if you are calling any of these
+\+methods\.\-functions\., you do not need to call 
+\m\+SoDB::init()\.\-SoDBInit()\.\. directly.
+\+All methods on this class are static.\.
+\p
+Typical program database initialization and scene reading is as follows:
+\k\b\+
+#include <Inventor/SoDB.h>
+#include <Inventor/SoInput.h>
+#include <Inventor/nodes/SoSeparator.h>
+
+SoSeparator  *rootSep;
+SoInput      in;
+
+SoDB::init();
+rootSep = SoDB::readAll(&in);
+if (rootSep == NULL)
+    printf("Error on read...\\n");
+ ...\.\-#include <Inventor_c/SoDB.h>
+#include <Inventor_c/SoInput.h>
+#include <Inventor_c/nodes/SoSeparator.h>
+
+SoSeparator  *rootSep;
+SoInput      *in;
+
+SoDBInit();
+in = SoInCreate();
+rootSep = SoDBReadAll(in);
+if (rootSep == NULL)
+    printf("Error on read...\\n");
+ ...
+\.\.\.
+}
+
+TYPEDEF void SoDBHeaderCB "(void *userData, SoInput *in)"
+
+METHOD "" static void init() {
+Initializes the database.  This must be called before calling any
+other database routines, including the construction of any nodes,
+paths, engines, or actions.
+}
+
+METHOD "" static const char *getVersion() {
+Returns a character string identifying the version of the Inventor
+library in use.
+}
+
+METHOD ""       static SbBool read(SoInput *in, SoNode *&rootNode) {}
+METHOD ReadPath static SbBool read(SoInput *in, SoPath *&path) {
+Reads a graph from the file specified by the given \cSoInput\.,
+returning a pointer to the resulting root node in \arootNode\., or a
+pointer to the resulting path in \apath\..  The programmer is
+responsible for determining which routine to use, based on the contents
+of the input. These routines return FALSE if any error occurred during
+reading.
+\p
+If the passed \cSoInput\. was used to open a file and the name of the
+file contains a directory, \cSoDB\. automatically adds the directory
+to the end of the current directory search path in the \cSoInput\..
+This means that nested files named in \cSoFile\. nodes may be found
+relative to that directory.  The directory is removed from the search
+path when reading is complete.
+}
+
+METHOD "" static SoSeparator *readAll(SoInput *in) {
+Reads all graphs and paths from the file specified by the given \cSoInput\..  If
+there is only one graph in the file and its root is an
+\cSoSeparator\., a pointer to the root is returned. In all other
+cases, this creates an \cSoSeparator\., adds the root nodes of all
+graphs read as children of it, and returns a pointer to it. This
+returns NULL on error. This processes directory paths in the same way
+as the other reading routines.
+}
+
+METHOD "" static  SbBool isValidHeader(const char *testString) {
+This returns TRUE if the given character string is one of the valid 
+Inventor file headers, (e.g. \k"#Inventor V2.0 binary"\.), or if
+the string has been registered as a valid header through the 
+\cregisterHeader\. method.
+}
+
+METHOD "" static SbBool registerHeader(const SbString &headerString,
+SbBool isBinary, float ivVersion, SoDBHeaderCB *preCB, 
+SoDBHeaderCB *postCB, void *userData) {
+Registers the given string as a valid header for input files.
+The string must be 80 characters or less, and start with the
+comment character \k'#'\..
+If the passed \cisBinary\. flag is true, any file with this header
+will be read as a binary file.
+Usually, a user-defined header represents a file format that is
+a superset of the Inventor file format.
+The \civVersion\. number indicates which Inventor file version
+this header corresponds to.
+The user-defined callback functions \cpreCB\. and \cpostCB\. are 
+called before and after a file with this header is read.
+The \cuserData\. is passed to both callback functions.
+The method returns TRUE if the header is successfully registered.
+Note, nothing prevents you from registering the
+same string multiple times.
+}
+
+METHOD "" static SbBool getHeaderData(const SbString &headerString,
+SbBool &isBinary, float &ivVersion, 
+SoDBHeaderCB *&preCB, SoDBHeaderCB *&postCB, 
+void *&userData, SbBool substringOK = FALSE) {
+Passes back the data registered with the given header string,
+including the flag specifying whether the string is for a binary
+file, pointers to the callback functions invoked before and
+after reading the file, and a pointer to the user data passed
+to the callback functions.
+If the given header string does not match any of the registered
+headers, and the \csubstringOK\. flag is TRUE, then the method
+will search for a registered header that is a substring of
+the given string.
+The method returns TRUE if a matching registered header, or
+subheader, was found.
+}
+
+METHOD "" static int getNumHeaders() {
+Returns the number of valid headers, including standard Inventor
+headers, and user-registered headers.
+}
+
+METHOD "" static SbString getHeaderString(int i) {
+Returns the i'th header.
+}
+
+METHOD "" static SoField * createGlobalField(const SbName &name, SoType type) {
+
+The database maintains a namespace for global fields, making sure that
+there is at most one instance of a global field with any given name in
+the database. This routine is used to create new global fields.  If
+there is no global field with the given name, it will create a new
+global field with the given name and type. If there is already a
+global field with the given name and type, it will return it. If there
+is already a global field with the given name but a different type,
+this returns NULL.
+\p
+All global fields must be derived from \cSoField\.; typically the result
+of this routine is cast into the appropriate type; for example:
+\b\k\+
+SoSFInt32 *longField =
+    (SoSFInt32 *) SoDB::createGlobalField("Frame",
+                                         SoSFInt32::getClassTypeId());\.\-SoSInt32 *longField =
+    (SoSInt32 *) SoDBCreateGlobalField("Frame",
+                                      SoSInt32GetClassTypeId());
+\.\.\.
+}
+
+METHOD "" static SoField * getGlobalField(const SbName &name) {
+Returns the global field with the given name, or NULL if there is
+none. The type of the field may be checked using the
+\+\mSoField::isOfType()\., \mSoField::getClassTypeId()\.,
+and \mSoField::getTypeId()\. 
+methods.\.\-\mSoFieldIsOfType()\., \mSoFieldGetClassTypeId()\.,
+and \mSoFieldGetTypeId()\. functions.\.
+}
+
+METHOD "" static void renameGlobalField(const SbName &oldName,
+					const SbName &newName) {
+Renames the global field named \aoldName\..  Renaming a global field to
+an empty name ("") deletes it.  If there is already a global field
+with the new name, that field will be deleted (the
+\+\mgetGlobalField\. method\.\-\mSoDBGetGlobalField\. function\.
+can be used to guard against this).
+}
+
+METHOD "" static void setRealTimeInterval(const SbTime &deltaT) {
+The database automatically creates one global field when
+\+\mSoDB::init()\.\.\-\mSoDBInit()\.\.
+is called.  The \vrealTime\. global field, which is of type
+\cSoSFTime\., can be connected to engines and nodes for real-time
+animation.  The database will automatically update the \vrealTime\. global
+field 12 times per second, using a timer sensor.  Typically, there
+will be a node sensor on the root of the scene graph which schedules a
+redraw whenever the scene graph changes; by updating the \vrealTime\.
+global field periodically, scene graphs that are connected to
+\vrealTime\. (and are therefore animating) will be redrawn.  The rate
+at which the database updates \vrealTime\. can be controlled with this
+routine.  Passing in a zero time will disable automatic update of
+\vrealTime\.. If there are no enabled connections from the
+\vrealTime\. field to any other field, the sensor is automatically
+disabled.
+.p
+Note that the SoSceneManager class automatically updates
+realTime immediately after redrawing, which will result in as high a
+frame rate as possible if the scene is continuously animating.  The
+SoDB::setRealTimeInterval method ensures that engines that do not
+continuously animate (such as SoTimeCounter) will eventually be
+scheduled.
+}
+
+METHOD "" static const SbTime & getRealTimeInterval() {
+Returns how often the database is updating \vrealTime\..
+}
+
+METHOD "" static void setDelaySensorTimeout(const SbTime &t) {
+This sets the timeout value for sensors that are delay queue sensors
+(one-shot sensors, data sensors). Delay queue sensors are
+triggered whenever there is idle time. If a long period of time
+elapses without any idle time (as when there are continuous events to
+process), these sensors may not be triggered. Setting this timeout
+value ensures that if the specified length of time elapses without any
+idle time, the delay queue sensors will be processed anyway.
+}
+
+METHOD "" static const SbTime & getDelaySensorTimeout() {
+Returns the current delay queue timeout value.
+}
+
+METHOD "" static int doSelect(int nfds, fd_set *readfds, fd_set *writefds,
+			      fd_set *exceptfds, struct timeval *userTimeOut) {
+In order to keep timer and idle sensors running as expected, it is
+necessary that an Inventor application not block waiting for input. If
+the Inventor application uses the Xt utility library, this can be
+handled automatically.  However, if the application is using its own
+event loop, this function is provided as a wrapper around
+\xselect(2)\. that will handle Inventor tasks if necessary instead of
+blocking.
+}
+
+ALSO { SoBase, SoNode, SoEngine, SoField, SoInput, SoFile, SoPath,
+       SoOneShotSensor, SoDataSensor, SoXt }
+
+

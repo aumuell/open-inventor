@@ -1,0 +1,109 @@
+NAME SoText3 SoTxt3 SO_TXT3_ { 3D text shape node }
+
+INCLUDE nodes/SoText3.h
+
+DESC {
+This node defines one or more strings of 3D text. In contrast with
+\cSoText2\., 3D text can be rotated, scaled, lighted, and textured,
+just like all other 3D shapes. Each character in a 3D text string is
+created by extruding an outlined version of the character (in the
+current typeface) along the current profile, as defined by nodes
+derived from \cSoProfile\.. The default text profile, if none is
+specified, is a straight line segment one unit long.
+\p
+The text origin is at (0,0,0) after applying the current
+transformation. The scale of the text is affected by the \vsize\.
+field of the current \cSoFont\. as well as the current transformation.
+\p
+\cSoText3\. uses the current set of materials when rendering. If the
+material binding is \kOVERALL\., then the whole text is drawn with the
+first material. If it is \kPER_PART\. or \kPER_PART_INDEXED\., the
+front part of the text is drawn with the first material, the sides
+with the second, and the back with the third.
+\p
+Textures are applied to 3D text as follows.  On the front and back
+faces of the text, the texture origin is at the base point of the
+first string; the base point is at the lower left for justification
+\kLEFT\., at the lower right for \kRIGHT\., and at the lower center
+for \kCENTER\.. The texture is scaled equally in both S and T
+dimensions, with the font height representing 1 unit. S increases to
+the right on the front faces and to the left on the back faces. On the
+sides, the texture is scaled the same as on the front and back. S is
+equal to 0 at the rear edge of the side faces. The T origin can occur
+anywhere along each character, depending on how that character's
+outline is defined.
+}
+
+ENUM Justification {
+    LEFT	"Left edges of all strings are aligned",
+    RIGHT	"Right edges of all strings are aligned",
+    CENTER	"Centers of all strings are aligned"
+}
+
+ENUM Part {
+    FRONT	"Front faces of characters",
+    SIDES	"Extruded sides of characters",
+    BACK	"Back faces of characters",
+    ALL		"All parts"
+}
+
+FIELD string {
+The text string(s) to display. Each string will appear on its own line.
+The string(s) can be ascii or UTF-8.
+}
+
+FIELD spacing {
+Defines the distance (in the negative y direction) between the base
+points of successive strings, measured with respect to the current
+font height. A value of 1 indicates single spacing, a value of 2
+indicates double spacing, and so on.
+}
+
+FIELD parts {
+Which parts of text are visible. Note that, for speed, the default for
+this field is \kFRONT\. only.
+}
+
+FIELD justification {
+Indicates placement and alignment of strings. With \kLEFT\.
+justification, the left edge of the first line is at the (transformed)
+origin, and all left edges are aligned. \kRIGHT\. justification is
+similar.  \kCENTER\. justification places the center of the first
+string at the (transformed) origin, with the centers of all remaining
+strings aligned under it.
+}
+
+METHOD "" SoText3() {
+Creates a 3D text node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Draws text based on the current font, profiles, transformation,
+drawing style, material, texture, complexity, and so on.
+}
+
+ACTION SoRayPickAction {
+Performs a pick on the text. The string index and character position
+are available from the \cSoTextDetail\..
+}
+
+ACTION SoGetBoundingBoxAction {
+Computes the bounding box that encloses the text.
+}
+
+ACTION SoCallbackAction {
+If any triangle callbacks are registered with the action, they will be
+invoked for each successive triangle used to approximate the text
+geometry.
+}
+
+ALSO {
+SoFont,
+SoProfile,
+SoText2,
+SoTextDetail
+}

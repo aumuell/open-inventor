@@ -1,0 +1,233 @@
+NAME SoJackDragger SoJackDrag "" { jack-shaped object you rotate, translate, or scale by dragging with the mouse }
+
+INCLUDE draggers/SoJackDragger.h
+
+
+DESC { \cSoJackDragger\. 
+is a composite dragger in the shape of a jack from the children's game
+jacks.  Three lines along the x, y, and z axes form the central star
+shape, which you can drag with the mouse to rotate the jack.
+Dragging any of the small cubes mounted at the end of the axes will scale
+the jack uniformly in all 3 dimensions.
+At the core of the jack is an \cSoDragPointDragger\. for translating the
+jack. 
+\p
+Each of these shapes is a different dragger with the default geometry
+changed.  All of them are parts of the
+jack dragger, which keeps them moving together.
+The star is an \cSoRotateSphericalDragger\., and dragging it updates the
+\vrotation\. field of the jack dragger.  The small cubes are  an
+\cSoScaleUniformDragger\., tied to the  \vscaleFactor\. field.
+The position of the \cSoDragPointDragger\. is given by the \vtranslation\.
+field.  As with all draggers, if you change the fields the dragger will
+move to match the new settings.
+\p
+\eRemember:\. This is \enot\. an \cSoTransform!\.. 
+If you want to move other objects with this dragger, you can either: 
+\p
+[a] Use an \cSoJackManip\., which is subclassed from \cSoTransform\.. 
+It creates one of
+these draggers and uses it as the interface to change its fields.
+(see the \cSoJackManip\. man page).  
+\p
+[b] Use field-to-field connections to connect the fields of this dragger to
+those of any \cSoTransformation\. node.
+\p
+You can change the parts in any instance of this dragger using
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+The default part geometries are defined as resources for this 
+\cSoJackDragger\. class.  They are detailed in the 
+Dragger Resources section of the online reference page for this class.
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/jackDragger.iv\.
+into your own directory, editing the file, and then
+setting the environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+METHOD "" SoJackDragger() {
+Constructor.
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+
+FIELD rotation { Orientation of the dragger. }
+FIELD scaleFactor { Scale of the dragger. }
+FIELD translation { Position of the dragger. }
+
+DRAGGER_RESOURCE {
+  jackRotatorRotator,
+  rotator.rotator,
+  "The 'star' of the jack. Set of 3 white axes (lines)",
+  "Picking star begins rotational dragging  of the jackDragger."
+}
+
+DRAGGER_RESOURCE {
+  jackRotatorRotatorActive,
+  rotator.rotatorActive,
+  "Yellow version of the rotator.rotator part.",
+  "Displayed while the jackDragger is being rotated"
+}
+
+DRAGGER_RESOURCE {
+  jackRotatorFeedback,
+  rotator.feedback,
+  "Empty separator",
+  "Removes any feedback geometry created in the constructor of the 
+   \cSoRotateSphericalDragger\.."
+}
+
+DRAGGER_RESOURCE {
+  jackRotatorFeedbackActive,
+  rotator.feedbackActive,
+  "Empty separator",
+  "Removes any feedbackActive geometry created in the constructor of the 
+   \cSoRotateSphericalDragger\.."
+}
+
+DRAGGER_RESOURCE {
+  jackScalerScaler,
+  scaler.scaler,
+  "Six small white cubes, the tips of the rotator star",
+  "Picking this initiates uniform 3D scaling of the
+   dragger."
+}
+
+DRAGGER_RESOURCE {
+  jackScalerScalerActive,
+  scaler.scalerActive,
+  "Yellow version of the scaler.scaler resource.",
+  "Displayed while the dragger is being scaled."
+}
+
+DRAGGER_RESOURCE {
+  jackScalerFeedback,
+  scaler.feedback,
+  "Empty separator",
+  "Removes any feedback geometry created in the constructor of the 
+   \cSoScaleUniformDragger\.."
+}
+
+DRAGGER_RESOURCE {
+  jackScalerFeedbackActive,
+  scaler.feedbackActive,
+  "Empty separator",
+  "Removes any feedbackActive geometry created in the constructor of the 
+   \cSoScaleUniformDragger\.."
+}
+
+DRAGGER_RESOURCE {
+  jackTranslatorLineTranslator,
+  translator.xTranslator.translator
+  translator.yTranslator.translator
+  translator.zTranslator.translator,
+  "Skinny white cylinder aligned with axies of motion",
+  "Picking these parts initiates dragging 
+   in the x, y, and z linear draggers respectively."
+}
+
+DRAGGER_RESOURCE {
+  jackTranslatorLineTranslatorActive,
+  translator.xTranslator.translatorActive
+  translator.yTranslator.translatorActive
+  translator.zTranslator.translatorActive,
+  "Skinny yellow cylinder aligned with axies of motion",
+  "Shown during linear dragging in the x, y, 
+   and z directions respectively."
+}
+
+DRAGGER_RESOURCE {
+  jackTranslatorPlaneTranslator,
+  translator.yzTranslator.translator
+  translator.xzTranslator.translator
+  translator.xyTranslator.translator,
+  "White flattened cube, drawn in wireframe",
+  "Picking these parts initiates dragging 
+   by the yz, xz, and xy planar draggers 
+   respectively."
+}
+
+DRAGGER_RESOURCE {
+  jackTranslatorPlaneTranslatorActive,
+  translator.yzTranslator.translatorActive
+  translator.xzTranslator.translatorActive
+  translator.xyTranslator.translatorActive,
+  "Yellow flattened cube, drawn in wireframe",
+  "Shown during planar dragging in the yz, xz, 
+   and xy planes respectively."
+}
+
+DRAGGER_RESOURCE {
+  jackTranslatorXFeedback,
+  xFeedback,
+  "Double-headed purple arrow",
+  "Feedback for motion in x direction"
+}
+
+DRAGGER_RESOURCE {
+  jackTranslatorYFeedback,
+  yFeedback,
+  "Double-headed purple arrow",
+  "Feedback for motion in y direction"
+}
+
+DRAGGER_RESOURCE {
+  jackTranslatorZFeedback,
+  zFeedback,
+  "Double-headed purple arrow",
+  "Feedback for motion in z direction"
+}
+
+DRAGGER_RESOURCE {
+  jackTranslatorYZFeedback,
+  yzFeedback,
+  "Semi-transparent green square in yz plane",
+  "Feedback for motion in yz plane"
+}
+
+DRAGGER_RESOURCE {
+  jackTranslatorXZFeedback,
+  xzFeedback,
+  "Semi-transparent green square in yz plane",
+  "Feedback for motion in xz plane"
+}
+
+DRAGGER_RESOURCE {
+  jackTranslatorXYFeedback,
+  xyFeedback,
+  "Semi-transparent green square in yz plane",
+  "Feedback for motion in xy plane"
+}
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoCenterballDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTransformerDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}
+

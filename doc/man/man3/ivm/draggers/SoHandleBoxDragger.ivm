@@ -1,0 +1,391 @@
+NAME SoHandleBoxDragger SoHBoxDrag "" { box you can scale, stretch and translate by dragging with the mouse }
+
+INCLUDE draggers/SoHandleBoxDragger.h
+
+DESC { \cSoHandleBoxDragger\. 
+is a dragger shaped like a wireframe box with small \ecorner cubes\.
+mounted on each corner.  
+Click and drag any of these cubes to scale the box uniformly.
+Six other \ecenter cubes\. are centered on the sides of the box; white 
+lines connect them to the center of the dragger.
+Drag one of the center cubes along its line to stretch the box 
+in that direction.
+Dragging a face of the box translates the dragger within that plane.
+\p
+While you drag a face of the box, purple \efeedback arrows\. display the
+possible directions of motion.  Press the \k<Shift>\. key to
+\econstrain\. the motion to one of the two major directions in the
+plane. The constraint direction is chosen based on the next user
+gesture.  Press the \k<Control>\. key and the dragger will translate
+\eperpendicular\. to that plane.  The \vtranslation\. field is modified
+as the face is dragged.
+\p
+By default, dragging any of the small cubes scales  about the center of
+the object.  Pressing the \k<Control>\. key changes this:  A corner cube
+will scale about its opposite corner.  A center cube will scale about
+the center of its opposite face.  Dragging one of the small cubes will
+usually result in changes to both the \vscaleFactor\. and
+\vtranslation\. fields. This is because any scale about a point other
+than the origin has a translation element.
+\p
+As with all draggers, if you change the fields the dragger will
+move to match the new settings.
+\p
+\eRemember:\. This is \enot\. an \cSoTransform!\.. 
+If you want to move other objects with this dragger, you can either: 
+\p
+[a] Use an \cSoHandleBoxManip\., which is subclassed from \cSoTransform\.. 
+It creates one of
+these draggers and uses it as the interface to change its fields.
+(see the \cSoHandleBoxManip\. reference page).  
+\p
+[b] Use field-to-field connections to connect the fields of this dragger to
+those of any \cSoTransformation\. node.
+\p
+You can change the parts in any instance of this dragger using
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+The default part geometries are defined as resources for this 
+\cSoHandleBoxDragger\. class.  They are detailed in the 
+Dragger Resources section of the online reference page for this class.
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/handleBoxDragger.iv\.
+into your own directory, editing the file, and then
+setting the environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+
+MISC NOTE {  Unlike most multi-function draggers,  \cSoHandleBoxDragger\. is
+not a compound dragger made up of other draggers that
+perform its smaller tasks.  This is 
+not because it was inappropriate, but because
+was written before implementation of the methods that
+synchronize multiple child draggers. The younger 
+\cSoTransformBoxDragger\. has similarities to the handle box dragger, but
+the transform box dragger \eis\. a compound dragger. }
+
+METHOD "" SoHandleBoxDragger() {
+Constructor.
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+
+FIELD scaleFactor { Scale of the dragger. }
+FIELD translation { Position of the dragger. }
+
+DRAGGER_RESOURCE {
+  handleBoxTranslator1,
+  translator1,
+  "White Line-Style Square",
+  "Top face of handleBox.  Picking this initiates scaling in x-z plane."
+}
+DRAGGER_RESOURCE {
+  handleBoxTranslator2,
+  translator2,
+  "White Line-Style Square",
+  "Bottom face of handleBox.  Picking this initiates scaling in x-z plane."
+}
+DRAGGER_RESOURCE {
+  handleBoxTranslator3,
+  translator3,
+  "White Line-Style Square",
+  "Left face of handleBox.  Picking this initiates scaling in y-z plane."
+}
+DRAGGER_RESOURCE {
+  handleBoxTranslator4,
+  translator4,
+  "White Line-Style Square",
+  "Right face of handleBox.  Picking this initiates scaling in y-z plane."
+}
+DRAGGER_RESOURCE {
+  handleBoxTranslator5,
+  translator5,
+  "White Line-Style Square",
+  "Front face of handleBox.  Picking this initiates scaling in x-y plane."
+}
+DRAGGER_RESOURCE {
+  handleBoxTranslator6,
+  translator6,
+  "White Line-Style Square",
+  "Back face of handleBox.  Picking this initiates scaling in x-y plane."
+}
+
+
+DRAGGER_RESOURCE {
+  handleBoxTranslator1Active,
+  translator1Active,
+  "Yellow version of handleBoxTranslator1",
+  "Replaces handleBoxTranslator1 during dragging."
+}
+DRAGGER_RESOURCE {
+  handleBoxTranslator2Active,
+  translator2Active,
+  "Yellow version of handleBoxTranslator2",
+  "Replaces handleBoxTranslator2 during dragging."
+}
+DRAGGER_RESOURCE {
+  handleBoxTranslator3Active,
+  translator3Active,
+  "Yellow version of handleBoxTranslator3",
+  "Replaces handleBoxTranslator3 during dragging."
+}
+DRAGGER_RESOURCE {
+  handleBoxTranslator4Active,
+  translator4Active,
+  "Yellow version of handleBoxTranslator4",
+  "Replaces handleBoxTranslator4 during dragging."
+}
+DRAGGER_RESOURCE {
+  handleBoxTranslator5Active,
+  translator5Active,
+  "Yellow version of handleBoxTranslator5",
+  "Replaces handleBoxTranslator5 during dragging."
+}
+DRAGGER_RESOURCE {
+  handleBoxTranslator6Active,
+  translator6Active,
+  "Yellow version of handleBoxTranslator6",
+  "Replaces handleBoxTranslator6 during dragging."
+}
+
+DRAGGER_RESOURCE {
+  handleBoxExtruder1,
+  extruder1,
+  "Small white cube at (0,1.25,0) with line to origin",
+  "Selecting this part initiates 1-D scaling along Y axis."
+}
+DRAGGER_RESOURCE {
+  handleBoxExtruder2,
+  extruder2,
+  "Small white cube at (0,-1.25,0) with line to origin",
+  "Selecting this part initiates 1-D scaling along Y axis."
+}
+DRAGGER_RESOURCE {
+  handleBoxExtruder3,
+  extruder3,
+  "Small white cube at (-1.25,0,0) with line to origin",
+  "Selecting this part initiates 1-D scaling along X axis."
+}
+DRAGGER_RESOURCE {
+  handleBoxExtruder4,
+  extruder4,
+  "Small white cube at (1.25,0,0) with line to origin",
+  "Selecting this part initiates 1-D scaling along X axis."
+}
+DRAGGER_RESOURCE {
+  handleBoxExtruder5,
+  extruder5,
+  "Small white cube at (0,0,1.25) with line to origin",
+  "Selecting this part initiates 1-D scaling along Z axis."
+}
+DRAGGER_RESOURCE {
+  handleBoxExtruder6,
+  extruder6,
+  "Small white cube at (0,0,-1.25) with line to origin",
+  "Selecting this part initiates 1-D scaling along Z axis."
+}
+
+DRAGGER_RESOURCE {
+  handleBoxExtruder1Active,
+  extruder1Active,
+  "Yellow version of handleBoxExtruder1",
+  "Replaces handleBoxExtruder1 during dragging."
+}
+DRAGGER_RESOURCE {
+  handleBoxExtruder2Active,
+  extruder2Active,
+  "Yellow version of handleBoxExtruder1",
+  "Replaces handleBoxExtruder1 during dragging."
+}
+DRAGGER_RESOURCE {
+  handleBoxExtruder3Active,
+  extruder3Active,
+  "Yellow version of handleBoxExtruder3",
+  "Replaces handleBoxExtruder3 during dragging."
+}
+DRAGGER_RESOURCE {
+  handleBoxExtruder4Active,
+  extruder4Active,
+  "Yellow version of handleBoxExtruder4",
+  "Replaces handleBoxExtruder4 during dragging."
+}
+DRAGGER_RESOURCE {
+  handleBoxExtruder5Active,
+  extruder5Active,
+  "Yellow version of handleBoxExtruder5",
+  "Replaces handleBoxExtruder5 during dragging."
+}
+DRAGGER_RESOURCE {
+  handleBoxExtruder6Active,
+  extruder6Active,
+  "Yellow version of handleBoxExtruder6",
+  "Replaces handleBoxExtruder6 during dragging."
+}
+
+DRAGGER_RESOURCE {
+  handleBoxUniform1,
+  uniform1,
+  "Small white cube in (+x+y+z) corner of handleBox",
+  "Picking this initiates uniform scaling."
+}
+DRAGGER_RESOURCE {
+  handleBoxUniform2,
+  uniform2,
+  "Small white cube in (+x+y-z) corner of handleBox",
+  "Picking this initiates uniform scaling."
+}
+DRAGGER_RESOURCE {
+  handleBoxUniform3,
+  uniform3,
+  "Small white cube in (+x-y+z) corner of handleBox",
+  "Picking this initiates uniform scaling."
+}
+DRAGGER_RESOURCE {
+  handleBoxUniform4,
+  uniform4,
+  "Small white cube in (+x-y-z) corner of handleBox",
+  "Picking this initiates uniform scaling."
+}
+DRAGGER_RESOURCE {
+  handleBoxUniform5,
+  uniform5,
+  "Small white cube in (-x+y+z) corner of handleBox",
+  "Picking this initiates uniform scaling."
+}
+DRAGGER_RESOURCE {
+  handleBoxUniform6,
+  uniform6,
+  "Small white cube in (-x+y-z) corner of handleBox",
+  "Picking this initiates uniform scaling."
+}
+DRAGGER_RESOURCE {
+  handleBoxUniform7,
+  uniform7,
+  "Small white cube in (-x-y+z) corner of handleBox",
+  "Picking this initiates uniform scaling."
+}
+
+DRAGGER_RESOURCE {
+  handleBoxUniform8,
+  uniform8,
+  "Small white cube in (-x-y-z) corner of handleBox",
+  "Picking this initiates uniform scaling."
+}
+
+DRAGGER_RESOURCE {
+  handleBoxUniform1Active,
+  uniform1Active,
+  "Yellow version of handleBoxUniform1Active",
+  "Replaces handleBoxUniform1Active during dragging."
+}
+DRAGGER_RESOURCE {
+  handleBoxUniform2Active,
+  uniform2Active,
+  "Yellow version of handleBoxUniform1Active",
+  "Replaces handleBoxUniform1Active during dragging."
+}
+DRAGGER_RESOURCE {
+  handleBoxUniform3Active,
+  uniform3Active,
+  "Yellow version of handleBoxUniform1Active",
+  "Replaces handleBoxUniform1Active during dragging."
+}
+DRAGGER_RESOURCE {
+  handleBoxUniform4Active,
+  uniform4Active,
+  "Yellow version of handleBoxUniform1Active",
+  "Replaces handleBoxUniform1Active during dragging."
+}
+DRAGGER_RESOURCE {
+  handleBoxUniform5Active,
+  uniform5Active,
+  "Yellow version of handleBoxUniform1Active",
+  "Replaces handleBoxUniform1Active during dragging."
+}
+DRAGGER_RESOURCE {
+  handleBoxUniform6Active,
+  uniform6Active,
+  "Yellow version of handleBoxUniform1Active",
+  "Replaces handleBoxUniform1Active during dragging."
+}
+DRAGGER_RESOURCE {
+  handleBoxUniform7Active,
+  uniform7Active,
+  "Yellow version of handleBoxUniform1Active",
+  "Replaces handleBoxUniform1Active during dragging."
+}
+DRAGGER_RESOURCE {
+  handleBoxUniform8Active,
+  uniform8Active,
+  "Yellow version of handleBoxUniform1Active",
+  "Replaces handleBoxUniform1Active during dragging."
+}
+
+DRAGGER_RESOURCE {
+  handleBoxArrow1,
+  arrow1,
+  "Purple Arrow, pointing up",
+  "Displayed when translating if Y direction is permitted."
+}
+DRAGGER_RESOURCE {
+  handleBoxArrow2,
+  arrow2,
+  "Purple Arrow, pointing down",
+  "Displayed when translating if Y direction is permitted."
+}
+DRAGGER_RESOURCE {
+  handleBoxArrow3,
+  arrow3,
+  "Purple Arrow, pointing left",
+  "Displayed when translating if X direction is permitted."
+}
+DRAGGER_RESOURCE {
+  handleBoxArrow4,
+  arrow4,
+  "Purple Arrow, pointing right",
+  "Displayed when translating if X direction is permitted."
+}
+DRAGGER_RESOURCE {
+  handleBoxArrow5,
+  arrow5,
+  "Purple Arrow, pointing forward",
+  "Displayed when translating if Z direction is permitted."
+}
+DRAGGER_RESOURCE {
+  handleBoxArrow6,
+  arrow6,
+  "Purple Arrow, pointing backward",
+  "Displayed when translating if Z direction is permitted."
+}
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoCenterballDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTransformerDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}

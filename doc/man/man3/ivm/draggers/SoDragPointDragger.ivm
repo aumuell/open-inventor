@@ -1,0 +1,247 @@
+NAME SoDragPointDragger SoDragPtDrag "" { object you can translate in 3D by dragging with the mouse }
+
+INCLUDE draggers/SoDragPointDragger.h
+
+DESC { \cSoDragPointDragger\. 
+is a compound dragger that translates
+in all three dimensions when dragged with the mouse.
+\p
+It is made up of six smaller draggers, which it displays two at a time.  
+Each pair has one \eplane\. dragger and one \eline\. dragger. The line dragger
+is oriented perpendicular to the plane, so 
+together the \eplane/line pair\. lets you move through all of 3-space.
+\p
+DragPoint has a total of three such pairs, oriented along the x, y, and z
+axes of its local space.  You can cycle through the three pairs by hitting
+the \k<Control>\. key with the cursor over the dragger. (You need not press the
+mouse button.)
+\p 
+The line draggers are \cSoTranslate1Draggers\. and  
+the plane draggers are \cSoTranslate2Draggers\.. So you can use the
+\k<Shift>\. key to constrain the motion of a plane dragger along one of the
+two axes within the plane, as described in the \cSoTranslate2Draggers\. man
+page.
+\p
+DragPoint adds extra feedback parts to provide a more intuitive idea of
+where you are placed in three-space. There are three \efeedback planes\.
+and three \efeedback axes\.; each corresponds to one of the plane or
+line draggers, but spans a much greater distance.  When you drag along a
+line, that line's larger feedback axis is displayed, and remains
+anchored in space while the dragger slides along it.  This helps
+establish the motion of the dragger relative to the rest of the scene.
+Similarly, when you drag within a plane, the larger (but transparent)
+feedback plane establishes a ground plane for you to move upon. The
+location of the dragger within the plane is pinpointed by two
+intersecting axes that always cross below the cursor and extend to the
+edges of the plane.  When you move dragPoint to the edge of the feedback
+plane (or line), the feedback will jump to a new location in that
+direction, so that the dragger never leaves the feedback behind.
+\p
+The primary directions of motion are given by the local space of the dragger.
+Transforms earlier in the scene will affect the dragger, its children,  
+and the orientation of its directions of motion.
+\p
+This node has a \vtranslation\. field
+which always reflects its position in local space.
+Setting the field moves the dragger to that point.
+You can also connect fields of other nodes or engines from
+this one to make them follow the dragger's motion.
+\p
+Although the child draggers each have their own resources defining 
+default part geometries, the dragPoint dragger overrides these
+with a new set of resources.  It also defines resources for the feedback 
+parts that it adds.  These are detailed in the Dragger Resources 
+section of the online reference page for this class.
+You can change the parts in any instance of this dragger using
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+\p
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/dragPointDragger.iv\.
+into your own directory, editing the file, and then
+setting the environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+
+METHOD "" SoDragPointDragger() {
+Constructor.
+}
+
+FIELD translation { Position of the dragger. }
+
+METHOD "" void setJumpLimit(float limit) {}
+METHOD "" float getJumpLimit() const {
+Set and get the point at which the feedback axes will jump to a new 
+position. For example, if set to .1 (the default), the
+feedback axes will jump when the dragger gets within
+10% of the end of the axis.
+}
+
+METHOD "" void showNextDraggerSet() {
+The dragPoint dragger contains three pairs of draggers, each containing
+a plane dragger and a line dragger (see the Description above).
+The dragger starts with the (y-line/xz-plane) pair displayed.
+Calling this method will cycle next through the (z-line/xy-plane), then
+the (x-line/yz-plane).
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+
+DRAGGER_RESOURCE {
+  dragPointXTranslatorTranslator,
+  xTranslator.translator,
+  "white cylinder with axis aligned in X direction",
+  "picking this initiates linear motion in X direction"
+}
+
+DRAGGER_RESOURCE {
+  dragPointXTranslatorTranslatorActive,
+  xTranslator.translatorActive,
+  "yellow cylinder with axis aligned in X direction",
+  "shown when moving in X direction"
+}
+
+DRAGGER_RESOURCE {
+  dragPointYTranslatorTranslator,
+  yTranslator.translator,
+  "white cylinder with axis aligned in Y direction",
+  "picking this initiates linear motion in Y direction"
+}
+
+DRAGGER_RESOURCE {
+  dragPointYTranslatorTranslatorActive,
+  yTranslator.translatorActive,
+  "yellow cylinder with axis aligned in Y direction",
+  "shown when moving in Y direction"
+}
+
+DRAGGER_RESOURCE {
+  dragPointZTranslatorTranslator,
+  zTranslator.translator,
+  "white cylinder with axis aligned in Z direction",
+  "picking this initiates linear motion in Z direction"
+}
+
+DRAGGER_RESOURCE {
+  dragPointZTranslatorTranslatorActive,
+  zTranslator.translatorActive,
+  "yellow cylinder with axis aligned in Z direction",
+  "shown when moving in Z direction"
+}
+
+DRAGGER_RESOURCE {
+  dragPointYZTranslatorTranslator,
+  yzTranslator.translator,
+  "white flattened cube within the yz plane of motion",
+  "picking this initiates planar motion in yz plane"
+}
+
+DRAGGER_RESOURCE {
+  dragPointYZTranslatorTranslatorActive,
+  yzTranslator.translatorActive,
+  "yellow flattened cube within the yz plane of motion",
+  "shown when moving in yz plane"
+}
+
+DRAGGER_RESOURCE {
+  dragPointXZTranslatorTranslator,
+  xzTranslator.translator,
+  "white flattened cube within the xz plane of motion",
+  "picking this initiates planar motion in xz plane"
+}
+
+DRAGGER_RESOURCE {
+  dragPointXZTranslatorTranslatorActive,
+  xzTranslator.translatorActive,
+  "yellow flattened cube within the xz plane of motion",
+  "shown when moving in xz plane"
+}
+
+DRAGGER_RESOURCE {
+  dragPointXYTranslatorTranslator,
+  xyTranslator.translator,
+  "white flattened cube within the xy plane of motion",
+  "picking this initiates planar motion in xy plane"
+}
+
+DRAGGER_RESOURCE {
+  dragPointXYTranslatorTranslatorActive,
+  xyTranslator.translatorActive,
+  "yellow flattened cube within the xy plane of motion",
+  "shown when moving in xy plane"
+}
+
+DRAGGER_RESOURCE {
+  dragPointXFeedback,
+  xFeedback,
+  "douple-headed purple arrow",
+  "feedback for motion in x direction"
+}
+
+DRAGGER_RESOURCE {
+  dragPointYFeedback,
+  yFeedback,
+  "douple-headed purple arrow",
+  "feedback for motion in y direction"
+}
+
+DRAGGER_RESOURCE {
+  dragPointZFeedback,
+  zFeedback,
+  "douple-headed purple arrow",
+  "feedback for motion in z direction"
+}
+
+DRAGGER_RESOURCE {
+  dragPointYZFeedback,
+  yzFeedback,
+  "semi-transparent green square in yz plane",
+  "feedback for motion in yz plane"
+}
+
+DRAGGER_RESOURCE {
+  dragPointXZFeedback,
+  xzFeedback,
+  "semi-transparent green square in yz plane",
+  "feedback for motion in xz plane"
+}
+
+DRAGGER_RESOURCE {
+  dragPointXYFeedback,
+  xyFeedback,
+  "semi-transparent green square in yz plane",
+  "feedback for motion in xy plane"
+}
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoCenterballDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTransformerDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}
+

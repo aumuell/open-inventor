@@ -1,0 +1,85 @@
+NAME SoQuadMesh SoQMesh "" { quadrilateral mesh shape node }
+
+INCLUDE nodes/SoQuadMesh.h
+
+DESC {
+This shape node constructs quadrilaterals out of vertices.
+The vertices may be specified in
+the \vvertexProperty\. field (from \cSoVertexShape\.), 
+or by the current inherited coordinates.
+For optimal performance, the \vvertexProperty\. field is recommended.
+\p
+\cSoQuadMesh\. uses the coordinates,
+in order, starting with the first one. 
+The number of vertices in the columns and rows of the mesh are
+specified by the \vverticesPerColumn\. and \vverticesPerRow\.
+fields. (Note that these numbers are 1 greater than the number of
+quadrilaterals per row and per column.)
+\p
+For example, an \cSoQuadMesh\. with 
+\vverticesPerColumn\. of 3, and \vverticesPerRow\. of 4 would use
+coordinates 1, 2, 3, and 4 for the first row of vertices, coordinates
+5, 6, 7, and 8 for the second row, and coordinates 9, 10, 11, and 12
+for the third (last) row. The result is a mesh of 3 quadrilaterals
+across by 2 down. Note: non-planar quadrilaterals formed by a quad
+mesh may cause interesting but unpredictable results.
+\p
+The coordinates of the mesh are transformed by the current cumulative
+transformation. The mesh is drawn with the current light model and
+drawing style.
+\p
+Treatment of the current material and normal binding is as follows:
+The \kPER_PART\. binding specifies a material or normal for each row
+of the mesh. The \kPER_FACE\. binding specifies a material or normal
+for each quadrilateral. The \k_INDEXED\. bindings are equivalent to
+their non-indexed counterparts. The default material binding is 
+\kOVERALL\..  The default normal binding is \kPER_VERTEX\.. 
+\p
+If any normals (or materials) are specified, Inventor assumes 
+you provide the correct number of them, as indicated by the binding.
+You will see unexpected results
+if you specify fewer normals (or materials) than the shape requires.
+If no normals are specified, they will be generated automatically.
+}
+
+FIELD verticesPerColumn   {}
+FIELD verticesPerRow { Number of vertices per column and row. }
+
+METHOD "" SoQuadMesh() {
+Creates a quadrilateral mesh node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Draws a mesh based on the current coordinates, normals, materials,
+drawing style, and so on.
+}
+
+ACTION SoRayPickAction {
+Picks on the mesh based on the current coordinates and transformation.
+Details about the intersection are returned in an \cSoFaceDetail\..
+}
+
+ACTION SoGetBoundingBoxAction {
+Computes the bounding box that encloses all vertices of the mesh
+with the current transformation applied to them.  Sets the center to
+the average of the coordinates of all vertices.
+}
+
+ACTION SoCallbackAction {
+If any triangle callbacks are registered with the action, they will
+be invoked for each successive triangle forming the quadrilaterals
+of the mesh.
+}
+
+ALSO {
+SoCoordinate3,
+SoDrawStyle,
+SoFaceDetail,
+SoFaceSet,
+SoTriangleStripSet,
+SoVertexProperty
+}

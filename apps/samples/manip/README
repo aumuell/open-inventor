@@ -1,0 +1,31 @@
+This directory contains a sample program to demonstrate how callbacks can
+be added to constrain the motion of draggers and manipulators.
+constrainManip reads in a file and puts constraints on every dragger or 
+manipulator it finds.
+
+To run, type:
+
+constrainManip [-noConstraints] ]
+	       [-translateMin x] [-translateMax x] 
+	       [-scaleMin x] [-scaleMax x] 
+	       [-rotateMin] [-rotateMax] fileName
+
+where:
+   -noConstraints    -- don't put any constraints on the draggers.
+
+   -translateMin x   -- minimum value constraint on the translation field
+   -translateMax x   -- maximum value constraint on the translation field
+
+   -scaleMin x       -- minimum value constraint on the scaleFactor field
+   -scaleMax x       -- maximum value constraint on the scaleFactor field
+
+   -rotateMin x      -- furthest you can rotate negatively in one drag motion.
+   -rotateMax x      -- furthest you can rotate positively in one drag motion.
+		     -- For both rotateMin and rotateMax, rotation is 
+			constrained in the initial direction of rotation, even
+			when using a dragger which allow rotation in all
+			directions.
+
+   fileName          -- the file to read in. If no file is given, 
+			the file simpleDraggers.iv will be used.
+

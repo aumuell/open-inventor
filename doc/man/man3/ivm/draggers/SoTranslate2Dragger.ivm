@@ -1,0 +1,130 @@
+NAME SoTranslate2Dragger SoXlate2Drag "" { object you can translate within a plane by dragging with the mouse }
+
+INCLUDE draggers/SoTranslate2Dragger.h
+
+DESC { \cSoTranslate2Dragger\. 
+is a simple dragger that translates
+in two dimensions when dragged with the mouse.
+It moves within the x-y plane of its local space, determined by its
+location in the scene graph.
+Transformation nodes placed before it will
+affect both the dragger and the direction of motion.
+\p
+Pressing the \k<Shift>\. key allows you to constrain motion to either the
+x axis or the y axis.  The direction is determined by your initial
+mouse gesture after pressing the key.  Releasing the key removes the constraint.
+\p
+This node has a \vtranslation\. field
+which always reflects
+its position in local space.
+If you set the field, the dragger will move accordingly.
+You can also connect fields of other nodes or engines from
+this one
+to make them follow the dragger's motion.
+\p
+This dragger contains six parts, \etranslator\., \etranslatorActive\.,
+\efeedback\., \efeedbackActive\., \exAxisFeedback\., and \eyAxisFeedback\..
+The last two parts are only displayed during motion, and only when their 
+direction of motion is enabled.  (Pressing the \k<Shift>\. key and then 
+dragging disables one of the two directions.)
+\p
+Each of these is set by default from
+a resource described in the \kDragger Resources\. section of the online
+reference page for this class.  You
+can change the parts in any instance of this dragger using
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+\p
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/translate2Dragger.iv\.
+into your own directory, editing the file, and then
+setting the environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+METHOD "" SoTranslate2Dragger() {
+Constructor.
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+FIELD translation { Position of the dragger. }
+
+DRAGGER_RESOURCE {
+  translate2Translator,
+  translator,
+  "pair of white crossing arrows",
+  "picking this initiates translation"
+}
+
+DRAGGER_RESOURCE {
+  translate2TranslatorActive,
+  translatorActive,
+  "pair of yellow crossing arrows",
+  "displayed during translation instead of the translator"
+}
+
+DRAGGER_RESOURCE {
+  translate2Feedback,
+  feedback,
+  "empty Separator by default",
+  "feedback displayed when not moving"
+}
+
+DRAGGER_RESOURCE {
+  translate2FeedbackActive,
+  feedbackActive,
+  "empty Separator by default",
+  "feedback displayed when moving "
+}
+
+DRAGGER_RESOURCE {
+  translate2XAxisFeedback,
+  xAxisFeedback,
+  "thin purple line",
+  "Only shown if dragger is moving and the axis is a 
+   permissable direction of motion.
+   When pressing <shift>, motion is constrained, and this is 
+   displayed only if the primary motion is in the x direction."
+}
+
+DRAGGER_RESOURCE {
+  translate2YAxisFeedback,
+  yAxisFeedback,
+  "thin purple line",
+  "Only shown if dragger is moving and the axis is a 
+   permissable direction of motion.
+   When pressing <shift>, motion is constrained, and this is 
+   displayed only if the primary motion is in the y direction."
+}
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoCenterballDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformBoxDragger,
+SoTransformerDragger,
+SoTranslate1Dragger
+}
+

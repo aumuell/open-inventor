@@ -1,0 +1,29 @@
+This directory contains source code for two programs.
+
+The first is 'ivToIncludeFile'
+It is used for converting Inventor files into source code
+that you can compile into a program.  This is useful if you want to model
+an object, then use it as an object in your program.  (This has two 
+advantages over reading from a file at runtime. First, there are no extra
+files to read in that might potentially get lost.  Second, reading from a 
+compiled in binary buffer is faster than reading from an external file).
+
+Given the command line:
+
+ivToIncludeFile foo <  myFile.iv > foo.h
+
+the program will read in myFile.iv (binary or ascii) and write out the file
+foo.h, with the following syntax:
+
+const char foo[] = { blah blah blah };
+
+where 'blah blah blah' is a hex version of the contents of myFile.iv, 
+translated into binary.
+
+
+
+The second program is 'testResults'
+This program assumes you have used ivToIncludeFile to create a file
+foo.h, containing a variable foo.
+It reads the contents of foo under a Separator node and displays it
+within an examinerViewer.

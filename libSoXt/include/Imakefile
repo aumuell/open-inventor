@@ -1,0 +1,32 @@
+#define BranchMakefile
+
+#define NoShipUser
+
+#define SubDirs Inventor/Xt Inventor/Xt/devices Inventor/Xt/viewers
+
+#define InstallSource
+
+HFILES = SoGLwDrawA.h \
+	SoGLwDrawAP.h \
+	SoGLwMDrawA.h \
+	SoGLwMDrawAP.h \
+	SoXtFloatText.h \
+	SoXtImportInterest.h \
+	SoXtMMSliderMax.h \
+	SoXtMMSliderMin.h \
+	SoXtMinMaxSlider.h \
+	SoXtMultiSlider.h \
+	SoXtMultiSliders.h \
+	SoXtSliderControlPanel.h \
+	SoXtSliderModule.h \
+	SoXtSliderModules.h \
+	SoXtSliderTool.h \
+	_SoXtUIRegion.h \
+	_SoXtColorEditor.h \
+	_SoXtColorPatch.h \
+	_SoXtColorSlider.h \
+	_SoXtColorWheel.h \
+	_SoXtSlider.h
+
+TOP_OF_TREE = ../..
+

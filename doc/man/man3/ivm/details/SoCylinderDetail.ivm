@@ -1,0 +1,25 @@
+NAME SoCylinderDetail SoCylDtl "" {
+stores detail information about the SoCylinder node
+}
+
+INCLUDE details/SoCylinderDetail.h
+
+DESC {
+This class contains detail information about a point on a cylinder.
+It contains the part of the cylinder that was hit (sides, top, or
+bottom).
+}
+
+METHOD "" SoCylinderDetail() {}
+METHOD "" virtual ~SoCylinderDetail() { Constructor and destructor. }
+
+METHOD "" int getPart() const {
+Returns the part in the detail. The returned value is one of the
+\cSoCylinder\. part flags.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ALSO { SoCylinder, SoDetail, SoPickedPoint, SoPrimitiveVertex }

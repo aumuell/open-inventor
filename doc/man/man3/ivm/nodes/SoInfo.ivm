@@ -1,0 +1,26 @@
+NAME SoInfo SoInfo "" { node containing information text string }
+
+INCLUDE nodes/SoInfo.h
+
+DESC {
+This class defines a information node in the scene graph. This node
+has no effect during traversal. It is used to store information in the
+scene graph, typically for application-specific purposes, copyright
+messages, or other strings. This node differs from the \cSoLabel\.
+node in that it stores its information in an \cSbString\. instead of
+an \cSbName\.; the \cSbString\. is more efficient for storing long
+strings that don't have to be accessed very often. Use an \cSoLabel\.
+node for short strings that have to be accessed more often.
+}
+
+FIELD string { Defines the info string value as an \cSbString\.. }
+
+METHOD "" SoInfo() {
+Creates an info node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ALSO { SbString, SoLabel }

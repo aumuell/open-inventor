@@ -1,0 +1,75 @@
+'\"macro stdmacro
+.TH Inventor 1
+.SH NAME
+Inventor \- a toolkit for writing 3d programs
+.SH DESCRIPTION
+The
+.I Open Inventor 3d Toolkit
+is an object-oriented toolkit that simplifies and abstracts the task of writing
+graphics programming into a set of easy to use objects.
+These objects range from low level data-centered objects such as Sphere, 
+Camera, Material, Light, and Group, to high level application-level 
+objects such as Walkthrough Viewer and Material Editor.  
+The foundation concept in Inventor is the "scene database"
+which defines the objects to be used in an application.  When using Inventor,
+a programmer creates, edits, and composes these objects into hierarchical
+3d scene graphs (i.e., database).  A variety of fundamental application
+tasks such as rendering, picking, event handling, and file reading/writing
+are built-in operations of all objects in the database and thus
+are simple to invoke.
+.PP
+Since Inventor is object-oriented (written in C++), it encourages
+programmers to extend the system by writing new objects.
+Inventor users have created a variety of new objects that
+are not included in the product, such as: Bezier surfaces,
+CSG objects, animation objects, special viewers, and many more.
+.PP
+Inventor also supports a C interface to all the objects.
+.PP
+Note that the rendering mechanism inside Inventor objects employs
+Open GL.  Thus, during rendering each object automatically makes the
+proper, efficient calls to Open GL.  Furthermore, Inventor rendering
+supports a caching scheme which automatically generates very fast
+renderings of the database without traversal overheads.
+.PP
+Inventor picking is extremely efficient and does not utilize rendering.
+Furthermore, picking returns a varitey of 3d information and detail
+about what objects were picked.  A sorted list of picked objects and
+corresponding information is returned to the programmer.
+Picking is so fast, that programs can perform 3d locate highlighting
+as the mouse moves across a 3d window.
+.SH INTERACTION, EVENTS, AND DEVICES
+Inventor defines a event model for writing 3d interaction.
+This model is window system independent.
+It is quite easy to use and makes 3d direct manipulation programming possible.
+Inventor includes a variety of interactive 3d objects and tools
+for writing interactive objects, such as: Manipulators, Draggers,
+and Projectors.  The flexible event model encourages programmers
+to extend the system to support new devices and event types.
+.SH FILE FORMAT
+The Inventor 3d File Format is SGI's standard for 3d data.
+The format supports both an ASCII and private binary format.
+The binary format is network-neutral and thus can be exported
+across machine boundaries.
+.SH BENEFITS
+Programming 3d graphics applications with Inventor results in
+large scale productivity increases.  This also increases with time
+as more tools utilize the Inventor paradigm, user interfaces,
+and standard file format.
+.SH DOCUMENTATION
+"The Inventor Mentor" published by Addison-Wesley Publishing Company
+is available in technical bookstores starting in December 1993.
+"The Inventor Toolmaker" and "The Inventor Reference Manual" will
+be available in bookstores in early 1994.
+.SH SOURCE CODE
+The Inventor Toolkit includes source code to NUMEROUS programs and 
+examples.
+.SH FILES
+/usr/share/data/models/* - Sample 3D data files
+.br
+/usr/share/src/Inventor/* - Source to Inventor samples and examples
+.SH SEE ALSO
+drop, gview, SceneViewer, ivcat, ivview, 
+maze, noodle, qmorf, revo, showcase, textomatic, webspace
+.br
+http://www.sgi.com/Technology/Inventor.html

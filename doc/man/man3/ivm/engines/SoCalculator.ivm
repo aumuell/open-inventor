@@ -1,0 +1,144 @@
+NAME SoCalculator "" "" { a general-purpose calculator }
+
+DESC { 
+This engine is a general-purpose calculator.
+The calculator operates on floating-point values and 3D
+floating-point vectors.
+The engine takes up to eight inputs of each type 
+(\+\cSoMFFloat\. and \cSoMFVec3f\.\.\-\cSoMFloat\. and \cSoMV3f\.\.),
+and produces up to four outputs of each type.
+\p
+Each input field (\va\.-\vh\., \vA\.-\vH\.) can have multiple values, 
+allowing the engine to 
+evaluate the expression with different values in parallel. 
+Some inputs may have more values than others.  In such cases,
+the last value of the shorter inputs will be repeated as necessary.
+\p
+The \vexpression\. input string specifies the expression to be evaluated.
+An expression can consist of multiple subexpressions.
+Several subexpressions can be specified in one string, 
+separated by semicolons (;).
+Alternatively, the subexpressions can be stored in separate strings
+in the multiple-valued input field.
+\p
+Each subexpression is of the form:
+\b
+<lhs> = <rhs>
+\.
+The \k<lhs>\. can be any one of the outputs or a temporary variable.
+The engine provides 8 temporary floating-point variables 
+(ta, tb, tc, td, te, tf, tg, and th), 
+and 8 temporary vector variables (tA, tB, tC, tD, tE, tF, tG, and tH). 
+You can assign a value to one component of a vector output (\vA\.-\vH\.)
+or a vector variable (\vtA\.-\vtH\.) by using the [\|] operator.
+For example, oA[0] = <rhs>, will evaluate the right hand side and assign
+the value to the first component of the output vector \voA\..
+\p
+The \k<rhs>\. supports arithmetic, logical and conditional operators.
+They are:
+\b
+(unary)   !, -
+(binary)  +, -, *, /, %, <, > <=, >=, ==, !=, &&, ||
+(ternary) ? : 
+\.
+The ternary operator is a conditional operator.  For example,
+\ka ? b : c\. evaluates to b if a != 0, and to c if a==0.
+\p
+Valid operands for the \k<rhs>\. include the inputs, outputs, temporary
+variables, and their components (e.g. oA[0]).
+Operands can also be numeric constants (e.g. 1.0), 
+pre-defined named constants, or pre-defined functions.
+\p
+The named constants are:
+\b
+MAXFLOAT 
+MINFLOAT  
+M_E 
+M_LOG2E 
+M_LOG10E 
+M_LN2 
+M_LN10 
+M_PI 
+M_SQRT2  = sqrt(2)
+M_SQRT1_2 = sqrt(1/2)
+\.
+Most of the pre-defined functions come from the math library:
+\b
+cos, sin, tan, 
+acos, asin, atan, atan2, 
+cosh, sinh, tanh,
+sqrt, pow, exp, log, log10,
+ceil, floor, fabs, fmod. 
+\.
+Other functions are defined by \cSoCalculator\.. They are:
+\b
+rand(f) - Random number generator
+cross(v1, v2) - Vector cross product 
+dot(v1, v2) - Vector dot product 
+length(v) - Vector length
+normalize(v) - Normalize vector
+vec3f(f1, f2, f3) - Generate a vector from 3 floats
+\.
+The subexpressions are evaluated in order, so a variable
+set in the <lhs> of an earlier expression may be used in the
+<rhs> of a later expression.
+\p
+Note, when the input has multiple values, all the 
+subexpressions specified in the \vexpression\. are applied
+to all the multiple input values.
+This is unlike the \cSoBoolOperation\. engine, where each 
+operation is applied only to the corresponding entries 
+of the input data.
+Note also, that even though the inputs and outputs can have multiple 
+values the [\|] operator is only for indexing into the values of a 
+single vector.
+It does not index into the multiple values of a field.
+For example, if the floating-point input field \va\. has two values:
+1.0, and 2.0, then the expression
+\b
+"oA[0]=a; oA[1]=a; oA[2]=0.0"
+\.
+will produce two output vectors in \voA\.: (1.0, 1.0, 0.0) and
+(2.0, 2.0, 0.0).
+\p
+Examples of expressions:
+\b
+"ta = oA[0]*floor(a)"
+"tb = (a+b)*sin(M_PI)"
+"oA = vec3f(ta, tb, ta+tb)"
+"oB = normalize(oA)"
+"ta = a; tb = sin(ta); oA = vec3f(ta, tb, 0)"\.
+}
+
+INCLUDE engines/SoCalculator.h
+
+INPUT a { }
+INPUT b { }
+INPUT c { }
+INPUT d { }
+INPUT e { }
+INPUT f { }
+INPUT g { }
+INPUT h { Inputs a-h are the floating-point values. }
+INPUT A { }
+INPUT B { }
+INPUT C { }
+INPUT D { }
+INPUT E { }
+INPUT F { }
+INPUT G { }
+INPUT H { Inputs A-H are the vectors. }
+INPUT expression { The expression to be evaluated. }
+
+OUTPUT oa { }
+OUTPUT ob { }
+OUTPUT oc { }
+OUTPUT od { Outputs oa-od are the floating-point values. }
+OUTPUT oA { }
+OUTPUT oB { }
+OUTPUT oC { }
+OUTPUT oD { Outputs oA-oD are the vectors. }
+
+METHOD Create SoCalculator() { Constructor }
+
+ALSO { SoEngineOutput, SoBoolOperation }

@@ -1,0 +1,80 @@
+NAME SoAppearanceKit SoAppearKit "" { appearance nodekit class }
+
+
+INCLUDE nodekits/SoAppearanceKit.h
+
+
+DESC
+
+{ The \cSoAppearanceKit\. is used to create a group of property nodes
+that will be used to affect subsequent \eshape\. nodes or nodekits in the 
+scene graph.  
+\p
+This nodekit defines seven new parts: \elightModel\., \eenvironment\.,
+\edrawStyle\., \ematerial\., \ecomplexity\., \etexture2\., and \efont\..
+Note that
+it does not include \ebinding\. nodes such as \cSoMaterialBinding\..
+\p
+\cSoAppearanceKit\. is derived from \cSoBaseKit\. and thus also includes a
+\ecallbackList\. part for adding callback nodes.
+}
+
+
+
+METHOD "" SoAppearanceKit() { Constructor. }
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns the \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+PART lightModel
+  { An \cSoLightModel\. node that affects any shapes that follow this
+    nodekit in the scene graph.  This part is \kNULL\. by default. }
+
+PART environment
+  { An \cSoEnvironment\. node that affects any nodes that follow this
+    nodekit in the scene graph.  This part is \kNULL\. by default. }
+
+PART drawStyle
+  { An \cSoDrawStyle\. node that affects any shapes that follow this
+    nodekit in the scene graph.  This part is \kNULL\. by default. }
+
+PART material
+  { An \cSoMaterial\. node that affects any shapes that follow this
+    nodekit in the scene graph.  This part is \kNULL\. by default. }
+
+PART complexity
+  { An \cSoComplexity\. node that affects any shapes that follow this
+    nodekit in the scene graph.  This part is \kNULL\. by default. }
+
+PART texture2
+  { An \cSoTexture2\. node that affects any shapes that follow this
+    nodekit in the scene graph.  This part is \kNULL\. by default. }
+
+PART font
+  { An \cSoFont\. node that affects any text nodes that follow this
+    nodekit in the scene graph.  This part is \kNULL\. by default. }
+
+
+MISC NOTE { Note that \cSoSeparatorKit\. includes an \cSoAppearanceKit\.
+	as a part. }
+
+
+ALSO {
+SoBaseKit,
+SoCameraKit,
+SoLightKit,
+SoNodeKit,
+SoNodeKitDetail,
+SoNodeKitListPart,
+SoNodeKitPath,
+SoNodekitCatalog,
+SoSceneKit,
+SoSeparatorKit,
+SoShapeKit,
+SoWrapperKit }
+

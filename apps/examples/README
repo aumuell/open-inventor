@@ -1,0 +1,17 @@
+Open Inventor - Source Examples from the Inventor books
+
+This directory contains source code examples from the Open Inventor books.
+
+The examples from The Inventor Mentor are in C++ and C.
+The examples from The Inventor Toolmaker are in C++ only (for obvious reasons).
+
+    ./Mentor/C++ - contains the C++ examples from The Inventor Mentor
+    ./Mentor/C   - contains the C examples from The Inventor Mentor
+    ./Toolmaker  - contains the examples from The Inventor Toolmaker
+
+See the README files in each directory more info.
+
+Note that you need superuser permissions to build or modify the installed
+example programs.  Alternatively, you can copy the programs that interest you
+into your local directory.
+

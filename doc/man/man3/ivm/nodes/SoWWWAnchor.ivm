@@ -1,0 +1,82 @@
+NAME SoWWWAnchor "" "" { separator group node with a URL hyperlink }
+
+INCLUDE nodes/SoWWWAnchor.h
+
+DESC {
+This node defines a separator group which has a URL (Universal Resource Locator)
+hyperlink. When clicked on, this node invokes an application callback to fetch
+the URL. The application may fetch the data itself, or call a World Wide Web
+browser like the HTML based \kNetscape Navigator\. or the VRML based \kWebSpace Navigator\.
+to load the URL. 
+}
+
+TYPEDEF void SoWWWAnchorCB "(const SbString &url, void *userData, SoWWWAnchor *node)"
+
+ENUM Mapping {
+    NONE    "Do not add information to the URL",
+    POINT   "Add object-space coordinates to URL"
+}
+
+FIELD name {
+URL which the application will be called back to fetch 
+when this node is activated by a left mouse click 
+(e.g. "http://www.sgi.com/Technology/Inventor").
+}
+
+FIELD description {
+A description of the URL which may make more sense to users
+than the URL itself (e.g. "The Open Inventor Home Page").
+}
+
+FIELD map {
+Specifies what additional information should be added to the end
+of the URL when passed back to the application for fetching. If
+set to \kPOINT\., then the x,y,z location of the object space intersection
+point when the mouse was clicked will be suffixed to the URL. Since
+the comma character does not transmit through some web browsers, it is
+written in hex form (e.g. if the intersection point is 17,4.5,1
+the URL passed to the application callback would be
+"http://www.sgi.com/Technology/Inventor?17%2c4.5%2c1").
+}
+
+METHOD "" SoWWWAnchor() {
+Creates an anchor node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+METHOD "" void setFullURLName(const SbString &url) {}
+METHOD "" const SbString & getFullURLName()
+{
+If the name field contains a relative URL (e.g. "foo.wrl" 
+instead of "http://bogus.com/foo.wrl"), the anchor cannot 
+resolve the URL reference. This method allows the application 
+to tell the anchor what it's full URL should be. 
+\kgetFullURLName()\. returns the fullURL set here, or if not set, returns 
+the contents of the name field.
+}
+
+METHOD setFetchCB static void setFetchURLCallBack(SoWWWAnchorCB *f, void *userData)
+{
+Application callbacks invoked when the mouse is clicked on an 
+anchor so that the application can fetch the URL or call
+Netscape or WebSpace to fetch the URL.
+}
+
+METHOD setHLCB static void setHighlightURLCallBack(SoWWWAnchorCB *f, void *userData)
+{
+Application callbacks invoked when the mouse is moved over an
+anchor so that the app can provide feedback such as changing the
+cursor, or displaying the anchor description and name.
+}
+
+ACTION SoHandleEventAction {
+When the left mouse is clicked over a child of this anchor node,
+the application is called back to fetch the URL (see setFetchURLCallBack()).
+}
+
+ALSO {
+SoWWWInline
+}

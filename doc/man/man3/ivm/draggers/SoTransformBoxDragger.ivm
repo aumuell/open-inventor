@@ -1,0 +1,220 @@
+NAME SoTransformBoxDragger SoXfBoxDrag "" { box-like object you scale, rotate, and translate by dragging with the mouse }
+
+INCLUDE draggers/SoTransformBoxDragger.h
+
+DESC { \cSoTransformBoxDragger\. 
+is a composite dragger shaped like a box with small cubes at the corners.
+Click and drag any of these cubes to scale the box uniformly.
+Drag any edge of the box to rotate the whole dragger about
+its center, along an axis parallel to that edge.  Pick any  face of the
+box for 2D translation in the plane of that face. 
+\p
+Although the box looks just about like a wireframe cube, 
+it is composed of many different simple draggers arranged in a composite
+assembly.  When one part is dragged, the transformBox makes sure they all
+move together.
+Each of the parts of the box  is a different dragger with the default geometry
+changed. 
+The faces of the box are \cSoTranslate2Draggers\., the edges are 
+\cSoRotateCylindricalDraggers\., and the cubes are an
+\cSoScaleUniformDragger\..  Drag them and the dragger will update
+its \vtranslation\., \vrotation\. and \vscaleFactor\. fields
+to reflect the changes.
+As with all draggers, if you change the fields the dragger will
+move to match the new settings.
+\p
+\aRemember:\. This is \enot\. an \cSoTransform!\.. 
+If you want to move other objects with this dragger, you can either: 
+\p
+[a] Use an \cSoTransformBoxManip\., which is subclassed from \cSoTransform\.. 
+It creates one of
+these draggers and uses it as the interface to change its fields.
+(see the \cSoTransformBoxManip\. man page).  
+\p
+[b] Use field-to-field connections to connect the fields of this dragger to
+those of any \cSoTransformation\. node.
+\p
+You can change the parts in any instance of this dragger using
+\m\+setPart()\.\-SoDraggerSetPart()\.\..
+The default part geometries are defined as resources for this 
+\cSoTransformBoxDragger\. class.  They are detailed in the 
+Dragger Resources section of the online reference page for this class.
+You can make your program use different default resources for the parts
+by copying the file
+\v/usr/share/data/draggerDefaults/transformBoxDragger.iv\.
+into your own directory, editing the file, and then
+setting the environment variable \vSO_DRAGGER_DIR\. to be a path to that directory.
+}
+
+METHOD "" SoTransformBoxDragger() {
+Constructor.
+}
+
+METHOD getClassNkitCat static 
+	const SoNodekitCatalog *getClassNodekitCatalog() const
+	{ Returns an \cSoNodekitCatalog\. for this class }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+FIELD rotation { Orientation of the dragger. }
+FIELD translation { Position of the dragger. }
+FIELD scaleFactor { Scale of the dragger. }
+
+DRAGGER_RESOURCE {
+  transformBoxScalerScaler,
+  scaler.scaler,
+  "Eight small white cubes at the corners of the box",
+  "Picking this initiates uniform 3D scaling of the
+   dragger."
+}
+DRAGGER_RESOURCE {
+  transformBoxScalerScalerActive,
+  scaler.scalerActive,
+  "Yellow version of the regular scaler part",
+  "Displayed while the dragger is being scaled."
+}
+
+DRAGGER_RESOURCE {
+  transformBoxScalerFeedback,
+  scaler.feedback,
+  "Empty separator",
+  "Removes any feedback geometry created in the constructor of the 
+   \cSoScaleUniformDragger\.."
+}
+
+
+
+DRAGGER_RESOURCE {
+  transformBoxScalerFeedbackActive,
+  scaler.feedbackActive,
+  "Empty separator",
+  "Removes any feedbackActive geometry created in the constructor of the 
+   \cSoScaleUniformDragger\.."
+}
+
+DRAGGER_RESOURCE {
+  transformBoxRotatorRotator,
+  rotator1.rotator
+  rotator2.rotator
+  rotator3.rotator,
+  "Four white lines along the edges of the box",
+  "Picking this begins rotational dragging.
+   In each of the three rotateCylindrical draggers,  the lines of the
+   rotator part are oriented parallel to the axis of rotation. "
+}
+
+DRAGGER_RESOURCE {
+  transformBoxRotatorRotatorActive,
+  rotator1.rotatorActive
+  rotator2.rotatorActive
+  rotator3.rotatorActive,
+  "Four yellow lines along the edges of the box",
+  "Displayed while the dragger is being rotated"
+}
+
+DRAGGER_RESOURCE {
+  transformBoxRotatorFeedback,
+  rotator1.feedback
+  rotator2.feedback
+  rotator3.feedback,
+  "Empty separator",
+  "Removes any feedback geometry created in the constructor of the 
+   \cSoRotateCylindricalDragger\.."
+}
+
+DRAGGER_RESOURCE {
+  transformBoxRotatorFeedbackActive,
+  rotator1.feedbackActive
+  rotator2.feedbackActive
+  rotator3.feedbackActive,
+  "Thin purple line through center of box",
+  "Displayed to show axis of rotation during rotational dragging."
+}
+
+DRAGGER_RESOURCE {
+  transformBoxTranslatorTranslator,
+  translator1.translator
+  translator2.translator
+  translator3.translator
+  translator4.translator
+  translator5.translator
+  translator6.translator,
+  "Invisible but pickable square surface",
+  "Picking these begins 2-D translational dragging within the plane of one of 
+    the sides of the box. The invisible squares of the six translate2Draggers 
+    are arranged 
+   to form the sides of the box. The squares are easy to discern, although
+    rendered as invisible; they are bounded by
+    the lines of the rotational dragger parts."
+}
+
+DRAGGER_RESOURCE {
+  transformBoxTranslatorTranslatorActive,
+  translator1.translatorActive
+  translator2.translatorActive
+  translator3.translatorActive
+  translator4.translatorActive
+  translator5.translatorActive
+  translator6.translatorActive,
+  "Invisible square surface",
+  "Shown during 2-D translational dragging."
+}
+
+DRAGGER_RESOURCE {
+  transformBoxTranslatorXAxisFeedback,
+  translator1.xAxisFeedback
+  translator2.xAxisFeedback
+  translator3.xAxisFeedback
+  translator4.xAxisFeedback
+  translator5.xAxisFeedback
+  translator6.xAxisFeedback,
+  "Short thin purple line",
+  "Only shown if dragger is moving and the axis is a 
+   permissable direction of motion.
+   When pressing <shift>, motion is constrained, and this is 
+   displayed only if the primary motion is in the X direction."
+}
+
+DRAGGER_RESOURCE {
+  transformBoxTranslatorYAxisFeedback,
+  translator1.yAxisFeedback
+  translator2.yAxisFeedback
+  translator3.yAxisFeedback
+  translator4.yAxisFeedback
+  translator5.yAxisFeedback
+  translator6.yAxisFeedback,
+  "Short thin purple line",
+  "Only shown if dragger is moving and the axis is a 
+   permissable direction of motion.
+   When pressing <shift>, motion is constrained, and this is 
+   displayed only if the primary motion is in the Y direction."
+}
+
+ALSO {
+SoInteractionKit,
+SoDragger,
+SoCenterballDragger,
+SoDirectionalLightDragger,
+SoDragPointDragger,
+SoHandleBoxDragger,
+SoJackDragger,
+SoPointLightDragger,
+SoRotateCylindricalDragger,
+SoRotateDiscDragger,
+SoRotateSphericalDragger,
+SoScale1Dragger,
+SoScale2Dragger,
+SoScale2UniformDragger,
+SoScaleUniformDragger,
+SoSpotLightDragger,
+SoTabBoxDragger,
+SoTabPlaneDragger,
+SoTrackballDragger,
+SoTransformerDragger,
+SoTranslate1Dragger,
+SoTranslate2Dragger
+}
+
+

@@ -1,0 +1,96 @@
+NAME SoBoxHighlightRenderAction "SoBoxHLRenderAct" "" { a selection highlight style }
+
+INCLUDE actions/SoBoxHighlightRenderAction.h
+
+DESC { \cSoBoxHighlightRenderAction\. is a render action which
+renders the specified scene graph, then renders wireframe boxes surrounding
+each selected object.
+Selected objects are specified by the first \cSoSelection\.
+node in the scene to which this action is applied.
+If an \cSoGetBoundingBoxAction\. applied to a selected object
+produces an empty bounding box, no highlight is rendered
+for that object.
+A highlight render action can be passed to
+\+the \msetGLRenderAction()\. method of \cSoXtRenderArea\.\.
+\-\mSoXtRASetGLRenderAct()\.\.
+to have an effect on scene graphs.
+}
+
+METHOD "" SoBoxHighlightRenderAction() { Constructor. }
+
+METHOD "" virtual void apply(SoNode *node) {
+This renders the passed scene graph, and also renders wireframe
+boxes around selected objects as specified by the first
+\cSoSelection\. node found in the scene graph.
+}
+
+METHOD "" void setVisible(SbBool b) {
+This provides a convenient mechansim for turning highlights off
+or on. When \eFALSE\. is passed, subsequent calls to
+\+\mapply()\.\.\-\mSoBoxHLRenderActApply()\.\.
+render the scene graph without rendering highlights.
+The application is responsible for forcing a redraw of the
+scene after changing this state. The default visibility is on.
+}
+
+METHOD "" SbBool isVisible() const {
+Returns whether highlights will be rendered or not.
+}
+
+METHOD "setCol" void setColor(const SbColor &c) {}
+METHOD "getCol" SbColor & getColor() {
+Set and get the color of the highlight. Default is red \e(1,0,0)\..
+Application is responsible for forcing a redraw of the
+scene to see the effects of this change.
+}
+
+METHOD "setLinePat" void setLinePattern(unsigned short pattern) {}
+METHOD "getLinePat" unsigned short getLinePattern() {
+Set and get the line pattern of the highlight. Default is solid, \e0xffff\..
+The pattern of bits in the passed variable specifies the pattern of the line.
+See \cSoDrawStyle\. for a description. 
+Application is responsible for forcing a redraw of the
+scene to see the effects of this change.
+}
+
+METHOD "" void setLineWidth(float width) {}
+METHOD "" float getLineWidth(){
+Set and get the line width of the highlight. Default is \e3\..
+Application is responsible for forcing a redraw of the
+scene to see the effects of this change.
+}
+
+MISC EXAMPLE {
+Here is an example of how a box highlight can be specified
+for a particular selection node and render area.
+\b\k
+\+
+    SoXtRenderArea *myRenderArea;
+    SoSelection *mySelection;
+
+    // Set the highlight render action
+    myRenderArea->setGLRenderAction(
+        new SoBoxHighlightRenderAction());
+
+    // Automatic redraw on selection changes
+    myRenderArea->redrawOnSelectionChange(mySelection);
+\.
+\-
+    SoXtRenderArea *myRenderArea;
+    SoSelection *mySelection;
+
+    /* Set the highlight render action */
+    SoXtRASetGLRenderAct(myRenderArea,
+        (SoGLRenderAction *) SoBoxHLRenderActCreate());
+
+    /* Automatic redraw on selection changes */
+    SoXtRARedrawOnSelChange(myRenderArea, mySelection);
+\.
+\.\.
+}
+
+ALSO { SoLineHighlightRenderAction, SoGLRenderAction, SoSelection, 
+SoXtRenderArea, SoDrawStyle, SoInteraction }
+
+
+

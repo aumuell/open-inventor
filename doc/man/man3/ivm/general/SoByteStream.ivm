@@ -1,0 +1,44 @@
+NAME SoByteStream "" "" {
+converts scene graph objects to character byte streams
+}
+
+INCLUDE misc/SoByteStream.h
+
+DESC {
+This class creates a byte stream representation of a scene graph,
+using an \cSoWriteAction\. to write path lists to an in-memory
+buffer.  Byte streams are commonly used to transfer data in copy and
+paste operations.  (The \cSoXtClipboard\. class passes
+\cSoByteStream\. data during copy and paste.)
+}
+
+METHOD ""  SoByteStream() {}
+METHOD "" ~SoByteStream() { Constructor and destructor. }
+
+METHOD convertNode void convert(SoNode *node, SbBool binaryFormat = TRUE) {}
+METHOD convertPath void convert(SoPath *path, SbBool binaryFormat = TRUE) {}
+METHOD ConvertPathList void convert(SoPathList *pathList,
+					SbBool binaryFormat = TRUE) {
+These convert the passed scene graph object(s) into a byte stream.
+The caller may specify whether the byte stream is written in binary
+(TRUE) or ASCII (FALSE) format, and can pass the object(s) by node,
+path, or pathList.
+}
+
+METHOD "" void * getData() {}
+METHOD "" uint32_t getNumBytes() {
+These return the data and number of bytes from the last \mconvert()\.
+operation.  This byte stream format is well suited to data transfers,
+like copy and paste.
+}
+
+METHOD uncomvertStream static SoPathList * unconvert(
+					SoByteStream *byteStream) {}
+METHOD unconvertData static SoPathList * unconvert(void *data,
+					 uint32_t numBytes) {
+These take byte stream data and unconvert it back to scene graph objects.
+The objects are returned in a path list.
+}
+
+ALSO { SoXtClipboard }
+

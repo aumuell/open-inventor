@@ -1,0 +1,13 @@
+#define OneProgram
+
+PROGRAM = componentTest
+
+#define LocalLibs libInventorWidget.a
+#define OtherLibs -lGL -lGLw -lX11 -lm
+
+C++FILES = componentTest.c++
+
+#ifndef CreatingUserMakefile
+OTHERSOURCE = README
+TOP_OF_TREE = ../../..
+#endif

@@ -1,0 +1,6 @@
+#define IncludeMakefile
+
+DEPTH = ../..
+
+HFILES = SoInteractionKit.h
+

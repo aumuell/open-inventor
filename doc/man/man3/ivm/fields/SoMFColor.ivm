@@ -1,0 +1,104 @@
+NAME SoMFColor SoMCol "" {
+multiple-value field containing any number of RGB colors stored as three floats
+}
+DESC {
+A multiple-value field that contains any number of RGB colors, stored
+as instances of \cSbColor\..  Values may be set in either RGB (red,
+green, blue) or HSV (hue, saturation, value) color spaces.
+\p
+\cSoMFColors\. are written to file as one or more RGB triples of
+floating point numbers in standard scientific notation.  When more
+than one value is present, all of the values are enclosed in square
+brackets and separated by commas.  For example:
+\b
+[ 1.0 0.0 0.0, 0 1 0, 0 0 1 ]
+\.
+represents the three colors red, green, and blue.
+}
+
+METHOD SetRGBs void setValues(int start, int num, const float rgb[\|][3]) {}
+METHOD SetHSVs void setHSVValues(int start, int num, const float hsv[\|][3]) {
+Sets \anum\. values starting at index \astart\. to the RGB (or HSV) values
+specified by the given array of floats.  Each float should be in the
+range 0.0 to 1.0, and there must be 3*\anum\. floats in the array.
+}
+METHOD SetV3f void setValue(const SbVec3f &vec) {}
+METHOD SetR_G_B void setValue(float red, float green, float blue) {}
+METHOD SetH_S_V void setHSVValue(float hue, float saturation, float value) {}
+METHOD SetRGB void setValue(const float rgb[3]) {}
+METHOD SetHSV void setHSVValue(const float hsv[3]) {
+Sets the field to contain one and only one value, the given color
+(expressed as either RGB or HSV floating point values in the range 0.0
+to 1.0), and deletes the second and subsequent values.
+}
+METHOD Set1V3f void set1Value(index, const SbVec3f &vec) {}
+METHOD Set1R_G_B void set1Value(index, float r, float g, float b) {}
+METHOD Set1H_S_V void set1HSVValue(index, float h, float s, float v) {}
+METHOD Set1RGB void set1Value(index, const float rgb[3]) {}
+METHOD Set1HSV void set1HSVValue(index, const float hsv[3]) {
+Sets one value in the array to the given color.  The array will be
+expanded and filled with zeroes as necessary.
+}
+
+ALSO { SbColor }
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get const SbColor & operator [\|](int i) const {
+Returns the \ai\.'th value of the field.  Indexing past the end of the
+field (passing in \ai\. greater than \mgetNum()\.) will return garbage.
+}
+METHOD GetN const SbColor * getValues(int start) const {
+Returns a pointer into the array of values in the field, starting at
+index \astart\..  The values are read-only; see the
+\mstartEditing()\./\mfinishEditing()\. methods for a way of modifying values
+in place.
+}
+METHOD "" int find(const SbColor & targetValue,
+	SbBool addIfNotFound = FALSE) {
+Finds the given value in the array and returns the index of that value
+in the array.  If the value is not found, -1 is returned.  If
+\aaddIfNotFound\. is set, then \atargetValue\. is added to the end of the
+array (but -1 is still returned).
+}
+METHOD SetN void setValues(int start, int num,
+	const SbColor *newValues) {
+Sets \anum\. values starting at index \astart\. to the values in \anewValues\..
+The array will be automatically be made larger to accomodate the new
+values, if necessary.
+}
+METHOD Set1 void set1Value(int index, const SbColor & newValue) {
+Sets the \aindex\.'th value in the array to \anewValue\..  The array will be
+automatically expanded, if necessary.
+}
+METHOD " " const SbColor & operator =(const SbColor & newValue) {}
+METHOD Set void setValue(const SbColor & newValue) {
+Sets the first value in the array to \anewValue\., and deletes the second
+and subsequent values.
+}
+METHOD IsEq int operator ==(const SoMFColor &f) const {}
+METHOD IsNEq int operator !=(const SoMFColor &f) const {
+Returns TRUE if all of the values of this field equal (do not
+equal) those of the given field.  If the fields are different types FALSE will
+always be returned (even if one field is an \cSoMFFloat\. with one
+value of 1.0 and the other is an \cSoMFInt\. with a value of 1, for
+example).
+}
+METHOD StartEdit SbColor *startEditing() {}
+METHOD FinishEdit void finishEditing() {
+\mstartEditing()\. returns a pointer to the internally-maintained array that 
+can be modified.  The values in the array may be changed, but values cannot
+be added or removed.  It is illegal to call any other editing methods between 
+\+\mstartEditing()\. and \mfinishEditing()\. (e.g.
+\mset1Value()\., \msetValue()\., etc).\.\-\mStartEdit()\. and \mFinishEdit()\. 
+(e.g. \mSet1()\., \mSet()\., etc).\.
+\p
+Fields, engines or sensors connected to this field and sensors are not
+notified that this field has changed until 
+\+\mfinishEditing()\.\.\-\mFinishEdit()\.\. is called.  Calling
+\+\mfinishEditing()\.\.\-\mFinishEdit()\.\. always sets the
+\+\misDefault()\.\.\-\mIsDflt\.\. flag to FALSE and informs
+engines and sensors that the field changed, even if none of the values
+actually were changed.
+}

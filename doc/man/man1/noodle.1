@@ -1,0 +1,101 @@
+'\"macro stdmacro
+.TH noodle 1
+
+
+.SH NAME
+noodle \- interactive 3d modeling program
+
+
+.SH SYNOPSIS
+.B noodle
+
+
+.SH DESCRIPTION
+.I noodle
+is an interactive program for creating a variety of 3d objects.
+The concept is very similar to a pasta maker in which one
+chooses a noodle cross-section and pushes the dough through,
+(hence the name).
+.I noodle
+was written using the Inventor 3d Toolkit.  It outputs Inventor files.
+
+.PP
+The 
+.I noodle 
+program has 5 main windows and a control panel.  
+The five windows are:
+
+
+Each window can be used to view or edit the object 
+(with the exception of the top right window which only allows viewing).
+Use the right mouse pop-up to 
+switch from viewing mode to edit mode and back.
+
+.PP
+The lower left window is for drawing the noodle 
+.I cross-section.
+You insert and drag individual points by clicking with the left mouse
+button in this view.  You can delete a point on your cross-section
+by first selecting the point (note the "+" highlighting) and then
+pressing the BACKSPACE key.  All four curve editing views use
+the same user interface for editing. This is a 2d curve.
+
+.PP
+The top left window is for editing the 
+.I taper 
+along the noodle.
+The default object will have no taper.  If you edit this curve
+you will see the results in the 3d view (top right) and quickly
+understand how to create lathe-like effects.  This is a 2d curve.
+
+.PP
+The lower middle window is for editing the 
+.I spine 
+of the noodle.
+This is a 3d curve through space that the noodle follows.
+The default object will have a straight, vertical spine.
+NOTE that this curve is the only 3d curve of the four curves.
+
+.PP
+The bottom right window is for editing the 
+.I twist 
+along the noodle.
+The default object will have no twist.  If you edit this curve
+you will see how this curve twists the noodle about its spine axis.
+This curve makes it easy to corkscrew-like effects.  This is a 2d curve.
+
+.PP
+Note that each of the four curve editing windows have a few
+buttons to clear the curve and create a few special curves.
+
+
+.PP
+The top right window is for viewing your resulting object.
+You cannot edit the object in this window; only viewing is allowed.
+
+
+.PP
+The top bar menu contains a variety of controls for
+affecting the resulting noodle.  Experiment with these controls
+to learn their effects.  You can save the resulting noodle
+in both noodle format (noodles are stored as GeneralizedCylinder 
+nodes) or standard, vanilla Inventor format (can be imported into any
+Inventor program, even if the GeneralizedCylinder DSO is not loaded
+on the host system).
+
+
+
+.SH SOURCE CODE
+Note that the source code to 
+.I noodle 
+comes with the
+.I Open Inventor 3d Toolkit.
+
+
+.SH FILES
+/usr/share/src/Inventor/demos/noodle/* - Source to noodle
+
+
+.SH SEE ALSO
+SceneViewer, drop, inventor, ivview, gview, maze, qmorf, revo,
+showcase, textomatic

@@ -1,0 +1,12 @@
+#define IncludeMakefile
+
+DEPTH = ../../..
+
+HFILES = \
+	SoXtConstrainedViewer.h \
+	SoXtExaminerViewer.h \
+	SoXtFlyViewer.h \
+	SoXtFullViewer.h \
+	SoXtPlaneViewer.h \
+	SoXtViewer.h \
+	SoXtWalkViewer.h

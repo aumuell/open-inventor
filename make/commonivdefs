@@ -1,0 +1,370 @@
+include $(IVDEPTH)/make/system
+
+ifdef IRIX
+    THISPLATFORM = irix
+endif
+ifdef LINUX
+    THISPLATFORM = linux
+endif
+
+include $(IVDEPTH)/make/ismcommondefs
+
+-include $(DEPTH)/localdefs
+
+ifeq ($(OSTYPE),linux)
+  usingLinux = 1
+else
+ifeq ($(OSTYPE),Linux)
+  usingLinux = 1
+else
+  usingLinux = 0
+endif
+endif
+ifeq ($(usingLinux),1)
+	CXXFLAGS+=-D_POSIX_SOURCE -D_XOPEN_SOURCE -fPIC -pedantic \
+	-I/usr/include -I/usr/X11R6/include
+	CFLAGS+=-D_POSIX_SOURCE -D_XOPEN_SOURCE -fPIC -pedantic \
+	-I/usr/include -I/usr/X11R6/include
+endif
+
+IVCOMMONRULES = $(IVDEPTH)/make/commonivrules
+
+# version number, should override in product specific defs
+
+VERSION = 1.0
+RELEASE = 1
+
+# library build type
+
+ifndef OBJECT32_STYLE
+OBJECT32_STYLE = 32
+endif
+ifndef OBJECTN32_STYLE
+OBJECTN32_STYLE = $(DEF_32_OBJECT_STYLE)
+endif
+ifndef OBJECT64_STYLE
+OBJECT64_STYLE = $(DEF_64_OBJECT_STYLE)
+endif
+
+MAKE_LIB_OPTS = \
+	VPATH=$(OBJ_DEPTH) DEPTH=$(OBJ_DEPTH)/$(DEPTH) \
+	LIBTYPE=$(LIBTYPE) OBJECT_STYLE=$(OBJECT_STYLE) IN_OBJECT_DIR=1 \
+	VC++INCS="-I$(OBJ_DEPTH)" VCINCS="-I$(OBJ_DEPTH)"
+
+MAKE_LIB = $(MAKE) -f $(OBJ_DEPTH)/Makefile $(MAKE_LIB_OPTS)
+
+ifdef BUILD_ISA
+    BUILD_ISA = true
+else
+    BUILD_ISA = false
+endif
+
+ifneq (,$(findstring debug,$(LIBTYPE)))
+    OBJ_PATH_SUF = _debug
+    INST_TAG_SUF = _DEBUG
+    NDEBUG =
+    ifneq (,$(findstring true,$(BUILD_ISA)))
+	BUILD_ISA = false
+    endif
+        LIB_PATH_SUF = /debug
+        DL_PATH_SUF = /debug
+        DBG_SUF = 
+        VER_SUF = 
+        OPTIMIZER = -g
+else
+    LIBTYPE = optimized
+    LIB_PATH_SUF =
+    DL_PATH_SUF =
+    DBG_SUF = 
+    OBJ_PATH_SUF =
+    INST_TAG_SUF =
+    NDEBUG = 1
+	OPTIMIZER = -O -DNDEBUG
+        VER_SUF = 
+endif
+LDDSOCMD = $(C++)
+
+LD_QUICKSTART_INFO=
+
+LDIRT += ii_files $(OBJECT_PATH) $(MAN1_COMPRESSED) $(MAN3_COMPRESSED) \
+    	 $(MAN3_INDEX) $(MAN4_COMPRESSED) $(DOCTOR_HTML_TARGETS) \
+	 $(DOCTOR_INHERIT_TARGETS)
+
+LCINCS += -I$(DEPTH)/include
+LC++INCS += -I$(DEPTH)/include
+
+LC++OPTS_N32=
+LC++OPTS_64=
+LC++OPTS_32=
+LLDLIBS_IRIX=
+LLDLIBS_LINUX=
+LLDOPTS_IRIX=
+LLDOPTS_LINUX=
+
+OBJ_DEPTH = ../..
+ifdef LINUX
+    DLMODE = 555
+else
+    DLMODE = 444
+endif
+ifdef IRIX
+    ifneq (,$(findstring N32,$(OBJECT_STYLE))$(findstring 64,$(OBJECT_STYLE)))
+#   	1209: controlling expression is constant
+#   	1375: destructor for base class is not virtual 
+#   	3496: one of the kids of a bitwise operator is a relational operator
+#             (took this one off the list because it is no longer a valid
+#              warning number in 6.5.8) 
+	LC++OPTS += -woff 1209,1375 -fullwarn
+        ifneq (,$(findstring false,$(BUILD_ISA)))
+            ifneq (,$(findstring N32,$(OBJECT_STYLE)))
+		LC++OPTS += $(LC++OPTS_N32)
+		INST_DL_PATH = $(INST_DL_ROOT)/lib32$(DL_PATH_SUF)
+		INST_DL_TAG = $(INST_TAG_PRE)DL32$(INST_TAG_SUF)
+		STYLE_DIRNAME = irixn32
+            else
+		LC++OPTS += $(LC++OPTS_64)
+		INST_DL_PATH = $(INST_DL_ROOT)/lib64$(DL_PATH_SUF)
+		INST_DL_TAG = $(INST_TAG_PRE)DL64$(INST_TAG_SUF)
+		STYLE_DIRNAME = irix64
+            endif
+        else
+	    OBJ_DEPTH = ../../..
+	    INST_ISA_MIPS3 = -idb "mach(CPUARCH=R4000)"
+	    INST_ISA_MIPS4 = -idb "mach(CPUARCH=R5000 CPUARCH=R8000 CPUARCH=R10000 CPUARCH=R12000)"
+            ifneq (,$(findstring N32,$(OBJECT_STYLE)))
+                ifneq (,$(findstring N32_M4,$(OBJECT_STYLE)))
+		    LC++OPTS += $(LC++OPTS_N32)
+		    INST_DL_PATH = $(INST_DL_ROOT)/lib32/mips4$(DL_PATH_SUF)
+		    INST_DL_TAG = $(INST_TAG_PRE)DL32$(INST_TAG_SUF)
+		    STYLE_DIRNAME = irixn32/mips4
+                else
+		    LC++OPTS += $(LC++OPTS_N32)
+		    INST_DL_PATH = $(INST_DL_ROOT)/lib32/mips3$(DL_PATH_SUF)
+		    INST_DL_TAG = $(INST_TAG_PRE)DL32$(INST_TAG_SUF)
+		    STYLE_DIRNAME = irixn32/mips3
+                endif
+		LLDLIBS += -L$(DEPTH)/lib/irixn32$(LIB_PATH_SUF)
+		INST_ISA_TARG_PATH = $(INST_DL_ROOT)/lib32$(DL_PATH_SUF)
+            else
+                ifneq (,$(findstring 64_M4,$(OBJECT_STYLE)))
+		    LC++OPTS += $(LC++OPTS_64)
+		    INST_DL_PATH = $(INST_DL_ROOT)/lib64/mips4$(DL_PATH_SUF)
+		    INST_DL_TAG = $(INST_TAG_PRE)DL64$(INST_TAG_SUF)
+		    STYLE_DIRNAME = irix64/mips4
+                else
+		    LC++OPTS += $(LC++OPTS_64)
+		    INST_DL_PATH = $(INST_DL_ROOT)/lib64/mips3$(DL_PATH_SUF)
+		    INST_DL_TAG = $(INST_TAG_PRE)DL64$(INST_TAG_SUF)
+		    STYLE_DIRNAME = irix64/mips3
+                endif
+		LLDLIBS += -L$(DEPTH)/lib/irix64$(LIB_PATH_SUF)
+		INST_ISA_TARG_PATH = $(INST_DL_ROOT)/lib64$(DL_PATH_SUF)
+            endif
+        endif
+    else
+    	OLD_OBJECT_FORMAT = 1
+        LC++OPTS += -woff 3247,3672 -fullwarn $(LC++OPTS_32)
+        INST_DL_PATH = $(INST_DL_ROOT)/lib$(DL_PATH_SUF)
+        INST_DL_TAG = $(INST_TAG_PRE)DL$(INST_TAG_SUF)
+        STYLE_DIRNAME = irix32
+	BUILD_ISA = false
+    endif
+    LLDLIBS += $(LLDLIBS_IRIX)
+    LLDOPTS += -L$(LIB_PATH) $(LLDOPTS_IRIX)
+    PCH_USE_OPT = -LANG:use_pch=$(PCH_OUT)
+    PCH_CREATE_OPT = -LANG:create_pch=$(PCH_OUT)
+    USER_MAKEFILE_SUFFIX = .user
+endif
+ifeq ($(usingLinux),1)
+    LC++OPTS += -Wunused -Wformat
+    ifeq (,$(findstring debug,$(LIBTYPE)))
+    	LC++OPTS += -Wuninitialized
+    endif
+    INST_DL_PATH = $(INST_DL_ROOT)/lib$(DL_PATH_SUF)
+    INST_DL_TAG = $(INST_TAG_PRE)DL$(INST_TAG_SUF)
+    STYLE_DIRNAME = linuxia32
+    LLDLIBS += $(LLDLIBS_LINUX)
+    LLDOPTS += -L$(LIB_PATH) $(LLDOPTS_LINUX)
+    USER_MAKEFILE_SUFFIX = .user.$(THISPLATFORM)
+    HTML_MANPAGES = 1
+endif
+
+LIB_PATH = $(DEPTH)/lib/$(STYLE_DIRNAME)$(LIB_PATH_SUF)
+OBJECT_PATH = obj/$(STYLE_DIRNAME)$(OBJ_PATH_SUF)
+CLOBBERALL_FILES = obj
+
+PCH_OUT = $(basename $(PCH_SRC)).pch
+PCH_OBJ = $(basename $(PCH_SRC))$(OBJSUFFIX)
+PCH_DEP = .$(basename $(PCH_SRC)).dep
+PCH_HDR = $(basename $(PCH_SRC))$(C++_HEADER_SUFFIX)
+PCH_CMD = $(subst $(PCH_USE_OPT),$(PCH_CREATE_OPT),$(C++F))
+NOPCH_CMD = $(subst $(PCH_USE_OPT),,$(C++F))
+
+COMMONTARGS += clobberall
+# paths to various places
+
+NOSHIP_HEADER_PREFIX = $(HEADER_PREFIX)
+HEADER_ROOT = $(DEPTH)/include
+HEADER_PATH = $(HEADER_ROOT)/$(HEADER_PREFIX)
+NOSHIP_HEADER_PATH = $(HEADER_ROOT)/$(NOSHIP_HEADER_PREFIX)
+
+INST_PREFIX = $(HEADER_PREFIX)
+    INST_HEADER_ROOT = /usr/include
+    INST_SHARE_ROOT = /usr/share/$(INST_PREFIX)
+    INST_DL_ROOT = /usr
+    INST_PROG_PATH = /usr/sbin
+    INST_DEMO_PATH = /usr/demos/bin
+    INST_RELNOTE_ROOT = $(INST_SHARE_ROOT)/release_notes
+    INST_EOEREL_SUFFIX = /user
+    INST_DEVREL_SUFFIX = /developer
+    ifdef LINUX
+        INST_MAN_EOE_ROOT = /usr/doc/$(INST_PREFIX)-$(VERSION)
+        INST_MAN_DEV_ROOT = /usr/doc/$(INST_PREFIX)-devel-$(VERSION)
+        INST_MAN1_ROOT = $(INST_MAN_EOE_ROOT)
+        INST_MAN3_ROOT = $(INST_MAN_DEV_ROOT)
+        INST_MAN4_ROOT = $(INST_MAN_DEV_ROOT)
+        INST_MAN_SUFFIX =
+        INST_MAN_EOE_HTML_PATH = $(INST_MAN_EOE_ROOT)
+        INST_MAN_DEV_HTML_PATH = $(INST_MAN_DEV_ROOT)
+    else
+      ifdef IRIX
+        INST_MAN_DEV_ROOT = /usr/share/catman/p_man
+        INST_MAN_EOE_ROOT = /usr/share/catman/u_man
+      else
+        INST_MAN_DEV_ROOT = /usr/man
+        INST_MAN_EOE_ROOT = /usr/man
+      endif
+        INST_MAN1_ROOT = $(INST_MAN_EOE_ROOT)/cat1
+        INST_MAN3_ROOT = $(INST_MAN_DEV_ROOT)/cat3
+        INST_MAN4_ROOT = $(INST_MAN_DEV_ROOT)/cat4
+        INST_MAN_SUFFIX = /$(INST_PREFIX)
+        INST_MAN_EOE_HTML_PATH = $(INST_SHARE_ROOT)/doc/user
+        INST_MAN_DEV_HTML_PATH = $(INST_SHARE_ROOT)/doc/developer
+    endif
+#
+        INST_BOOK_DEV_ROOT = /usr/share/Insight/library/SGI_bookshelves/SGI_Developer/books
+        INST_BOOK_EOE_ROOT = /usr/share/Insight/library/SGI_bookshelves/SGI_EndUser/books
+        INST_BOOK_DEV_SUFFIX = /$(INST_PREFIX)_PG
+        INST_BOOK_EOE_SUFFIX = /$(INST_PREFIX)_UG
+
+INST_HEADER_SUFFIX = /$(HEADER_PREFIX)
+INST_HEADER_PATH = $(INST_HEADER_ROOT)$(INST_HEADER_SUFFIX)
+INST_HEADER_TAG = $(INST_TAG_PRE)HDR
+
+INST_SRC_ROOT = $(INST_SHARE_ROOT)
+INST_SRC_SUFFIX = src
+INST_SRC_PATH = $(INST_SRC_ROOT)/$(INST_SRC_SUFFIX)
+INST_SRC_TAG = $(INST_TAG_PRE)SRC
+
+INST_DATA_ROOT = $(INST_SHARE_ROOT)
+INST_DATA_SUFFIX = data
+INST_DATA_PATH = $(INST_DATA_ROOT)/$(INST_DATA_SUFFIX)
+INST_DATA_TAG = $(INST_TAG_PRE)DATA
+
+INST_PROG_TAG = $(INST_TAG_PRE)PROG
+
+INST_DEMO_TAG = $(INST_TAG_PRE)DEMO
+
+INST_EOEREL_PATH = $(INST_RELNOTE_ROOT)$(INST_EOEREL_SUFFIX)
+INST_EOEREL_TAG = $(INST_TAG_PRE)EOEREL
+INST_DEVREL_PATH = $(INST_RELNOTE_ROOT)$(INST_DEVREL_SUFFIX)
+INST_DEVREL_TAG = $(INST_TAG_PRE)DEVREL
+
+INST_MAN1_PATH = $(INST_MAN1_ROOT)$(INST_MAN_SUFFIX)
+INST_MAN3_PATH = $(INST_MAN3_ROOT)$(INST_MAN_SUFFIX)
+INST_MAN4_PATH = $(INST_MAN4_ROOT)$(INST_MAN_SUFFIX)
+
+INST_EOEMAN_TAG = $(INST_TAG_PRE)EOEMAN
+INST_DEVMAN_TAG = $(INST_TAG_PRE)DEVMAN
+
+INST_PG_PATH = $(INST_BOOK_DEV_ROOT)$(INST_BOOK_DEV_SUFFIX)
+INST_PG_TAG = $(INST_TAG_PRE)PG
+
+INST_UG_PATH = $(INST_BOOK_EOE_ROOT)$(INST_BOOK_EOE_SUFFIX)
+INST_UG_TAG = $(INST_TAG_PRE)UG
+
+INST_EOE_TAG = $(INST_TAG_PRE)EOE
+
+INST_TOOL_TAG = $(INST_TAG_PRE)TOOL
+
+INST_DEV_TAG = $(INST_TAG_PRE)DEV
+
+ifndef IRIX
+    INSTALL = $(PERL) $(IVDEPTH)/make/install_$(THISPLATFORM).pl
+endif
+    ifdef IRIX
+    	GENEXPORTS = $(TOOLROOT)/usr/lib/ags/tools/genexports_irix.pl
+    endif
+    LIBPATHOPT = -L
+    LIBPREFIX = lib
+    LIBSUFFIX = .a
+    DLSUFFIX = .so
+    OBJSUFFIX = .o
+    EXESUFFIX =
+    ARO = -cr # must have a trailing space
+    PWD = $(shell pwd)
+ifndef PERL
+    PERL = perl
+endif
+
+DBGLIBSUF = $(VER_SUF)$(DBG_SUF)$(LIBSUFFIX)
+DBGDLSUF = $(VER_SUF)$(DBG_SUF)$(DLSUFFIX)
+STATIC_LIBRARY = $(LIB_PATH)/$(LIBPREFIX)$(LIBROOT)$(DBGLIBSUF)
+DYNAMIC_LIBRARY = $(LIB_PATH)/$(LIBPREFIX)$(LIBROOT)$(DBGDLSUF)
+
+NOOP = cd .
+POST_STATICLIB_CMD = @$(NOOP)
+POST_DYNAMICLIB_CMD = @$(NOOP)
+
+# defines for documentation generation
+
+DOCTOR_STRIP = $(PERL) $(TOOLROOT)/usr/lib/Doctor/strip
+DOCTOR_DRIVER = $(PERL) $(TOOLROOT)/usr/lib/Doctor/driver
+
+    DOCTOR_HTML2TERM = $(TOOLROOT)/usr/lib/Doctor/html2term
+
+DOCTOR_PREPARSED = $(DOCTOR_DRIVER) -preparsed 
+DOCTOR_GENDOC_FLAGS = $(subst -I,-I ,$(C++INCS))
+DOCTOR_GENDOC = $(DOCTOR_DRIVER) -backend dump $(DOCTOR_GENDOC_FLAGS)
+DOCTOR_GENINHERIT = $(DOCTOR_PREPARSED) -backend inherit
+DOCTOR_GENHTML_FLAGS = -prefix $(HEADER_PREFIX) -template $(HTML_MAN_TEMPLATE)
+DOCTOR_GENHTML = $(DOCTOR_PREPARSED) -backend html $(DOCTOR_GENHTML_FLAGS) 
+DOCTOR_GENDEPS = $(DOCTOR_PREPARSED) -backend gmake
+DOCTOR_GENTOC_FLAGS = -template $(HTML_TOC_TEMPLATE)
+DOCTOR_GENTOC = $(DOCTOR_PREPARSED) -backend toc $(DOCTOR_GENTOC_FLAGS)
+DOCTOR_HTML_INST_PATH = $(INST_MAN3_PATH)
+DOCTOR_HTML_INST_TAG = $(INST_DEVMAN_TAG)
+
+HTML_TOC_TEMPLATE = toc.html
+HTML_MAN_TEMPLATE = man.html
+
+MAN3_PATH = man3
+
+MAN3_FILES += $(DOCTOR_HTML_TARGETS)
+MAN1_COMPRESSED = $(MAN1_FILES:.html=.z)
+MAN3_COMPRESSED = $(MAN3_FILES:.html=.z)
+MAN4_COMPRESSED = $(MAN4_FILES:.html=.z)
+
+ifdef HTML_MANPAGES
+    MAN1_INSTALLED = $(MAN1_FILES)
+    MAN3_INSTALLED = $(MAN3_FILES)
+    MAN4_INSTALLED = $(MAN4_FILES)
+else
+    MAN1_INSTALLED = $(MAN1_COMPRESSED)
+    MAN3_INSTALLED = $(MAN3_COMPRESSED)
+    MAN4_INSTALLED = $(MAN4_COMPRESSED)
+endif
+
+ifndef C++_HEADER_SUFFIX
+    C++_HEADER_SUFFIX = .h
+endif
+ifndef DOCTOR_INPUT_SUFFIX
+    DOCTOR_INPUT_SUFFIX = .hd
+endif
+INST_HEADERS = $(DOCTOR_FILES:%$(DOCTOR_INPUT_SUFFIX)=$(HEADER_PATH)/%$(C++_HEADER_SUFFIX))
+NOSHIP_HEADERS = $(NOSHIP_DOCTOR_FILES:%$(DOCTOR_INPUT_SUFFIX)=$(NOSHIP_HEADER_PATH)/%$(C++_HEADER_SUFFIX))
+HEADERS = $(INST_HEADERS) $(NOSHIP_HEADERS)
+DOCFILES = $(DOCTOR_FILES:%$(DOCTOR_INPUT_SUFFIX)=$(MAN3_PATH)/%.doc)
+
+INSTALL_DEPENDENCIES = targets headers man
+

@@ -1,0 +1,60 @@
+NAME SoFile "" "" { node that reads children from a named file }
+
+INCLUDE nodes/SoFile.h
+
+DESC {
+This node represents a subgraph that was read from a named input file.
+When an \cSoFile\. node is written out, just the field containing the
+name of the file is written; no children are written out. When an
+\cSoFile\. is encountered during reading, reading continues from the
+named file, and all nodes read from the file are added as hidden
+children of the file node.
+\p
+Whenever the \vname\. field changes, any existing children are removed
+and the contents of the new file is read in. The file node remembers
+what directory the last file was read from and will read the new file
+from the same directory after checking the standard list of
+directories (see \cSoInput\.), assuming the field isn't set to an
+absolute path name.
+\p
+The children of an \cSoFile\. node are hidden; there is no way of
+accessing or editing them. If you wish to edit the contents of an
+\cSoFile\. node, you can modify the contents of the named file and
+then "touch" the \vname\. field (see \cSoField\.). Alternatively,
+you can use the
+\+\mcopyChildren()\. method\.
+\-\mSoFileCopyChildren()\. function\.
+to get a editable copy of the file node's children. Note that this
+does not affect the original file on disk, however.
+}
+
+FIELD name { Name of file from which to read children. }
+
+METHOD "" SoFile() {
+Creates a file node with default settings.
+}
+
+METHOD "" SoGroup * copyChildren() const {
+Returns a new \cSoGroup\. containing copies of all of the file node's
+children.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoGetMatrixAction, SoHandleEventAction {
+Traverses its children just as \cSoGroup\. does.
+}
+
+ACTION SoRayPickAction {
+Traverses its hidden children, but, if intersections are found,
+generates paths that end at the \cSoFile\. node.
+}
+
+ACTION SoWriteAction {
+Writes just the \vname\. field and no children.
+}
+
+ALSO { SoInput, SoPath }

@@ -1,0 +1,36 @@
+This directory contains the Open Inventor sample programs.
+These programs are distributed in source format to the Inventor
+customers.  Many of these programs are simple and sloppy,
+but show some interesting aspect of Inventor.
+
+Each subdirectory contains the source code and include files needed to
+make the program.  Note that you need superuser permissions to build or 
+modify the installed sample programs.  Alternatively, you can copy the 
+programs that interest you into your local directory.
+
+
+The sample programs include:
+
+4view 	    - Displays four views of a scene graph - together in one
+	      Motif widget.
+ViewKit     - Shows how Inventor and ViewKit can be used together
+clock       - simple Inventor clock program
+common 	    - Contains some common functions used by other samples
+ivToInclude - Tools for turning Inventor scene files into buffer variables
+              in include files that can be compiled into a program.
+ivNodeKitStructure -
+	      Prints out information about all parts (public and private) 
+	      in the catalog of a nodekit class.
+linkages    - Interactive linkage program which defines new nodekit
+	      classes (e.g., Link and Crank) that contain draggers as parts.
+lod 	    - Demonstrates how to use the level-of-detail node.
+manip 	    - Shows how all of the manipulators work
+motif 	    - Demonstrates how to build Motif pulldown menus
+spaceball   - Demonstrates how to integrate a spaceball into Inventor
+twoDisplays - Demonstrates how to show Inventor components on different X 
+	      displays.
+viewers     - Source code of the SoXtExaminerViewer and parent classes
+vortex      - explodes any object - demonstrates the SoCallbackAction's 
+	      "get primitives" feature
+widgets     - contains the code for several Xt components, as well
+	      as code for drag-and-drop and file conversion using FTR rules.

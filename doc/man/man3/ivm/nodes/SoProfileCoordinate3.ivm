@@ -1,0 +1,30 @@
+NAME SoProfileCoordinate3 SoProfCoord3 "" { rational profile coordinate node }
+
+INCLUDE nodes/SoProfileCoordinate3.h
+
+DESC {
+This node defines a set of rational 3D coordinates to be used by
+subsequent \cSoProfile\. nodes. (These coordinates may be used for any
+type of profile; they may be useful in some cases for specifying
+control points for \cSoNurbsProfile\. nodes.) This node does not
+produce a visible result during rendering; it simply replaces the
+current profile coordinates in the traversal state for subsequent
+nodes to use.
+}
+
+FIELD point { Rational 3D profile coordinate points. }
+
+METHOD "" SoProfileCoordinate3() {
+Creates a profile coordinate node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoRayPickAction {
+Sets profile coordinates in current traversal state.
+}
+
+ALSO { SoProfile, SoProfileCoordinate2 }

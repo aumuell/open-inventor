@@ -1,0 +1,44 @@
+NAME SoPackedColor SoPCol "" {
+node that defines base colors using packed representation
+}
+
+INCLUDE nodes/SoPackedColor.h
+
+DESC {
+\cSoPackedColor\. is similar to \cSoBaseColor\. in that it sets the
+diffuse color component of the current material. However, it also
+changes the transparency component. The color and transparency
+information is packed into unsigned 32-bit integers: \k0xrrggbbaa\.,
+where \kaa\. represents the alpha (\k0x00\. = fully transparent,
+\k0xff\. = opaque), and \krr\., \kgg\., and \kbb\. represent the
+red, blue, and green components of the color, respectively.
+Note that the order (r,g,b,a) of these components is reversed from
+the ordering in releases of Inventor prior to 2.1.
+\p
+If the
+transparency type is \cSoGLRenderAction::SCREEN_DOOR\., only the
+first transparency value will be used.  With other transparency types,
+multiple transparencies will be used.  
+\p
+\cSoPackedColor\. uses less memory than \cSoBaseColor\. or
+\cSoMaterial\.  to store multiple color and transparency values. It
+can be used in cases where space is critical.
+}
+
+FIELD orderedRGBA { Defines the packed colors. }
+
+METHOD "" SoPackedColor() {
+Creates a packed color node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction {
+Sets the current base (diffuse) color(s) in the state.
+}
+
+ALSO {
+SoBaseColor, SoMaterial
+}

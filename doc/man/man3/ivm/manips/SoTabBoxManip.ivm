@@ -1,0 +1,52 @@
+NAME SoTabBoxManip "" "" { transform node with 3D Interface for editing scale and translation }
+
+INCLUDE manips/SoTabBoxManip.h
+
+DESC { 
+\cSoTabBoxManip\. 
+is derived from \cSoTransform\. (by way of \cSoTransformManip\.). 
+When its fields 
+change, nodes following it in the scene graph scale, and/or translate.
+\p
+As a subclass of \cSoTransformManip\., this manip
+also has a 3D interface to edit some of its fields.
+In this case, the interface edits the \vscaleFactor\. 
+and \vtranslation\. fields.
+\p
+A manipulator differs from a dragger. When you move a dragger,
+no other nodes are affected.  When you move an \cSoTransformManip\.,
+other nodes move along with it.
+(See the reference page for \cSoTransformManip\..)
+\p
+The interface for an \cSoTabBoxManip\. is exactly the same as that
+of the \cSoTabBoxDragger\..  
+To find out more about the interface, see the reference page 
+for \cSoTabBoxDragger\..  To find out how the manipulator uses a 
+dragger to provide its interface, see the reference page for 
+\cSoTransformManip\..
+\p
+On screen, this manip will surround the objects influenced by its motion.
+This is because it turns on the \esurroundScale\. part of the dragger
+(See the reference page for \cSoSurroundScale\.)
+}
+
+METHOD "" SoTabBoxManip() {
+Constructor.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ALSO {
+SoCenterballManip,
+SoHandleBoxManip,
+SoJackManip,
+SoTabBoxDragger,
+SoTrackballManip,
+SoTransformBoxManip,
+SoTransformerManip,
+SoTransform,
+SoTransformManip
+}
+

@@ -1,0 +1,161 @@
+#! /usr/bin/nawk -f
+#
+# AWK script: getnames
+#
+# Usage: getnames opt=<language option letter> file ...
+#
+# Generates a list of file names followed by the commands that are linked
+# to the file name.  Output is piped to the awk script addinst
+# Called from manrules. 
+#
+
+BEGIN {
+    err = 0
+}
+
+NF == 2 && $1 == ".SH" && $2 == "NAME" {
+    getline
+
+#  Process the man pages from MIPS
+    if ($1 == ".nf") {
+	NAMELIST = ""
+        getline
+	while ($1 != ".fi") {
+	    gsub(/\t/, "", $0)
+	    gsub(/ /, "", $0)
+            gsub(/,/, " ", $0)
+            gsub(/:/, "", $0)
+            gsub(/\\f./, "", $0)
+            gsub(/\\s[-+]?[0-9]/, "", $0)
+            if (split($0, NAMES, "\\") == 1)
+		error("missing \\- in NAMES line")
+	    else
+	        NAMELIST = NAMELIST NAMES[1] " "
+	    getline
+	}
+        outline(FILENAME, NAMELIST)
+
+    } 
+    else if ($1 == ".Op") {
+# Process the GL man pages with .Op's
+	if (opt == "") {
+	    error("getnames requires opt=<language option letter> for GL "\
+		  "man pages -- aborting")
+	    exit(1)
+	}
+	# state values:
+	#	0 = outside .Op pair
+	#	1 = inside .Op for our option
+	#	2 = inside .Op for another option
+	#	3 = abort
+	#	4 = done
+	state = parseln() - 1;
+	NAMELIST = ""
+	while (state < 3) {
+	    if (state == 1) {
+		if ($1 == ".B") {
+		    gsub(/,/, "", $0)
+		    gsub(/"/, "", $0)
+		    gsub(/\.B/, "", $0)
+		    gsub(/\\f./, "", $0)
+		    gsub(/\\s[-+]?[0-9]/, "", $0)
+		    NAMELIST = NAMELIST $0 " "
+		}
+	    }
+	    getline
+	    ltype = parseln()
+	    if (state == 0) {
+		if (ltype == 1) {
+		    error("unexpected .Op with no arguments")
+		    next
+		}
+		else
+		    state = ltype - 1
+	    }
+	    else {
+		# state == 1 or 2
+		if (ltype == 4)
+		    state = 3
+		else if (ltype > 1) {
+		    error("unexpected .Op with arguments")
+		    next
+		}
+		else if (ltype == 1) {
+		    if (state == 1)
+			state = 4
+		    else
+			state = 0
+		}
+	    }
+	}
+	if (NAMELIST != "")
+	    outline(FILENAME, NAMELIST)
+
+    } 
+    else {
+# Process all other man pages
+	# state values
+	#	0 = haven't found \- 
+	#	1 = found \- (actually just `\')
+	#	2 = found .SH
+	state = 0;
+	NAMELIST = "";
+	while (state == 0) {
+	    if ($1 == ".SH")
+		state = 2;
+	    else {
+		gsub(/,/, " ", $0)
+		gsub(/"/, "", $0)
+		gsub(/:/, "", $0)
+		gsub(/\.B/, "", $0)
+		gsub(/\\f./, "", $0)
+		gsub(/\\s[-+]?[0-9]/, "", $0)
+		temp = split($0, NAMES, "\\")
+		NAMELIST = NAMELIST NAMES[1] " "
+		if (temp > 1)
+		    state = 1
+	    }
+	    getline;
+	}
+	if (state == 2)
+	    error("missing \\- in NAMES section")
+	else if (NAMELIST == "")
+	    error("nothing before \\- in NAMES section")
+	else
+	    outline(FILENAME, NAMELIST)
+    }
+}
+# parse .Op GL man page line, return values are:
+#   0 = not .Op or .SH line
+#   1 = .Op with no arguments
+#   2 = .Op containing our option
+#   3 = .Op not containing our option
+#   4 = .SH line
+func parseln() {
+    if ($1 == ".SH")
+	return 4
+    else if ($1 != ".Op")
+	return 0
+    else if (NF == 1)
+	return 1
+    else {
+	for (i = 2; i <= NF; i++) {
+	    if ($i == opt)
+		return 2
+	}
+	return 3
+    }
+}
+
+END {
+    exit(err)
+}
+
+# all man page filenames are lowercase
+func outline(fname, names) {
+    printf "%20s:  %s\n", fname, names | "tr '[A-Z]' '[a-z]'"
+}
+func error(msg) {
+    print "getnames:", msg ": file", FILENAME ", line", FNR | "cat 1>&2"
+    err = 1
+}

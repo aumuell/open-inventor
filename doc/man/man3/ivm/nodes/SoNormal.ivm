@@ -1,0 +1,33 @@
+NAME SoNormal SoNorm "" { node that defines surface normals for shapes }
+
+INCLUDE nodes/SoNormal.h
+
+DESC {
+This node defines a set of 3D surface normal vectors to be used by
+vertex-based shape nodes that follow it in the scene graph. This node
+does not produce a visible result during rendering; it simply replaces
+the current normals in the rendering state for subsequent nodes to
+use.  This node contains one multiple-valued field that contains the
+normal vectors.
+\p
+Surface normals are needed to compute lighting when the Phong lighting
+model is used. Most vertex-based shapes that use normals can compute
+default normals if none are specified, depending on the current normal
+binding.
+}
+
+FIELD vector { Surface normal vectors. }
+
+METHOD "" SoNormal() { Creates a surface normal node with default settings. }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction, SoRayPickAction {
+Sets the current normals in the traversal state.
+}
+
+ALSO {
+SoCoordinate3, SoLightModel, SoNormalBinding, SoVertexShape
+}

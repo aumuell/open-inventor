@@ -1,0 +1,14 @@
+#define DSOMakefile
+
+DSO = BarChart.so
+
+C++FILES = BarChart.c++
+
+HFILES = BarChart.h
+
+#ifndef CreatingUserMakefile
+
+TOP_OF_TREE = ../../..
+OTHERSOURCE = README BarChart.iv
+
+#endif /* ! CreatingUserMakefile */

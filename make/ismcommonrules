@@ -1,0 +1,169 @@
+#
+# Commonrules to build idb's and images for an ism
+#
+#
+# For an ism that doesn't have a rawidb idb
+# set LIDBJOINFLAGS to -m
+# In this case a zero length RAWIDB is required
+#
+#
+# Targets:
+#	buildimages - make real images (an individual image can also be made)
+#	buildidbs - makes an external idb
+#		   these idb(s) are the exported ones - the image names
+#		   must correspond to the public exported names that the
+#		   ism has published (and are used in the product
+#		   defining spec files).
+#		   The idb also must have full path names to the location
+#		   of the objects
+#	buildism - old name for buildidbs
+#	version - create a version file
+#	startversion - create a version number in $(WORKAREA)/.version_number
+#		(and alpha number in $(WORKAREA)/.alpha_number
+#
+# Before including this file the following should be set:
+#	ALLIMAGES - names of images to be made - must correspond to
+#		product name(s) in spec file
+#	SPEC - spec file name
+#	RAWIDB - rawidb file name
+#	SRCIDB - src/checked in idb file name
+#
+# Macros you may wish to set
+#	BUILDER - (to 1 if project build, to 2 if build group build) 
+#	TREE_ID - to an integer 1-9 to distinguish parallel OS efforts
+#		  targeted to new hardware.
+#		  It will default to the value of TREE_ID found in 
+#		  $(IVDEPTH)/make/releasedefs.
+#	PATCH_RELEASE - if creating a patch release (will default to first eight
+#		  digits of $(WORKAREA)/.version_number)
+#	PATCH_NUM - patch number (sequences patch releases)
+#
+# Note that macros ALLIMAGES, SPEC, RAWIDB, and SRCIDB need only be set
+#	in the build/Makefile. Typically, one just uses the settings as 
+#	provided via the ism template for the build/Makefile.
+#	
+
+#
+#ident "$Revision: 1.1 $"
+
+# XXX smake2gmake - no complete analog in gmake for .NOTPARALLEL
+.NOTPARALLEL:
+
+include $(RELEASEDEFS)
+include $(COMMONRULES)
+IDBSAREA=../idbs
+IMAGESAREA=../images
+# this is old and shouldn't be used
+ISMAREA=$(IDBSAREA)
+SPECDFLT=$(TOOLROOT)/usr/sbin/specdflt
+SPECPRODS=$(TOOLROOT)/usr/sbin/specprods
+SPECEXTERN=awk -f $(TOOLROOT)/usr/lib/specextern.awk
+
+# get the definition of the startversion target
+include $(IVDEPTH)/make/startversion
+
+$(BUILDIMGPREF)buildimages: checkversion finalidb $(SPEC) 
+	@if [ ! -d $(IMAGESAREA) ]; then mkdir $(IMAGESAREA); fi; \
+	(cd $(IMAGESAREA); for i in $(ALLIMAGES); do \
+		rm -f $${i}.* $${i}; done)
+# next 14 lines replicated below
+	@if [ -r $(SPEC) ]; then \
+		USESPEC=$(SPEC); \
+		if [ "$(ALLIMAGES)" = "no_images_supplied" ]; then \
+			echo "\nderiving names of products to generate from file $(SPEC)\n"; \
+			USEALLIMAGES=`$(SPECPRODS) $$USESPEC`; \
+		else \
+			USEALLIMAGES='$(ALLIMAGES)'; \
+		fi; \
+	else \
+		echo "\nderiving file $(SPEC).dflt from file finalidb\n"; \
+		$(SPECDFLT) > $(SPEC).dflt;\
+		USESPEC=$(SPEC).dflt; \
+		USEALLIMAGES=`$(SPECPRODS) $$USESPEC`; \
+	fi; \
+	echo "$(GENDIST) $(GENDISTFLAGS) -all -root /"; \
+	echo "\t-source $(SRC) -idb finalidb"; \
+	echo "\t-spec $$USESPEC -dist $(IMAGESAREA) $$USEALLIMAGES"; \
+	VERSION=`cat $(VNUM)` \
+	$(GENDIST) $(GENDISTFLAGS) -all -root / -source $(SRC) -idb finalidb \
+		-spec $$USESPEC -dist $(IMAGESAREA) $$USEALLIMAGES
+	
+
+#
+# Generate an external idb - this is the internal idb (finalidb)
+# run through gendist to convert the internal subsystem names to
+# the external subsystem names (those specified in the spec file and
+# published to the product build group).
+# NOTE: buildism is old target - buildidb is prefered.
+#
+$(BUILDISMPREF)buildism:buildidbs
+
+$(BUILDIDBPREF)buildidbs:finalidb $(SPEC)
+	@if [ ! -d $(IDBSAREA) ]; then mkdir $(IDBSAREA); fi; \
+	(cd $(IDBSAREA); for i in $(ALLIMAGES); do \
+		rm -f $${i}.* $${i}; done)
+# next 14 lines replicated above
+	@if [ -r $(SPEC) ]; then \
+		USESPEC=$(SPEC); \
+		if [ "$(ALLIMAGES)" = "no_images_supplied" ]; then \
+			echo "\nderiving names of products to generate from file $(SPEC)\n"; \
+			USEALLIMAGES=`$(SPECPRODS) $$USESPEC`; \
+		else \
+			USEALLIMAGES='$(ALLIMAGES)'; \
+		fi; \
+	else \
+		echo "\nderiving file $(SPEC).dflt from file $(RAWIDB)\n"; \
+		$(SPECDFLT) > $(SPEC).dflt;\
+		USESPEC=$(SPEC).dflt; \
+		USEALLIMAGES=`$(SPECPRODS) $$USESPEC`; \
+	fi;\
+	$(GENDIST) $(GENDISTFLAGS) -externidb -root / -source $(SRC) \
+		-idb finalidb -spec $$USESPEC -dist $(IDBSAREA) $$USEALLIMAGES \
+		>dryrun 2>&1;\
+	$(SPECEXTERN) < $$USESPEC > $(IDBSAREA)/spec;\
+	ISMROOT=`pwd`;\
+	ISMROOT=`echo "$$ISMROOT/.." | sed -e 's/\/[^/]*\/\.\.//'`; \
+	cd $(IDBSAREA); for i in $$USEALLIMAGES; do \
+		[ ! -r $$i.idb ] && continue; \
+		nawk '{$$6=head"/"$$6;print}' head=$$ISMROOT < $$i.idb > $$i.$$$$;\
+		mv $$i.$$$$ $$i.idb; done
+
+$(ALLIMAGES): 
+	$(MAKE) ALLIMAGES=$@ buildimages
+
+$(FINALPREF)finalidb: $(SRCIDB)
+	-rm -f joinedidb extra missing
+	@#gendist still likes things sorted on dstpath
+	@# use -o so makefile is restartable
+	@if [ -r $(SRCIDB) ]; then \
+		SIDBS=`echo $(SRCIDB) | tr '	' ' ' | tr -s '' ' ' | \
+			sed -e 's/^/-s/' -e 's/ / -s/g'` ;\
+		$(IDBJOIN) $(IDBJOINFLAGS) $$SIDBS $(RAWIDB) joinedidb extra missing; \
+		LANG=C sort +4 -5 joinedidb -o finalidb; \
+	else \
+		echo "\nderiving file finalidb from file $(RAWIDB)\n"; \
+		LANG=C sort +4 -5 $(RAWIDB) -o finalidb; \
+	fi
+
+.PHONY: checkversion checkalpha version
+
+checkversion:
+	@if [ ! -r $(VNUM) ]; then \
+		echo "Use the startversion target to set your version number.";\
+		exit 1 ;\
+	else \
+		VERSION=`cat $(VNUM)` ;\
+	fi
+
+# old target provided so that build doesn't break
+checkalpha:
+	@echo "This target is no longer used."
+	@echo "Please modify your Makefile to remove it."
+
+version:checkversion
+	@VERSION=`cat $(VNUM)` \
+	$(TOOLROOT)/usr/sbin/makeversion $(ISM_NAME).version
+
+# ok if these not present, but do need their modification dates if they are
+fake_target_so_not_empty $(SRCIDB) $(SPEC):
+	:

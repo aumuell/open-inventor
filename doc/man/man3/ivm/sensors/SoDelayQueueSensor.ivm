@@ -1,0 +1,73 @@
+NAME SoDelayQueueSensor SoDelQSens "" {
+abstract base class for sensors not dependent on time
+}
+INCLUDE sensors/SoDelayQueueSensor.h
+DESC {
+Delay queue sensors are separate from timer queue sensors (see
+\cSoTimerQueueSensor\.) and provide methods for setting the relative
+priorities of the sensors in the delay queue (sensors with higher
+priorities will be triggered first).
+\p
+Sensors with non-zero priorities are added to the delay queue when
+scheduled, and are all processed once, in order, when the delay queue
+is processed, which normally happens as part of your program's main
+loop (see \m\+SoXt::mainLoop()\.\-SoXtMainLoop()\.\. or
+\m\+SoDB::doSelect()\.\-SoDBDoSelect()\.\.).  Typically, the delay
+queue is processed whenever there are no events waiting to be
+distributed and there are no timer queue sensors waiting to be
+triggered.  The delay queue also has a timeout to ensure that delay
+queue sensors are triggered even if there are always events or timer
+sensors waiting; see
+\m\+SoDB::setDelaySensorTimeout()\.\-SoDBSetDelaySensorTimeout()\.\..
+\p
+Sensors with priority 0 are treated specially.  Priority 0 sensors are
+triggered almost immediately after they are scheduled, before the
+program returns to the main loop.  Priority 0 sensors are not
+necessarily triggered immediately when they are scheduled, however; if
+they are scheduled as part of the evaluation of a field connection
+network they may not be triggered until the evaluation of the network
+is complete.  Also, if a priority 0 sensor is scheduled within the
+callback method of another priority 0 sensor, it will not be triggered
+until the callback method is complete (also note that if more than one
+priority 0 sensor is scheduled, the order in which they fire is
+undefined).
+}
+
+METHOD setPri void setPriority(uint32_t pri) {}
+METHOD getPri uint32_t getPriority() {
+Sets/gets the priority of the sensor.  Priorities can be changed at
+any time; if the priority is changed to zero and it is already
+scheduled, the sensor is immediately triggered and removed from the
+queue.
+}
+
+METHOD "" static uint32_t getDefaultPriority() {
+Returns the default delay queue sensor priority, which is 100.
+}
+
+METHOD sched virtual void schedule() {
+If this sensor's priority is non-zero, adds this sensor to the list of
+delay queue sensors ready to be triggered.
+This is a way of making a sensor fire without changing the thing it is
+sensing.
+\p
+Calling \m\+schedule()\.\-sched()\.\. within the callback function
+causes the sensor to be called repeatedly.  Because sensors are
+processed only once every time the delay queue is processed (even if
+they reschedule themselves), timers and events will still be
+processed.  This should not be done with a priority zero sensor
+because an infinite loop will result.
+}
+METHOD unsched virtual void unschedule() {
+If this sensor is scheduled, removes it from the delay queue so that
+it will not be triggered.
+}
+METHOD isSched virtual SbBool isScheduled() {
+Returns TRUE if this sensor has been scheduled and is waiting in the
+delay queue to be triggered.  Sensors are removed from the queue
+before their callback function is triggered.
+}
+
+ALSO { SoTimerQueueSensor, SoDataSensor, SoFieldSensor, SoIdleSensor,
+SoOneShotSensor, SoNodeSensor, SoPathSensor, SoSensorManager }
+

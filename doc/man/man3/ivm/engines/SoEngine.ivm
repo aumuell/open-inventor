@@ -1,0 +1,59 @@
+NAME SoEngine SoEngine "" { base class for all engines }
+
+DESC { 
+\cSoEngine\. is the abstract base class for all engines.
+Engines are objects used for animation and behavior.
+They are lightweight objects that are connected between
+nodes, the clock, and other engines to form interesting
+behaviorial objects (e.g., a spinning windmill).
+\p
+Engines are used to animate parts of a scene and/or to constrain
+one part of a scene in relation to some other part of the scene.
+An engine receives a number of input values, performs some operation
+on them, and then copies the results into one or more
+output fields.  Both the inputs and the outputs can be connected
+to other fields or engines in the scene graph.  When an engine's
+output values change, those new values are sent to any fields or
+engines connected to them.
+}
+
+INCLUDE engines/SoEngine.h
+
+METHOD GetTypeId 
+	static SoType getClassTypeId() 
+	{ Returns the type identifier for the SoEngine class. }
+METHOD getOuts
+	virtual int getOutputs(SoEngineOutputList &list) const
+	{ Returns a list of outputs in this engine.  
+	Use \mgetOutputName\. to get the names of the outputs, 
+	and use \+\mSoEngineOutput::getConnectionType\.\. 
+	\-\mSoEngineOutputGetConnectionType\.\. to determine their types. }
+METHOD getOut 
+	SoEngineOutput * getOutput(const SbName &outputName) const
+	{ Returns a pointer to the engine output with the given name.  
+	If no such output exists, NULL is returned.}
+METHOD getOutName 
+	SbBool getOutputName(const SoEngineOutput *output, SbName &outputName) const
+	{ Returns (in \aoutputName\.) the name of the engine 
+	output (\aoutput\.).  Returns FALSE if the engine output is 
+	not contained within the engine instance. }
+METHOD ""
+	SoEngine * copy() const
+	{ Creates and returns an exact copy of the engine.  
+	  All connections to inputs are copied as is (without
+	  copying what's at the other end). }
+METHOD ""
+	static SoEngine * getByName(const SbName &name)  
+	{ }
+METHOD getByNameList
+	static int getByName(const SbName &name, SoEngineList &list)  
+	{ Look up engine(s) by name. }
+
+ALSO { SoBoolOperation, SoCalculator, 
+SoComposeMatrix, SoComposeRotation, SoComposeRotationFromTo,
+SoComposeVec2f, SoComposeVec3f, SoComposeVec4f, 
+SoComputeBoundingBox, SoConcatenate, SoCounter, 
+SoDecomposeMatrix, SoDecomposeRotation, SoDecomposeVec2f, SoDecomposeVec3f,
+SoDecomposeVec4f, SoElapsedTime, SoGate, 
+SoInterpolate, SoOnOff, SoOneShot, SoSelectOne,
+SoTimeCounter, SoTransformVec3f, SoTriggerAny }

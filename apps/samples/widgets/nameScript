@@ -1,0 +1,4 @@
+#! /bin/sed -f
+s,SoDraw,draw,g
+s,_SoXt,My,g
+s,SoFloatCallbackList,MyFloatCallbackList,g

@@ -1,0 +1,10 @@
+#define IncludeMakefile
+
+DEPTH = ../../..
+
+HFILES = \
+	SoXtDevice.h		\
+	SoXtInputFocus.h	\
+	SoXtKeyboard.h		\
+	SoXtMouse.h		\
+	SoXtSpaceball.h

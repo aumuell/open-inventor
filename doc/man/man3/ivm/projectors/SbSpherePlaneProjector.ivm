@@ -1,0 +1,53 @@
+NAME SbSpherePlaneProjector "SbSphPlnProj" "" { sphere-plane projector }
+
+INCLUDE projectors/SbSpherePlaneProjector.h
+
+DESC { \cSbSpherePlaneProjector\. 
+projects a window space point (usually based on the mouse location)
+onto a surface defined by a sphere and plane cutting through the sphere.
+Two projected points can produce a rotation
+about the sphere's center.
+When the mouse position projects onto the plane, the
+rotations will be as if the plane is being dragged,
+causing the sphere to roll beneath it.
+\p
+Incremental changes (delta rotation) can be computed during
+interactive sessions. Sphere projectors are typically used to write
+interactive 3D manipulators and viewers.
+}
+
+METHOD "" SbSpherePlaneProjector(float edgeTol = .9, SbBool orientToEye = TRUE) {}
+METHOD "createSph" SbSpherePlaneProjector( const SbSphere &sph,
+			      float edgeTol = .9, SbBool orientToEye = TRUE) {
+Constructors. The first uses a default sphere centered at the origin
+with radius 1.0; the sphere is supplied in the second.
+The position of the plane is specified as a fraction of the sphere radius
+with the parameter \vedgeTol\..
+A tolerance value of 1.0 positions the plane
+down the center of the sphere. A tolerance value of 0.5 defines
+the longitudinal plane halfway between the center and the outside
+edge of the sphere.  The default value is .9, so that almost
+half the sphere is in front of the plane.
+The \vorientToEye\.
+parameter determines whether the plane is perpendicular to the
+eye, or perpendicular to the sphere's Z axis.  Setting that parameter to TRUE
+(the default) specifies that the plane be perpendicular to the
+eye, which is most often the desired behavior.
+\p
+The default view volume is undefined, and the working space is identity.
+}
+
+METHOD "" ~SbSpherePlaneProjector() { Destructor. }
+    
+ALSO { 
+SbCylinderProjector,
+SbCylinderPlaneProjector,
+SbCylinderSectionProjector,
+SbCylinderSheetProjector,
+SbLineProjector,
+SbPlaneProjector,
+SbSphereSheetProjector
+}
+
+
+

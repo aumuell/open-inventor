@@ -1,0 +1,42 @@
+NAME SoSFString SoSString "" {
+field containing a string
+}
+
+INCLUDE fields/SoSFString.h
+
+DESC {
+A field containing an ASCII string (sequence of characters).  Inventor
+does not support non-ASCII strings.
+\p
+\cSoSFStrings\. are written to file as a sequence of ASCII characters
+in double quotes (optional if the string doesn't contain any
+whitespace).  Any characters (including newlines) may appear within
+the quotes. To include a double quote character within the string,
+precede it with a backslash.  For example:
+\b
+Testing
+"One, Two, Three"
+"He said, \\"Immel did it!\\""
+\.
+are all valid strings.
+}
+METHOD SetStr setValue(const char *string) {
+Convenience method to set the field's value given a character array.
+}
+ALSO { SbString, SoField, SoSField, SoMFString }
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get const SbString & getValue() const {
+Returns this field's value.
+}
+METHOD " " const SbString & operator =(const SbString & newValue) {}
+METHOD Set void setValue(const SbString & newValue) {
+Sets this field to \anewValue\..
+}
+METHOD IsEq int operator ==(const SoSFString &f) const {}
+METHOD IsNEq int operator !=(const SoSFString &f) const {
+Returns TRUE if \af\. is of the same type and has the same value as this
+field.
+}

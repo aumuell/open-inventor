@@ -1,0 +1,97 @@
+#Inventor V2.0 ascii
+
+DEF SCALE_1_DRAGGER_SCALING_OBJECT
+Group {
+
+    Scale { scaleFactor 1.1 1.1 1.1 }
+
+    # a thick line (axis) to connect the two scale knobs.
+    Coordinate3 { point [ -1 0 0, 1 0 0 ] }
+    LineSet {}
+
+    # left scale knob 
+    Translation { translation 1.05 0 0 }
+    Complexity { value .01 }
+    Cube { height 0.1 width 0.1 depth 0.1 }
+
+    # right scale knob 
+    Translation { translation -2.1 0 0 }
+    Complexity { value .01 }
+    Cube { height 0.1 width 0.1 depth 0.1 }
+}
+
+DEF scale1Scaler Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding {value OVERALL }
+    USE SCALE_1_DRAGGER_SCALING_OBJECT
+}
+
+DEF scale1ScalerActive Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    LightModel { model PHONG }
+    Texture2 {}
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding {value OVERALL }
+    DrawStyle { style LINES lineWidth 1 }
+    Complexity { value .01 }
+    Cube { width 2.2 height 2.2 depth 2.2 }
+    DrawStyle {}
+    USE SCALE_1_DRAGGER_SCALING_OBJECT
+}
+
+DEF SCALE_1_DRAGGER_FEEDBACK_GEOM Group {
+    # A skinny set of axes.
+
+    #no x-axis. This is because it would be coincident 
+    # with the axis in the scaler part.
+
+    #y-axis
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+    Coordinate3 { point [ 0 -1.25 0, 0 1.25 0 ] }
+    LineSet {}
+
+    #z-axis
+    Coordinate3 { point [ 0 0 -1.25, 0 0 1.25 ] }
+    LineSet {}
+}
+
+DEF scale1Feedback Separator {
+    renderCaching ON
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.25 0.05 0.36 ]
+	emissiveColor	[ 0.25 0.05 0.36 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    USE SCALE_1_DRAGGER_FEEDBACK_GEOM
+}
+
+DEF scale1FeedbackActive Separator {
+    renderCaching ON
+    PickStyle { style UNPICKABLE }
+    Material {
+	diffuseColor	[ 0.36 0.05 0.44 ]
+	emissiveColor	[ 0.36 0.05 0.44 ]
+    }
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+    USE SCALE_1_DRAGGER_FEEDBACK_GEOM
+}
+
+

@@ -1,0 +1,150 @@
+#
+# Copyright (C) 1990,1991  Silicon Graphics, Inc.
+#
+#_______________________________________________________________________
+#______________  S I L I C O N   G R A P H I C S   I N C .  ____________
+#
+#   usr/src/toolkits/Inventor/make/so_commondefs
+#   $Revision: 1.1 $
+#
+#   Description:
+#       Common definitions for Inventor Makefiles
+#
+#   Author(s):	David Mott
+#
+#______________  S I L I C O N   G R A P H I C S   I N C .  ____________
+#_______________________________________________________________________
+#
+
+#
+# Decide whether building for Sherwood or Cypress
+# The INVENTORLIB variables are used by the apps Makefiles.
+#
+include $(ROOT)/usr/include/make/commondefs
+SHERWOOD_DEF    = -DBUILD_SHERWOOD
+SHERWOOD_NCBIND = -S
+INVENTORLIB     = -lInventor
+INVENTORLIBXT   = -lInventorXt
+INVENTORLIBGL   = -lInventorGL
+INVENTORLIB_C   = -lInventor_c
+INVENTORLIBXT_C = -lInventorXt_c
+INVENTORLIBGL_C = -lInventorGL_c
+INVENTORLIBDBG     = -lInventorDebug
+INVENTORLIBXTDBG   = -lInventorXtDebug
+INVENTORLIBGLDBG   = -lInventorGLDebug
+
+# which release
+SO_RELEASE = 3.0
+
+#
+# Directories to install into (minus the $ROOT prefix)
+#
+INSTALL_INCL = /usr/include
+INSTALL_DATA = /usr/share/data/Inventor
+INSTALL_MAN1 = /usr/man/so_man/man1
+INSTALL_MAN3 = /usr/man/so_man/man3
+INSTALL_BIN  = /usr/sbin
+INSTALL_LIB  = /usr/lib
+
+SO_MAKE    = $(DEPTH)../make
+
+#
+# Decide how to optimize, based on the SOBUILD environment variable.
+# Note: This relies on the smake '#if' features.
+#
+
+SO_COMMONOPTS = +p -float -Wf,-XNp12000
+
+#ifdef SOBUILD
+#if $(SOBUILD) == "DEBUG"
+OPTIMIZER = -g
+SO_LCDEFS = -DDEBUG
+SO_LC++DEFS = -DDEBUG -DFUNCPROTO $(SHERWOOD_DEF)
+SO_LC++OPTS = -fullwarn $(SO_COMMONOPTS)
+SO_NCBIND = $(SHERWOOD_NCBIND)
+
+#elif $(SOBUILD) == "DEBUGINSTALL"
+OPTIMIZER = -O
+SO_LCDEFS = -DDEBUG
+SO_LC++DEFS = -DDEBUG -DFUNCPROTO $(SHERWOOD_DEF)
+SO_LC++OPTS = +p $(SO_COMMONOPTS) 
+SO_NCBIND = $(SHERWOOD_NCBIND)
+
+#elif $(SOBUILD) == "PROFILE"
+OPTIMIZER = -O -p
+SO_LCDEFS = -DPROFILE
+SO_LC++DEFS = -DPROFILE -DFUNCPROTO $(SHERWOOD_DEF)
+SO_LC++OPTS = +p $(SO_COMMONOPTS) 
+SO_NCBIND = $(SHERWOOD_NCBIND)
+
+#elif $(SOBUILD) == "OPTIMIZE"
+OPTIMIZER = -O
+SO_LCDEFS = -DOPTIMIZE
+SO_LC++DEFS = -DOPTIMIZE -DFUNCPROTO $(SHERWOOD_DEF)
+SO_LC++OPTS = +p $(SO_COMMONOPTS) 
+SO_NCBIND = $(SHERWOOD_NCBIND)
+
+#elif $(SOBUILD) == "C2OPTIMIZE"
+OPTIMIZER = -O
+SO_LCDEFS = -DOPTIMIZE
+SO_LC++DEFS = -DOPTIMIZE -DFUNCPROTO -D__C_PLUS_PLUS_2 $(SHERWOOD_DEF)
+SO_LC++OPTS = +p $(SO_COMMONOPTS) -Wf,-XNd8000 -Wf,-XNk10000
+SO_NCBIND = -2 $(SHERWOOD_NCBIND)
+
+#elif $(SOBUILD) == "C2DEBUG"
+OPTIMIZER = -g
+SO_LCDEFS = -DDEBUG
+SO_LC++DEFS = -DDEBUG -DFUNCPROTO -D__C_PLUS_PLUS_2 $(SHERWOOD_DEF)
+SO_LC++OPTS = -fullwarn $(SO_COMMONOPTS) -Wf,-XNd8000 -Wf,-XNk10000
+SO_NCBIND = -2 $(SHERWOOD_NCBIND)
+
+#elif $(SOBUILD) == "C2DEBUGINSTALL"
+OPTIMIZER = -O
+SO_LCDEFS = -DDEBUG
+SO_LC++DEFS = -DDEBUG -DFUNCPROTO -D__C_PLUS_PLUS_2 $(SHERWOOD_DEF)
+SO_LC++OPTS = -fullwarn $(SO_COMMONOPTS) -Wf,-XNd8000 -Wf,-XNk10000
+SO_NCBIND = -2 $(SHERWOOD_NCBIND)
+
+#else
+OPTIMIZER = -O
+SO_LCDEFS = -DOPTIMIZE
+SO_LC++DEFS = -DOPTIMIZE -DFUNCPROTO $(SHERWOOD_DEF)
+SO_LC++OPTS = +p $(SO_COMMONOPTS) 
+SO_NCBIND = $(SHERWOOD_NCBIND)
+#endif
+
+#else
+OPTIMIZER = -O
+SO_LCDEFS = -DOPTIMIZE
+SO_LC++DEFS = -DOPTIMIZE -DFUNCPROTO $(SHERWOOD_DEF)
+SO_LC++OPTS = +p $(SO_COMMONOPTS) 
+SO_NCBIND = $(SHERWOOD_NCBIND)
+#endif
+
+# common rules  - for makes in subdirectories
+# lib common rules - for makes in top level library dirs
+# prog common rules - for makes in top level program dirs
+SO_COMMONRULES     = $(SO_MAKE)/so_commonrules
+SO_LIBCOMMONRULES  = $(SO_MAKE)/so_libcommonrules
+SO_INCLCOMMONRULES  = $(SO_MAKE)/so_inclcommonrules
+SO_PROGCOMMONRULES = $(SO_MAKE)/so_progcommonrules
+SGI_COMMONRULES    = $(ROOT)/usr/include/make/commonrules
+
+#
+# target directory where objects will be placed.
+#
+DATADIR   = $(DEPTH)data
+DOCDIR    = $(DEPTH)doc
+
+# for clean - files ending in ~ are emacs backups
+LDIRT = *~
+
+#
+# Installation directories
+#
+HINST_DIR = include/Inventor/$(SUB_DIR)
+ORIG_DIR = $(DEPTH)$(SECTION_DIR)include/Inventor/$(SUB_DIR)
+CAPI_HINST_DIR = include/Inventor_c/$(SUB_DIR)
+CPP_DIR = $(DEPTH)$(SECTION_DIR)include/Inventor_c++/$(SUB_DIR)
+CAPI_DIR = $(DEPTH)$(SECTION_DIR)include/Inventor_c/$(SUB_DIR)
+CAPI_SOLIB = $(DEPTH)$(SECTION_DIR)$(CAPI_LIB)

@@ -1,0 +1,90 @@
+!
+!  Application Resource for Inventor (DorianGrey)
+!
+!
+
+!! Inventor specific resources - set them as you please
+!! (they are initially commented out here)
+
+!!
+!! <any color> - can be a name or a hex value
+!!	name: red, yellow, salmon, light blue, etc.
+!!	hex value: #rrggbb (e.g. #ff00ff is magenta)
+
+!!
+!! SoXtRenderArea
+!!	backgroundColor: <any color>
+!!
+!*SoXtRenderArea*BackgroundColor: black
+
+!!
+!! SoXtExaminerViewer, SoXtPlaneViewer, SoXtFlyViewer, SoXtWalkViewer
+!!	decoration: on | off
+!!	seekAnimationTime: float
+!!	seekTo: point | object
+!!	seekDistanceUsage: percentage | absolute
+!!	zoomMin: float
+!!	zoomMax: float
+!!	autoClipping: on | off
+!!	nearDistance (when autoClipping is off): float
+!!	farDistance (when autoClipping is off): float
+!!	backgroundColor: <any color>
+!!
+!! (here we show SoXtExaminerViewer resources. These are also valid
+!!  with the other 3 viewers, listed above.)
+!*SoXtExaminerViewer.decoration:	on
+!*SoXtExaminerViewer.seekAnimationTime:	2.0
+!*SoXtExaminerViewer.seekTo: 		point
+!*SoXtExaminerViewer.seekDistanceUsage:	percentage
+!*SoXtExaminerViewer.zoomMin: 		1.0
+!*SoXtExaminerViewer.zoomMax: 		179.0
+!*SoXtExaminerViewer.autoClipping:	on
+!*SoXtExaminerViewer.nearDistance:	2.4
+!*SoXtExaminerViewer.farDistance:	2.8
+!*SoXtExaminerViewer*BackgroundColor:	black
+
+!!
+!! SoXtExaminerViewer (only)
+!!	spinAnimation: on | off
+!!	pointOfRotationAxes: on | off
+!!	axesSize (if pointOfRotationAxes is on): short (pixels)
+!!
+!*SoXtExaminerViewer.spinAnimation:		on
+!*SoXtExaminerViewer.pointOfRotationAxes:	off
+!*SoXtExaminerViewer.axesSize: 			20
+
+!!
+!! SoXtColorEditor
+!!	wysiwyg: true | false | on | off
+!!	colorSliders: none | intensity | rgb | hsv | rgb_v | rgb_hsv
+!!	updateFrequency: continuous | manual
+!!
+!*SoXtColorEditor.wysiwyg:		false
+!*SoXtColorEditor.colorSliders:		intensity
+!*SoXtColorEditor.updateFrequency:	continuous
+
+!!
+!! SoXtMaterialEditor
+!!	tile1Color: <any color>
+!!	tile2Color: <any color>
+!!	light1Color: <any color>
+!!	light2Color: <any color>
+!!	updateFrequency: continuous | manual
+!!
+!*SoXtMaterialEditor.tile1Color:	#4c4c4c
+!*SoXtMaterialEditor.tile2Color:	#999999
+!*SoXtMaterialEditor.light1Color:	white
+!*SoXtMaterialEditor.light2Color:	white
+!*SoXtMaterialEditor.updateFrequency:	continuous
+
+*sgiMode:true
+*useSchemes:all
+
+! With menus in the popup planes, a limited number of colors can be specified.
+! Force the color of selected radio toggles to be black.
+*XmMenuShell*selectColor: black
+*XmMenuShell*checkColor: black
+*XmMenuShell*radioColor: black
+*XmMenuShell*lampColor: black
+! This should match the value of SgiBasicBackground in /usr/lib/X11/schemes/Base/BaseColorPalette
+*XmMenuShell*indicatorBackground: #c1c1c1

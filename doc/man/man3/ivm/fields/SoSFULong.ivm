@@ -1,0 +1,12 @@
+NAME SoSFULong SoSULong "" {
+synonym for SoSFUInt32
+}
+
+INCLUDE fields/SoSFUInt32.h
+
+DESC {
+This class is obsolete, and is provided for backwards compatibility
+only.  You should use the new SoSFUInt32 class instead.  If you compile
+your code -DIV_STRICT, #including the SoSFULong.h header file will cause
+a compile-time error.
+}

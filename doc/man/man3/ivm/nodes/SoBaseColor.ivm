@@ -1,0 +1,27 @@
+NAME SoBaseColor SoBaseCol "" { node that defines an object's base color }
+
+INCLUDE nodes/SoBaseColor.h
+
+DESC {
+This node defines the base color (or colors) of subsequent shape nodes
+in the scene graph. \cSoBaseColor\. sets only the diffuse color(s) of
+the current material and has no effect on the material's other
+attributes.
+}
+
+FIELD rgb { RGB color(s). }
+
+METHOD "" SoBaseColor() {
+Creates a base color node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction {
+Sets the current base color in the state.
+}
+
+ALSO { SoMaterial, SoPackedColor }
+

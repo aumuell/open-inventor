@@ -1,0 +1,4 @@
+This directory contains source code for the 'ivview' program.
+
+ivview reads an Inventor file (or files) and provides a simple interface
+to quickly view 3D data.  For more information see the ivview man page.

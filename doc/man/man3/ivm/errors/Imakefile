@@ -1,0 +1,9 @@
+#define ManMakefile
+#define UsingIVM
+
+DEPTH = ../../..
+
+MANPAGES =	SoDebugError.ivm \
+	SoError.ivm \
+	SoMemoryError.ivm \
+	SoReadError.ivm

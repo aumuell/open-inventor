@@ -1,0 +1,140 @@
+NAME SbTime "" "" { class for representation of a time }
+INCLUDE SbTime.h
+DESC {
+This class represents and performs operations on time. Operations may be
+done in seconds, seconds and microseconds, or using a
+\kstruct timeval\.
+(defined in \e/usr/include/sys/time.h\.).
+}
+METHOD "" SbTime() {}
+METHOD CreateSec SbTime(double sec) {}
+METHOD CreateSecUSec SbTime(int32_t sec, long usec) {}
+METHOD CreateTimeval SbTime(const struct timeval *tv) {
+Constructors taking seconds, seconds and microseconds,
+or a \astruct timeval\..
+\+
+NOTE that an integer parameter will not automatically cast to a double
+to invoke the constructor taking seconds; that is, \cSbTime(1)\.
+will result in a compilation error. \cSbTime(1.0)\.
+must be used instead.  This is to avoid errors in upgrading from an
+earlier release, in which \cSbTime(1)\.
+had different semantics.  In future releases, this distinction will
+be eliminated, and the effect of \cSbTime(1.0)\. and that of \cSbTime(1)\.
+will be identical.
+\.
+}
+BEGIN C
+METHOD "" void    SbTimeDelete(SbTime *) {
+Destructor.
+}
+END
+METHOD "" static SbTime               getTimeOfDay() {
+Get the current time (seconds since Jan 1, 1970).
+}
+METHOD "" void                        setToTimeOfDay() {
+Set to the current time (seconds since Jan 1, 1970).
+}
+METHOD "" static SbTime               zero() {
+Get a zero time.
+}
+METHOD "" static SbTime               max() {
+Get a time far, far into the future.
+}
+METHOD setSec void                    setValue(double sec) {
+Set time from a double (in seconds).
+}
+METHOD setSecUSec void                setValue(int32_t sec, long usec) {
+Set time from seconds + microseconds.
+}
+METHOD setTimeval void                setValue(const struct timeval *tv) {
+Set time from a \astruct timeval\..
+}
+METHOD setMSec void                   setMsecValue(unsigned long msec) {
+Set time from milliseconds.
+}
+METHOD getSec double                  getValue() const {
+Get time in seconds as a double.
+}
+METHOD getSecUSec void                getValue(int32_t &sec, long &usec) const {
+Get time in seconds and microseconds.
+}
+METHOD getTimeval void                getValue(struct timeval *tv) const {
+Get time in a \astruct timeval\..
+}
+METHOD getMSec unsigned long          getMsecValue() const {
+Get time in milliseconds (for Xt).
+}
+METHOD "" SbString                    format(const char *fmt = "%S.%i") const {
+Convert to a string.  The default format is seconds with 3 digits of fraction
+precision.  \afmt\. is a character string that consists of field descriptors and
+text characters, in a manner analogous to \ccftime (3C)\. and \cprintf (3S)\..
+Each field descriptor consists of a % character followed by another character
+which specifies the replacement for the field descriptor.  All other characters
+are copied from \afmt\. into the result.  The following field descriptors are
+supported:
+\b
+
+%   the `%' character
+D   total number of days
+H   total number of hours 
+M   total number of minutes
+S   total number of seconds
+I   total number of milliseconds
+U   total number of microseconds
+h   hours remaining after the days (00-23)
+m   minutes remaining after the hours (00-59)
+s   seconds remaining after the minutes (00-59)
+i   milliseconds remaining after the seconds (000-999)
+u   microseconds remaining after the seconds (000000-999999)
+\.
+The uppercase descriptors are formatted with a leading `\(em' for negative 
+times; the lowercase descriptors are formatted fixed width, with leading 
+zeros.  For example, a reasonable format string might be
+"elapsed\ time:\ %M\ minutes,\ %s\ seconds". The default value of \afmt\.,
+"%S.%i", formats the time as seconds with 3 digits of fractional precision.
+
+}
+METHOD "" SbString             formatDate(const char *fmt = "%A, %D %r") const {
+Convert to a date string, interpreting the time as seconds since
+Jan 1, 1970.  The default format gives "Tuesday, 01/26/93 11:23:41 AM".
+See the \ccftime()\. reference page for explanation of the format string.
+}
+METHOD "" SbTime               operator +(const SbTime &t0, const SbTime &t1) {}
+METHOD "" SbTime               operator -(const SbTime &t0, const SbTime &t1) {
+Addition and subtraction of two times.
+}
+METHOD "" SbTime &             operator +=(const SbTime &tm) {}
+METHOD "" SbTime &             operator -=(const SbTime &tm) {
+Addition and subtraction of two times which modifies the time structure.
+}
+METHOD negate SbTime           operator -() const {
+Unary negation.
+}
+BEGIN C++
+METHOD "" SbTime               operator *(double s, const SbTime &tm) {}
+END
+METHOD "" SbTime               operator *(const SbTime &tm, double s) {}
+METHOD "" SbTime               operator /(const SbTime &tm, double s) {
+Multiplication and division by scalar.
+}
+METHOD "" SbTime &             operator *=(double s) {}
+METHOD "" SbTime &             operator /=(double s) {
+Destructive multiplication and division by scalar.
+}
+METHOD DivByTime double        operator /(const SbTime &tm) const {
+Division by another time.
+}
+METHOD "" SbTime               operator %(const SbTime &tm) const {
+Modulus for two times (remainder when time1 is divided by time2).
+}
+METHOD "" int                  operator ==(const SbTime &tm) const {}
+METHOD "" int                  operator !=(const SbTime &tm) const {
+Equality operators.
+}
+METHOD "" SbBool               operator <(const SbTime &tm) const {}
+METHOD "" SbBool               operator >(const SbTime &tm) const {}
+METHOD "" SbBool               operator <=(const SbTime &tm) const {}
+METHOD "" SbBool               operator >=(const SbTime &tm) const {
+Relational operators.
+}
+ALSO { cftime }

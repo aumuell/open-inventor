@@ -1,0 +1,98 @@
+#Inventor V2.1 ascii
+
+Separator {
+    LightModel {
+	model	BASE_COLOR
+    }
+    DrawStyle {
+	lineWidth	2
+    }
+    Coordinate3 {
+	point	[ 0 0 0,
+			  1 0 0,
+			  0 1 0,
+			  0 0 1 ]
+    }
+    IndexedLineSet {
+	vertexProperty		VertexProperty {
+	    vertex	[ 0 0 0,
+			      1 0 0,
+			      0 1 0,
+			      0 0 1 ]
+	    normal	[  ]
+	    texCoord	[  ]
+	    orderedRGBA	[ 0xff0000ff, 0xff00ff, 0xffff ]
+	    materialBinding	PER_PART
+	}
+
+	coordIndex	[ 1, 0, 2, -1, 0, 3 ]
+    }
+    LightModel {
+	model	PHONG
+    }
+    MaterialBinding {
+	value	OVERALL
+    }
+    Separator {
+	BaseColor {
+	    rgb	1 0 0
+	}
+	Translation {
+	    translation	1 0 0
+	}
+	RotationXYZ {
+	    axis	Z
+	    angle	-1.5707999
+	}
+	Cone {
+	    bottomRadius	0.050000001
+	    height	0.15000001
+	}
+	Translation {
+	    translation	0 0.15000001 0
+	}
+	Text2 {
+	    string	"X"
+	}
+    }
+    Separator {
+	BaseColor {
+	    rgb	0 1 0
+	}
+	Translation {
+	    translation	0 1 0
+	}
+	Cone {
+	    bottomRadius	0.050000001
+	    height	0.15000001
+	}
+	Translation {
+	    translation	0 0.15000001 0
+	}
+	Text2 {
+	    string	"Y"
+	}
+    }
+    Separator {
+	BaseColor {
+	    rgb	0 0 1
+	}
+	Translation {
+	    translation	0 0 1
+	}
+	RotationXYZ {
+	    axis	X
+	    angle	1.5707999
+	}
+	Cone {
+	    bottomRadius	0.050000001
+	    height	0.15000001
+	}
+	Translation {
+	    translation	0 0.15000001 0
+	}
+	Text2 {
+	    string	"Z"
+	}
+    }
+}

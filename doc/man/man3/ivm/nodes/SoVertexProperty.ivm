@@ -1,0 +1,127 @@
+NAME SoVertexProperty SoVertProp "" { vertex property node }
+
+INCLUDE nodes/SoVertexProperty.h
+
+DESC {
+This property node may be used to efficiently specify coordinates, normals, 
+texture coordinates, colors, transparency values, material 
+binding and normal binding for vertex-based shapes, i.e., shapes of 
+class \cSoVertexShape\..  An \cSoVertexProperty\. node can be used 
+as a child of a group node in a scene graph, in which case the
+properties it specifies are inherited by subsequent shape nodes in the
+graph.  It can also be directly referenced as the \cVertexProperty\.
+\cSoSFField\. of a vertex-based shape, bypassing scene graph inheritance.  
+\p
+When directly referenced by a \vVertexProperty\. \cSoSFField\. of a vertex-based
+shape, the \cSoVertexProperty\. node is the most efficient way of
+specifying vertex-based shapes.  Use of the directly referenced 
+\cSoVertexProperty\. node results in significantly faster scene
+rendering than scene graph inheritance of vertex properties, provided all
+required vertex properties are specified in the \cSoVertexProperty\.
+node.
+\p
+Because the class \cSoVertexProperty\. is derived from \cSoNode\., a
+vertex property node can be inserted as a child node in a scene graph.
+When inserted as a node in a scene graph, the \cSoVertexProperty\. node is 
+traversed as any other property node and the properties it specifies are
+inherited by subsequent shape nodes in the scene graph.  It specifies
+the current material and normal bindings, and can be used to specify
+the current 3D 
+coordinates, the current normals, the current texture
+coordinates, the current diffuse colors, and the current transparencies.
+\p
+All multiple-valued fields in the \cSoVertexProperty\. node are optional.  
+If a field is not present (i.e. if it has 0 values), then shapes that require
+the missing information are required to obtain it from the current traversal
+state.   However, users are
+cautioned that, for optimal performance, the vertex property node should
+be referenced as the \vVertexProperty\. field of an \cSoVertexShape\.,
+and should specify in its fields all values required to render that shape.
+\p
+The various fields in a vertex property node can be used in place of 
+corresponding fields in other property nodes, as follows:  The \vvertex\. field
+contains 3D coordinates, as in the \vpoint\. field of an
+\cSoCoordinate3\.
+node.  The \vnormal\. field contains normal vectors, as in the
+\vvector\.
+field of the \vSoNormal\. node.  The \vorderedRGBA\. field contains
+packed colors in the hexadecimal format \c0xrrggbbaa\., where 
+	\crr\. is the red value (between 00 and 0xFF hex)
+	\cgg\. is the green value (between 00 and 0xFF hex)
+	\cbb\. is the blue value (between 00 and 0xFF hex)
+	\caa\. is the alpha value (between 00 = transparent 
+		and 0xFF = opaque).
+The packed colors are equivalent to an \cSoPackedColor\. node, and
+provide values for both diffuse color and transparency.
+The \vtexCoord\. field replaces 
+the \vpoint\. field of the \cSoTextureCoordinate2\. node. 
+\p
+If the
+transparency type is \cSoGLRenderAction::SCREEN_DOOR\., only the
+first transparency value will be used.  With other transparency types,
+multiple transparencies will be used.
+\p  
+The \vmaterialBinding\. field replaces the \vvalue\. field of the
+\cSoMaterialBinding\. node.  The \vmaterialBinding\. field in a directly
+referenced \cSoVertexProperty\. node has no effect unless there is a nonempty
+\vorderedRGBA\. field, in which case the material binding specifies the
+assignment of diffuse colors and alpha values to the shape.
+The \vmaterialBinding\. field can take as value any of the material
+bindings supported by Inventor.    
+ 
+\p
+The \vnormalBinding\. field replaces the \vvalue\. field of the
+\cSoNormalBinding\. node.   The \vnormalBinding\. field of
+a directly referenced \cSoVertexProperty\. node has no effect 
+unless there is a nonempty
+\vnormal\. field, in which case the normal binding specifies the assignment
+of normal vectors to the shape.  The value of the \vnormalBinding\.
+field can be any of the normal bindings supported by Inventor. 
+}
+ENUM Binding {
+    OVERALL		"Whole object has same material/normal",
+    PER_PART		"One material/normal for each part of object",
+    PER_PART_INDEXED	"One material/normal for each part, indexed",
+    PER_FACE		"One material/normal for each face of object",
+    PER_FACE_INDEXED	"One material/normal for each face, indexed",
+    PER_VERTEX		"One material/normal for each vertex of object",
+    PER_VERTEX_INDEXED	"One material/normal for each vertex, indexed"
+}
+
+FIELD vertex {vertex coordinate(s).}
+FIELD normal {normal vector(s).}
+FIELD orderedRGBA {packed color(s), including transparencies.}
+FIELD texCoord {texture coordinate(s).}
+FIELD normalBinding {normal binding.}
+FIELD materialBinding {material binding.}
+
+METHOD "" SoVertexProperty(){
+Creates an SoVertexProperty node with default settings.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction, SoPickAction {
+When traversed in a scene graph, sets coordinates, normals, texture coordinates,
+diffuse colors, transparency, normal binding and material binding in current
+traversal state.  If not traversed, has no effect on current traversal state
+associated with action.  The normalBinding field has no effect if there
+are no normals.  The materialBinding has no effect if there are no
+packed colors.
+}
+ACTION SoGetBoundingBoxAction {
+When traversed in a scene graph, sets coordinates in current traversal
+state.  If not traversed, has no effect on current traversal state
+associated with action.
+}
+ALSO {
+SoIndexedTriangleStripSet
+SoIndexedFaceSet
+SoIndexedLineSet
+SoTriangleStripSet
+SoLineSet
+SoFaceSet
+SoPointSet
+SoQuadMesh
+SoVertexShape
+SoIndexedShape
+SoNonindexedShape
+} 

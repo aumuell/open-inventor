@@ -1,0 +1,11 @@
+The "details" program reads a geometry file that contains four 
+separators that represent four different levels of detail.  They 
+are inserted into a LOD node and displayed using the Examiner viewer.
+
+Use the left&middle mouse buttons (together) to dolly in and out.
+As the objects get closer to/further away from the camera,
+the appropriate level is displayed.
+
+You can use the default data provided in "lod.iv", or you
+can customize your own.
+See "lod.iv" for more details on the required format of the data.

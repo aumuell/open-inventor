@@ -1,0 +1,79 @@
+NAME SoNurbsSurface SoNurbs "" { NURBS surface shape node }
+
+INCLUDE nodes/SoNurbsSurface.h
+
+DESC {
+This shape node represents a NURBS surface based on the node's knot
+vectors and on control points constructed from the current
+coordinates. The current coordinates are used in row-major order (the
+V direction corresponds to the rows). The number of coordinates used
+is determined by the \vnumUControlPoints\. and \vnumVControlPoints\.
+fields. The \vuKnotVector\. and \vvKnotVector\. fields contain
+floating point arrays of non-decreasing values.
+\p
+The order of the surface in the U and V directions is defined as the
+number of knots minus the number of control points in the particular
+direction. The largest order allowed for a NURBS surface is 8.
+\p
+The control points of the NURBS surface are transformed by the current
+cumulative transformation. The surface is drawn with the current light
+model and drawing style. The coordinates, normals, and texture
+coordinates of a surface are generated, so you cannot bind explicit
+normals or texture coordinates to a NURBS surface. The first material
+in the state is applied to the entire surface.
+\p
+The surface is trimmed according to the currently defined profile's curves.
+\p
+When default texture coordinates are applied to a NURBS surface, the
+edges of the texture square are stretched to fit the surface. The axes
+of the texture are called S and T; S is horizontal and T is vertical.
+The axes of the NURBS surface are called U and V; U is horizontal and
+V is vertical. You can also define texture coordinates explicitly with
+the S,T location point, the knot vectors, and the current texture
+coordinates.
+\p
+The approximation of the surface by polygons is affected by the
+current complexity value.
+}
+
+FIELD numUControlPoints {}
+FIELD numVControlPoints { Number of control points in the U and V directions. }
+FIELD numSControlPoints {}
+FIELD numTControlPoints { Number of control points in the S and T directions. }
+FIELD uKnotVector {}
+FIELD vKnotVector { The knot vectors in the U and V directions. }
+FIELD sKnotVector {}
+FIELD tKnotVector { The knot vectors in the S and T directions. }
+
+METHOD "" SoNurbsSurface() {
+Creates a NURBS surface node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Draws the surface based on the current coordinates, material, and so on.
+}
+
+ACTION SoRayPickAction {
+Picks the surface based on the current coordinates and transformation.
+}
+
+ACTION SoGetBoundingBoxAction {
+Computes the bounding box that encloses all control points of the
+surface with the current transformation applied to them. Sets the
+center to the average of the control points.
+}
+
+ACTION SoCallbackAction {
+If any triangle callbacks are registered with the action, they will be
+invoked for each successive triangle approximating the surface.
+}
+
+ALSO {
+SoIndexedNurbsSurface,
+SoNurbsCurve,
+SoProfile
+}

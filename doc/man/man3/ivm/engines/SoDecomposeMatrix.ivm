@@ -1,0 +1,29 @@
+NAME SoDecomposeMatrix SoDecmpsMx "" { 
+decomposes transformation matrices into values 
+for translation, rotation, and scale 
+}
+
+DESC {
+This engine takes as input a transformation matrix and a center of transformation.
+As output the engine produces the translation, rotation and scale values
+derived from the matrix.
+\p
+The input fields can have multiple values, allowing the engine to 
+decompose several matrices in parallel.
+One of the inputs may have more values than the other.  In that case,
+the last value of the shorter input will be repeated as necessary.
+}
+
+INCLUDE engines/SoCompose.h
+
+INPUT matrix { The 4x4 transformation matrix. }
+INPUT center { The center of transformations. }
+
+OUTPUT translation { Derived translation in x, y, and z. }
+OUTPUT rotation { Derived rotation. }
+OUTPUT scaleFactor { Derived scale values in x, y, and z. }
+OUTPUT scaleOrientation { Derived rotational space for scaling. }
+
+METHOD Create SoDecomposeMatrix() { Constructor }
+
+ALSO { SoComposeMatrix, SoEngineOutput }

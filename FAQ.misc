@@ -1,0 +1,149 @@
+MISCELANEOUS TECHNICAL QUESTIONS FOR Open Inventor (TM) Open Source Release.
+
+                 What platforms does it run on?
+
+                 This release was built and has been tested with Red HatTM
+                 Linux® versions 6.0, 6.1 and 6.2 on a variety of Intel® 
+                 Pentium II® based systems including the SGI® 230, 330, 550
+                 workstation with VPROTM graphics accelerator. It is also 
+                 known to run with several other Linux distributions on 
+                 IA32-based hardware. 
+
+                 What are the dependencies for this release?
+
+                 The libraries and sample programs built for this release have
+                 dependencies upon the following DSO's. For your convenience
+                 their corresponding package name from the system which built
+                 the images is included below. Many of the packages are included
+                 in Red Hat 6.0 or 6.1:
+
+                      ld-linux.so.2    [glibc-2.1.1-6]
+                      libdl.so.2       [glibc-2.1.1-6]
+                      libm.so.6        [glibc-2.1.1-6]
+                      libc.so.6        [glibc-2.1.1-6]
+                      libICE.so.6      [XFree86-libs-3.3.3.1-49]
+                      libSM.so.6       [XFree86-libs-3.3.3.1-49]
+                      libX11.so.6:     [XFree86-libs-3.3.3.1-49]
+                      libXext.so.6     [XFree86-libs-3.3.3.1-49]
+                      libXmu.so.6      [XFree86-libs-3.3.3.1-49]
+                      libXt.so.6       [XFree86-libs-3.3.3.1-49]
+                      libXi.so.6       [XFree86-libs-3.3.3.1-49]
+                      libGL.so.1       [Mesa-3.2-1]
+                      libGLU.so.1      [Mesa-3.2-1]
+                      libXm.so.1       [lesstif-0.90.0-1]
+
+                 Where can I get OpenGL? 
+
+                 OpenGL® is now available from many sources. Certain
+                 vendors (such as SGI) pre-bundle accelerated OpenGL drivers
+                 with their systems; some (nVidia, et al) have accelerated
+                 drivers available on their web sites; and other vendors (3dfx,
+                 Matrox, ATI, etc) use drivers created by the DRI Project or the
+                 Utah-GLX Project. Which implementation of OpenGL to
+                 choose is ultimately dependent upon the type of graphics card
+                 you have.
+
+                 Open Inventor 2.1.5 is compatible with any implementation of
+                 OpenGL that conforms to the OpenGL ABI for Linux, such as:
+
+                      SGI 230, SGI 330, and SGI 550 workstations with
+                      VPRO graphics are shipped with specially-tuned OpenGL
+                      DSO's.
+
+                      NVIDIA-specific drivers compliant with the OpenGL
+                      ABI for Linux can be found on the NVIDIA web site.
+
+                      DRI Architecture Drivers. The DRI architecture uses
+                      Mesa and provides hardware acceleration for a number of
+                      popular chipsets. The DRI implementation is included in
+                      XFree86 4.0. See 'Where can I get XFree86?' below.
+
+                      OpenGL Sample Implementation is the driver
+                      framework used by almost all commercial 3D hardware
+                      vendors to develop OpenGL drivers for their systems.
+                      Source code is available from the SGI Open Source web
+                      site.
+
+                      Mesa is a 3D graphics library with an API which is very
+                      similar to that of OpenGL. Mesa 3.2 includes OpenGL
+                      ABI for Linux compliant DSO's. See 'Where can I get
+                      Mesa?' below.
+
+                 More links to various vendors' OpenGL implementations are
+                 available from these sites (subject to change): 
+
+                      http://www.mesa3d.org 
+                      http://www.linux3d.org 
+                      http://linux3d.netpedia.net 
+
+                 If you are unable to find accelerated OpenGL drivers for your
+                 card, or have problems using the vendor-provided accelerated
+                 drivers, we recommend using Mesa 3.2 or the OpenGL sample
+                 implementation.
+
+                 Where can I get Mesa? 
+
+                 Mesa is a 3D graphics library with an API which is very similar
+                 to that of OpenGL®. For general information about Mesa
+                 please refer to the Mesa web site, http://www.mesa3d.org.
+
+                 Special Note: Official Mesa releases prior to version 3.2 were
+                 not compliant with the OpenGL ABI for Linux. If you are
+                 using Mesa you must upgrade to Mesa 3.2, or you may
+                 encounter dependency problems when installing via rpm.
+
+                 Where can I get Motif® or Lesstif? 
+
+                 If you do not have Motif already installed on your system,
+                 Lesstif will work just fine with Open Inventor. 
+
+                 For general information about Lesstif please refer to the Lesstif
+                 web site, http://www.lesstif.org. Links to pre-compiled binaries
+                 of Lesstif can be found at ftp://contrib.redhat.com or one of the
+                 many Red Hat contrib mirror sites, typically under
+                 contrib/libc6/i386/. 
+
+                 How do I install this release? 
+
+                   1.Check to see that you have the software listed above as
+                      dependencies already installed on your system.
+
+                   2.Download all three Open Inventor rpm files from the
+                      download site into a temporary location on your system.
+                      (for example, /usr/tmp)
+
+                   3.Log in as root.
+
+                   4.In a shell window, type: 
+
+                      rpm -Uvh /usr/tmp/sgi-OpenInventor*.rpm
+
+                      (Replace /usr/tmp with the location where you
+                      downloaded the files)
+
+                      Refer to the rpm(1) manual page for more information
+                      about the rpm tool. 
+
+                 What do these rpms install? 
+
+                 sgi-OpenInventor installs the execution-only-environment,
+                 which contains the Open Inventor run-time libraries under
+                 /usr/lib: libInventor.so, libInventorXt.so, libFL.a.
+
+                 sgi-OpenInventor-data installs a number of example model files
+                 under /usr/share/data/models. 
+
+                 sgi-OpenInventor-devel installs the full Open Inventor
+                 development environment. It includes header files in
+                 /usr/include/Inventor and manual pages in /usr/man/man3.
+
+                 What should I do to run it? 
+
+                 Open Inventor is an Application Programming Interface that
+                 you would typically utilize in your own program. However, there
+                 are some sample programs in the distribution. After installing
+                 the images, open a shell window and type the following:
+
+                      ivview /usr/share/data/models/SgiLogo.iv
+                      or
+                      ivview /usr/share/data/models/buildings/windmill.iv

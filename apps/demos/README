@@ -1,0 +1,19 @@
+This directory contains the Open Inventor demo programs:
+
+SceneViewer - Inventor 3D viewer and editor (see also ivview)
+drop  	    - 3d tetris-like game
+gview  	    - Views and edits an Inventor database as a directed-graph
+maze  	    - 3d labrynth game
+noodle      - A simple modeler
+qmorf 	    - Interesting demo that interpolates between textured quad meshes
+revo 	    - Surface of revolution program; creates a curve manipulator/editor
+textomatic  - 3D text modeling program
+
+These programs are distributed in source format to the Inventor customers.  
+Each subdirectory contains the source code and include files needed to
+make the program.  
+
+Note that you need superuser permissions to build or modify the installed
+demo programs.  Alternatively, you can copy the programs that interest you
+into your local directory.
+

@@ -1,0 +1,74 @@
+NAME SoLineSet SoLSet "" { polyline shape node }
+
+INCLUDE nodes/SoLineSet.h
+
+DESC {
+This node represents a 3D shape formed by constructing polylines from
+vertices located at the coordinates specified in the
+\vvertexProperty\. field (from \cSoVertexShape\.), 
+or the current inherited coordinates. 
+For optimal performance, the \vvertexProperty\. field is recommended.
+\p
+\cSoLineSet\. uses the
+coordinates in order, starting with the first one. 
+Each line has a number of vertices specified by
+a value in the \vnumVertices\. field. For example, an \cSoLineSet\.
+with a \vnumVertices\. of [3,4,2] would use
+coordinates 1, 2, and 3 for the first line, coordinates 4, 5, 6, and 7
+for the second line, and coordinates 8 and 9 for the third. \p
+The number of values in the \vnumVertices\. field indicates the
+number of polylines in the set.
+\p
+The coordinates of the line set are transformed by the current
+cumulative transformation. The lines are drawn with the current light
+model and drawing style (drawing style \kFILLED\. is treated as
+\kLINES\.).
+\p
+Treatment of the current material and normal binding is as follows:
+The \kPER_PART\. binding specifies a material or normal for each
+segment of the line. The \kPER_FACE\. binding specifies a material or
+normal for each polyline. The \k_INDEXED\. bindings are equivalent to
+their non-indexed counterparts. The default material binding is
+\kOVERALL\.. The default normal binding is 
+\kPER_VERTEX\..
+\p
+The current complexity value has no effect on the rendering of line
+sets.
+}
+
+FIELD numVertices { Number of vertices per polyline. }
+
+METHOD "" SoLineSet() { Creates a line set node with default settings. }
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Draws lines based on the current coordinates, normals, materials,
+drawing style, and so on.
+}
+
+ACTION SoRayPickAction {
+Picks lines based on the current coordinates and transformation.
+Details about the intersection are returned in an \cSoLineDetail\..
+}
+
+ACTION SoGetBoundingBoxAction {
+Computes the bounding box that encloses all vertices of the line set
+with the current transformation applied to them.  Sets the center to
+the average of the coordinates of all vertices.
+}
+
+ACTION SoCallbackAction {
+If any line segment callbacks are registered with the action, they will
+be invoked for each successive segment in the line set.
+}
+
+ALSO {
+SoCoordinate3,
+SoDrawStyle,
+SoIndexedLineSet,
+SoLineDetail,
+SoVertexProperty
+}

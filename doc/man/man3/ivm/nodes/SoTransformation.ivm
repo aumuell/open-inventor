@@ -1,0 +1,31 @@
+NAME SoTransformation SoTransformation "" {
+Abstract base class for all geometric transformation nodes
+}
+
+INCLUDE nodes/SoTransformation.h
+
+DESC {
+This is the abstract base class for all nodes that perform geometric
+transformations. It exists only to make it easy for applications to
+test whether a particular node is a transformation node (that is, is
+derived from this class).
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ALSO {
+SoAntiSquish,
+SoMatrixTransform,
+SoResetTransform,
+SoRotation,
+SoRotationXYZ,
+SoScale,
+SoSurroundScale,
+SoTransform,
+SoTransformManip,
+SoTransformSeparator,
+SoTranslation
+SoUnits
+}

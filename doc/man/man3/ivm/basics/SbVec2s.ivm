@@ -1,0 +1,118 @@
+NAME SbVec2s SbV2s "" { 2D vector class }
+INCLUDE SbLinear.h
+DESC {
+2D vector class used to store 2D integer vectors and points. This class is used
+throughout Inventor for arguments and return values.
+\-
+This object does not have \mCreate\. or \mDelete\.
+functions because it is considered a simple datatype; instances of
+this class may be declared directly as local or global variables in C.
+C programmers can access the components of the vector as though it were
+a simple structure or use the access and operation functions described
+in this reference page:
+\b\k
+struct SbVec2s \{ short vec[2]; \};
+
+SbVec2s   v1, v2;
+
+/* The next two lines produce equivalent vectors. */
+v1.vec[0] = 1; v1.vec[1] = 1;
+SbV2sSetX_Y( v2, 1, 1 );
+\.\.\.
+}
+
+BEGIN C++
+METHOD "" SbVec2s() { Default constructor. }
+METHOD "" SbVec2s(const short v[2]) {}
+METHOD "" SbVec2s(short x, short y) {
+Constructor given 2 components.
+}
+METHOD "" int32_t dot(const SbVec2f &v) const {
+Returns dot (inner) product of vector and another vector.
+}
+END
+
+BEGIN C
+MACRO SbV2sDot(vec0, vec1) {
+Returns dot (inner) product of two vectors.
+}
+END
+
+BEGIN C++
+METHOD "" const short *getValue() const {}
+METHOD "" void        getValue(short &x, short &y) const {
+Returns vector components.
+}
+END
+
+BEGIN C
+MACRO SbV2sGetXY(short array[2], SbVec2s vec) {}
+MACRO SbV2sGetX_Y(short x, short y, SbVec2s vec) {
+Returns vector components.
+}
+END
+
+BEGIN C++
+METHOD "" void        negate() {
+Negates each component of vector in place.
+}
+END
+
+BEGIN C
+MACRO SbV2sNegate(SbVec2s vec) {
+Negates each component of vector in place.
+}
+MACRO SbV2sSetXY(SbVec2s vec, short array[2]) {}
+MACRO SbV2sSetX_Y(SbVec2s vec, short x, short y) {
+Sets vector components.
+}
+MACRO SbV2sMultBy(SbVec2s vec, short scalar) {}
+MACRO SbV2sDivBy(SbVec2s vec, short scalar) {
+Component-wise scalar multiplication and division operators.
+}
+MACRO SbV2sAdd(SbVec2s dest, SbVec2s src1, SbVec2s src2) {}
+MACRO SbV2sSub(SbVec2s dest, SbVec2s src1, SbVec2s src2) {
+Component-wise binary vector addition and subtraction operators.
+}
+END
+
+BEGIN C++
+METHOD "" SbVec2s &   setValue(const short v[2]) {}
+METHOD "" SbVec2s &   setValue(short x, short y) {
+Sets vector components.
+}
+METHOD "" short &       operator [\|](int i) {}
+METHOD "" const short & operator [\|](int i) {
+Accesses indexed component of vector.
+}
+METHOD "" SbVec2s &   operator *=(int d) {}
+METHOD "" SbVec2s &   operator *=(double d) {}
+METHOD "" SbVec2s &   operator /=(int d) {}
+METHOD "" SbVec2s &   operator /=(double d) {
+Component-wise scalar multiplication and division operators.
+}
+METHOD "" SbVec2s &   operator +=(const SbVec2s &u) {}
+METHOD "" SbVec2s &   operator -=(const SbVec2s &u) {
+Component-wise vector addition and subtraction operators.
+}
+METHOD "" SbVec2s     operator -() const {
+Nondestructive unary negation \(em returns a new vector.
+}
+METHOD "" SbVec2s      operator *(const SbVec2s &v, int d) {}
+METHOD "" SbVec2s      operator *(const SbVec2s &v, double d) {}
+METHOD "" SbVec2s      operator *(int d, const SbVec2s &v) {}
+METHOD "" SbVec2s      operator *(double d, const SbVec2s &v) {}
+METHOD "" SbVec2s      operator /(const SbVec2s &v, int d) {}
+METHOD "" SbVec2s      operator /(const SbVec2s &v, double d) {
+Component-wise binary scalar multiplication and division operators.
+}
+METHOD "" SbVec2s      operator +(const SbVec2s &v1, const SbVec2s &v2) {}
+METHOD "" SbVec2s      operator -(const SbVec2s &v1, const SbVec2s &v2) {
+Component-wise binary vector addition and subtraction operators.
+}
+END
+METHOD "" int          operator ==(const SbVec2s &v1, const SbVec2s &v2) {}
+METHOD "" int          operator !=(const SbVec2s &v1, const SbVec2s &v2) {
+Equality comparison operators.
+}
+ALSO { SbVec3f, SbVec4f, SbVec2f }

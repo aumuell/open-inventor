@@ -1,0 +1,74 @@
+NAME SoXtPlaneViewer SoXtPlnVwr "" {
+viewer component which moves the camera in a plane
+}
+
+INCLUDE Xt/viewers/SoXtPlaneViewer.h
+
+BEGIN C
+DEFINE { SoXtPlnVwrCreateStd(parent, name) 
+SoXtPlnVwrCreate(parent, name, TRUE, SO_XT_FULL_VWR_BUILD_ALL, SO_XT_VWR_BROWSER)
+}
+END
+
+DESC {
+The Plane viewer component allows the user to translate the camera
+in the viewing plane, as well as dolly (move foward/backward) and zoom
+in and out. The viewer also allows the user to roll the camera (rotate
+around the forward direction) and seek to objects which will specify 
+a new viewing plane. This viewer could be used for modeling, in drafting,
+and architectural work. The camera can be aligned to the X, Y or Z axes.
+}
+
+METHOD "" SoXtPlaneViewer(
+	Widget parent = NULL,
+	const char *name = NULL, 
+	SbBool buildInsideParent = TRUE, 
+	SoXtFullViewer::BuildFlag flag = BUILD_ALL, 
+	SoXtViewer::Type type = BROWSER) {}
+METHOD "" ~SoXtPlaneViewer()
+{
+Constructor and destructor which specifies the viewer type.
+Please refer to the
+\cSoXtViewer\.
+man pages for a description of the viewer types.
+\-For a constructor short cut look at the \mSoXtPlnVwrCreateStd\. #define.\.
+}
+
+MISC RESOURCES {
+\b
+*SoXtPlaneViewer.decoration: on (on | off)
+*SoXtPlaneViewer.seekAnimationTime: 2.0 (float)
+*SoXtPlaneViewer.seekTo: point (point | object)
+*SoXtPlaneViewer.seekDistanceUsage: percentage (percentage | absolute)
+*SoXtPlaneViewer.zoomMin: 1.0 (float)
+*SoXtPlaneViewer.zoomMax: 179.0 (float)
+*SoXtPlaneViewer.autoClipping: on (on | off)
+*SoXtPlaneViewer.nearDistance: 2.4 (float, when autoClipping is off)
+*SoXtPlaneViewer.farDistance: 2.8 (float, when autoClipping is off)
+*SoXtPlaneViewer*BackgroundColor: black (color name or hex value)
+\.
+}
+
+
+
+MISC USAGE {
+\b
+\vLeft Mouse:\.
+\vLeft + Middle Mouse:\. Dolly in and out (gets closer to and further
+away from the object).
+
+\p\vMiddle Mouse:\.
+\vCtrl + Left Mouse:\. Translate up, down, left and right.
+
+\p\vCtrl + Middle Mouse:\. Used for roll action (rotates around the viewer
+forward direction).
+
+\p\v<s> + click:\. Alternative to the Seek button. Press (but do not
+hold down) the <s> key, then click on a target object.
+
+\p\vRight Mouse:\. Open the popup menu.
+\.
+}
+
+ALSO { SoXtFullViewer, SoXtViewer, SoXtComponent, SoXtRenderArea, SoXtWalkViewer, 
+SoXtExaminerViewer, SoXtFlyViewer }

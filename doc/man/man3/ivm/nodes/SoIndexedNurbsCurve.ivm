@@ -1,0 +1,71 @@
+NAME SoIndexedNurbsCurve SoIndCurve "" { indexed NURBS curve shape node }
+
+INCLUDE nodes/SoIndexedNurbsCurve.h
+
+DESC {
+This class represents a NURBS curve based on the knot vector and the
+control points that you specify. The \vknotVector\. field specifies a
+floating-point array of values; the values are the coordinates of the
+knot points in the curve, and you must enter them in non-decreasing
+order.  The \vnumControlPoints\. field specifies the number of control
+points the curve will have and will use the current coordinates that
+are indexed from the \vcoordIndex\. field.
+\p
+You can get a curve of minimum order (2) by specifying two more knots
+than control points and having at least two control points.  This
+curve would be a set of line segments connecting the control points
+together.
+\p
+You can get a curve of maximum order (8) by specifying 8 more knots
+than control points and having at least 8 control points.  In this
+curve, each control point would have influence on a larger portion of
+the curve than with curves of lesser order.
+\p
+The control points of the curve are transformed by the current
+transformation matrix. The curve is drawn with the current lighting
+model and drawing style (drawing style \kFILLED\. is treated as
+\kLINES\.).
+ The coordinates, normals, and texture
+coordinates of a NURBS curve are generated, so you cannot bind
+explicit normals or texture coordinates to a NURBS curve.
+\p
+The approximation of the curve by line segments is affected by the
+current complexity value.
+}
+
+FIELD numControlPoints { Number of control points for the curve. }
+FIELD coordIndex       { Coordinate indices for the control points. }
+FIELD knotVector       { The knot vector for the curve. Values must be
+                         in non-decreasing order. }
+
+METHOD "" SoIndexedNurbsCurve() {
+Creates an indexed NURBS curve node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Draws the curve based on the current coordinates, material, and so on.
+}
+
+ACTION SoRayPickAction {
+Picks the curve based on the current coordinates and transformation.
+}
+
+ACTION SoGetBoundingBoxAction {
+Computes the bounding box that encloses all control points of the
+curve with the current transformation applied to them. Sets the center
+to the average of the control points.
+}
+
+ACTION SoCallbackAction {
+If any line segment callbacks are registered with the action, they
+will be invoked for each successive segment approximating the curve.
+}
+
+ALSO {
+SoNurbsCurve,
+SoIndexedNurbsSurface
+}

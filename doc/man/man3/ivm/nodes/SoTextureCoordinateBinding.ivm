@@ -1,0 +1,43 @@
+NAME SoTextureCoordinateBinding SoTexCoordBind SO_TEX_COORD_BIND_ {
+node that specifies how texture coordinates are bound to shapes
+}
+
+INCLUDE nodes/SoTextureCoordinateBinding.h
+
+DESC {
+This node specifies how the current texture coordinates are bound to
+vertex-based shapes that follow in the scene graph. The \kDEFAULT\.
+binding causes each shape to define its own default coordinates.
+These default coordinates typically cause a texture to be mapped
+across the whole surface of a shape.
+}
+
+ENUM Binding {
+    PER_VERTEX		"Current texture coordinates are applied sequentially
+			 to vertices of shape",
+    PER_VERTEX_INDEXED	"Current texture coordinates are indexed per vertex"
+}
+
+FIELD value { Specifies how to bind texture coordinates to shapes. }
+
+METHOD "" SoTextureCoordinateBinding() {
+Creates a texture coordinate binding node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction {
+Sets the current texture coordinate binding type.
+}
+
+ALSO {
+SoMaterialBinding,
+SoNormalBinding,
+SoTexture2,
+SoTexture2Transform,
+SoTextureCoordinate2,
+SoTextureCoordinateFunction,
+SoVertexShape
+}

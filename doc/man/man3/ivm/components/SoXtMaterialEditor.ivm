@@ -1,0 +1,89 @@
+NAME SoXtMaterialEditor SoXtMtlEd SO_XT_MTL_ED_ {
+Component which lets you edit a material interactively
+}
+
+TYPEDEF void SoXtMaterialEditorCB "(void *userData, const SoMaterial *mtl)"
+
+ENUM UpdateFrequency {
+CONTINUOUS "send updates with every mouse motion",
+AFTER_ACCEPT "only send updates after user hits accept button"
+}
+
+INCLUDE Xt/SoXtMaterialEditor.h
+
+DESC {
+This class is used to edit the material properties of an 
+\cSoMaterial\.
+node. The editor can also directly be used using callbacks instead of
+attaching it to a node. The component consists of a render area
+displaying a test sphere, some sliders, a set of radio buttons, and a
+menu. The sphere displays the current material being edited. There is one
+slider for each material coefficient. Those fields are ambient, diffuse,
+specular, emissive (all of which are colors); and transparency and
+shininess (which are scalar values). A color editor can be opened to edit
+the color slider base color. A material list displays palettes of
+predefined materials from which to choose. 
+
+\p
+The editor can currently be attached to only one material at a time.
+Attaching two different materials will automatically detach the first one
+before attaching the second.
+}
+
+METHOD "" SoXtMaterialEditor(
+	Widget parent = NULL,
+	const char *name = NULL, 
+	SbBool buildInsideParent = TRUE) {}
+METHOD "" ~SoXtMaterialEditor()
+{
+Constructor and destructor.
+}
+
+METHOD "" void		attach(SoMaterial *material, int index = 0) {}
+METHOD "" void		detach()
+{
+Attach/detach the editor to a material node and edit the material
+of the given index. 
+}
+
+METHOD "" SbBool		isAttached()
+{
+Returns TRUE if the editor is attached.
+}
+
+METHOD addMtlChangedCB void		addMaterialChangedCallback(
+				SoXtMaterialEditorCB *f, 
+				void *userData = NULL) {}
+METHOD removeMtlChangedCB void		removeMaterialChangedCallback(
+				SoXtMaterialEditorCB *f, 
+				void *userData = NULL)
+{
+Additional way of using the material editor, by registering a callback
+which will be called whenever the material changes (check the
+\vUpdateFrequency\.
+to find when the callbacks will be called).
+}
+
+METHOD setUpdateFreq void	setUpdateFrequency(SoXtMaterialEditor::UpdateFrequency freq) {}
+METHOD getUpdateFreq SoXtMaterialEditor::UpdateFrequency getUpdateFrequency()
+{
+Sets/gets the update frequency. See the \vUpdateFrequency\. enum declaration.
+}
+
+METHOD setMtl void    	    	setMaterial(const SoMaterial &mtl) {}
+METHOD getMtl const SoMaterial &	getMaterial() const
+{
+Set a new material value, and get the current material value.
+}
+
+MISC RESOURCES {
+\b
+*SoXtMaterialEditor.tile1Color: #4c4c4c (color name or hex value)
+*SoXtMaterialEditor.tile2Color: #999999 (color name or hex value)
+*SoXtMaterialEditor.light1Color: white (color name or hex value)
+*SoXtMaterialEditor.light2Color: white (color name or hex value)
+*SoXtMaterialEditor.updateFrequency: continuous (continuous | manual)\.
+}
+
+ALSO { SoXtComponent, SoXtMaterialList, 
+SoXtDirLightEditor, SoMaterial }

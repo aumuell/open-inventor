@@ -1,0 +1,50 @@
+NAME SoSwitch SoSwitch "" { group node that traverse one chosen child }
+
+INCLUDE nodes/SoSwitch.h
+
+DESC {
+This group node usually traverses only one or none of its children.
+It implements an operation similar to the \kswitch\. statement in C.
+One can use this node to switch on and off the effects of some
+properties or to switch between different properties.
+\p
+The \vwhichChild\. field specifies the index of the child to traverse,
+where the first child has index 0.
+\p
+A value of \kSO_SWITCH_NONE\. (-1, the default) means do not traverse
+any children. A value of \kSO_SWITCH_INHERIT\. (-2) allows the index
+to be inherited from a previously-encountered \cSoSwitch\. node or
+from certain other nodes (such as \cSoArray\. or \cSoMultipleCopy\.)
+that set the switch value. A value of \kSO_SWITCH_ALL\. (-3) traverses
+all children, making the switch behave exactly like a regular
+\cSoGroup\..
+}
+
+FIELD whichChild {
+Index of the child to traverse, or one of \kSO_SWITCH_NONE\.,
+\kSO_SWITCH_INHERIT\., or \kSO_SWITCH_ALL\..
+}
+
+METHOD "" SoSwitch() {
+Creates a switch node with default settings.
+}
+
+METHOD CreateN SoSwitch(int nChildren) {
+Constructor that takes approximate number of children.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction, SoGetBoundingBoxAction,
+       SoGetMatrixAction, SoHandleEventAction, SoRayPickAction {
+Traverses the chosen child or children.
+}
+
+ACTION SoSearchAction {
+If the action's Searching-All flag is set, always traverses all
+children.  Otherwise, traverses just the chosen child or children.
+}
+
+ALSO { SoArray, SoLevelOfDetail, SoMultipleCopy, SoPathSwitch }

@@ -1,0 +1,22 @@
+#define OneProgram
+
+PROGRAM = maze
+
+C++FILES = maze.c++ PlayClass.c++
+HFILES   = PlayClass.h box.h mazes.h
+
+#define ShipProgram
+#define BinDir /usr/demos/Inventor
+#define IdbTagBin  -idb "inventor_eoe.demo.progs $(MACH_TAG) \
+	exitop('if [ -x \$$rbase/usr/sbin/iconbookedit ]; then \
+		chroot \$$rbase /usr/sbin/iconbookedit \
+		-add \"Category:File Name:/usr/demos/Inventor/maze\" \
+		-syspage Demos; fi;')"
+
+#define OtherLibs -lGL -laudio -laudiofile -lm 
+
+#ifndef CreatingUserMakefile
+TOP_OF_TREE = ../../..
+OTHERSOURCE = README box.iv
+
+#endif

@@ -1,0 +1,12 @@
+#!/bin/sh
+# invoke one manprog or the other depending on invoking machine
+#
+
+CBIN=`dirname $0`
+
+if m68k
+then
+	exec $CBIN/mdate.68k $* 
+else
+	exec $CBIN/mdate.mips $*
+fi

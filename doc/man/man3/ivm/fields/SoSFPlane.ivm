@@ -1,0 +1,31 @@
+NAME SoSFPlane SoSPlane "" {
+field containing a plane equation
+}
+
+INCLUDE fields/SoSFPlane.h
+
+DESC {
+A field containing a plane equation (an SbPlane).
+\p
+\cSoSFPlanes\. are written to file as four floating point values
+separated by whitespace.  The first three are the normal direction of
+the plane, the fourth is the distance of the plane from the origin
+(in the direction of the normal).
+}
+ALSO { SbPlane, SoField, SoSField, SoMFPlane }
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get const SbPlane & getValue() const {
+Returns this field's value.
+}
+METHOD " " const SbPlane & operator =(const SbPlane & newValue) {}
+METHOD Set void setValue(const SbPlane & newValue) {
+Sets this field to \anewValue\..
+}
+METHOD IsEq int operator ==(const SoSFPlane &f) const {}
+METHOD IsNEq int operator !=(const SoSFPlane &f) const {
+Returns TRUE if \af\. is of the same type and has the same value as this
+field.
+}

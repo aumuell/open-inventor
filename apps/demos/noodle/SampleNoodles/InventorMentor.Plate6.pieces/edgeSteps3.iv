@@ -1,0 +1,43 @@
+#Inventor V2.0 ascii
+
+Separator {
+    Separator {
+	GeneralizedCylinder {
+	    crossSectionClosed	1
+	    crossSectionCoords		    Coordinate3 {
+		point	[ 0 0 0,
+			 1.0 0 0.0 ,
+				  1.00 0 0.15 ,
+				  1.02 0 0.15 ,
+				  1.02 0 0.175 ,
+				  0.66 0 0.175 ,
+				  0.66 0 0.30 ,
+				  0.68 0 0.325 ,
+				  0.68 0 0.350 ,
+				  0.31 0 0.350 ,
+				  0.31 0 0.4625 ,
+				  0.33 0 0.4812 ,
+				  0.33 0 0.5 ,
+				  0.00 0 0.5 ,
+				  0    0  0  ]
+	    }
+
+	    profileCoords		    Coordinate3 {
+		point	[ 1.0 -1 0,
+				  1.0 1 0 ]
+	    }
+
+	    spineCoords		    Coordinate3 {
+#		point	[ 0 -1 0,
+#				  0 1 0 ]
+		point	[ 0 0 1,
+				  0 0 -1 ]
+	    }
+
+	    twistCoords		    Coordinate3 {
+		point	[ 0 -1 0,
+				  0 1 0 ]
+	    }
+	}
+    }
+}

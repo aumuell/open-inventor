@@ -1,0 +1,97 @@
+#
+# Copyright (C) 1990,1991  Silicon Graphics, Inc.
+#
+#_______________________________________________________________________
+#______________  S I L I C O N   G R A P H I C S   I N C .  ____________
+#
+#   usr/src/toolkits/Inventor/make/so_commonrules
+#   $Revision: 1.1 $
+#
+#   Description:
+#      Inventor common rules for Makefiles in source directories.
+#   Normally included as SO_COMMONRULES, which is defined in
+#   so_commondefs. Include this file after including so_commondefs.
+#
+#   Author(s):	David Mott
+#
+#______________  S I L I C O N   G R A P H I C S   I N C .  ____________
+#_______________________________________________________________________
+#
+#
+
+
+# Set COMMONPREF so we can over-ride some of the SGI commonrules
+# (specifically, clean and clobber; see below)
+
+COMMONPREF=so
+include $(COMMONRULES)
+
+# NOTE: this garbage is here so we can suffix our files with .C instead of
+#   .c++
+
+C++FILES_TMP = ${C++FILES:.C=.o}
+OBJECTS= ${ASFILES:.s=.o} ${C++FILES_TMP:.c++=.o} ${CFILES:.c=.o} ${EFILES:.e=.o} \
+         ${FFILES:.f=.o} ${LFILES:.l=.o} ${PFILES:.p=.o} ${RFILES:.r=.o} \
+         ${YFILES:.y=.o}
+C++FILES_TMP2 = ${C++FILES:.C=..c}
+GDIRT= a.out core lex.yy.[co] y.tab.[co] \
+	${C++FILES_TMP2:.c++=..c} ${C++FILES_TMP2:.c++=.yuk} ${_FORCE}
+
+.SUFFIXES : .C
+
+.C.o:
+	$(C++F) -c $<
+
+# we have to set these in this file rather than in so_commondefs
+# because otherwise, $(DEFINES) doesn't get used.
+# we set the SO_SHLIBDEFS and SO_SHLIBOPTS here so that we only
+# have to set them once (not once for debug, once for optimze, once for profile)
+
+LCDEFS = $(SO_LCDEFS) $(SO_SHLIBDEFS) $(DEFINES)
+LCOPTS = $(SO_LCOPTS) $(SO_SHLIBOPTS)
+LC++DEFS = $(SO_LC++DEFS) $(SO_SHLIBDEFS) $(DEFINES)
+LC++OPTS = $(SO_LC++OPTS) $(SO_SHLIBOPTS)
+
+# The following stuff makes .o's get built directly into the library:
+
+# This puts out of date object files into the archive.  The dependency
+# is a features of smake; it makes the library dependent on date of
+# the .o's inside it, which are, of course, dependent on their source
+# files.  .OODATE will be the list of .o's that are out of date.
+
+$(SOLIB): $(SOLIB)($(OBJECTS)) .PRECIOUS
+	@if [ "$(.OODATE)" != "" ] ; then \
+		echo "	" $(AR) crlv $(SOLIB) $(.OODATE) ;\
+		$(AR) crlv $(SOLIB) $(.OODATE) ;\
+		echo "	" rm -f $(.OODATE) ;\
+		rm -f $(.OODATE) ;\
+	fi
+
+# We have to redefine clean to remove .o's from the library.
+# Unfortunately, we can't just use 'ar -d $(SOLIB) $(OBJECTS)' because
+# ar will complain if SOLIB doesn't exist, or if any of the OBJECTS
+# aren't in the archive.  Hence, the complicated code below:
+
+clean: $(COMMONPREF)$$@
+	@if [ -r $(SOLIB) -a "$(OBJECTS)" != "" ]; then { \
+	FILES=`$(AR) t $(SOLIB)` ;\
+	JUNK="" ; OBJS="$(OBJECTS)" ;\
+	for i in $$OBJS; do \
+		if echo $$FILES | fgrep -s $$i ; then \
+			JUNK="$$JUNK $$i" ;\
+		fi ; \
+	done ; \
+	if [ "$$JUNK" != "" ] ; then \
+		echo $(AR) d $(SOLIB) $$JUNK ;\
+		$(AR) d $(SOLIB) $$JUNK ; \
+	fi ; } \
+	fi
+
+clobber: clean $(COMMONPREF)$$@
+
+# Treat all of the rest of the COMMONTARGS normally.
+# The :S/// stuff is a feature of smake; it removes part of the variable.
+
+OTHERTARGS = $(COMMONTARGS:S/^clean$//:S/^clobber$//)
+$(OTHERTARGS) : $(COMMONPREF)$$@
+

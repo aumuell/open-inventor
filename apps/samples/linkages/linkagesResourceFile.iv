@@ -1,0 +1,166 @@
+#Inventor V2.0 ascii
+#used by the button class
+DEF buttonButtonGeom Separator {
+    Material { diffuseColor .5 .5 1 }
+    Translation { translation 33. 4 -.251 }
+    Cube { width 75.0 height 15.0 depth .5 }
+}
+DEF buttonButtonText Separator {
+    Material { diffuseColor 1 1 1 }
+    Text3 { string "Button Down" }
+}
+DEF buttonButtonActiveGeom Separator {
+    Material { diffuseColor 1 .5 0 }
+    Translation { translation 33. 4 -.251 }
+    Cube { width 75.0 height 15.0 depth .5 }
+}
+DEF buttonButtonActiveText Separator {
+    Material { diffuseColor 1 1 1 }
+    Text3 { string "Button Up" }
+}
+
+# colors that are shared
+DEF BLUE Material {
+    diffuseColor	0 0.710535 0.8
+    emissiveColor	0 0.0906295 0.102041
+}
+DEF YELLOW Material {
+    diffuseColor	0.8 0.8 0
+    emissiveColor	0.1 0.1 0
+}
+DEF ORANGE Material {
+    diffuseColor	1.0 0.7 0
+    emissiveColor	0.12 0.08 0
+}
+DEF PINK Material {
+    diffuseColor	0.8 0 0.266667
+    emissiveColor	0.102041 0 0.0340136
+}
+DEF LAVENDER Material {
+    diffuseColor	0.8 0 0.8
+    emissiveColor	0.102041 0 0.1
+}
+
+DEF ERROR_MATERIAL Material {
+    diffuseColor	1  0 0
+    emissiveColor	.5 0 0
+}
+
+
+# for the translation manips of a Link node
+DEF LINK_POINT_DRAGGER Separator { 
+    Transform { translation 0 -.1 0 scaleFactor .1 .1 .1 } 
+    USE PINK 
+    Cone {} 
+}
+DEF LINK_POINT_DRAGGER_ACTIVE Separator { 
+    Transform { translation 0 -.1 0 scaleFactor .1 .1 .1 } 
+    USE YELLOW
+    Cone {} 
+}
+
+# for the hinge points of RivetHinge nodes.
+DEF HINGE_POINT_DRAGGER Separator { 
+    Transform { rotation 1 0 0 1.57079 scaleFactor .1 .1 .1 } 
+    USE PINK 
+    Cylinder {} 
+}
+DEF HINGE_POINT_DRAGGER_ACTIVE Separator { 
+    Transform { rotation 1 0 0 1.57079 scaleFactor .1 .1 .1 } 
+    USE YELLOW
+    Cylinder {} 
+}
+
+# for editting lengths of links
+DEF SIZE_DRAGGER Separator { 
+    USE PINK 
+    Cube { width .025 height .25 depth .25 } 
+}
+DEF SIZE_DRAGGER_ACTIVE Separator { 
+    USE YELLOW
+    Cube { width .025 height .25 depth .25 } 
+}
+
+#for editting angles of rotation
+DEF ANGLE_DRAGGER Separator { 
+    USE LAVENDER 
+    RotationXYZ { axis X angle 1.57079 }
+    Cylinder { radius .5 height .025 }
+    USE PINK 
+    Translation { translation .4 0 0 }
+    Cube { width .075  height .075 depth .075 }
+}
+DEF ANGLE_DRAGGER_ACTIVE Separator { 
+    USE YELLOW
+    RotationXYZ { axis X angle 1.57079 }
+    Cylinder { radius .5 height .025 }
+    USE ORANGE 
+    Translation { translation .4 0 0 }
+    Cube { width .075  height .075 depth .075 }
+}
+
+
+# default geometries for Link class
+DEF STRUT_GEOM Separator {
+    RotationXYZ { axis Z angle -1.57079 }
+    Scale { scaleFactor .5 .5 .5 }
+    Translation { translation 0 1 0 }
+    Cylinder { radius .05 }
+}
+DEF END_GEOM Separator { Cube { width .1 height .1 depth .1 } }
+DEF FLOOR_GEOM Separator { Cube { width 4 height .01 depth .5 } }
+
+DEF linkOriginTranslateGeom Separator { }
+DEF linkAngleRotateGeom Separator { USE END_GEOM }
+DEF linkEndPointTranslateGeom Separator { USE END_GEOM }
+DEF linkOneDScaleGeom Separator { USE STRUT_GEOM }
+DEF linkTwoDScaleGeom Separator { }
+DEF linkThreeDScaleGeom Separator { }
+DEF linkMaterial Material {
+    diffuseColor	0 0.710535 0.8
+    emissiveColor	0 0.0906295 0.102041
+}
+
+DEF rivetHingeOriginTranslateGeom Separator { }
+DEF rivetHingeAngleRotateGeom Separator { USE END_GEOM }
+DEF rivetHingeEndPointTranslateGeom Separator { USE END_GEOM }
+DEF rivetHingeOneDScaleGeom Separator { USE STRUT_GEOM }
+DEF rivetHingeTwoDScaleGeom Separator { }
+DEF rivetHingeThreeDScaleGeom Separator { }
+DEF rivetHingeMaterial Material {
+    diffuseColor	0 0.710535 0.8
+    emissiveColor	0 0.0906295 0.102041
+}
+
+DEF crankOriginTranslateGeom Separator { USE FLOOR_GEOM }
+DEF crankAngleRotateGeom Separator { USE END_GEOM }
+DEF crankEndPointTranslateGeom Separator { USE END_GEOM }
+DEF crankOneDScaleGeom Separator { USE STRUT_GEOM }
+DEF crankTwoDScaleGeom Separator { }
+DEF crankThreeDScaleGeom Separator { }
+DEF crankMaterial Material {
+    diffuseColor	0 0.710535 0.8
+    emissiveColor	0 0.0906295 0.102041
+}
+
+DEF doubleLinkOriginTranslateGeom Separator { }
+DEF doubleLinkAngleRotateGeom Separator { USE END_GEOM }
+DEF doubleLinkEndPointTranslateGeom Separator { USE END_GEOM }
+DEF doubleLinkOneDScaleGeom Separator { USE STRUT_GEOM }
+DEF doubleLinkTwoDScaleGeom Separator { }
+DEF doubleLinkThreeDScaleGeom Separator { }
+DEF doubleLinkMaterial Material {
+    diffuseColor	0 0.710535 0.8
+    emissiveColor	0 0.0906295 0.102041
+}
+
+DEF pistonOriginTranslateGeom Separator { }
+DEF pistonAngleRotateGeom Separator { USE END_GEOM }
+DEF pistonEndPointTranslateGeom Separator { USE END_GEOM }
+DEF pistonOneDScaleGeom Separator { USE STRUT_GEOM }
+DEF pistonTwoDScaleGeom Separator { }
+DEF pistonThreeDScaleGeom Separator { }
+DEF pistonMaterial Material {
+    diffuseColor	0 0.710535 0.8
+    emissiveColor	0 0.0906295 0.102041
+}

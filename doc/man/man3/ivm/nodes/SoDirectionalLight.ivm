@@ -1,0 +1,29 @@
+NAME SoDirectionalLight SoDirLt "" {
+node representing a directional light source
+}
+
+INCLUDE nodes/SoDirectionalLight.h
+
+DESC {
+This node defines a directional light source that illuminates along
+rays parallel to a given 3-dimensional vector.
+}
+
+FIELD direction { Illumination direction vector. }
+
+METHOD "" SoDirectionalLight() {
+Creates a directional light source node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Activates this light (if so specified) during traversal. All shape
+nodes that come after this light in the scene graph are illuminated by
+this light. The light's direction is affected by the current
+transformation.
+}
+
+ALSO { SoPointLight, SoSpotLight }

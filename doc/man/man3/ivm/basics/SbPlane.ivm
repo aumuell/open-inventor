@@ -1,0 +1,66 @@
+NAME SbPlane SbPln "" { oriented plane in 3D }
+INCLUDE SbLinear.h
+DESC {
+Represents an oriented plane in 3D. This is a lightweight
+class/datatype that is used for arguments to some Inventor objects. 
+\-
+Note that there are no \mCreate\. or \mDelete\. functions available for
+this class.  \cSbPlane\.'s should be declared and/or malloc'd as standard
+C structs:
+\b\k
+     /* This is defined in Inventor_c/SbLinear.h: */
+     struct SbPlane \{
+          struct SbVec3f  normalVec;
+          float   distance;
+     \};
+     typedef SbPlane SbPln;
+
+
+     /* This is what your code should look like: */
+     SbPlane  p;
+
+     SbV3fSetX_Y_Z( p.normalVec, 1.0, 0.0, 0.0 );
+     p.distance = 3.0;
+\.\.
+\.
+}
+BEGIN C++
+METHOD "" SbPlane()   {}
+METHOD "" SbPlane(const SbVec3f &p0, const SbVec3f &p1, const SbVec3f &p2) {}
+METHOD "" SbPlane(const SbVec3f &normal, float distance) {}
+METHOD "" SbPlane(const SbVec3f &normal, const SbVec3f &point) {
+Constructors.  \ap0\., \ap1\., and \ap2\. represent three points in the plane.
+\anormal\. is a normal vector, \adistance\. is distance from origin to plane
+along normal vector, and \apoint\. is a point in 3-space for the plane to pass
+through.
+}
+END
+METHOD "" void    offset(float d) {
+Offset a plane by a given distance.
+}
+METHOD "" SbBool intersect(const SbLine &l, SbVec3f &intersection) const {
+Intersect line and plane, returning TRUE if there is an intersection,
+FALSE if line is parallel to plane.
+}
+METHOD "" void                transform(const SbMatrix &matrix) {
+Transforms the plane by the given matrix.
+}
+METHOD "" SbBool              isInHalfSpace(const SbVec3f &point) const {
+ Returns TRUE if the given point is within the half-space
+defined by the plane.
+}
+BEGIN C++
+METHOD "" const SbVec3f &     getNormal() const {
+Returns normal vector to plane.
+}
+METHOD "" float               getDistanceFromOrigin() const {
+Returns distance from origin to plane.
+}
+END
+METHOD "" int          operator ==(const SbPlane &p1, const SbPlane &p2) {}
+METHOD "" int          operator !=(const SbPlane &p1, const SbPlane &p2) {
+Equality/inequality comparison operators.
+}
+ALSO { SbVec3f, SbLine }
+
+

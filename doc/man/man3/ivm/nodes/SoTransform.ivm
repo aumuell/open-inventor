@@ -1,0 +1,92 @@
+NAME SoTransform SoXf "" { general 3D geometric transformation node }
+
+INCLUDE nodes/SoTransform.h
+
+DESC {
+This node defines a geometric 3D transformation consisting of (in
+order) a (possibly) non-uniform scale about an arbitrary point, a
+rotation about an arbitrary point and axis, and a translation. (While
+the transformations can be thought of as being applied in that order,
+matrices are actually premultiplied in the opposite order. Therefore,
+the operations are listed in the reverse order throughout this reference
+page.)
+}
+
+FIELD translation	{ Translation vector. }
+FIELD rotation		{ Rotation specification. }
+FIELD scaleFactor	{ Scale factors. }
+FIELD scaleOrientation	{ Rotational orientation for scale. }
+FIELD center		{ Origin for scale and rotation. }
+
+METHOD "" SoTransform() {
+Creates a transformation node with default settings.
+}
+
+METHOD "ptAt" void pointAt(const SbVec3f &fromPoint, const SbVec3f &toPoint) {
+Sets the node to translate the origin to the \vfromPoint\. and rotate
+the negative z-axis (0,0,-1) to lie on the vector from \vfromPoint\.
+to \vtoPoint\.. This always tries to keep the "up" direction the
+positive y-axis, unless that is impossible.  All current field values
+in the node are replaced.
+}
+
+METHOD getScaleSpaceMx void getScaleSpaceMatrix(SbMatrix &mat,
+						SbMatrix &inv) const {}
+METHOD getRotSpaceMx void getRotationSpaceMatrix(SbMatrix &mat,
+						 SbMatrix &inv) const {}
+METHOD getXlateSpaceMx void getTranslationSpaceMatrix(SbMatrix &mat,
+						      SbMatrix &inv) const {
+These return composite matrices that transform from object space to each
+of the spaces after the scale, rotation, or translation.
+}
+
+METHOD "" void multLeft(const SbMatrix &mat) {}
+METHOD "" void multRight(const SbMatrix &mat) {
+These are convenience functions that combine the effects of a matrix
+transformation into the current transformation stored in this node.
+The first method premultiplies the transformation and the second
+postmultiplies it.
+}
+
+METHOD "" void combineLeft(SoTransformation *nodeOnRight) {}
+METHOD "" void combineRight(SoTransformation *nodeOnLeft) {
+These are convenience functions that combine the effects of another
+transformation node into the current transformation stored in this
+node.  The first method premultiplies the transformation and the
+second postmultiplies it.
+}
+
+METHOD setMx void setMatrix(const SbMatrix &mat) {
+Sets the fields in the node to implement the transformation
+represented by the given matrix. Note that invalid matrices (such as
+singular ones) have undefined results.
+}
+    
+METHOD "" void recenter(const SbVec3f &newCenter) {
+Changes the center of the transformation to the given point without
+affecting the overall effect of the transformation.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction, SoCallbackAction,
+       SoGetBoundingBoxAction, SoRayPickAction {
+Accumulates transformation into the current transformation.
+}
+
+ACTION SoGetMatrixAction {
+Returns the matrix corresponding to the total transformation.
+}
+
+ALSO {
+SoMatrixTransform,
+SoResetTransform,
+SoRotation,
+SoRotationXYZ,
+SoScale,
+SoTransformManip,
+SoTransformSeparator,
+SoTranslation
+}

@@ -1,0 +1,39 @@
+NAME SoComputeBoundingBox SoComputeBBox "" { 
+computes the bounding box and center of a scene graph 
+}
+
+DESC { 
+This engine computes the bounding box and center of a scene graph.
+The scene graph can be defined by a path or by a root node.  
+\p
+If the \vpath\. input is not NULL, the
+bounding box of the graph defined by the path will be computed.
+If \vpath\. is NULL, but the \vnode\. input is not NULL, the bounding
+box is computed on the graph rooted by the node.
+By default, the two inputs are NULL.  
+If both the inputs are NULL, the outputs are disabled.
+\p
+The engine uses a default viewport region.  If the graph includes
+screen-based objects (such as \cSoText2\.) you can call \m\+setViewportRegion()\. \-SoComputeBBoxSetVPReg()\.\.
+on the engine instance to set up the correct viewport region to use. 
+}
+
+INCLUDE engines/SoComputeBoundingBox.h
+
+INPUT node { Defines the graph for which the bounding box is computed.}
+INPUT path { Alternatively, defines the graph for which the 
+		bounding box is computed.}
+
+OUTPUT min { Minimum point of the computed bounding box. }
+OUTPUT max { Maximum point of the computed bounding box. }
+OUTPUT boxCenter { Center of the computed bounding box.}
+OUTPUT objectCenter { Center of the objects in the graph. }
+
+METHOD "" SoComputeBoundingBox() 
+	{ Constructor }
+METHOD setVPReg void setViewportRegion(const SbViewportRegion &vpReg); 
+	{ Sets the viewport region to use for the bounding box computation. }
+METHOD getVPReg const SbViewportRegion & getViewportRegion(); 
+	{ Returns the viewport region to use for the bounding box computation. }
+
+ALSO { SoEngineOutput, SoGetBoundingBoxAction, SbBox3f }

@@ -1,0 +1,42 @@
+NAME SoTypeList "" "" { maintains a list of \cSoTypes\. }
+
+INCLUDE SoLists.h
+
+DESC {
+This subclass of \cSbPList\. holds lists of \cSoType\. type identifiers.
+}
+
+METHOD "" SoTypeList() { Constructor. }
+
+METHOD createSize SoTypeList(int size) {
+Constructor that pre-allocates storage for \asize\. types.
+}
+
+METHOD " " SoTypeList(const SoTypeList &l) {
+Constructor that copies the contents of another list.
+}
+
+METHOD "" ~SoTypeList() { Destructor. }
+
+METHOD "" void append(SoType type) {
+Adds a type to the end of the list.
+}
+
+METHOD "" void insert(SoType *type, int addBefore) {
+Inserts given type in list before type with given index.
+}
+
+METHOD "" void set(int i, SoType *type) {
+Sets an element of a list.
+}
+
+METHOD "" int find(SoType typeId) const {
+Returns index of given type in list, or -1 if not found.
+}
+
+METHOD "" SoType operator [\|](int i) const {
+Accesses an element of a list.
+}
+
+ALSO { SoType }
+

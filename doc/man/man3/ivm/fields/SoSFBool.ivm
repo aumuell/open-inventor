@@ -1,0 +1,29 @@
+NAME SoSFBool SoSBool "" {
+field containing a single boolean value
+}
+
+INCLUDE fields/SoSFBool.h
+
+DESC {
+A field containing a single boolean (true or false) value.
+\p
+\cSoSFBools\. may be written to file as "0" (representing FALSE), "1",
+"TRUE", or "FALSE".
+}
+ALSO { SoField, SoSField, SoMFBool }
+METHOD "" static SoType getClassTypeId() {}
+METHOD "" virtual void getTypeId() const {
+Returns the type for this class or a particular object of this class.
+}
+METHOD Get SbBool getValue() const {
+Returns this field's value.
+}
+METHOD " " SbBool operator =(SbBool newValue) {}
+METHOD Set void setValue(SbBool newValue) {
+Sets this field to \anewValue\..
+}
+METHOD IsEq int operator ==(const SoSFBool &f) const {}
+METHOD IsNEq int operator !=(const SoSFBool &f) const {
+Returns TRUE if \af\. is of the same type and has the same value as this
+field.
+}

@@ -1,0 +1,45 @@
+NAME SoXtMaterialList SoXtMtlList "" {
+component which lets you edit a material interactively
+}
+
+TYPEDEF void SoXtMaterialListCB "(void *userData, const SoMaterial *mtl)"
+
+INCLUDE Xt/SoXtMaterialList.h
+
+DESC {
+This class is used to choose an 
+\cSoMaterial\.
+from palettes of
+predefined materials (for example, gold, silver, or bronze from the metal
+palette; emerald, pearl, or ruby from the stones palette). The chosen
+material is passed to callback functions registered with this component.
+}
+
+METHOD "" SoXtMaterialList(
+	Widget parent = NULL,
+	const char *name = NULL, 
+	SbBool buildInsideParent = TRUE, 
+	const char *dir = NULL) {}
+METHOD "" ~SoXtMaterialList()
+{
+The constructor is passed a directory name which serves as the home
+directory for the material palettes. You can have any number of palettes
+in this directory. A palette is a subdirectory that contains Inventor data
+files, where each file describes one material. Predefined Inventor materials
+are found in /usr/share/data/materials.
+}
+
+METHOD addCB addCallback(
+    	    	SoXtMaterialListCB *f,
+		void *userData = NULL) {}
+METHOD removeCB removeCallback(
+    	    	SoXtMaterialListCB *f,
+		void *userData = NULL)
+{
+Register functions that will be called whenever the user chooses a new
+material from the list. Each callback when invoked will be passed the
+\vuserData\.
+pointer, along with a pointer to the newly selected material.
+}
+
+ALSO { SoXtComponent, SoCallbackList, SoMaterial, SoXtMaterialEditor }

@@ -1,0 +1,159 @@
+#Inventor V2.0 ascii
+
+DEF spotLightOverallMaterial       Material {
+    diffuseColor	[ 0.5 0.5 0.5 ]
+    emissiveColor	[ 0.5 0.5 0.5 ]
+}
+
+DEF SPOT_LIGHT_DRAGGER_LINE_TRANSLATOR Group {
+
+    LightModel { model PHONG }
+    Texture2 {}
+
+    Complexity { value 0.3 }
+    Rotation { rotation 0 0 1 1.57079 }
+    Complexity { value .3 }
+    Cylinder { height 3.0 radius 0.2 }
+}
+
+DEF spotLightTranslatorLineTranslator Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    DrawStyle { lineWidth 2 }
+    USE SPOT_LIGHT_DRAGGER_LINE_TRANSLATOR
+}
+DEF spotLightTranslatorLineTranslatorActive Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    DrawStyle { lineWidth 3 }
+    USE SPOT_LIGHT_DRAGGER_LINE_TRANSLATOR
+}
+
+DEF SPOT_LIGHT_DRAGGER_PLANE_TRANSLATOR Group {
+
+    LightModel { model PHONG }
+    Texture2 {}
+
+    Complexity { value 0.3 }
+    Sphere { radius 1.0 }
+
+
+    # Rays of light emanating from sphere
+
+    PickStyle { style UNPICKABLE }
+
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+    Coordinate3 { point [   1.0608  1.0608 0, 1.326  1.326 0,
+			   -1.0608 -1.0608 0,-1.326 -1.326 0, 
+			   -1.0608  1.0608 0,-1.326  1.326 0,
+			    1.0608 -1.0608 0, 1.326 -1.326 0,
+
+                           0  1.0608  1.0608, 0  1.326  1.326,
+			   0 -1.0608 -1.0608, 0 -1.326 -1.326, 
+			   0 -1.0608  1.0608, 0 -1.326  1.326,
+			   0  1.0608 -1.0608, 0  1.326 -1.326,
+
+                            1.0608 0  1.0608, 1.326 0  1.326,
+			   -1.0608 0 -1.0608,-1.326 0 -1.326, 
+			   -1.0608 0  1.0608,-1.326 0  1.326,
+			    1.0608 0 -1.0608, 1.326 0 -1.326 ] }
+    LineSet { numVertices [ 2, 2, 2, 2, 
+			    2, 2, 2, 2, 
+			    2, 2, 2, 2 ] }
+}
+
+DEF spotLightTranslatorPlaneTranslator Separator {
+    renderCaching ON
+    DrawStyle { lineWidth 2 }
+    USE SPOT_LIGHT_DRAGGER_PLANE_TRANSLATOR
+}
+DEF spotLightTranslatorPlaneTranslatorActive Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    DrawStyle { lineWidth 3 }
+    USE SPOT_LIGHT_DRAGGER_PLANE_TRANSLATOR
+}
+
+DEF SPOT_LIGHT_DRAGGER_ROTATOR Group {
+
+    DrawStyle { lineWidth 2 }
+    LightModel { model PHONG }
+    Texture2 {}
+
+    NormalBinding { value PER_VERTEX_INDEXED }
+    MaterialBinding { value OVERALL }
+    Coordinate3 { point [ 0 0 -1, 0 0 -10 ] }
+    LineSet {}
+
+    Complexity { value 0.3 }
+    Translation { translation 0 0 -10 }
+    RotationXYZ { axis X angle -1.57079 }
+    Cone { height 2 bottomRadius 1 }
+
+    Translation { translation 0 -12 0 }
+    Cone { height 2 bottomRadius .1 }
+}
+
+DEF spotLightRotatorRotator Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.5 ]
+	emissiveColor	[ 0.5 0.5 0.5 ]
+    }
+    USE SPOT_LIGHT_DRAGGER_ROTATOR
+}
+DEF spotLightRotatorRotatorActive Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    USE SPOT_LIGHT_DRAGGER_ROTATOR
+}
+
+# These are not used in this dragger. We 'zero them out'
+DEF spotLightRotatorFeedback Separator {
+}
+DEF spotLightRotatorFeedbackActive Separator {
+}
+
+DEF SPOT_LIGHT_DRAGGER_BEAM Group {
+
+    LightModel { model PHONG }
+    Texture2 {}
+
+    Separator {
+	RotationXYZ { axis X angle 1.57079 }
+	Translation { translation 0 -1 0 }
+	Cone { height 2.0 bottomRadius 2.0 }
+    }
+}
+
+DEF spotLightBeam Separator {
+    renderCaching ON
+    DrawStyle { style LINES lineWidth 2 }
+    USE SPOT_LIGHT_DRAGGER_BEAM
+}
+DEF spotLightBeamActive Separator {
+    renderCaching ON
+    Material {
+	diffuseColor	[ 0.5 0.5 0.0 ]
+	emissiveColor	[ 0.5 0.5 0.0 ]
+    }
+    DrawStyle { style LINES lineWidth 3 }
+    USE SPOT_LIGHT_DRAGGER_BEAM
+}
+
+DEF spotLightBeamPlacement Translation {
+    translation 0 0 -1
+}

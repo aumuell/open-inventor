@@ -1,0 +1,10 @@
+The samples in this directory demonstrate using the spaceball device.
+
+spaceball - demonstrates using the spaceball device
+to change a transformation node. Spaceball events
+are passed via a callback on an SoEventCallback node.
+
+spballViewer - demonstrates using the spaceball device
+to change a camera position and orientation.
+The spaceball motion events are delivered via
+a callback on the viewer.

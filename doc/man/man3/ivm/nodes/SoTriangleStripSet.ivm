@@ -1,0 +1,87 @@
+NAME SoTriangleStripSet SoTriStripSet "" { triangle strip set shape node }
+
+INCLUDE nodes/SoTriangleStripSet.h
+
+DESC {
+This shape node constructs triangle strips out of vertices.
+The vertices may be specified in
+the \vvertexProperty\. field (from \cSoVertexShape\.), 
+or by the current inherited coordinates.
+For optimal performance, the \vvertexProperty\. field is recommended.
+\p
+\cSoTriangleStripSet\. is one of the fastest ways of drawing
+polygonal objects in Inventor. It uses the current
+coordinates, in order, starting with the first one. 
+The values in the \vnumVertices\. field indicate
+the number of vertices to use for each triangle strip in the set. The
+number of values in this field determines the number of strips.
+\p
+For example, if 
+\vnumVertices\. has the values [3,5], coordinates 1, 2, and 3 would be
+used for the first triangle strip and coordinates 4, 5, 6, 7, and 8 
+would be used for the second strip. This would result in 1 triangle in
+the first strip and 3 in the second.
+\p
+The coordinates of the strips are transformed by the current
+cumulative transformation. The strips are drawn with the current light
+model and drawing style.
+\p
+Treatment of the current material and normal binding is as follows:
+The \kPER_PART\. binding specifies a material or normal for each strip
+of the set. The \kPER_FACE\. binding specifies a material or normal
+for each triangle. The \k_INDEXED\. bindings are equivalent to
+their non-indexed counterparts. The default normal binding is 
+\kPER_VERTEX\.. The default material binding is 
+\kOVERALL\..
+\p
+If any normals (or materials) are specified, Inventor assumes 
+you provide the correct number of them, as indicated by the binding.
+You will see unexpected results
+if you specify fewer normals (or materials) than the shape requires.
+If no normals are specified, they will be generated automatically.
+}
+
+FIELD numVertices {
+Number of vertices in each triangle strip. The number of strips is
+equal to the number of values in this field.
+}
+
+METHOD "" SoTriangleStripSet() {
+Creates a triangle strip set node with default settings.
+}
+
+METHOD "" static SoType getClassTypeId() {
+Returns type identifier for this class.
+}
+
+ACTION SoGLRenderAction {
+Draws a strip set based on the current coordinates, normals,
+materials, drawing style, and so on.
+}
+
+ACTION SoRayPickAction {
+Picks on the strip set based on the current coordinates and
+transformation.  Details about the intersection are returned in an
+\cSoFaceDetail\..
+}
+
+ACTION SoGetBoundingBoxAction {
+Computes the bounding box that encloses all vertices of the strip set
+with the current transformation applied to them. Sets the center to
+the average of the coordinates of all vertices.
+}
+
+ACTION SoCallbackAction {
+If any triangle callbacks are registered with the action, they will be
+invoked for each successive triangle forming the strips of the set.
+}
+
+ALSO {
+SoCoordinate3,
+SoDrawStyle,
+SoFaceDetail,
+SoFaceSet,
+SoIndexedTriangleStripSet,
+SoQuadMesh,
+SoVertexProperty
+}

@@ -1,0 +1,74 @@
+NAME SoXtFlyViewer SoXtFlyVwr "" {
+viewer component for flying through space, with a constant world up
+}
+
+INCLUDE Xt/viewers/SoXtFlyViewer.h
+
+BEGIN C
+DEFINE { SoXtFlyVwrCreateStd(parent, name) 
+SoXtFlyVwrCreate(parent, name, TRUE, SO_XT_FULL_VWR_BUILD_ALL, SO_XT_VWR_BROWSER)
+}
+END
+
+DESC {
+Fly Viewer \(em this viewer is intended to simulate flight through space, with
+a constant world up direction. The viewer only constrains the camera to
+keep the user from flying upside down. No mouse buttons need to be pressed
+in order to fly. The mouse position is used only for steering, while mouse
+clicks are used to increase or decrease the viewer speed.
+\p
+The viewer allows you to tilt your head up/down/right/left and move in the
+direction you are looking (forward or backward). The viewer also supports
+seek to quickly move the camera to a desired object or point.
+}
+
+METHOD "" SoXtFlyViewer(
+	Widget parent = NULL,
+	const char *name = NULL, 
+	SbBool buildInsideParent = TRUE, 
+	SoXtFullViewer::BuildFlag flag = BUILD_ALL, 
+	SoXtViewer::Type type = BROWSER) {}
+METHOD "" ~SoXtFlyViewer()
+{
+Constructor and destructor which specifies the viewer type.
+Please refer to the
+\cSoXtViewer\.
+reference page for a description of the viewer types.
+\-For a constructor short cut look at the \mSoXtFlyVwrCreateStd\. #define.\.
+}
+
+MISC RESOURCES {
+\b
+*SoXtFlyViewer.decoration: on (on | off)
+*SoXtFlyViewer.seekAnimationTime: 2.0 (float)
+*SoXtFlyViewer.seekTo: point (point | object)
+*SoXtFlyViewer.seekDistanceUsage: percentage (percentage | absolute)
+*SoXtFlyViewer.zoomMin: 1.0 (float)
+*SoXtFlyViewer.zoomMax: 179.0 (float)
+*SoXtFlyViewer.autoClipping: on (on | off)
+*SoXtFlyViewer.nearDistance: 2.4 (float, when autoClipping is off)
+*SoXtFlyViewer.farDistance: 2.8 (float, when autoClipping is off)
+*SoXtFlyViewer*BackgroundColor: black (color name or hex value)\.
+}
+
+MISC USAGE {
+\vLeft Mouse:\. Click to increase speed.
+
+\p\v<s> + Left Mouse:\. Alternative to the Seek button. Press (but do not
+hold down) the <s> key, then click on a target object.
+
+\p\v<u> + Left Mouse:\. Press (but do not hold down) the <u> key, then
+click on a target object to set the "up" direction to the surface normal.
+By default +y is the "up" direction.
+
+\p\vMiddle Mouse:\. Click to decrease speed.
+
+\p\vLeft and Middle Mouse:\. Click boths simultaneously to stop.
+
+\p\vCtrl:\. Hold the key down to temporary stop and rotate the viewpoint.
+
+\p\vRight Mouse:\. Open the popup menu.
+}
+
+ALSO { SoXtFullViewer, SoXtViewer, SoXtComponent, SoXtRenderArea, SoXtWalkViewer, 
+SoXtExaminerViewer, SoXtPlaneViewer }

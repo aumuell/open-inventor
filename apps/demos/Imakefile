@@ -1,0 +1,10 @@
+#define BranchMakefile
+
+TOP_OF_TREE = ../..
+
+#define SubDirs SceneViewer drop gview \
+	qmorf revo textomatic noodle maze
+
+#define InstallSource
+
+OTHERSOURCE = README

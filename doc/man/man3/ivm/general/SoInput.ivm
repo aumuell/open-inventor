@@ -1,0 +1,101 @@
+NAME SoInput SoIn "" { used to read Inventor data files }
+
+INCLUDE SoInput.h
+
+DESC {
+This class is used by the \cSoDB\. reading routines when reading
+Inventor data files.  It supports both ASCII (default) and binary
+Inventor formats.  Users can also register additional
+valid file headers. 
+When reading, \cSoInput\. skips over Inventor comments 
+(from '#' to end of
+line) and can stack input files. When EOF is reached, the stack is
+popped.  This class can also be used to read from a buffer in memory.
+}
+
+METHOD "" SoInput() {}
+METHOD "" ~SoInput() {
+Constructor and destructor. The default \cSoInput\. reads from \xstdin\..
+The destructor closes any files opened by the \cSoInput\..
+}
+
+METHOD addDirFirst static void addDirectoryFirst(const char *dirName) {}
+METHOD addDirLast  static void addDirectoryLast(const char *dirName) {}
+METHOD addEnvDirsFirst static void addEnvDirectoriesFirst(const char
+							  *envVarName) {}
+METHOD addEnvDirsLast  static void addEnvDirectoriesLast(const char
+							 *envVarName) {
+The \cSoInput\. class maintains a global list of directories that is
+searched to find files when opening them. Directories are searched in
+order. Each of these routines adds directories to the list, either at
+the beginning ("First") or the end ("Last"). The last two routines add
+directories named in the value of the given environment variable.
+Directories may be separated by colons or whitespace in the variable's
+value.
+}
+
+METHOD removeDir static void removeDirectory(const char *dirName) {
+Removes named directory from the list.
+}
+
+METHOD clearDirs static void clearDirectories() {
+Clears the list of directories (including the current directory).
+}
+
+METHOD getDirs static const SbStringList & getDirectories() {
+Returns the list of directories as an \cSbStringList\..
+}
+
+METHOD setFilePtr void setFilePointer(FILE *newFP) {
+Sets file pointer to read from. Clears the stack of input files if necessary.
+}
+
+METHOD "" SbBool openFile(const char *fileName, SbBool okIfNotFound = FALSE) {
+Opens named file, sets file pointer to result. Clears the stack of
+input files if necessary. This returns FALSE on error; if
+\aokIfNotFound\. is FALSE (the default), this prints an error message
+if the file could not be found.
+}
+
+METHOD "" SbBool pushFile(const char *fileName) {
+Opens named file, pushing the resulting file pointer onto the stack. Returns
+FALSE on error.
+}
+
+METHOD "" closeFile() {
+Closes all files on stack opened with
+\+\mopenFile()\. or \mpushFile()\..\.
+\-\mSoInOpenFile()\. or \mSoInPushFile()\..\.
+}
+
+METHOD "" SbBool isValidFile() {
+Returns TRUE if the currently open file is a valid Inventor file; that is,
+it begins with a valid Inventor header, or one that has been
+registered with \cSoDB::registerHeader\..
+}
+
+METHOD "" FILE * getCurFile() const {
+Returns a pointer to the current file, or NULL if reading from a buffer.
+}
+
+METHOD "" const char * getCurFileName() const {
+Returns full name (including directory path) of current file, or NULL
+if reading from a buffer.
+}
+
+METHOD setBuf void setBuffer(void *bufPointer, size_t bufSize) {
+Sets an in-memory buffer to read from, along with its size.
+}
+
+METHOD "" SbString getHeader() {
+Returns the header of the file being read.
+}
+
+METHOD "" float getIVVersion() {
+Returns the Inventor file version of the file being read (e.g. 2.1).
+If the file has a header registered through \cSoDB::registerHeader()\.,
+the returned version is the Inventor version registered with the 
+header.
+}
+
+ALSO { SoDB, SoOutput, SoTranReceiver }

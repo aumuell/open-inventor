@@ -1,0 +1,119 @@
+
+.SUFFIXES: .ivm .3iv
+
+#	SoMaterialIndex.ivm \
+
+MANPAGES = \
+	SoAnnotation.ivm \
+	SoAntiSquish.ivm \
+	SoArray.ivm \
+	SoAsciiText.ivm \
+	SoBaseColor.ivm \
+	SoBlinker.ivm \
+	SoCallback.ivm \
+	SoCamera.ivm \
+	SoClipPlane.ivm \
+	SoColorIndex.ivm \
+	SoComplexity.ivm \
+	SoCone.ivm \
+	SoCoordinate3.ivm \
+	SoCoordinate4.ivm \
+	SoCube.ivm \
+	SoCylinder.ivm \
+	SoDirectionalLight.ivm \
+	SoDrawStyle.ivm \
+	SoEnvironment.ivm \
+	SoFaceSet.ivm \
+	SoFile.ivm \
+	SoFont.ivm \
+	SoFontStyle.ivm \
+	SoGroup.ivm \
+	SoIndexedFaceSet.ivm \
+	SoIndexedLineSet.ivm \
+	SoIndexedNurbsCurve.ivm \
+	SoIndexedNurbsSurface.ivm \
+	SoIndexedShape.ivm \
+	SoIndexedTriangleStripSet.ivm \
+	SoInfo.ivm \
+	SoLOD.ivm \
+	SoLabel.ivm \
+	SoLevelOfDetail.ivm \
+	SoLight.ivm \
+	SoLightModel.ivm \
+	SoLineSet.ivm \
+	SoLinearProfile.ivm \
+	SoLocateHighlight.ivm \
+	SoMaterial.ivm \
+	SoMaterialBinding.ivm \
+	SoMatrixTransform.ivm \
+	SoMultipleCopy.ivm \
+	SoNode.ivm \
+	SoNonIndexedShape.ivm \
+	SoNormal.ivm \
+	SoNormalBinding.ivm \
+	SoNurbsCurve.ivm \
+	SoNurbsProfile.ivm \
+	SoNurbsSurface.ivm \
+	SoOrthographicCamera.ivm \
+	SoPackedColor.ivm \
+	SoPathSwitch.ivm \
+	SoPendulum.ivm \
+	SoPerspectiveCamera.ivm \
+	SoPickStyle.ivm \
+	SoPointLight.ivm \
+	SoPointSet.ivm \
+	SoProfile.ivm \
+	SoProfileCoordinate2.ivm \
+	SoProfileCoordinate3.ivm \
+	SoQuadMesh.ivm \
+	SoResetTransform.ivm \
+	SoRotation.ivm \
+	SoRotationXYZ.ivm \
+	SoRotor.ivm \
+	SoScale.ivm \
+	SoSeparator.ivm \
+	SoShape.ivm \
+	SoShapeHints.ivm \
+	SoShuttle.ivm \
+	SoSphere.ivm \
+	SoSpotLight.ivm \
+	SoSurroundScale.ivm \
+	SoSwitch.ivm \
+	SoText2.ivm \
+	SoText3.ivm \
+	SoTexture2.ivm \
+	SoTexture2Transform.ivm \
+	SoTextureCoordinate2.ivm \
+	SoTextureCoordinateBinding.ivm \
+	SoTextureCoordinateDefault.ivm \
+	SoTextureCoordinateEnvironment.ivm \
+	SoTextureCoordinateFunction.ivm \
+	SoTextureCoordinatePlane.ivm \
+	SoTransform.ivm \
+	SoTransformSeparator.ivm \
+	SoTransformation.ivm \
+	SoTranslation.ivm \
+	SoTriangleStripSet.ivm \
+	SoUnits.ivm \
+	SoVertexProperty.ivm \
+	SoVertexShape.ivm \
+	SoWWWAnchor.ivm \
+	SoWWWInline.ivm
+
+
+OBJECTS = $(MANPAGES:.ivm=.3iv)
+
+all: $(OBJECTS)
+
+.ivm.3iv:
+	../../../ivman/ivman $< > $@
+
+install: all
+	@mkdir -p $(IVROOT)/usr/man/man3
+	@for i in $(OBJECTS) ; do \
+		cp -f $$i $(IVROOT)/usr/man/man3 ; \
+	done
+
+clean clobber:
+	rm -f $(OBJECTS)
+
