@@ -458,7 +458,7 @@ Realize(Widget w, Mask *valueMask, XSetWindowAttributes *attributes)
 				      XtWindow(parentShell),
 				      windows, countReturn+1);
 		XtFree((char *) windows);
-		XtFree((char *) windowsReturn);
+		XFree((char *) windowsReturn);
 	    }
 	}
 	else
@@ -543,7 +543,7 @@ Destroy(SoGLwDrawingAreaWidget glw)
 			break;	/* from outer for */
 		    }
 		}
-		XtFree((char *) windowsReturn);
+		XFree((char *) windowsReturn);
 	    }
 	}
     }

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoXt
@@ -915,7 +915,7 @@ SoXt::addColormapToShell(Widget w, Widget shell)
 	XSetWMColormapWindows(XtDisplay(shell), XtWindow(shell),
 	    windows, countReturn+1);
 	XtFree((char *)windows);
-	XtFree((char *)windowsReturn);
+	XFree((char *)windowsReturn);
     }
 }
 
@@ -954,7 +954,7 @@ SoXt::removeColormapFromShell(Widget w, Widget shell)
 		break;	// from outer for
 	    }
 	}
-	XtFree((char *)windowsReturn);
+	XFree((char *)windowsReturn);
     }
 }
 
