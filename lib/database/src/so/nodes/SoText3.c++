@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      SoText3
@@ -2556,7 +2556,7 @@ SoOutlineFontCache::figureSegmentNorms(SbVec2f *norms, int nPoints,
 	if (dp > cosCreaseAngle) {
 	    // Average the second normal for this segment, and the
 	    // first normal for the next segment:
-	    SbVec2f average = norms[i*2+1] + norms[(i+1)*2];
+	    SbVec2f average = norms[i*2+1] + norms[((i+1)%nPoints)*2];
 	    average.normalize();
 	    norms[i*2+1] = average;
 	    norms[((i+1)%nPoints)*2] = average;
