@@ -18,8 +18,6 @@ CXXFILES = \
 	MyMtlPal.c++  \
 	MyTextureEd.c++
 
-LTARGETS = getFiles
-
 all install: all_ivbin
 
 
@@ -41,7 +39,7 @@ CF = MyUIRegion.c++ \
 
 C2F = MyFloatCBList.c++ MyFloatCallbackList.h 
 
-getFiles: $(HF) $(CF) $(C2F)
+LTARGETS = $(HF) $(CF) $(C2F)
 
 $(CF): My%: $(IVDEPTH)/libSoXt/src/mixedMode/SoXt%
 	./nameScript $(IVDEPTH)/libSoXt/src/mixedMode/$(subst My,SoXt,$@) \

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Description:
  |	ivinfo - prints out information about an Inventor data file,
@@ -57,7 +57,7 @@
  _______________________________________________________________________
  */
 
-#include <getopt.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 #include <Inventor/SoDB.h>

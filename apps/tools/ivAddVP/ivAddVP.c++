@@ -74,6 +74,7 @@
 #include <Inventor/actions/SoCallbackAction.h>
 #include <Inventor/actions/SoWriteAction.h>
 #include <Inventor/actions/SoSearchAction.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <getopt.h>
 #include <string.h>
@@ -423,7 +424,8 @@ purgeOldStuff(SoSeparator* root)
     // cube,sphere,cone,cylinder,nurb,text2,text3.
     searchAction.setType(SoVertexShape::getClassTypeId());
     searchAction.apply(root);
-    for (int i=searchAction.getPaths().getLength()-1; i>= 0; i--)
+    int i;
+    for (i=searchAction.getPaths().getLength()-1; i>= 0; i--)
     {
         int index = nonVertexPathList.findPath(*(searchAction.getPaths()[i]));
 	if (index >= 0){
@@ -907,7 +909,8 @@ removeInstances(SoSeparator *root, SoPathList& inputPathList)
      
     //Go through each path in pathlist, looking for instanced nodes
       
-    for (int i = 0; i< vertexPathList.getLength();  i++){
+    int i;
+    for (i = 0; i< vertexPathList.getLength();  i++){
 	SoVertexShape* node = (SoVertexShape*)(vertexPathList[i]->getTail());
 	
 	// see if it's been previously instanced:	

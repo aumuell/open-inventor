@@ -45,9 +45,10 @@
 //
 //    Paul Isaacs
 //
-//    $Revision: 1.1 $
+//    $Revision: 1.2 $
 //
 
+#include <stdlib.h>
 #include <Inventor/SoDB.h>	// for file reading
 #include <Inventor/SoInput.h>	// for file reading
 #include <Inventor/actions/SoWriteAction.h>

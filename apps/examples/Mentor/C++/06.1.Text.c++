@@ -42,6 +42,7 @@
  *  continents Africa and Asia.
  *------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/nodes/SoComplexity.h>
 #include <Inventor/nodes/SoFont.h>
 #include <Inventor/nodes/SoGroup.h>

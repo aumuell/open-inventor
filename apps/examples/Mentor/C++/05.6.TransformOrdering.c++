@@ -45,6 +45,7 @@
  *  translated to the right.
  *------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/viewers/SoXtExaminerViewer.h>
 #include <Inventor/SoDB.h>

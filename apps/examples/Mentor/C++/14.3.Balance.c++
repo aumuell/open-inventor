@@ -52,6 +52,7 @@
  *      of the scene.
  *----------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/events/SoKeyboardEvent.h>
 #include <Inventor/nodekits/SoCameraKit.h>
 #include <Inventor/nodekits/SoLightKit.h>

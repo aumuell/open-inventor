@@ -41,9 +41,8 @@
 #include <stdio.h>
 #include <getopt.h>
 #include <math.h>
-#include <malloc.h>
-#include <unistd.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include <Inventor/SoDB.h>
 #include <Inventor/Xt/SoXt.h>

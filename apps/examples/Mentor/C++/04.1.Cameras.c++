@@ -44,6 +44,7 @@
  *  switched once per second.
  *------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/SbLinear.h>
 
 #include <Inventor/SoDB.h>

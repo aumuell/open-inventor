@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Classes:
  |	MyTextureEditor
@@ -1218,7 +1218,7 @@ MyTextureEditor::updateTextureName()
 //
 ////////////////////////////////////////////////////////////////////////
 {
-    char *str = (currentItem < 0) ? ((selectedItem < 0) ? " " : 
+    char *str = (currentItem < 0) ? ((selectedItem < 0) ? (char *) " " : 
 	textureNames[selectedItem].name) : textureNames[currentItem].name;
     if (str == NULL)
 	str = noFileNameStr;

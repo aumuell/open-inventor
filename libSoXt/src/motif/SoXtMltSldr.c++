@@ -40,7 +40,7 @@
 _______________________________________________________________________
 ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
 |
-|   $Revision: 1.2 $
+|   $Revision: 1.3 $
 |
 |   Classes:
 |      Multiple slider within one container for grouping values
@@ -336,7 +336,7 @@ SoXtMultiSlider::getLayoutSize( int &w, int &h )
 
 static XtResource _titleResource[] = {
     { XmNtitleString, XmCTitleString, XmRXmString, sizeof( XmString ),
-      0, XtRString, NULL }
+      0, XtRString, (XtPointer) NULL }
 };
 
 void

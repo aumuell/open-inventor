@@ -57,7 +57,7 @@ class Alternate : public SoGroup {
 
    // Constructor that takes approximate number of children as
    // a hint
-   Alternate::Alternate(int numChildren);
+   Alternate(int numChildren);
 
  protected:
    // Generic traversal of children for any action

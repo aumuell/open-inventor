@@ -44,6 +44,7 @@
  *  file for printing.
  *----------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/SbViewportRegion.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoOffscreenRenderer.h>

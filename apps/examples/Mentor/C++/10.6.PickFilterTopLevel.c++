@@ -45,6 +45,7 @@
  *  shape that was picked.
  *------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <X11/StringDefs.h>
 #include <X11/Intrinsic.h>
 
@@ -88,7 +89,7 @@ main(int argc, char *argv[])
    char *datafile = "/usr/share/src/Inventor/examples/data/parkbench.iv";
    if (! in.openFile(datafile)) {
       fprintf(stderr, "Cannot open %s for reading.\n", datafile);
-      return;
+      exit(1);
    }
 
    // Read the input file

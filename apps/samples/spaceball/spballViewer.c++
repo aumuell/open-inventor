@@ -41,6 +41,7 @@
 // a callback on the viewer.
 //
 
+#include <stdlib.h>
 #include <X11/Intrinsic.h>
 
 #include <Inventor/So.h>
@@ -164,7 +165,7 @@ main(unsigned int argc, char *argv[])
 
     if (! SoXtSpaceball::exists()) {
 	printf("Could not find a spaceball device connected to this display\n");
-	return;
+	exit(1);
     }
     
     msg();

@@ -488,7 +488,8 @@ FaceList::findBodies()
     buildVertexDict();
 
     // clear all faces
-    for (int i=0; i< getLength(); i++)
+    int i;
+    for (i=0; i< getLength(); i++)
 	(*this)[i]->body = -1;
 
     int bodyN = 0;
@@ -542,7 +543,8 @@ FaceList::extractBody(int b,
 		     int &bnv, int32_t *vNewFromOld, int32_t *vOldFromNew)
 {
     // build the face maps
-    for (int f=0, bf=0; f < getLength(); f++) {
+    int f, bf;
+    for (f=0, bf=0; f < getLength(); f++) {
 	if ((*this)[f]->body == b) {
 	    // f is the old face index
 	    // bf is the new face index
@@ -554,7 +556,8 @@ FaceList::extractBody(int b,
     bnf = bf;
 
     // build the vertex maps
-    for (int ni=0, i=0; i < vdSize; i++) {
+    int ni, i;
+    for (ni=0, i=0; i < vdSize; i++) {
 	const FaceList &faces = vd[i];
 	SbBool isInBody = FALSE;
 	for (int j = 0; j < faces.getLength(); j++) if (faces[j]->body == b) {
@@ -582,7 +585,8 @@ FaceList::buildVertexDict()
     if (vd) return;
 
     int biggest_index = 0;
-    for (int i = 0; i < getLength(); i++) {
+    int i;
+    for (i = 0; i < getLength(); i++) {
 	Face *f = (*this)[i];
 	for (int j = 0; j < f->nv; j++) {
 	    if (f->v[j] > biggest_index) biggest_index = f->v[j];
@@ -613,7 +617,8 @@ FaceList::findVertexNormals(SoNormal *norm, SoIndexedFaceSet *ifs,
     buildVertexDict();
 
     // Initialize all faces
-    for (int i = 0; i < getLength(); i++)
+    int i;
+    for (i = 0; i < getLength(); i++)
     {
 	Face *f = (*this)[i];
 
@@ -695,7 +700,8 @@ FaceList::averageNormals(SoMFVec3f &norms, SbVec3f &reference,
     int max = getLength();
 
     // first, loop through and compute the average
-    for (int i = 0; i < max; i++)
+    int i;
+    for (i = 0; i < max; i++)
     {
 	Face *f = (*this)[i];
 	if (f->degenerate) continue;

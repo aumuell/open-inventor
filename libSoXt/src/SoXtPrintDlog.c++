@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |      SoXtPrintDialog
@@ -102,8 +102,6 @@
 #define INCHES_PER_MM       3.937008e-02
 #define POINTS_PER_INCH     72.27
 
-
-extern int errno;
 
 #define PRINTER_MENU_HEIGHT         330
 #define RGB_FILE_MENU_HEIGHT        220

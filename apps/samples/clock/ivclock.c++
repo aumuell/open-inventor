@@ -41,6 +41,7 @@
 //  See the README file in this directory for a complete explanation.
 //
 
+#include <stdlib.h>
 #include <X11/Intrinsic.h>
 #include <math.h>
 

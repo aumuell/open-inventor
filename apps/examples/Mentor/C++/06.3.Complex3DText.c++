@@ -42,6 +42,7 @@
  *  SoXTExaminerViewer.  It is a little fancier than 6.2.
  *------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/viewers/SoXtExaminerViewer.h>
 #include <Inventor/nodes/SoFont.h>

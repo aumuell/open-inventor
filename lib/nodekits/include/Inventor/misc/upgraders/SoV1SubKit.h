@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	This file defines some macros that implement things common to
@@ -259,7 +259,7 @@ className::getClassNodekitCatalog()					    \
 //
 // For example,
 //
-// SO_V1_SUBKIT_ADD_CATALOG_LIST_ENTRY("subCubes",SoSeparator,"this","", \
+// SO_V1_SUBKIT_ADD_CATALOG_LIST_ENTRY("subCubes",SoSeparator,"this","",
 //					SoCube, TRUE );
 //
 // makes a Separator node that will later be a list of SoCubes.

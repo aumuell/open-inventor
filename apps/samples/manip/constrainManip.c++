@@ -42,6 +42,7 @@
  *  Display the scene in a viewer.
  *----------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/SoDB.h>
 
 #include <Inventor/actions/SoSearchAction.h>

@@ -56,6 +56,7 @@
 #include "foo.h"
 
 
+#include <stdlib.h>
 #include <math.h>
 #include <string.h>
 #include <X11/Intrinsic.h>

@@ -45,6 +45,7 @@
  *  the words change color and fly about the screen.
  *----------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/viewers/SoXtExaminerViewer.h>
 #include <Inventor/engines/SoCalculator.h>

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoNodeKitPath
@@ -452,6 +452,7 @@ SoNodeKitPath::findFork(const SoNodeKitPath *path) const
 //    are the same length, the heads are the same, and all the nodekits
 //    on them are the same.
 //
+int
 operator ==(const SoNodeKitPath &p1, const SoNodeKitPath &p2)
 {
     int i;

@@ -38,7 +38,7 @@
 // gview - displays a graph view of an Inventor scene graph.
 //
 
-#include <getopt.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 #include <X11/Intrinsic.h>

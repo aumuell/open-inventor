@@ -34,6 +34,7 @@
  *
  */
 
+#include <stdlib.h>
 #include <unistd.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInteraction.h>

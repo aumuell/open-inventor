@@ -48,6 +48,7 @@
 //  at a time, the others are off.
 //
 
+#include <stdlib.h>
 #include <X11/Intrinsic.h>
 #include <Xm/Xm.h>
 #include <Xm/CascadeBG.h>

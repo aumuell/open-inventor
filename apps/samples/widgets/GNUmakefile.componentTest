@@ -7,9 +7,9 @@ CXXFILES = componentTest.c++
 
 LLDLIBS = libInventorWidget.a -lInventor -lInventorXt -lGLw
 
-LTARGETS = libInventorWidget.a
-
 all install: all_ivbin
+
+LTARGETS = libInventorWidget.a
 
 libInventorWidget.a:
 	cd `dirname $@`; make `basename $@`

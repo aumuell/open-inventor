@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoEventCallback
@@ -94,7 +94,7 @@ SoEventCallback::~SoEventCallback()
 
     // delete the data elements, and delete the callback list
     for (int i = 0; i < cblist->getLength(); i++)
-	delete (*cblist)[i];
+	delete (SoEventCallbackData *) (*cblist)[i];
     delete cblist;
 }
 

@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	This file contains the SbColor class definition.
@@ -141,36 +141,36 @@ class SbColor : public SbVec3f {
 // generator does NOT generate macros for macros defined by a parent
 // class. Thus they must be done `by hand'.  Yes, this does suck.
 
-// C-api.h: #define SbColGetRGB(_dest, _src)				      \
-// C-api.h:     (((_dest)[0] = (_src).rgb[0]), ((_dest)[1] = (_src).rgb[1]),  \
+// C-api.h: #define SbColGetRGB(_dest, _src)
+// C-api.h:     (((_dest)[0] = (_src).rgb[0]), ((_dest)[1] = (_src).rgb[1]),
 // C-api.h:      ((_dest)[2] = (_src).rgb[2]))
 
-// C-api.h: #define SbColGetR_G_B(_r, _g, _b, _src)			      \
-// C-api.h:     (((_r) = (_src).rgb[0]), ((_g) = (_src).rgb[1]),	      \
+// C-api.h: #define SbColGetR_G_B(_r, _g, _b, _src)
+// C-api.h:     (((_r) = (_src).rgb[0]), ((_g) = (_src).rgb[1]),
 // C-api.h:	 ((_b) = (_src).rgb[2]))
 
-// C-api.h: #define SbColSetRGB(_dest, _src)				      \
-// C-api.h:     (((_dest).rgb[0] = (_src)[0]), ((_dest).rgb[1] = (_src)[1]),  \
+// C-api.h: #define SbColSetRGB(_dest, _src)
+// C-api.h:     (((_dest).rgb[0] = (_src)[0]), ((_dest).rgb[1] = (_src)[1]),
 // C-api.h:      ((_dest).rgb[2] = (_src)[2]))
 
-// C-api.h: #define SbColSetR_G_B(_dest, _r, _g, _b)			      \
-// C-api.h:     (((_dest).rgb[0] = (_r)), ((_dest).rgb[1] = (_g)),	      \
+// C-api.h: #define SbColSetR_G_B(_dest, _r, _g, _b)
+// C-api.h:     (((_dest).rgb[0] = (_r)), ((_dest).rgb[1] = (_g)),
 // C-api.h:      ((_dest).rgb[2] = (_b)))
 
-// C-api.h: #define SbColMult(_v, _s)					      \
+// C-api.h: #define SbColMult(_v, _s)
 // C-api.h:     (((_v).rgb[0] *= (_s)), ((_v).rgb[1] *= (_s)), ((_v).rgb[2] *= (_s)))
 
-// C-api.h: #define SbColDiv(_v, _s)					      \
+// C-api.h: #define SbColDiv(_v, _s)
 // C-api.h:     (((_v).rgb[0] /= (_s)), ((_v).rgb[1] /= (_s)), ((_v).rgb[2] /= (_s)))
 
-// C-api.h: #define SbColAdd(_dest, _src1, _src2)			      \
-// C-api.h:     (((_dest).rgb[0] = (_src1).rgb[0] + (_src2).rgb[0]),	      \
-// C-api.h:      ((_dest).rgb[1] = (_src1).rgb[1] + (_src2).rgb[1]),	      \
+// C-api.h: #define SbColAdd(_dest, _src1, _src2)
+// C-api.h:     (((_dest).rgb[0] = (_src1).rgb[0] + (_src2).rgb[0]),
+// C-api.h:      ((_dest).rgb[1] = (_src1).rgb[1] + (_src2).rgb[1]),
 // C-api.h:      ((_dest).rgb[2] = (_src1).rgb[2] + (_src2).rgb[2]))
 
-// C-api.h: #define SbColSub(_dest, _src1, _src2)			      \
-// C-api.h:     (((_dest).rgb[0] = (_src1).rgb[0] - (_src2).rgb[0]),	      \
-// C-api.h:      ((_dest).rgb[1] = (_src1).rgb[1] - (_src2).rgb[1]),	      \
+// C-api.h: #define SbColSub(_dest, _src1, _src2)
+// C-api.h:     (((_dest).rgb[0] = (_src1).rgb[0] - (_src2).rgb[0]),
+// C-api.h:      ((_dest).rgb[1] = (_src1).rgb[1] - (_src2).rgb[1]),
 // C-api.h:      ((_dest).rgb[2] = (_src1).rgb[2] - (_src2).rgb[2]))
 
 };

@@ -42,6 +42,7 @@
  *  by subclassing from SoGLRenderAction.
  *------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <X11/StringDefs.h>
 #include <X11/Intrinsic.h>
 
@@ -65,7 +66,7 @@ main(int , char *argv[])
    char *datafile = "/usr/share/src/Inventor/examples/data/monitor.iv";
    if (! in.openFile(datafile)) {
       fprintf(stderr, "Cannot open %s for reading.\n", datafile);
-      return;
+      exit(1);
    }
 
    // Read the input file

@@ -43,6 +43,7 @@
  *  a texture map.
  *----------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInput.h>
 #include <Inventor/SoOffscreenRenderer.h>

@@ -38,10 +38,10 @@
 // Code to generate a cube made out of a single quad-mesh
 //
 // Basic shape is:
-//     /\
-//    /  \
-//   /    \
-//  /      \
+//     /\ 
+//    /  \ 
+//   /    \ 
+//  /      \ 
 //  --------
 //  |      |
 //  |      |

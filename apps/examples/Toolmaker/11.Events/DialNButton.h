@@ -63,7 +63,7 @@ class DialNButton : public SoXtDevice {
    // the callback function f will be invoked when events occur in w.
    // data is the clientData which will be passed.
    virtual void        enable(Widget w, XtEventHandler f,
-                           XtPointer data, Window win = NULL);
+                           XtPointer data, Window win = (Window) NULL);
    virtual void        disable(Widget w, XtEventHandler f,
                            XtPointer data);
    

@@ -45,11 +45,10 @@
 #include <stdio.h>
 #include <getopt.h>
 #include <math.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 #include <unistd.h>
-#include <stdlib.h>
 
 
 #include <Inventor/Xt/SoXt.h>
@@ -113,8 +112,8 @@ static int notextures = 0;
 // Create a scene graph that looks something like this:
 //
 //                    Separator root
-//                   /              \
-//                  /                \
+//                   /              \ 
+//                  /                \ 
 //      Separator ToStuff         Separator FromStuff
 //     /              |            |           |     |
 // ToTexSwitch        |     FromTexSwitch   TransparentMaterial

@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoSpaceballButtonEvent
@@ -70,9 +70,9 @@
 			SoSpaceballButtonEvent::BUTTON))
 
 // C-api: begin
-// C-api: interpret #define SO_SPBALL_PRESS_EV(EVENT,BUTTON) \
+// C-api: interpret #define SO_SPBALL_PRESS_EV(EVENT,BUTTON)
 // C-api: interpret     (SoSpballEvIsBtnPressEv(EVENT,BUTTON))
-// C-api: interpret #define SO_SPBALL_RELEASE_EV(EVENT,BUTTON) \
+// C-api: interpret #define SO_SPBALL_RELEASE_EV(EVENT,BUTTON)
 // C-api: interpret     (SoSpballEvIsBtnReleaseEv(EVENT,BUTTON))
 
 

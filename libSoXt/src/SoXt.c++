@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SoXt
@@ -71,7 +71,7 @@
 // now it is just sample code. We include it here for convenience
 // to our users.
 extern "C" {
-    iv_SG_getPopupArgs(Display *, int, ArgList, int *);
+    int iv_SG_getPopupArgs(Display *, int, ArgList, int *);
 }
 
 

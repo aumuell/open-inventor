@@ -42,6 +42,7 @@
  *  puts it in an examinerViewer.
  *------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/viewers/SoXtExaminerViewer.h>
 

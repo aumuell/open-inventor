@@ -35,7 +35,7 @@
  */
 
 /*
- * subdivider.c++ - $Revision: 1.1 $
+ * subdivider.c++ - $Revision: 1.2 $
  * 	Derrick Burns - 1991
  */
 
@@ -532,22 +532,22 @@ Subdivider::makeBorderTrim( const REAL *from, const REAL *to )
 
     pjarc = 0;
 
-    Arc_ptr jarc = new(arcpool) Arc( arc_bottom, 0.0 );
+    Arc_ptr jarc = new(arcpool) Arc( arc_bottom, 0 );
     arctessellator.bezier( jarc, smin, smax, tmin, tmin );
     initialbin.addarc( jarc  );
     pjarc = jarc->append( pjarc );
 
-    jarc = new(arcpool) Arc( arc_right, 0.0 );
+    jarc = new(arcpool) Arc( arc_right, 0 );
     arctessellator.bezier( jarc, smax, smax, tmin, tmax );
     initialbin.addarc( jarc  );
     pjarc = jarc->append( pjarc );
 
-    jarc = new(arcpool) Arc( arc_top, 0.0 );
+    jarc = new(arcpool) Arc( arc_top, 0 );
     arctessellator.bezier( jarc, smax, smin, tmax, tmax );
     initialbin.addarc( jarc  );
     pjarc = jarc->append( pjarc );
 
-    jarc = new(arcpool) Arc( arc_left, 0.0 );
+    jarc = new(arcpool) Arc( arc_left, 0 );
     arctessellator.bezier( jarc, smin, smin, tmax, tmin );
     initialbin.addarc( jarc  );
     jarc->append( pjarc );

@@ -33,7 +33,6 @@
  *  http://oss.sgi.com/projects/GenInfo/NoticeExplan/
  *
  */
-
 //
 // Generalized Cylinder program
 //
@@ -41,7 +40,7 @@
 #include <stdio.h>
 #include <getopt.h>
 #include <math.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 #include <Inventor/SoPickedPoint.h>

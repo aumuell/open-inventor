@@ -48,6 +48,7 @@
  *  This example could also be done using engines.
  *------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/viewers/SoXtExaminerViewer.h>

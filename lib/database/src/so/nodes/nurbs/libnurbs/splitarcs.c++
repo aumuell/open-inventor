@@ -35,7 +35,7 @@
  */
 
 /*
- * splitarcs.c++ - $Revision: 1.1 $
+ * splitarcs.c++ - $Revision: 1.2 $
  * 	Derrick Burns - 1991
  */
 
@@ -200,8 +200,8 @@ Subdivider::join_s( Bin& left, Bin& right, Arc_ptr jarc1, Arc_ptr jarc2 )
     if( t1 == t2 ) {
 	simple_link( jarc1, jarc2 );
     } else {
-	Arc_ptr newright = new(arcpool) Arc( arc_right, 0.0 ); 
-	Arc_ptr newleft = new(arcpool) Arc( arc_left, 0.0 );
+	Arc_ptr newright = new(arcpool) Arc( arc_right, 0 ); 
+	Arc_ptr newleft = new(arcpool) Arc( arc_left, 0 );
 	assert( t1 < t2 );
 	if( isBezierArcType() ) {
 	    arctessellator.bezier( newright, s, s, t1, t2 );
@@ -274,8 +274,8 @@ Subdivider::join_t( Bin& bottom, Bin& top, Arc_ptr jarc1, Arc_ptr jarc2 )
     if( s1 == s2 ) {
 	simple_link( jarc1, jarc2 );
     } else {
-	Arc_ptr newtop = new(arcpool) Arc( arc_top, 0.0 );
-	Arc_ptr newbot = new(arcpool) Arc( arc_bottom, 0.0 );
+	Arc_ptr newtop = new(arcpool) Arc( arc_top, 0 );
+	Arc_ptr newbot = new(arcpool) Arc( arc_bottom, 0 );
 	assert( s1 > s2 );
 	if( isBezierArcType() ) {
 	    arctessellator.bezier( newtop, s1, s2, t, t );

@@ -41,7 +41,7 @@
 
 struct Edge
 {
-    Edge::Edge() { v1 = v2 = (-1); }
+    Edge() { v1 = v2 = (-1); }
     int32_t v1, v2;
     FaceList faces;
 };

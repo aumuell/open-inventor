@@ -43,6 +43,7 @@
  *  global field to a Text3 string.
  *------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/SoXtRenderArea.h>

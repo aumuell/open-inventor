@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Classes:
  |	MyMaterialPalette
@@ -1307,7 +1307,7 @@ MyMaterialPalette::updateMaterialName()
 //
 ////////////////////////////////////////////////////////////////////////
 {
-    char *str = (currentItem < 0) ? ((selectedItem < 0) ? " " : 
+    char *str = (currentItem < 0) ? ((selectedItem < 0) ? (char *) " " : 
 	mtlNames[selectedItem].name) : mtlNames[currentItem].name;
     XmString xmstr = XmStringCreateSimple(str);
     XtVaSetValues(widgetList[MAT_LABEL], XmNlabelString, xmstr, NULL);

@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Description:
  |	This file contains definitions of various linear algebra classes,
@@ -143,24 +143,24 @@ class SbVec3f {
 
     // Returns dot (inner) product of vector and another vector
     float	dot(const SbVec3f &v) const;
-// C-api.h: #define SbV3fDot(_v0, _v1) \
-// C-api.h:     ((_v0).vec[0] * (_v1).vec[0] + (_v0).vec[1] * (_v1).vec[1] + \
+// C-api.h: #define SbV3fDot(_v0, _v1)
+// C-api.h:     ((_v0).vec[0] * (_v1).vec[0] + (_v0).vec[1] * (_v1).vec[1] +
 // C-api.h:      (_v0).vec[2] * (_v1).vec[2])
 
     // Returns pointer to array of 3 components
     const float	*getValue() const			{ return vec; }
-// C-api.h: #define SbV3fGetXYZ(_xyz, _src) \
-// C-api.h:     (((_xyz)[0] = (_src).vec[0]), ((_xyz)[1] = (_src).vec[1]),    \
+// C-api.h: #define SbV3fGetXYZ(_xyz, _src)
+// C-api.h:     (((_xyz)[0] = (_src).vec[0]), ((_xyz)[1] = (_src).vec[1]),
 // C-api.h:	 ((_xyz)[2] = (_src).vec[2]))
 
     // Returns 3 individual components
     void	getValue(float &x, float &y, float &z) const;
-// C-api.h: #define SbV3fGetX_Y_Z(_x, _y, _z, _src) \
+// C-api.h: #define SbV3fGetX_Y_Z(_x, _y, _z, _src)
 // C-api.h:     (((_x) = (_src).vec[0]), ((_y) = (_src).vec[1]), ((_z) = (_src).vec[2]))
 
     // Returns geometric length of vector
     float	length() const;
-// C-api.h: #define SbV3fLen(_v) \
+// C-api.h: #define SbV3fLen(_v)
 // C-api.h:     (sqrtf(SbV3fDot((_v), (_v))))
 
 // C-api: begin
@@ -171,21 +171,21 @@ class SbVec3f {
 
     // Negates each component of vector in place
     void	negate();
-// C-api.h: #define SbV3fNegate(_v) \
+// C-api.h: #define SbV3fNegate(_v)
 // C-api.h: 	SbV3fMultBy(_v, -1.0)
 
     // Sets value of vector from array of 3 components
     SbVec3f &	setValue(const float v[3])
 	 { vec[0] = v[0]; vec[1] = v[1]; vec[2] = v[2]; return *this; }
-// C-api.h: #define SbV3fSetXYZ(_dest, _src) \
-// C-api.h:     (((_dest).vec[0] = (_src)[0]), ((_dest).vec[1] = (_src)[1]), \
+// C-api.h: #define SbV3fSetXYZ(_dest, _src)
+// C-api.h:     (((_dest).vec[0] = (_src)[0]), ((_dest).vec[1] = (_src)[1]),
 // C-api.h:      ((_dest).vec[2] = (_src)[2]))
 
     // Sets value of vector from 3 individual components
     SbVec3f &	setValue(float x, float y, float z)
 	 { vec[0] = x; vec[1] = y; vec[2] = z; return *this; }
-// C-api.h: #define SbV3fSetX_Y_Z(_dest, _x, _y, _z) \
-// C-api.h:     (((_dest).vec[0] = (_x)), ((_dest).vec[1] = (_y)), \
+// C-api.h: #define SbV3fSetX_Y_Z(_dest, _x, _y, _z)
+// C-api.h:     (((_dest).vec[0] = (_x)), ((_dest).vec[1] = (_y)),
 // C-api.h:      ((_dest).vec[2] = (_z)))
 
     // Sets value of vector to be convex combination of 3 other
@@ -199,12 +199,12 @@ class SbVec3f {
 
     // Component-wise scalar multiplication and division operators
     SbVec3f &	operator *=(float d);
-// C-api.h: #define SbV3fMultBy(_v, _s) \
+// C-api.h: #define SbV3fMultBy(_v, _s)
 // C-api.h:     (((_v).vec[0] *= (_s)), ((_v).vec[1] *= (_s)), ((_v).vec[2] *= (_s)))
 
     SbVec3f &	operator /=(float d)
 	{ return *this *= (1.0 / d); }
-// C-api.h: #define SbV3fDivBy(_v, _s) \
+// C-api.h: #define SbV3fDivBy(_v, _s)
 // C-api.h:     (((_v).vec[0] /= (_s)), ((_v).vec[1] /= (_s)), ((_v).vec[2] /= (_s)))
 
     // Component-wise vector addition and subtraction operators
@@ -223,15 +223,15 @@ class SbVec3f {
 
     // Component-wise binary vector addition and subtraction operators
     friend SbVec3f	operator +(const SbVec3f &v1, const SbVec3f &v2);
-// C-api.h: #define SbV3fAdd(_dest, _src1, _src2) \
-// C-api.h:     (((_dest).vec[0] = (_src1).vec[0] + (_src2).vec[0]), \
-// C-api.h:      ((_dest).vec[1] = (_src1).vec[1] + (_src2).vec[1]), \
+// C-api.h: #define SbV3fAdd(_dest, _src1, _src2)
+// C-api.h:     (((_dest).vec[0] = (_src1).vec[0] + (_src2).vec[0]),
+// C-api.h:      ((_dest).vec[1] = (_src1).vec[1] + (_src2).vec[1]),
 // C-api.h:      ((_dest).vec[2] = (_src1).vec[2] + (_src2).vec[2]))
 
     friend SbVec3f	operator -(const SbVec3f &v1, const SbVec3f &v2);
-// C-api.h: #define SbV3fSub(_dest, _src1, _src2) \
-// C-api.h:     (((_dest).vec[0] = (_src1).vec[0] - (_src2).vec[0]), \
-// C-api.h:      ((_dest).vec[1] = (_src1).vec[1] - (_src2).vec[1]), \
+// C-api.h: #define SbV3fSub(_dest, _src1, _src2)
+// C-api.h:     (((_dest).vec[0] = (_src1).vec[0] - (_src2).vec[0]),
+// C-api.h:      ((_dest).vec[1] = (_src1).vec[1] - (_src2).vec[1]),
 // C-api.h:      ((_dest).vec[2] = (_src1).vec[2] - (_src2).vec[2]))
 
 // C-api: begin
@@ -282,27 +282,27 @@ class SbVec2f {
 
     // Returns dot (inner) product of vector and another vector
     float	dot(const SbVec2f &v) const;
-// C-api.h: #define SbV2fDot(_v0, _v1) \
+// C-api.h: #define SbV2fDot(_v0, _v1)
 // C-api.h:     ((_v0).vec[0] * (_v1).vec[0] + (_v0).vec[1] * (_v1).vec[1])
 
     // Returns pointer to array of 2 components
     const float	*getValue() const			{ return vec; }
-// C-api.h: #define SbV2fGetXY(_xy, _src) \
+// C-api.h: #define SbV2fGetXY(_xy, _src)
 // C-api.h:     (((_xy)[0] = (_src).vec[0]), ((_xy)[1] = (_src).vec[1]))
 
     // Returns 2 individual components
     void	getValue(float &x, float &y) const;
-// C-api.h: #define SbV2fGetX_Y(_x, _y, _src) \
+// C-api.h: #define SbV2fGetX_Y(_x, _y, _src)
 // C-api.h:     (((_x) = (_src).vec[0]), ((_y) = (_src).vec[1]))
 
     // Returns geometric length of vector
     float	length() const;
-// C-api.h: #define SbV2fLen(_v) \
+// C-api.h: #define SbV2fLen(_v)
 // C-api.h:     (sqrtf(SbV2fDot((_v), (_v))))
 
     // Negates each component of vector in place
     void	negate();
-// C-api.h: #define SbV2fNegate(_v) \
+// C-api.h: #define SbV2fNegate(_v)
 // C-api.h: 	SbV2fMultBy(_v, -1.0)
 
 // C-api: begin
@@ -313,12 +313,12 @@ class SbVec2f {
 
     // Sets value of vector from array of 2 components
     SbVec2f &	setValue(const float v[2]);
-// C-api.h: #define SbV2fSetXY(_dest, _src) \
+// C-api.h: #define SbV2fSetXY(_dest, _src)
 // C-api.h:     (((_dest).vec[0] = (_src)[0]), ((_dest).vec[1] = (_src)[1]))
 
     // Sets value of vector from 2 individual components
     SbVec2f &	setValue(float x, float y);
-// C-api.h: #define SbV2fSetX_Y(_dest, _x, _y) \
+// C-api.h: #define SbV2fSetX_Y(_dest, _x, _y)
 // C-api.h:     (((_dest).vec[0] = (_x)), ((_dest).vec[1] = (_y)))
 
     // Accesses indexed component of vector
@@ -327,12 +327,12 @@ class SbVec2f {
 
     // Component-wise scalar multiplication and division operators
     SbVec2f &	operator *=(float d);
-// C-api.h: #define SbV2fMultBy(_v, _s) \
+// C-api.h: #define SbV2fMultBy(_v, _s)
 // C-api.h:     (((_v).vec[0] *= (_s)), ((_v).vec[1] *= (_s)))
 
     SbVec2f &	operator /=(float d)
 	{ return *this *= (1.0 / d); }
-// C-api.h: #define SbV2fDivBy(_v, _s) \
+// C-api.h: #define SbV2fDivBy(_v, _s)
 // C-api.h:     (((_v).vec[0] /= (_s)), ((_v).vec[1] /= (_s)))
 
     // Component-wise vector addition and subtraction operators
@@ -351,13 +351,13 @@ class SbVec2f {
 
     // Component-wise binary vector addition and subtraction operators
     friend SbVec2f	operator +(const SbVec2f &v1, const SbVec2f &v2);
-// C-api.h: #define SbV2fAdd(_dest, _src1, _src2) \
-// C-api.h:     (((_dest).vec[0] = (_src1).vec[0] + (_src2).vec[0]), \
+// C-api.h: #define SbV2fAdd(_dest, _src1, _src2)
+// C-api.h:     (((_dest).vec[0] = (_src1).vec[0] + (_src2).vec[0]),
 // C-api.h:      ((_dest).vec[1] = (_src1).vec[1] + (_src2).vec[1]))
 
     friend SbVec2f	operator -(const SbVec2f &v1, const SbVec2f &v2);
-// C-api.h: #define SbV2fSub(_dest, _src1, _src2) \
-// C-api.h:     (((_dest).vec[0] = (_src1).vec[0] - (_src2).vec[0]), \
+// C-api.h: #define SbV2fSub(_dest, _src1, _src2)
+// C-api.h:     (((_dest).vec[0] = (_src1).vec[0] - (_src2).vec[0]),
 // C-api.h:      ((_dest).vec[1] = (_src1).vec[1] - (_src2).vec[1]))
 
 // C-api: begin
@@ -404,32 +404,32 @@ class SbVec2s {
 
     // Returns dot (inner) product of vector and another vector
     int32_t	dot(const SbVec2s &v) const;
-// C-api.h: #define SbV2sDot(_v0, _v1) \
+// C-api.h: #define SbV2sDot(_v0, _v1)
 // C-api.h:     ((_v0).vec[0] * (_v1).vec[0] + (_v0).vec[1] * (_v1).vec[1])
 
     // Returns pointer to array of 2 components
     const short	*getValue() const			{ return vec; }
-// C-api.h: #define SbV2sGetXY(_dest, _src) \
+// C-api.h: #define SbV2sGetXY(_dest, _src)
 // C-api.h:     (((_dest)[0] = (_src).vec[0]), ((_dest)[1] = (_src).vec[1]))
 
     // Returns 2 individual components
     void	getValue(short &x, short &y) const;
-// C-api.h: #define SbV2sGetX_Y(_x, _y, _src) \
+// C-api.h: #define SbV2sGetX_Y(_x, _y, _src)
 // C-api.h:     (((_x) = (_src).vec[0]), ((_y) = (_src).vec[1]))
 
     // Negates each component of vector in place
     void	negate();
-// C-api.h: #define SbV2sNegate(_v) \
+// C-api.h: #define SbV2sNegate(_v)
 // C-api.h: 	SbV2sMultBy(_v, -1.0)
 
     // Sets value of vector from array of 2 components
     SbVec2s &	setValue(const short v[2]);
-// C-api.h: #define SbV2sSetXY(_dest, _src) \
+// C-api.h: #define SbV2sSetXY(_dest, _src)
 // C-api.h:     (((_dest).vec[0] = (_src)[0]), ((_dest)[1] = (_src)[1]))
 
     // Sets value of vector from 2 individual components
     SbVec2s &	setValue(short x, short y);
-// C-api.h: #define SbV2sSetX_Y(_dest, _x, _y) \
+// C-api.h: #define SbV2sSetX_Y(_dest, _x, _y)
 // C-api.h:     (((_dest).vec[0] = (_x)), ((_dest).vec[1] = (_y)))
 
     // Accesses indexed component of vector
@@ -439,13 +439,13 @@ class SbVec2s {
     // Component-wise scalar multiplication and division operators
     SbVec2s &	operator *=(int d);
     SbVec2s &	operator *=(double d);
-// C-api.h: #define SbV2sMultBy(_v, _s) \
+// C-api.h: #define SbV2sMultBy(_v, _s)
 // C-api.h:     (((_v).vec[0] *= (_s)), ((_v).vec[1] *= (_s)))
 
     SbVec2s &	operator /=(int d);
     SbVec2s &	operator /=(double d)
 	{ return *this *= (1.0 / d); }
-// C-api.h: #define SbV2sDivBy(_v, _s) \
+// C-api.h: #define SbV2sDivBy(_v, _s)
 // C-api.h:     (((_v).vec[0] /= (_s)), ((_v).vec[1] /= (_s)))
 
     // Component-wise vector addition and subtraction operators
@@ -468,13 +468,13 @@ class SbVec2s {
 
     // Component-wise binary vector addition and subtraction operators
     friend SbVec2s	operator +(const SbVec2s &v1, const SbVec2s &v2);
-// C-api.h: #define SbV2sAdd(_dest, _src1, _src2) \
-// C-api.h:     (((_dest).vec[0] = (_src1).vec[0] + (_src2).vec[0]), \
+// C-api.h: #define SbV2sAdd(_dest, _src1, _src2)
+// C-api.h:     (((_dest).vec[0] = (_src1).vec[0] + (_src2).vec[0]),
 // C-api.h:      ((_dest).vec[1] = (_src1).vec[1] + (_src2).vec[1]))
 
     friend SbVec2s	operator -(const SbVec2s &v1, const SbVec2s &v2);
-// C-api.h: #define SbV2sSub(_dest, _src1, _src2) \
-// C-api.h:     (((_dest).vec[0] = (_src1).vec[0] - (_src2).vec[0]), \
+// C-api.h: #define SbV2sSub(_dest, _src1, _src2)
+// C-api.h:     (((_dest).vec[0] = (_src1).vec[0] - (_src2).vec[0]),
 // C-api.h:      ((_dest).vec[1] = (_src1).vec[1] - (_src2).vec[1]))
 
 // C-api: begin
@@ -517,8 +517,8 @@ class SbVec4f {
 
     // Returns dot (inner) product of vector and another vector
     float	dot(const SbVec4f &v) const;
-// C-api.h: #define SbV4fDot(_v0, _v1) \
-// C-api.h:     ((_v0).vec[0] * (_v1).vec[0] + (_v0).vec[1] * (_v1).vec[1] + \
+// C-api.h: #define SbV4fDot(_v0, _v1)
+// C-api.h:     ((_v0).vec[0] * (_v1).vec[0] + (_v0).vec[1] * (_v1).vec[1] +
 // C-api.h:      (_v0).vec[2] * (_v1).vec[2] + (_v0).vec[3] * (_v1).vec[3])
 
 // C-api: begin
@@ -528,24 +528,24 @@ class SbVec4f {
 
     // Returns pointer to array of 4 components
     const float	*getValue() const			{ return vec; }
-// C-api.h: #define SbV4fGetXYZW(_dest, _src) \
-// C-api.h:     (((_dest)[0] = (_src).vec[0]), ((_dest)[1] = (_src).vec[1]), \
+// C-api.h: #define SbV4fGetXYZW(_dest, _src)
+// C-api.h:     (((_dest)[0] = (_src).vec[0]), ((_dest)[1] = (_src).vec[1]),
 // C-api.h:      ((_dest)[2] = (_src).vec[2]), ((_dest)[3] = (_src).vec[3]))
 
     // Returns 4 individual components
     void	getValue(float &x, float &y, float &z, float &w) const;
-// C-api.h: #define SbV4fGetX_Y_Z_W(_x, _y, _z, _w, _src) \
-// C-api.h:     (((_x) = (_src).vec[0]), ((_y) = (_src).vec[1]), \
+// C-api.h: #define SbV4fGetX_Y_Z_W(_x, _y, _z, _w, _src)
+// C-api.h:     (((_x) = (_src).vec[0]), ((_y) = (_src).vec[1]),
 // C-api.h:      ((_z) = (_src).vec[2]), ((_w) = (_src).vec[3]))
 
     // Returns geometric length of vector
     float	length() const;
-// C-api.h: #define SbV4fLen(_v) \
+// C-api.h: #define SbV4fLen(_v)
 // C-api.h:     (sqrtf(SbV4fDot((_v), (_v))))
 
     // Negates each component of vector in place
     void	negate();
-// C-api.h: #define SbV4fNegate(_v) \
+// C-api.h: #define SbV4fNegate(_v)
 // C-api.h: 	SbV4fMultBy(_v, -1.0)
 
 // C-api: begin
@@ -556,14 +556,14 @@ class SbVec4f {
 
     // Sets value of vector from array of 4 components
     SbVec4f &	setValue(const float v[4]);
-// C-api.h: #define SbV4fSetXYZW(_dest, _src) \
-// C-api.h:     (((_dest).vec[0] = (_src)[0]), ((_dest).vec[1] = (_src)[1]), \
+// C-api.h: #define SbV4fSetXYZW(_dest, _src)
+// C-api.h:     (((_dest).vec[0] = (_src)[0]), ((_dest).vec[1] = (_src)[1]),
 // C-api.h:      ((_dest).vec[2] = (_src)[2]), ((_dest).vec[3] = (_src)[3]))
 
     // Sets value of vector from 4 individual components
     SbVec4f &	setValue(float x, float y, float z, float w);
-// C-api.h: #define SbV4fSetX_Y_Z_W(_dest, _x, _y, _z, _w) \
-// C-api.h:     (((_dest).vec[0] = (_x)), ((_dest).vec[1] = (_y)), \
+// C-api.h: #define SbV4fSetX_Y_Z_W(_dest, _x, _y, _z, _w)
+// C-api.h:     (((_dest).vec[0] = (_x)), ((_dest).vec[1] = (_y)),
 // C-api.h:      ((_dest).vec[2] = (_z)), ((_dest).vec[3] = (_w)))
 
     // Accesses indexed component of vector
@@ -572,14 +572,14 @@ class SbVec4f {
 
     // Component-wise scalar multiplication and division operators
     SbVec4f &	operator *=(float d);
-// C-api.h: #define SbV4fMultBy(_v, _s) \
-// C-api.h:     (((_v).vec[0] *= (_s)), ((_v).vec[1] *= (_s)), \
+// C-api.h: #define SbV4fMultBy(_v, _s)
+// C-api.h:     (((_v).vec[0] *= (_s)), ((_v).vec[1] *= (_s)),
 // C-api.h:      ((_v).vec[2] *= (_s)), ((_v).vec[3] *= (_s)))
 
     SbVec4f &	operator /=(float d)
 	{ return *this *= (1.0 / d); }
-// C-api.h: #define SbV4fDivBy(_v, _s) \
-// C-api.h:     (((_v).vec[0] /= (_s)), ((_v).vec[1] /= (_s)), \
+// C-api.h: #define SbV4fDivBy(_v, _s)
+// C-api.h:     (((_v).vec[0] /= (_s)), ((_v).vec[1] /= (_s)),
 // C-api.h:      ((_v).vec[2] /= (_s)), ((_v).vec[3] /= (_s)))
 
     // Component-wise vector addition and subtraction operators
@@ -598,17 +598,17 @@ class SbVec4f {
 
     // Component-wise binary vector addition and subtraction operators
     friend SbVec4f	operator +(const SbVec4f &v1, const SbVec4f &v2);
-// C-api.h: #define SbV4fAdd(_dest, _src1, _src2) \
-// C-api.h:     (((_dest).vec[0] = (_src1).vec[0] + (_src2).vec[0]), \
-// C-api.h:      ((_dest).vec[1] = (_src1).vec[1] + (_src2).vec[1]), \
-// C-api.h:      ((_dest).vec[2] = (_src1).vec[2] + (_src2).vec[2])) \
+// C-api.h: #define SbV4fAdd(_dest, _src1, _src2)
+// C-api.h:     (((_dest).vec[0] = (_src1).vec[0] + (_src2).vec[0]),
+// C-api.h:      ((_dest).vec[1] = (_src1).vec[1] + (_src2).vec[1]),
+// C-api.h:      ((_dest).vec[2] = (_src1).vec[2] + (_src2).vec[2]))
 // C-api.h:      ((_dest).vec[3] = (_src1).vec[3] + (_src2).vec[3]))
 
     friend SbVec4f	operator -(const SbVec4f &v1, const SbVec4f &v2);
-// C-api.h: #define SbV4fSub(_dest, _src1, _src2) \
-// C-api.h:     (((_dest).vec[0] = (_src1).vec[0] - (_src2).vec[0]), \
-// C-api.h:      ((_dest).vec[1] = (_src1).vec[1] - (_src2).vec[1]), \
-// C-api.h:      ((_dest).vec[2] = (_src1).vec[2] - (_src2).vec[2])) \
+// C-api.h: #define SbV4fSub(_dest, _src1, _src2)
+// C-api.h:     (((_dest).vec[0] = (_src1).vec[0] - (_src2).vec[0]),
+// C-api.h:      ((_dest).vec[1] = (_src1).vec[1] - (_src2).vec[1]),
+// C-api.h:      ((_dest).vec[2] = (_src1).vec[2] - (_src2).vec[2]))
 // C-api.h:      ((_dest).vec[3] = (_src1).vec[3] - (_src2).vec[3]))
 
 // C-api: begin
@@ -671,15 +671,15 @@ class SbRotation {
     // Returns pointer to array of 4 components defining quaternion
     const float	*	getValue() const
 	{ return (quat); }
-// C-api.h: #define SbRotGetQuat(_dest, _src) \
-// C-api.h:     (((_dest)[0] = (_src).quat[0]), ((_dest)[1] = (_src).quat[1]), \
+// C-api.h: #define SbRotGetQuat(_dest, _src)
+// C-api.h:     (((_dest)[0] = (_src).quat[0]), ((_dest)[1] = (_src).quat[1]),
 // C-api.h:      ((_dest)[2] = (_src).quat[2]), ((_dest)[3] = (_src).quat[3]))
 
     // Returns 4 individual components of rotation quaternion 
     void		getValue(float &q0, float &q1,
 				 float &q2, float &q3) const;
-// C-api.h: #define SbRotGetQ_U_A_T(_x, _y, _z, _w, _src) \
-// C-api.h:     (((_x) = (_src).quat[0]), ((_y) = (_src).quat[1]), \
+// C-api.h: #define SbRotGetQ_U_A_T(_x, _y, _z, _w, _src)
+// C-api.h:     (((_x) = (_src).quat[0]), ((_y) = (_src).quat[1]),
 // C-api.h:      ((_z) = (_src).quat[2]), ((_w) = (_src).quat[3]))
 
 // C-api: begin
@@ -701,14 +701,14 @@ class SbRotation {
 
     // Sets value of rotation from array of 4 components of a quaternion
     SbRotation &	setValue(const float q[4]);
-// C-api.h: #define SbRotSetQuat(_dest, _src) \
-// C-api.h:     (((_dest).quat[0] = (_src)[0]), ((_dest).quat[1] = (_src)[1]), \
+// C-api.h: #define SbRotSetQuat(_dest, _src)
+// C-api.h:     (((_dest).quat[0] = (_src)[0]), ((_dest).quat[1] = (_src)[1]),
 // C-api.h:      ((_dest).quat[2] = (_src)[2]), ((_dest).quat[3] = (_src)[3]))
 
     // Sets value of rotation from 4 individual components of a quaternion 
     SbRotation &	setValue(float q0, float q1, float q2, float q3);
-// C-api.h: #define SbRotSetQ_U_A_T(_dest, _x, _y, _z, _w) \
-// C-api.h:     (((_dest).quat[0] = (_x)), ((_dest).quat[1] = (_y)), \
+// C-api.h: #define SbRotSetQ_U_A_T(_dest, _x, _y, _z, _w)
+// C-api.h:     (((_dest).quat[0] = (_x)), ((_dest).quat[1] = (_y)),
 // C-api.h:      ((_dest).quat[2] = (_z)), ((_dest).quat[3] = (_w)))
 
 // C-api: begin

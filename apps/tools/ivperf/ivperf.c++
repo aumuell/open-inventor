@@ -40,7 +40,7 @@
  _____________________________________________________________
  _________  S I L I C O N   G R A P H I C S   I N C .  _______
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	Benchmarks rendering by spinning scene graph.
@@ -58,6 +58,7 @@
 #include <GL/glu.h>
 #include <getopt.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include <Inventor/Sb.h>
 #include <Inventor/SbTime.h>

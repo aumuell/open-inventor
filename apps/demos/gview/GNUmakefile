@@ -4,8 +4,6 @@ include $(IVDEPTH)/make/ivcommondefs
 PROGRAM = gview
 DEMO = $(PROGRAM)
 
-LTARGETS = getHeader
-
 CXXFILES = \
 	gview.c++ DisplayGraph.c++ Error.c++ FieldEditor.c++ \
 	GraphIcon.c++ GraphViewer.c++ NodeCreator.c++
@@ -20,12 +18,11 @@ install: install_ivdemo
 	$(INSTALL) -m 644 gviewIcons.iv $(IVDEMODATADIR)
 
 HF = gviewIcons.iv.h
-
-getHeader: $(HF)
+LTARGETS = $(HF)
 
 $(HF): %.h: %
-	(echo "const char gviewIcons[] = \""; \
-	sed -e 's/\"/\\"/g' $^; echo "\";") > $^.h
+	(echo "const char gviewIcons[] ="; \
+	sed -e '{ s/"/\\"/g; s/^/"/; s/$$/\\n"/; }' $^; echo \;) > $^.h
 
 LDIRT += $(HF)
 

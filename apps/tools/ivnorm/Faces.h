@@ -1,3 +1,6 @@
+#ifndef _FACES_
+#define _FACES_
+
 /*
  *
  *  Copyright (C) 2000 Silicon Graphics, Inc.  All Rights Reserved. 
@@ -33,9 +36,6 @@
  *  http://oss.sgi.com/projects/GenInfo/NoticeExplan/
  *
  */
-
-#ifndef _FACES_
-#define _FACES_
 
 //
 // A convenient representation for faces
@@ -126,7 +126,7 @@ class FaceList : public SbPList
 
     SbBool verbose;
 
-    static int FaceList::getIdx(SoMFVec3f &mf, const SbVec3f &p);
+    static int getIdx(SoMFVec3f &mf, const SbVec3f &p);
 };
 
 //

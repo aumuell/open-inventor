@@ -35,7 +35,7 @@
  */
 
 /*
- * backend.c++ - $Revision: 1.1 $
+ * backend.c++ - $Revision: 1.2 $
  * 	Derrick Burns - 1991
  */
 
@@ -211,11 +211,11 @@ Backend::tmeshvert( TrimVertex *t )
 	if( npts >= 3 ) {
 	    surfaceEvaluator.bgnclosedline();
 	    if( mesh[0][2] == 0 )
-		surfaceEvaluator.evalcoord2f( mesh[0][3], mesh[0][0], mesh[0][1] );
+		surfaceEvaluator.evalcoord2f( (long) mesh[0][3], mesh[0][0], mesh[0][1] );
 	    else
 		surfaceEvaluator.evalpoint2i( (long) mesh[0][0], (long) mesh[0][1] );
 	    if( mesh[1][2] == 0 )
-		surfaceEvaluator.evalcoord2f( mesh[1][3], mesh[1][0], mesh[1][1] );
+		surfaceEvaluator.evalcoord2f( (long) mesh[1][3], mesh[1][0], mesh[1][1] );
 	    else
 		surfaceEvaluator.evalpoint2i( (long) mesh[1][0], (long) mesh[1][1] );
 	    surfaceEvaluator.evalcoord2f( nuid, u, v );
@@ -250,11 +250,11 @@ Backend::tmeshvert( GridVertex *g )
 	if( npts >= 3 ) {
 	    surfaceEvaluator.bgnclosedline();
 	    if( mesh[0][2] == 0 )
-		surfaceEvaluator.evalcoord2f( mesh[0][3], mesh[0][0], mesh[0][1] );
+		surfaceEvaluator.evalcoord2f( (long) mesh[0][3], mesh[0][0], mesh[0][1] );
 	    else
 		surfaceEvaluator.evalpoint2i( (long) mesh[0][0], (long) mesh[0][1] );
 	    if( mesh[1][2] == 0 )
-		surfaceEvaluator.evalcoord2f( mesh[1][3], mesh[1][0], mesh[1][1] );
+		surfaceEvaluator.evalcoord2f( (long) mesh[1][3], mesh[1][0], mesh[1][1] );
 	    else
 		surfaceEvaluator.evalpoint2i( (long) mesh[1][0], (long) mesh[1][1] );
 	    surfaceEvaluator.evalpoint2i( u, v );

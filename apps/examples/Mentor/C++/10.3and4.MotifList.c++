@@ -54,6 +54,7 @@
  *  item in the motif list.)
  *-----------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <X11/Intrinsic.h>
 #include <Xm/Xm.h>
 #include <Xm/List.h>

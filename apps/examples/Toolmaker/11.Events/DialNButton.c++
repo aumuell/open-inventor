@@ -200,7 +200,8 @@ DialNButton::exists(Display *display)
    list = (XDeviceInfoPtr) XListInputDevices(display, &numDevices);
    
    // now run through the list looking for the device
-   for (int i = 0; (i < numDevices) &&
+   int i;
+   for (i = 0; (i < numDevices) &&
                    (strcmp(list[i].name, DEVICE_NAME) != 0); i++)
       ; // keep looping
 

@@ -40,7 +40,7 @@
 _______________________________________________________________________
 ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
 |
-|   $Revision: 1.2 $
+|   $Revision: 1.3 $
 |
 |   Classes:
 |      Subclasses of modules used for specific fields of specific types
@@ -62,7 +62,7 @@ _______________________________________________________________________
 static XtResource _labelResource[] = {
     { XmNlabelString, XmCLabelString, XmRXmString, sizeof( char * ),
       0,
-      XtRString, NULL }
+      XtRString, (XtPointer) NULL }
 };
 
 static char *transSliderTitles[] = {

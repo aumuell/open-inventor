@@ -42,6 +42,7 @@
  *  Use a blinker node to flash a neon ad sign on and off
  *------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInput.h>
 #include <Inventor/Xt/SoXt.h>

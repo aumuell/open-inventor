@@ -61,6 +61,7 @@
  *-----------------------------------------------------------*/
 
 
+#include <stdlib.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInput.h>
 #include <Inventor/manips/SoHandleBoxManip.h>
@@ -267,7 +268,8 @@ createTransformPath(SoPath *inputPath)
       // nodes. Stop the search if we come to a movable node.
       // and insert a transform before it.
       parent = (SoGroup *) tail;
-      for (int i = 0;
+      int i;
+      for (i = 0;
          (i < parent->getNumChildren()) && (editXf == NULL); 
 	 i++) {
          SoNode *myNode = parent->getChild(i);

@@ -14,14 +14,12 @@ CXXFILES = \
 
 LLDLIBS = -lInventor -lInventorXt
 
-LTARGETS = getFiles
-
 all: all_ivbin
 
 HF = MyExaminerViewer.h MyFullViewer.h MyViewer.h
 CF = MyExamVwr.c++ MyFullVwr.c++ MyViewer.c++ MyBitmapButton.c++ MyBitmapButton.h
 
-getFiles: $(HF) $(CF)
+LTARGETS = $(HF) $(CF)
 
 $(HF): My%: $(IVDEPTH)/libSoXt/include/Inventor/Xt/viewers/SoXt%
 	./nameScript $(IVDEPTH)/libSoXt/include/Inventor/Xt/viewers/$(subst My,SoXt,$@) \

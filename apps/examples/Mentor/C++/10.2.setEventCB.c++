@@ -50,6 +50,7 @@
  *       of the point set.
  *-----------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <X11/Intrinsic.h>
 
 #include <Inventor/Sb.h>

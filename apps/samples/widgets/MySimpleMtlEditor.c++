@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	MySimpleMaterialEditor
@@ -257,7 +257,7 @@ MySimpleMaterialEditor::setMaterialName(const char *name)
     
     // update text field
     if (nameField != NULL) {
-	char *str = (materialName != NULL) ? materialName : "";
+	char *str = (materialName != NULL) ? materialName : (char *) "";
 	XmTextSetString(nameField, str);
     }
 }
@@ -373,7 +373,7 @@ MySimpleMaterialEditor::buildWidget(Widget parent)
     Widget fieldLabel;
     if (nameVisible) {
 	fieldLabel = XmCreateLabelGadget(form, "Name:", NULL, 0);
-	char *str = (materialName != NULL) ? materialName : "";
+	char *str = (materialName != NULL) ? materialName : (char *) "";
 	n = 0;
 	XtSetArg(args[n], XmNvalue, str); n++;
 	XtSetArg(args[n], XmNhighlightThickness, 1); n++;
@@ -859,7 +859,7 @@ MySimpleMaterialEditor::resetCB(Widget, MySimpleMaterialEditor *p, void *)
     p->materialName = (p->savedMaterialName != NULL) ? strdup(p->savedMaterialName) : NULL;
     // update text field
     if (p->nameField != NULL) {
-	char *str = (p->materialName != NULL) ? p->materialName : "";
+	char *str = (p->materialName != NULL) ? p->materialName : (char *) "";
 	XmTextSetString(p->nameField, str);
     }
 }

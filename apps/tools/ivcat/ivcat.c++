@@ -38,6 +38,7 @@
 // Convert from/to ASCII/binary Inventor
 //
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <getopt.h>
 #include <string.h>

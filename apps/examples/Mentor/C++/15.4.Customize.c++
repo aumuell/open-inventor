@@ -47,6 +47,7 @@
  *  nodekits, so it's easy to change the parts).
  *----------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/viewers/SoXtExaminerViewer.h>
 #include <Inventor/draggers/SoTranslate1Dragger.h>

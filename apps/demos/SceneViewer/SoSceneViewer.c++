@@ -41,7 +41,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.5 $
+ |   $Revision: 1.6 $
  |
  |   Classes	: SoSceneViewer
  |
@@ -145,7 +145,6 @@
 #include "../../samples/common/InventorLogo.h"
 
 #include <GL/gl.h>
-#include <malloc.h>
 #ifdef DEBUG
 #include <assert.h>
 #endif

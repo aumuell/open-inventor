@@ -41,6 +41,7 @@
  *  Hello Cone example program; draws a red cone in a window.
  *------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/SoXtRenderArea.h>
 #include <Inventor/nodes/SoCone.h>

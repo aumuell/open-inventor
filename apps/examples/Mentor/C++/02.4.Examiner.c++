@@ -41,6 +41,7 @@
  *  Use the Examiner Viewer to look at a red cone
  *------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/viewers/SoXtExaminerViewer.h>
 #include <Inventor/nodes/SoCone.h>

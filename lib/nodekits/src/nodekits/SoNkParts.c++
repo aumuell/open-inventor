@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |      SoNodekitParts
@@ -62,7 +62,6 @@
 #include <Inventor/SoPath.h>
 #include <Inventor/fields/SoSFNode.h>
 #include <Inventor/nodes/SoGroup.h>
-#include <malloc.h>
 
 #include <SoDebug.h>
 

@@ -41,6 +41,7 @@
  *  Alarm sensor that raises a flag after 10 minutes
  *------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/viewers/SoXtExaminerViewer.h>
 #include <Inventor/nodes/SoCone.h>

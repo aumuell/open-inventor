@@ -40,7 +40,7 @@
 _______________________________________________________________________
 ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
 |
-|   $Revision: 1.2 $
+|   $Revision: 1.3 $
 |
 |   Classes:
 |      SoXtMinMaxSlider is a component that expands the functionality of the
@@ -76,7 +76,7 @@ typedef struct {
 static XtResource _scaleStyleResources[] = {
     { XmNorientation, XmCOrientation, XmROrientation, sizeof( unsigned char),
       XtOffset( ScaleStyleDataPtr, orientation ),
-      XtRString, "horizontal" },
+      XtRString, (XtPointer) "horizontal" },
     { XmNdecimalPoints, XmCDecimalPoints, XmRShort, sizeof( short),
       XtOffset( ScaleStyleDataPtr, decimalPoints ),
       XtRImmediate, (XtPointer) DEFAULT_SLIDER_DECIMAL_POINTS },

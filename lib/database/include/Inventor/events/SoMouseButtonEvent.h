@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoMouseButtonEvent
@@ -70,9 +70,9 @@
 
 // C-api: begin
 
-// C-api: interpret #define SO_MOUSE_PRESS_EV(EVENT,BUTTON) \
+// C-api: interpret #define SO_MOUSE_PRESS_EV(EVENT,BUTTON)
 // C-api: interpret     (SoMouseEvIsBtnPressEv(EVENT,BUTTON))
-// C-api: interpret #define SO_MOUSE_RELEASE_EV(EVENT,BUTTON) \
+// C-api: interpret #define SO_MOUSE_RELEASE_EV(EVENT,BUTTON)
 // C-api: interpret     (SoMouseEvIsBtnReleaseEv(EVENT,BUTTON))
 
 

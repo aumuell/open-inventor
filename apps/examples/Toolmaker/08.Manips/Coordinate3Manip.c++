@@ -258,7 +258,7 @@ Coordinate3Manip::replaceManip(SoPath *path,
    SoFullPath *myFullPath = (SoFullPath *) path;
 
    SoNode     *myFullPTail = myFullPath->getTail();
-   if (myFullPTail != this ) {
+   if (myFullPTail != (SoNode *) this ) {
 #ifdef DEBUG
       SoDebugError::post("Coordinate3Manip::replaceManip",
          "Child to replace is not this manip!");

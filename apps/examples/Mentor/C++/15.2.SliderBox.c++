@@ -46,6 +46,7 @@
  *  The 3D text and the box are made with SoShapeKits
  *----------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/viewers/SoXtExaminerViewer.h>
 #include <Inventor/draggers/SoTranslate1Dragger.h>

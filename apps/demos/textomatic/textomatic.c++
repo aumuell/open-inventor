@@ -89,34 +89,34 @@ iconv_t global_iconvCode28;
 // Default resources...
 XtResource resintl[] = {
   { "copyLabel",       "CopyLabel",       XtRString,  sizeof(String),
-    XtOffsetOf(Labels,copy),              XtRString, "Copy"   
+    XtOffsetOf(Labels,copy),              XtRString, (XtPointer) "Copy"
   },
   { "edit parts",      "Edit Parts",      XtRString,  sizeof(String),
-    XtOffsetOf(Labels,editParts),         XtRString, "Edit Parts"   
+    XtOffsetOf(Labels,editParts),         XtRString, (XtPointer) "Edit Parts"
   },
   { "aboutLabel",      "AboutLabel",      XtRString,  sizeof(String),
-    XtOffsetOf(Labels,about),             XtRString, "About..."   
+    XtOffsetOf(Labels,about),             XtRString, (XtPointer) "About..."
   },
   { "quitLabel",       "QuitLabel",       XtRString,  sizeof(String),
-    XtOffsetOf(Labels,quit),              XtRString, "Quit"   
+    XtOffsetOf(Labels,quit),              XtRString, (XtPointer) "Quit"
   },
   { "soFontList",      "SoFontList",      XtRString,  sizeof(String),
-    XtOffsetOf(Labels,sofontlist),        XtRString, "Times-Roman"   
+    XtOffsetOf(Labels,sofontlist),        XtRString, (XtPointer) "Times-Roman"
   },
   { "front",           "Front",           XtRString,  sizeof(String),
-    XtOffsetOf(Labels,front),             XtRString, "Front:"   
+    XtOffsetOf(Labels,front),             XtRString, (XtPointer) "Front:"
   },
   { "sides",           "Sides",           XtRString,  sizeof(String),
-    XtOffsetOf(Labels,sides),             XtRString, "Sides:"   
+    XtOffsetOf(Labels,sides),             XtRString, (XtPointer) "Sides:"
   },
   { "back",            "Back",            XtRString,  sizeof(String),
-    XtOffsetOf(Labels,back),              XtRString, "Back:"   
+    XtOffsetOf(Labels,back),              XtRString, (XtPointer) "Back:"
   },
   { "on",              "On",              XtRString,  sizeof(String),
-    XtOffsetOf(Labels,on),                XtRString, "On"   
+    XtOffsetOf(Labels,on),                XtRString, (XtPointer) "On"
   },
   { "edit",            "Edit",            XtRString,  sizeof(String),
-    XtOffsetOf(Labels,edit),              XtRString, "Edit"   
+    XtOffsetOf(Labels,edit),              XtRString, (XtPointer) "Edit"
   }
 };
 int num_resintl = XtNumber( resintl );

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |      SoNodekitCatalog
@@ -242,8 +242,8 @@ SoNodekitCatalogEntry::printCheck() const
 //
 ////////////////////////////////////////////////////////////////////////
 {
-    fprintf( stdout,"    name = %s, type = %d, defaultType = %d\n",
-	    name.getString(), type, defaultType );
+    fprintf( stdout,"    name = %s, type = %s, defaultType = %s\n",
+	    name.getString(), type.getName().getString(), defaultType.getName().getString() );
     fprintf( stdout,"    nullByDefault = %d\n", nullByDefault);
     fprintf( stdout,"    parentName = %s\n", parentName.getString() );
     fprintf( stdout,"    sibling = %s, listPart = %d\n",

@@ -34,6 +34,7 @@
  *
  */
 
+#include <stdlib.h>
 #include <Inventor/SbBox.h>
 #include <Inventor/SbDict.h>
 #include <Inventor/SoDB.h>

@@ -46,6 +46,7 @@
  *  dodecahedron from an earlier example in this chapter.  
  *------------------------------------------------------------*/ 
 
+#include <stdlib.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/viewers/SoXtExaminerViewer.h>
 #include <Inventor/nodes/SoCoordinate3.h>

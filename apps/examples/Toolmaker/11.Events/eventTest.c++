@@ -34,7 +34,7 @@
  *
  */
 
-
+#include <stdlib.h>
 #include <X11/Intrinsic.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/viewers/SoXtExaminerViewer.h>
@@ -197,7 +197,7 @@ main(int , char *argv[])
    
    if (! DialNButton::exists()) {
        fprintf(stderr, "Sorry, no dial and button box on this display!\n");
-       return;
+       exit(1);
    }
    
    ButtonBoxEvent::initClass();

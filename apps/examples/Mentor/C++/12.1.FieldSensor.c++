@@ -41,6 +41,7 @@
  *  Sense changes to a viewer's camera's position.
  *------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/viewers/SoXtExaminerViewer.h>

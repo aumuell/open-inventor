@@ -41,6 +41,7 @@
  *  Use the trackball manipulator to edit/rotate a red cone
  *------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/SoXtRenderArea.h>
 #include <Inventor/manips/SoTrackballManip.h>

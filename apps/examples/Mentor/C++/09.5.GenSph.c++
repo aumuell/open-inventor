@@ -86,7 +86,7 @@ printHeaderCallback(void *, SoCallbackAction *,
    printf("\n Sphere ");
    // Print the node name (if it exists) and address
    if (! !node->getName())
-      printf("named \"%s\" ", node->getName());
+      printf("named \"%s\" ", node->getName().getString());
    printf("at address %#x\n", node);
 
    return SoCallbackAction::CONTINUE;

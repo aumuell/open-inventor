@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoFloatCallbackList
@@ -79,7 +79,7 @@ SoFloatCallbackList::~SoFloatCallbackList()
     int len = list.getLength();
     
     for (int i = 0; i < len; i++) {
-    	delete list[i];
+    	delete (SoCallbackStruct *) list[i];
     }
 }
 

@@ -38,6 +38,7 @@
 // Print information about the Structure of a Nodekit class.
 //
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <dlfcn.h>
 #include <getopt.h>

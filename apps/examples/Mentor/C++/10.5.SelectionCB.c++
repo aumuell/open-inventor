@@ -44,6 +44,7 @@
  *  to change the material color of that object.
  *------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <X11/Intrinsic.h>
 #include <Inventor/Sb.h>
 #include <Inventor/SoInput.h>

@@ -41,6 +41,7 @@
  *  This example builds an obelisk using the Face Set node.
  *------------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/viewers/SoXtExaminerViewer.h>
 #include <Inventor/nodes/SoCoordinate3.h>

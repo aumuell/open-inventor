@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SbBox3f
@@ -194,10 +194,10 @@ SbBox3f::intersect(const SbBox3f &bb) const
 //         \  /
 // Q1       \/  Q2
 // CLIPPED  /\  CLIPPED    
-//         /  \
-//        /    \
-//       /  Q3  \
-//      / CLIPPED\
+//         /  \ 
+//        /    \ 
+//       /  Q3  \ 
+//      / CLIPPED\ 
 //
 // If the axis-aligned box [(Xmin,Xmax),(Wmin,Wmax)] lies entirely in
 // Q0, then it is entirely inside the X-axis clipping planes (IN

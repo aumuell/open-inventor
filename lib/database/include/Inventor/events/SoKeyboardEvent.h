@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoKeyboardEvent
@@ -70,9 +70,9 @@
 
 // C-api: begin
 
-// C-api: interpret #define SO_KEY_PRESS_EV(EVENT,KEY) \
+// C-api: interpret #define SO_KEY_PRESS_EV(EVENT,KEY)
 // C-api: interpret     (SoKeyEvIsKeyPressEv(EVENT,KEY))
-// C-api: interpret #define SO_KEY_RELEASE_EV(EVENT,KEY) \
+// C-api: interpret #define SO_KEY_RELEASE_EV(EVENT,KEY)
 // C-api: interpret     (SoKeyEvIsKeyReleaseEv(EVENT,KEY))
 
 // C-api: prefix=SoKeyEv

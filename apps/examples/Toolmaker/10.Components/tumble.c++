@@ -34,7 +34,7 @@
  *
  */
 
-
+#include <stdlib.h>
 #include <stdio.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/Xt/SoXt.h>
@@ -46,7 +46,7 @@ main(int argc, char *argv[])
 {
    if (argc != 2) {
       fprintf(stderr, "Usage: %s <filename.iv>\n", argv[0]);
-      return;
+      exit(1);
    }
    
    Widget window = SoXt::init(argv[0]);
@@ -60,7 +60,7 @@ main(int argc, char *argv[])
    
    if (scene == NULL) {
       fprintf(stderr, "Sorry, could not read %s\n", argv[1]);;
-      return;
+      exit(1);
    }
    
    SceneTumble *tumbler = new SceneTumble(window);

@@ -43,6 +43,7 @@
  *  It attaches the editor to the material of an object.
  *-----------------------------------------------------------*/
 
+#include <stdlib.h>
 #include <Inventor/SoDB.h>         
 #include <Inventor/Xt/SoXt.h>         
 #include <Inventor/Xt/SoXtMaterialEditor.h>
