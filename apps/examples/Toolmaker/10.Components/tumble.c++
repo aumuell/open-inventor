@@ -41,7 +41,7 @@
 #include <Inventor/nodes/SoSeparator.h>
 #include "SceneTumble.h"
 
-void
+int
 main(int argc, char *argv[])
 {
    if (argc != 2) {

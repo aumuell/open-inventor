@@ -190,7 +190,7 @@ buildSceneGraph()
    return sep;
 }
 
-void
+int
 main(int , char *argv[])
 {
    Widget mainWindow = SoXt::init(argv[0]);

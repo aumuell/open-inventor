@@ -54,7 +54,7 @@
 
 #include "ShowSelectionRA.h"
 
-void
+int
 main(int , char *argv[])
 {
    // Initialization

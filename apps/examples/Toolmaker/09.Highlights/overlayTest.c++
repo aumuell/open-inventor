@@ -54,7 +54,7 @@
 
 #include "OverlayHighlightRenderAction.h"
 
-void
+int
 main(int , char *argv[])
 {
    // Initialization
