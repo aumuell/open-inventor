@@ -32,10 +32,10 @@ clobber::
 	fi
 
 rpms:
-	cd .. ; rm -f oiv.tar.gz ; tar zcvf oiv.tar.gz main
+	cd .. ; rm -f oiv.tar.gz ; tar zcvf oiv.tar.gz inventor
 	su -c "cp -f ../oiv.tar.gz /usr/src/redhat/SOURCES"
-	su -c "cd build ; rpm -bb OpenInventor.rpm.spec"
-	su -c "cd build ; rpm -bb OpenInventor-devel.rpm.spec"
-	su -c "cd build ; rpm -bb OpenInventor-data.rpm.spec"
-	su -c "cd build ; rpm -bb OpenInventor-demos.rpm.spec"
+	su -c "cd build ; rpm -bb sgi-OpenInventor.rpm.spec"
+	su -c "cd build ; rpm -bb sgi-OpenInventor-devel.rpm.spec"
+	su -c "cd build ; rpm -bb sgi-OpenInventor-data.rpm.spec"
+	su -c "cd build ; rpm -bb sgi-OpenInventor-demos.rpm.spec"
 
