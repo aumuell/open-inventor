@@ -42,14 +42,14 @@ C2F = MyFloatCBList.c++ MyFloatCallbackList.h
 LTARGETS = $(HF) $(CF) $(C2F)
 
 $(CF): My%: $(IVDEPTH)/libSoXt/src/mixedMode/SoXt%
-	./nameScript $(IVDEPTH)/libSoXt/src/mixedMode/$(subst My,SoXt,$@) \
-		> $@
+	sed -f ./nameScript \
+		$(IVDEPTH)/libSoXt/src/mixedMode/$(subst My,SoXt,$@) > $@
 $(C2F): My%: $(IVDEPTH)/libSoXt/src/mixedMode/So%
-	./nameScript $(IVDEPTH)/libSoXt/src/mixedMode/$(subst My,So,$@) \
-		> $@
+	sed -f ./nameScript \
+		$(IVDEPTH)/libSoXt/src/mixedMode/$(subst My,So,$@) > $@
 $(HF): My%: $(IVDEPTH)/libSoXt/include/_SoXt%
-	./nameScript $(IVDEPTH)/libSoXt/include/$(subst My,_SoXt,$@) \
-		> $@
+	sed -f ./nameScript \
+		$(IVDEPTH)/libSoXt/include/$(subst My,_SoXt,$@) > $@
 
 LDIRT += $(HF) $(CF) $(C2F)
 

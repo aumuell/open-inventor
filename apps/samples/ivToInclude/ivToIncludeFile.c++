@@ -47,7 +47,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <getopt.h>
 #include <string.h>
 #include <unistd.h>
 #include <assert.h>

@@ -36,6 +36,16 @@ endif
 
 
 #
+# Assume FreeBSD options are the same as those for Linux.
+#
+
+ifeq ($(usingFreeBSD), 1)
+usingLinux = 1
+endif
+
+
+
+#
 # Override variables in commondefs when building on Linux systems.
 #
 

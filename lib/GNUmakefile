@@ -7,7 +7,7 @@ LLDDSOOPTS += -L$(IVDEPTH)/libimage -L$(FLDIR)
 
 LLDLIBS = \
 	-ljpeg -limage $(FLLIB) \
-        -lX11 -ldl -lm \
+        -lX11 -lm \
         -lGLU -lGL
 
 OBJECTS = \

@@ -5,6 +5,6 @@ all:
 
 install:
 	mkdir -p $(IVHELPDIR)/Inventor
-	$(INSTALL) -m 644 *.help $(IVHELPDIR)/Inventor
+	for h in *.help; do $(INSTALL) -m 644 $$h $(IVHELPDIR)/Inventor; done
 
 include $(IVCOMMONRULES)

@@ -41,7 +41,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoDragger
@@ -614,7 +614,7 @@ SoDragger::setTempPathToThis( const SoPath *somethingClose )
 		tempPathNumKidsHack->append( (void *) 0 );
 	    else
 		tempPathNumKidsHack->append( 
-			    (void *) pathNode->getChildren()->getLength() );
+			    (void *) (unsigned long) pathNode->getChildren()->getLength() );
 	}
     }
 
@@ -686,7 +686,7 @@ SoDragger::isTempPathToThisOk()
 		int indexInPath = tempPathToThis->getIndex(numFmHead+1);
 
 		int numKidsNow    = children->getLength();
-#if (_MIPS_SZPTR == 64)
+#if (_MIPS_SZPTR == 64 || __ia64)
 		int numKidsBefore = (int) ((long) (*tempPathNumKidsHack)[numFmHead]);
 #else
 		int numKidsBefore = (int) (*tempPathNumKidsHack)[numFmHead];
@@ -707,7 +707,7 @@ SoDragger::isTempPathToThisOk()
 		    if ( numKidsNow != numKidsBefore ) {
 			// update the number of kids.
 			tempPathNumKidsHack->remove(numFmHead);
-			tempPathNumKidsHack->insert( (void *) numKidsNow,
+			tempPathNumKidsHack->insert( (void *) (unsigned long) numKidsNow,
 						    numFmHead);
 
 			bestSpot = indexInPath + (numKidsNow - numKidsBefore);

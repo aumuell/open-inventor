@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SoFieldContainer
@@ -65,7 +65,7 @@
 #include <Inventor/fields/SoFieldData.h>
 #include <Inventor/misc/SoNotification.h>
 
-#include <malloc.h>
+#include <stdlib.h>
 
 // Syntax for reading/writing type information to files
 #define OPEN_BRACE_CHAR		'['

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   ppp (Paul's preprocessor): a tool for preprocessing source files.
  |
@@ -298,7 +298,7 @@ findVariable(const SbName &name)
 {
     void	*varPtr;
 
-    varDict->find((uint32_t) name.getString(), varPtr);
+    varDict->find((unsigned long) name.getString(), varPtr);
 
     return (Variable *) varPtr;
 }
@@ -317,7 +317,7 @@ removeVariable(const SbName &name)
     if (oldVar != NULL)
 	delete oldVar;
 
-    varDict->remove((uint32_t) name.getString());
+    varDict->remove((unsigned long) name.getString());
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -331,7 +331,7 @@ static void
 addVariable(Variable *var)
 {
     removeVariable(var->name);
-    varDict->enter((uint32_t) var->name.getString(), var);
+    varDict->enter((unsigned long) var->name.getString(), var);
 }
 
 //////////////////////////////////////////////////////////////////////////////

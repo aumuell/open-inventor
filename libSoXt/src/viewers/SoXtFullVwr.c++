@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Classes    : SoXtFullViewer
  |
@@ -1508,7 +1508,7 @@ SoXtFullViewer::createViewerButtons(Widget parent)
 	Widget w = buttonList[i]->getWidget();
 	XtVaSetValues(w, XmNuserData, this, NULL);
 	XtAddCallback(w, XmNactivateCallback,
-	    (XtCallbackProc) SoXtFullViewer::pushButtonCB, (XtPointer) i);
+	    (XtCallbackProc) SoXtFullViewer::pushButtonCB, (XtPointer) (unsigned long) i);
 	
 	// add this button to the list...
 	viewerButtonWidgets->append(w);

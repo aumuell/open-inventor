@@ -39,8 +39,8 @@
 //_____________  S I L I C O N   G R A P H I C S   I N C .  ____________
 //
 //   $Source: /cvs/inventor/apps/tools/ivnorm/ivnorm.c++,v $
-//   $Revision: 1.2 $
-//   $Date: 2000/10/29 15:04:17 $
+//   $Revision: 1.3 $
+//   $Date: 2001/09/25 00:45:30 $
 //
 //   ivnorm
 //
@@ -59,7 +59,6 @@
 
 #include <stdio.h>
 #include <unistd.h>
-#include <getopt.h>
 #include <math.h>
 #include <assert.h>
 #include <stdlib.h>

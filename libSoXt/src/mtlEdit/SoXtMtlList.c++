@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Classes:
  |	SoXtMaterialList
@@ -399,7 +399,7 @@ SoXtMaterialList::buildPulldownMenu(Widget parent)
     menuItems.truncate(0);
     for (int i = 0; i < mtlPalettes.getLength(); i++) {
     	char *dir = (char *) mtlPalettes[i];
-	MENU_ITEM(button, dir, i)
+	MENU_ITEM(button, dir, (unsigned long) i)
 	menuItems.append(button); // store these buttons for future reference
     }
 #undef MENU_ITEM

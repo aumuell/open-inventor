@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Classes:
  |	SoXtRenderArea
@@ -66,7 +66,7 @@
 #include <Inventor/Xt/devices/SoXtMouse.h>
 #include <GL/gl.h>
 #include <GL/glx.h>
-#include <malloc.h>
+#include <stdlib.h>
 
 #include <X11/Intrinsic.h>
 #include <X11/StringDefs.h>

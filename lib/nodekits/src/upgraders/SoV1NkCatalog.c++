@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |      SoV1NodekitCatalog
@@ -330,7 +330,7 @@ SoV1NodekitCatalog::getPartNumber( const SbName &theName ) const
     void *castPNum;
 
     if ( partNameDict.find( (unsigned long) theName.getString(), castPNum ) )
-#if (_MIPS_SZPTR == 64)
+#if (_MIPS_SZPTR == 64 || __ia64)
 	return ( (int) ((long) castPNum) );  // System long
 #else
 	return ( (int) castPNum );
@@ -821,7 +821,7 @@ SoV1NodekitCatalog::clone( const SoType &typeOfThis ) const
 		theClone->entries[i] = entries[i]->clone();
 	    theClone->partNameDict.enter( (unsigned long)
 					  entries[i]->getName().getString(), 
-					  (void *) i );
+					  (void *) (unsigned long) i );
 	}
     }
 
@@ -1159,7 +1159,7 @@ SoV1NodekitCatalog::addEntry( const SbName &theName,
 
     // add the new name to the quick-reference part name dictionary
     partNameDict.enter( (unsigned long) theName.getString(),
-			(void *) (numEntries - 1));
+			(void *) (unsigned long) (numEntries - 1));
 
     // parent is no longer a leaf node in the nodekit structure
     if ( parentEntry != NULL )

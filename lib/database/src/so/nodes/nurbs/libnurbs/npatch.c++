@@ -35,7 +35,7 @@
  */
 
 /*
- * npatch.c++ - $Revision: 1.2 $
+ * npatch.c++ - $Revision: 1.3 $
  * 	Derrick Burns - 1992
  */
 
@@ -56,7 +56,7 @@
  *--------------------------------------------------------------------------
  */
 
-#include <malloc.h>
+#include <stdlib.h>
 
 REAL* Patch::alloc_pts( void )
 {

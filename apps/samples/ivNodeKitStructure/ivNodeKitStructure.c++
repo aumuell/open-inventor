@@ -41,7 +41,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <dlfcn.h>
-#include <getopt.h>
+#include <unistd.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/nodekits/SoBaseKit.h>
 #include <Inventor/Xt/SoXt.h>

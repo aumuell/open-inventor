@@ -43,12 +43,10 @@
 // Written by Gavin Bell for Silicon Graphics
 //
 #include <stdio.h>
-#include <getopt.h>
 #include <math.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include <unistd.h>
 
 
 #include <Inventor/Xt/SoXt.h>
@@ -576,7 +574,7 @@ buildUI( Widget appWindow,
     w[2] = XmCreateToggleButtonGadget(form, "colorAnimate", resources,
 				      n);
     XtAddCallback(w[2], XmNvalueChangedCallback,
-		  toggleAnimation, (XtPointer)COLOR);
+		  toggleAnimation, (XtPointer)(unsigned long)COLOR);
     n = 0;
     XtSetArg(resources[n], XmNlabelString, STRING("Animate")); ++n;
     XtSetArg(resources[n], XmNrightAttachment, XmATTACH_FORM); ++n;
@@ -586,7 +584,7 @@ buildUI( Widget appWindow,
     w[5] = XmCreateToggleButtonGadget(form, "shapeAnimate", resources,
 				      n);
     XtAddCallback(w[5], XmNvalueChangedCallback,
-		  toggleAnimation, (XtPointer)SHAPE);
+		  toggleAnimation, (XtPointer)(unsigned long)SHAPE);
     n = 0;
 
     XtSetArg(resources[n], XmNlabelString, STRING("Quit")); ++n;

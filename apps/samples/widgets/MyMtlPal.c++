@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.5 $
+ |   $Revision: 1.6 $
  |
  |   Classes:
  |	MyMaterialPalette
@@ -645,7 +645,7 @@ MyMaterialPalette::buildMenu(Widget parent)
 	    
 	    XtAddCallback(subButtons[j], XmNactivateCallback,
 		(XtCallbackProc) MyMaterialPalette::menuCB,
-		(XtPointer) id);
+		(XtPointer) (unsigned long) id);
 	}
 	XtManageChildren(subButtons, subItemCount);
 	delete [] subButtons;
@@ -695,7 +695,7 @@ MyMaterialPalette::buildPaletteMenuEntry(int id)
     Widget w = XmCreatePushButtonGadget(widgetList[PALETTE_MENU], pal->name, args, n);
     XtAddCallback(w, XmNactivateCallback,
 	(XtCallbackProc) MyMaterialPalette::paletteMenuCB,
-	(XtPointer) id);
+	(XtPointer) (unsigned long) id);
     
     if (xmstr != NULL)
 	XmStringFree(xmstr);

@@ -40,7 +40,7 @@
 _______________________________________________________________________
 ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
 |
-|   $Revision: 1.2 $
+|   $Revision: 1.3 $
 |
 |   Classes:
 |      SoXtSliderSets for creating organized groups of sliders
@@ -141,8 +141,8 @@ SoXtSliderSet::updateLayout()
 	// if the user has not specified a size for the window through the
 	// resource system, then use the layout size.
 	// otherwise, leave it alone.
-	_editorHeightResource[0].default_addr = (XtPointer) newLayoutH;
-	_editorWidthResource[0].default_addr = (XtPointer) newLayoutW;
+	_editorHeightResource[0].default_addr = (XtPointer) (unsigned long) newLayoutH;
+	_editorWidthResource[0].default_addr = (XtPointer) (unsigned long) newLayoutW;
         XtGetApplicationResources( widget, (XtPointer) &initialWidth, 
 	       _editorWidthResource, XtNumber( _editorWidthResource ), NULL, 0);
         XtGetApplicationResources(widget, (XtPointer) &initialHeight, 

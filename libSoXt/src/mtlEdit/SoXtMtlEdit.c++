@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SoXtMaterialEditor
@@ -578,7 +578,7 @@ SoXtMaterialEditor::buildSlidersForm(Widget parent)
 	diamondButtons[i] = XtCreateWidget("", xmToggleButtonGadgetClass, 
 	    textForm, args, n);
     	XtAddCallback(diamondButtons[i], XmNvalueChangedCallback, 
-	    (XtCallbackProc) SoXtMaterialEditor::diamondButtonPick, (XtPointer) i);
+	    (XtCallbackProc) SoXtMaterialEditor::diamondButtonPick, (XtPointer) (unsigned long) i);
     }
     
     // build radio buttons
@@ -589,7 +589,7 @@ SoXtMaterialEditor::buildSlidersForm(Widget parent)
 	radioButtons[i] = XtCreateWidget("", xmToggleButtonGadgetClass, 
 	    textForm, args, n);
    	XtAddCallback(radioButtons[i], XmNvalueChangedCallback, 
-	    (XtCallbackProc) SoXtMaterialEditor::radioButtonPick, (XtPointer) i);
+	    (XtCallbackProc) SoXtMaterialEditor::radioButtonPick, (XtPointer) (unsigned long) i);
     }
     
     // build label widgets

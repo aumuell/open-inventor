@@ -43,7 +43,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Description:
  |	This include file contains the machine-dependent macros
@@ -140,15 +140,15 @@ extern int errno;		/* missing from errno.h			*/
 
 
 /*
- * Linux i386 machine dependent setup
+ * Linux i386/ia64 machine dependent setup
  */
 
-#ifdef __i386__
+#if __i386__ || __ia64__
 
 #define MACHINE_WORD_FORMAT DGL_LITTLE_ENDIAN
 #define MACHINE_FLOAT_FORMAT DGL_NON_IEEE
 
-#endif /* __i386__ */
+#endif /* __i386__ || __ia64__ */
 
 
 /*
@@ -309,12 +309,12 @@ extern float dgl_ntoh_double();
  */
 
 #if MACHINE_FLOAT_FORMAT == DGL_NON_IEEE
-#ifdef __i386__
+#if __i386__ || __ia64__
 void mem_hton_float(float *t, float *f);
 void mem_ntoh_float(float *t, float *f);
 void mem_hton_double(double *t, double *f);
 void mem_ntoh_double(double *t, double *f);
-#endif /* __i386__ */
+#endif /* __i386__ || __ia64__ */
 #define DGL_HTON_FLOAT(t,f) mem_hton_float(&t,&f)
 #define DGL_NTOH_FLOAT(t,f) mem_ntoh_float(&t,&f)
 #define DGL_HTON_DOUBLE(t,f) mem_hton_double(&t,&f)

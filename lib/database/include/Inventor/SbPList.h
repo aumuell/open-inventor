@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Description:
  |	This contains the definition of the SbPList generic pointer
@@ -184,15 +184,15 @@ SoINTERNAL class SbIntList : public SbPList {
     SbIntList(int initSize) : SbPList(initSize) {}
 
     void	append(int integer)
-	{ ((SbPList *) this)->append((void *) integer); }
+	{ ((SbPList *) this)->append((void *) (unsigned long) integer); }
 
     // Returns index of given integer in list, or -1 if not found
     int		find(int integer)
-	{ return ((SbPList *) this)->find((void *) integer); }
+	{ return ((SbPList *) this)->find((void *) (unsigned long) integer); }
 
     // Inserts given integer in list before integer with given index
     void	insert(int integer, int addBefore)
-	{ ((SbPList *) this)->insert((void *) integer, addBefore); }
+	{ ((SbPList *) this)->insert((void *) (unsigned long) integer, addBefore); }
 
     int &	operator [](int i) const
 #if (_MIPS_SZPTR==64) && (_MIPS_SZINT==32)

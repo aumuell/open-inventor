@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      SoIndexedShape
@@ -250,7 +250,8 @@ SoIndexedShape::setupIndices(int numParts, int numFaces,
 		   "vpCache.fillInCache must be called first!\n");
     }
     //Check for valid indices:
-    for (int j = 0; j < coordIndex.getNum(); j++){	
+    int j;
+    for (j = 0; j < coordIndex.getNum(); j++){	
     	if (coordIndex[j] != -1) {
 	    if (coordIndex[j] >= vpCache.getNumVertices() ||
 		coordIndex[j] < 0 ){

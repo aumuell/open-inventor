@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes	: SoXtPlaneViewer
  |
@@ -274,7 +274,7 @@ SoXtPlaneViewer::createViewerButtons(Widget parent)
 	Widget w = buttonList[i]->getWidget();
 	XtVaSetValues(w, XmNuserData, this, NULL);
 	XtAddCallback(w, XmNactivateCallback,
-	    (XtCallbackProc) SoXtPlaneViewer::pushButtonCB, (XtPointer) i);
+	    (XtCallbackProc) SoXtPlaneViewer::pushButtonCB, (XtPointer) (unsigned long) i);
 	
 	// add this button to the list...
 	viewerButtonWidgets->append(w);

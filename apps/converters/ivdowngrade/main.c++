@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Author(s) : David Mott
  |
@@ -181,7 +181,7 @@ recreatePath(SbPList &pathIndices, SoNode *sceneGraph)
     SbBool haltHere = FALSE;
     SoGroup *group = (SoGroup *) sceneGraph;
     for (int i = 1; (i < pathIndices.getLength()) && (! haltHere); i++) {
-	int index = (int) pathIndices[i];
+	unsigned long index = (unsigned long) pathIndices[i];
 
 	// Is this a valid index?
 	if (index < group->getNumChildren()) {
@@ -381,7 +381,7 @@ wa2.apply(sceneGraph);
 	    // Squirrel off the pathIndices so the path doesn't get ruined
 	    // as we monkey with the scene graph
 	    for (int j = 0; j < path->getLength(); j++)
-		pathIndices.append((void *) path->getIndex(j));
+		pathIndices.append((void *) (unsigned long) path->getIndex(j));
 	    
 	    if (targetVersion == 1.0)
 		sceneGraph = downgradeToV1(path->getHead());

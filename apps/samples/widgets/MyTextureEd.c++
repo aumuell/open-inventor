@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.4 $
+ |   $Revision: 1.5 $
  |
  |   Classes:
  |	MyTextureEditor
@@ -750,7 +750,7 @@ MyTextureEditor::buildPaletteMenuEntry(int id)
     Widget w = XmCreatePushButtonGadget(widgetList[PALETTE_MENU], pal->name, args, n);
     XtAddCallback(w, XmNactivateCallback,
 	(XtCallbackProc) MyTextureEditor::paletteMenuCB,
-	(XtPointer) id);
+	(XtPointer) (unsigned long) id);
     
     if (xmstr != NULL)
 	XmStringFree(xmstr);

@@ -148,7 +148,7 @@ NoodleSlider::initLayout()
     XtSetArg(wargs[nargs],XmNleftPosition,     30 ); nargs++;
     XtSetArg(wargs[nargs],XmNrightAttachment,  XmATTACH_POSITION ); nargs++;
     XtSetArg(wargs[nargs],XmNrightPosition,    100 ); nargs++;
-    XtSetArg(wargs[nargs],XmNtitleString,      NULL ); nargs++;
+    XtSetArg(wargs[nargs],XmNtitleString,      (void *) NULL ); nargs++;
     XtSetValues( _slider, wargs, nargs );
 }
 

@@ -39,9 +39,9 @@
 //
 
 #include <stdio.h>
-#include <getopt.h>
+#include <unistd.h>
 #include <math.h>
-#include <malloc.h>
+#include <stdlib.h>
 
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/SoDB.h>

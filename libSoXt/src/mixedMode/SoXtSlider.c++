@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.4 $
+ |   $Revision: 1.5 $
  |
  |   Classes:
  |	_SoXtSlider
@@ -58,7 +58,7 @@
 #include "_SoXtUIRegion.h"
 #include "_SoXtSlider.h"
 
-#include <malloc.h>
+#include <stdlib.h>
 
 #include <X11/StringDefs.h>
 #include <X11/Intrinsic.h>

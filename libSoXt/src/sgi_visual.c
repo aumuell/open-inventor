@@ -1280,7 +1280,7 @@ _SG_defaultDepthAndTypeResources (
 			if (!isalpha(*cp)) {
 				_SG_warning (dpy,
 "SG_visualType \"%s\" contains a non-alphabetic character \"%c\".",
-					requestedType, (char *)*cp, "","");
+					requestedType, (char *)(unsigned long)*cp, "","");
 				*cp = '\0';
 				_SG_warning (dpy, "Using \"%s\" instead.",
 						requestedType, "", "", "");
@@ -1436,7 +1436,7 @@ _SG_defaultDepthAndTypeResources (
 					_SG_warning (dpy,
 	"Unable to get requested visualType (%s) with visualDepth (%d).",
 						requestedType,
-						(char *)*requestedDepth, "","");
+						(char *)(unsigned long)*requestedDepth, "","");
 					_SG_warning (dpy,
 	"Setting visual resources to server default values.", "", "", "", "");
 					*requestedDepth = DefaultDepth
@@ -1492,10 +1492,10 @@ _SG_defaultDepthAndTypeResources (
 		   )) {
 			_SG_warning (dpy,
 "Unable to get requested visualType (%s) with visualDepth (%d).",
-				requestedType, (char *)*requestedDepth, "", "");
+				requestedType, (char *)(unsigned long)*requestedDepth, "", "");
 			_SG_warning (dpy,
 			"Using visualType \"%s\" & visualDepth \"%d\" instead.",
-				actualType, (char *)depth, "", "");
+				actualType, (char *)(unsigned long)depth, "", "");
 		}
 	}
 

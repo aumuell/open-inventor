@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoBaseList
@@ -392,7 +392,7 @@ SoTypeList::append(SoType typeId)	// typeId to append
 ////////////////////////////////////////////////////////////////////////
 {
     // we have to do some hackage to cast an SoType into a void *...
-    void *hackage = (void*)(*(int32_t *)&typeId);
+    void *hackage = (void*)(unsigned long)(*(int32_t *)&typeId);
     SbPList::append(hackage);
 }
 
@@ -409,7 +409,7 @@ SoTypeList::find(SoType typeId) const
 ////////////////////////////////////////////////////////////////////////
 {
     // we have to do some hackage to cast an SoType into a void *...
-    void *hackage = (void*)(*(int32_t *)&typeId);
+    void *hackage = (void*)(unsigned long)(*(int32_t *)&typeId);
     return SbPList::find(hackage);
 }
 
@@ -427,7 +427,7 @@ SoTypeList::insert(SoType typeId,	// typeId to insert
 ////////////////////////////////////////////////////////////////////////
 {
     // we have to do some hackage to cast an SoType into a void *...
-    void *hackage = (void*)(*(int32_t *)&typeId);
+    void *hackage = (void*)(unsigned long)(*(int32_t *)&typeId);
     SbPList::insert(hackage, addBefore);
 }
 
@@ -463,7 +463,7 @@ SoTypeList::set(int i,			// index to set
 ////////////////////////////////////////////////////////////////////////
 {
     // we have to do some hackage to cast an SoType into a void *...
-    void *hackage = (void*)(*(int32_t *)&typeId);
+    void *hackage = (void*)(unsigned long)(*(int32_t *)&typeId);
     (*(const SbPList *) this) [i] = hackage;
 }
 

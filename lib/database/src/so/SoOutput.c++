@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.4 $
+ |   $Revision: 1.5 $
  |
  |   Classes:
  |	SoOutput
@@ -1435,7 +1435,7 @@ SoOutput::addReference(const SoBase *base)	// Thing to enter
     int referenceId = refIdCount++;
 
     // Enter in dictionary : generates a CC warning...
-    refDict->enter((unsigned long) base, (void *) referenceId);
+    refDict->enter((unsigned long) base, (void *) (unsigned long) referenceId);
 
     // Dictionary is now "dirty"
     anyRef = TRUE;
@@ -1462,7 +1462,7 @@ SoOutput::findReference(const SoBase *base	// Thing to look for
 
     // Generates a CC warning. Ho hum.
     if (refDict->find((unsigned long) base, ref))
-#if (_MIPS_SZPTR == 64)
+#if (_MIPS_SZPTR == 64 || __ia64)
         referenceId = (int) ((unsigned long) ref);
 #else
 	referenceId = (int)ref;

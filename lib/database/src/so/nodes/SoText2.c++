@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.5 $
+ |   $Revision: 1.6 $
  |
  |   Classes:
  |      SoText2
@@ -81,6 +81,7 @@
 #include <flclient.h>
 #include <math.h>
 #include <iconv.h>
+#include <machine.h>
 
 
 // An internal class that makes life easier:
@@ -794,6 +795,12 @@ SoBitmapFontCache::convertToUCS(uint32_t nodeid,
 	}
     
 	UCSNumChars[i] = (void*)((2*strings[i].getLength()+2 - outbytes)>>1);
+
+        int j;
+        for (j = 0; j < getNumUCSChars(i); j++) {
+            char* c = (char*)UCSStrings[i]+j*2;
+            DGL_HTON_SHORT(SHORT(c), SHORT(c));
+        }
     }
  
     return TRUE;
@@ -891,7 +898,7 @@ SoBitmapFontCache::createUniFontList(const char* fontNameList, float size)
 #endif          
        }
        else {
-	 fontNums->append((void*)fn);       
+	 fontNums->append((void*)(unsigned long)fn);       
        }
        if(s1 == ends) break;
        s = (s1 + 1);  /* move to next font name */

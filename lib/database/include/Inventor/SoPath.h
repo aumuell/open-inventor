@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	This file contains the definition of the SoPath and SoFullPath
@@ -320,7 +320,7 @@ class SoLightPath  {
     void		push()			{ append(-1);}
     void		pop()		{ truncate(getFullLength() - 1); }
     void		setTail(int childIndex) 
-	   	{ indices.set(getFullLength()-1,(void *)childIndex);}
+	   	{ indices.set(getFullLength()-1,(void *)(unsigned long)childIndex);}
     SoNode *		getTail()
 		{ return getNode(getFullLength()-1);}
 

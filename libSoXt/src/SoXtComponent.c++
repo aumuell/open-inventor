@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.4 $
+ |   $Revision: 1.5 $
  |
  |   Classes:
  |	SoXtComponent
@@ -231,7 +231,7 @@ SoXtComponent::checkForVisibilityChange()
 	&& XtWindow(_baseWidget));
     
     if (visibleState != prevState && visibiltyCBList)
-	    visibiltyCBList->invokeCallbacks((void *)visibleState);    
+	    visibiltyCBList->invokeCallbacks((void *)(unsigned long)visibleState);    
 }
 
 ////////////////////////////////////////////////////////////////////////

@@ -40,7 +40,7 @@
 _______________________________________________________________________
 ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
 |
-|   $Revision: 1.3 $
+|   $Revision: 1.4 $
 |
 |   Classes:
 |      SoXtMinMaxSlider is a component that expands the functionality of the
@@ -133,8 +133,8 @@ SoXtMinMaxSlider::buildWidget( Widget parent )
 
     /* see if user decided to override any of these values */
         /* get startingMin and startingMax as the defaults in the query */
-        _scaleStyleResources[2].default_addr = (XtPointer) _startingMax;
-        _scaleStyleResources[3].default_addr = (XtPointer) _startingMin;
+        _scaleStyleResources[2].default_addr = (XtPointer) (unsigned long) _startingMax;
+        _scaleStyleResources[3].default_addr = (XtPointer) (unsigned long) _startingMin;
         /* ask the question */
         XtGetApplicationResources( widget, (XtPointer) &styleData, 
 	    	       _scaleStyleResources, XtNumber( _scaleStyleResources), 

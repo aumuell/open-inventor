@@ -40,7 +40,7 @@
 _______________________________________________________________________
 ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
 |
-|   $Revision: 1.2 $
+|   $Revision: 1.3 $
 |
 |   Classes:
 |      SoXtSliderTool is a component that expands the functionality of the
@@ -303,7 +303,7 @@ SoXtSliderTool::makeSkinnyOpen()
 	                  DEFAULT_SLIDER_TOOL_SKINNY_OPEN_POINT_2 ); nargs++;
     XtSetArg(wargs[nargs],XmNrightPosition,
 	                  DEFAULT_SLIDER_TOOL_SKINNY_OPEN_POINT_3 ); nargs++;
-    XtSetArg(wargs[nargs],XmNtitleString,      NULL ); nargs++;
+    XtSetArg(wargs[nargs],XmNtitleString,      (void *) NULL ); nargs++;
     XtSetValues( _slider->getWidget(), wargs, nargs );
 
     nargs = 0;
@@ -350,7 +350,7 @@ SoXtSliderTool::makeSkinnyClosed()
     XtSetArg(wargs[nargs],XmNleftPosition,
 	                  DEFAULT_SLIDER_TOOL_SKINNY_CLOSED_POINT_1 ); nargs++;
     XtSetArg(wargs[nargs],XmNrightPosition, 100 ); nargs++;
-    XtSetArg(wargs[nargs],XmNtitleString,      NULL ); nargs++;
+    XtSetArg(wargs[nargs],XmNtitleString,      (void *) NULL ); nargs++;
     XtSetValues( _slider->getWidget(), wargs, nargs );
 
     _maxValue->hide();

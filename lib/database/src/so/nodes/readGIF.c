@@ -17,7 +17,7 @@
  **************************************************************************/
 
 
-#ident "$Revision: 1.1 $"
+#ident "$Revision: 1.2 $"
 
 
 #include <stdio.h>
@@ -552,7 +552,7 @@ static int nextLWZ(FILE *fd)
 #endif
 		return (code);
 	    }
-	    if ((int) sp >= ((int) stack + sizeof(stack))) {
+	    if ((unsigned long) sp >= ((unsigned long) stack + sizeof(stack))) {
 #if 0
 		ERROR("circular table STACK OVERFLOW!");
 #endif

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.8 $
+ |   $Revision: 1.9 $
  |
  |   Classes:
  |      SoText3
@@ -88,6 +88,7 @@
 // Additional for Banyan(6.2):
 #include <flclient.h>
 #include <iconv.h>
+#include <machine.h>
 
 // First, a more convenient structure for outlines:
 class SoFontOutline {
@@ -1480,7 +1481,7 @@ SoOutlineFontCache::createUniFontList(const char* fontNameList)
 		"Cannot create font %s", s);         
 #endif          
        }
-       else fontNums->append((void*)fn);
+       else fontNums->append((void*)(unsigned long)fn);
        if(s1 == ends) break;
        s = (s1 + 1);  /* move to next font name */
     }
@@ -2308,6 +2309,11 @@ SoOutlineFontCache::convertToUCS(uint32_t nodeid,
     
 	UCSNumChars[i] = (void*)((2*strings[i].getLength()+2 - outbytes)>>1);
        
+        int j;
+        for (j = 0; j < getNumUCSChars(i); j++) {
+            char* c = (char*)UCSStrings[i]+j*2;
+            DGL_HTON_SHORT(SHORT(c), SHORT(c));
+        }
     }
  
     return;

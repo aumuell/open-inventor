@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Author(s) : David Mott
  |
@@ -120,7 +120,7 @@ SbDict *needsDowngrading = NULL;
     (dict->enter((unsigned long) nodeClass::getClassTypeId().getName().getString(), (void *) dictData))
     
 #define DICT_FIND(dict,node,dictData) \
-    (dict->find((uint32_t) node->getTypeId().getName().getString(), dictData))
+    (dict->find((unsigned long) node->getTypeId().getName().getString(), dictData))
 
 typedef SoNode *DowngradeFunc(SoNode *n);
 

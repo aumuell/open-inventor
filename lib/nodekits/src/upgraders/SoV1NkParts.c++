@@ -41,7 +41,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      SoV1NodekitParts
@@ -58,7 +58,7 @@
 #include <Inventor/misc/upgraders/SoV1BaseKit.h>
 #include <Inventor/SoPath.h>
 #include <Inventor/errors/SoDebugError.h>
-#include <malloc.h>
+#include <stdlib.h>
 
 ////////////////////////////////////////////////////////////////////////
 //

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.4 $
+ |   $Revision: 1.5 $
  |
  |   Classes:
  |	SoXtGLWidget
@@ -51,7 +51,7 @@
  _______________________________________________________________________
  */
 #include <stdio.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include <Inventor/errors/SoDebugError.h>
@@ -552,7 +552,7 @@ SoXtGLWidget::setStereoBuffer(SbBool flag)
 //  display lists.
 //
 // Use: protected
-SbBool
+int
 SoXtGLWidget::getDisplayListShareGroup(GLXContext ctx)
 //
 ////////////////////////////////////////////////////////////////////////
@@ -791,6 +791,9 @@ SoXtGLWidget::buildOverlayGLXWidget(XVisualInfo *vis)
 //
 ////////////////////////////////////////////////////////////////////////
 {
+    if (getenv("IV_NO_OVERLAYS") || getenv("OIV_NO_OVERLAYS"))
+	return;
+
     // build the visual from the attribute list if necessary
     if (! vis) {
 	//

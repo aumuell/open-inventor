@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoXtResource
@@ -127,8 +127,8 @@ SoXtResource::SoXtResource(Widget widget)
 	    n = w->core.xrm_name;
 	    c = XtClass(w)->core_class.xrm_class;
 	}
-	nameplist.append((void *) n);
-	classplist.append((void *) c);
+	nameplist.append((void *) (unsigned long) n);
+	classplist.append((void *) (unsigned long) c);
 	w = XtParent(w);
     }
 
@@ -145,7 +145,7 @@ SoXtResource::SoXtResource(Widget widget)
     classList = new XrmQuark[listSize];
     for (q = 0, s = len - 1;
     	 s >= 0; q++, s--) {
-#if (_MIPS_SZPTR == 64)
+#if (_MIPS_SZPTR == 64 || __ia64)
 	 nameList[q]  = (XrmQuark) ((long) nameplist[s]);
 	 classList[q] = (XrmQuark) ((long) classplist[s]);
 #else

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoAccumulatedElement
@@ -190,7 +190,7 @@ SoAccumulatedElement::setNodeId(const SoNode *node)
 #endif /* DEBUG */
 
     nodeIds.truncate(0);
-    nodeIds.append((void *) node->getNodeId());
+    nodeIds.append((void *) (unsigned long) node->getNodeId());
 
     accumulatesWithParentFlag = FALSE;
 }

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoGetBoundingBoxAction
@@ -131,6 +131,9 @@ SoGetBoundingBoxAction::setResetPath(const SoPath *path,
 //
 ////////////////////////////////////////////////////////////////////////
 {
+    if (resetPath != NULL)
+	resetPath->unref();
+
     resetPath = path;
 
     if (resetPath != NULL)

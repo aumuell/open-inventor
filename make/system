@@ -1,5 +1,6 @@
 usingIrix = 0
 usingLinux = 0
+usingFreeBSD = 0
 
 UNAME = $(shell uname | tr '[:upper:]' '[:lower:]')
 
@@ -9,4 +10,8 @@ endif
 
 ifneq (, $(findstring linux, $(UNAME)))
 usingLinux = 1
+endif
+
+ifneq (, $(findstring freebsd, $(UNAME)))
+usingFreeBSD = 1
 endif

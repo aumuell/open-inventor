@@ -22,11 +22,11 @@ CF = MyExamVwr.c++ MyFullVwr.c++ MyViewer.c++ MyBitmapButton.c++ MyBitmapButton.
 LTARGETS = $(HF) $(CF)
 
 $(HF): My%: $(IVDEPTH)/libSoXt/include/Inventor/Xt/viewers/SoXt%
-	./nameScript $(IVDEPTH)/libSoXt/include/Inventor/Xt/viewers/$(subst My,SoXt,$@) \
-		> $@
+	sed -f ./nameScript \
+		$(IVDEPTH)/libSoXt/include/Inventor/Xt/viewers/$(subst My,SoXt,$@) > $@
 $(CF): My%: $(IVDEPTH)/libSoXt/src/viewers/SoXt%
-	./nameScript $(IVDEPTH)/libSoXt/src/viewers/$(subst My,SoXt,$@) \
-		> $@
+	sed -f ./nameScript \
+		$(IVDEPTH)/libSoXt/src/viewers/$(subst My,SoXt,$@) > $@
 
 LDIRT += $(HF) $(CF)
 

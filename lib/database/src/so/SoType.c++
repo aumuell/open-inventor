@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Classes:
  |	SoType
@@ -325,7 +325,7 @@ SoType::fromName(SbName name)
     if (b == NULL)
 	return SoType::badType();
 
-#if (_MIPS_SZPTR == 64)
+#if (_MIPS_SZPTR == 64 || __ia64)
     SoType result = typeData[(int) ((unsigned long) b)].type;
 #else
     SoType result = typeData[(int)b].type;
@@ -375,7 +375,7 @@ SoType::createType(SoType parent, SbName name,
     td->name		= name;
     td->createMethod	= createMethod;
 
-    nameDict->enter((unsigned long) name.getString(), (void *)t.storage.index);
+    nameDict->enter((unsigned long) name.getString(), (void *)(unsigned long)t.storage.index);
 
     return t;
 }

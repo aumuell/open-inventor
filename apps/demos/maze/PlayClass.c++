@@ -41,10 +41,10 @@
 #include <sys/stat.h>
 #include <sys/prctl.h>
 #include <sys/wait.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include <getopt.h>
+#include <unistd.h>
 #include <CC/osfcn.h>
 #include <signal.h>
 #include <invent.h>
