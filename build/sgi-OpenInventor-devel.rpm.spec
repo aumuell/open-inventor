@@ -2,372 +2,925 @@ Name: sgi-OpenInventor-devel
 Version: 2.1.5
 Release: 6
 Distribution: Red Hat
-Packager: Silicon Graphics
+Packager: Silicon Graphics, Inc.
+Source: oiv.tar.gz
 
 #
-# Change the following as appropriate
+# Change the following as appropriate.
 #
-Summary: Open Inventor Development - a toolkit for writing 3d programs
+Summary: Open Inventor 3D Development Toolkit
 Copyright: Silicon Graphics, Inc.
 Vendor: SGI
-URL: http://www.sgi.com
+URL: http://oss.sgi.com/projects/inventor/
+
 #
 # The setting of the Group tag should be picked from the list
 # of values pre-defined by Red Hat in the file /usr/doc/rpm-<version>/groups.
 # The value is similar to a directory path (e.g. "Networking/Daemons").
 #
 Group: Development/Libraries
-%description
-       The Open Inventor 3d Toolkit is an object-oriented toolkit
-       that simplifies and abstracts the task of writing graphics
-       programming  into  a  set  of  easy to use objects.  These
-       objects range from low level data-centered objects such as
-       Sphere,  Camera, Material, Light, and Group, to high level
-       application-level objects such as Walkthrough  Viewer  and
-       Material  Editor.   The  foundation concept in Inventor is
-       the "scene database" which defines the objects to be  used
-       in an application.  When using Inventor, a programmer cre­
-       ates, edits, and composes these objects into  hierarchical
-       3d  scene graphs (i.e., database).  A variety of fundamen­
-       tal application tasks such as  rendering,  picking,  event
-       handling, and file reading/writing are built-in operations
-       of all objects in the database  and  thus  are  simple  to
-       invoke.
 
+%description
+The Open Inventor 3D Toolkit is an object-oriented toolkit that simplifies and
+abstracts the task of writing graphics programming into a set of easy to use
+objects.  These objects range from low-level data-centered objects such as
+Sphere, Camera, Material, Light, and Group, to high-level application-level
+objects such as Walk Viewer and Material Editor.  The foundation concept in
+Inventor is the "scene database" which defines the objects to be used in an
+application.  When using Inventor, a programmer creates, edits, and composes
+these objects into hierarchical 3D scene graphs (i.e. database).  A variety of
+fundamental application tasks such as rendering, picking, event handling, and
+file reading/writing are built-in operations of all objects in the database and
+thus are simple to invoke.
+
+This distribution installs debug shared libraries in /usr/lib/InventorDebug,
+header files in /usr/include/Inventor, and man pages in /usr/man/man3 (3iv
+extension).
+
+
+%prep
+%setup -n inventor
+
+%build
+export LIBTYPE=debug
+make clobber
+make install
+
+%install
+mkdir -p /usr/lib/DPS/outline/base
+ln -s -f /usr/lib/X11/fonts/Type1/UTRG____.pfa /usr/lib/DPS/outline/base/Utopia-Regular
 
 %files
 %attr(-, root, root) %dir /usr/include/Inventor
-%attr(-, root, root) %dir /usr/lib/Inventor
-%attr(-, root, root) %dir /usr/lib/Inventor/Debug
-%attr(-, root, root) %dir /usr/man/man1
+%attr(-, root, root) %dir /usr/include/Inventor/actions
+%attr(-, root, root) %dir /usr/include/Inventor/bundles
+%attr(-, root, root) %dir /usr/include/Inventor/caches
+%attr(-, root, root) %dir /usr/include/Inventor/details
+%attr(-, root, root) %dir /usr/include/Inventor/elements
+%attr(-, root, root) %dir /usr/include/Inventor/engines
+%attr(-, root, root) %dir /usr/include/Inventor/errors
+%attr(-, root, root) %dir /usr/include/Inventor/events
+%attr(-, root, root) %dir /usr/include/Inventor/fields
+%attr(-, root, root) %dir /usr/include/Inventor/misc
+%attr(-, root, root) %dir /usr/include/Inventor/misc/upgraders
+%attr(-, root, root) %dir /usr/include/Inventor/nodes
+%attr(-, root, root) %dir /usr/include/Inventor/projectors
+%attr(-, root, root) %dir /usr/include/Inventor/sensors
+%attr(-, root, root) %dir /usr/include/Inventor/draggers
+%attr(-, root, root) %dir /usr/include/Inventor/manips
+%attr(-, root, root) %dir /usr/include/Inventor/nodekits
+%attr(-, root, root) %dir /usr/include/Inventor/Xt
+%attr(-, root, root) %dir /usr/include/Inventor/Xt/devices
+%attr(-, root, root) %dir /usr/include/Inventor/Xt/viewers
+%attr(-, root, root) %dir /usr/lib/InventorDebug
 %attr(-, root, root) %dir /usr/man/man3
 
-/usr/lib/Inventor/Debug/libInventor.so
-/usr/lib/Inventor/Debug/libInventorXt.so
-/usr/lib/Inventor/Debug/libFL.so
-/usr/include/Inventor/*
-/usr/man/man1/inventor.1
-/usr/man/man3/SbBool.3iv
-/usr/man/man3/SbBox2f.3iv
-/usr/man/man3/SbBox2s.3iv
-/usr/man/man3/SbBox3f.3iv
-/usr/man/man3/SbColor.3iv
-/usr/man/man3/SbCylinder.3iv
-/usr/man/man3/SbCylinderPlaneProjector.3iv
-/usr/man/man3/SbCylinderProjector.3iv
-/usr/man/man3/SbCylinderSectionProjector.3iv
-/usr/man/man3/SbCylinderSheetProjector.3iv
-/usr/man/man3/SbLine.3iv
-/usr/man/man3/SbLineProjector.3iv
-/usr/man/man3/SbMatrix.3iv
-/usr/man/man3/SbName.3iv
-/usr/man/man3/SbPList.3iv
-/usr/man/man3/SbPlane.3iv
-/usr/man/man3/SbPlaneProjector.3iv
-/usr/man/man3/SbProjector.3iv
-/usr/man/man3/SbRotation.3iv
-/usr/man/man3/SbSphere.3iv
-/usr/man/man3/SbSpherePlaneProjector.3iv
-/usr/man/man3/SbSphereProjector.3iv
-/usr/man/man3/SbSphereSectionProjector.3iv
-/usr/man/man3/SbSphereSheetProjector.3iv
-/usr/man/man3/SbString.3iv
-/usr/man/man3/SbTime.3iv
-/usr/man/man3/SbVec2f.3iv
-/usr/man/man3/SbVec2s.3iv
-/usr/man/man3/SbVec3f.3iv
-/usr/man/man3/SbVec4f.3iv
-/usr/man/man3/SbViewVolume.3iv
-/usr/man/man3/SbViewportRegion.3iv
-/usr/man/man3/SbXfBox3f.3iv
-/usr/man/man3/SoAction.3iv
-/usr/man/man3/SoAlarmSensor.3iv
-/usr/man/man3/SoAnnotation.3iv
-/usr/man/man3/SoAntiSquish.3iv
-/usr/man/man3/SoAppearanceKit.3iv
-/usr/man/man3/SoArray.3iv
-/usr/man/man3/SoAsciiText.3iv
-/usr/man/man3/SoBase.3iv
-/usr/man/man3/SoBaseColor.3iv
-/usr/man/man3/SoBaseKit.3iv
-/usr/man/man3/SoBaseList.3iv
-/usr/man/man3/SoBlinker.3iv
-/usr/man/man3/SoBoolOperation.3iv
-/usr/man/man3/SoBoxHighlightRenderAction.3iv
-/usr/man/man3/SoButtonEvent.3iv
-/usr/man/man3/SoByteStream.3iv
-/usr/man/man3/SoCalculator.3iv
-/usr/man/man3/SoCallback.3iv
-/usr/man/man3/SoCallbackAction.3iv
-/usr/man/man3/SoCallbackList.3iv
-/usr/man/man3/SoCamera.3iv
-/usr/man/man3/SoCameraKit.3iv
-/usr/man/man3/SoClipPlane.3iv
-/usr/man/man3/SoColorIndex.3iv
-/usr/man/man3/SoComplexity.3iv
-/usr/man/man3/SoComposeMatrix.3iv
-/usr/man/man3/SoComposeRotation.3iv
-/usr/man/man3/SoComposeRotationFromTo.3iv
-/usr/man/man3/SoComposeVec2f.3iv
-/usr/man/man3/SoComposeVec3f.3iv
-/usr/man/man3/SoComposeVec4f.3iv
-/usr/man/man3/SoComputeBoundingBox.3iv
-/usr/man/man3/SoConcatenate.3iv
-/usr/man/man3/SoCone.3iv
-/usr/man/man3/SoConeDetail.3iv
-/usr/man/man3/SoCoordinate3.3iv
-/usr/man/man3/SoCoordinate4.3iv
-/usr/man/man3/SoCounter.3iv
-/usr/man/man3/SoCube.3iv
-/usr/man/man3/SoCubeDetail.3iv
-/usr/man/man3/SoCylinder.3iv
-/usr/man/man3/SoCylinderDetail.3iv
-/usr/man/man3/SoDB.3iv
-/usr/man/man3/SoDataSensor.3iv
-/usr/man/man3/SoDebugError.3iv
-/usr/man/man3/SoDecomposeMatrix.3iv
-/usr/man/man3/SoDecomposeRotation.3iv
-/usr/man/man3/SoDecomposeVec2f.3iv
-/usr/man/man3/SoDecomposeVec3f.3iv
-/usr/man/man3/SoDecomposeVec4f.3iv
-/usr/man/man3/SoDelayQueueSensor.3iv
-/usr/man/man3/SoDetail.3iv
-/usr/man/man3/SoDetailList.3iv
-/usr/man/man3/SoDirectionalLight.3iv
-/usr/man/man3/SoDrawStyle.3iv
-/usr/man/man3/SoElapsedTime.3iv
-/usr/man/man3/SoEngine.3iv
-/usr/man/man3/SoEngineList.3iv
-/usr/man/man3/SoEngineOutput.3iv
-/usr/man/man3/SoEngineOutputList.3iv
-/usr/man/man3/SoEnvironment.3iv
-/usr/man/man3/SoError.3iv
-/usr/man/man3/SoEvent.3iv
-/usr/man/man3/SoEventCallback.3iv
-/usr/man/man3/SoFaceDetail.3iv
-/usr/man/man3/SoFaceSet.3iv
-/usr/man/man3/SoField.3iv
-/usr/man/man3/SoFieldContainer.3iv
-/usr/man/man3/SoFieldList.3iv
-/usr/man/man3/SoFieldSensor.3iv
-/usr/man/man3/SoFile.3iv
-/usr/man/man3/SoFont.3iv
-/usr/man/man3/SoFontStyle.3iv
-/usr/man/man3/SoGLRenderAction.3iv
-/usr/man/man3/SoGate.3iv
-/usr/man/man3/SoGetBoundingBoxAction.3iv
-/usr/man/man3/SoGetMatrixAction.3iv
-/usr/man/man3/SoGroup.3iv
-/usr/man/man3/SoHandleEventAction.3iv
-/usr/man/man3/SoIdleSensor.3iv
-/usr/man/man3/SoIndexedFaceSet.3iv
-/usr/man/man3/SoIndexedLineSet.3iv
-/usr/man/man3/SoIndexedNurbsCurve.3iv
-/usr/man/man3/SoIndexedNurbsSurface.3iv
-/usr/man/man3/SoIndexedShape.3iv
-/usr/man/man3/SoIndexedTriangleStripSet.3iv
-/usr/man/man3/SoInfo.3iv
-/usr/man/man3/SoInput.3iv
-/usr/man/man3/SoInteraction.3iv
-/usr/man/man3/SoInteractionKit.3iv
-/usr/man/man3/SoInterpolate.3iv
-/usr/man/man3/SoInterpolateFloat.3iv
-/usr/man/man3/SoInterpolateRotation.3iv
-/usr/man/man3/SoInterpolateVec2f.3iv
-/usr/man/man3/SoInterpolateVec3f.3iv
-/usr/man/man3/SoInterpolateVec4f.3iv
-/usr/man/man3/SoKeyboardEvent.3iv
-/usr/man/man3/SoLOD.3iv
-/usr/man/man3/SoLabel.3iv
-/usr/man/man3/SoLevelOfDetail.3iv
-/usr/man/man3/SoLight.3iv
-/usr/man/man3/SoLightKit.3iv
-/usr/man/man3/SoLightModel.3iv
-/usr/man/man3/SoLineDetail.3iv
-/usr/man/man3/SoLineHighlightRenderAction.3iv
-/usr/man/man3/SoLineSet.3iv
-/usr/man/man3/SoLinearProfile.3iv
-/usr/man/man3/SoLocateHighlight.3iv
-/usr/man/man3/SoLocation2Event.3iv
-/usr/man/man3/SoMFBitMask.3iv
-/usr/man/man3/SoMFBool.3iv
-/usr/man/man3/SoMFColor.3iv
-/usr/man/man3/SoMFEngine.3iv
-/usr/man/man3/SoMFEnum.3iv
-/usr/man/man3/SoMFFloat.3iv
-/usr/man/man3/SoMFInt32.3iv
-/usr/man/man3/SoMFLong.3iv
-/usr/man/man3/SoMFMatrix.3iv
-/usr/man/man3/SoMFName.3iv
-/usr/man/man3/SoMFNode.3iv
-/usr/man/man3/SoMFPath.3iv
-/usr/man/man3/SoMFPlane.3iv
-/usr/man/man3/SoMFRotation.3iv
-/usr/man/man3/SoMFShort.3iv
-/usr/man/man3/SoMFString.3iv
-/usr/man/man3/SoMFTime.3iv
-/usr/man/man3/SoMFUInt32.3iv
-/usr/man/man3/SoMFULong.3iv
-/usr/man/man3/SoMFUShort.3iv
-/usr/man/man3/SoMFVec2f.3iv
-/usr/man/man3/SoMFVec3f.3iv
-/usr/man/man3/SoMFVec4f.3iv
-/usr/man/man3/SoMField.3iv
-/usr/man/man3/SoMaterial.3iv
-/usr/man/man3/SoMaterialBinding.3iv
-/usr/man/man3/SoMatrixTransform.3iv
-/usr/man/man3/SoMemoryError.3iv
-/usr/man/man3/SoMotion3Event.3iv
-/usr/man/man3/SoMouseButtonEvent.3iv
-/usr/man/man3/SoMultipleCopy.3iv
-/usr/man/man3/SoNode.3iv
-/usr/man/man3/SoNodeKit.3iv
-/usr/man/man3/SoNodeKitDetail.3iv
-/usr/man/man3/SoNodeKitListPart.3iv
-/usr/man/man3/SoNodeKitPath.3iv
-/usr/man/man3/SoNodeList.3iv
-/usr/man/man3/SoNodeSensor.3iv
-/usr/man/man3/SoNodekitCatalog.3iv
-/usr/man/man3/SoNonIndexedShape.3iv
-/usr/man/man3/SoNormal.3iv
-/usr/man/man3/SoNormalBinding.3iv
-/usr/man/man3/SoNurbsCurve.3iv
-/usr/man/man3/SoNurbsProfile.3iv
-/usr/man/man3/SoNurbsSurface.3iv
-/usr/man/man3/SoOffscreenRenderer.3iv
-/usr/man/man3/SoOnOff.3iv
-/usr/man/man3/SoOneShot.3iv
-/usr/man/man3/SoOneShotSensor.3iv
-/usr/man/man3/SoOrthographicCamera.3iv
-/usr/man/man3/SoOutput.3iv
-/usr/man/man3/SoPackedColor.3iv
-/usr/man/man3/SoPath.3iv
-/usr/man/man3/SoPathList.3iv
-/usr/man/man3/SoPathSensor.3iv
-/usr/man/man3/SoPathSwitch.3iv
-/usr/man/man3/SoPendulum.3iv
-/usr/man/man3/SoPerspectiveCamera.3iv
-/usr/man/man3/SoPickAction.3iv
-/usr/man/man3/SoPickStyle.3iv
-/usr/man/man3/SoPickedPoint.3iv
-/usr/man/man3/SoPickedPointList.3iv
-/usr/man/man3/SoPointDetail.3iv
-/usr/man/man3/SoPointLight.3iv
-/usr/man/man3/SoPointSet.3iv
-/usr/man/man3/SoPrimitiveVertex.3iv
-/usr/man/man3/SoProfile.3iv
-/usr/man/man3/SoProfileCoordinate2.3iv
-/usr/man/man3/SoProfileCoordinate3.3iv
-/usr/man/man3/SoQuadMesh.3iv
-/usr/man/man3/SoRayPickAction.3iv
-/usr/man/man3/SoReadError.3iv
-/usr/man/man3/SoResetTransform.3iv
-/usr/man/man3/SoRotation.3iv
-/usr/man/man3/SoRotationXYZ.3iv
-/usr/man/man3/SoRotor.3iv
-/usr/man/man3/SoSFBitMask.3iv
-/usr/man/man3/SoSFBool.3iv
-/usr/man/man3/SoSFColor.3iv
-/usr/man/man3/SoSFEngine.3iv
-/usr/man/man3/SoSFEnum.3iv
-/usr/man/man3/SoSFFloat.3iv
-/usr/man/man3/SoSFImage.3iv
-/usr/man/man3/SoSFInt32.3iv
-/usr/man/man3/SoSFLong.3iv
-/usr/man/man3/SoSFMatrix.3iv
-/usr/man/man3/SoSFName.3iv
-/usr/man/man3/SoSFNode.3iv
-/usr/man/man3/SoSFPath.3iv
-/usr/man/man3/SoSFPlane.3iv
-/usr/man/man3/SoSFRotation.3iv
-/usr/man/man3/SoSFShort.3iv
-/usr/man/man3/SoSFString.3iv
-/usr/man/man3/SoSFTime.3iv
-/usr/man/man3/SoSFTrigger.3iv
-/usr/man/man3/SoSFUInt32.3iv
-/usr/man/man3/SoSFULong.3iv
-/usr/man/man3/SoSFUShort.3iv
-/usr/man/man3/SoSFVec2f.3iv
-/usr/man/man3/SoSFVec3f.3iv
-/usr/man/man3/SoSFVec4f.3iv
-/usr/man/man3/SoSField.3iv
-/usr/man/man3/SoScale.3iv
-/usr/man/man3/SoSceneKit.3iv
-/usr/man/man3/SoSceneManager.3iv
-/usr/man/man3/SoSearchAction.3iv
-/usr/man/man3/SoSelectOne.3iv
-/usr/man/man3/SoSelection.3iv
-/usr/man/man3/SoSensor.3iv
-/usr/man/man3/SoSeparator.3iv
-/usr/man/man3/SoSeparatorKit.3iv
-/usr/man/man3/SoShape.3iv
-/usr/man/man3/SoShapeHints.3iv
-/usr/man/man3/SoShapeKit.3iv
-/usr/man/man3/SoShuttle.3iv
-/usr/man/man3/SoSpaceballButtonEvent.3iv
-/usr/man/man3/SoSphere.3iv
-/usr/man/man3/SoSpotLight.3iv
-/usr/man/man3/SoSurroundScale.3iv
-/usr/man/man3/SoSwitch.3iv
-/usr/man/man3/SoText2.3iv
-/usr/man/man3/SoText3.3iv
-/usr/man/man3/SoTextDetail.3iv
-/usr/man/man3/SoTexture2.3iv
-/usr/man/man3/SoTexture2Transform.3iv
-/usr/man/man3/SoTextureCoordinate2.3iv
-/usr/man/man3/SoTextureCoordinateBinding.3iv
-/usr/man/man3/SoTextureCoordinateDefault.3iv
-/usr/man/man3/SoTextureCoordinateEnvironment.3iv
-/usr/man/man3/SoTextureCoordinateFunction.3iv
-/usr/man/man3/SoTextureCoordinatePlane.3iv
-/usr/man/man3/SoTimeCounter.3iv
-/usr/man/man3/SoTimerQueueSensor.3iv
-/usr/man/man3/SoTimerSensor.3iv
-/usr/man/man3/SoTranReceiver.3iv
-/usr/man/man3/SoTranSender.3iv
-/usr/man/man3/SoTransform.3iv
-/usr/man/man3/SoTransformSeparator.3iv
-/usr/man/man3/SoTransformVec3f.3iv
-/usr/man/man3/SoTransformation.3iv
-/usr/man/man3/SoTranslation.3iv
-/usr/man/man3/SoTriangleStripSet.3iv
-/usr/man/man3/SoTriggerAny.3iv
-/usr/man/man3/SoType.3iv
-/usr/man/man3/SoTypeList.3iv
-/usr/man/man3/SoUnits.3iv
-/usr/man/man3/SoVertexProperty.3iv
-/usr/man/man3/SoVertexShape.3iv
-/usr/man/man3/SoWWWAnchor.3iv
-/usr/man/man3/SoWWWInline.3iv
-/usr/man/man3/SoWrapperKit.3iv
-/usr/man/man3/SoWriteAction.3iv
-/usr/man/man3/SoXt.3iv
-/usr/man/man3/SoXtClipboard.3iv
-/usr/man/man3/SoXtComponent.3iv
-/usr/man/man3/SoXtConstrainedViewer.3iv
-/usr/man/man3/SoXtDevice.3iv
-/usr/man/man3/SoXtDirectionalLightEditor.3iv
-/usr/man/man3/SoXtExaminerViewer.3iv
-/usr/man/man3/SoXtFlyViewer.3iv
-/usr/man/man3/SoXtFullViewer.3iv
-/usr/man/man3/SoXtGLWidget.3iv
-/usr/man/man3/SoXtInputFocus.3iv
-/usr/man/man3/SoXtKeyboard.3iv
-/usr/man/man3/SoXtLightSliderSet.3iv
-/usr/man/man3/SoXtMaterialEditor.3iv
-/usr/man/man3/SoXtMaterialList.3iv
-/usr/man/man3/SoXtMaterialSliderSet.3iv
-/usr/man/man3/SoXtMouse.3iv
-/usr/man/man3/SoXtPlaneViewer.3iv
-/usr/man/man3/SoXtPrintDialog.3iv
-/usr/man/man3/SoXtRenderArea.3iv
-/usr/man/man3/SoXtResource.3iv
-/usr/man/man3/SoXtSliderSet.3iv
-/usr/man/man3/SoXtSliderSetBase.3iv
-/usr/man/man3/SoXtSpaceball.3iv
-/usr/man/man3/SoXtTransformSliderSet.3iv
-/usr/man/man3/SoXtViewer.3iv
-/usr/man/man3/SoXtWalkViewer.3iv
+%attr(644, root, root) /usr/include/Inventor/Sb.h
+%attr(644, root, root) /usr/include/Inventor/SbBasic.h
+%attr(644, root, root) /usr/include/Inventor/SbBox.h
+%attr(644, root, root) /usr/include/Inventor/SbColor.h
+%attr(644, root, root) /usr/include/Inventor/SbDict.h
+%attr(644, root, root) /usr/include/Inventor/SbLinear.h
+%attr(644, root, root) /usr/include/Inventor/SbPList.h
+%attr(644, root, root) /usr/include/Inventor/SbString.h
+%attr(644, root, root) /usr/include/Inventor/SbTime.h
+%attr(644, root, root) /usr/include/Inventor/SbViewportRegion.h
+%attr(644, root, root) /usr/include/Inventor/So.h
+%attr(644, root, root) /usr/include/Inventor/SoDB.h
+%attr(644, root, root) /usr/include/Inventor/SoInput.h
+%attr(644, root, root) /usr/include/Inventor/SoInteraction.h
+%attr(644, root, root) /usr/include/Inventor/SoLists.h
+%attr(644, root, root) /usr/include/Inventor/SoNodeKitPath.h
+%attr(644, root, root) /usr/include/Inventor/SoOffscreenRenderer.h
+%attr(644, root, root) /usr/include/Inventor/SoOutput.h
+%attr(644, root, root) /usr/include/Inventor/SoPath.h
+%attr(644, root, root) /usr/include/Inventor/SoPickedPoint.h
+%attr(644, root, root) /usr/include/Inventor/SoPrimitiveVertex.h
+%attr(644, root, root) /usr/include/Inventor/SoSceneManager.h
+%attr(644, root, root) /usr/include/Inventor/SoType.h
+%attr(644, root, root) /usr/include/Inventor/actions/SoAction.h
+%attr(644, root, root) /usr/include/Inventor/actions/SoActions.h
+%attr(644, root, root) /usr/include/Inventor/actions/SoBoxHighlightRenderAction.h
+%attr(644, root, root) /usr/include/Inventor/actions/SoCallbackAction.h
+%attr(644, root, root) /usr/include/Inventor/actions/SoGLRenderAction.h
+%attr(644, root, root) /usr/include/Inventor/actions/SoGetBoundingBoxAction.h
+%attr(644, root, root) /usr/include/Inventor/actions/SoGetMatrixAction.h
+%attr(644, root, root) /usr/include/Inventor/actions/SoHandleEventAction.h
+%attr(644, root, root) /usr/include/Inventor/actions/SoLineHighlightRenderAction.h
+%attr(644, root, root) /usr/include/Inventor/actions/SoPickAction.h
+%attr(644, root, root) /usr/include/Inventor/actions/SoRayPickAction.h
+%attr(644, root, root) /usr/include/Inventor/actions/SoSearchAction.h
+%attr(644, root, root) /usr/include/Inventor/actions/SoSubAction.h
+%attr(644, root, root) /usr/include/Inventor/actions/SoWriteAction.h
+%attr(644, root, root) /usr/include/Inventor/bundles/SoBundle.h
+%attr(644, root, root) /usr/include/Inventor/bundles/SoMaterialBundle.h
+%attr(644, root, root) /usr/include/Inventor/bundles/SoNormalBundle.h
+%attr(644, root, root) /usr/include/Inventor/bundles/SoTextureCoordinateBundle.h
+%attr(644, root, root) /usr/include/Inventor/caches/SoBoundingBoxCache.h
+%attr(644, root, root) /usr/include/Inventor/caches/SoCache.h
+%attr(644, root, root) /usr/include/Inventor/caches/SoGLCacheList.h
+%attr(644, root, root) /usr/include/Inventor/caches/SoGLRenderCache.h
+%attr(644, root, root) /usr/include/Inventor/caches/SoNormalCache.h
+%attr(644, root, root) /usr/include/Inventor/details/SoConeDetail.h
+%attr(644, root, root) /usr/include/Inventor/details/SoCubeDetail.h
+%attr(644, root, root) /usr/include/Inventor/details/SoCylinderDetail.h
+%attr(644, root, root) /usr/include/Inventor/details/SoDetail.h
+%attr(644, root, root) /usr/include/Inventor/details/SoDetails.h
+%attr(644, root, root) /usr/include/Inventor/details/SoFaceDetail.h
+%attr(644, root, root) /usr/include/Inventor/details/SoLineDetail.h
+%attr(644, root, root) /usr/include/Inventor/details/SoNodeKitDetail.h
+%attr(644, root, root) /usr/include/Inventor/details/SoPointDetail.h
+%attr(644, root, root) /usr/include/Inventor/details/SoSubDetail.h
+%attr(644, root, root) /usr/include/Inventor/details/SoTextDetail.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoCenterballDragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoDirectionalLightDragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoDragPointDragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoDragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoHandleBoxDragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoJackDragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoPointLightDragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoRotateCylindricalDragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoRotateDiscDragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoRotateSphericalDragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoScale1Dragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoScale2Dragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoScale2UniformDragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoScaleUniformDragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoSpotLightDragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoTabBoxDragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoTabPlaneDragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoTrackballDragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoTransformBoxDragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoTransformerDragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoTranslate1Dragger.h
+%attr(644, root, root) /usr/include/Inventor/draggers/SoTranslate2Dragger.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoAccumulatedElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoAmbientColorElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoBBoxModelMatrixElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoCacheElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoClipPlaneElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoComplexityElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoComplexityTypeElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoCoordinateElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoCreaseAngleElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoCullVolumeElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoCurrentGLMaterialElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoDiffuseColorElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoDrawStyleElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoElements.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoEmissiveColorElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoFloatElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoFocalDistanceElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoFontNameElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoFontSizeElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLAmbientColorElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLCacheContextElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLClipPlaneElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLColorIndexElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLCoordinateElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLDiffuseColorElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLDrawStyleElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLEmissiveColorElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLLazyElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLLightIdElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLLightModelElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLLinePatternElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLLineWidthElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLModelMatrixElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLNormalElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLPointSizeElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLPolygonStippleElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLProjectionMatrixElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLRenderPassElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLShapeHintsElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLShininessElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLSpecularColorElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLTextureBlendColorElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLTextureCoordinateElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLTextureEnabledElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLTextureImageElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLTextureMatrixElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLTextureModelElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLTextureQualityElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLTextureWrapSElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLTextureWrapTElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLUpdateAreaElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLViewingMatrixElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoGLViewportRegionElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoInt32Element.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoLazyElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoLightAttenuationElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoLightModelElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoLinePatternElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoLineWidthElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoLocalBBoxMatrixElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoLongElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoMaterialBindingElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoModelMatrixElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoNormalBindingElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoNormalElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoOverrideElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoPickRayElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoPickStyleElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoPointSizeElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoProfileCoordinateElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoProfileElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoProjectionMatrixElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoReplacedElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoShapeHintsElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoShapeStyleElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoShininessElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoSpecularColorElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoSubElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoSwitchElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoTextureBlendColorElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoTextureCoordinateBindingElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoTextureCoordinateElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoTextureImageElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoTextureMatrixElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoTextureModelElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoTextureQualityElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoTextureWrapSElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoTextureWrapTElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoTransparencyElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoUnitsElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoViewVolumeElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoViewingMatrixElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoViewportRegionElement.h
+%attr(644, root, root) /usr/include/Inventor/elements/SoWindowElement.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoBoolOperation.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoCalculator.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoCompose.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoComputeBoundingBox.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoConcatenate.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoCounter.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoElapsedTime.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoEngine.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoEngines.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoFieldConverter.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoGate.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoInterpolate.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoOnOff.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoOneShot.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoOutputData.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoSelectOne.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoSubEngine.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoTimeCounter.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoTransformVec3f.h
+%attr(644, root, root) /usr/include/Inventor/engines/SoTriggerAny.h
+%attr(644, root, root) /usr/include/Inventor/errors/SoDebugError.h
+%attr(644, root, root) /usr/include/Inventor/errors/SoError.h
+%attr(644, root, root) /usr/include/Inventor/errors/SoErrors.h
+%attr(644, root, root) /usr/include/Inventor/errors/SoMemoryError.h
+%attr(644, root, root) /usr/include/Inventor/errors/SoReadError.h
+%attr(644, root, root) /usr/include/Inventor/events/SoButtonEvent.h
+%attr(644, root, root) /usr/include/Inventor/events/SoEvent.h
+%attr(644, root, root) /usr/include/Inventor/events/SoEvents.h
+%attr(644, root, root) /usr/include/Inventor/events/SoKeyboardEvent.h
+%attr(644, root, root) /usr/include/Inventor/events/SoLocation2Event.h
+%attr(644, root, root) /usr/include/Inventor/events/SoMotion3Event.h
+%attr(644, root, root) /usr/include/Inventor/events/SoMouseButtonEvent.h
+%attr(644, root, root) /usr/include/Inventor/events/SoSpaceballButtonEvent.h
+%attr(644, root, root) /usr/include/Inventor/events/SoSubEvent.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoField.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoFieldContainer.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoFieldData.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoFields.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFBitMask.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFBool.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFColor.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFEngine.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFEnum.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFFloat.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFInt32.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFLong.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFMatrix.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFName.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFNode.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFPath.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFPlane.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFRotation.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFShort.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFString.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFTime.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFUInt32.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFULong.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFUShort.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFVec2f.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFVec3f.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoMFVec4f.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFBitMask.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFBool.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFColor.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFEngine.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFEnum.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFFloat.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFImage.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFInt32.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFLong.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFMatrix.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFName.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFNode.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFPath.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFPlane.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFRotation.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFShort.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFString.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFTime.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFTrigger.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFUInt32.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFULong.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFUShort.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFVec2f.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFVec3f.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSFVec4f.h
+%attr(644, root, root) /usr/include/Inventor/fields/SoSubField.h
+%attr(644, root, root) /usr/include/Inventor/manips/SoCenterballManip.h
+%attr(644, root, root) /usr/include/Inventor/manips/SoDirectionalLightManip.h
+%attr(644, root, root) /usr/include/Inventor/manips/SoHandleBoxManip.h
+%attr(644, root, root) /usr/include/Inventor/manips/SoJackManip.h
+%attr(644, root, root) /usr/include/Inventor/manips/SoPointLightManip.h
+%attr(644, root, root) /usr/include/Inventor/manips/SoSpotLightManip.h
+%attr(644, root, root) /usr/include/Inventor/manips/SoTabBoxManip.h
+%attr(644, root, root) /usr/include/Inventor/manips/SoTrackballManip.h
+%attr(644, root, root) /usr/include/Inventor/manips/SoTransformBoxManip.h
+%attr(644, root, root) /usr/include/Inventor/manips/SoTransformManip.h
+%attr(644, root, root) /usr/include/Inventor/manips/SoTransformerManip.h
+%attr(644, root, root) /usr/include/Inventor/misc/SoAuditorList.h
+%attr(644, root, root) /usr/include/Inventor/misc/SoBase.h
+%attr(644, root, root) /usr/include/Inventor/misc/SoBasic.h
+%attr(644, root, root) /usr/include/Inventor/misc/SoByteStream.h
+%attr(644, root, root) /usr/include/Inventor/misc/SoCallbackList.h
+%attr(644, root, root) /usr/include/Inventor/misc/SoChildList.h
+%attr(644, root, root) /usr/include/Inventor/misc/SoCompactPathList.h
+%attr(644, root, root) /usr/include/Inventor/misc/SoNormalGenerator.h
+%attr(644, root, root) /usr/include/Inventor/misc/SoNotification.h
+%attr(644, root, root) /usr/include/Inventor/misc/SoState.h
+%attr(644, root, root) /usr/include/Inventor/misc/SoTempPath.h
+%attr(644, root, root) /usr/include/Inventor/misc/SoTranscribe.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoUpgrader.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1AppearanceKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1BaseKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1CameraKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1ConeKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1CubeKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1CustomNode.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1CylinderKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1DirectionalLightKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1FaceSetKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1GroupKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1IndexedFaceSetKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1IndexedLineSetKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1IndexedNurbsCurveKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1IndexedNurbsSurfaceKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1IndexedTriangleMeshKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1LightKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1LineSetKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1NodeKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1NodekitCatalog.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1NodekitParts.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1NurbsCurveKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1NurbsSurfaceKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1OrthographicCameraKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1PerspectiveCameraKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1PointLightKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1PointSetKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1QuadMeshKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1SceneKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1ShapeKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1SphereKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1SpotLightKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1SubKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1Text2Kit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1Text3Kit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1TriangleStripSetKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1VertexShapeKit.h
+%attr(644, root, root) /usr/include/Inventor/misc/upgraders/SoV1WrapperKit.h
+%attr(644, root, root) /usr/include/Inventor/nodekits/SoAppearanceKit.h
+%attr(644, root, root) /usr/include/Inventor/nodekits/SoBaseKit.h
+%attr(644, root, root) /usr/include/Inventor/nodekits/SoCameraKit.h
+%attr(644, root, root) /usr/include/Inventor/nodekits/SoInteractionKit.h
+%attr(644, root, root) /usr/include/Inventor/nodekits/SoLightKit.h
+%attr(644, root, root) /usr/include/Inventor/nodekits/SoNodeKit.h
+%attr(644, root, root) /usr/include/Inventor/nodekits/SoNodeKitListPart.h
+%attr(644, root, root) /usr/include/Inventor/nodekits/SoNodekitCatalog.h
+%attr(644, root, root) /usr/include/Inventor/nodekits/SoNodekitParts.h
+%attr(644, root, root) /usr/include/Inventor/nodekits/SoSceneKit.h
+%attr(644, root, root) /usr/include/Inventor/nodekits/SoSeparatorKit.h
+%attr(644, root, root) /usr/include/Inventor/nodekits/SoShapeKit.h
+%attr(644, root, root) /usr/include/Inventor/nodekits/SoSubKit.h
+%attr(644, root, root) /usr/include/Inventor/nodekits/SoWrapperKit.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoAnnotation.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoAntiSquish.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoArray.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoAsciiText.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoBaseColor.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoBlinker.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoCallback.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoCamera.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoClipPlane.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoColorIndex.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoComplexity.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoCone.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoCoordinate3.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoCoordinate4.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoCube.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoCylinder.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoDirectionalLight.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoDrawStyle.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoEnvironment.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoEventCallback.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoFaceSet.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoFile.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoFont.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoFontStyle.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoGroup.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoIndexedFaceSet.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoIndexedLineSet.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoIndexedNurbsCurve.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoIndexedNurbsSurface.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoIndexedShape.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoIndexedTriangleStripSet.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoInfo.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoLOD.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoLabel.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoLevelOfDetail.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoLight.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoLightModel.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoLineSet.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoLinearProfile.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoLocateHighlight.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoMaterial.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoMaterialBinding.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoMatrixTransform.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoMultipleCopy.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoNode.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoNodes.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoNonIndexedShape.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoNormal.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoNormalBinding.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoNurbsCurve.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoNurbsProfile.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoNurbsSurface.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoOrthographicCamera.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoPackedColor.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoPathSwitch.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoPendulum.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoPerspectiveCamera.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoPickStyle.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoPointLight.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoPointSet.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoProfile.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoProfileCoordinate2.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoProfileCoordinate3.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoQuadMesh.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoResetTransform.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoRotation.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoRotationXYZ.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoRotor.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoScale.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoSelection.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoSeparator.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoShape.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoShapeHints.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoShuttle.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoSphere.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoSpotLight.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoSubNode.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoSurroundScale.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoSwitch.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoText2.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoText3.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoTexture2.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoTexture2Transform.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoTextureCoordinate2.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoTextureCoordinateBinding.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoTextureCoordinateDefault.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoTextureCoordinateEnvironment.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoTextureCoordinateFunction.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoTextureCoordinatePlane.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoTransform.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoTransformSeparator.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoTransformation.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoTranslation.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoTriangleStripSet.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoUnits.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoVertexProperty.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoVertexShape.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoWWWAnchor.h
+%attr(644, root, root) /usr/include/Inventor/nodes/SoWWWInline.h
+%attr(644, root, root) /usr/include/Inventor/projectors/SbCylinderPlaneProjector.h
+%attr(644, root, root) /usr/include/Inventor/projectors/SbCylinderProjector.h
+%attr(644, root, root) /usr/include/Inventor/projectors/SbCylinderSectionProjector.h
+%attr(644, root, root) /usr/include/Inventor/projectors/SbCylinderSheetProjector.h
+%attr(644, root, root) /usr/include/Inventor/projectors/SbLineProjector.h
+%attr(644, root, root) /usr/include/Inventor/projectors/SbPlaneProjector.h
+%attr(644, root, root) /usr/include/Inventor/projectors/SbProjector.h
+%attr(644, root, root) /usr/include/Inventor/projectors/SbProjectors.h
+%attr(644, root, root) /usr/include/Inventor/projectors/SbSpherePlaneProjector.h
+%attr(644, root, root) /usr/include/Inventor/projectors/SbSphereProjector.h
+%attr(644, root, root) /usr/include/Inventor/projectors/SbSphereSectionProjector.h
+%attr(644, root, root) /usr/include/Inventor/projectors/SbSphereSheetProjector.h
+%attr(644, root, root) /usr/include/Inventor/sensors/SoAlarmSensor.h
+%attr(644, root, root) /usr/include/Inventor/sensors/SoDataSensor.h
+%attr(644, root, root) /usr/include/Inventor/sensors/SoDelayQueueSensor.h
+%attr(644, root, root) /usr/include/Inventor/sensors/SoFieldSensor.h
+%attr(644, root, root) /usr/include/Inventor/sensors/SoIdleSensor.h
+%attr(644, root, root) /usr/include/Inventor/sensors/SoNodeSensor.h
+%attr(644, root, root) /usr/include/Inventor/sensors/SoOneShotSensor.h
+%attr(644, root, root) /usr/include/Inventor/sensors/SoPathSensor.h
+%attr(644, root, root) /usr/include/Inventor/sensors/SoSensor.h
+%attr(644, root, root) /usr/include/Inventor/sensors/SoSensorManager.h
+%attr(644, root, root) /usr/include/Inventor/sensors/SoSensors.h
+%attr(644, root, root) /usr/include/Inventor/sensors/SoTimerQueueSensor.h
+%attr(644, root, root) /usr/include/Inventor/sensors/SoTimerSensor.h
+%attr(644, root, root) /usr/include/Inventor/Xt/SoXt.h
+%attr(644, root, root) /usr/include/Inventor/Xt/SoXtClipboard.h
+%attr(644, root, root) /usr/include/Inventor/Xt/SoXtComponent.h
+%attr(644, root, root) /usr/include/Inventor/Xt/SoXtCursors.h
+%attr(644, root, root) /usr/include/Inventor/Xt/SoXtDirectionalLightEditor.h
+%attr(644, root, root) /usr/include/Inventor/Xt/SoXtGLWidget.h
+%attr(644, root, root) /usr/include/Inventor/Xt/SoXtIcons.h
+%attr(644, root, root) /usr/include/Inventor/Xt/SoXtLightSliderSet.h
+%attr(644, root, root) /usr/include/Inventor/Xt/SoXtMaterialEditor.h
+%attr(644, root, root) /usr/include/Inventor/Xt/SoXtMaterialList.h
+%attr(644, root, root) /usr/include/Inventor/Xt/SoXtMaterialSliderSet.h
+%attr(644, root, root) /usr/include/Inventor/Xt/SoXtPrintDialog.h
+%attr(644, root, root) /usr/include/Inventor/Xt/SoXtRenderArea.h
+%attr(644, root, root) /usr/include/Inventor/Xt/SoXtResource.h
+%attr(644, root, root) /usr/include/Inventor/Xt/SoXtSliderSet.h
+%attr(644, root, root) /usr/include/Inventor/Xt/SoXtSliderSetBase.h
+%attr(644, root, root) /usr/include/Inventor/Xt/SoXtTransformSliderSet.h
+%attr(644, root, root) /usr/include/Inventor/Xt/devices/SoXtDevice.h
+%attr(644, root, root) /usr/include/Inventor/Xt/devices/SoXtInputFocus.h
+%attr(644, root, root) /usr/include/Inventor/Xt/devices/SoXtKeyboard.h
+%attr(644, root, root) /usr/include/Inventor/Xt/devices/SoXtMouse.h
+%attr(644, root, root) /usr/include/Inventor/Xt/devices/SoXtSpaceball.h
+%attr(644, root, root) /usr/include/Inventor/Xt/viewers/SoXtConstrainedViewer.h
+%attr(644, root, root) /usr/include/Inventor/Xt/viewers/SoXtExaminerViewer.h
+%attr(644, root, root) /usr/include/Inventor/Xt/viewers/SoXtFlyViewer.h
+%attr(644, root, root) /usr/include/Inventor/Xt/viewers/SoXtFullViewer.h
+%attr(644, root, root) /usr/include/Inventor/Xt/viewers/SoXtPlaneViewer.h
+%attr(644, root, root) /usr/include/Inventor/Xt/viewers/SoXtViewer.h
+%attr(644, root, root) /usr/include/Inventor/Xt/viewers/SoXtWalkViewer.h
 
+%attr(755, root, root) /usr/lib/libInventor.so
+%attr(755, root, root) /usr/lib/libInventorXt.so
+%attr(755, root, root) /usr/lib/InventorDebug/libInventor.so
+%attr(755, root, root) /usr/lib/InventorDebug/libInventorXt.so
 
-
+%attr(644, root, root) /usr/man/man3/SbBool.3iv
+%attr(644, root, root) /usr/man/man3/SbBox2f.3iv
+%attr(644, root, root) /usr/man/man3/SbBox2s.3iv
+%attr(644, root, root) /usr/man/man3/SbBox3f.3iv
+%attr(644, root, root) /usr/man/man3/SbColor.3iv
+%attr(644, root, root) /usr/man/man3/SbCylinder.3iv
+%attr(644, root, root) /usr/man/man3/SbCylinderPlaneProjector.3iv
+%attr(644, root, root) /usr/man/man3/SbCylinderProjector.3iv
+%attr(644, root, root) /usr/man/man3/SbCylinderSectionProjector.3iv
+%attr(644, root, root) /usr/man/man3/SbCylinderSheetProjector.3iv
+%attr(644, root, root) /usr/man/man3/SbLine.3iv
+%attr(644, root, root) /usr/man/man3/SbLineProjector.3iv
+%attr(644, root, root) /usr/man/man3/SbMatrix.3iv
+%attr(644, root, root) /usr/man/man3/SbName.3iv
+%attr(644, root, root) /usr/man/man3/SbPList.3iv
+%attr(644, root, root) /usr/man/man3/SbPlane.3iv
+%attr(644, root, root) /usr/man/man3/SbPlaneProjector.3iv
+%attr(644, root, root) /usr/man/man3/SbProjector.3iv
+%attr(644, root, root) /usr/man/man3/SbRotation.3iv
+%attr(644, root, root) /usr/man/man3/SbSphere.3iv
+%attr(644, root, root) /usr/man/man3/SbSpherePlaneProjector.3iv
+%attr(644, root, root) /usr/man/man3/SbSphereProjector.3iv
+%attr(644, root, root) /usr/man/man3/SbSphereSectionProjector.3iv
+%attr(644, root, root) /usr/man/man3/SbSphereSheetProjector.3iv
+%attr(644, root, root) /usr/man/man3/SbString.3iv
+%attr(644, root, root) /usr/man/man3/SbTime.3iv
+%attr(644, root, root) /usr/man/man3/SbVec2f.3iv
+%attr(644, root, root) /usr/man/man3/SbVec2s.3iv
+%attr(644, root, root) /usr/man/man3/SbVec3f.3iv
+%attr(644, root, root) /usr/man/man3/SbVec4f.3iv
+%attr(644, root, root) /usr/man/man3/SbViewVolume.3iv
+%attr(644, root, root) /usr/man/man3/SbViewportRegion.3iv
+%attr(644, root, root) /usr/man/man3/SbXfBox3f.3iv
+%attr(644, root, root) /usr/man/man3/SoAction.3iv
+%attr(644, root, root) /usr/man/man3/SoAlarmSensor.3iv
+%attr(644, root, root) /usr/man/man3/SoAnnotation.3iv
+%attr(644, root, root) /usr/man/man3/SoAntiSquish.3iv
+%attr(644, root, root) /usr/man/man3/SoAppearanceKit.3iv
+%attr(644, root, root) /usr/man/man3/SoArray.3iv
+%attr(644, root, root) /usr/man/man3/SoAsciiText.3iv
+%attr(644, root, root) /usr/man/man3/SoBase.3iv
+%attr(644, root, root) /usr/man/man3/SoBaseColor.3iv
+%attr(644, root, root) /usr/man/man3/SoBaseKit.3iv
+%attr(644, root, root) /usr/man/man3/SoBaseList.3iv
+%attr(644, root, root) /usr/man/man3/SoBlinker.3iv
+%attr(644, root, root) /usr/man/man3/SoBoolOperation.3iv
+%attr(644, root, root) /usr/man/man3/SoBoxHighlightRenderAction.3iv
+%attr(644, root, root) /usr/man/man3/SoButtonEvent.3iv
+%attr(644, root, root) /usr/man/man3/SoByteStream.3iv
+%attr(644, root, root) /usr/man/man3/SoCalculator.3iv
+%attr(644, root, root) /usr/man/man3/SoCallback.3iv
+%attr(644, root, root) /usr/man/man3/SoCallbackAction.3iv
+%attr(644, root, root) /usr/man/man3/SoCallbackList.3iv
+%attr(644, root, root) /usr/man/man3/SoCamera.3iv
+%attr(644, root, root) /usr/man/man3/SoCameraKit.3iv
+%attr(644, root, root) /usr/man/man3/SoCenterballDragger.3iv
+%attr(644, root, root) /usr/man/man3/SoCenterballManip.3iv
+%attr(644, root, root) /usr/man/man3/SoClipPlane.3iv
+%attr(644, root, root) /usr/man/man3/SoColorIndex.3iv
+%attr(644, root, root) /usr/man/man3/SoComplexity.3iv
+%attr(644, root, root) /usr/man/man3/SoComposeMatrix.3iv
+%attr(644, root, root) /usr/man/man3/SoComposeRotation.3iv
+%attr(644, root, root) /usr/man/man3/SoComposeRotationFromTo.3iv
+%attr(644, root, root) /usr/man/man3/SoComposeVec2f.3iv
+%attr(644, root, root) /usr/man/man3/SoComposeVec3f.3iv
+%attr(644, root, root) /usr/man/man3/SoComposeVec4f.3iv
+%attr(644, root, root) /usr/man/man3/SoComputeBoundingBox.3iv
+%attr(644, root, root) /usr/man/man3/SoConcatenate.3iv
+%attr(644, root, root) /usr/man/man3/SoCone.3iv
+%attr(644, root, root) /usr/man/man3/SoConeDetail.3iv
+%attr(644, root, root) /usr/man/man3/SoCoordinate3.3iv
+%attr(644, root, root) /usr/man/man3/SoCoordinate4.3iv
+%attr(644, root, root) /usr/man/man3/SoCounter.3iv
+%attr(644, root, root) /usr/man/man3/SoCube.3iv
+%attr(644, root, root) /usr/man/man3/SoCubeDetail.3iv
+%attr(644, root, root) /usr/man/man3/SoCylinder.3iv
+%attr(644, root, root) /usr/man/man3/SoCylinderDetail.3iv
+%attr(644, root, root) /usr/man/man3/SoDB.3iv
+%attr(644, root, root) /usr/man/man3/SoDataSensor.3iv
+%attr(644, root, root) /usr/man/man3/SoDebugError.3iv
+%attr(644, root, root) /usr/man/man3/SoDecomposeMatrix.3iv
+%attr(644, root, root) /usr/man/man3/SoDecomposeRotation.3iv
+%attr(644, root, root) /usr/man/man3/SoDecomposeVec2f.3iv
+%attr(644, root, root) /usr/man/man3/SoDecomposeVec3f.3iv
+%attr(644, root, root) /usr/man/man3/SoDecomposeVec4f.3iv
+%attr(644, root, root) /usr/man/man3/SoDelayQueueSensor.3iv
+%attr(644, root, root) /usr/man/man3/SoDetail.3iv
+%attr(644, root, root) /usr/man/man3/SoDetailList.3iv
+%attr(644, root, root) /usr/man/man3/SoDirectionalLight.3iv
+%attr(644, root, root) /usr/man/man3/SoDirectionalLightDragger.3iv
+%attr(644, root, root) /usr/man/man3/SoDirectionalLightManip.3iv
+%attr(644, root, root) /usr/man/man3/SoDragPointDragger.3iv
+%attr(644, root, root) /usr/man/man3/SoDragger.3iv
+%attr(644, root, root) /usr/man/man3/SoDrawStyle.3iv
+%attr(644, root, root) /usr/man/man3/SoElapsedTime.3iv
+%attr(644, root, root) /usr/man/man3/SoEngine.3iv
+%attr(644, root, root) /usr/man/man3/SoEngineList.3iv
+%attr(644, root, root) /usr/man/man3/SoEngineOutput.3iv
+%attr(644, root, root) /usr/man/man3/SoEngineOutputList.3iv
+%attr(644, root, root) /usr/man/man3/SoEnvironment.3iv
+%attr(644, root, root) /usr/man/man3/SoError.3iv
+%attr(644, root, root) /usr/man/man3/SoEvent.3iv
+%attr(644, root, root) /usr/man/man3/SoEventCallback.3iv
+%attr(644, root, root) /usr/man/man3/SoFaceDetail.3iv
+%attr(644, root, root) /usr/man/man3/SoFaceSet.3iv
+%attr(644, root, root) /usr/man/man3/SoField.3iv
+%attr(644, root, root) /usr/man/man3/SoFieldContainer.3iv
+%attr(644, root, root) /usr/man/man3/SoFieldList.3iv
+%attr(644, root, root) /usr/man/man3/SoFieldSensor.3iv
+%attr(644, root, root) /usr/man/man3/SoFile.3iv
+%attr(644, root, root) /usr/man/man3/SoFont.3iv
+%attr(644, root, root) /usr/man/man3/SoFontStyle.3iv
+%attr(644, root, root) /usr/man/man3/SoGLRenderAction.3iv
+%attr(644, root, root) /usr/man/man3/SoGate.3iv
+%attr(644, root, root) /usr/man/man3/SoGetBoundingBoxAction.3iv
+%attr(644, root, root) /usr/man/man3/SoGetMatrixAction.3iv
+%attr(644, root, root) /usr/man/man3/SoGroup.3iv
+%attr(644, root, root) /usr/man/man3/SoHandleBoxDragger.3iv
+%attr(644, root, root) /usr/man/man3/SoHandleBoxManip.3iv
+%attr(644, root, root) /usr/man/man3/SoHandleEventAction.3iv
+%attr(644, root, root) /usr/man/man3/SoIdleSensor.3iv
+%attr(644, root, root) /usr/man/man3/SoIndexedFaceSet.3iv
+%attr(644, root, root) /usr/man/man3/SoIndexedLineSet.3iv
+%attr(644, root, root) /usr/man/man3/SoIndexedNurbsCurve.3iv
+%attr(644, root, root) /usr/man/man3/SoIndexedNurbsSurface.3iv
+%attr(644, root, root) /usr/man/man3/SoIndexedShape.3iv
+%attr(644, root, root) /usr/man/man3/SoIndexedTriangleStripSet.3iv
+%attr(644, root, root) /usr/man/man3/SoInfo.3iv
+%attr(644, root, root) /usr/man/man3/SoInput.3iv
+%attr(644, root, root) /usr/man/man3/SoInteraction.3iv
+%attr(644, root, root) /usr/man/man3/SoInteractionKit.3iv
+%attr(644, root, root) /usr/man/man3/SoInterpolate.3iv
+%attr(644, root, root) /usr/man/man3/SoInterpolateFloat.3iv
+%attr(644, root, root) /usr/man/man3/SoInterpolateRotation.3iv
+%attr(644, root, root) /usr/man/man3/SoInterpolateVec2f.3iv
+%attr(644, root, root) /usr/man/man3/SoInterpolateVec3f.3iv
+%attr(644, root, root) /usr/man/man3/SoInterpolateVec4f.3iv
+%attr(644, root, root) /usr/man/man3/SoJackDragger.3iv
+%attr(644, root, root) /usr/man/man3/SoJackManip.3iv
+%attr(644, root, root) /usr/man/man3/SoKeyboardEvent.3iv
+%attr(644, root, root) /usr/man/man3/SoLOD.3iv
+%attr(644, root, root) /usr/man/man3/SoLabel.3iv
+%attr(644, root, root) /usr/man/man3/SoLevelOfDetail.3iv
+%attr(644, root, root) /usr/man/man3/SoLight.3iv
+%attr(644, root, root) /usr/man/man3/SoLightKit.3iv
+%attr(644, root, root) /usr/man/man3/SoLightModel.3iv
+%attr(644, root, root) /usr/man/man3/SoLineDetail.3iv
+%attr(644, root, root) /usr/man/man3/SoLineHighlightRenderAction.3iv
+%attr(644, root, root) /usr/man/man3/SoLineSet.3iv
+%attr(644, root, root) /usr/man/man3/SoLinearProfile.3iv
+%attr(644, root, root) /usr/man/man3/SoLocateHighlight.3iv
+%attr(644, root, root) /usr/man/man3/SoLocation2Event.3iv
+%attr(644, root, root) /usr/man/man3/SoMFBitMask.3iv
+%attr(644, root, root) /usr/man/man3/SoMFBool.3iv
+%attr(644, root, root) /usr/man/man3/SoMFColor.3iv
+%attr(644, root, root) /usr/man/man3/SoMFEngine.3iv
+%attr(644, root, root) /usr/man/man3/SoMFEnum.3iv
+%attr(644, root, root) /usr/man/man3/SoMFFloat.3iv
+%attr(644, root, root) /usr/man/man3/SoMFInt32.3iv
+%attr(644, root, root) /usr/man/man3/SoMFLong.3iv
+%attr(644, root, root) /usr/man/man3/SoMFMatrix.3iv
+%attr(644, root, root) /usr/man/man3/SoMFName.3iv
+%attr(644, root, root) /usr/man/man3/SoMFNode.3iv
+%attr(644, root, root) /usr/man/man3/SoMFPath.3iv
+%attr(644, root, root) /usr/man/man3/SoMFPlane.3iv
+%attr(644, root, root) /usr/man/man3/SoMFRotation.3iv
+%attr(644, root, root) /usr/man/man3/SoMFShort.3iv
+%attr(644, root, root) /usr/man/man3/SoMFString.3iv
+%attr(644, root, root) /usr/man/man3/SoMFTime.3iv
+%attr(644, root, root) /usr/man/man3/SoMFUInt32.3iv
+%attr(644, root, root) /usr/man/man3/SoMFULong.3iv
+%attr(644, root, root) /usr/man/man3/SoMFUShort.3iv
+%attr(644, root, root) /usr/man/man3/SoMFVec2f.3iv
+%attr(644, root, root) /usr/man/man3/SoMFVec3f.3iv
+%attr(644, root, root) /usr/man/man3/SoMFVec4f.3iv
+%attr(644, root, root) /usr/man/man3/SoMField.3iv
+%attr(644, root, root) /usr/man/man3/SoMaterial.3iv
+%attr(644, root, root) /usr/man/man3/SoMaterialBinding.3iv
+%attr(644, root, root) /usr/man/man3/SoMatrixTransform.3iv
+%attr(644, root, root) /usr/man/man3/SoMemoryError.3iv
+%attr(644, root, root) /usr/man/man3/SoMotion3Event.3iv
+%attr(644, root, root) /usr/man/man3/SoMouseButtonEvent.3iv
+%attr(644, root, root) /usr/man/man3/SoMultipleCopy.3iv
+%attr(644, root, root) /usr/man/man3/SoNode.3iv
+%attr(644, root, root) /usr/man/man3/SoNodeKit.3iv
+%attr(644, root, root) /usr/man/man3/SoNodeKitDetail.3iv
+%attr(644, root, root) /usr/man/man3/SoNodeKitListPart.3iv
+%attr(644, root, root) /usr/man/man3/SoNodeKitPath.3iv
+%attr(644, root, root) /usr/man/man3/SoNodeList.3iv
+%attr(644, root, root) /usr/man/man3/SoNodeSensor.3iv
+%attr(644, root, root) /usr/man/man3/SoNodekitCatalog.3iv
+%attr(644, root, root) /usr/man/man3/SoNonIndexedShape.3iv
+%attr(644, root, root) /usr/man/man3/SoNormal.3iv
+%attr(644, root, root) /usr/man/man3/SoNormalBinding.3iv
+%attr(644, root, root) /usr/man/man3/SoNurbsCurve.3iv
+%attr(644, root, root) /usr/man/man3/SoNurbsProfile.3iv
+%attr(644, root, root) /usr/man/man3/SoNurbsSurface.3iv
+%attr(644, root, root) /usr/man/man3/SoOffscreenRenderer.3iv
+%attr(644, root, root) /usr/man/man3/SoOnOff.3iv
+%attr(644, root, root) /usr/man/man3/SoOneShot.3iv
+%attr(644, root, root) /usr/man/man3/SoOneShotSensor.3iv
+%attr(644, root, root) /usr/man/man3/SoOrthographicCamera.3iv
+%attr(644, root, root) /usr/man/man3/SoOutput.3iv
+%attr(644, root, root) /usr/man/man3/SoPackedColor.3iv
+%attr(644, root, root) /usr/man/man3/SoPath.3iv
+%attr(644, root, root) /usr/man/man3/SoPathList.3iv
+%attr(644, root, root) /usr/man/man3/SoPathSensor.3iv
+%attr(644, root, root) /usr/man/man3/SoPathSwitch.3iv
+%attr(644, root, root) /usr/man/man3/SoPendulum.3iv
+%attr(644, root, root) /usr/man/man3/SoPerspectiveCamera.3iv
+%attr(644, root, root) /usr/man/man3/SoPickAction.3iv
+%attr(644, root, root) /usr/man/man3/SoPickStyle.3iv
+%attr(644, root, root) /usr/man/man3/SoPickedPoint.3iv
+%attr(644, root, root) /usr/man/man3/SoPickedPointList.3iv
+%attr(644, root, root) /usr/man/man3/SoPointDetail.3iv
+%attr(644, root, root) /usr/man/man3/SoPointLight.3iv
+%attr(644, root, root) /usr/man/man3/SoPointLightDragger.3iv
+%attr(644, root, root) /usr/man/man3/SoPointLightManip.3iv
+%attr(644, root, root) /usr/man/man3/SoPointSet.3iv
+%attr(644, root, root) /usr/man/man3/SoPrimitiveVertex.3iv
+%attr(644, root, root) /usr/man/man3/SoProfile.3iv
+%attr(644, root, root) /usr/man/man3/SoProfileCoordinate2.3iv
+%attr(644, root, root) /usr/man/man3/SoProfileCoordinate3.3iv
+%attr(644, root, root) /usr/man/man3/SoQuadMesh.3iv
+%attr(644, root, root) /usr/man/man3/SoRayPickAction.3iv
+%attr(644, root, root) /usr/man/man3/SoReadError.3iv
+%attr(644, root, root) /usr/man/man3/SoResetTransform.3iv
+%attr(644, root, root) /usr/man/man3/SoRotateCylindricalDragger.3iv
+%attr(644, root, root) /usr/man/man3/SoRotateDiscDragger.3iv
+%attr(644, root, root) /usr/man/man3/SoRotateSphericalDragger.3iv
+%attr(644, root, root) /usr/man/man3/SoRotation.3iv
+%attr(644, root, root) /usr/man/man3/SoRotationXYZ.3iv
+%attr(644, root, root) /usr/man/man3/SoRotor.3iv
+%attr(644, root, root) /usr/man/man3/SoSFBitMask.3iv
+%attr(644, root, root) /usr/man/man3/SoSFBool.3iv
+%attr(644, root, root) /usr/man/man3/SoSFColor.3iv
+%attr(644, root, root) /usr/man/man3/SoSFEngine.3iv
+%attr(644, root, root) /usr/man/man3/SoSFEnum.3iv
+%attr(644, root, root) /usr/man/man3/SoSFFloat.3iv
+%attr(644, root, root) /usr/man/man3/SoSFImage.3iv
+%attr(644, root, root) /usr/man/man3/SoSFInt32.3iv
+%attr(644, root, root) /usr/man/man3/SoSFLong.3iv
+%attr(644, root, root) /usr/man/man3/SoSFMatrix.3iv
+%attr(644, root, root) /usr/man/man3/SoSFName.3iv
+%attr(644, root, root) /usr/man/man3/SoSFNode.3iv
+%attr(644, root, root) /usr/man/man3/SoSFPath.3iv
+%attr(644, root, root) /usr/man/man3/SoSFPlane.3iv
+%attr(644, root, root) /usr/man/man3/SoSFRotation.3iv
+%attr(644, root, root) /usr/man/man3/SoSFShort.3iv
+%attr(644, root, root) /usr/man/man3/SoSFString.3iv
+%attr(644, root, root) /usr/man/man3/SoSFTime.3iv
+%attr(644, root, root) /usr/man/man3/SoSFTrigger.3iv
+%attr(644, root, root) /usr/man/man3/SoSFUInt32.3iv
+%attr(644, root, root) /usr/man/man3/SoSFULong.3iv
+%attr(644, root, root) /usr/man/man3/SoSFUShort.3iv
+%attr(644, root, root) /usr/man/man3/SoSFVec2f.3iv
+%attr(644, root, root) /usr/man/man3/SoSFVec3f.3iv
+%attr(644, root, root) /usr/man/man3/SoSFVec4f.3iv
+%attr(644, root, root) /usr/man/man3/SoSField.3iv
+%attr(644, root, root) /usr/man/man3/SoScale.3iv
+%attr(644, root, root) /usr/man/man3/SoScale1Dragger.3iv
+%attr(644, root, root) /usr/man/man3/SoScale2Dragger.3iv
+%attr(644, root, root) /usr/man/man3/SoScale2UniformDragger.3iv
+%attr(644, root, root) /usr/man/man3/SoScaleUniformDragger.3iv
+%attr(644, root, root) /usr/man/man3/SoSceneKit.3iv
+%attr(644, root, root) /usr/man/man3/SoSceneManager.3iv
+%attr(644, root, root) /usr/man/man3/SoSearchAction.3iv
+%attr(644, root, root) /usr/man/man3/SoSelectOne.3iv
+%attr(644, root, root) /usr/man/man3/SoSelection.3iv
+%attr(644, root, root) /usr/man/man3/SoSensor.3iv
+%attr(644, root, root) /usr/man/man3/SoSeparator.3iv
+%attr(644, root, root) /usr/man/man3/SoSeparatorKit.3iv
+%attr(644, root, root) /usr/man/man3/SoShape.3iv
+%attr(644, root, root) /usr/man/man3/SoShapeHints.3iv
+%attr(644, root, root) /usr/man/man3/SoShapeKit.3iv
+%attr(644, root, root) /usr/man/man3/SoShuttle.3iv
+%attr(644, root, root) /usr/man/man3/SoSpaceballButtonEvent.3iv
+%attr(644, root, root) /usr/man/man3/SoSphere.3iv
+%attr(644, root, root) /usr/man/man3/SoSpotLight.3iv
+%attr(644, root, root) /usr/man/man3/SoSpotLightDragger.3iv
+%attr(644, root, root) /usr/man/man3/SoSpotLightManip.3iv
+%attr(644, root, root) /usr/man/man3/SoSurroundScale.3iv
+%attr(644, root, root) /usr/man/man3/SoSwitch.3iv
+%attr(644, root, root) /usr/man/man3/SoTabBoxDragger.3iv
+%attr(644, root, root) /usr/man/man3/SoTabBoxManip.3iv
+%attr(644, root, root) /usr/man/man3/SoTabPlaneDragger.3iv
+%attr(644, root, root) /usr/man/man3/SoText2.3iv
+%attr(644, root, root) /usr/man/man3/SoText3.3iv
+%attr(644, root, root) /usr/man/man3/SoTextDetail.3iv
+%attr(644, root, root) /usr/man/man3/SoTexture2.3iv
+%attr(644, root, root) /usr/man/man3/SoTexture2Transform.3iv
+%attr(644, root, root) /usr/man/man3/SoTextureCoordinate2.3iv
+%attr(644, root, root) /usr/man/man3/SoTextureCoordinateBinding.3iv
+%attr(644, root, root) /usr/man/man3/SoTextureCoordinateDefault.3iv
+%attr(644, root, root) /usr/man/man3/SoTextureCoordinateEnvironment.3iv
+%attr(644, root, root) /usr/man/man3/SoTextureCoordinateFunction.3iv
+%attr(644, root, root) /usr/man/man3/SoTextureCoordinatePlane.3iv
+%attr(644, root, root) /usr/man/man3/SoTimeCounter.3iv
+%attr(644, root, root) /usr/man/man3/SoTimerQueueSensor.3iv
+%attr(644, root, root) /usr/man/man3/SoTimerSensor.3iv
+%attr(644, root, root) /usr/man/man3/SoTrackballDragger.3iv
+%attr(644, root, root) /usr/man/man3/SoTrackballManip.3iv
+%attr(644, root, root) /usr/man/man3/SoTranReceiver.3iv
+%attr(644, root, root) /usr/man/man3/SoTranSender.3iv
+%attr(644, root, root) /usr/man/man3/SoTransform.3iv
+%attr(644, root, root) /usr/man/man3/SoTransformBoxDragger.3iv
+%attr(644, root, root) /usr/man/man3/SoTransformBoxManip.3iv
+%attr(644, root, root) /usr/man/man3/SoTransformManip.3iv
+%attr(644, root, root) /usr/man/man3/SoTransformSeparator.3iv
+%attr(644, root, root) /usr/man/man3/SoTransformVec3f.3iv
+%attr(644, root, root) /usr/man/man3/SoTransformation.3iv
+%attr(644, root, root) /usr/man/man3/SoTransformerDragger.3iv
+%attr(644, root, root) /usr/man/man3/SoTransformerManip.3iv
+%attr(644, root, root) /usr/man/man3/SoTranslate1Dragger.3iv
+%attr(644, root, root) /usr/man/man3/SoTranslate2Dragger.3iv
+%attr(644, root, root) /usr/man/man3/SoTranslation.3iv
+%attr(644, root, root) /usr/man/man3/SoTriangleStripSet.3iv
+%attr(644, root, root) /usr/man/man3/SoTriggerAny.3iv
+%attr(644, root, root) /usr/man/man3/SoType.3iv
+%attr(644, root, root) /usr/man/man3/SoTypeList.3iv
+%attr(644, root, root) /usr/man/man3/SoUnits.3iv
+%attr(644, root, root) /usr/man/man3/SoVertexProperty.3iv
+%attr(644, root, root) /usr/man/man3/SoVertexShape.3iv
+%attr(644, root, root) /usr/man/man3/SoWWWAnchor.3iv
+%attr(644, root, root) /usr/man/man3/SoWWWInline.3iv
+%attr(644, root, root) /usr/man/man3/SoWrapperKit.3iv
+%attr(644, root, root) /usr/man/man3/SoWriteAction.3iv
+%attr(644, root, root) /usr/man/man3/SoXt.3iv
+%attr(644, root, root) /usr/man/man3/SoXtClipboard.3iv
+%attr(644, root, root) /usr/man/man3/SoXtComponent.3iv
+%attr(644, root, root) /usr/man/man3/SoXtConstrainedViewer.3iv
+%attr(644, root, root) /usr/man/man3/SoXtDevice.3iv
+%attr(644, root, root) /usr/man/man3/SoXtDirectionalLightEditor.3iv
+%attr(644, root, root) /usr/man/man3/SoXtExaminerViewer.3iv
+%attr(644, root, root) /usr/man/man3/SoXtFlyViewer.3iv
+%attr(644, root, root) /usr/man/man3/SoXtFullViewer.3iv
+%attr(644, root, root) /usr/man/man3/SoXtGLWidget.3iv
+%attr(644, root, root) /usr/man/man3/SoXtInputFocus.3iv
+%attr(644, root, root) /usr/man/man3/SoXtKeyboard.3iv
+%attr(644, root, root) /usr/man/man3/SoXtLightSliderSet.3iv
+%attr(644, root, root) /usr/man/man3/SoXtMaterialEditor.3iv
+%attr(644, root, root) /usr/man/man3/SoXtMaterialList.3iv
+%attr(644, root, root) /usr/man/man3/SoXtMaterialSliderSet.3iv
+%attr(644, root, root) /usr/man/man3/SoXtMouse.3iv
+%attr(644, root, root) /usr/man/man3/SoXtPlaneViewer.3iv
+%attr(644, root, root) /usr/man/man3/SoXtPrintDialog.3iv
+%attr(644, root, root) /usr/man/man3/SoXtRenderArea.3iv
+%attr(644, root, root) /usr/man/man3/SoXtResource.3iv
+%attr(644, root, root) /usr/man/man3/SoXtSliderSet.3iv
+%attr(644, root, root) /usr/man/man3/SoXtSliderSetBase.3iv
+%attr(644, root, root) /usr/man/man3/SoXtSpaceball.3iv
+%attr(644, root, root) /usr/man/man3/SoXtTransformSliderSet.3iv
+%attr(644, root, root) /usr/man/man3/SoXtViewer.3iv
+%attr(644, root, root) /usr/man/man3/SoXtWalkViewer.3iv
