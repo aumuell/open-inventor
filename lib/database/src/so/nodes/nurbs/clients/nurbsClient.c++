@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      More nurbs code
@@ -51,6 +51,7 @@
  _______________________________________________________________________
  */
 
+#include <stdio.h>
 #include "../SoAddPrefix.h"
 #include "gl4base.c++"
 #include "gl4curveval.c++"
