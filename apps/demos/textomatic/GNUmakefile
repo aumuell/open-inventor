@@ -13,5 +13,7 @@ LLDLIBS = -lcommon -lInventor -lInventorXt
 all: all_ivbin
 
 install: install_ivdemo
+	mkdir -p $(IVAPPLOADDIR)
+	$(INSTALL) -m 644 Textomatic $(IVAPPLOADDIR)
 
 include $(IVCOMMONRULES)

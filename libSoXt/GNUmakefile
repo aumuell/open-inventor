@@ -73,6 +73,8 @@ HEADERS_SUBDIRS = include
 
 install: install_ivlibdso
 	$(HEADERS_SUBDIRS_MAKERULE)
+	mkdir -p $(IVAPPLOADDIR)
+	$(INSTALL) -m 644 app-defaults $(IVAPPLOADDIR)/Inventor
 
 COMMONPREF = xxx
 $(COMMONTARGS): %: $(COMMONPREF)%
