@@ -44,15 +44,22 @@ This distribution installs shared libraries in /usr/lib, applications in
 make clobber
 make install
 
-%install
-mkdir -p /usr/lib/DPS/outline/base
-ln -s -f /usr/lib/X11/fonts/Type1/UTRG____.pfa /usr/lib/DPS/outline/base/Utopia-Regular
+%post
+type1=/usr/lib/X11/fonts/Type1
+dps=/usr/lib/DPS/outline/base
+if [ ! -d $type1 ]; then
+  echo "Warning: $type1 does not exist"
+  exit 0
+fi
+[ ! -d $dps ] && mkdir -p $dps
+for i in $type1/*.pfa; do
+  out=$dps`egrep ^/FontName $i | cut -d' ' -f2`
+  [ ! -e $out ] && ln -s $i $out
+done
+exit 0
+
 
 %files
-%attr(-, root, root) %dir /usr/bin
-%attr(-, root, root) %dir /usr/lib
-%attr(-, root, root) %dir /usr/man/man1
-
 %attr(755, root, root) /usr/bin/SceneViewer
 %attr(755, root, root) /usr/bin/iv2toiv1
 %attr(755, root, root) /usr/bin/ivcat

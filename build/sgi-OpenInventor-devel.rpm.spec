@@ -33,9 +33,9 @@ fundamental application tasks such as rendering, picking, event handling, and
 file reading/writing are built-in operations of all objects in the database and
 thus are simple to invoke.
 
-This distribution installs debug shared libraries in /usr/lib/InventorDebug,
-header files in /usr/include/Inventor, and man pages in /usr/man/man3 (3iv
-extension).
+This distribution installs shared libraries in /usr/lib, debug shared libraries
+in /usr/lib/InventorDebug, header files in /usr/include/Inventor, and man pages
+in /usr/man/man3 (3iv extension).
 
 
 %prep
@@ -46,9 +46,20 @@ export LIBTYPE=debug
 make clobber
 make install
 
-%install
-mkdir -p /usr/lib/DPS/outline/base
-ln -s -f /usr/lib/X11/fonts/Type1/UTRG____.pfa /usr/lib/DPS/outline/base/Utopia-Regular
+%post
+type1=/usr/lib/X11/fonts/Type1
+dps=/usr/lib/DPS/outline/base
+if [ ! -d $type1 ]; then
+  echo "Warning: $type1 does not exist"
+  exit 0
+fi
+[ ! -d $dps ] && mkdir -p $dps
+for i in $type1/*.pfa; do
+  out=$dps`egrep ^/FontName $i | cut -d' ' -f2`
+  [ ! -e $out ] && ln -s $i $out
+done
+exit 0
+
 
 %files
 %attr(-, root, root) %dir /usr/include/Inventor
@@ -73,7 +84,6 @@ ln -s -f /usr/lib/X11/fonts/Type1/UTRG____.pfa /usr/lib/DPS/outline/base/Utopia-
 %attr(-, root, root) %dir /usr/include/Inventor/Xt/devices
 %attr(-, root, root) %dir /usr/include/Inventor/Xt/viewers
 %attr(-, root, root) %dir /usr/lib/InventorDebug
-%attr(-, root, root) %dir /usr/man/man3
 
 %attr(644, root, root) /usr/include/Inventor/Sb.h
 %attr(644, root, root) /usr/include/Inventor/SbBasic.h

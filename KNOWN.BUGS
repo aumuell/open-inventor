@@ -16,21 +16,18 @@ of these may be due to older versions of other libraries, i.e. LessTif or Mesa.
 
      http://www.geocities.com/angbodhi/download/
 
-3. SoText2 bitmaps are rendered with many pixels missing when using libFL on
-   Linux i386 (reported in Bug 5).
-
-4. Arrowhead cones in transformer dragger appear squished. This occurs on IRIX
+3. Arrowhead cones in transformer dragger appear squished. This occurs on IRIX
    and Linux.
 
-5. When selecting hidden-line view in viewers, the following error is printed
+4. When selecting hidden-line view in viewers, the following error is printed
    for models with colors specified in arrays:
 
      Inventor error in SoIndexedShape(): material index n is out of range 0 - 1
 
    This occurs on IRIX and Linux.
 
-6. SceneViewer crashes when loading temple.iv (binary format). This occurs
+5. SceneViewer crashes when loading temple.iv (binary format). This occurs
    with Lesstif 0.91.4, but not 0.90.0 (see Bug 2).
 
 
-Last updated: $Date: 2000/09/18 11:10:05 $
+Last updated: $Date: 2000/10/05 18:33:20 $
