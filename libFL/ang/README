@@ -1,0 +1,35 @@
+Compilation Instruction
+-----------------------
+
+1. Build and install libfreetype.a using freetype-2.0.1.tgz
+
+2. Build libFL.a wrapper for libfreetype.a
+
+    $ cd $IV_ROOT/libFL
+    $ tar zxvf libFL-src2.tgz
+    $ cd src2
+    $ make
+
+3. Link libInventor.so against new libFL.a and /usr/local/lib/libfreetype.a 
+
+4. Set FL_FONT_PATH to a directory where TrueType fonts are available.
+
+    $ export FL_FONT_PATH=/usr/share/data/fonts
+
+5. Make symbolic link of TrueType font file to Inventor's font name
+
+    $ cd /usr/share/data/fonts
+    $ ln -s times.ttf Times-Roman
+    $ ln -s arial.ttf Helvetica
+    $ ln -s cour.ttf Utopia-Regular
+
+
+Change Log
+----------
+- Do not free bitmapPtr in flFreeBitmap() as it is not allocated.
+- Use the size field of eg. SoFont or SoFontStyle instead of a fixed size of
+  32 points in _flFTCreateFont(). By Gerd.
+- If one uses many different glyph faces the OS complains about invalid handles
+  (at least on Windows). Fix: implemented the destroy font function. By Gerd.
+- Port to Win32. By Gerd.
+
