@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoTexture2
@@ -164,7 +164,7 @@ SoTexture2::readInstance(SoInput *in, unsigned short flags)
 	// isn't a fatal error.  But do issue a read error:
 	if (getReadStatus() == FALSE)
 	    SoReadError::post(in, "Could not read texture file %s",
-			      filename.getValue());
+			      filename.getValue().getString());
     }
 
     // Reattach sensor
@@ -661,8 +661,8 @@ SoTexture2::readImage(const SbString& fname, int &w, int &h, int &nc,
     // reopen it
     in.closeFile();
     if (!in.openFile(fname.getString(), TRUE))
-      return FALSE;
-  
+	return FALSE;
+
     if (ReadGIFImage(in, w, h, nc, bytes))
 	return TRUE;
 
