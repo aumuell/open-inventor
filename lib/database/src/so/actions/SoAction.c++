@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoAction
@@ -546,8 +546,21 @@ SoAction::apply(SoPath *path)
     cleanUp();
 
     // Restore to previous state if necessary
-    if (needToRestore)
+    if (needToRestore) {
 	appliedTo = saveAppliedTo;
+
+	// Restore the head of the path - we assume this is what was
+	// in the current path when we got here. NOTE: This rules out
+	// the possibility that the action was in the middle of being
+	// applied to some graph; it requires that the recursive
+	// apply() was called after the graph was traversed, so the
+	// current path had only the head node in it (the cleanUp()
+	// for the first apply() was not yet called).
+	SoNode *head = (appliedTo.code == NODE ? appliedTo.node :
+			appliedTo.code == PATH ? appliedTo.path->getHead() :
+			(*appliedTo.pathList)[0]->getHead());
+	curPath.setHead(head);
+    }
 
     isBeingApplied = needToRestore;
 }
