@@ -3,6 +3,7 @@
 	Jonathan Lim: Global Product Support
 	SGI
 
+
 INTRODUCTION
 
 	These notes briefly describe the structure of the Open Inventor (TM)
@@ -19,52 +20,59 @@ TREE STRUCTURE
 	The source tree containing the Open Inventor (TM) source is structured
 	as follows:
 
-apps     - sample programs and examples
-data     - sample data
-doc      - technical documentation
-lib      - primary Inventor source
-libSoXt  - Inventor Xt Component and Utility Library source
-make     - Makefile tools
-tools    - assorted Inventor development tools
-libimage - library to read SGI RGB files
+		apps     - sample programs and examples
+		data     - sample data
+		doc      - reference manual pages
+		lib      - Inventor database, interaction, and nodekit source
+		libSoXt  - Inventor Xt components and viewers source
+		make     - makefile definitions and rules
+		tools    - preprocessor for generating shape source files
+		libimage - library to read SGI RGB files
+		libFL    - font library (IRIX, Linux i386, and Solaris only)
 
 
 DEPENDENCIES
 
-	The source in it's current form will compile on IRIX and Linux.
+	The source in its current form will compile on IRIX and Linux i386.
 
-	Currently the only dependecies include OpenGL(R) and X11R6 and
-	Motif(R) 1.2x. See the file FAQ.misc for more detailed
-	information.
+	Currently the only dependencies include OpenGL(R) and X11R6 and
+	Motif(R) 1.2x. See the file FAQ.misc for more detailed information.
+
 
 BUILDING THE TREE
 
-	QUICK RECIPE:
-
-	1) set the environment variable IVROOT to point to the
-	   root directory for the installed libraries and binaries.
+	1) Set the environment variable IVROOT to point to the root
+	   directory for the installed libraries and binaries, e.g.
 
 		setenv IVROOT /
 
-	2) set your DISPLAY environment variable:
+	2) Set your DISPLAY environment variable:
 
 		setenv DISPLAY :0
 
-	3) type 'gmake' from the directory where you unpacked the
+	3) The source code is compiled with optimization enabled
+	   by default. To create debug libraries, enter:
+
+		setenv LIBTYPE debug
+
+	4) Type 'gmake' from the directory where you unpacked the
 	   Open Inventor source code.
 
-INSTALLATION TREE STUCTURE
+
+INSTALLATION TREE STRUCTURE
 
 	When typing 'gmake install' the files generated during the
 	build will end up in the following locations:
 
-	$(IVROOT)/usr/include/Inventor  -> include files (.h)
-	$(IVROOT)/usr/lib/		-> shared libraries (.so)
-	$(IVROOT)/usr/man/		-> man pages 
-	$(IVROOT)/bin			-> commonly used binaries (ivview,
-					   SceneViewer, ivcat, ...)
-	$(IVROOT)/opt/SGIDemos/Inventor/bin -> Miscelaneous SGI demos
-	$(IVROOT)/usr/share/data	-> 3d models
+	$(IVROOT)/usr/bin			-> commonly used binaries
+						   (ivview, ivcat, etc.)
+	$(IVROOT)/usr/include/Inventor		-> include files (.h)
+	$(IVROOT)/usr/lib			-> shared libraries (.so)
+	$(IVROOT)/usr/lib/InventorDebug		-> debug shared libraries (.so)
+	$(IVROOT)/usr/man			-> man pages 
+	$(IVROOT)/usr/share/data		-> 3D models
+	$(IVROOT)/opt/SGIDemos/Inventor/bin	-> miscellaneous SGI demos
+
 
 THANKS
 

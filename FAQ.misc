@@ -31,6 +31,7 @@ MISCELLANEOUS TECHNICAL QUESTIONS FOR Open Inventor Open Source Release
     libGL.so.1       [Mesa-3.2-1]
     libGLU.so.1      [Mesa-3.2-1]
     libXm.so.1       [lesstif-0.90.0-1]
+    libjpeg.so.62    [libjpeg-6b-10]
 
   Where can I get OpenGL?
   -----------------------
@@ -118,9 +119,9 @@ MISCELLANEOUS TECHNICAL QUESTIONS FOR Open Inventor Open Source Release
   What do these rpms install?
   ---------------------------
 
-  sgi-OpenInventor installs the execution-only-environment, which contains the
-  Open Inventor run-time libraries under /usr/lib: libInventor.so,
-  libInventorXt.so, libFL.a.
+  sgi-OpenInventor-clients installs the execution-only environment, which
+  contains the Open Inventor run-time libraries under /usr/lib: libInventor.so
+  and libInventorXt.so.
 
   sgi-OpenInventor-data installs a number of example model files under
   /usr/share/data/models.

@@ -1,32 +1,36 @@
-The problems described below occur on Linux platforms we tested:
+The problems described below occur on Linux platforms we tested. Note that some
+of these may be due to older versions of other libraries, i.e. LessTif or Mesa.
 
 1. Applications which depend on overlay planes will not work because the
    current OpenGL drivers on the SGI Visual Workstations 230, 330, and 550
    (http://www.sgi.com/workstations) do not support this feature.
 
-2. When viewing certain models using ivview or SceneViewer, switching the
-   draw style to wireframe will cause the lines to be rendered in a different
-   color than what is expected.
+2. Font capabilities used by SoAsciiText and SoText[23] are currently provided
+   by libFL.a. On IRIX, libFL.so is provided in the eoe.sw.gfx and eoe.sw64.gfx
+   subsystems. A version of libFL.a compiled for SunOS 5.8 is available in the
+   FTP download area. No other platforms are currently supported.
 
-3. Models which contain colors specified as unsigned integers in hexadecimal
-   format in the orderedRGBA field of a SoVertexProperty node will be rendered
-   in the wrong colors. data/models/vehicles/x29.iv is one such model which
-   demonstrates the problem.
+   Ang Bodhi (bodhi@pacific.net.sg) has written some code that uses the
+   FreeType library to provide support for fonts (yet to be reviewed and
+   integrated into the CVS repository). For a preview, see
 
-4. Font capabilities used by SoText[23] are currently provided by libFL.a. On
-   IRIX, libFL.so is provided in the eoe.sw.gfx and eoe.sw64.gfx subsystems.
-   A version of libFL.a compiled for SunOS 5.8 is available in the FTP download
-   area. No other platforms are currently supported.
+     http://www.geocities.com/angbodhi/download/
 
-5. In the SoXt viewers, pressing the 'Escape' key will not toggle between 
-   viewing and selection modes.
+3. SoText2 bitmaps are rendered with many pixels missing when using libFL on
+   Linux i386 (reported in Bug 5).
 
-6. apps/samples/widgets/componentTest will crash with a segmentation fault when
-   invoked with the 'T' option.
+4. Arrowhead cones in transformer dragger appear squished. This occurs on IRIX
+   and Linux.
 
-7. Arrowheads drawn as cones in a SoTransformerManip may appear squished.
+5. When selecting hidden-line view in viewers, the following error is printed
+   for models with colors specified in arrays:
 
-8. Transparency does not work.
+     Inventor error in SoIndexedShape(): material index n is out of range 0 - 1
+
+   This occurs on IRIX and Linux.
+
+6. SceneViewer crashes when loading temple.iv (binary format). This occurs
+   with Lesstif 0.91.4, but not 0.90.0 (see Bug 2).
 
 
-Last updated: $Date: 2000/08/30 02:45:22 $
+Last updated: $Date: 2000/09/18 11:10:05 $
