@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoFieldData
@@ -226,13 +226,19 @@ SoFieldData::overlay(SoFieldContainer *to, const SoFieldContainer *from,
 //
 ////////////////////////////////////////////////////////////////////////
 {
+    // Access both field datas instead of just one, in case they
+    // differ per instance.
+    const SoFieldData *fromFD = from->getFieldData();
+    const SoFieldData   *toFD =   to->getFieldData();
+
     SoField	*fromField, *toField;
     int		i;
 
-    for (i = 0; i < fields.getLength(); i++) {
+    for (i = 0; i < fromFD->fields.getLength(); i++) {
 
-	toField   = getField(to,   i);
-	fromField = getField(from, i);
+	// Access the fields using the appropriate field data instances
+	toField   =   toFD->getField(to,   i);
+	fromField = fromFD->getField(from, i);
 
 	// If both fields have default values, we don't bother copying
 	// the value:

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SoField
@@ -1094,8 +1094,11 @@ SoField::copyConnection(const SoField *fromField)
 	// We may need to copy the field's container
 	SoFieldContainer *FCCopy = connectedFC->copyThroughConnection();
 
+	// Get the other field data in case it is different
+	const SoFieldData *otherFieldData = FCCopy->getFieldData();
+
 	// Connect from the corresponding field in the container
-	connectFrom(fieldData->getField(FCCopy, index));
+	connectFrom(otherFieldData->getField(FCCopy, index));
     }
 
     // Connected from engine:
@@ -1113,8 +1116,11 @@ SoField::copyConnection(const SoField *fromField)
 	SoEngine *engineCopy =
 	    (SoEngine *) connectedEngine->copyThroughConnection();
 
+	// Get the other output data in case it is different
+	const SoEngineOutputData *outputDataCopy = engineCopy->getOutputData();
+
 	// Connect from the corresponding output in the engine copy
-	connectFrom(outputData->getOutput(engineCopy, outputIndex));
+	connectFrom(outputDataCopy->getOutput(engineCopy, outputIndex));
     }
 
     // Make sure state of connection is identical
