@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Classes:
  |	SoXtComponent
@@ -591,7 +591,7 @@ SoXtComponent::openHelpCard(const char *cardName)
 #endif
 
     char command[100];
-    sprintf(command, "which acroread >& /dev/null");
+    sprintf(command, "which acroread > /dev/null");
     if (system(command) != 0) {
 	SoXt::createSimpleErrorDialog(_baseWidget, helpDialogTitle, helpPrgError);
 	return;

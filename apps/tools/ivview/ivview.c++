@@ -721,7 +721,7 @@ showAboutDialog()
     }
 
     char command[100];
-    sprintf(command, "which acroread >& /dev/null");
+    sprintf(command, "which acroread > /dev/null");
 
     int err = system(command);
     if (err) {

@@ -37,7 +37,6 @@
 //
 // Main stuff for 3D text creator program
 //
-#define _XOPEN_SOURCE
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -165,7 +164,7 @@ showAboutDialog(Widget, XtPointer, XtPointer)
     }
 
     char command[100];
-    sprintf(command, "which acroread >& /dev/null");
+    sprintf(command, "which acroread > /dev/null");
 
     int err = system(command);
     if (err) {
