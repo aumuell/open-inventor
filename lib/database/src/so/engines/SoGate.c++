@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      SoGate
@@ -259,6 +259,40 @@ SoGate::inputChanged(SoField *whichInput)
     }
     else if (whichInput == &trigger)
 	output->enable(TRUE);
+}
+
+////////////////////////////////////////////////////////////////////////
+//
+// Description:
+//    Redefines this to create an instance of the correct type.
+//
+// Use: internal, virtual
+
+SoFieldContainer *
+SoGate::copyThroughConnection() const
+//
+////////////////////////////////////////////////////////////////////////
+{
+    // See SoEngine::copyThroughConnection() for details of this...
+    SoFieldContainer *copy = findCopy(this, TRUE);
+    if (copy != NULL)
+	return copy;
+    if (shouldCopy()) {
+	// Create and add a new instance to the dictionary
+	SoType inputType = SoType::fromName(typeField.getValue());
+	SoEngine *newEngine = new SoGate(inputType);
+	newEngine->ref();
+	addCopy(this, newEngine);		// Adds a ref()
+	newEngine->unrefNoDelete();
+
+	// Find the copy and return it; this has the side effect of
+	// copying the contents and letting the dictionary know it has
+	// been copied once.
+	return findCopy(this, TRUE);
+    }
+
+    // Otherwise, just return this
+    return (SoFieldContainer *) this;
 }
 
 ////////////////////////////////////////////////////////////////////////
