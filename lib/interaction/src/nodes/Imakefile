@@ -1,8 +1,0 @@
-#define LibraryMakefile
-
-DEPTH = ..
-
-C++FILES = SoAntiSquish.c++ SoSurroundScale.c++
-
-
-
