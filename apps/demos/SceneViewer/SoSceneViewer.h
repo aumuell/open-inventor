@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes	: SoSceneViewer
  |
@@ -424,7 +424,7 @@ class SoSceneViewer : public SoXtComponent {
 
     // Callback to adjust size of scale tabs. Used only for SoTabBoxManip
     // Added to viewer as a finishCallback.
-    static void SoSceneViewer::adjustScaleTabSizeCB( void *, SoXtViewer *);
+    static void adjustScaleTabSizeCB( void *, SoXtViewer *);
 
     //
     // Lighting

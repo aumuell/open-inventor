@@ -147,66 +147,104 @@ struct SoSceneViewerMenu {
 };
 
 
+#define SV_OFFSET(m,b) ( ((char *) (m)) - ((char *) (b)) )
+
 static SoSceneViewerButton fileData[] = {
 #ifndef EXPLORER
-    {(char *)NULL,	    SV_FILE_ABOUT,	SV_PUSH_BUTTON, 0, 0 },
-    {0,    		    0,			SV_SEPARATOR },
-    {"New",		    SV_FILE_NEW,	SV_PUSH_BUTTON, "Alt <Key> n", "Alt+n" },
-    {(char *)NULL,	    SV_FILE_OPEN,	SV_PUSH_BUTTON, "Alt <Key> o", "Alt+o" },
-    {(char *)NULL,	    SV_FILE_IMPORT,	SV_PUSH_BUTTON, "Alt <Key> i", "Alt+i" },
+    {(char *)NULL, SV_FILE_ABOUT,    SV_PUSH_BUTTON, 0, 0 },
+    {0,    	   0,		     SV_SEPARATOR },
+    {"New",	   SV_FILE_NEW,	     SV_PUSH_BUTTON, "Alt <Key> n", "Alt+n" },
+    {(char *)NULL, SV_FILE_OPEN,     SV_PUSH_BUTTON, "Alt <Key> o", "Alt+o" },
+    {(char *)NULL, SV_FILE_IMPORT,   SV_PUSH_BUTTON, "Alt <Key> i", "Alt+i" },
 #endif /* EXPLORER */
-    {(char *)NULL,	    SV_FILE_SAVE,	SV_PUSH_BUTTON, "Alt <Key> s", "Alt+s" },
-    {(char *)NULL,	    SV_FILE_SAVE_AS,	SV_PUSH_BUTTON, "Alt Shift <Key> s", "Alt+S" },
+    {(char *)NULL, SV_FILE_SAVE,     SV_PUSH_BUTTON, "Alt <Key> s", "Alt+s" },
+    {(char *)NULL, SV_FILE_SAVE_AS,  SV_PUSH_BUTTON, "Alt Shift <Key> s", "Alt+S" },
 #ifndef EXPLORER
-    {0,    		    0,			SV_SEPARATOR },
-    {(char *)NULL,          SV_FILE_READ_ENV,	SV_PUSH_BUTTON, 0, 0 },
-    {(char *)NULL,          SV_FILE_SAVE_ENV,	SV_PUSH_BUTTON, 0, 0 },
-    {0,    		    0,			SV_SEPARATOR },
-    {(char *)NULL,	    SV_FILE_PRINT,	SV_PUSH_BUTTON, "Alt <Key> p", "Alt+p" },
-    {"Quit",		    SV_FILE_QUIT,	SV_PUSH_BUTTON, "Alt <Key> q", "Alt+q" },
+    {0,    	   0,		     SV_SEPARATOR },
+    {(char *)NULL, SV_FILE_READ_ENV, SV_PUSH_BUTTON, 0, 0 },
+    {(char *)NULL, SV_FILE_SAVE_ENV, SV_PUSH_BUTTON, 0, 0 },
+    {0,    	   0,		     SV_SEPARATOR },
+    {(char *)NULL, SV_FILE_PRINT,    SV_PUSH_BUTTON, "Alt <Key> p", "Alt+p" },
+    {"Quit",	   SV_FILE_QUIT,     SV_PUSH_BUTTON, "Alt <Key> q", "Alt+q" },
 #endif /* EXPLORER */
 };
+
+XtResource intl_file_resources[] = {
+#ifndef EXPLORER                 
+  { "aboutMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&fileData[0].name, &fileData[0]),
+    XtRString, "About...",},
+  { "newMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&fileData[2].name, &fileData[0]),
+    XtRString, "New",},
+  { "openMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&fileData[3].name, &fileData[0]),
+    XtRString, "Open...",},
+  { "importMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&fileData[4].name, &fileData[0]),
+    XtRString, "Import...",},
+  { "saveMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&fileData[5].name, &fileData[0]),
+    XtRString, "Save",},
+  { "saveAsMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&fileData[6].name, &fileData[0]),
+    XtRString, "Save As...",},
+  { "readEnvMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&fileData[8].name, &fileData[0]),
+    XtRString, "Read Environment...",},
+  { "saveEnvMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&fileData[9].name, &fileData[0]),
+    XtRString, "Save Environment...",},
+  { "printMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&fileData[11].name, &fileData[0]),
+    XtRString, "Print...",},
+  { "quitMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&fileData[12].name, &fileData[0]),
+    XtRString, "Quit",},
+#else
+  { "saveMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&fileData[0].name, &fileData[0]),
+    XtRString, "Save",},
+  { "saveAsMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&fileData[1].name, &fileData[0]),
+    XtRString, "Save As...",},
+#endif
+};
+int intl_num_file_resources = XtNumber( intl_file_resources );
 
 #ifndef EXPLORER
 static SoSceneViewerButton editData[] = {
-    {"Pick Parent",	SV_EDIT_PICK_PARENT, SV_PUSH_BUTTON, 0, 0 },
-    {"Pick All",	SV_EDIT_PICK_ALL, SV_PUSH_BUTTON, "Alt <Key> a", "Alt+a" },
-    {0,    		    0,			SV_SEPARATOR },
-    {"Cut",		SV_EDIT_CUT,	SV_PUSH_BUTTON, "Alt <Key> x", "Alt+x" },
-    {"Copy",		SV_EDIT_COPY,	SV_PUSH_BUTTON, "Alt <Key> c", "Alt+c" },
-    {"Paste",		SV_EDIT_PASTE,	SV_PUSH_BUTTON, "Alt <Key> v", "Alt+v" },
-    {"Delete",		SV_EDIT_DELETE,	SV_PUSH_BUTTON, "<Key> BackSpace", 0 },
-};
-#endif /* EXPLORER */
-
-static SoSceneViewerButton viewData[] = {
-    {"Pick/Edit",  SV_VIEW_PICK,	       SV_TOGGLE_BUTTON, 0, 0},
-#ifdef EXPLORER
-    {"User Pick Mode",  SV_VIEW_USER,    SV_TOGGLE_BUTTON, 0, 0},
-#endif /* EXPLORER */
-    {0,    		    0,			SV_SEPARATOR },
-    {"Examiner",   SV_VIEW_EXAMINER,        SV_RADIO_BUTTON, 0, 0},
-    {"Fly",	   SV_VIEW_FLY,	       SV_RADIO_BUTTON, 0, 0},
-    {"Walk",	   SV_VIEW_WALK,	       SV_RADIO_BUTTON, 0, 0},
-    {"Plane",	   SV_VIEW_PLANE,	       SV_RADIO_BUTTON, 0, 0},
-    {0,    		    0,			SV_SEPARATOR },
-    {"View Selection",SV_VIEW_SELECTION,     SV_PUSH_BUTTON, 0, 0},
-    {"Fog", 	   SV_VIEW_FOG, 	       SV_TOGGLE_BUTTON, 0, 0},
-    {"Antialiasing",SV_VIEW_ANTIALIASING,   SV_TOGGLE_BUTTON, 0, 0},
-    {0,    		    0,			SV_SEPARATOR },
-    {"Screen Door Transparency", SV_VIEW_SCREEN_TRANSPARENCY,  SV_RADIO_BUTTON, 0, 0},
-    {"Blended Transparency", SV_VIEW_BLEND_TRANSPARENCY,  SV_RADIO_BUTTON, 0, 0},
-    {"Delayed Blended Transparency", SV_VIEW_DELAY_BLEND_TRANSPARENCY,  SV_RADIO_BUTTON, 0, 0},
-    {"Sorted Blended Transparency", SV_VIEW_SORT_BLEND_TRANSPARENCY,  SV_RADIO_BUTTON, 0, 0},
-    {0,    		    0,			SV_SEPARATOR },
-    {(char *)NULL,  SV_VIEW_BKG_COLOR,  SV_PUSH_BUTTON, 0, 0}
+    {"Pick Parent", SV_EDIT_PICK_PARENT, SV_PUSH_BUTTON, 0, 0 },
+    {"Pick All",    SV_EDIT_PICK_ALL, SV_PUSH_BUTTON, "Alt <Key> a", "Alt+a" },
+    {0,    	    0,		      SV_SEPARATOR },
+    {"Cut",	    SV_EDIT_CUT,      SV_PUSH_BUTTON, "Alt <Key> x", "Alt+x" },
+    {"Copy",	    SV_EDIT_COPY,     SV_PUSH_BUTTON, "Alt <Key> c", "Alt+c" },
+    {"Paste",	    SV_EDIT_PASTE,    SV_PUSH_BUTTON, "Alt <Key> v", "Alt+v" },
+    {"Delete",	    SV_EDIT_DELETE,   SV_PUSH_BUTTON, "<Key> BackSpace", 0 },
 };
 
-static SoSceneViewerButton editorData[] = {
-    {(char *)NULL,    SV_EDITOR_MATERIAL,    SV_PUSH_BUTTON, 0, 0},
-    {(char *)NULL,       SV_EDITOR_COLOR,       SV_PUSH_BUTTON, 0, 0},
-    {(char *)NULL,  SV_EDITOR_TRANSFORM,   SV_PUSH_BUTTON, 0, 0},
+XtResource intl_edit_resources[] = {
+  { "pickParentMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) ((char*)&editData[0].name - (char*)&editData[0]),
+    XtRString, "Pick Parent",},
+  { "pickAllMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) ((char*)&editData[1].name - (char*)&editData[0]),
+    XtRString, "Pick All",},
+  { "cutMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) ((char*)&editData[3].name - (char*)&editData[0]),
+    XtRString, "Cut",},
+  { "copyMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) ((char*)&editData[4].name - (char*)&editData[0]),
+    XtRString, "Copy",},
+  { "pasteMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) ((char*)&editData[5].name - (char*)&editData[0]),
+    XtRString, "Paste",},
+  { "deleteMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) ((char*)&editData[6].name - (char*)&editData[0]),
+    XtRString, "Delete",},
 };
+int intl_num_edit_resources = XtNumber( intl_edit_resources );
+#endif /* EXPLORER */
 
 static SoSceneViewerButton manipData[] = {
     {"Transformer", SV_MANIP_TRANSFORMER,    SV_RADIO_BUTTON, 0, 0},
@@ -217,31 +255,236 @@ static SoSceneViewerButton manipData[] = {
     {"TransformBox",SV_MANIP_XFBOX,          SV_RADIO_BUTTON, 0, 0},
     {"TabBox",      SV_MANIP_TABBOX,         SV_RADIO_BUTTON, 0, 0},
     {"None",        SV_MANIP_NONE,           SV_RADIO_BUTTON, 0, 0},
-    {0,    		    0,			SV_SEPARATOR },
+    {0,		    0,			     SV_SEPARATOR },
     {"Replace",     SV_MANIP_REPLACE_ALL,    SV_TOGGLE_BUTTON, 0, 0}
 };
 
-static SoSceneViewerButton lightData[] = {
-    {"Create Dir Light",	    SV_LIGHT_ADD_DIRECT,    SV_PUSH_BUTTON, 0, 0},
-    {"Create Point Light",	    SV_LIGHT_ADD_POINT,	    SV_PUSH_BUTTON, 0, 0},
-    {"Create Spot Light",	    SV_LIGHT_ADD_SPOT,	    SV_PUSH_BUTTON, 0, 0},
-    {0,    		    0,			SV_SEPARATOR },
-    {(char *)NULL,	    SV_LIGHT_AMBIENT_EDIT,  SV_PUSH_BUTTON, 0, 0},
-    {0,    		    0,			SV_SEPARATOR },
-    {"Turn all ON",		    SV_LIGHT_TURN_ON,	    SV_PUSH_BUTTON, 0, 0},
-    {"Turn all OFF",		    SV_LIGHT_TURN_OFF,	    SV_PUSH_BUTTON, 0, 0},
-    {"Show all Icons",		    SV_LIGHT_SHOW_ALL,	    SV_PUSH_BUTTON, 0, 0},
-    {"Hide all Icons",		    SV_LIGHT_HIDE_ALL,	    SV_PUSH_BUTTON, 0, 0},
-    {0,    		    0,			SV_SEPARATOR },
+XtResource intl_manip_resources[] = {
+  { "transformerMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) ((char*)&manipData[0].name - (char*)&manipData[0]),
+    XtRString, "Transformer",},
+  { "trackballMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) ((char*)&manipData[1].name - (char*)&manipData[0]),
+    XtRString, "Trackball",},
+  { "handleBoxMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) ((char*)&manipData[2].name - (char*)&manipData[0]),
+    XtRString, "HandleBox",},
+  { "jackMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) ((char*)&manipData[3].name - (char*)&manipData[0]),
+    XtRString, "Jack",},
+  { "centerballMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) ((char*)&manipData[4].name - (char*)&manipData[0]),
+    XtRString, "Centerball",},
+  { "transformBoxMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) ((char*)&manipData[5].name - (char*)&manipData[0]),
+    XtRString, "TransformBox",},
+  { "tabBoxMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) ((char*)&manipData[6].name - (char*)&manipData[0]),
+    XtRString, "TabBox",},
+  { "noneMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) ((char*)&manipData[7].name - (char*)&manipData[0]),
+    XtRString, "None",},
+  { "replaceMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) ((char*)&manipData[9].name - (char*)&manipData[0]),
+    XtRString, "Replace",},
 };
+int intl_num_manip_resources = XtNumber( intl_manip_resources );
 
 #ifndef EXPLORER
 static SoSceneViewerButton selData[] = {
     {"Single Selection", SV_SEL_SINGLE_SELECT,  SV_RADIO_BUTTON, 0, 0},
     {"Toggle Selection", SV_SEL_TOGGLE_SELECT,  SV_RADIO_BUTTON, 0, 0},
-    {"Shift Selection",	SV_SEL_SHIFT_SELECT,	SV_RADIO_BUTTON, 0, 0},
+    {"Shift Selection",	 SV_SEL_SHIFT_SELECT,	SV_RADIO_BUTTON, 0, 0},
 };
 #endif /* EXPLORER */
+
+XtResource intl_sel_resources[] = {
+  { "singleSelMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) ((char*)&selData[0].name - (char*)&selData[0]),
+    XtRString, "Single Selection",},
+  { "toggleSelMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) ((char*)&selData[1].name - (char*)&selData[0]),
+    XtRString, "Toggle Selection",},
+  { "shiftSelMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) ((char*)&selData[2].name - (char*)&selData[0]),
+    XtRString, "Shift Selection",},
+};
+int intl_num_sel_resources = XtNumber( intl_sel_resources );
+
+static SoSceneViewerButton viewData[] = {
+    {"Pick/Edit",  SV_VIEW_PICK,	  SV_TOGGLE_BUTTON, 0, 0},
+#ifdef EXPLORER
+    {"User Pick Mode",  SV_VIEW_USER,     SV_TOGGLE_BUTTON, 0, 0},
+#endif /* EXPLORER */
+    {0,    	   0,			  SV_SEPARATOR },
+    {"Examiner",   SV_VIEW_EXAMINER,      SV_RADIO_BUTTON, 0, 0},
+    {"Fly",	   SV_VIEW_FLY,	          SV_RADIO_BUTTON, 0, 0},
+    {"Walk",	   SV_VIEW_WALK,	  SV_RADIO_BUTTON, 0, 0},
+    {"Plane",	   SV_VIEW_PLANE,	  SV_RADIO_BUTTON, 0, 0},
+    {0,		   0,			  SV_SEPARATOR },
+    {"View Selection",SV_VIEW_SELECTION,  SV_PUSH_BUTTON, 0, 0},
+    {"Fog", 	   SV_VIEW_FOG, 	  SV_TOGGLE_BUTTON, 0, 0},
+    {"Antialiasing",SV_VIEW_ANTIALIASING, SV_TOGGLE_BUTTON, 0, 0},
+    {0,		   0,			  SV_SEPARATOR },
+    {"Screen Door Transparency",     SV_VIEW_SCREEN_TRANSPARENCY,
+     SV_RADIO_BUTTON, 0, 0},
+    {"Blended Transparency",         SV_VIEW_BLEND_TRANSPARENCY,
+     SV_RADIO_BUTTON, 0, 0},
+    {"Delayed Blended Transparency", SV_VIEW_DELAY_BLEND_TRANSPARENCY,
+     SV_RADIO_BUTTON, 0, 0},
+    {"Sorted Blended Transparency",  SV_VIEW_SORT_BLEND_TRANSPARENCY,
+     SV_RADIO_BUTTON, 0, 0},
+    {0,    	   0,			  SV_SEPARATOR },
+    {(char *)NULL, SV_VIEW_BKG_COLOR,     SV_PUSH_BUTTON, 0, 0}
+};
+
+XtResource intl_view_resources[] = {
+  { "pickEditMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[0].name, &viewData[0]),
+    XtRString, "Pick/Edit",},
+#ifdef EXPLORER
+  { "userPickMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[1].name, &viewData[0]),
+    XtRString, "User Pick Mode",},
+  { "examinerMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[3].name, &viewData[0]),
+    XtRString, "Examiner",},
+  { "flyMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[4].name, &viewData[0]),
+    XtRString, "Fly",},
+  { "walkMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[5].name, &viewData[0]),
+    XtRString, "Walk",},
+  { "planeMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[6].name, &viewData[0]),
+    XtRString, "Plane",},
+  { "viewSelMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[8].name, &viewData[0]),
+    XtRString, "View Selection",},
+  { "fogMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[9].name, &viewData[0]),
+    XtRString, "Fog",},
+  { "antialiasingMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[10].name, &viewData[0]),
+    XtRString, "Antialiasing",},
+  { "screenDoorMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[12].name, &viewData[0]),
+    XtRString, "Screen Door Transparency",},
+  { "blendedMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[13].name, &viewData[0]),
+    XtRString, "Blended Transparency",},
+  { "delayedBlendedMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[14].name, &viewData[0]),
+    XtRString, "Delayed Blended Transparency",},
+  { "sortedBlendedMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[15].name, &viewData[0]),
+    XtRString, "Sorted Blended Transparency",},
+  { "editBgColor", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[17].name, &viewData[0]),
+    XtRString, "Edit Background Color...",},
+#else
+  { "examinerMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[2].name, &viewData[0]),
+    XtRString, "Examiner",},
+  { "flyMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[3].name, &viewData[0]),
+    XtRString, "Fly",},
+  { "walkMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[4].name, &viewData[0]),
+    XtRString, "Walk",},
+  { "planeMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[5].name, &viewData[0]),
+    XtRString, "Plane",},
+  { "viewSelMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[7].name, &viewData[0]),
+    XtRString, "View Selection",},
+  { "fogMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[8].name, &viewData[0]),
+    XtRString, "Fog",},
+  { "antialiasingMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[9].name, &viewData[0]),
+    XtRString, "Antialiasing",},
+  { "screenDoorMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[11].name, &viewData[0]),
+    XtRString, "Screen Door Transparency",},
+  { "blendedMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[12].name, &viewData[0]),
+    XtRString, "Blended Transparency",},
+  { "delayedBlendedMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[13].name, &viewData[0]),
+    XtRString, "Delayed Blended Transparency",},
+  { "sortedBlendedMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[14].name, &viewData[0]),
+    XtRString, "Sorted Blended Transparency",},
+  { "editBgColor", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&viewData[16].name, &viewData[0]),
+    XtRString, "Edit Background Color...",},
+#endif
+};
+int intl_num_view_resources = XtNumber( intl_view_resources );
+
+static SoSceneViewerButton editorData[] = {
+    {(char *)NULL,  SV_EDITOR_MATERIAL,    SV_PUSH_BUTTON, 0, 0},
+    {(char *)NULL,  SV_EDITOR_COLOR,       SV_PUSH_BUTTON, 0, 0},
+    {(char *)NULL,  SV_EDITOR_TRANSFORM,   SV_PUSH_BUTTON, 0, 0},
+};
+
+XtResource intl_editor_resources[] = {
+  { "materialEditor", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&editorData[0].name, &editorData[0]),
+    XtRString, "Material Editor...",},
+  { "colorEditor", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&editorData[1].name, &editorData[0]),
+    XtRString, "Color Editor...",},
+  { "transformSliders", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&editorData[2].name, &editorData[0]),
+    XtRString, "Transform Sliders...",},
+};
+int intl_num_editor_resources = XtNumber( intl_editor_resources );
+
+static SoSceneViewerButton lightData[] = {
+    {"Create Dir Light",    SV_LIGHT_ADD_DIRECT,    SV_PUSH_BUTTON, 0, 0},
+    {"Create Point Light",  SV_LIGHT_ADD_POINT,	    SV_PUSH_BUTTON, 0, 0},
+    {"Create Spot Light",   SV_LIGHT_ADD_SPOT,	    SV_PUSH_BUTTON, 0, 0},
+    {0,    		    0,			    SV_SEPARATOR },
+    {(char *)NULL,	    SV_LIGHT_AMBIENT_EDIT,  SV_PUSH_BUTTON, 0, 0},
+    {0,    		    0,			    SV_SEPARATOR },
+    {"Turn all ON",	    SV_LIGHT_TURN_ON,	    SV_PUSH_BUTTON, 0, 0},
+    {"Turn all OFF",	    SV_LIGHT_TURN_OFF,	    SV_PUSH_BUTTON, 0, 0},
+    {"Show all Icons",	    SV_LIGHT_SHOW_ALL,	    SV_PUSH_BUTTON, 0, 0},
+    {"Hide all Icons",	    SV_LIGHT_HIDE_ALL,	    SV_PUSH_BUTTON, 0, 0},
+    {0,    		    0,			    SV_SEPARATOR },
+};
+
+static struct {
+    char *headlight;
+    char *editlight;
+    char *directionallight;
+    char *spotlight;
+    char *pointlight;
+} Light;
+
+XtResource intl_light_resources[] = {
+  { "ambientLighting", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&lightData[4].name, &lightData[0]),
+    XtRString, "Ambient Lighting...",},
+  { "headlight", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&Light.headlight, &lightData[0]),
+    XtRString, "Headlight ",},
+  { "editlight", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&Light.editlight, &lightData[0]),
+    XtRString, "Edit",},
+  { "directionallight", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&Light.directionallight, &lightData[0]),
+    XtRString, "Directional ",},
+  { "spotlight", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&Light.spotlight, &lightData[0]),
+    XtRString, "Spot ",},
+  { "pointlight", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&Light.pointlight, &lightData[0]),
+    XtRString, "Point ",},
+};
+int intl_num_light_resources = XtNumber( intl_light_resources );
 
 static SoSceneViewerMenu pulldownData[] = {
 //  {name, 	id,	    	subMenu,    subItemCount}
@@ -251,69 +494,51 @@ static SoSceneViewerMenu pulldownData[] = {
 #endif /* EXPLORER */
     {"Viewing", SV_VIEW, 	viewData,   XtNumber(viewData)   },
 #ifndef EXPLORER
-    {"Selection", SV_SELECTION, selData, XtNumber(selData)	 },
+    {"Selection", SV_SELECTION, selData,    XtNumber(selData)	 },
 #endif /* EXPLORER */
     {"Editors", SV_EDITOR, 	editorData, XtNumber(editorData) },
     {"Manips",  SV_MANIP, 	manipData,  XtNumber(manipData)  },
     {"Lights",  SV_LIGHT, 	lightData,  XtNumber(lightData)  }
 };
 
-#endif
-
-static struct {
-char *headlight;
-char *editlight;
-char *directionallight;
-char *spotlight;
-char *pointlight;
-} Light;
-
-
-XtResource intl_resources[] = {  /* CAUTION: Mixing #ifdef and #ifndef EXPLORER */
-#ifndef EXPLORER                 
-  { "aboutMenuLabel", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &fileData[0].name, XtRString, "About...",},
-  { "openMenuLabel", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &fileData[3].name, XtRString, "Open...",},
-  { "importMenuLabel", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &fileData[4].name, XtRString, "Import...",},
-  { "saveMenuLabel", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &fileData[5].name, XtRString, "Save",},
-  { "saveAsMenuLabel", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &fileData[6].name, XtRString, "Save As...",},
-  { "readEnvMenuLabel", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &fileData[8].name, XtRString, "Read Environment...",},
-  { "saveEnvMenuLabel", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &fileData[9].name, XtRString, "Save Environment...",},
-  { "printMenuLabel", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &fileData[11].name, XtRString, "Print...",},
-  { "editBgColor", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &viewData[16].name, XtRString, "Edit Background Color...",},
-#else
-  { "saveMenuLabel", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &fileData[0].name, XtRString, "Save",},
-  { "saveAsMenuLabel", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &fileData[1].name, XtRString, "Save As...",},
-  { "editBgColor", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &viewData[17].name, XtRString, "Edit Background Color...",},
-#endif
-  { "materialEditor", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &editorData[0].name, XtRString, "Material Editor...",},
-  { "colorEditor", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &editorData[1].name, XtRString, "Color Editor...",},
-  { "transformSliders", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &editorData[2].name, XtRString, "Transform Sliders...",},
-  { "ambientLighting", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &lightData[4].name, XtRString, "Ambient Lighting...",},
-  { "headlight", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &Light.headlight, XtRString, "Headlight ",},
-  { "editlight", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &Light.editlight, XtRString, "Edit",},
-  { "directionallight", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &Light.directionallight, XtRString, "Directional ",},
-  { "spotlight", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &Light.spotlight, XtRString, "Spot ",},
-  { "pointlight", NULL, XtRString, sizeof(XtRString),
-    (Cardinal) &Light.pointlight, XtRString, "Point ",},
+XtResource intl_pulldown_resources[] = {
+  { "fileMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&pulldownData[0].name, &pulldownData[0]),
+    XtRString, "File",},
+#ifndef EXPLORER
+  { "editMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&pulldownData[1].name, &pulldownData[0]),
+    XtRString, "Edit",},
+  { "viewingMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&pulldownData[2].name, &pulldownData[0]),
+    XtRString, "Viewing",},
+  { "selectionMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&pulldownData[3].name, &pulldownData[0]),
+    XtRString, "Selection",},
+  { "editorsMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&pulldownData[4].name, &pulldownData[0]),
+    XtRString, "Editors",},
+  { "manipsMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&pulldownData[5].name, &pulldownData[0]),
+    XtRString, "Manips",},
+  { "lightsMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&pulldownData[6].name, &pulldownData[0]),
+    XtRString, "Lights",},
+#else /* EXPLORER */
+  { "viewingMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&pulldownData[1].name, &pulldownData[0]),
+    XtRString, "Viewing",},
+  { "editorsMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&pulldownData[2].name, &pulldownData[0]),
+    XtRString, "Editors",},
+  { "manipsMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&pulldownData[3].name, &pulldownData[0]),
+    XtRString, "Manips",},
+  { "lightsMenuLabel", NULL, XtRString, sizeof(XtRString),
+    (Cardinal) SV_OFFSET(&pulldownData[4].name, &pulldownData[0]),
+    XtRString, "Lights",},
+#endif /* EXPLORER */
 };
-int intl_num_resources = XtNumber( intl_resources );
+int intl_num_pulldown_resources = XtNumber( intl_pulldown_resources );
+
+#endif

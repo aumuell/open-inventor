@@ -41,7 +41,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes	: SoSceneViewer
  |
@@ -261,7 +261,6 @@ logoCB(void *, SoAction *action)
 static void
 setOverlayLogo(SoXtRenderArea *ra)
 {
-// XXX Alex -- once SoDB::read() gets fixed reinstate this code
 #ifdef __sgi
     static SoSeparator *logo = NULL;
     
@@ -302,10 +301,6 @@ SoSceneViewer::SoSceneViewer(
 //
 ////////////////////////////////////////////////////////////////////////
 {
-    // getting resources.
-    XtGetSubresources(  parent, NULL, "intl", "Intl",
-                        intl_resources, intl_num_resources, NULL, 0 );
-
     // In this case, render area is what the app wants, so buildNow = TRUE
     constructorCommon(inputGraph, envFile, TRUE);
 }
@@ -328,10 +323,6 @@ SoSceneViewer::SoSceneViewer(
 //
 ////////////////////////////////////////////////////////////////////////
 {
-    // getting resources.
-    XtGetSubresources(  parent, NULL, "intl", "Intl",
-                        intl_resources, intl_num_resources, NULL, 0 );
-
     // In this case, render area may be what the app wants, 
     // or it may want a subclass of render area. Pass along buildNow
     // as it was passed to us.
@@ -354,6 +345,32 @@ SoSceneViewer::constructorCommon(
 {
     int	    i;
     
+    // getting resources.
+    XtGetSubresources(  getParentWidget(), &fileData[0], "intl", "Intl",
+                        intl_file_resources, intl_num_file_resources,
+			NULL, 0 );
+    XtGetSubresources(  getParentWidget(), &editData[0], "intl", "Intl",
+                        intl_edit_resources, intl_num_edit_resources,
+			NULL, 0 );
+    XtGetSubresources(  getParentWidget(), &manipData[0], "intl", "Intl",
+                        intl_manip_resources, intl_num_manip_resources,
+			NULL, 0 );
+    XtGetSubresources(  getParentWidget(), &selData[0], "intl", "Intl",
+                        intl_sel_resources, intl_num_sel_resources,
+			NULL, 0 );
+    XtGetSubresources(  getParentWidget(), &viewData[0], "intl", "Intl",
+                        intl_view_resources, intl_num_view_resources,
+			NULL, 0 );
+    XtGetSubresources(  getParentWidget(), &editorData[0], "intl", "Intl",
+                        intl_editor_resources, intl_num_editor_resources,
+			NULL, 0 );
+    XtGetSubresources(  getParentWidget(), &lightData[0], "intl", "Intl",
+                        intl_light_resources, intl_num_light_resources,
+			NULL, 0 );
+    XtGetSubresources(  getParentWidget(), &pulldownData[0], "intl", "Intl",
+                        intl_pulldown_resources, intl_num_pulldown_resources,
+			NULL, 0 );
+
     setClassName("SoSceneViewer");
     setSize( SbVec2s(520, 510) );
 
@@ -1930,7 +1947,8 @@ SoSceneViewer::switchOffSceneKitCameras(SoGroup *root)
 	    *camNumPtr = sceneKit->getCameraNumber();
 
 	    // [b] Save the camera number settings of the kits in a dictionary.
-	    sceneKitCamNumDict->enter((uint32_t)sceneKit,(void *)camNumPtr);
+	    sceneKitCamNumDict->enter((unsigned long)sceneKit,
+				      (void *)camNumPtr);
 
 	    // [c] Switch off the scenekit cameras.
 	    sceneKit->setCameraNumber( SO_SWITCH_NONE );
@@ -1966,7 +1984,7 @@ SoSceneViewer::restoreSceneKitCameras(SoGroup *root)
 	    SoSceneKit *sceneKit = (SoSceneKit *) p->getTail();
 	    void *myPtr;
 	    int camNum;
-	    if (sceneKitCamNumDict->find((uint32_t)sceneKit, myPtr))
+	    if (sceneKitCamNumDict->find((unsigned long)sceneKit, myPtr))
 		camNum = *((int *)myPtr);
 	    else
 		camNum = SO_SWITCH_NONE;
