@@ -99,7 +99,7 @@ CFILES = \
 	jquant2.c jutils.c readGIF.c \
 	$(NULL) 
 
-SUBDIRS = nurbs text
+SUBDIRS = nurbs
 
 all: $(GEN_FILES) $(OBJECTS)
 	@for d in $(SUBDIRS); do \
