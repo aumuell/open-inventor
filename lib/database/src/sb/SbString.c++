@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SbString
@@ -221,7 +221,7 @@ SbString::deleteSubString(int startChar, int endChar)
 SbString &
 SbString::operator =(const char *str)
 {
-    int size = strlen(str) + 1;
+    int size = (str == NULL ? 0 : strlen(str)) + 1;
 
     // If the string we are assigning to this is a pointer into the
     // string already in this, we have to make sure we don't step on
@@ -266,8 +266,10 @@ SbString::operator =(const char *str)
 SbString &
 SbString::operator +=(const char *str)
 {
-    expand(strlen(str));
-    strcat(string, str);
+    if (str != NULL) {
+	expand(strlen(str));
+	strcat(string, str);
+    }
     return *this;
 }
 
