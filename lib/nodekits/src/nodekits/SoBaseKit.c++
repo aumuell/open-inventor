@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      SoBaseKit
@@ -78,10 +78,8 @@
 
 #include <SoDebug.h>
 
+#include <stdlib.h>
 #include <ctype.h>
-#ifdef _POSIX_SOURCE
-extern "C" char *strdup(const char *);
-#endif
 
 // Defines for printing out file data for nodekits
 #define SO_BASEKIT_FILEDATA_HEADER "partName\/childNum pairs [ "
@@ -668,6 +666,7 @@ SoBaseKit::set(char *nameValuePairListString)
 ////////////////////////////////////////////////////////////////////////
 {
     char *string = strdup( nameValuePairListString );
+    char *stringP = string;
     char *c;
     SbBool	success = TRUE;
     SoNode     *node;
@@ -728,6 +727,7 @@ SoBaseKit::set(char *nameValuePairListString)
 
 	delete [ /*length*/ ] fielddata;
     }
+    free(stringP);
     return success;
 }
 
