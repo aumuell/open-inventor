@@ -25,7 +25,7 @@ LLDLIBS = \
 	-lInventor \
 	-lInventorXt \
 	-lXm -lXt -lXext -lXi \
-	-lGLU -lGL
+	-lGLU -lGL -ldl
 
 TARGETS = ivman
 
