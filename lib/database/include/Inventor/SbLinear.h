@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	This file contains definitions of various linear algebra classes,
@@ -969,7 +969,7 @@ class SbMatrix {
     // compilers won't use the above method...
 #ifdef __sgi
     SbMatrix &  operator =(      SbMat &m) { return *this = (const SbMat &)m; }
-#endif
+#endif // __sgi
 
     // Sets value from a rotation
     SbMatrix &	operator =(const SbRotation &q)	{ setRotate(q); return *this; }

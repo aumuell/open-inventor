@@ -40,7 +40,7 @@
 _______________________________________________________________________
 ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
 |
-|   $Revision: 1.1 $
+|   $Revision: 1.2 $
 |
 |   Classes:
 |      Control panel, used as part of a 'sliderModule'
@@ -62,18 +62,14 @@ _______________________________________________________________________
 #include <Xm/ToggleB.h>
 #include <Xm/PushB.h>
 
-#ifndef __sgi
-typedef char* caddr_t;
-#endif
-
 static XtResource _openCloseResources[] = {
     { XmNrightPosition, XmCPosition, XtRInt, sizeof( int),
-      0, XtRImmediate, (caddr_t) DEFAULT_SLIDER_CONTROL_PANEL_DIVIDING_POINT }
+      0, XtRImmediate, (XtPointer) DEFAULT_SLIDER_CONTROL_PANEL_DIVIDING_POINT }
 };
 
 static XtResource _styleLabelResource[] = {
     { XmNlabelString, XmCLabelString, XmRXmString, sizeof( char *),
-      0, XtRString, (caddr_t) DEFAULT_SLIDER_CONTROL_PANEL_STYLE_LABEL }
+      0, XtRString, (XtPointer) DEFAULT_SLIDER_CONTROL_PANEL_STYLE_LABEL }
 };
 
 SoXtSliderControlPanel::SoXtSliderControlPanel(

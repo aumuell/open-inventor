@@ -79,12 +79,6 @@
 
 #include "geom/SoSpotLightDraggerGeom.h"
 
-#ifndef __sgi
-#define fcos cos
-#define fsin sin
-#define facos acos
-#endif
-
 
 SO_KIT_SOURCE(SoSpotLightDragger);
 
@@ -367,8 +361,8 @@ SoSpotLightDragger::setBeamScaleFromAngle( float beamAngle )
     if ( beamAngle > (M_PI / 2.0) )
 	myNewAngle = (M_PI / 2.0);
 
-    float myCos = fcos(myNewAngle);
-    float mySin = fsin(myNewAngle);
+    float myCos = cosf(myNewAngle);
+    float mySin = sinf(myNewAngle);
 
     if (myCos < getMinScale())
 	myCos = getMinScale();
@@ -525,7 +519,7 @@ SoSpotLightDragger::drag()
 
 		// Dot product of unit vectors is cosine of angle between them.
 		float thetaCos = minusZ.dot( newHitPt ); 
-		theta = facos( thetaCos );
+		theta = acosf( thetaCos );
 
 		// clamp theta to lie between 0 and PI/2
 		theta = (theta < 0.0)          ? 0.0          : theta;

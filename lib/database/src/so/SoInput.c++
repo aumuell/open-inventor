@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SoInput, SoInputFile
@@ -192,7 +192,7 @@ float dgl_ntoh_double( char *PC ) { 	// CRAY-dependent
 	float iis;
     } cr;
 
-    bcopy(PC, c.l, SIZEOF(double));
+    memcpy(c.l, PC, SIZEOF(double));
     if(c.is.exp == 0) { cr.iis = 0.0; }
     else if ( c.is.exp == 0xff ) {
 	// If the IEEE float we are decoding indicates an IEEE overflow
@@ -1021,7 +1021,7 @@ SoInput::read(SbString &s)
 	    else
 		buf = buffer;
             curFile->curBuf += 4;
-            bcopy(curFile->curBuf, buf, n);
+	    memcpy(buf, curFile->curBuf, n);
             buf[n] = '\0';
             curFile->curBuf += (n+3) & ~0003;
             s = buf;
@@ -1384,7 +1384,7 @@ SoInput::readBinaryArray(unsigned char *c, int length)
 	if (eof())
 	    ok = FALSE;
 	else {
-	    bcopy(curFile->curBuf, (unsigned char *)c, length);
+	    memcpy((unsigned char *)c, curFile->curBuf, length);
 	    curFile->curBuf += length * SIZEOF(unsigned char);
 	}
     }
@@ -2801,7 +2801,8 @@ SoInput::addReference(const SbName &name,	// Reference name
     // If we're reading a 1.0 file and the name is an '_' followed by
     // all digits, don't name the node.
     if (n[0] == '_' &&  curFile->ivVersion == 1.0f) {
-	for (int i = 1; i < length; i++) {
+	int i;
+	for (i = 1; i < length; i++) {
 	    if (!isdigit(n[i])) break;
 	}
 	if (i == length) return;

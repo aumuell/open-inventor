@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes	: SoXtExaminerViewer
  |
@@ -49,14 +49,11 @@
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  _______________________________________________________________________
  */
+#include <stdlib.h>
 #include <inttypes.h>
 #include <X11/Intrinsic.h>
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
-#include <stdlib.h>
-#ifndef __sgi
-#define ftan tan
-#endif
 
 #include <Xm/LabelG.h>
 #include <Xm/Text.h>
@@ -887,7 +884,7 @@ SoXtExaminerViewer::actualRedraw()
 	float height;
 	if (camera->isOfType(SoPerspectiveCamera::getClassTypeId())) {
 	    float angle = ((SoPerspectiveCamera *)camera)->heightAngle.getValue();
-	    height = camera->focalDistance.getValue() * ftan(angle/2);
+	    height = camera->focalDistance.getValue() * tanf(angle/2);
 	}
 	else if (camera->isOfType(SoOrthographicCamera::getClassTypeId()))
 	    height = ((SoOrthographicCamera *)camera)->height.getValue() / 2;

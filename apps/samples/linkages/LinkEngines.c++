@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	EndPointFromParamsEngine
@@ -122,7 +122,7 @@ EndPointFromParamsEngine::evaluate()
 {
     // We're just gonna rotate about +z by the angle field value.
     // This here is faster than building rotations, etc.
-    SbVec3f linkDir( cos(inAngle.getValue()), sin(inAngle.getValue()), 0.0);
+    SbVec3f linkDir( cosf(inAngle.getValue()), sinf(inAngle.getValue()), 0.0);
 
     // Calculate the endPoint based on other params.
     SbVec3f newEndPoint = inOrigin.getValue() + (inSize.getValue() * linkDir);

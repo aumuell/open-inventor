@@ -122,8 +122,8 @@ IMAGE *imgopen(int f, char *file, char *mode,
 	    image->flags = _IOREAD;
 	if(ISRLE(image->type)) {
 	    tablesize = image->ysize*image->zsize*sizeof(int);
-	    image->rowstart = (unsigned int *)malloc(tablesize);
-	    image->rowsize = (int *)malloc(tablesize);
+	    image->rowstart = (unsigned long *)malloc(tablesize);
+	    image->rowsize = (long *)malloc(tablesize);
 	    if( image->rowstart == 0 || image->rowsize == 0 ) {
 		free(image);
 		close(f);
@@ -147,7 +147,7 @@ IMAGE *imgopen(int f, char *file, char *mode,
 		    return NULL;
 		}
 		if(image->dorev)
-		    cvtlongs((int*)image->rowstart,tablesize);
+		    cvtlongs((int *)image->rowstart,tablesize);
 		if (read(f,image->rowsize,tablesize) != tablesize) {
 		    free(image);
 		    close(f);
@@ -155,7 +155,7 @@ IMAGE *imgopen(int f, char *file, char *mode,
 		    return NULL;
 		}
 		if(image->dorev)
-		    cvtlongs(image->rowsize,tablesize);
+		    cvtlongs((int *)image->rowsize,tablesize);
 	    }
 	}
 	image->cnt = 0;

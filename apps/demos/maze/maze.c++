@@ -99,11 +99,6 @@
 #define ROTATION_LIMIT         0.2
 #define MAX_ELAPSED_TIME       0.06
 
-#ifndef __sgi
-#define fsin sin
-#define fcos cos
-#endif
-
 // #define NO_HOLES
 
 static float stdDist = WALL_THICKNESS + BALL_RADIUS;
@@ -474,10 +469,10 @@ generateHole(
  
     coords->point.set1Value(cNum++, pt);
     for (int i=1; i<HOLE_SEGMENTS; i++) {
-        pt[0] = location[0] + fsin(i*incr) * HOLE_RADIUS;
-        pt[2] = location[1] + fcos(i*incr) * HOLE_RADIUS;
+        pt[0] = location[0] + sinf(i*incr) * HOLE_RADIUS;
+        pt[2] = location[1] + cosf(i*incr) * HOLE_RADIUS;
         coords->point.set1Value(cNum++, pt);
-        pt[0] = location[0] - fsin(i*incr) * HOLE_RADIUS;
+        pt[0] = location[0] - sinf(i*incr) * HOLE_RADIUS;
         coords->point.set1Value(cNum++, pt);
     }
     pt[0] = location[0] + 0.0;
@@ -629,8 +624,8 @@ computeFloorTilt( void *, SoEventCallback *cb )
     short x = mouseLocation[0];
     short y = mouseLocation[1];
 
-    mouseMotion[0] = (float)x - pos[0];
-    mouseMotion[1] = (float)y - pos[1];
+    mouseMotion[0] = x - pos[0];
+    mouseMotion[1] = y - pos[1];
     mouseLocation.setValue((short)pos[0], (short)pos[1]);
 
     // Compute X and Z rotation angles depending on the mouse motion
@@ -782,9 +777,9 @@ dropBall( float et )
     SbVec2f newPosition;
 
     newPosition[0] = et * (ballVelocity[0] + 
-            et * GRAVITATIONAL_CONSTANT * fsin(-rotationZ->angle.getValue()));
+            et * GRAVITATIONAL_CONSTANT * sinf(-rotationZ->angle.getValue()));
     newPosition[1] = et * (ballVelocity[1] + 
-            et * GRAVITATIONAL_CONSTANT * fsin(rotationX->angle.getValue()));
+            et * GRAVITATIONAL_CONSTANT * sinf(rotationX->angle.getValue()));
     ballHeight     += et * (dropVelocity -  et * GRAVITATIONAL_CONSTANT);
     dropVelocity    = ballHeight / et;
     ballPosition   += newPosition;
@@ -868,9 +863,9 @@ animateBall( void *, SoSensor * )
     SbVec2f newPosition, tmpPosition;
 
     newPosition[0] = et * (ballVelocity[0] + 
-            et * GRAVITATIONAL_CONSTANT * fsin(-rotationZ->angle.getValue()));
+            et * GRAVITATIONAL_CONSTANT * sinf(-rotationZ->angle.getValue()));
     newPosition[1] = et * (ballVelocity[1] + 
-            et * GRAVITATIONAL_CONSTANT * fsin(rotationX->angle.getValue()));
+            et * GRAVITATIONAL_CONSTANT * sinf(rotationX->angle.getValue()));
 
     ballVelocity[0] = newPosition[0] / et;
     ballVelocity[1] = newPosition[1] / et;
@@ -1095,7 +1090,7 @@ animateBall( void *, SoSensor * )
 
             // Adjust the ball velocity to have it start dropping
             SbVec2f changeVelocity = (fallVector - ballVelocity); 
-            ballHeight    = - fsin(HOLE_RADIUS-distFromHoleCenter);
+            ballHeight    = - sinf(HOLE_RADIUS-distFromHoleCenter);
             dropVelocity  = ballHeight / et;
             ballVelocity += changeVelocity * 0.5;                
         }

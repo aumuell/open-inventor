@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes    : SoXtFullViewer
  |
@@ -57,10 +57,6 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-#include <string.h>
-#ifndef __sgi
-#define fsqrt sqrt
-#endif
 
 #include <X11/StringDefs.h>
 #include <X11/Intrinsic.h>
@@ -2350,7 +2346,7 @@ SoXtFullViewer::setZoomSliderPosition(float zoom)
     // slider smoother and less sensitive when close to zero.
     float f = (zoom - zoomSldRange[0]) / (zoomSldRange[1] - zoomSldRange[0]);
     f = (f < 0) ? 0 : ((f > 1) ? 1 : f);
-    f = fsqrt(f);
+    f = sqrtf(f);
     
     // finally position the slider
     Arg args[1];

@@ -56,7 +56,8 @@
 
 #ifdef __sgi
 #define MENUS_IN_POPUP
-#endif
+#endif // __sgi
+
 
 enum MenuEntries {
     IV_FILE = 0,

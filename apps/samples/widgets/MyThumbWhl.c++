@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	MyThumbWheel
@@ -61,11 +61,6 @@
 #include "MyThumbWheel.h"
 #include "MyUIRegion.h"
 #include <GL/gl.h>
-
-#ifndef __sgi
-#define ffloor floor
-#define fcos cos
-#endif
 
 
 /*
@@ -293,7 +288,7 @@ MyThumbWheel::redraw()
     
     angle = value;
     ang_inc = M_PI / TICK_NUM;
-    n = (int)(ffloor(angle / ang_inc));
+    n = (int)(floorf(angle / ang_inc));
     angle -= n * ang_inc;
     
     glBegin(GL_LINES);
@@ -303,7 +298,7 @@ MyThumbWheel::redraw()
 	rad = mid - UI_THICK - 2;
 	
 	for (i=0; i<TICK_NUM; i++) {
-	    x = mid - (short)(fcos(angle) * rad) - 1;
+	    x = mid - (short)(cosf(angle) * rad) - 1;
 	    
 	    if (i<PART1 || i>(TICK_NUM - PART1)) {
 		BLACK_UI_COLOR; glVertex2s(x, y1); glVertex2s(x, y2);
@@ -339,7 +334,7 @@ MyThumbWheel::redraw()
 	rad = mid - UI_THICK - 2;
 	
 	for (i=0; i<TICK_NUM; i++) {
-	    y = mid - (short)(fcos(angle) * rad);
+	    y = mid - (short)(cosf(angle) * rad);
 	    
 	    if (i<PART1 || i>(TICK_NUM - PART1)) {
 		BLACK_UI_COLOR; glVertex2s(x1, y); glVertex2s(x2, y);

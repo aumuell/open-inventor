@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      SoUnknownEngine
@@ -51,15 +51,12 @@
  _______________________________________________________________________
  */
 
+#include <stdlib.h>
 #include <Inventor/SoInput.h>
 #include <Inventor/SoOutput.h>
 #include <Inventor/fields/SoField.h>
 #include <Inventor/engines/SoOutputData.h>
 #include <SoUnknownEngine.h>
-#include <stdlib.h>
-#ifdef _POSIX_SOURCE
-extern "C" char *strdup(const char *);
-#endif
 
 // Can't use regular SO_ENGINE_SOURCE macro because of special
 // per-instance input and output data:
@@ -192,9 +189,9 @@ SoUnknownEngine::copyContents(const SoFieldContainer *fromFC,
     // fields have the same offsets in both engines. Instead, we just
     // copy the field values ourselves.
 
-    int i;
     const SoFieldData *fromData = fromUnk->getFieldData();
     SoFieldData  *toData	= (SoFieldData *) getFieldData();
+    int i;
     for (i = 0; i < fromData->getNumFields(); i++) {
 
 	SoField      *fromField	= fromData->getField(fromUnk, i);

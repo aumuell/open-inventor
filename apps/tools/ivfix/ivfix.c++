@@ -34,11 +34,7 @@
  *
  */
 
-#ifdef __sgi
-#include <getopt.h> 
-#else
-extern "C" int getopt(int argc, char * const argv[], const char *optstring);
-#endif
+#include <getopt.h>
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -51,10 +47,6 @@ extern "C" int getopt(int argc, char * const argv[], const char *optstring);
 
 #include "IfFixer.h"
 #include "IfReporter.h"
-
-#ifdef _POSIX_SOURCE
-extern "C" char *strdup(const char *);
-#endif
 
 /////////////////////////////////////////////////////////////////////////////
 //

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Classes:
  |	_SoXtColorWheel
@@ -63,12 +63,6 @@
 #include <math.h>
 
 #include <GL/gl.h>
-
-#ifndef __sgi
-#define fcos cos
-#define fsin sin
-#define fsqrt sqrt
-#endif
 
 /*
  * Defines
@@ -476,8 +470,8 @@ _SoXtColorWheel::makeWheelGeometry()
     c[0][0] = c[STRIPES][0] = r;
     c[0][1] = c[STRIPES][1] = 0.0;
     for (i=1; i<STRIPES; i++) {
-	c[i][0] = r * fcos(i*angle);
-	c[i][1] = r * fsin(i*angle);
+	c[i][0] = r * cosf(i*angle);
+	c[i][1] = r * sinf(i*angle);
     }
     
     //
@@ -665,8 +659,8 @@ _SoXtColorWheel::drawWheelMarker()
     short x, y;
     float rad = hsvColor[1] * radius;
     float angle = 2.0 * M_PI * hsvColor[0];
-    x = cx + short(rad * fcos(angle));
-    y = cy + short(rad * fsin(angle));
+    x = cx + short(rad * cosf(angle));
+    y = cy + short(rad * sinf(angle));
     
     //
     // now draw dot in overlay plane
@@ -699,7 +693,7 @@ _SoXtColorWheel::moveWheelMarker(
 ////////////////////////////////////////////////////////////////////////
 {
     // find the saturation based on distance
-    float s = fsqrt(x*x + y*y) / float(radius);
+    float s = sqrtf(x*x + y*y) / float(radius);
     if (s > 1.0)
 	s = 1.0;
     

@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes	: SoXtExaminerViewer
  |
@@ -119,7 +119,7 @@ class SoXtExaminerViewer : public SoXtFullViewer {
     // Set/get the point of rotation feeedback size in pixels (default 20). 
     //
     void	setFeedbackSize(int newSize);
-    int		getFeedbackSize() const		{ return feedbackSize; }
+    int		getFeedbackSize() const		{ return (int) feedbackSize; }
     
     //
     // Enable/disable the animation feature of the viewer. 

@@ -40,7 +40,7 @@
 _______________________________________________________________________
 ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
 |
-|   $Revision: 1.1 $
+|   $Revision: 1.2 $
 |
 |   This static class provides routines for Inventor/Xt compatibility.
 |
@@ -59,10 +59,6 @@ _______________________________________________________________________
 #include <Xm/Xm.h>
 #include <Inventor/SbBasic.h>
 #include <Inventor/SbLinear.h>
-
-#ifndef __sgi
-typedef char* caddr_t;
-#endif
 
 class SbPList;
 class SoEvent;

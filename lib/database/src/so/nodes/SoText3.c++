@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |      SoText3
@@ -493,10 +493,10 @@ SoText3::GLRender(SoGLRenderAction *action)
 
     if (tobj == NULL) {
 	tobj = gluNewTess();
-	gluTessCallback(tobj, GLU_BEGIN, (void (*)())glBegin);
-	gluTessCallback(tobj, GLU_END, (void (*)())glEnd);
-	gluTessCallback(tobj, GLU_VERTEX, (void (*)())glVertex2fv);
-	gluTessCallback(tobj, GLU_ERROR,
+	gluTessCallback(tobj, (GLenum)GLU_BEGIN, (void (*)())glBegin);
+	gluTessCallback(tobj, (GLenum)GLU_END, (void (*)())glEnd);
+	gluTessCallback(tobj, (GLenum)GLU_VERTEX, (void (*)())glVertex2fv);
+	gluTessCallback(tobj, (GLenum)GLU_ERROR,
 			(void (*)())SoOutlineFontCache::errorCB);
     }
 
@@ -1129,10 +1129,10 @@ SoText3::generateFront(int line)
 
     if (tobj == NULL) {
 	tobj = gluNewTess();
-	gluTessCallback(tobj, GLU_BEGIN, (void (*)())SoText3::beginCB);
-	gluTessCallback(tobj, GLU_END, (void (*)())SoText3::endCB);
-	gluTessCallback(tobj, GLU_VERTEX, (void (*)())SoText3::vtxCB);
-	gluTessCallback(tobj, GLU_ERROR,
+	gluTessCallback(tobj, (GLenum)GLU_BEGIN, (void (*)())SoText3::beginCB);
+	gluTessCallback(tobj, (GLenum)GLU_END, (void (*)())SoText3::endCB);
+	gluTessCallback(tobj, (GLenum)GLU_VERTEX, (void (*)())SoText3::vtxCB);
+	gluTessCallback(tobj, (GLenum)GLU_ERROR,
 			(void (*)())SoOutlineFontCache::errorCB);
     }
 
@@ -1472,9 +1472,9 @@ SoOutlineFontCache::createUniFontList(const char* fontNameList)
     fontNums = new SbPList; 
       
     while (s1 = (char *)strchr(s, ';')) {
-       *s1 = NULL;  /* font name is pointed to s */
+       *s1 = (char)NULL;  /* font name is pointed to s */
 
-       if ((fn = flCreateFont((const GLubyte*)s, mat, 0, NULL)) == NULL) {
+       if ((fn = flCreateFont((const GLubyte*)s, mat, 0, NULL)) == (FLfontNumber)NULL) {
 #ifdef DEBUG
 	    SoDebugError::post("SoOutlineFontCache::createUniFontList", 
 		"Cannot create font %s", s);         
@@ -1711,7 +1711,8 @@ SoOutlineFontCache::SoOutlineFontCache(SoState *state) :
 			   cosCreaseAngle, FALSE);
 	// Need to flip all the normals because of the way the profiles
 	// are defined:
-	for (int i = 0; i < nSegments*2; i++) {
+	int i;
+	for (i = 0; i < nSegments*2; i++) {
 	    profileNorms[i] *= -1.0;
 	}
     
@@ -1947,11 +1948,12 @@ SoOutlineFontCache::generateFrontChar(const char* c,
     
     // Get outline for character
     SoFontOutline *outline = getOutline(c);
+    int i;
     for (int i = 0; i < outline->getNumOutlines(); i++) {
 
 	// It would be nice if the font manager told us the type of
 	// each outline...
-	gluNextContour(tobj, GLU_UNKNOWN);
+	gluNextContour(tobj, (GLenum)GLU_UNKNOWN);
 
 	for (int j = 0; j < outline->getNumVerts(i); j++) {
 	    SbVec2f &t = outline->getVertex(i,j);
@@ -2229,7 +2231,8 @@ SoOutlineFontCache::convertToUCS(uint32_t nodeid,
     currentNodeId = nodeid;
     
     //delete previously converted UCS string
-    for (int i = 0; i< UCSStrings.getLength(); i++){
+    int i;
+    for (i = 0; i< UCSStrings.getLength(); i++){
 	delete [] UCSStrings[i];
     }
     UCSStrings.truncate(0);
@@ -2258,7 +2261,7 @@ SoOutlineFontCache::convertToUCS(uint32_t nodeid,
 	size_t outbytes = 2*inbytes+2;
 	char* output = (char*)UCSStrings[i];
     
-	if ((iconv(conversionCode, &input, &inbytes, &output, &outbytes) == (size_t)-1)){
+	if ((iconv(conversionCode, (const char **)&input, &inbytes, &output, &outbytes) == (size_t)-1)){
 #ifdef DEBUG
 	    SoDebugError::post("SoOutlineFontCache::convertToUCS", 
 		"Error converting text to UCS-2");
@@ -2433,7 +2436,8 @@ SoOutlineFontCache::generateSideChar(const char* c, SideCB callbackFunc)
 
 	SbVec2f *oVerts = new SbVec2f[nOutline];
 	// Copy in verts so figureSegmentNorms can handle them..
-	for (int j = 0; j < nOutline; j++) {
+	int j;
+	for (j = 0; j < nOutline; j++) {
 	    oVerts[j] = outline->getVertex(i, j);
 	}
 
@@ -2529,7 +2533,8 @@ SoOutlineFontCache::figureSegmentNorms(SbVec2f *norms, int nPoints,
     
     // First, we'll just make all the normals perpendicular to their
     // segments:
-    for (int i = 0; i < nSegments; i++) {
+    int i;
+    for (i = 0; i < nSegments; i++) {
 	SbVec2f n;
 	// This is 2D perpendicular, assuming profile is increasing in
 	// X (which becomes 'decreasing in Z' when we actually use

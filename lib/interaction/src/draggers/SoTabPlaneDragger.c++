@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoTabPlaneDragger
@@ -84,8 +84,8 @@
 #include "geom/SoTabPlaneDraggerGeom.h"
 
 #ifndef __sgi
-#define _ABS(x)     ((x) < 0 ? -(x) : (x))
-#endif
+#define _ABS(x) ((x) < 0 ? -(x) : (x))
+#endif // !__sgi
 
 
 SO_KIT_SOURCE(SoTabPlaneDragger);

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes	: SoXtPlaneViewer
  |
@@ -55,9 +55,6 @@
 #include <X11/Intrinsic.h>
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
-#ifndef __sgi
-#define ftan tan
-#endif
 
 #include <Inventor/SbPList.h>
 #include <Inventor/nodes/SoOrthographicCamera.h>
@@ -1055,7 +1052,7 @@ SoXtPlaneViewer::computeTranslateValues()
     if (camera->isOfType(SoPerspectiveCamera::getClassTypeId())) {
 	float angle = ((SoPerspectiveCamera *)camera)->heightAngle.getValue();
 	float dist = camera->focalDistance.getValue();
-	height = dist * ftan(angle);
+	height = dist * tanf(angle);
     }
     else if (camera->isOfType(SoOrthographicCamera::getClassTypeId()))
 	height = ((SoOrthographicCamera *)camera)->height.getValue();

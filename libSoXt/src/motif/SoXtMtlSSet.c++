@@ -40,7 +40,7 @@
 _______________________________________________________________________
 ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
 |
-|   $Revision: 1.1 $
+|   $Revision: 1.2 $
 |
 |   Classes:
 |      Subclass of SoXtSliderSet that acts on material nodes
@@ -60,13 +60,9 @@ _______________________________________________________________________
 #include <X11/StringDefs.h>
 #include <Xm/Form.h>
 
-#ifndef __sgi
-typedef char* caddr_t;
-#endif
-
 static XtResource _borderWidthResource[] = {
     { XtNborderWidth, XtCBorderWidth, XtRDimension, sizeof( unsigned short),
-      0,  XtRImmediate, (caddr_t) SLIDER_SET_DEFAULT_BORDER_WIDTH }
+      0,  XtRImmediate, (XtPointer) SLIDER_SET_DEFAULT_BORDER_WIDTH }
 };
 
 ////////////////////////////////////////////////////////////////////////

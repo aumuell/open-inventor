@@ -40,7 +40,7 @@
 _______________________________________________________________________
 ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
 |
-|   $Revision: 1.1 $
+|   $Revision: 1.2 $
 |
 |   Classes:
 |      SoXtSliderSets for creating organized groups of sliders
@@ -56,18 +56,14 @@ _______________________________________________________________________
 #include <X11/StringDefs.h>
 #include <Xm/Form.h>
 
-#ifndef __sgi
-typedef char* caddr_t;
-#endif
-
 static XtResource _editorWidthResource[] = {
     { XtNwidth, XtCWidth, XtRDimension, sizeof( unsigned short),
-      0,  XtRImmediate, (caddr_t) 0 }
+      0,  XtRImmediate, (XtPointer) 0 }
 };
 
 static XtResource _editorHeightResource[] = {
     { XtNheight, XtCHeight, XtRDimension, sizeof( unsigned short),
-      0,  XtRImmediate, (caddr_t) 0 }
+      0,  XtRImmediate, (XtPointer) 0 }
 };
 
 SoXtSliderSet::SoXtSliderSet(
@@ -145,8 +141,8 @@ SoXtSliderSet::updateLayout()
 	// if the user has not specified a size for the window through the
 	// resource system, then use the layout size.
 	// otherwise, leave it alone.
-	_editorHeightResource[0].default_addr = (caddr_t) newLayoutH;
-	_editorWidthResource[0].default_addr = (caddr_t) newLayoutW;
+	_editorHeightResource[0].default_addr = (XtPointer) newLayoutH;
+	_editorWidthResource[0].default_addr = (XtPointer) newLayoutW;
         XtGetApplicationResources( widget, (XtPointer) &initialWidth, 
 	       _editorWidthResource, XtNumber( _editorWidthResource ), NULL, 0);
         XtGetApplicationResources(widget, (XtPointer) &initialHeight, 

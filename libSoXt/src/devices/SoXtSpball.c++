@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoXtSpaceball
@@ -51,7 +51,6 @@
  _______________________________________________________________________
  */
 
-#include <Inventor/SbLinear.h>
 #include <Inventor/SbTime.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/devices/SoXtSpaceball.h>
@@ -260,7 +259,7 @@ SoXtSpaceball::enable(
 	return;
     }
     
-    if (window == 0) {
+    if (window == (Window) NULL) {
 #ifdef DEBUG
 	SoDebugError::post("SoXtSpaceball::enable",
 		"widget must be realized (Window is NULL).");
@@ -376,9 +375,7 @@ SoXtSpaceball::translateMotionEvent(XDeviceMotionEvent *me)
     motionEvent->setTranslation(trans);
     
     // get the rotation data in a right handed system (flip z)
-    SbVec3f axis;
-
-    axis.setValue(float(sbdata[3]), float(sbdata[4]), float(-sbdata[5]));
+    SbVec3f axis((float) sbdata[3], (float) sbdata[4], (float) -sbdata[5]);
     axis *= rotScale;
     float angle = axis.length();
     axis.normalize();

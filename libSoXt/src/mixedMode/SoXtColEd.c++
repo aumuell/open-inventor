@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	_SoXtColorEditor
@@ -57,7 +57,7 @@
 // but don't have to redraw the scene just to see a menu.
 #ifdef __sgi
 #define MENUS_IN_POPUP
-#endif
+#endif // __sgi
 
 #include <Inventor/actions/SoSearchAction.h>
 #include <Inventor/SoLists.h>
@@ -654,7 +654,7 @@ _SoXtColorEditor::buildControls(Widget parent)
     // ??? bug 228368 prevents the pixmap from also highlighting
 #ifdef __sgi
     XtSetArg(args[n], SgNpixmapLocateHighlight, True); n++;
-#endif
+#endif // __sgi
     for (i=0; i<3; i++) {
 	buttonw[i] = XtCreateWidget(button_names[i], xmPushButtonGadgetClass,
 	    patchButForm, args, n);
@@ -673,11 +673,11 @@ _SoXtColorEditor::buildControls(Widget parent)
     
     // get the color of the push buttons
     XtVaGetValues(XtParent(buttonw[0]), XmNforeground, &fg, XmNbackground, &bg, NULL);
-#ifndef __sgi
-#define hbg bg
-#else
+#ifdef __sgi
     hbg = SgGetLocatePixel(XtParent(buttonw[0]), bg);
-#endif
+#else
+#define hbg bg
+#endif // __sgi
     
     // create the pixmaps from the bitmap data (depth 1).
     // Two sets of pixmaps are created for when the button is
@@ -706,7 +706,7 @@ _SoXtColorEditor::buildControls(Widget parent)
 	XtSetValues(buttonw[i], args, 3);
 #else
 	XtSetValues(buttonw[i], args, 2);
-#endif
+#endif // __sgi
     }
     
     //

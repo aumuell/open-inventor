@@ -49,6 +49,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 
 #include <Inventor/Xt/SoXt.h>
@@ -669,7 +670,7 @@ buildUI( Widget appWindow,
     viewer->setDrawStyle(SoXtViewer::STILL, SoXtViewer::VIEW_AS_IS);
 
     // Add Inventor logo to viewer
-    //setOverlayLogo( viewer );
+    setOverlayLogo( viewer );
 
     XtSetArg(resources[n], XmNtopAttachment, XmATTACH_FORM); n++;
     XtSetArg(resources[n], XmNleftAttachment, XmATTACH_FORM); n++;

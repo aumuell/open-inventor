@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	Basic stuff for SO, such as #includes that everybody needs,
@@ -55,18 +55,6 @@
 
 #ifndef  _SO_BASIC_
 #define  _SO_BASIC_
-
-#ifndef __sgi
-#include <sys/bitypes.h>
-
-typedef unsigned char u_char;
-typedef unsigned short u_short;
-
-#define uint8_t u_int8_t
-#define uint16_t u_int16_t
-#define uint32_t u_int32_t
-#define uint64_t u_int64_t
-#endif
 
 #include <Inventor/SbBasic.h>
 

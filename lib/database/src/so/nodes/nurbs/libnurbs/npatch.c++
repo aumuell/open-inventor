@@ -35,7 +35,7 @@
  */
 
 /*
- * npatch.c++ - $Revision: 1.1 $
+ * npatch.c++ - $Revision: 1.2 $
  * 	Derrick Burns - 1992
  */
 
@@ -248,7 +248,7 @@ Patch::Patch( Patch& upper, int param, REAL value, Patch *n )
 
     // inherit bounding box
     if( mapdesc->isBboxSubdividing() && ! notInBbox )
-	bcopy( upper.bb, lower.bb, sizeof( bb ) );
+	memcpy( lower.bb, upper.bb, sizeof( bb ) );
 	    
     lower.checkBboxConstraint();
     upper.checkBboxConstraint();
@@ -314,14 +314,14 @@ Patch::copy( Patch *fromPatch )
     pspec[0].needsSubdivision = fromPatch->pspec[0].needsSubdivision;
     pspec[1].needsSubdivision = fromPatch->pspec[1].needsSubdivision;
 
-    bcopy ((const void *)cpts, (void *)(fromPatch->cpts),
+    memcpy ((void *)(fromPatch->cpts), (const void *)cpts,
             MAXORDER * MAXORDER * MAXCOORDS * sizeof(REAL));
-    bcopy ((const void *)spts, (void *)(fromPatch->spts),
+    memcpy ((void *)(fromPatch->spts), (const void *)spts,
             MAXORDER * MAXORDER * MAXCOORDS * sizeof(REAL));
-    bcopy ((const void *)bpts, (void *)(fromPatch->bpts),
+    memcpy ((void *)(fromPatch->bpts), (const void *)bpts,
             MAXORDER * MAXORDER * MAXCOORDS * sizeof(REAL));
 
-    bcopy ((const void *)(fromPatch->bb), (void *)bb,
+    memcpy ((void *)bb, (const void *)(fromPatch->bb),
             2*MAXCOORDS*sizeof(REAL));
 }
 

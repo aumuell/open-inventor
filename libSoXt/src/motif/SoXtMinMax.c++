@@ -40,7 +40,7 @@
 _______________________________________________________________________
 ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
 |
-|   $Revision: 1.1 $
+|   $Revision: 1.2 $
 |
 |   Classes:
 |      SoXtMinMaxSlider is a component that expands the functionality of the
@@ -61,10 +61,6 @@ _______________________________________________________________________
 #include <X11/StringDefs.h>
 #include <Xm/Scale.h>
 
-#ifndef __sgi
-typedef char* caddr_t;
-#endif
-
 /***************************************************************************/
 /* static variables used by XtGetApplicationResources to get values of     */
 /* user-settable parameters.  The defaults values are used if the user     */
@@ -83,13 +79,13 @@ static XtResource _scaleStyleResources[] = {
       XtRString, "horizontal" },
     { XmNdecimalPoints, XmCDecimalPoints, XmRShort, sizeof( short),
       XtOffset( ScaleStyleDataPtr, decimalPoints ),
-      XtRImmediate, (caddr_t) DEFAULT_SLIDER_DECIMAL_POINTS },
+      XtRImmediate, (XtPointer) DEFAULT_SLIDER_DECIMAL_POINTS },
     { XmNmaximum, XmCMaximum, XmRInt, sizeof( int),
       XtOffset( ScaleStyleDataPtr, maximum ),
-      XtRImmediate, (caddr_t) DEFAULT_SLIDER_SCALE_MAXIMUM },
+      XtRImmediate, (XtPointer) DEFAULT_SLIDER_SCALE_MAXIMUM },
     { XmNminimum, XmCMinimum, XmRInt, sizeof( int),
       XtOffset( ScaleStyleDataPtr, minimum ),
-      XtRImmediate, (caddr_t) DEFAULT_SLIDER_SCALE_MINIMUM }
+      XtRImmediate, (XtPointer) DEFAULT_SLIDER_SCALE_MINIMUM }
 };
 
 SoXtMinMaxSlider::SoXtMinMaxSlider(
@@ -137,8 +133,8 @@ SoXtMinMaxSlider::buildWidget( Widget parent )
 
     /* see if user decided to override any of these values */
         /* get startingMin and startingMax as the defaults in the query */
-        _scaleStyleResources[2].default_addr = (caddr_t) _startingMax;
-        _scaleStyleResources[3].default_addr = (caddr_t) _startingMin;
+        _scaleStyleResources[2].default_addr = (XtPointer) _startingMax;
+        _scaleStyleResources[3].default_addr = (XtPointer) _startingMin;
         /* ask the question */
         XtGetApplicationResources( widget, (XtPointer) &styleData, 
 	    	       _scaleStyleResources, XtNumber( _scaleStyleResources), 

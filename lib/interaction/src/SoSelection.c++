@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoSelection
@@ -427,7 +427,7 @@ SoSelection::copyFromThis(const SoPath *path) const
 
     for (i = 0; i < fullInPath->getLength(); i++) {
 	node = fullInPath->getNode(i);
-	if (node == this) {
+	if (node == (SoNode *) this) {
 	    indexToThis = i;
 	    break;
 	}
@@ -656,7 +656,7 @@ SoSelection::findPath(const SoPath *path) const
     int index = -1;
     if (path != NULL) {
 	SoPath *selPath = NULL;
-	if (path->getHead() != this)
+	if (path->getHead() != (SoNode *) this)
 	     selPath = copyFromThis(path);
 	else selPath = (SoPath *) path; // const cast away
 	

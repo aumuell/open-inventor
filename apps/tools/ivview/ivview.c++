@@ -629,7 +629,7 @@ static void
 setBusyCursor(SbBool showBusy)
 {
     Display *display = shell ? XtDisplay(shell) : NULL;
-    Window window = shell ? XtWindow(shell) : NULL;
+    Window window = shell ? XtWindow(shell) : (Window) NULL;
 
     if (!shell || !display || !window) return;
 
@@ -886,7 +886,8 @@ static Widget
 buildAndLayoutMenus(Widget parent)
 {
     ivMenuItem *menuItems = new ivMenuItem[IV_MENU_NUM];
-    for (int i=0; i<IV_MENU_NUM; i++) {
+    int i;
+    for (i=0; i<IV_MENU_NUM; i++) {
 	menuItems[i].id = i;
 	menuItems[i].widget = NULL;
     }

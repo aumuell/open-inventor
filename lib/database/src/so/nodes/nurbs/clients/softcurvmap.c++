@@ -37,17 +37,12 @@
 /*
  * softcurvmap.c++ - curve evaluator
  *
- * $Revision: 1.1 $
+ * $Revision: 1.2 $
  */
 
 #include "mystdio.h"
 #include "myassert.h"
 #include "mystring.h"
-#ifdef _POSIX_SOURCE
-extern "C" void bcopy(const void *,void *,size_t );
-#else
-#include "bstring.h"
-#endif
 #include "defines.h"
 #include "softcurvmap.h"
 
@@ -164,7 +159,7 @@ _SoNurbsCurveMap::deepCopy( REAL *_pts )
     assert( _pts );
 
     if( stride == ncoords ) {
-	bcopy( _pts, pts, order * ncoords * sizeof( REAL ) );
+	memcpy( pts, _pts, order * ncoords * sizeof( REAL ) );
     } else { 
 	REAL *mp = pts;
 	REAL *p = _pts;

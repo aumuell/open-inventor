@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      SoXtPrintDialog
@@ -73,10 +73,6 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <string.h>
-#ifdef _POSIX_SOURCE
-extern "C" char *strdup(const char *);
-#endif
 
 #include <X11/StringDefs.h>
 #include <Xm/BulletinB.h>
@@ -1740,7 +1736,7 @@ SoXtPrintDialog::print()
 #else
 	int waitStatus;
         typedef void (*SIG_PF)(int);
-#endif
+#endif // __sgi
         SIG_PF     childstat;
         pid_t      wpid;
 
@@ -1765,9 +1761,8 @@ SoXtPrintDialog::print()
 #ifdef __sgi
         if (!(WIFEXITED(waitStatus) && waitStatus.w_retcode == 0))
 #else
-	// I could probably ignore the WIFEXITED() thingy
-	if (!(WIFEXITED(waitStatus)  && !waitStatus ))
-#endif
+	if (!(WIFEXITED(waitStatus) && WEXITSTATUS(waitStatus) == 0))
+#endif // __sgi
             SoDebugError::post("SoXtPrintDialog::print",
                     "Print Error. Diagnose with Print Manager.");
         unlink(tempPSFileName);

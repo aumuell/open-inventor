@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes	: simpleViewer
  |
@@ -441,7 +441,7 @@ simpleViewer::computeTranslateValues()
 	float angle = ((SoPerspectiveCamera *) 
 	    camera)->heightAngle.getValue() / 2;
 	float dist = camera->focalDistance.getValue();
-	height = dist * tan(angle);
+	height = dist * tanf(angle);
     }
     else if ( camera->isOfType( 
 	SoOrthographicCamera::getClassTypeId()) )

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SoXtGLWidget
@@ -52,9 +52,7 @@
  */
 #include <stdio.h>
 #include <malloc.h>
-#ifdef __sgi
-#include <bstring.h>
-#endif
+#include <string.h>
 
 #include <Inventor/errors/SoDebugError.h>
 #include <Inventor/Xt/SoXt.h>
@@ -267,7 +265,7 @@ SoXtGLWidget::setNormalVisual(XVisualInfo *newvis)
     // Make a copy of the XVisualInfo structure - we don't want to rely
     // on a pointer which the programmer can delete at any time.
     XVisualInfo *vis = (XVisualInfo *) XtMalloc(sizeof(XVisualInfo));
-    bcopy(newvis, vis, sizeof(XVisualInfo));
+    memcpy(vis, newvis, sizeof(XVisualInfo));
     
     //
     // build a new attribute list from the given visual
@@ -381,7 +379,7 @@ SoXtGLWidget::setOverlayVisual(XVisualInfo *newvis)
     // Make a copy of the XVisualInfo structure - we don't want to rely
     // on a pointer which the programmer can delete at any time.
     XVisualInfo *vis = (XVisualInfo *) XtMalloc(sizeof(XVisualInfo));
-    bcopy(newvis, vis, sizeof(XVisualInfo));
+    memcpy(vis, newvis, sizeof(XVisualInfo));
 
     // delete the current overlay widget....
     if (overlayWidget)
@@ -850,8 +848,8 @@ SoXtGLWidget::buildOverlayGLXWidget(XVisualInfo *vis)
     
     XtManageChild(overlayWidget);
 #else
-    overlayWidget = 0;
-#endif
+    overlayWidget = (Widget) NULL;
+#endif // __sgi
 }
 
 ////////////////////////////////////////////////////////////////////////

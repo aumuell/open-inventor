@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoXtComponent
@@ -72,14 +72,6 @@
 #include <Xm/Protocols.h>
 
 #include <GL/gl.h>
-
-#ifndef __sgi
-typedef char* caddr_t;
-#endif
-
-#ifdef _POSIX_SOURCE
-extern "C" char *strdup(const char *);
-#endif
 
 
 static char *helpDialogTitle = "Help Card Error Dialog";
@@ -149,7 +141,7 @@ SoXtComponent::SoXtComponent(
                 "WM_DELETE_WINDOW", False);
         XmAddWMProtocolCallback(parentWidget, wmDeleteAtom, 
                 (XtCallbackProc) SoXtComponent::windowCloseActionCB,
-		(caddr_t) this);
+		(XtPointer) this);
     }
     
     // visibility stuff (check to see if shell is already mapped)
@@ -189,7 +181,7 @@ SoXtComponent::~SoXtComponent()
 		    "WM_DELETE_WINDOW", False);
 	    XmRemoveWMProtocolCallback(parentWidget, wmDeleteAtom, 
 		    (XtCallbackProc) SoXtComponent::windowCloseActionCB,
-		    (caddr_t) this);
+		    (XtPointer) this);
 	}
     }
     

@@ -35,7 +35,7 @@
  */
 
 /*
- * trimregion.c++ - $Revision: 1.1 $
+ * trimregion.c++ - $Revision: 1.2 $
  * 	Derrick Burns - 1991
  */
 
@@ -94,11 +94,7 @@ TrimRegion::getGridExtent( TrimVertex *l, TrimVertex *r )
     assert( l->param[0] <= uarray.uarray[bot.ustart] );
     assert( l->param[0] >= uarray.uarray[bot.ustart-1] );
 
-#ifdef __sgi
-    bot.uend = (r->param[0] - uarray.uarray[0])*oneOverDu;
-#else
-    bot.uend = (long)( (r->param[0] - uarray.uarray[0])*oneOverDu );
-#endif
+    bot.uend = (long) ((r->param[0] - uarray.uarray[0])*oneOverDu);
     if( uarray.uarray[bot.uend] >= r->param[0] ) bot.uend--;
 //  if( uarray.uarray[bot.uend] > r->param[0] ) bot.uend--;
     assert( r->param[0] >= uarray.uarray[bot.uend] );

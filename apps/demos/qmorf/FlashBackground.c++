@@ -41,6 +41,7 @@
 
 #include <math.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #include <Inventor/SbLinear.h>
 #include <Inventor/nodes/SoGroup.h>
@@ -75,7 +76,8 @@ FlashBackground::FlashBackground(int size)
     hash_table = new double[HASH_SIZE];
 
     srand48(getpid());
-    for (int i = 0; i < HASH_SIZE; i++)
+    int i;
+    for (i = 0; i < HASH_SIZE; i++)
 	hash_table[i] = drand48();
 
     //
@@ -172,7 +174,8 @@ FlashBackground::~FlashBackground()
     //
     delete[] hash_table;
 
-    for (int i = 0; i < NUM_SHAPES; i++)
+    int i;
+    for (i = 0; i < NUM_SHAPES; i++)
     {
 	delete[] shapeTable[i];
     }

@@ -40,7 +40,7 @@
 _______________________________________________________________________
 ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
 |
-|   $Revision: 1.1 $
+|   $Revision: 1.2 $
 |
 |   Classes:
 |      SoXtSliderTool is a component that expands the functionality of the
@@ -60,10 +60,6 @@ _______________________________________________________________________
 #include <X11/StringDefs.h>
 #include <Xm/Form.h>
 
-#ifndef __sgi
-typedef char* caddr_t;
-#endif
-
 /***************************************************************************/
 /* static variables used by XtGetApplicationResources to get values of     */
 /* user-settable parameters.  The defaults values are used if the user     */
@@ -72,41 +68,41 @@ typedef char* caddr_t;
 static XtResource _leftResources[] = {
     { XmNleftPosition, XmCPosition, XtRInt, sizeof( int),
       0,
-      XtRImmediate, (caddr_t) DEFAULT_SLIDER_TOOL_LEFT_DIVIDING_POINT }  
+      XtRImmediate, (XtPointer) DEFAULT_SLIDER_TOOL_LEFT_DIVIDING_POINT }  
 };
 static XtResource _rightResources[] = {
     { XmNrightPosition, XmCPosition, XtRInt, sizeof( int),
       0,
-      XtRImmediate, (caddr_t) DEFAULT_SLIDER_TOOL_RIGHT_DIVIDING_POINT }  
+      XtRImmediate, (XtPointer) DEFAULT_SLIDER_TOOL_RIGHT_DIVIDING_POINT }  
 };
 static XtResource _valueResources[] = {
     { XmNbottomPosition, XmCPosition, XtRInt, sizeof( int),
       0,
-      XtRImmediate, (caddr_t) DEFAULT_SLIDER_TOOL_SLIDER_DIVIDING_POINT }  
+      XtRImmediate, (XtPointer) DEFAULT_SLIDER_TOOL_SLIDER_DIVIDING_POINT }  
 };
 static XtResource _minValueResources[] = {
     { XmNbottomPosition, XmCPosition, XtRInt, sizeof( int),
       0,
-      XtRImmediate, (caddr_t) DEFAULT_SLIDER_TOOL_MIN_DIVIDING_POINT }  
+      XtRImmediate, (XtPointer) DEFAULT_SLIDER_TOOL_MIN_DIVIDING_POINT }  
 };
 static XtResource _minResources[] = {
     { XmNbottomPosition, XmCPosition, XtRInt, sizeof( int),
       0,
-      XtRImmediate, (caddr_t) DEFAULT_SLIDER_TOOL_MIN_BOTTOM_POINT }  
+      XtRImmediate, (XtPointer) DEFAULT_SLIDER_TOOL_MIN_BOTTOM_POINT }  
 };
 static XtResource _maxValueResources[] = {
     { XmNbottomPosition, XmCPosition, XtRInt, sizeof( int),
       0,
-      XtRImmediate, (caddr_t) DEFAULT_SLIDER_TOOL_MAX_DIVIDING_POINT }  
+      XtRImmediate, (XtPointer) DEFAULT_SLIDER_TOOL_MAX_DIVIDING_POINT }  
 };
 static XtResource _maxResources[] = {
     { XmNbottomPosition, XmCPosition, XtRInt, sizeof( int),
       0,
-      XtRImmediate, (caddr_t) DEFAULT_SLIDER_TOOL_MAX_BOTTOM_POINT }  
+      XtRImmediate, (XtPointer) DEFAULT_SLIDER_TOOL_MAX_BOTTOM_POINT }  
 };
 static XtResource _borderWidthResource[] = {
     { XtNborderWidth, XtCBorderWidth, XtRDimension, sizeof( unsigned short),
-      0, XtRImmediate, (caddr_t) DEFAULT_SLIDER_TOOL_BORDER_WIDTH }  
+      0, XtRImmediate, (XtPointer) DEFAULT_SLIDER_TOOL_BORDER_WIDTH }  
 };
 
 SoXtSliderTool::SoXtSliderTool(

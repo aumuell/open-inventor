@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoUnknownNode
@@ -52,15 +52,12 @@
  */
 
 
+#include <stdlib.h>
 #include <Inventor/misc/SoState.h>
 #include <Inventor/actions/SoWriteAction.h>
 #include <Inventor/fields/SoMFString.h>
 #include <Inventor/fields/SoSFNode.h>
 #include <SoUnknownNode.h>
-#include <stdlib.h>
-#ifdef _POSIX_SOURCE
-extern "C" char *strdup(const char *);
-#endif
 
 // Because of the special treatment of fieldData, we can't use the
 // regular SO_NODE_SOURCE macro.

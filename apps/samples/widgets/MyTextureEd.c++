@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	MyTextureEditor
@@ -60,9 +60,6 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <stdlib.h>
-#ifndef __sgi
-#define ffloor floor
-#endif
 
 #include <X11/StringDefs.h>
 #include <Xm/Xm.h>
@@ -2053,8 +2050,8 @@ MyTextureEditor::handleEvent(XAnyEvent *xe)
 	{
 	    // do a region picking to figure which tile we are above
 	    XMotionEvent *me = (XMotionEvent *)xe;
-	    int xpos = int (ffloor( IMAGE_NUM * me->x / float(GLX_SIZE) ));
-	    int ypos = int (ffloor( IMAGE_NUM * me->y / float(GLX_SIZE) ));
+	    int xpos = int (floorf( IMAGE_NUM * me->x / float(GLX_SIZE) ));
+	    int ypos = int (floorf( IMAGE_NUM * me->y / float(GLX_SIZE) ));
 	    int whichTexture = xpos + IMAGE_NUM * ypos;
 	    if (whichTexture != currentItem) {
 		glXMakeCurrent(getDisplay(), XtWindow(widgetList[TEXTURE_GLX]), paletteCtx);

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      SoAsciiText
@@ -356,11 +356,11 @@ SoAsciiText::GLRender(SoGLRenderAction *action)
     }
 
     if (tobj == NULL) {
-	tobj = (gluTESSELATOR *) gluNewTess();
-	gluTessCallback(tobj, GLU_BEGIN, (void (*)())glBegin);
-	gluTessCallback(tobj, GLU_END, (void (*)())glEnd);
-	gluTessCallback(tobj, GLU_VERTEX, (void (*)())glVertex2fv);
-	gluTessCallback(tobj, GLU_ERROR,
+	tobj = (gluTESSELATOR *)gluNewTess();
+	gluTessCallback(tobj, (GLenum)GLU_BEGIN, (void (*)())glBegin);
+	gluTessCallback(tobj, (GLenum)GLU_END, (void (*)())glEnd);
+	gluTessCallback(tobj, (GLenum)GLU_VERTEX, (void (*)())glVertex2fv);
+	gluTessCallback(tobj, (GLenum)GLU_ERROR,
 			(void (*)())MyOutlineFontCache::errorCB);
     }
 
@@ -765,11 +765,11 @@ SoAsciiText::generateFront(const SbString &string, float width)
     const char *chars = string.getString();
 
     if (tobj == NULL) {
-	tobj = (gluTESSELATOR *) gluNewTess();
-	gluTessCallback(tobj, GLU_BEGIN, (void (*)())SoAsciiText::beginCB);
-	gluTessCallback(tobj, GLU_END, (void (*)())SoAsciiText::endCB);
-	gluTessCallback(tobj, GLU_VERTEX, (void (*)())SoAsciiText::vtxCB);
-	gluTessCallback(tobj, GLU_ERROR,
+	tobj = (gluTESSELATOR *)gluNewTess();
+	gluTessCallback(tobj, (GLenum)GLU_BEGIN, (void (*)())SoAsciiText::beginCB);
+	gluTessCallback(tobj, (GLenum)GLU_END, (void (*)())SoAsciiText::endCB);
+	gluTessCallback(tobj, (GLenum)GLU_VERTEX, (void (*)())SoAsciiText::vtxCB);
+	gluTessCallback(tobj, (GLenum)GLU_ERROR,
 			(void (*)())MyOutlineFontCache::errorCB);
     }
 
@@ -1339,7 +1339,7 @@ MyOutlineFontCache::getOutline(const char c)
     }
     
     if (outlines[c] == NULL) {
-	FLoutline *flo = flGetOutline(fontId, VALIDATE_CHAR(c));
+	FLoutline *flo = flGetOutline(fontId, VALIDATE_CHAR((GLuint)c));
 	if (flo == NULL) {
 	    outlines[c] = MyFontOutline::getNullOutline();
 	} else {
@@ -1398,7 +1398,7 @@ MyOutlineFontCache::generateFrontChar(const char c,
 
 	// It would be nice if the font manager told us the type of
 	// each outline...
-	gluNextContour(tobj, GLU_UNKNOWN);
+	gluNextContour(tobj, (GLenum)GLU_UNKNOWN);
 
 	for (int j = 0; j < outline->getNumVerts(i); j++) {
 	    SbVec2f &t = outline->getVertex(i,j);

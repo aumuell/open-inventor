@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoOffscreenRenderer
@@ -450,7 +450,7 @@ SoOffscreenRenderer::writeToRGB( FILE *fp ) const
 {
     // Set the graphics context to be the offscreen pixmap
     if (!setContext())
-        return NULL;
+        return FALSE;
 
     // Open an image file for writing
     int dimensions, components;
@@ -593,7 +593,7 @@ SoOffscreenRenderer::writeToPostScript(
 {
     // Set the graphics context to be the offscreen pixmap
     if (!setContext())
-        return NULL;
+        return FALSE;
 
     int components;
     if ((comps == LUMINANCE_TRANSPARENCY) ||

@@ -7,6 +7,8 @@ LLDLIBS = \
 	-lXm -lXt -lXext -lXi -lX11 -lm \
 	-lInventor -lGLU -lGL
 
+LLDLIBS += $(shell [ -e $(X11LIBDIR)/libXp.so ] && echo -lXp)
+
 OBJECTS = \
 	./src/devices/SoXtFocus.o \
 	./src/devices/SoXtKeybd.o \

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes    : SoXtViewer
  |
@@ -61,12 +61,6 @@
 
 #ifdef __sgi
 #include <X11/extensions/SGIStereo.h>
-#endif
-#ifndef __sgi
-#define fcos cos
-#define ftan tan
-#define fatan atan
-#define fsqrt sqrt
 #endif
 
 #include <GL/gl.h>
@@ -1338,7 +1332,7 @@ SoXtViewer::setZbufferState()
 //
 ////////////////////////////////////////////////////////////////////////
 {
-    if (getNormalWindow() == 0)
+    if (getNormalWindow() == (Window) NULL)
 	return;
     
     glXMakeCurrent(getDisplay(), getNormalWindow(), getNormalContext());
@@ -1803,7 +1797,7 @@ SoXtViewer::interpolateSeekAnimation(float t)
     //
     
     // use and ease-in ease-out approach
-    float cos_t = 0.5 - 0.5 * fcos(t * M_PI);
+    float cos_t = 0.5 - 0.5 * cosf(t * M_PI);
     
     // get camera new rotation
     camera->orientation = SbRotation::slerp(oldCamOrientation, newCamOrientation, cos_t);
@@ -2003,13 +1997,13 @@ SoXtViewer::toggleCameraType()
     SoCamera *newCam;
     if (camera->isOfType(SoPerspectiveCamera::getClassTypeId())) {
 	float angle = ((SoPerspectiveCamera *)camera)->heightAngle.getValue();
-	float height = camera->focalDistance.getValue() * ftan(angle/2);
+	float height = camera->focalDistance.getValue() * tanf(angle/2);
 	newCam = new SoOrthographicCamera;
 	((SoOrthographicCamera *)newCam)->height = 2 * height;
     }
     else if (camera->isOfType(SoOrthographicCamera::getClassTypeId())) {
 	float height = ((SoOrthographicCamera *)camera)->height.getValue() / 2;
-	float angle = fatan(height / camera->focalDistance.getValue());
+	float angle = atanf(height / camera->focalDistance.getValue());
 	newCam = new SoPerspectiveCamera;
 	((SoPerspectiveCamera *)newCam)->heightAngle = 2 * angle;
     }
@@ -2076,7 +2070,7 @@ SoXtViewer::arrowKeyPressed(KeySym key)
     if (camera->isOfType(SoPerspectiveCamera::getClassTypeId())) {
 	float angle = ((SoPerspectiveCamera *)camera)->heightAngle.getValue();
 	float length = camera->nearDistance.getValue();
-	dist = length * ftan(angle);
+	dist = length * tanf(angle);
     }
     else if (camera->isOfType(SoOrthographicCamera::getClassTypeId()))
 	dist = ((SoOrthographicCamera *)camera)->height.getValue();
@@ -2359,7 +2353,7 @@ SoXtViewer::drawViewerRollFeedback(SbVec2s center, SbVec2s loc)
     }
     else {
 	ang = atan2(vy, vx) * 180.0 / M_PI;
-	dist = fsqrt(vx*vx + vy*vy);
+	dist = sqrtf(vx*vx + vy*vy);
 	if (dist < 3)
 	    dist = 3; // minimum size (given the circle thickness)
     }

@@ -167,7 +167,7 @@ static XtResource initializeResources[] = {
 static XtResource backgroundResources[] = {
 #ifndef __sgi
 #undef __GLX_MOTIF
-#endif
+#endif /* !__sgi */
 #ifdef __GLX_MOTIF
    {
      XmNbackground, XmCBackground, XmRPixel, 

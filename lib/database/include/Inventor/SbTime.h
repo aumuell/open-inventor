@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	This file defines the SbTime class for manipulating times
@@ -64,11 +64,6 @@
 #include <limits.h>
 #include <Inventor/SbBasic.h>
 #include <Inventor/SbString.h>
-
-// or should I make this a function?
-#ifndef __sgi
-#define trunc(a) ((int)(a))
-#endif
 
 // C-api: end
 #ifdef _CRAY
@@ -141,17 +136,22 @@ class SbTime {
     static SbTime		zero()
 	{ return SbTime(0, 0); }
 
-    // Get a time far, far into the future
-    static SbTime		max()
 #ifndef __sgi
 #define INT32_MAX INT_MAX
-#endif
+#endif // !__sgi
+
+    // Get a time far, far into the future
+    static SbTime		max()
 	{ return SbTime(INT32_MAX, 999999); }
 
     // Set time from a double (in seconds)
     // C-api: name=setSec
     void		setValue(double sec)
+#ifdef __sgi
 	{ t.tv_sec = time_t(trunc(sec)); 
+#else
+	{ t.tv_sec = time_t(int(sec)); 
+#endif // __sgi
 	  t.tv_usec = long((sec - t.tv_sec) * 1000000.0); }
 
     // Set time from seconds + microseconds

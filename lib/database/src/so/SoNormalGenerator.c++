@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      SoNormalGenerator
@@ -52,9 +52,6 @@
  */
 
 
-#ifdef __linux__
-#include <machine.h>
-#endif
 #include <Inventor/SbBox.h>
 #include <Inventor/misc/SoNormalGenerator.h>
 
@@ -158,12 +155,12 @@ SoNormalGenerator::polygonVertex(const SbVec3f &point)
 	SbVec3f *newArray;
 
 	newArray = new SbVec3f [2 * maxPoints];
-	bcopy(points, newArray, (int) (maxPoints * sizeof(SbVec3f)));
+	memcpy(newArray, points, (int) (maxPoints * sizeof(SbVec3f)));
 	delete [] points;
 	points = newArray;
 
 	newArray = new SbVec3f [maxPoints * 2];
-	bcopy(faceNormals, newArray, (int) (maxPoints * sizeof(SbVec3f)));
+	memcpy(newArray, faceNormals, (int) (maxPoints * sizeof(SbVec3f)));
 	delete [] faceNormals;
 	faceNormals = newArray;
 
@@ -439,7 +436,7 @@ SoNormalGenerator::setNormal(int32_t index, const SbVec3f &newNormal)
 	    newNumVertNormals *= 2;
 
 	SbVec3f *newVertNormals = new SbVec3f [newNumVertNormals];
-	bcopy(vertNormals, newVertNormals,
+	memcpy(newVertNormals, vertNormals,
 	      (int) (numVertNormals * sizeof(SbVec3f)));
 	if (vertNormals != faceNormals)
 	    delete [] vertNormals;

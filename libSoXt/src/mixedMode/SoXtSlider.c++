@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	_SoXtSlider
@@ -60,7 +60,6 @@
 
 #include <stream.h>
 #include <malloc.h>
-#include <string.h>
 
 #include <X11/StringDefs.h>
 #include <X11/Intrinsic.h>
@@ -70,10 +69,6 @@
 #include <Xm/LabelG.h>
 
 #include <GL/gl.h>
-
-#ifdef _POSIX_SOURCE
-extern "C" char *strdup(const char *);
-#endif
 
 
 /*

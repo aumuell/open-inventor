@@ -371,7 +371,6 @@ setOverlayLogo(SoXtRenderArea *ra)
 //
 ////////////////////////////////////////////////////////////////////////
 {
-#ifdef __sgi
     SoInput in;
     in.setBuffer((void *) ivLogo, ivLogoSize);
     SoSeparator *logo = SoDB::readAll(&in);
@@ -385,7 +384,6 @@ setOverlayLogo(SoXtRenderArea *ra)
     SbColor col(1, 1, 1);
     ra->setOverlayColorMap(1, 1, &col);
     ra->setOverlaySceneGraph(logo);
-#endif
 }
 
 ////////////////////////////////////////////////////////////////////////

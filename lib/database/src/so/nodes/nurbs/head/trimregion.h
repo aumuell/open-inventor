@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * trimregion.h - $Revision: 1.1 $
+ * trimregion.h - $Revision: 1.2 $
  */
 
 #include "trimline.h"
@@ -80,13 +80,8 @@ TrimRegion::init( REAL vval )
 inline void
 TrimRegion::advance( REAL topVindex, REAL botVindex, REAL botVval )
 {
-#ifdef __sgi
-    top.vindex	= topVindex;
-    bot.vindex	= botVindex;
-#else
     top.vindex  = (long)topVindex;
     bot.vindex  = (long)botVindex;
-#endif
     top.vval	= bot.vval;
     bot.vval	= botVval;
     top.ustart	= bot.ustart;

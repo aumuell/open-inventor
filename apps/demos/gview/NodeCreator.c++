@@ -34,6 +34,8 @@
  *
  */
 
+#include <stdlib.h>
+
 #include <X11/Intrinsic.h>
 
 #include <Xm/Form.h>
@@ -265,7 +267,7 @@ NodeCreator::getNodeNames(XmString *&strings, int &numStrings)
     numTypes = SoType::getAllDerivedFrom(SoNode::getClassTypeId(), allNodes);
 
     // Allocate an array to hold names as character strings
-    typeNames = new char *[numTypes];
+    typeNames = (const char **) new char *[numTypes];
 
     // Gather all valid names into array
     curType = 0;

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	MyMaterialPalette
@@ -90,10 +90,6 @@
 
 #include "MySimpleMaterialEditor.h"
 #include "MyMaterialPalette.h"
-
-#ifndef __sgi
-#define ffloor floor
-#endif
 
 
 /*
@@ -607,7 +603,8 @@ MyMaterialPalette::buildMenu(Widget parent)
     int itemCount = XtNumber(pulldownData);
     Widget *buttons = new Widget[itemCount+1]; // for palette
     
-    for (int i=0; i < itemCount; i++) {
+    int i;
+    for (i=0; i < itemCount; i++) {
 	// Make Topbar menu button
 	Widget subMenu = XmCreatePulldownMenu(menu, "subMenu", popupargs, popupn);
 	widgetList[pulldownData[i].id] = subMenu;
@@ -1257,8 +1254,8 @@ MyMaterialPalette::findCurrentItem(int x, int y)
     // we are forcing the window to resize in even increments).
     
     SbVec2s raSize = ra->getSize();
-    int xpos = int (ffloor( 6 * x / float(raSize[0]) ));
-    int ypos = int (ffloor( 6 * y / float(raSize[1]) ));
+    int xpos = int (floorf( 6 * x / float(raSize[0]) ));
+    int ypos = int (floorf( 6 * y / float(raSize[1]) ));
     int whichItem = xpos + 6 * ypos;
     if (whichItem != currentItem) {
 	currentItem = whichItem;

@@ -28,15 +28,15 @@ void img_setrowsize(IMAGE *image, int cnt, int y, int z)
 	return;
     switch(image->dim) {
 	case 1:
-	    sizeptr = &image->rowsize[0];
+	    sizeptr = (int *)&image->rowsize[0];
 	    image->rowstart[0] = image->rleend;
 	    break;
 	case 2:
-	    sizeptr = &image->rowsize[y];
+	    sizeptr = (int *)&image->rowsize[y];
 	    image->rowstart[y] = image->rleend;
 	    break;
 	case 3:
-	    sizeptr = &image->rowsize[y+z*image->ysize];
+	    sizeptr = (int *)&image->rowsize[y+z*image->ysize];
 	    image->rowstart[y+z*image->ysize] = image->rleend;
     }	
     if(*sizeptr != -1) 

@@ -34,6 +34,7 @@
  *
  */
 
+#include <stdlib.h>
 #include "IfAssert.h"
 #include "IfShape.h"
 #include "IfSorter.h"

@@ -40,7 +40,7 @@
 _______________________________________________________________________
 ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
 |
-|   $Revision: 1.1 $
+|   $Revision: 1.2 $
 |
 |   Classes:
 |      Multiple slider within one container for grouping values
@@ -58,10 +58,6 @@ _______________________________________________________________________
 #include <X11/StringDefs.h>
 #include <Xm/Form.h>
 #include <Inventor/errors/SoDebugError.h>
-
-#ifndef __sgi
-typedef char* caddr_t;
-#endif
 
 ////////////////////////////////////////////////////////////////////////
 //
@@ -355,7 +351,7 @@ SoXtMultiSlider::initTitles( char **titleList )
 	theSlider = ((SoXtSliderTool *) _subComponentArray[i])->getSlider();
 	theWidget = theSlider->getWidget(); 
 
-	_titleResource[0].default_addr = (caddr_t) titleList[i];
+	_titleResource[0].default_addr = (XtPointer) titleList[i];
 	XtGetApplicationResources( theWidget, (XtPointer) &newString,
 	      _titleResource, XtNumber( _titleResource ), NULL, 0 );
 

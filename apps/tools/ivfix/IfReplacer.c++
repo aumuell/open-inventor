@@ -185,11 +185,11 @@ IfReplacer::storeMaterial(SoCallbackAction *cba)
     }
 
     else {
-	int num = elt->getNumDiffuse();
+	int i, num = elt->getNumDiffuse();
 	material->diffuseColor.setNum(num);
 	SbColor *colors = material->diffuseColor.startEditing();
 	const SbColor *eltColors = elt->getDiffusePointer();
-	for (int i = 0; i < num; i++)
+	for (i = 0; i < num; i++)
 	    colors[i] = eltColors[i];
 	material->diffuseColor.finishEditing();
 

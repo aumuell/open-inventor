@@ -40,7 +40,7 @@
 _______________________________________________________________________
 ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
 |
-|   $Revision: 1.1 $
+|   $Revision: 1.2 $
 |
 |   Classes:
 |      Subclasses of modules used for specific fields of specific types
@@ -58,10 +58,6 @@ _______________________________________________________________________
 #include <X11/StringDefs.h>
 #include <Xm/Xm.h>
 #include <Inventor/Xt/SoXtResource.h>
-
-#ifndef __sgi
-typedef char* caddr_t;
-#endif
 
 static XtResource _labelResource[] = {
     { XmNlabelString, XmCLabelString, XmRXmString, sizeof( char * ),
@@ -117,7 +113,7 @@ SoXtTransSliderModule::initLabels()
     Widget theWidget;
 
     /* label for the title in the control bar */
-    _labelResource[0].default_addr = (caddr_t) transSliderTitles[0];
+    _labelResource[0].default_addr = (XtPointer) transSliderTitles[0];
     theWidget = _sliderModuleControl->getOpenCloseButton();
     XtGetApplicationResources( theWidget, (XtPointer) &newString,
 		  _labelResource, XtNumber( _labelResource ), NULL, 0); 
@@ -172,7 +168,7 @@ SoXtScaleSliderModule::initLabels()
     Widget theWidget;
 
     /* label for the title in the control bar */
-    _labelResource[0].default_addr = (caddr_t) scaleSliderTitles[0];
+    _labelResource[0].default_addr = (XtPointer) scaleSliderTitles[0];
     theWidget = _sliderModuleControl->getOpenCloseButton();
     XtGetApplicationResources( theWidget, (XtPointer) &newString,
 		  _labelResource, XtNumber( _labelResource ), NULL, 0); 
@@ -229,7 +225,7 @@ SoXtRotateSliderModule::initLabels()
     Widget theWidget;
 
     /* label for the title in the control bar */
-    _labelResource[0].default_addr = (caddr_t) rotateSliderTitles[0];
+    _labelResource[0].default_addr = (XtPointer) rotateSliderTitles[0];
     theWidget = _sliderModuleControl->getOpenCloseButton();
     XtGetApplicationResources( theWidget, (XtPointer) &newString,
 		  _labelResource, XtNumber( _labelResource ), NULL, 0); 
@@ -290,7 +286,7 @@ SoXtScaleOrientationSliderModule::initLabels()
     Widget theWidget;
 
     /* label for the title in the control bar */
-    _labelResource[0].default_addr = (caddr_t) scaleOrientationSliderTitles[0];
+    _labelResource[0].default_addr = (XtPointer) scaleOrientationSliderTitles[0];
     theWidget = _sliderModuleControl->getOpenCloseButton();
     XtGetApplicationResources( theWidget, (XtPointer) &newString,
 		  _labelResource, XtNumber( _labelResource ), NULL, 0); 
@@ -347,7 +343,7 @@ SoXtCenterSliderModule::initLabels()
     Widget theWidget;
 
     /* label for the title in the control bar */
-    _labelResource[0].default_addr = (caddr_t) centerSliderTitles[0];
+    _labelResource[0].default_addr = (XtPointer) centerSliderTitles[0];
     theWidget = _sliderModuleControl->getOpenCloseButton();
     XtGetApplicationResources( theWidget, (XtPointer) &newString,
 		  _labelResource, XtNumber( _labelResource ), NULL, 0); 
@@ -390,7 +386,7 @@ SoXtAmbientColorSliderModule::initLabels()
     Widget theWidget;
 
     /* label for the title in the control bar */
-    _labelResource[0].default_addr = (caddr_t) ambientColorSliderTitles[0];
+    _labelResource[0].default_addr = (XtPointer) ambientColorSliderTitles[0];
     theWidget = _sliderModuleControl->getOpenCloseButton();
     XtGetApplicationResources( theWidget, (XtPointer) &newString,
 		  _labelResource, XtNumber( _labelResource ), NULL, 0); 
@@ -433,7 +429,7 @@ SoXtDiffuseColorSliderModule::initLabels()
     Widget theWidget;
 
     /* label for the title in the control bar */
-    _labelResource[0].default_addr = (caddr_t) diffuseColorSliderTitles[0];
+    _labelResource[0].default_addr = (XtPointer) diffuseColorSliderTitles[0];
     theWidget = _sliderModuleControl->getOpenCloseButton();
     XtGetApplicationResources( theWidget, (XtPointer) &newString,
 		  _labelResource, XtNumber( _labelResource ), NULL, 0); 
@@ -476,7 +472,7 @@ SoXtSpecularColorSliderModule::initLabels()
     Widget theWidget;
 
     /* label for the title in the control bar */
-    _labelResource[0].default_addr = (caddr_t) specularColorSliderTitles[0];
+    _labelResource[0].default_addr = (XtPointer) specularColorSliderTitles[0];
     theWidget = _sliderModuleControl->getOpenCloseButton();
     XtGetApplicationResources( theWidget, (XtPointer) &newString,
 		  _labelResource, XtNumber( _labelResource ), NULL, 0); 
@@ -519,7 +515,7 @@ SoXtEmissiveColorSliderModule::initLabels()
     Widget theWidget;
 
     /* label for the title in the control bar */
-    _labelResource[0].default_addr = (caddr_t) emissiveColorSliderTitles[0];
+    _labelResource[0].default_addr = (XtPointer) emissiveColorSliderTitles[0];
     theWidget = _sliderModuleControl->getOpenCloseButton();
     XtGetApplicationResources( theWidget, (XtPointer) &newString,
 		  _labelResource, XtNumber( _labelResource ), NULL, 0); 
@@ -561,7 +557,7 @@ SoXtShininessSliderModule::initLabels()
     Widget theWidget;
 
     /* label for the title in the control bar */
-    _labelResource[0].default_addr = (caddr_t) shininessSliderTitles[0];
+    _labelResource[0].default_addr = (XtPointer) shininessSliderTitles[0];
     theWidget = _sliderModuleControl->getOpenCloseButton();
     XtGetApplicationResources( theWidget, (XtPointer) &newString,
 		  _labelResource, XtNumber( _labelResource ), NULL, 0); 
@@ -603,7 +599,7 @@ SoXtTransparencySliderModule::initLabels()
     Widget theWidget;
 
     /* label for the title in the control bar */
-    _labelResource[0].default_addr = (caddr_t) transparencySliderTitles[0];
+    _labelResource[0].default_addr = (XtPointer) transparencySliderTitles[0];
     theWidget = _sliderModuleControl->getOpenCloseButton();
     XtGetApplicationResources( theWidget, (XtPointer) &newString,
 		  _labelResource, XtNumber( _labelResource ), NULL, 0); 
@@ -645,7 +641,7 @@ SoXtLightIntensitySliderModule::initLabels()
     Widget theWidget;
 
     /* label for the title in the control bar */
-    _labelResource[0].default_addr = (caddr_t) lightIntensitySliderTitles[0];
+    _labelResource[0].default_addr = (XtPointer) lightIntensitySliderTitles[0];
     theWidget = _sliderModuleControl->getOpenCloseButton();
     XtGetApplicationResources( theWidget, (XtPointer) &newString,
 		  _labelResource, XtNumber( _labelResource ), NULL, 0); 
@@ -688,7 +684,7 @@ SoXtLightColorSliderModule::initLabels()
     Widget theWidget;
 
     /* label for the title in the control bar */
-    _labelResource[0].default_addr = (caddr_t) lightColorSliderTitles[0];
+    _labelResource[0].default_addr = (XtPointer) lightColorSliderTitles[0];
     theWidget = _sliderModuleControl->getOpenCloseButton();
     XtGetApplicationResources( theWidget, (XtPointer) &newString,
 		  _labelResource, XtNumber( _labelResource ), NULL, 0); 

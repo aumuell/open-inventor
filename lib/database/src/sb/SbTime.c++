@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SbTime
@@ -65,6 +65,10 @@ extern "C" {
 //    Constructor that takes the number of seconds as a double
 //
 // Use: public
+
+#ifndef __sgi
+inline static int trunc(double x) { return int(x); }
+#endif // !__sgi
 
 SbTime::SbTime(double sec)
 //

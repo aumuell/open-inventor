@@ -42,6 +42,8 @@
  */
 
 
+#include <unistd.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <Inventor/SbLinear.h>
 #include <Inventor/SoDB.h>
@@ -64,9 +66,6 @@
 #include "Interface.h"
 #include "NoodleTextureGizmo.h"
 #include "NoodleSurfaceGizmo.h"
-#ifdef __linux__
-#include <unistd.h>
-#endif
 
 #define SCREEN(w) XScreenNumberOfScreen(XtScreen(w))
 
@@ -951,7 +950,8 @@ Interface::build( Widget parentWidget )
 	fprintf(stderr, "Error. NULL passed to Interface::build\n");
 
     menuItems = new NoodleMenuItem[MM_MENU_NUM];
-    for (int i=0; i<MM_MENU_NUM; i++) {
+    int i;
+    for (i=0; i<MM_MENU_NUM; i++) {
 	menuItems[i].id = i;
 	menuItems[i].widget = NULL;
 	menuItems[i].ownerInterface = this;

@@ -56,9 +56,6 @@
 /* Polynomial Evaluator Interface */
 
 #include "SoCurveMaps.h"
-#ifdef _POSIX_SOURCE
-extern "C" void bcopy(const void *,void *,size_t );
-#endif
 
 _SoNurbsCurveV3Map::~_SoNurbsCurveV3Map() 
 { 
@@ -97,7 +94,7 @@ _SoNurbsCurveV3Map::point( float *v )
     {
         *numAllocVertices += CRV_ALLOC_BLOCK;
         SbVec2f *tmpBlock = new SbVec2f[*numAllocVertices];
-        bcopy ((void *)*vertices, (void *)tmpBlock,
+	memcpy ((void *)tmpBlock, (void *)*vertices,
                 (int) *numVertices*sizeof(SbVec2f));
         delete[] *vertices;
         *vertices = tmpBlock;
@@ -120,7 +117,7 @@ _SoNurbsCurveV4Map::point( float *v )
     {
         *numAllocVertices += CRV_ALLOC_BLOCK;
         SbVec2f *tmpBlock = new SbVec2f[*numAllocVertices];
-        bcopy ((void *)*vertices, (void *)tmpBlock,
+        memcpy ((void *)tmpBlock, (void *)*vertices,
                 (int) *numVertices*sizeof(SbVec2f));
         delete[] *vertices;
         *vertices = tmpBlock;

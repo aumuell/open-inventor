@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Functions:
  |	MyFileRead()
@@ -50,6 +50,7 @@
  _______________________________________________________________________
  */
 
+#include <unistd.h>
 #include <stdlib.h>
 #include <libgen.h>
 #include <sys/param.h>
@@ -115,7 +116,6 @@ MyFileRead(const char *filename, SbString &errorMessage)
     FILE *ivDataPipe;
 
     // First check to make sure the file exists and is readable
-#ifdef __sgi
     if (0 != access(filename, R_OK)) {
 	errorMessage = "Error opening the file\n\"";
 	errorMessage += filename;
@@ -124,7 +124,6 @@ MyFileRead(const char *filename, SbString &errorMessage)
 	errorMessage += "\nYou may not have read permission on this file.";
 	return NULL;
     }
-#endif
 
     // Now open the file in Inventor so we can see if it's valid 
     if (! in.openFile(filename, TRUE)) {

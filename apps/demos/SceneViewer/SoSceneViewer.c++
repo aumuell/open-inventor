@@ -41,7 +41,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.4 $
+ |   $Revision: 1.5 $
  |
  |   Classes	: SoSceneViewer
  |
@@ -56,9 +56,9 @@
 // instead of the normal planes. You lose menu colors, 
 // but don't have to redraw the scene just to see a menu.
 
-#ifndef __linux__
+#ifdef __sgi
 #define MENUS_IN_POPUP
-#endif
+#endif // __sgi
 
 #include <stdlib.h> // for system() and getenv()
 #include <unistd.h> // for access()
@@ -261,7 +261,6 @@ logoCB(void *, SoAction *action)
 static void
 setOverlayLogo(SoXtRenderArea *ra)
 {
-#ifdef __sgi
     static SoSeparator *logo = NULL;
     
     if (logo == NULL) {
@@ -279,7 +278,6 @@ setOverlayLogo(SoXtRenderArea *ra)
     SbColor col(1, 1, 1);
     ra->setOverlayColorMap(1, 1, &col);
     ra->setOverlaySceneGraph(logo);	
-#endif
 }
 //
 ////////////////////////////////////////////////////////////////////////
@@ -2216,7 +2214,8 @@ SoSceneViewer::readEnvFile(const char *filename)
 	    if (n->isOfType(SoGroup::getClassTypeId())) {
 		
 		// remove all of the existing lights
-		for (int i = lightDataList.getLength(); i > 0; i--)
+		int i;
+		for (i = lightDataList.getLength(); i > 0; i--)
 		    removeLight( (SvLightData *) lightDataList[i-1] );
 		
 		lightsCameraEnvironment->replaceChild(lightGroup, n);

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      SoText2
@@ -487,7 +487,8 @@ SoText2::rayPick(SoRayPickAction *action)
 	    screenOrigin;
 
 	SbVec3f p0, p1, p2, p3;
-	for (int chr = 0; chr < len; chr++) {
+	int chr;
+	for (chr = 0; chr < len; chr++) {
 	    myFont->getCharBbox(str + 2*chr, charBbox);
 
 	    if (!charBbox.isEmpty()) {
@@ -746,7 +747,8 @@ SoBitmapFontCache::convertToUCS(uint32_t nodeid,
     currentNodeId = nodeid;
     
     //delete previously converted UCS string
-    for (int i = 0; i< UCSStrings.getLength(); i++){
+    int i;
+    for (i = 0; i< UCSStrings.getLength(); i++){
 	delete [] UCSStrings[i];
     }
     UCSStrings.truncate(0);
@@ -775,7 +777,7 @@ SoBitmapFontCache::convertToUCS(uint32_t nodeid,
 	size_t outbytes = 2*inbytes+2;
 	char* output = (char*)UCSStrings[i];
     
-	if ((iconv(conversionCode, &input, &inbytes, &output, &outbytes) == (size_t)-1)){
+	if ((iconv(conversionCode, (const char**)&input, &inbytes, &output, &outbytes) == (size_t)-1)){
 #ifdef DEBUG
 	    SoDebugError::post("SoBitmapFontCache::convertToUCS", 
 		"Error converting text to UCS-2");
@@ -879,9 +881,9 @@ SoBitmapFontCache::createUniFontList(const char* fontNameList, float size)
     fontNums = new SbPList;
       
     while (s1 = (char *)strchr(s, ';')) {
-       *s1 = NULL;  /* font name is pointed to s */
+       *s1 = (char)NULL;  /* font name is pointed to s */
 
-       if ((fn = flCreateFont((const GLubyte*)s, mat, 0, NULL)) == NULL) {
+       if ((fn = flCreateFont((const GLubyte*)s, mat, 0, NULL)) == (FLfontNumber)NULL) {
 #ifdef DEBUG
 	    SoDebugError::post("SoBitmapFontCache::createUniFontList", 
 		"Cannot create font %s", s);         
@@ -1253,7 +1255,7 @@ SoBitmapFontCache::getHeight()
 ////////////////////////////////////////////////////////////////////////
 {
     //take height from UCS-2 code for "M"
-    const FLbitmap *bmap = getBitmap("\000M");
+    const FLbitmap *bmap = getBitmap((unsigned char*)"\000M");
     if (bmap != NULL)
 	return bmap->height - bmap->yorig;
     else return 0;
@@ -1271,14 +1273,15 @@ SoBitmapFontCache::drawCharacter(const char* c)
 //
 ////////////////////////////////////////////////////////////////////////
 {
-    const FLbitmap *bmap = getBitmap((unsigned char*)c);
+    unsigned char *uc = (unsigned char*)c;
+    const FLbitmap *bmap = getBitmap(uc);
     
     if (bmap != NULL)
 	glBitmap(bmap->width, bmap->height, bmap->xorig, bmap->yorig,
 	     bmap->xmove, bmap->ymove, bmap->bitmap);
 #ifdef DEBUG
     else SoDebugError::post("SoBitmapFontCache::drawCharacter", 
-	"no bitmap for character %d ", c[0]*256+c[1]);
+	"no bitmap for character %d ", uc[0]*256+uc[1]);
 #endif	
 }
 

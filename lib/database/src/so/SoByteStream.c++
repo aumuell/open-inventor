@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoByteStream
@@ -51,11 +51,8 @@
  _______________________________________________________________________
  */
 
-#include <stdlib.h>
-#ifdef __linux__
-#include <machine.h>
-#endif
 
+#include <stdlib.h>
 #include <Inventor/misc/SoByteStream.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInput.h>
@@ -253,7 +250,7 @@ SoByteStream::copy(void *d, size_t len)
 {
     data = malloc(len);
     if (data != NULL) {
-	bcopy(d, data, (int)len);
+	memcpy(data, d, (int)len);
 	numBytes = len;
 	isRaw = TRUE;
     }

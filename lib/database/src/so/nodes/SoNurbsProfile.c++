@@ -61,9 +61,6 @@
 #include "nurbs/SoAddPrefix.h"
 #include "nurbs/SoCurveMaps.h"
 #include "nurbs/SoCurveRender.h"
-#ifdef _POSIX_SOURCE
-extern "C" void bcopy(const void *,void *,size_t);
-#endif
 
 SO_NODE_SOURCE(SoNurbsProfile);
 
@@ -145,7 +142,7 @@ SoNurbsProfile::getTrimCurve(SoState *state, int32_t &numPoints, float *&points,
     numKnots = (int32_t) (knotVector.getNum());
     knots    = new float[numKnots];
     tknots   = knotVector.getValues(0);
-    bcopy((const void *) tknots, (void *) knots,
+    memcpy((void *) knots, (const void *) tknots,
 	  (int) numKnots * sizeof(float));
 }
 
@@ -272,7 +269,7 @@ SoNurbsProfile::getVertices(SoState *state,
     //
     render->getVertices(nVertices, verts);
     vertices = new SbVec2f[nVertices];
-    bcopy((void *) verts, (void *) vertices,
+    memcpy((void *) vertices, (void *) verts,
 	  (int) nVertices * sizeof(SbVec2f));
 
     delete points;

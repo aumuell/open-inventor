@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SoOutput
@@ -193,7 +193,7 @@ static void DGL_HTON_DOUBLE( char *PC, struct cray_double vc ) {
 	/* Hidden bit removed by truncation */
     }
     ieee.is.sign = vc.sign;
-    bcopy(ieee.iis, PC, SIZEOF(double));
+    memcpy(PC, ieee.iis, SIZEOF(double));
 }
 
 #endif // _CRAY
@@ -693,7 +693,7 @@ SoOutput::write(const char *s)
             DGL_HTON_INT32(m, n);
             *((int *)curBuf) = m;
             curBuf += 4;
-            bcopy((const void *)s, (void *)curBuf, n);
+	    memcpy((void *)curBuf, (const void *)s, n);
 	    curBuf += n;
             for (int i=0; i<(nsize-n); i++) 
                 *curBuf++ = 0;
@@ -704,7 +704,7 @@ SoOutput::write(const char *s)
             int m = n;
             DGL_HTON_INT32(m, n);
             fwrite((void *)&m, sizeof(int), 1, fp);
-            bcopy((const void *)s, tmpBuffer, n);
+	    memcpy(tmpBuffer, (const void *)s, n);
             for (int i=0; i<(nsize-n); i++) 
                 tmpBuffer[n+i] = 0;
             fwrite((void *)tmpBuffer, sizeof(char), nsize, fp);
@@ -976,7 +976,7 @@ SoOutput::writeBinaryArray(unsigned char *c, int length)
     if (isToBuffer() && ! makeRoomInBuf(length*SIZEOF(unsigned char)))
 	return;
     if (isToBuffer()) {
-	bcopy(c, curBuf, length);
+	memcpy(curBuf, c, length);
 	curBuf += length * SIZEOF(unsigned char);
     }
     else {

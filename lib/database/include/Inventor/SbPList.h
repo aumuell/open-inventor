@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	This contains the definition of the SbPList generic pointer
@@ -201,14 +201,10 @@ SoINTERNAL class SbIntList : public SbPList {
 	// bytes.  
 	{ return ((int &)*(((char*)&((*(const SbPList *) this) [i]) ) + 4 ));}
 
-/* #elif ( (_MIPS_SZPTR==32) && (_MIPS_SZINT==32)  */
-/* #elif __linux */
-#else
+#elif 1 || ((_MIPS_SZPTR==32) && (_MIPS_SZINT==32))
 	{ return ( (int &) ( (*(const SbPList *) this) [i] ) ); }
-/*
 #else
-#	error Error in SbPList:  Don't know how to cast void* to int!
-*/
+#	error "Error in SbPList:  Don't know how to cast void* to int!"
 #endif
 };
 

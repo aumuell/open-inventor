@@ -34,10 +34,6 @@
  *
  */
 
-#ifdef __sgi
-#pragma once
-#endif
-
 #include <stdio.h>
 #include "softsurfacemaps.h"
 

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SbNameEntry, SbName
@@ -56,9 +56,6 @@
 
 #include <Inventor/SbString.h>
 #include <ctype.h>
-#ifdef _POSIX_SOURCE
-extern "C" char *strdup(const char *);
-#endif
 
 //////////////////////////////////////////////////////////////////////////////
 //

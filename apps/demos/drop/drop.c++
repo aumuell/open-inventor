@@ -40,7 +40,7 @@
  |
  |   Copyright (C) 1990-96   Silicon Graphics, Inc.
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   main ()
  |
@@ -50,6 +50,7 @@
  _______________________________________________________________________
  */
 
+#include <stdlib.h>
 #include <math.h>
 #include <time.h>
 #include <Inventor/Xt/SoXt.h>

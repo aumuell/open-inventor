@@ -124,7 +124,8 @@ IfCollector::collect(SoNode *sceneRoot, IfShape *&shapeList,
     // merge the returned lists of paths.
 
     SoCallbackAction cba;
-    for (int i = 0; i < shapeTypes.getLength(); i++)
+    int i;
+    for (i = 0; i < shapeTypes.getLength(); i++)
 	cba.addPreCallback(shapeTypes[i], storePathCB, this);
     cba.apply(sceneRoot);
 

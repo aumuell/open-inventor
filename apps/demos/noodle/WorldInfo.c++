@@ -265,7 +265,8 @@ WorldInfo::deleteNoodle( GeneralizedCylinder *victim )
     // Remove piece from parent.
     if (victimPath != NULL) {
 	// Get index of victim in the path...
-	for (int objInd = victimPath->getLength() - 1; objInd >= 0; objInd --) {
+	int objInd;
+	for (objInd = victimPath->getLength() - 1; objInd >= 0; objInd --) {
 	    if ( victimPath->getNode(objInd) == victim )
 		break;
 	}

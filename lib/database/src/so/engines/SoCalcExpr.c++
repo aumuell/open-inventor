@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      ???
@@ -54,9 +54,6 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
-#ifdef _POSIX_SOURCE
-extern "C" char *strdup(const char *);
-#endif
 #include <Inventor/errors/SoDebugError.h>
 #include "SoCalcExpr.h"
 

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoXtRenderArea
@@ -266,11 +266,9 @@ SoXtRenderArea::setOverlaySceneGraph(SoNode *newScene)
 //
 ////////////////////////////////////////////////////////////////////////
 {
-// XXX Alex -- overlay support is not overabundant in the Linux world ...
-// SoXtRenderArea should do some more elegant checking to see if the
-// visual we have actually supports overlays and not just hard code this
-// out if !__sgi.
-#ifdef __sgi
+#ifndef __sgi
+    return;
+#endif // !__sgi
     // Deactivate while we change the scene so that our sensors
     // get unhooked before the data changes beneath us.
     overlaySceneMgr->deactivate();
@@ -284,7 +282,6 @@ SoXtRenderArea::setOverlaySceneGraph(SoNode *newScene)
 	overlaySceneMgr->activate();
 	overlaySceneMgr->scheduleRedraw();
     }
-#endif
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -346,6 +343,9 @@ SoXtRenderArea::setOverlayColorMap(int startIndex, int num, const SbColor *color
 //
 ////////////////////////////////////////////////////////////////////////
 {
+#ifndef __sgi
+    return;
+#endif // !__sgi
     // save those colors for future uses (if the widget hasn't been
     // built yet, or next time it gets built)
     if (overlayMapColors != NULL)
@@ -456,7 +456,7 @@ SoXtRenderArea::registerDevice(SoXtDevice *device)
 
     // Tell the device to register event interest for our widget
     Widget w = getOverlayWidget() ? getOverlayWidget() : getNormalWidget();
-    if ((w != NULL) && (XtWindow(w) != 0))
+    if ((w != NULL) && (XtWindow(w) != (Window) NULL))
 	device->enable(
 	    w,
 	    (XtEventHandler) SoXtGLWidget::eventHandler,
@@ -941,7 +941,7 @@ SoXtRenderArea::redrawOverlay()
 //
 ////////////////////////////////////////////////////////////////////////
 {
-    if (!isVisible() || getOverlayWindow() == 0)
+    if (!isVisible() || getOverlayWindow() == (Window) NULL)
 	return;
     
     // set the window
@@ -1124,10 +1124,10 @@ SoXtRenderArea::windowEventCB(Widget w, SoXtRenderArea *p, XAnyEvent *xe, Boolea
 	
 	SoState *state = p->sceneMgr->getHandleEventAction()->getState();
 	if (state)
-	    SoWindowElement::set(state, 0, 0, 0, 0);
+	    SoWindowElement::set(state, (Window) NULL, NULL, NULL, NULL);
 	state = p->sceneMgr->getGLRenderAction()->getState();
 	if (state && state->getDepth() == 1)
-	    SoWindowElement::set(state, 0, 0, 0, 0);
+	    SoWindowElement::set(state, (Window) NULL, NULL, NULL, NULL);
     }
 }
 

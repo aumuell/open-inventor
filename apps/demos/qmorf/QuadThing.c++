@@ -465,7 +465,8 @@ QuadThing::figureNormals()
     //
     SbVec3f lastBot(0.0, 0.0, 0.0);
     SbVec3f lastTop(0.0, 0.0, 0.0);
-    for (int i = 0; i < numx; i++)
+    int i;
+    for (i = 0; i < numx; i++)
     {
 	int top = (numy-1)*numx+i;
 	normals[i] = lastBot;

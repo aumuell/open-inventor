@@ -358,7 +358,8 @@ IfBuilder::flatten(const SoPath *path, SbBool doNormals, SbBool doTexCoords)
 
     if (doVP) {
 	// Find the last material in the object
-	for (int i = root->getNumChildren() - 1; i >= 0; i--) {
+	int i;
+	for (i = root->getNumChildren() - 1; i >= 0; i--) {
 	    if (root->getChild(i)->isOfType(SoMaterial::getClassTypeId()))
 		break;
 	}

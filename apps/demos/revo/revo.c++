@@ -43,6 +43,7 @@
 #include <math.h>
 #include <malloc.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #include <Inventor/SoDB.h>
 #include <Inventor/Xt/SoXt.h>
@@ -233,7 +234,7 @@ main(int, char **argv)
     examViewer->setSceneGraph(revSurf->getSceneGraph());
     examViewer->setBorder(FALSE);
     examViewer->setDecoration(FALSE);
-    //setOverlayLogo( examViewer );    // Add Inventor logo to overlays
+    setOverlayLogo( examViewer );    // Add Inventor logo to overlays
     examViewer->show();
     XtManageChild(frame2);
     

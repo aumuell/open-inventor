@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoMFPath
@@ -483,9 +483,6 @@ SoMFPath::fixCopy(SbBool copyConnections)
 		SoPath *pathCopy = new SoPath(headCopy);
 		pathCopy->ref();
 		int len = ((SoFullPath *) values[i])->getLength();
-		//
-		// XXX Alex check for proper scoping rules...
-		//
 		for (int j = 1; j < len; j++)
 		    pathCopy->append(values[j]->getIndex(j));
 

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	ivinfo - prints out information about an Inventor data file,
@@ -57,11 +57,7 @@
  _______________________________________________________________________
  */
 
-#ifdef __sgi
 #include <getopt.h>
-#else
-extern "C" int getopt(int argc, char * const argv[], const char *optstring);
-#endif
 #include <unistd.h>
 
 #include <Inventor/SoDB.h>

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoGLRenderAction
@@ -63,9 +63,6 @@
 #include <Inventor/elements/SoTextureImageElement.h>
 #include <Inventor/elements/SoViewportRegionElement.h>
 #include <Inventor/elements/SoShapeStyleElement.h>
-#ifdef __linux__
-#include <float.h> // for FLT_MAX
-#endif
 
 SO_ACTION_SOURCE(SoGLRenderAction);
 
@@ -655,10 +652,6 @@ SoGLRenderAction::renderTransparentObjs()
 	    // Use selection sort, since number of objects is usually small
 
 	    // Look for bbox with smallest zmax (farthest from camera!)
-	    //
-	    // XXX Alex -- change this to use first element in array
-	    // as first zFar in lieu of FLT_MAX. (?)
-	    //
 	    zFar = FLT_MAX;
 	    for (i = 0; i < numObjs; i++) {
 		if (bboxes[i].getMax()[2] < zFar) {

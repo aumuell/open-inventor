@@ -35,7 +35,7 @@
  */
 
 /*
- * mapdesc.c++ - $Revision: 1.1 $
+ * mapdesc.c++ - $Revision: 1.2 $
  * 	Derrick Burns - 1991
  */
 
@@ -682,11 +682,6 @@ Mapdesc::bboxTooBig(
     // compute bounding box
     bbox( bb, &bbpts[0][0][0], trstride, tcstride, nrows, ncols );
 
-#ifndef __sgi
-#define ceilf ceil
-#define floorf floor
-#endif
-
     // find out if bounding box can't fit in unit cube
     if( bbox_subdividing == N_BBOXROUND ) {
 	for( int k=0; k != inhcoords; k++ )
@@ -707,10 +702,11 @@ Mapdesc::bbox(
     int	 nrows,
     int	 ncols )
 {
-    int i,k;
+    int k;
     for( k=0; k != inhcoords; k++ )
 	 bb[0][k] = bb[1][k] = p[k];
 
+    int i;
     for( i=0; i != nrows; i++ ) 
 	for( int j=0; j != ncols; j++ ) 
 	    for( k=0; k != inhcoords; k++ ) {

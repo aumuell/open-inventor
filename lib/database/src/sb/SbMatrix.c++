@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SbMatrix
@@ -587,11 +587,7 @@ SbMatrix::inverse() const
 
     // Affine case...
     SbMatrix affineAnswer;
-#ifndef __linux
-    if (  affine_inverse( (const SbMatrix &)matrix, affineAnswer ) )
-#else
-    if (  affine_inverse( matrix, affineAnswer ) )
-#endif
+    if (  affine_inverse( SbMatrix(matrix), affineAnswer ) )
 	return affineAnswer;
 
     int         index[4];

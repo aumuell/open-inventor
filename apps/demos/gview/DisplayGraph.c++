@@ -66,11 +66,7 @@ SoNode	*DisplayGraph::otherIcon;
 SbDict	*DisplayGraph::iconDict;
 
 #define ICON_FILE	"gviewIcons.iv"
-#ifndef __linux__
 #define ICON_INST_DIR	"/usr/demos/data/Inventor"
-#else
-#define ICON_INST_DIR	"/opt/SGIDemos/Inventor/data"
-#endif
 #define ICON_ENV_VAR	"IV_GRAPH_DIR"
 
 ////////////////////////////////////////////////////////////////////////
@@ -178,6 +174,7 @@ DisplayGraph::init()
     type = SoNode::getClassTypeId();
     iconDict->enter((unsigned long) * (int *) &type, (void *) otherIcon);
 
+#if 0
     // Tell input to look for icon file based on environment variable
     // (before looking in current directory)
     in.addEnvDirectoriesFirst(ICON_ENV_VAR);
@@ -191,6 +188,12 @@ DisplayGraph::init()
 	fprintf(stderr, "Can't open %s\n", ICON_FILE);
 	exit(1);
     }
+#endif
+
+#include "gviewIcons.iv.h"
+
+    // Set to read from included char array
+    in.setBuffer((void *) gviewIcons, sizeof(gviewIcons));
 
     // Read graph from file
     if (! SoDB::read(&in, inRoot)) {

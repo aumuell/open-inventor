@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes	: SoXtClipboard
  |
@@ -55,7 +55,6 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <string.h>
 
 #include <Inventor/SbDict.h>
 #include <Inventor/misc/SoByteStream.h>
@@ -490,7 +489,7 @@ SoXtClipboard::exportSelection(
 		char *exportData = (char *) malloc((size_t) numBytes);
 		
 		if (exportData != NULL) {
-		    bcopy(asciiBuffer->getData(), exportData, (int) numBytes);
+		    memcpy(exportData, asciiBuffer->getData(), (int) numBytes);
 		    
 		    *value  = exportData; 
 		    *length = numBytes;
@@ -512,9 +511,9 @@ SoXtClipboard::exportSelection(
 	    // Copy the data buffer since the requestor will own the data
 	    char *exportData = (char *) malloc((size_t) clipboard->copyBuffer->getNumBytes());
 	    if (exportData != NULL) {
-		bcopy(clipboard->copyBuffer->getData(),
-		      exportData,
-		      (int)clipboard->copyBuffer->getNumBytes());
+		memcpy(exportData,
+		       clipboard->copyBuffer->getData(),
+		       (int)clipboard->copyBuffer->getNumBytes());
 		*value  = exportData; 
 		*length = clipboard->copyBuffer->getNumBytes();
 		*format = 8;
@@ -599,7 +598,7 @@ SoXtClipboard::convertData(
 	desiredType == _ATOM_(widget, "VRML_1_0")) {
 	exportData = (char *) malloc((size_t) srcNumBytes);
 	if (exportData != NULL) {
-	    bcopy(srcData, exportData, (int) srcNumBytes);
+	    memcpy(exportData, srcData, (int) srcNumBytes);
 	    *returnData = exportData; 
 	    *returnNumBytes = srcNumBytes;
 	    return True;

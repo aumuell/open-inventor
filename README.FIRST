@@ -46,17 +46,26 @@ BUILDING THE TREE
 
 		setenv IVROOT /
 
-	2) Set your DISPLAY environment variable:
+	2) Append the DSO installation directory to the
+	   LD_LIBRARY_PATH environment variable, i.e.
+
+		setenv LD_LIBRARY_PATH "$LD_LIBRARY_PATH":$IVROOT/usr/lib
+
+	3) Set the DISPLAY environment variable, e.g.
 
 		setenv DISPLAY :0
 
-	3) The source code is compiled with optimization enabled
+	4) The source code is compiled with optimization enabled
 	   by default. To create debug libraries, enter:
 
 		setenv LIBTYPE debug
 
-	4) Type 'gmake install' from the directory where you
+	5) Type 'gmake install' from the directory where you
 	   unpacked the Open Inventor source code.
+
+	6) To use the default font library (libFL), run the
+	   linkType1.sh script in libFL/src as root. Type1 PFA
+	   font files must already exist in /usr/lib/X11/fonts/Type1.
 
 
 INSTALLATION TREE STRUCTURE

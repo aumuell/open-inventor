@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	Definition of the SoDB class
@@ -51,6 +51,7 @@
  _______________________________________________________________________
  */
 
+#include <stdlib.h>
 #include <Inventor/SbDict.h>
 #include <Inventor/SbString.h>
 #include <Inventor/SoDB.h>
@@ -74,12 +75,6 @@
 #include <Inventor/sensors/SoTimerSensor.h>
 
 #include <SoDebug.h>
-
-#include <stdlib.h>
-#include <string.h>
-#ifdef __linux__
-#include <machine.h>
-#endif
 
 #include "upgraders/SoUpgraders.h"	    /* V1 upgraders */
 #include "fields/SoGlobalField.h"	    /* GlobalField routines	*/

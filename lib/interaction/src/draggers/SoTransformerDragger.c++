@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoTransformerDragger
@@ -79,8 +79,8 @@
 #include "geom/SoTransformerDraggerGeom.h"
 
 #ifndef __sgi
-#define _ABS(x)     ((x) < 0 ? -(x) : (x))
-#endif
+#define _ABS(x) ((x) < 0 ? -(x) : (x))
+#endif // !__sgi
 
 int    SoTransformerDragger::colinearThreshold = 4;
 
@@ -3155,17 +3155,13 @@ SoTransformerDragger::isColinear(SbVec2f a1[2], SbVec2f a2[2], int pixels)
     B = 1.0;
     C = -yIntercept;
 
-#ifndef __sgi
-#define fsqrt sqrt
-#endif
-
-    dist1 = _ABS((A*a2[0][0] + B*a2[0][1] + C)/fsqrt(A*A + B*B));
+    dist1 = _ABS((A*a2[0][0] + B*a2[0][1] + C)/sqrtf(A*A + B*B));
 
     if (dist1 > (float)pixels)
 	return FALSE;
     else {
         dist2 = 
-	    _ABS((A*a2[1][0] + B*a2[1][1] + C)/fsqrt(A*A + B*B));
+	    _ABS((A*a2[1][0] + B*a2[1][1] + C)/sqrtf(A*A + B*B));
 
         if (dist2 > (float)pixels)
 	    return FALSE;

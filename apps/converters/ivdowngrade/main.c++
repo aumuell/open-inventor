@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Author(s) : David Mott
  |
@@ -48,6 +48,8 @@
  _______________________________________________________________________
  */
 
+#include <getopt.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <Inventor/SbDict.h>
 #include <Inventor/SoDB.h>

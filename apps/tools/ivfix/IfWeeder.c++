@@ -113,7 +113,8 @@ IfWeeder::weedMaterials(SoNode *root)
     findMaterialsAndShapes(root);
 
     // Weed each material in the resulting list
-    for (int i = 0; i < materialList->getLength(); i++) {
+    int i;
+    for (i = 0; i < materialList->getLength(); i++) {
 	IfWeederMaterialEntry *entry = (IfWeederMaterialEntry *)
 	    (*materialList)[i];
 
@@ -195,7 +196,8 @@ IfWeeder::findMaterialsAndShapes(SoNode *root)
 
 	// If any node above the material in the path is an opaque
 	// group, we can't really weed this material
-	for (int j = path->getLength() - 2; j >= 0; j--) {
+	int j;
+	for (j = path->getLength() - 2; j >= 0; j--) {
 	    if (IfTypes::isOpaqueGroupType(path->getNode(j)->getTypeId())) {
 		entry->canWeed = FALSE;
 		break;
@@ -351,9 +353,9 @@ IfWeeder::removeDuplicateMaterials(IfWeederMaterialEntry *entry)
 
     // Add each material index to the hash table, looking for
     // duplicates
-    int numMatches = 0;
+    int i, numMatches = 0;
 
-    for (int i = 0; i < numMaterials; i++) {
+    for (i = 0; i < numMaterials; i++) {
 
 	// Assume that there is no duplicate. We'll overwrite this if
 	// we find one below
@@ -509,9 +511,9 @@ IfWeeder::removeUnusedMaterials(IfWeederMaterialEntry *entry)
     // (and how many) materials are used. Store the results in an
     // array of flags and a counter.
 
-    int numUsed = 0;
+    int i, numUsed = 0;
     SbBool *materialUsed = new SbBool[numMaterials];
-    for (int i = 0; i < numMaterials; i++)
+    for (i = 0; i < numMaterials; i++)
 	materialUsed[i] = FALSE;
     for (i = 0; i < entry->shapes.getLength(); i++) { 
 	SoIndexedShape *iShape = (SoIndexedShape *) entry->shapes[i];

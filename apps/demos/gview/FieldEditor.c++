@@ -1004,7 +1004,8 @@ FieldEditor::updateLineNumbers(FieldInfo *info, SbBool textChanged) const
 	// Count newlines in the text string
 	char	*textString = XmTextGetString(info->textWidget);
 	int	numLines = 0;
-	for (char *b = textString; *b != '\0'; b++)
+	char	*b;
+	for (b = textString; *b != '\0'; b++)
 	    if (*b == '\n')
 		numLines++;
 	// Last line may not end in a newline?

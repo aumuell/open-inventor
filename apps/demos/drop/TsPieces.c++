@@ -38,7 +38,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes	: TsEll, TsTee, TsZee, TsLTri, TsMTri, TsRTri
  |
@@ -48,11 +48,7 @@
  _______________________________________________________________________
  */
 
-#ifndef __linux__
-#include <bstring.h>
-#else
 #include <string.h>
-#endif
 #include "TsPieces.h"
 
 static int ellTable[24][4] = {
@@ -229,9 +225,9 @@ TsEll::TsEll()
 ////////////////////////////////////////////////////////////////////////
 {
     numBlocks          = 4;
-    bcopy ((const void *)ellTable,
-           (void *)piecePositionTable,
-           24*4*sizeof(int));
+    memcpy ((void *)piecePositionTable,
+            (const void *)ellTable,
+            24*4*sizeof(int));
 }
 
 
@@ -262,9 +258,9 @@ TsTee::TsTee()
 ////////////////////////////////////////////////////////////////////////
 {
     numBlocks          = 4;
-    bcopy ((const void *)teeTable,
-           (void *)piecePositionTable,
-           24*4*sizeof(int));
+    memcpy ((void *)piecePositionTable,
+            (const void *)teeTable,
+            24*4*sizeof(int));
 }
 
 
@@ -295,9 +291,9 @@ TsZee::TsZee()
 ////////////////////////////////////////////////////////////////////////
 {
     numBlocks          = 4;
-    bcopy ((const void *)zeeTable,
-           (void *)piecePositionTable,
-           24*4*sizeof(int));
+    memcpy ((void *)piecePositionTable,
+            (const void *)zeeTable,
+            24*4*sizeof(int));
 }
 
 
@@ -329,9 +325,9 @@ TsLTri::TsLTri()
 ////////////////////////////////////////////////////////////////////////
 {
     numBlocks          = 4;
-    bcopy ((const void *)ltriTable,
-           (void *)piecePositionTable,
-           24*4*sizeof(int));
+    memcpy ((void *)piecePositionTable,
+            (const void *)ltriTable,
+            24*4*sizeof(int));
 }
 
 
@@ -362,9 +358,9 @@ TsMTri::TsMTri()
 ////////////////////////////////////////////////////////////////////////
 {
     numBlocks          = 4;
-    bcopy ((const void *)mtriTable,
-           (void *)piecePositionTable,
-           24*4*sizeof(int));
+    memcpy ((void *)piecePositionTable,
+            (const void *)mtriTable,
+            24*4*sizeof(int));
 }
 
 
@@ -395,9 +391,9 @@ TsRTri::TsRTri()
 ////////////////////////////////////////////////////////////////////////
 {
     numBlocks          = 4;
-    bcopy ((const void *)rtriTable,
-           (void *)piecePositionTable,
-           24*4*sizeof(int));
+    memcpy ((void *)piecePositionTable,
+            (const void *)rtriTable,
+            24*4*sizeof(int));
 }
 
 

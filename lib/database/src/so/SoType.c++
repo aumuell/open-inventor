@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SoType
@@ -58,10 +58,7 @@
 #include <stdlib.h>
 #ifdef __sgi
 #include <sgidefs.h>
-#else
-#include <string.h>
-#include <machine.h>
-#endif
+#endif // __sgi
 #include <sys/types.h>
 #include <unistd.h>
 
@@ -225,7 +222,7 @@ SoType::fromName(SbName name)
         const char *libDir = "lib64";
         const char *abiName = "SGv";
 #endif
-#else // ! __sgi
+#else // __sgi
 #ifdef DEBUG
 	char *longestName = "/usr/lib/InventorDSO/.so";
 #endif // DEBUG
@@ -457,7 +454,7 @@ SoType::expandTypeData()
     }
     else {
 	SoTypeData *newTypeData = new SoTypeData[2 * arraySize];
-	bcopy((void *) typeData, (void *) newTypeData,
+	memcpy((void *) newTypeData, (void *) typeData,
 	      arraySize * sizeof(SoTypeData));
 	delete[] typeData;
 	typeData = newTypeData;

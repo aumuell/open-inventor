@@ -6,6 +6,16 @@ IVCOMMONRULES = $(IVDEPTH)/make/ivcommonrules
 
 
 #
+# Settings for systems without single-precision math functions.
+#
+
+# MATHDEFS = -D_DOUBLE_MATH_ONLY
+# LCXXDEFS += $(MATHDEFS)
+# LCDEFS += $(MATHDEFS)
+
+
+
+#
 # Override variables in commondefs when building on Linux systems.
 #
 
@@ -29,10 +39,6 @@ endif
 #
 
 ifeq ($(usingLinux), 1)
-
-LINUXDEFS = -DPOSIX_SOURCE -D_XOPEN_SOURCE
-LCXXDEFS += $(LINUXDEFS)
-LCDEFS += $(LINUXDEFS)
 
 LINUXOPTS = -fPIC
 LCXXOPTS += $(LINUXOPTS)

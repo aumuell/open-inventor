@@ -34,50 +34,42 @@
  *
  */
 
-/*----------------------------------------------------------------------*/
-/* CONVERSION routines for floats and doubles
-/*----------------------------------------------------------------------*/
-#include <stdio.h>
-
-/* can't use float pointers or VAX core dumps	*/
-void mem_hton_float (float *t,float *f)
+inline static void
+mem_cvt_float(float *t, float *f)
 {
     float _tobuf;
     char *_to = (char *)&_tobuf;
 
-    if (*(float *)f != 0) {
+    if (*f != 0) {
 	_to[0] = ((char *)f)[3];
 	_to[1] = ((char *)f)[2];
 	_to[2] = ((char *)f)[1];
 	_to[3] = ((char *)f)[0];
 	*t = _tobuf;
     }
-    else *t = *f;
+    else
+        *t = *f;
 }
 
-/* can't use float pointers or VAX core dumps	*/
-void mem_ntoh_float (register float *t,register float *f)
+void
+mem_hton_float(float *t, float *f)
 {
-    float _tobuf;
-    char *_to = (char *)&_tobuf;
-
-    if (*(float *)f != 0) {
-	_to[0] = ((char *)f)[3];
-	_to[1] = ((char *)f)[2];
-	_to[2] = ((char *)f)[1];
-	_to[3] = ((char *)f)[0];
-	*t = _tobuf;
-    }
-    else *t = *f;
+    mem_cvt_float(t, f);
 }
 
-void mem_hton_double (register double *t,register double *ff) 
+void
+mem_ntoh_float(float *t, float *f)
 {
-    register unsigned short exp;
+    mem_cvt_float(t, f);
+}
+
+inline static void
+mem_cvt_double(double *t, double *f)
+{
     double _tobuf;
-    unsigned char *_to = (unsigned char *)&_tobuf, *f = (unsigned char *)ff;
+    char *_to = (char *)&_tobuf;
 
-    if ((*(double *)f) != 0 ) {
+    if (*f != 0) {
 	_to[0] = ((char *)f)[7];
 	_to[1] = ((char *)f)[6];
 	_to[2] = ((char *)f)[5];
@@ -88,29 +80,18 @@ void mem_hton_double (register double *t,register double *ff)
 	_to[7] = ((char *)f)[0];
 	*t = _tobuf;
     }
-    else {
+    else
 	*t = *f;
-    }
 }
 
-void mem_ntoh_double (register double *t,register double *ff)
+void
+mem_hton_double(double *t, double *f) 
 {
-    register unsigned short exp;
-    double _tobuf;
-    unsigned char *_to = (unsigned char *)&_tobuf,  *f = (unsigned char *)ff; 
+    mem_cvt_double(t, f);
+}
 
-    if ((*(double *)f) != 0 ) {
-	_to[0] = ((char *)f)[7];
-	_to[1] = ((char *)f)[6];
-	_to[2] = ((char *)f)[5];
-	_to[3] = ((char *)f)[4];
-	_to[4] = ((char *)f)[3];
-	_to[5] = ((char *)f)[2];
-	_to[6] = ((char *)f)[1];
-	_to[7] = ((char *)f)[0];
-	*t = _tobuf;
-    }
-    else {
-	*t = *f;
-    }
+void
+mem_ntoh_double(double *t, double *f)
+{
+    mem_cvt_double(t, f);
 }

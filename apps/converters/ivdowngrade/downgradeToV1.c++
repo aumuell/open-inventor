@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Author(s) : David Mott
  |
@@ -116,13 +116,8 @@
 SbDict *version2Only = NULL;
 SbDict *needsDowngrading = NULL;
 
-#ifndef __linux__
 #define DICT_ENTER(dict,nodeClass,dictData) \
-    (dict->enter((uint32_t) nodeClass::getClassTypeId().getName().getString(), dictData))
-#else
-#define DICT_ENTER(dict,nodeClass,dictData) \
-    (dict->enter((long unsigned int) nodeClass::getClassTypeId().getName().getString(), (void *)dictData))
-#endif
+    (dict->enter((unsigned long) nodeClass::getClassTypeId().getName().getString(), (void *) dictData))
     
 #define DICT_FIND(dict,node,dictData) \
     (dict->find((uint32_t) node->getTypeId().getName().getString(), dictData))

@@ -43,13 +43,9 @@
 #include "SoGLwDrawA.h"
 #endif
 
-#ifndef __sgi
-typedef char *caddr_t;
-#endif
-
 typedef struct _SoGLwDrawingAreaClassPart
 {
-    caddr_t extension;
+    XtPointer extension;
 } SoGLwDrawingAreaClassPart;
 
 #ifdef __GLX_MOTIF

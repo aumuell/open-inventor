@@ -121,7 +121,8 @@ SoLODV2::write(SoWriteAction *action)
 	    alternateRep = levelOfDetail;
 
 	    // All LOD children become LevelOfDetail children
-	    for (int j=0; j < getNumChildren(); j++)
+	    int j;
+	    for (j=0; j < getNumChildren(); j++)
 		levelOfDetail->addChild(getChild(j));
     
 	    // We don't need children here any more - they are in the alternateRep

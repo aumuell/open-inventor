@@ -77,7 +77,7 @@ TextWrapper::TextWrapper(const char *texti, int maxLineLength)
     char    *output       = outbuf;
     //
     if ( global_iconvCodeL2 == (iconv_t)-1   ||
-	 iconv(global_iconvCodeL2,&input,&inbytesleft,&output,&outbytesleft) == (size_t)-1 )
+	 iconv(global_iconvCodeL2,(const char **)&input,&inbytesleft,&output,&outbytesleft) == (size_t)-1 )
     {
 	 fprintf( stderr, "textomatic: iconv error.\n" );
 	 (*(UCS2 *)outbuf)=0;
@@ -229,7 +229,7 @@ TextWrapper::WordWrap(Paragraph &p, const UCS2 *text, int nchars, int
 	char    *output       = outbuf;
 	//
 	if ( global_iconvCode28 == (iconv_t)-1   ||
-	     iconv( global_iconvCode28,&input,&inbytesleft,&output,&outbytesleft ) == (size_t)-1 )
+	     iconv( global_iconvCode28,(const char **)&input,&inbytesleft,&output,&outbytesleft ) == (size_t)-1 )
 	{
 	     fprintf( stderr, "textomatic: iconv error.\n" );
 	     (*(UCS2 *)outbuf)=0;

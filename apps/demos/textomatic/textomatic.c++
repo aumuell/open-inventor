@@ -37,6 +37,8 @@
 //
 // Main stuff for 3D text creator program
 //
+#define _XOPEN_SOURCE
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -445,7 +447,7 @@ main(int argc, char **argv)
     XtSetArg(resources[n], XmNbottomAttachment, XmATTACH_POSITION); n++;
     XtSetArg(resources[n], XmNbottomPosition, MainHeight); n++;
     XtSetValues(examViewer->getWidget(), resources, n); n = 0;
-    //setOverlayLogo( examViewer );    // Add Inventor logo to overlays
+    setOverlayLogo( examViewer );    // Add Inventor logo to overlays
     examViewer->show();
 
     SoXtRenderArea *profile = new SoXtRenderArea(form);

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SoXtBitmapButton
@@ -82,7 +82,7 @@ SoXtBitmapButton::SoXtBitmapButton(Widget parent, SbBool canSelect)
     XtSetArg(args[n], XmNhighlightThickness, 0); n++;
 #ifndef __sgi
     XtSetArg(args[n], XmNtraversalOn, False); n++;
-#endif
+#endif // !__sgi
     widget = XmCreatePushButtonGadget(parent, NULL, args, n);
 }
 

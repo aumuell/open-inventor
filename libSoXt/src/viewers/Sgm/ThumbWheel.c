@@ -193,7 +193,7 @@ static XtResource resources[] = {
     XmRImmediate,
     (XtPointer)FALSE,
   },
-#endif
+#endif /* !__sgi */
 };
 #undef OFFSET
 

@@ -741,10 +741,10 @@ Method::parse()
 
     // See if it's an operator
     else {
-	int	prevEnd;
+	int	j, prevEnd;
 
 	// Skip over space before name
-	for (int j = i; j >= 0; --j)
+	for (j = i; j >= 0; --j)
 	    if (isalnum(str[j]))
 		break;
 	prevEnd = j;
@@ -806,7 +806,8 @@ Method::parse()
 
 #define NUM_OP_NAMES (sizeof(opNames) / sizeof(opNames[0]))
 
-		for (int op = 0; op < NUM_OP_NAMES; op++) {
+		int op;
+		for (op = 0; op < NUM_OP_NAMES; op++) {
 		    if (name == opNames[op][0]) {
 			name = opNames[op][1];
 			break;
@@ -1258,7 +1259,8 @@ DraggerResource::getPartDefName(int which) const
 		which);
 	fprintf(stderr,"resource name %s\n", name.getString());
     }
-    return SbName("");
+    static SbName empty("");
+    return empty;
 }
 
 SbBool

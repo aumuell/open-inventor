@@ -43,7 +43,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	This include file contains the machine-dependent macros
@@ -138,23 +138,18 @@ extern int errno;		/* missing from errno.h			*/
 
 #endif /* vax */
 
+
 /*
- * Linux i386 machine dependant setup
+ * Linux i386 machine dependent setup
  */
+
 #ifdef __i386__
 
 #define MACHINE_WORD_FORMAT DGL_LITTLE_ENDIAN
 #define MACHINE_FLOAT_FORMAT DGL_NON_IEEE
 
-extern "C" char *strdup(const char *s);
-extern "C" void bcopy (const void *src, void *dest, int n);
-
-typedef unsigned char u_char;
-
-typedef char *__caddr_t;
-typedef __caddr_t caddr_t;
-
 #endif /* __i386__ */
+
 
 /*
  * IBM RS/6000 series machine dependent setup
@@ -315,13 +310,11 @@ extern float dgl_ntoh_double();
 
 #if MACHINE_FLOAT_FORMAT == DGL_NON_IEEE
 #ifdef __i386__
-
-void mem_hton_float (float *t,float *f);
-void mem_ntoh_float (register float *t,register float *f);
-void mem_hton_double (register double *t,register double *f);
-void mem_ntoh_double (register double *t,register double *f);
-
-#endif
+void mem_hton_float(float *t, float *f);
+void mem_ntoh_float(float *t, float *f);
+void mem_hton_double(double *t, double *f);
+void mem_ntoh_double(double *t, double *f);
+#endif /* __i386__ */
 #define DGL_HTON_FLOAT(t,f) mem_hton_float(&t,&f)
 #define DGL_NTOH_FLOAT(t,f) mem_ntoh_float(&t,&f)
 #define DGL_HTON_DOUBLE(t,f) mem_hton_double(&t,&f)

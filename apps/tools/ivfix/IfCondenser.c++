@@ -110,7 +110,8 @@ IfCondenser::condenseCoordinates()
     // Determine the 3D extent of the coordinates so the hash
     // function can normalize coordinates into the range 0 to 1.
     SbBox3f box;
-    for (int i = 0; i < numCoords; i++)
+    int i;
+    for (i = 0; i < numCoords; i++)
 	box.extendBy(coords[i]);
     SbVec3f scale;
     box.getSize(scale[0],scale[1], scale[2]);

@@ -708,7 +708,8 @@ GeneralizedCylinder::initUpdateInfo()
     SoCoordinate3 *spinC = SO_GET_PART( this, "spineCoords", SoCoordinate3 );
     SoCoordinate3 *twisC = SO_GET_PART( this, "twistCoords", SoCoordinate3 );
 
-    for ( int i = 0; i < profC->point.getNum(); i++ ) {
+    int i;
+    for ( i = 0; i < profC->point.getNum(); i++ ) {
 	val = profC->point[i][1];
 	if ( profileMinY > val )
 	    profileMinY = val;

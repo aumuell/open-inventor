@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	This file contains basic SB library definitions.
@@ -71,7 +71,7 @@
 #ifdef __sgi
 #include <libc.h>
 #include <sgidefs.h>
-#endif
+#endif /* __sgi */
 // C-api: begin
 #include <stdio.h>
 
@@ -119,7 +119,7 @@ typedef int	SbBool;
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#if !defined(__sgi)
+#ifdef _DOUBLE_MATH_ONLY
 
 #define acosf acos
 #define asinf asin
@@ -131,6 +131,6 @@ typedef int	SbBool;
 #define powf pow
 #define sqrtf sqrt
 
-#endif /* !defined(__sgi) */
+#endif /* _DOUBLE_MATH_ONLY */
 
 #endif /* _SB_BASIC_ */

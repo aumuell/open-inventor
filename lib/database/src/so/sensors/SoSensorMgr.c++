@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	Defines the (internal) SoSensorManager class
@@ -56,7 +56,7 @@
 #include <Inventor/errors/SoDebugError.h>
 #ifdef __sgi
 #include <osfcn.h>
-#endif
+#endif // __sgi
 
 #ifdef DEBUG
 #include <SoDebug.h>
