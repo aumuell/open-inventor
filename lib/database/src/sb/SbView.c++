@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SbViewVolume
@@ -294,13 +294,13 @@ SbViewVolume::projectToScreen(const SbVec3f &src, SbVec3f &dst) const
 {
     SbMatrix mat = getMatrix();
 
-    SbVec3f result;
     mat.multVecMatrix(src, dst);
 
-    // dst will now range from -1 to +1 in x and y. Normalize this to
-    // range from 0 to 1
+    // dst will now range from -1 to +1 in x, y, and z. Normalize this
+    // to range from 0 to 1.
     dst[0] = (1.0 + dst[0]) / 2.0;
     dst[1] = (1.0 + dst[1]) / 2.0;
+    dst[2] = (1.0 + dst[2]) / 2.0;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -397,7 +397,19 @@ SbViewVolume::getAlignRotation(SbBool rightAngleOnly) const
 	// Then rotate about "up" so the x-axis becomes "right".
 	rotMat.setRotate(result);
 	rotMat.multDirMatrix(SbVec3f(1.0, 0.0, 0.0), newRight);
-	result *= SbRotation(newRight, right);
+
+	// Need to make certain that the rotation is phrased as a rot
+	// about the y axis.  If we just use
+	// SbRotation(newRight,right), in the case where 'newRight' is
+	// opposite direction of 'right' the algorithm gives us a 180
+	// degree rot about z, not y, which screws things up.
+	float thetaCos = newRight.dot(right);
+	if (thetaCos < -0.99999) {
+	    result *= SbRotation( SbVec3f(0,1,0), 3.14159 );
+	}
+	else {
+	    result *= SbRotation(newRight, right);
+	}
     }
 
     else {
@@ -454,25 +466,115 @@ SbViewVolume::getWorldToScreenScale(const SbVec3f &worldCenter,
 ////////////////////////////////////////////////////////////////////////
 {
     // Project worldCenter into normalized coordinates
-    SbVec3f normCenter;
-    projectToScreen(worldCenter, normCenter);
+    SbVec3f normCenter3;
+    projectToScreen(worldCenter, normCenter3);
+    SbVec2f normCenter( normCenter3[0], normCenter3[1] );
 
-    // Pick a point that is normRadius away from normCenter
-    SbVec2f	normPoint(normCenter[0] + normRadius, normCenter[1]);
+
+    // This method really behaves best if you keep the normalized
+    // points within the (0,0) (1,1) range.  So we shift the
+    // normCenter if necessary
+    SbBool centerShifted = FALSE;
+    if ( normCenter[0] < 0.0 ) {
+	 normCenter[0] = 0.0;
+         centerShifted = TRUE;
+    }
+    if ( normCenter[0] > 1.0 ) {
+	 normCenter[0] = 1.0;
+         centerShifted = TRUE;
+    }
+    if ( normCenter[1] < 0.0 ) {
+	 normCenter[1] = 0.0;
+         centerShifted = TRUE;
+    }
+    if ( normCenter[1] > 1.0 ) {
+	 normCenter[1] = 1.0;
+         centerShifted = TRUE;
+    }
+
+    // We'll either take the distance between a point that's offset
+    // vertically or horizontally from the original point.  This
+    // depends on the aspect ration of the view.
+    //
+    // If it's wider-than-tall, we'll use the vertical offset since
+    // the area subtended in the world will not change vertically as
+    // we stretch horizontally until we reach a square aspec.
+    //
+    // If it's taller-than-wide, we'll use the hozizontal offset for
+    // similar reasons.  Also, we'll offset up or down depending on
+    // which brings us more toward the center of the viewport, where
+    // results are better.
+
+    // Should we use a vertical or horizontal offset?
+    SbBool goVertical = (getWidth() > getHeight());
+
+    // Pick a point that is normRadius away from normCenter in the 
+    // desired direction.,
+    SbVec2f     offsetPoint = normCenter;
+    if ( goVertical ) {
+	if (offsetPoint[1] < 0.5)
+	    offsetPoint[1] += normRadius;
+	else
+	    offsetPoint[1] -= normRadius;
+    }
+    else {
+	if (offsetPoint[0] < 0.5)
+	    offsetPoint[0] += normRadius;
+	else
+	    offsetPoint[0] -= normRadius;
+    }
+
+    // The original method only works for perspective projections. The
+    // problem is in construction of 'plane.' For an ortho view, this
+    // should be a plane at the location worldCenter, but with a
+    // normal in the direction parallel to our line.
+
+    // Find centerLine, the line you get when you project normCenter into
+    // the scene.
+    SbLine	centerLine;
+    projectPointToLine(normCenter, centerLine);
 
     // Find the plane that passes through worldCenter and is
-    // perpendicular to the line (center - eyePos)
-    SbLine	line;
-    projectPointToLine(normPoint, line);
-    SbVec3f	norm = projPoint - worldCenter;
+    // perpendicular to the centerLine
+    SbVec3f	norm = centerLine.getDirection();
     norm.normalize();
     SbPlane plane(norm, worldCenter);
 
-    // Project normPoint onto that plane and return the distance from
-    // worldCenter to the projected point
-    SbVec3f	worldPoint;
-    plane.intersect(line, worldPoint);
-    return (worldCenter - worldPoint).length();
+    // Project offsetPoint onto that plane and return distance from
+    // worldCenter.
+    SbLine offsetLine;
+    projectPointToLine(offsetPoint, offsetLine);
+
+    // Intersect centerLine with the plane to get the location of normCenter
+    // projected onto that plane.  If we didn't need to shift the normCenter 
+    // then this is just the same as worldCenter
+    SbVec3f worldSeedPoint = worldCenter;
+
+    if ( centerShifted == TRUE ) {
+	SbBool isOk = plane.intersect(centerLine, worldSeedPoint);
+
+	if ( !isOk ) {
+	    // intersection did not succeeded, just return a value of 1
+	    return 1.0;
+	}
+    }
+
+    // Fix uninitialized memory read.  We need to check if the plane
+    // intersection is successful, and if not we must not use results
+    // to calculate an answer.  Instead, if the plane intersection
+    // fails, we return 1.0
+    SbVec3f	worldOffsetPoint;
+    SbBool isOk = plane.intersect(offsetLine, worldOffsetPoint);
+
+    if ( !isOk ) {
+	// intersection did not succeeded, just return a value of 1
+	return 1.0;
+    }
+
+    // intersection succeeded. return dist from worldCenter
+    float answerDist = (worldSeedPoint - worldOffsetPoint).length();
+
+    return answerDist;
 }
 
 ////////////////////////////////////////////////////////////////////////
