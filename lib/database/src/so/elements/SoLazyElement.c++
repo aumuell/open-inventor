@@ -154,15 +154,9 @@ SoLazyElement::getDiffuse(SoState* state, int index)
 #endif
     if (!curElt->ivState.packed) return (curElt->ivState.diffuseColors[index]);
     unpacker = SbColor( 
-#ifdef __sgi
        ((curElt->ivState.packedColors[index] & 0xff000000) >> 24) * 1.0/255,  
-       ((curElt->ivState.packedColors[index] & 0xff0000) >> 16) * 1.0/255,
-       ((curElt->ivState.packedColors[index] & 0xff00) >> 8) * 1.0/255); 
-#else
-       (curElt->ivState.packedColors[index] & 0xff) * 1.0/255,  
-       ((curElt->ivState.packedColors[index] & 0xff00) >> 8) * 1.0/255,
-       ((curElt->ivState.packedColors[index] & 0xff0000) >> 16) * 1.0/255); 
-#endif
+       ((curElt->ivState.packedColors[index] & 0xff0000) >> 16) * 1.0/255,  		
+       ((curElt->ivState.packedColors[index] & 0xff00)>> 8) * 1.0/255); 
     return unpacker;
       
 }

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SbColor
@@ -141,17 +141,10 @@ SbColor &
 SbColor::setPackedValue(uint32_t orderedRGBA, float& transparency)
 {
     float f = 1.0 / 255.0;
-#ifdef __sgi
     vec[0] = ((orderedRGBA & 0xFF000000)>>24) * f;
     vec[1] = ((orderedRGBA & 0xFF0000) >> 16) * f;
     vec[2] = ((orderedRGBA & 0xFF00) >> 8) * f;
     transparency = 1.0 - (orderedRGBA & 0xFF) * f;
-#else
-    vec[0] = (orderedRGBA & 0xFF) * f;
-    vec[1] = ((orderedRGBA & 0xFF00) >> 8) * f;
-    vec[2] = ((orderedRGBA & 0xFF0000) >> 16) * f;
-    transparency = 1.0 - ((orderedRGBA & 0xFF000000) >> 24) * f;
-#endif
     
     return (*this);
 }
@@ -162,17 +155,9 @@ SbColor::setPackedValue(uint32_t orderedRGBA, float& transparency)
 uint32_t
 SbColor::getPackedValue(float transparency) const
 {
-#ifdef __sgi
     return (
     	(((uint32_t) (vec[0] * 255)) << 24) +
 	(((uint32_t) (vec[1] * 255)) << 16) +
 	(((uint32_t) (vec[2] * 255)) << 8) +
 	((uint32_t) ((1.0 - transparency) * 255)));
-#else
-    return (
-        (((uint32_t) (vec[0] * 255))) +
-        (((uint32_t) (vec[1] * 255)) << 8) +
-        (((uint32_t) (vec[2] * 255)) << 16) +
-        ((uint32_t) ((1.0 - transparency) * 255) << 24));
-#endif
 }

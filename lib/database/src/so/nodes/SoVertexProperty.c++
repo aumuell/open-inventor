@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      SoVertexProperty,  SoVertexCache
@@ -65,6 +65,7 @@
 #include <Inventor/elements/SoNormalBindingElement.h>
 #include <Inventor/nodes/SoTextureCoordinate2.h>
 #include <Inventor/elements/SoGLLazyElement.h>
+#include <machine.h>
 
 SO_NODE_SOURCE(SoVertexProperty);
 
@@ -286,6 +287,14 @@ SoVertexProperty::pick(SoPickAction *action)
     SoVertexProperty::doAction(action);
 }
 
+void vp_glColor4ubv(const GLubyte *v)
+{
+    GLubyte _v[4];
+    DGL_HTON_INT32(*((int32_t*)_v), *((int32_t*)v));
+
+    glColor4ubv(_v);
+}
+
 void
 SoVertexPropertyCache::fillInCache(const SoVertexProperty *vp,
 		 SoState *state)
@@ -329,7 +338,7 @@ SoVertexPropertyCache::fillInCache(const SoVertexProperty *vp,
 	if ((!colorOverride) &&		
 	    (vp && (numColors = vp->orderedRGBA.getNum()) != 0)) {
 	    colorPtr = (const char *)vp->orderedRGBA.getValues(0);
-	    colorFunc = (SoVPCacheFunc *)glColor4ubv;
+	    colorFunc = (SoVPCacheFunc *)vp_glColor4ubv;
 	    colorStride = sizeof(uint32_t);
 	    needFromState &= ~COLOR_FROM_STATE_BITS;
 	    colorIsInVP = TRUE;
@@ -346,7 +355,7 @@ SoVertexPropertyCache::fillInCache(const SoVertexProperty *vp,
 	    numColors = le->getNumDiffuse();
 	    needFromState |= COLOR_FROM_STATE_BITS;
 	    colorPtr = (const char *) le->getPackedPointer();
-	    colorFunc = (SoVPCacheFunc *)glColor4ubv;
+	    colorFunc = (SoVPCacheFunc *)vp_glColor4ubv;
 	    colorStride = sizeof(uint32_t);
 	} 
 
