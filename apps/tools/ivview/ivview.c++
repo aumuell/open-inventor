@@ -441,7 +441,7 @@ optimizationChanged(FileInfo &files, SbBool maintainCamera)
 
 	// If there was an error:
 	if (err) {
-	    system("xconfirm -t 'Error running ivfix' > /dev/null");
+	    system("xmessage 'Error running ivfix' > /dev/null");
 	}
     }
 
