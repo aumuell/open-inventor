@@ -7,6 +7,6 @@ all:
 
 install:
 	mkdir -p $(IVDATADIR)
-	tar cf - $(FILES) | (cd $(IVDATADIR); tar xvf -)
+	(tar cf - $(FILES) | (cd $(IVDATADIR); tar xvf -)) || exit 0
 
 include $(IVCOMMONRULES)
