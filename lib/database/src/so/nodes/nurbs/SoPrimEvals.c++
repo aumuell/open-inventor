@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      _SoNurbsPrimCurvEval
@@ -92,9 +92,9 @@ _SoNurbsPrimCurvEval::~_SoNurbsPrimCurvEval( void )
 //
 ////////////////////////////////////////////////////////////////////////
 { 
-    delete t2CurveMap;
-    delete v4CurveMap;
-    delete v3CurveMap;
+//    delete t2CurveMap;
+//    delete v4CurveMap;
+//    delete v3CurveMap;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -184,9 +184,9 @@ _SoNurbsPrimSurfEval::~_SoNurbsPrimSurfEval()
 //
 ////////////////////////////////////////////////////////////////////////
 { 
-    delete t2SurfaceMap;
-    delete v4SurfaceMap;
-    delete v3SurfaceMap;
+//    delete t2SurfaceMap;
+//    delete v4SurfaceMap;
+//    delete v3SurfaceMap;
 }
 
 ////////////////////////////////////////////////////////////////////////
