@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoGLLazyElement
@@ -1345,17 +1345,28 @@ SoGLLazyElement::reallySend(const SoState *state, uint32_t bitmask)
 		    if (glState.GLColorMaterial || 
 			(glState.GLLightModel== BASE_COLOR))
 			    glColor4ubv((GLubyte*)ivState.packedColors);	
-		    else{		
-			col4[3] =  (ivState.packedColors[0] & 
-			    0xff)   * 1.0/255;
+		    else{
+#ifdef __sgi
+			col4[3] =  (ivState.packedColors[0] &
+			    0xff) * 1.0/255;
 			col4[2] = ((ivState.packedColors[0] & 
-			    0xff00) >>  8) * 1.0/255;
+			    0xff00) >> 8) * 1.0/255;
 			col4[1] = ((ivState.packedColors[0] & 
-			    0xff0000)>> 16) * 1.0/255;
+			    0xff0000) >> 16) * 1.0/255;
 			col4[0] = ((ivState.packedColors[0] & 
-			    0xff000000)>>24) * 1.0/255;
+			    0xff000000) >> 24) * 1.0/255;
+#else
+			col4[3] = ((ivState.packedColors[0] &
+			    0xff000000) >> 24) * 1.0/255;
+			col4[2] = ((ivState.packedColors[0] & 
+			    0xff0000) >> 16) * 1.0/255;
+			col4[1] = ((ivState.packedColors[0] & 
+			    0xff00) >> 8) * 1.0/255;
+			col4[0] =  (ivState.packedColors[0] & 
+			    0xff) * 1.0/255;
+#endif
 			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, col4);
-		    }		  
+		    }
 		    break;
 		    		      
 		case(AMBIENT_CASE):     
@@ -1559,10 +1570,17 @@ SoGLLazyElement::sendDiffuseByIndex(int index) const
     if (glState.GLColorMaterial || (glState.GLLightModel == BASE_COLOR))
 	glColor4ubv((GLubyte*)(ivState.packedColors+index));
     else {
-      	col4[3] =  (ivState.packedColors[index] & 0xff)   * 1.0/255;
-	col4[2] = ((ivState.packedColors[index] & 0xff00) >>  8) * 1.0/255;
-	col4[1] = ((ivState.packedColors[index] & 0xff0000)>> 16) * 1.0/255;
-	col4[0] = ((ivState.packedColors[index] & 0xff000000)>>24) * 1.0/255;
+#ifdef __sgi
+      	col4[3] =  (ivState.packedColors[index] & 0xff) * 1.0/255;
+	col4[2] = ((ivState.packedColors[index] & 0xff00) >> 8) * 1.0/255;
+	col4[1] = ((ivState.packedColors[index] & 0xff0000) >> 16) * 1.0/255;
+	col4[0] = ((ivState.packedColors[index] & 0xff000000) >> 24) * 1.0/255;
+#else
+      	col4[3] = ((ivState.packedColors[index] & 0xff000000) >> 24) * 1.0/255;
+	col4[2] = ((ivState.packedColors[index] & 0xff0000) >> 16) * 1.0/255;
+	col4[1] = ((ivState.packedColors[index] & 0xff00) >> 8) * 1.0/255;
+	col4[0] =  (ivState.packedColors[index] & 0xff) * 1.0/255;
+#endif
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, col4);
     }
     return;
