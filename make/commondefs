@@ -1,6 +1,6 @@
 # Copyright 1990-1995 Silicon Graphics, Inc.  All rights reserved.
 #
-#ident "$Revision: 1.4 $"
+#ident "$Revision: 1.5 $"
 #
 # Common makefile definitions.
 #
@@ -32,9 +32,9 @@ COMMONTARGS= clobber clean rmtargets fluff tags
 RELEASEDEFS= $(IVDEPTH)/make/releasedefs
 
 # include releasedefs by default
-#if !defined(NO_RELEASEDEFS)
+ifndef NO_RELEASEDEFS
 include $(RELEASEDEFS)
-#endif
+endif
 
 # Build tools, i.e., programs which are used as part of the build
 # process.  These must run on all supported build environments
@@ -314,6 +314,28 @@ GC++DEFS  =
 # Note: To turn off -quickstart_info for specific Makefile add:
 #		LD_QUICKSTART_INFO=
 LD_QUICKSTART_INFO=-quickstart_info
+
+#
+# locations to search for libs. We search the 'generic' locations such
+# as usr/lib64 even though those are installed in a machine specific manner.
+# This permits library writers that only want to have one 'least-common-
+# denominator' version per ABI to install it directly in the generic location
+# without having to create links. This should be OK in the build environment
+# since we always search the specific directories first.
+#
+# Some user's may not want all this searching help - they can specify
+# NO_LSRCH
+#
+ifndef NO_LSRCH
+LSRCH_32_M2 =	-L$(ROOT)/lib -L$(ROOT)/usr/lib -L$(ROOT)/usr/lib/internal
+LSRCH_N32_M3 =	-L$(ROOT)/usr/lib32/mips3 -L$(ROOT)/usr/lib32 -L$(ROOT)/usr/lib32/internal
+LSRCH_N32_M4 =	-L$(ROOT)/usr/lib32/mips4 -L$(ROOT)/usr/lib32 -L$(ROOT)/usr/lib32/internal
+LSRCH_32_ABI =	-L$(ROOT)/usr/lib/abi
+LSRCH_R32    =	-L$(ROOT)/libr32 -L$(ROOT)/usr/libr32
+LSRCH_64_M3 =	-L$(ROOT)/usr/lib64/mips3 -L$(ROOT)/usr/lib64 -L$(ROOT)/usr/lib64/internal
+LSRCH_64_M4 =	-L$(ROOT)/usr/lib64/mips4 -L$(ROOT)/usr/lib64 -L$(ROOT)/usr/lib64/internal
+LSRCH_64_ABI =	-L$(ROOT)/usr/lib64/abi
+endif
 
 #
 # each 'popular' combination of ABI and ISA gets its own set of
