@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Classes:
  |	SoXtGLWidget
@@ -791,7 +791,6 @@ SoXtGLWidget::buildOverlayGLXWidget(XVisualInfo *vis)
 //
 ////////////////////////////////////////////////////////////////////////
 {
-#ifdef __sgi
     // build the visual from the attribute list if necessary
     if (! vis) {
 	//
@@ -847,9 +846,6 @@ SoXtGLWidget::buildOverlayGLXWidget(XVisualInfo *vis)
 //    XtUninstallTranslations(overlayWidget);
     
     XtManageChild(overlayWidget);
-#else
-    overlayWidget = (Widget) NULL;
-#endif // __sgi
 }
 
 ////////////////////////////////////////////////////////////////////////

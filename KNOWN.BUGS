@@ -1,11 +1,7 @@
 The problems described below occur on Linux platforms we tested. Note that some
 of these may be due to older versions of other libraries, i.e. LessTif or Mesa.
 
-1. Applications which depend on overlay planes will not work because the
-   current OpenGL drivers on the SGI Visual Workstations 230, 330, and 550
-   (http://www.sgi.com/workstations) do not support this feature.
-
-2. Font capabilities used by SoAsciiText and SoText[23] are currently provided
+1. Font capabilities used by SoAsciiText and SoText[23] are currently provided
    by libFL.a. On IRIX, libFL.so is provided in the eoe.sw.gfx and eoe.sw64.gfx
    subsystems. A version of libFL.a compiled for SunOS 5.8 is available in the
    FTP download area. No other platforms are currently supported.
@@ -16,18 +12,18 @@ of these may be due to older versions of other libraries, i.e. LessTif or Mesa.
 
      http://www.geocities.com/angbodhi/download/
 
-3. Arrowhead cones in transformer dragger appear squished. This occurs on IRIX
+2. Arrowhead cones in transformer dragger appear squished. This occurs on IRIX
    and Linux.
 
-4. When selecting hidden-line view in viewers, the following error is printed
+3. When selecting hidden-line view in viewers, the following error is printed
    for models with colors specified in arrays:
 
      Inventor error in SoIndexedShape(): material index n is out of range 0 - 1
 
    This occurs on IRIX and Linux.
 
-5. SceneViewer crashes when loading temple.iv (binary format). This occurs
+4. SceneViewer crashes when loading temple.iv (binary format). This occurs
    with Lesstif 0.91.4, but not 0.90.0 (see Bug 2).
 
 
-Last updated: $Date: 2000/10/05 18:33:20 $
+Last updated: $Date: 2000/11/01 01:58:41 $

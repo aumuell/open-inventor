@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SoXtRenderArea
@@ -266,9 +266,9 @@ SoXtRenderArea::setOverlaySceneGraph(SoNode *newScene)
 //
 ////////////////////////////////////////////////////////////////////////
 {
-#ifndef __sgi
-    return;
-#endif // !__sgi
+    if (! getOverlayWidget())
+	return;
+
     // Deactivate while we change the scene so that our sensors
     // get unhooked before the data changes beneath us.
     overlaySceneMgr->deactivate();
@@ -343,9 +343,9 @@ SoXtRenderArea::setOverlayColorMap(int startIndex, int num, const SbColor *color
 //
 ////////////////////////////////////////////////////////////////////////
 {
-#ifndef __sgi
-    return;
-#endif // !__sgi
+    if (! getOverlayWidget())
+	return;
+
     // save those colors for future uses (if the widget hasn't been
     // built yet, or next time it gets built)
     if (overlayMapColors != NULL)
