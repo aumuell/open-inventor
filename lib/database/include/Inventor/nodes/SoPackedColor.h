@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	This file defines the SoPackedColor node class.
@@ -65,7 +65,7 @@
 //
 //  Surface base color (of material) node. This affects the diffuse
 //  color and transparency of the current material. Colors are packed
-//  into uint32_ts as 0xaabbggrr. The alpha value is used for
+//  into uint32_ts as 0xrrggbbaa. The alpha value is used for
 //  transparency.
 //
 //////////////////////////////////////////////////////////////////////////////
