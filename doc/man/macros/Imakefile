@@ -1,8 +1,0 @@
-#define DataMakefile
-
-#define DataFiles Op localmacs stdmacro strings.mm
-
-#define NoShipUser
-
-TOP_OF_TREE = ../../..
-
