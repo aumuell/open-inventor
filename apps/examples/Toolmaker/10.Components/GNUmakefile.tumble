@@ -1,0 +1,12 @@
+IVDEPTH = ../../../..
+include $(IVDEPTH)/make/ivcommondefs
+
+PROGRAM = tumble
+
+CXXFILES = tumble.c++ SceneTumble.c++
+
+LLDLIBS = -lInventor -lInventorXt
+
+all: all_ivbin
+
+include $(IVCOMMONRULES)

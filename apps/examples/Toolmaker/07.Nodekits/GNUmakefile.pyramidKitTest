@@ -1,0 +1,12 @@
+IVDEPTH = ../../../..
+include $(IVDEPTH)/make/ivcommondefs
+
+PROGRAM = pyramidKitTest
+
+CXXFILES = PyramidKit.c++ pyramidKitTest.c++
+
+LLDLIBS = ../02.Nodes/Pyramid.o -lInventor -lInventorXt
+
+all: all_ivbin
+
+include $(IVCOMMONRULES)

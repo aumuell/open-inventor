@@ -1,9 +1,0 @@
-#define BranchMakefile
-
-#define SubDirs  BarChart Decal GeneralizedCylinder
-#define InstallSource
-
-#ifndef CreatingUserMakefile
-TOP_OF_TREE = ../..
-OTHERSOURCE = README
-#endif

@@ -1,48 +1,17 @@
 IVDEPTH = ../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../..
-LDIRT = *.d
-LCXXFLAGS += -DNO_AUDIO \
-	    -DLIBRARYBUILD \
-	    -I../../samples/common/ \
-	    -I../../../lib/database/include/ \
-  	    -I../../../lib/interaction/include \
-	    -I../../../lib/nodekits/include -O3 \
-	    -I../../../libSoXt/include 
+PROGRAM = maze
+DEMO = $(PROGRAM)
 
-TARGETS = maze
+LCXXDEFS += -DNO_AUDIO
 
-LLDOPTS = \
-	-L../../../libimage \
-	-L../../../lib \
-	-L/usr/X11R6/lib \
-	-L../../../libSoXt \
-	-L../../samples/common \
-	-L/usr/X11R6/lib 
+CXXFILES = maze.c++
 
-ifeq ($(usingLinux),1)
-LLDOPTS += -L../../../libFL/src
-endif
+LLDLIBS = -lInventor -lInventorXt
 
-LLDLIBS = \
-	-limage \
-	-lInventorXt \
-	-lInventor \
-	-lcommon \
-	-lXm -lXt -lXi -lX11 \
-	-lFL -lGLU -lGL \
-	-lXext \
-	-lX11 -ldl -lm 
+all: all_ivbin
 
-CXXFILES =\
-	maze.c++
+install: install_ivdemo
 
-$(TARGETS): $(OBJECTS)
-	$(CXX) $(LDOPTS) $(OBJECTS) $(LDLIBS) -o $(TARGETS)
-
-install:  $(TARGETS)
-	@mkdir -p $(IVROOT)/opt/SGIDemos/Inventor/bin
-	@cp -f $(TARGETS) $(IVROOT)/opt/SGIDemos/Inventor/bin
-
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

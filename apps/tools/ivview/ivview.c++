@@ -915,7 +915,7 @@ buildAndLayoutMenus(Widget parent)
         // Make Topbar menu button
 	//
         Widget subMenu = 
-		XmCreatePulldownMenu(menuWidget, NULL, popupargs, popupn);
+		XmCreatePulldownMenu(menuWidget, "subMenu", popupargs, popupn);
 
 #ifdef MENUS_IN_POPUP
 	// register callbacks to load/unload the pulldown colormap when the

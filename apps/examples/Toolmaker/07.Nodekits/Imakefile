@@ -1,7 +1,0 @@
-#define MultiProgram
-
-#define Programs jumpingJackKitTest pyramidKitTest
-
-#ifndef CreatingUserMakefile
-TOP_OF_TREE = ../../../..
-#endif

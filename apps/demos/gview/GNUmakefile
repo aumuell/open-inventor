@@ -1,54 +1,20 @@
 IVDEPTH = ../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../..
-LDIRT = *.d
-LCXXFLAGS += -DLIBRARYBUILD \
-	    -I../../../lib/database/include/ \
-  	    -I../../../lib/interaction/include \
-	    -I../../../lib/nodekits/include -O3 \
-	    -I../../../libSoXt/include \
+PROGRAM = gview
+DEMO = $(PROGRAM)
 
-TARGETS = gview
+CXXFILES = \
+	gview.c++ DisplayGraph.c++ Error.c++ FieldEditor.c++ \
+	GraphIcon.c++ GraphViewer.c++ NodeCreator.c++
 
-LLDOPTS = \
-	-L../../../libimage \
-	-L../../../lib \
-	-L/usr/X11R6/lib \
-	-L../../../libSoXt \
-	-L/usr/X11R6/lib \
+LLDLIBS = -lInventor -lInventorXt
 
-ifeq ($(usingLinux),1)
-LLDOPTS += -L../../../libFL/src
-endif
+all: all_ivbin
 
-LLDLIBS = \
-	-limage \
-	-lInventorXt \
-	-lInventor \
-	-lXm -lXt -lXi -lX11 \
-	-lFL -lGLU -lGL \
-	-lXext \
-	-lX11 -ldl -lm 
+install: install_ivdemo
+	$(INSTALL) -m 755 $(DEMO).RUNME $(IVDEMOBINDIR)
+	$(INSTALL) -m 644 windmill.iv $(IVDEMODATADIR)
+	$(INSTALL) -m 644 gviewIcons.iv $(IVDEMODATADIR)
 
-CXXFILES =\
-	gview.c++ \
-	DisplayGraph.c++ \
-	Error.c++ \
-	FieldEditor.c++ \
-	GraphIcon.c++ \
-	GraphViewer.c++ \
-	NodeCreator.c++
-
-$(TARGETS): $(OBJECTS)
-	$(CXX) $(LDOPTS) $(OBJECTS) $(LDLIBS) -o $(TARGETS)
-
-install: $(TARGETS)
-	@mkdir -p $(IVROOT)/opt/SGIDemos/Inventor/bin
-	@mkdir -p $(IVROOT)/opt/SGIDemos/Inventor/data
-	@cp -f $(TARGETS) $(IVROOT)/opt/SGIDemos/Inventor/bin
-	@cp -f $(TARGETS).RUNME $(IVROOT)/opt/SGIDemos/Inventor/bin
-	@cp -f windmill.iv $(IVROOT)/opt/SGIDemos/Inventor/data
-	@cp -f gviewIcons.iv $(IVROOT)/opt/SGIDemos/Inventor/data
-
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

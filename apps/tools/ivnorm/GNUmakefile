@@ -1,40 +1,16 @@
 IVDEPTH = ../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../..
-CXXFLAGS += -I$(DEPTH)/include \
-	   -I../../../lib/database/include/ \
-	   -I../../../lib/interaction/include \
-	   -I../../../lib/nodekits/include 
-
-TARGETS = ivnorm
+PROGRAM = ivnorm
 
 CXXFILES = \
-	Edges.c++ \
-	Faces.c++ \
-	FindNormals.c++ \
-	ivnorm.c++
-	
-LLDOPTS = -L../../../libimage \
-	-L../../../lib/ \
-	-L/usr/X11R6/lib 
+	ivnorm.c++ FindNormals.c++ \
+	Faces.c++ Edges.c++
 
-ifeq ($(usingLinux),1)
-LLDOPTS += -L../../../libFL/src
-endif
+LLDLIBS = -lInventor
 
-LLDLIBS = \
-	-lInventor \
-	-limage \
-	-lFL -lGLU -lGL \
-	-lXext -lX11 -ldl -lm
+all: all_ivbin
 
-$(TARGETS): $(OBJECTS)
-	$(CXX) $(LDOPTS) $(OBJECTS) $(LDLIBS) -o $(TARGETS)
+install: install_ivbin
 
-install: $(TARGETS)
-	@mkdir -p $(IVROOT)/usr/bin
-	@cp -f $(TARGETS) $(IVROOT)/usr/bin
-
-include $(COMMONRULES)
-
+include $(IVCOMMONRULES)

@@ -1,55 +1,18 @@
 IVDEPTH = ../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../..
-LDIRT = *.d
-LCXXFLAGS = -DLIBRARYBUILD \
-	    -I../../../lib/database/include/ \
-  	    -I../../../lib/interaction/include \
-	    -I../../../lib/nodekits/include -O3 \
-	    -D__NO_MATH_INLINES \
-	    -I../../../libSoXt/include
+PROGRAM = textomatic
+DEMO = $(PROGRAM)
 
-TARGETS = textomatic
+CXXFILES = textomatic.c++ TextGraph.c++ TextWrapper.c++
 
-LLDOPTS = \
-	-L../../../libimage \
-	-L../../../lib \
-	-L/usr/X11R6/lib \
-	-L../../../libSoXt \
-	-Wl,-rpath,../../../libSoXt \
-	-L../../samples/common \
-	-L/usr/X11R6/lib \
-	-Wl,-rpath,../../libimage \
-	-Wl,-rpath,../../../lib
+LLDOPTS += -L../../samples/common
 
-ifeq ($(usingLinux),1)
-LLDOPTS +=	-L../../../libFL/src \
-	-Wl,-rpath,../../../libFL/src
-endif
+LLDLIBS = -lcommon -lInventor -lInventorXt
 
-LLDLIBS = \
-	-limage \
-	-lcommon \
-	-lInventorXt \
-	-lInventor \
-	-lXm -lXt -lXi -lX11 \
-	-lFL -lGLU -lGL \
-	-lXext \
-	-lX11 -ldl -lm 
+all: all_ivbin
 
-CXXFILES =\
-	TextGraph.c++ \
-	TextWrapper.c++ \
-	textomatic.c++
+install: install_ivdemo
+	$(INSTALL) -m 644 $(DEMO).about $(IVDEMOBINDIR)
 
-
-$(TARGETS): $(OBJECTS)
-	$(CXX) $(LDOPTS) $(OBJECTS) $(LDLIBS) -o $(TARGETS)
-
-install: $(TARGETS)
-	@mkdir -p $(IVROOT)/opt/SGIDemos/Inventor/bin
-	@cp -f $(TARGETS) $(IVROOT)/opt/SGIDemos/Inventor/bin
-	@cp -f $(TARGETS).about $(IVROOT)/opt/SGIDemos/Inventor/bin
-
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

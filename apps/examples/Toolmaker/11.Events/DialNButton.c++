@@ -241,7 +241,7 @@ DialNButton::enable(
       return;
    }
    
-   if (window == NULL) {
+   if (window == (Window) NULL) {
       fprintf(stderr, "DialNButton::enable",
          "widget must be realized (Window is NULL).");
       return;

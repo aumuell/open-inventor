@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes	: simpleViewer
  |
@@ -121,7 +121,7 @@ simpleViewer::setViewing(SbBool flag)
     
     // set the right cursor
     Widget w = getRenderAreaWidget();
-    if (w != NULL && XtWindow(w) != NULL) {
+    if (w != (Widget) NULL && XtWindow(w) != (Window) NULL) {
 	if ( isViewing() ) {
 	    if (!createdCursors)
 		defineCursors();
@@ -441,7 +441,7 @@ simpleViewer::computeTranslateValues()
 	float angle = ((SoPerspectiveCamera *) 
 	    camera)->heightAngle.getValue() / 2;
 	float dist = camera->focalDistance.getValue();
-	height = dist * ftan(angle);
+	height = dist * tan(angle);
     }
     else if ( camera->isOfType( 
 	SoOrthographicCamera::getClassTypeId()) )

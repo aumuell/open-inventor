@@ -1,50 +1,16 @@
 IVDEPTH = ../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../..
-CXXFLAGS = -I$(DEPTH)/include \
-	   -I../../../lib/database/include/ \
-	   -I../../../lib/interaction/include \
-	   -I../../../lib/nodekits/include \
-	   -I../../nodes/BarChart \
-	   -I../../../libSoXt/include
+PROGRAM = ivperf
 
-TARGETS = ivperf
+LCXXINCS += -I../../nodes/BarChart
 
 CXXFILES = ivperf.c++
 
-ifeq ($OSTYPE,"Linux")
-  BARLD=-Wl,-rpath,../../nodes/BarChart
-else
-  BARLD=-rpath ../../nodes/BarChart
-endif
-	
-LLDOPTS = -L../../../libimage \
-	-L../../../lib/ \
-	-L/usr/X11R6/lib \
-	-L../../nodes/BarChart \
-        -L../../../libSoXt \
-        -Wl,-rpath,../../../libSoXt \
-	$(BARLD)
+LLDLIBS = ../../nodes/BarChart/BarChart.o -lInventor -lInventorXt
 
-ifeq ($(usingLinux),1)
-LLDOPTS += -L../../../libFL/src
-endif
+all: all_ivbin
 
-LLDLIBS = \
-	-lBarChart \
-	-lInventor \
-	-lInventorXt \
-	-limage \
-	-lFL -lGLU -lGL \
-	-lXm -lXt -lXext -lXi -lX11 -ldl -lm
+install: install_ivbin
 
-$(TARGETS): $(OBJECTS)
-	$(CXX) $(LDOPTS) $(OBJECTS) $(LDLIBS) -o $(TARGETS)
-
-install: $(TARGETS)
-	@mkdir -p $(IVROOT)/usr/bin
-	@cp -f $(TARGETS) $(IVROOT)/usr/bin
-
-include $(COMMONRULES)
-
+include $(IVCOMMONRULES)

@@ -1,45 +1,16 @@
 IVDEPTH = ../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../..
-LDIRT = *.d
-LCXXFLAGS += -I/tmp/include \
-	    -I$(DEPTH)/include \
-	    -DLIBRARYBUILD \
-	    -I../../../lib/database/include/ \
-	    -I../../../lib/interaction/include \
-	    -I../../../lib/nodekits/include \
-            -I../../../libSoXt/include
+PROGRAM = ivview
 
 CXXFILES = ivview.c++
 
-TARGETS = ivview
+LLDOPTS += -L../../samples/widgets
 
-LLDOPTS = \
-	-L../../../libimage \
-	-L../../../lib/ \
-	-L../../samples/widgets \
-	-L../../../libSoXt/ \
-	-L/usr/X11R6/lib \
-	-L/usr/X11R6/lib \
+LLDLIBS = -lInventorWidget -lInventorXt -lInventor
 
-ifeq ($(usingLinux),1)
-LLDOPTS += -L../../../libFL/src
-endif
+all: all_ivbin
 
-LLDLIBS = \
-	-lInventorWidget \
-	-lInventorXt -lInventor \
-	-limage \
-	-lFL -lGLU -lGL \
-	-lXm -lXt -lXext -lXmu -lXi -lX11 -ldl -lm
+install: install_ivbin
 
-$(TARGETS): $(OBJECTS)
-	$(CXX) $(LDOPTS) $(OBJECTS) $(LDLIBS) -o $(TARGETS)
-
-install: $(TARGETS)
-	@mkdir -p $(IVROOT)/usr/bin
-	@cp -f $(TARGETS) $(IVROOT)/usr/bin
-
-include $(COMMONRULES)
-
+include $(IVCOMMONRULES)

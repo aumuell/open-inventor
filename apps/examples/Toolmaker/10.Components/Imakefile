@@ -1,9 +1,0 @@
-#define MultiProgram
-
-#define Programs viewer tumble
-
-#ifndef CreatingUserMakefile
-TOP_OF_TREE = ../../../..
-#endif
-
-

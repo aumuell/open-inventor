@@ -1,16 +1,10 @@
 IVDEPTH = ../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../..
-LDIRT = *.d
-LCXXFLAGS = -I$(DEPTH)/include \
-	    -I../../../lib/database/include/ \
-	    -I../../../lib/interaction/include \
-	    -I../../../lib/nodekits/include 
+PROGRAM = ivfix
 
-TARGETS = ivfix
-
-CXXFILES = ivfix.c++ 	\
+CXXFILES = \
+	ivfix.c++ 	\
 	IfBuilder.c++	\
 	IfCollector.c++	\
 	IfCondenser.c++	\
@@ -28,27 +22,10 @@ CXXFILES = ivfix.c++ 	\
 	IfTypes.c++	\
 	IfWeeder.c++
 
+LLDLIBS = -lInventor
 
-OTHERSOURCE = README
+all: all_ivbin
 
-LLDOPTS = \
-	-L../../../libimage \
-	-L../../../lib/ \
-	-L../../../libFL/src \
-	-L/usr/X11R6/lib 
+install: install_ivbin
 
-LLDLIBS = \
-	-lFL -lGLU -lGL \
-	-limage \
-	-lInventor \
-	-lXext -lX11 -ldl -lm
-
-$(TARGETS): $(OBJECTS)
-	$(CXX) $(LDOPTS) $(OBJECTS) $(LDLIBS) -o $(TARGETS)
-
-install: $(TARGETS)
-	@mkdir -p $(IVROOT)/usr/bin
-	@cp -f $(TARGETS) $(IVROOT)/usr/bin
-
-include $(COMMONRULES)
-
+include $(IVCOMMONRULES)

@@ -1,38 +1,14 @@
 IVDEPTH = ../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../..
-LDIRT = *.d
-LCXXFLAGS= -I$(DEPTH)/include \
-	   -DLIBRARYBUILD \
-	   -I../../../lib/database/include/ \
-	   -I../../../lib/interaction/include \
-	   -I../../../lib/nodekits/include 
+PROGRAM = ivcat
 
 CXXFILES = ivcat.c++
 
-LLDOPTS = \
-	-L../../../libimage \
-	-L../../../lib/ \
-	-L/usr/X11R6/lib 
+LLDLIBS = -lInventor
 
-ifeq ($(usingLinux),1)
-LLDOPTS += -L../../../libFL/src
-endif
+all: all_ivbin
 
-LLDLIBS  = \
-	-lInventor \
-	-lFL -lGLU -lGL \
-	-lXext -lX11 -ldl -lm
+install: install_ivbin
 
-TARGETS = ivcat
-
-$(TARGETS): $(OBJECTS)
-	$(CXX) $(LDOPTS) $(OBJECTS) $(LDLIBS) -o $(TARGETS)
-
-install: $(TARGETS)
-	@mkdir -p $(IVROOT)/usr/bin
-	@cp -f $(TARGETS) $(IVROOT)/usr/bin
-
-include $(COMMONRULES)
-
+include $(IVCOMMONRULES)

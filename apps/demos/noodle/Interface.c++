@@ -981,11 +981,7 @@ Interface::build( Widget parentWidget )
         // Make Topbar menu button
 	//
         Widget subMenu = 
-#ifndef __linux__
-		XmCreatePulldownMenu(menuWidget, NULL, popupargs, popupn);
-#else
-		XmCreatePulldownMenu(menuWidget, "", popupargs, popupn);
-#endif
+		XmCreatePulldownMenu(menuWidget, "subMenu", popupargs, popupn);
         XtSetArg(args[0], XmNtearOffModel, XmTEAR_OFF_ENABLED);
         XtSetValues(subMenu, args, 1);
 

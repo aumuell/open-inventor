@@ -1,55 +1,17 @@
 IVDEPTH = ../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../..
-LDIRT = *.d
-LCXXFLAGS += -DLIBRARYBUILD \
-	    -I../../samples/common/ \
-	    -I../../../lib/database/include/ \
-  	    -I../../../lib/interaction/include \
-	    -I../../../lib/nodekits/include -O3 \
-	    -I../../../libSoXt/include 
+PROGRAM = drop
+DEMO = $(PROGRAM)
 
-TARGETS = drop
+CXXFILES = \
+	TsBlock.c++ TsPiece.c++ TsPieces.c++ TsField.c++ \
+	TsTrickle.c++ TsEvents.c++ TsRemoval.c++ TsViewer.c++ drop.c++
 
-LLDOPTS = \
-	-L../../../libimage \
-	-L../../../lib \
-	-L/usr/X11R6/lib \
-	-L../../../libSoXt \
-	-L../../samples/common \
-	-L/usr/X11R6/lib 
+LLDLIBS = -lInventor -lInventorXt
 
-ifeq ($(usingLinux),1)
-LLDOPTS += -L../../../libFL/src
-endif
+all: all_ivbin
 
-LLDLIBS = \
-	-lInventorXt \
-	-lInventor \
-	-lcommon \
-	-lXm -lXt -lXi -lX11 \
-	-lFL -lGLU -lGL \
-	-lXext \
-	-lX11 -ldl -lm 
+install: install_ivdemo
 
-CXXFILES =\
-	TsBlock.c++ \
-	TsEvents.c++ \
-	TsField.c++ \
-	TsPiece.c++ \
-	TsPieces.c++ \
-	TsRemoval.c++ \
-	TsTrickle.c++ \
-	TsViewer.c++ \
-	drop.c++
-
-
-$(TARGETS): $(OBJECTS)
-	$(CXX) $(LDOPTS) $(OBJECTS) $(LDLIBS) -o $(TARGETS)
-
-install: $(TARGETS)
-	@mkdir -p $(IVROOT)/opt/SGIDemos/Inventor/bin
-	@cp -f $(TARGETS) $(IVROOT)/opt/SGIDemos/Inventor/bin
-
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	Generates primitives for all shapes in input file, spins them
@@ -52,7 +52,7 @@
  _______________________________________________________________________
  */
 
-#include <getopt.h>
+#include <unistd.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoPrimitiveVertex.h>
 #include <Inventor/Xt/SoXt.h>

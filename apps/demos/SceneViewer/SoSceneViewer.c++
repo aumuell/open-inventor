@@ -41,7 +41,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Classes	: SoSceneViewer
  |
@@ -3198,7 +3198,7 @@ SoSceneViewer::addLightMenuEntry(SvLightData *data)
 #ifdef MENUS_IN_POPUP
     SoXt::getPopupArgs(XtDisplay(menu), SCREEN(menu), args, &argnum);
 #endif
-    data->submenuWidget = XmCreatePulldownMenu(menu, NULL, args, argnum);
+    data->submenuWidget = XmCreatePulldownMenu(menu, "submenu", args, argnum);
     
     XtAddCallback(data->submenuWidget, XmNmapCallback,
 	(XtCallbackProc) SoSceneViewer::lightSubmenuDisplay,
@@ -4004,11 +4004,7 @@ SoSceneViewer::buildAndLayoutMenu(Widget parent)
 
     for (i = 0; i < itemCount; i++) {
 	// Make Topbar menu button
-#ifndef __linux__
-	Widget subMenu = XmCreatePulldownMenu(menuWidget, NULL, popupargs, popupn);
-#else
-	Widget subMenu = XmCreatePulldownMenu(menuWidget, "menu", popupargs, popupn);
-#endif
+	Widget subMenu = XmCreatePulldownMenu(menuWidget, "subMenu", popupargs, popupn);
 	
 #ifdef MENUS_IN_POPUP
 	// register callbacks to load/unload the pulldown colormap when the

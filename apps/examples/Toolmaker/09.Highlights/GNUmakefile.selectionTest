@@ -1,0 +1,12 @@
+IVDEPTH = ../../../..
+include $(IVDEPTH)/make/ivcommondefs
+
+PROGRAM = selectionTest
+
+CXXFILES = selectionTest.c++ ShowSelectionRA.c++
+
+LLDLIBS = -lInventor -lInventorXt
+
+all: all_ivbin
+
+include $(IVCOMMONRULES)

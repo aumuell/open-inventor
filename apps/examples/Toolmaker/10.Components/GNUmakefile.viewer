@@ -1,0 +1,12 @@
+IVDEPTH = ../../../..
+include $(IVDEPTH)/make/ivcommondefs
+
+PROGRAM = viewer
+
+CXXFILES = viewer.c++ simpleViewer.c++
+
+LLDLIBS = -lInventor -lInventorXt
+
+all: all_ivbin
+
+include $(IVCOMMONRULES)

@@ -1,69 +1,28 @@
 IVDEPTH = ../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../..
-LDIRT = *.d
-LCXXFLAGS = -DLIBRARYBUILD \
-	    -I../../samples/common/ \
-	    -I../../nodes/GeneralizedCylinder/ \
-	    -I../../../lib/database/include/ \
-  	    -I../../../lib/interaction/include \
-	    -I../../../lib/nodekits/include -O3 \
-	    -I../../../libSoXt/include 
+PROGRAM = noodle
+DEMO = $(PROGRAM)
 
-TARGETS = noodle
+LCXXINCS += -I../../nodes/GeneralizedCylinder
 
-ifeq ($(usingLinux),1)
-CYLLDPATH=-Wl,-rpath,../../nodes/GeneralizedCylinder
-else
-CYLLDPATH=-rpath ../../nodes/GeneralizedCylinder
-endif
-LLDOPTS = \
-	-L../../../libimage \
-	-L../../../lib \
-	-L/usr/X11R6/lib \
-	-L../../../libSoXt \
-        -L../../nodes/GeneralizedCylinder \
-	-L../../samples/common \
-	-L/usr/X11R6/lib \
-	$(CYLLDPATH)
-
-ifeq ($(usingLinux),1)
-LLDOPTS += -L../../../libFL/src
-endif
-
-LLDLIBS = \
-	-limage \
-	-lInventorXt \
-	-lInventor \
-	-lcommon \
-	-lGeneralizedCylinder \
-	-lXm -lXt -lXi -lX11 \
-	-lFL -lGLU -lGL \
-	-lXext \
-	-lX11 -ldl -lm 
-
-CXXFILES =\
-	Interface.c++ \
-	LineManip.c++ \
-	LineManipHilight.c++ \
+CXXFILES = \
 	NoodleSlider.c++ \
-	NoodleSurfaceGizmo.c++ \
-	NoodleTextureGizmo.c++ \
-	WorldInfo.c++ \
-	noodle.c++ \
+	Interface.c++ NoodleSurfaceGizmo.c++ WorldInfo.c++ LineManip.c++ \
+	NoodleTextureGizmo.c++ noodle.c++ LineManipHilight.c++  \
 	profile.c++
 
+LLDLIBS = \
+	../../nodes/GeneralizedCylinder/NurbMaker.o \
+	../../nodes/GeneralizedCylinder/Triangulator.o \
+	../../nodes/GeneralizedCylinder/GeneralizedCylinder.o \
+	-lInventor -lInventorXt
 
-$(TARGETS): $(OBJECTS)
-	$(CXX) $(LDOPTS) $(OBJECTS) $(LDLIBS) -o $(TARGETS)
+all: all_ivbin
 
-install: $(TARGETS)
-	@mkdir -p $(IVROOT)/opt/SGIDemos/Inventor/bin
-	@mkdir -p $(IVROOT)/opt/SGIDemos/Inventor/data
-	@cp -f $(TARGETS) $(IVROOT)/opt/SGIDemos/Inventor/bin
-	@cp -f $(TARGETS).RUNME $(IVROOT)/opt/SGIDemos/Inventor/bin
-	@cp -f $(TARGETS).about $(IVROOT)/opt/SGIDemos/Inventor/data
-	@cp -f defaultTexture.rgb $(IVROOT)/opt/SGIDemos/Inventor/data
+install: install_ivdemo
+	$(INSTALL) -m 755 $(DEMO).RUNME $(IVDEMOBINDIR)
+	$(INSTALL) -m 644 $(DEMO).about $(IVDEMODATADIR)
+	$(INSTALL) -m 644 defaultTexture.rgb $(IVDEMODATADIR)
 
-include $(COMMONRULES)
+include $(IVCOMMONRULES)
