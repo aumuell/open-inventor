@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Classes:
  |	SoEventCallback
@@ -140,6 +140,7 @@ SoEventCallback::removeEventCallback(
 	    
 	    // found the func/event type/data triplet - remove it!
 	    cblist->remove(i);
+	    delete data;
 	}
     }
 }
