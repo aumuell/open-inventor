@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      SoAntiSquish
@@ -118,7 +118,8 @@ SoAntiSquish::~SoAntiSquish()
 //
 // Use: private
 SbMatrix
-SoAntiSquish::getUnsquishingMatrix( SbMatrix squishedMatrix, SbBool doInverse,
+SoAntiSquish::getUnsquishingMatrix( SbMatrix squishedMatrix,
+				    SbBool /* doInverse */,
 				    SbMatrix &inverseAnswer )
 //
 ////////////////////////////////////////////////////////////////////////
@@ -137,9 +138,9 @@ SoAntiSquish::getUnsquishingMatrix( SbMatrix squishedMatrix, SbBool doInverse,
 	// If the matrix was singular, then we can not unsquish it.
 	// Return identity.
 	SbMatrix answer = SbMatrix::identity();
-	if (doInverse) {
-	    inverseAnswer = SbMatrix::identity();
-	}
+	// Bug 323082: no longer a check for the doInverse flag. We
+	// always set this
+	inverseAnswer = SbMatrix::identity();
 	savedAnswer = answer;
 	savedInverseAnswer = inverseAnswer;
 	return answer;
@@ -218,8 +219,7 @@ SoAntiSquish::getUnsquishingMatrix( SbMatrix squishedMatrix, SbBool doInverse,
     SbMatrix answerM = desiredM;
     answerM.multRight( squishedMatrix.inverse() );
 
-    if (doInverse)
-	inverseAnswer = answerM.inverse();
+    inverseAnswer = answerM.inverse();
 
     savedAnswer = answerM;
     savedInverseAnswer = inverseAnswer;
