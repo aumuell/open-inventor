@@ -1,15 +1,13 @@
 IVDEPTH = ../../..
-include $(IVDEPTH)/make/commonivdefs
-
-LDIRT = *.d
-CFILES = \
-	mdate.c
+include $(IVDEPTH)/make/ivcommondefs
 
 TARGETS = mdate
+
+CFILES = mdate.c
+
+all install: $(TARGETS)
 
 $(TARGETS): $(OBJECTS)
 	$(CC) $(LDOPTS) $(OBJECTS) $(LDLIBS) -o $(TARGETS)
 
-all install: $(TARGETS)
-
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

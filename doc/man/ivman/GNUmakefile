@@ -1,37 +1,12 @@
 IVDEPTH = ../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-LDIRT = *.d
-LCXXFLAGS = -D__GNU_LIBRARY__ \
-	-I$(IVDEPTH)/lib/database/include \
-	-I$(IVDEPTH)/lib/interaction/include \
-	-I$(IVDEPTH)/lib/nodekits/include \
-	-I$(IVDEPTH)/libSoXt/include 
-	
-CXXFILES = \
-	BuildIssues.c++ \
-	ClassDef.c++ \
-	Main.c++ \
-	Man.c++ \
-	Reader.c++ \
-	Writer.c++
+PROGRAM = ivman
 
-LLDOPTS = \
-	-L$(IVDEPTH)/lib \
-	-L$(IVDEPTH)/libSoXt \
-	-L/usr/X11R6/lib 
+CXXFILES = Main.c++ ClassDef.c++ Man.c++ Reader.c++ Writer.c++ BuildIssues.c++
 
-LLDLIBS = \
-	-lInventor \
-	-lInventorXt \
-	-lXm -lXt -lXext -lXi \
-	-lGLU -lGL -ldl
+LLDLIBS = -lInventor -lInventorXt
 
-TARGETS = ivman
+all install: $(PROGRAM)
 
-$(TARGETS): $(OBJECTS)
-	$(CXX) $(LDOPTS) $(OBJECTS) $(LDLIBS) -o $(TARGETS)
-
-all install: $(TARGETS)
-
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

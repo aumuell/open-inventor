@@ -1,8 +1,7 @@
-DEPTH = ../../..
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-MANPAGES = \
+IVMFILES = \
 	SbBool.ivm \
         SbBox2f.ivm \
         SbBox2s.ivm \
@@ -26,15 +25,8 @@ MANPAGES = \
         SbViewportRegion.ivm \
         SbXfBox3f.ivm
 
-OBJECTS = $(MANPAGES:.ivm=.3iv)
+all: all_man3iv
 
-all: $(OBJECTS)
+install: install_man3iv
 
-install: all
-	@mkdir -p $(IVROOT)/usr/man/man3
-	@for i in $(OBJECTS) ; do \
-		cp -f $$i $(IVROOT)/usr/man/man3 ; \
-	done
-
-clean clobber:
-	rm -f $(OBJECTS)
+include $(IVCOMMONRULES)

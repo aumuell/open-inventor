@@ -1,7 +1,5 @@
 IVDEPTH = ../../../..
-include $(IVDEPTH)/make/commonivdefs
-
-DEPTH = ..
+include $(IVDEPTH)/make/ivcommondefs
 
 SUBDIRS = \
 	actions \
@@ -23,8 +21,11 @@ SUBDIRS = \
 	sensors \
 	viewers
 
-COMMONPREF = xxx
-install $(COMMONTARGS) all:: 
+all install:
 	$(SUBDIRS_MAKERULE)
 
-include $(COMMONRULES)
+COMMONPREF = xxx
+$(COMMONTARGS): %: $(COMMONPREF)%
+	$(SUBDIRS_MAKERULE)
+
+include $(IVCOMMONRULES)
