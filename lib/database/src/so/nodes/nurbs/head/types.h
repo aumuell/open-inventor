@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * types.h - $Revision: 1.1 $
+ * types.h - $Revision: 1.1.1.1 $
  */
 
 //typedef double		INREAL;

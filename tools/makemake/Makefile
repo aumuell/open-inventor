@@ -1,7 +1,7 @@
 #!smake
 #   toolkits/Inventor/tools/makemake/Makefile
 #
-#   $Revision: 1.1 $
+#   $Revision: 1.1.1.1 $
 #
 
 DEPTH = ../../lib/

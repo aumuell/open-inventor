@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * trimline.h - $Revision: 1.1 $
+ * trimline.h - $Revision: 1.1.1.1 $
  */
 
 class Arc;

@@ -50,7 +50,7 @@
  *   Functions: 
  *	MMgen_files	: Generate C_FILES, H_FILES, O_FILES vars.
  *
- *   RCS Revision	: $Revision: 1.1 $
+ *   RCS Revision	: $Revision: 1.1.1.1 $
  *
  *   Author(s)		: David Mott
  *

@@ -40,7 +40,7 @@
 #include "../SoAddPrefix.h"
 
 /*
- * bufpool.h - $Revision: 1.1 $
+ * bufpool.h - $Revision: 1.1.1.1 $
  */
 
 #include "myassert.h"

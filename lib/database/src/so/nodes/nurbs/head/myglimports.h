@@ -35,7 +35,7 @@
  */
 
 /*
- * myglimports.h - $Revision: 1.1 $
+ * myglimports.h - $Revision: 1.1.1.1 $
  */
 
 #ifndef SO_MYGLIMPORTS_H

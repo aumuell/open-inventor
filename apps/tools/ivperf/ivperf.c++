@@ -40,7 +40,7 @@
  _____________________________________________________________
  _________  S I L I C O N   G R A P H I C S   I N C .  _______
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.1.1.1 $
  |
  |   Description:
  |	Benchmarks rendering by spinning scene graph.

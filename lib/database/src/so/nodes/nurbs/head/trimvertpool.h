@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * trimvertexpool.h - $Revision: 1.1 $
+ * trimvertexpool.h - $Revision: 1.1.1.1 $
  */
 
 #include "bufpool.h"

@@ -35,7 +35,7 @@
  */
 
 /*
- * curvelist.c++ - $Revision: 1.1 $
+ * curvelist.c++ - $Revision: 1.1.1.1 $
  * 	Derrick Burns - 1991
  */
 

@@ -45,7 +45,7 @@
  *   Description:
  *	This writes the basic Makefile templates.
  *
- *   Revision	: $Revision: 1.1 $
+ *   Revision	: $Revision: 1.1.1.1 $
  *   Author	: David Mott
  *
  **************  S I L I C O N   G R A P H I C S   I N C .  ************

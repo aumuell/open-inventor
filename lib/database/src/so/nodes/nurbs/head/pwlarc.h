@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * pwlarc.h - $Revision: 1.1 $
+ * pwlarc.h - $Revision: 1.1.1.1 $
  */
 
 #include "myassert.h"

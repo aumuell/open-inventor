@@ -40,7 +40,7 @@
 #include "../SoAddPrefix.h"
 
 /*
- * coveandtiler.h - $Revision: 1.1 $
+ * coveandtiler.h - $Revision: 1.1.1.1 $
  */
 
 #include "trimregion.h"

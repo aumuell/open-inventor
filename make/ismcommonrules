@@ -44,7 +44,7 @@
 #	
 
 #
-#ident "$Revision: 1.1 $"
+#ident "$Revision: 1.1.1.1 $"
 
 # XXX smake2gmake - no complete analog in gmake for .NOTPARALLEL
 .NOTPARALLEL:

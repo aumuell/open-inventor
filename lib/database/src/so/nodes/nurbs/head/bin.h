@@ -40,7 +40,7 @@
 #include "../SoAddPrefix.h"
 
 /*
- * bin.h - $Revision: 1.1 $
+ * bin.h - $Revision: 1.1.1.1 $
  */
 
 #include "myassert.h"

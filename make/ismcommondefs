@@ -1,7 +1,7 @@
 #
 # Common definitions for building ism idb's and images
 #
-#ident "$Revision: 1.1 $"
+#ident "$Revision: 1.1.1.1 $"
 
 GENDIST=$(TOOLROOT)/usr/sbin/gendist
 IDBJOIN=$(TOOLROOT)/usr/sbin/idbjoin

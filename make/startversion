@@ -68,7 +68,7 @@
 #		hours since Jan 1, 1993.
 #		
 
-#ident "$Revision: 1.1 $"
+#ident "$Revision: 1.1.1.1 $"
 
 VNUM=$(WORKAREA)/.version_number
 ANUM=$(WORKAREA)/.alpha_number

@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * nurbsconsts.h - $Revision: 1.1 $
+ * nurbsconsts.h - $Revision: 1.1.1.1 $
  */
 
 /* NURBS Properties - one set per map, 

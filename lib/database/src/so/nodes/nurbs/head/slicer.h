@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * slicer.h - $Revision: 1.1 $
+ * slicer.h - $Revision: 1.1.1.1 $
  */
 
 #include "trimregion.h"

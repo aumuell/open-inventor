@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * mapdesc.h - $Revision: 1.1 $
+ * mapdesc.h - $Revision: 1.1.1.1 $
  */
 
 #include "mystdio.h"

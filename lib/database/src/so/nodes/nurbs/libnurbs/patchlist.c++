@@ -35,7 +35,7 @@
  */
 
 /*
- * patchlist.c++ - $Revision: 1.1 $
+ * patchlist.c++ - $Revision: 1.1.1.1 $
  * 	Derrick Burns - 1991
  */
 #include <stdio.h>

@@ -37,7 +37,7 @@
 /*
  * gl4surfeval.h
  *
- * $Revision: 1.1 $
+ * $Revision: 1.1.1.1 $
  */
 
 #ifndef SO_NURBS_GL4SURFEVAL

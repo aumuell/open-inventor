@@ -40,7 +40,7 @@
 _______________________________________________________________________
 ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
 |
-|   $Revision: 1.1 $
+|   $Revision: 1.1.1.1 $
 |
 |   Classes:
 |      SoXtSliderTool is a component that expands the functionality of the

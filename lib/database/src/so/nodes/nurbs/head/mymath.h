@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * mymath.h - $Revision: 1.1 $
+ * mymath.h - $Revision: 1.1.1.1 $
  */
 
 #ifdef GLBUILD

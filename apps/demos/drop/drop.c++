@@ -40,7 +40,7 @@
  |
  |   Copyright (C) 1990-96   Silicon Graphics, Inc.
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.1.1.1 $
  |
  |   main ()
  |

@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * gridtrimvertex.h - $Revision: 1.1 $
+ * gridtrimvertex.h - $Revision: 1.1.1.1 $
  */
 
 #include "mystdlib.h"

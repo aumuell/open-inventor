@@ -43,7 +43,7 @@
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
  |   $Source: /cvs/inventor/apps/demos/drop/TsPiece.h,v $
- |   $Revision: 1.1 $
+ |   $Revision: 1.1.1.1 $
  |   $Date: 2000/08/15 12:55:54 $
  |
  |   Description:

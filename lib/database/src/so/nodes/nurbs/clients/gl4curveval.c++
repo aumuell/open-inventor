@@ -37,7 +37,7 @@
 /*
  * gl4curveval.c++ - curve evaluator
  *
- * $Revision: 1.1 $
+ * $Revision: 1.1.1.1 $
  */
 
 #include "myglimports.h"

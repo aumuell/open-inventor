@@ -37,7 +37,7 @@
 /*
  * softcurveval.c++ - curve evaluator
  *
- * $Revision: 1.1 $
+ * $Revision: 1.1.1.1 $
  */
 
 #include "../SoAddPrefix.h"

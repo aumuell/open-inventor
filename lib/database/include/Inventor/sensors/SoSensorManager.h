@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.1.1.1 $
  |
  |   Description:
  |	Manager for scheduling and triggering sensors. The manager

@@ -51,7 +51,7 @@
  *	MM_setup_flags	: Puts a prefix,name,postfix together for a list
  *			  of names.
  *
- *   RCS Revision	: $Revision: 1.1 $
+ *   RCS Revision	: $Revision: 1.1.1.1 $
  *
  *   Author(s)		: David Mott
  *

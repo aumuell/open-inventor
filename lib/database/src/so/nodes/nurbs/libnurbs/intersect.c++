@@ -35,7 +35,7 @@
  */
 
 /*
- * intersect.c++ - $Revision: 1.1 $
+ * intersect.c++ - $Revision: 1.1.1.1 $
  * 	Derrick Burns - 1991
  */
 

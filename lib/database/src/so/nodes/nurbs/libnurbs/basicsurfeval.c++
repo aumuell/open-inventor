@@ -35,7 +35,7 @@
  */
 
 /*
- * basicsurfaceevaluator.c++ - $Revision: 1.1 $
+ * basicsurfaceevaluator.c++ - $Revision: 1.1.1.1 $
   *	Derrick Burns - 1992
  */
 

@@ -39,7 +39,7 @@
 //_____________  S I L I C O N   G R A P H I C S   I N C .  ____________
 //
 //   $Source: /cvs/inventor/apps/tools/ivnorm/ivnorm.c++,v $
-//   $Revision: 1.1 $
+//   $Revision: 1.1.1.1 $
 //   $Date: 2000/08/15 12:56:00 $
 //
 //   ivnorm

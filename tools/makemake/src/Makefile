@@ -7,7 +7,7 @@
 #   File Name : 
 #	usr/src/toolkits/Inventor/tools/makemake/src/Makefile
 #
-#   RCS Revision:	$Revision: 1.1 $
+#   RCS Revision:	$Revision: 1.1.1.1 $
 #
 #______________  S I L I C O N   G R A P H I C S   I N C .  ____________
 #_______________________________________________________________________

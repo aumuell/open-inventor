@@ -35,7 +35,7 @@
  */
 
 /*
- * varray.c++ - $Revision: 1.1 $
+ * varray.c++ - $Revision: 1.1.1.1 $
  * 	Derrick Burns - 1991
  */
 

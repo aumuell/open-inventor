@@ -40,7 +40,7 @@
 #include "../SoAddPrefix.h"
 
 /*
- * defines.h - $Revision: 1.1 $
+ * defines.h - $Revision: 1.1.1.1 $
  */
 
 /* culling constants */

@@ -40,7 +40,7 @@
 #include "../SoAddPrefix.h"
 
 /*
- * arctess.h - $Revision: 1.1 $
+ * arctess.h - $Revision: 1.1.1.1 $
  */
 
 #include "defines.h"

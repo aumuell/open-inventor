@@ -37,7 +37,7 @@
 /*
  * gl4surfeval.c++ - surface evaluator using IRIS GL 4.0 backend
  *
- * $Revision: 1.1 $
+ * $Revision: 1.1.1.1 $
  */
 
 #include "myglimports.h"

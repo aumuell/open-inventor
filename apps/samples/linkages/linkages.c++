@@ -45,7 +45,7 @@
 //
 //    Paul Isaacs
 //
-//    $Revision: 1.1 $
+//    $Revision: 1.1.1.1 $
 //
 
 #include <Inventor/SoDB.h>	// for file reading

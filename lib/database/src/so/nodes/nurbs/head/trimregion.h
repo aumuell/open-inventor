@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * trimregion.h - $Revision: 1.1 $
+ * trimregion.h - $Revision: 1.1.1.1 $
  */
 
 #include "trimline.h"

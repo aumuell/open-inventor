@@ -35,7 +35,7 @@
  */
 
 /*
- * splitarcs.c++ - $Revision: 1.1 $
+ * splitarcs.c++ - $Revision: 1.1.1.1 $
  * 	Derrick Burns - 1991
  */
 

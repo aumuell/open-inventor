@@ -1,6 +1,6 @@
 .\" All local SGI man macros go here, except for .Op, which is in it's own 
 .\" file, and .Ne, which has been added to stdmacro and mn.
-.\" $Revision: 1.1 $
+.\" $Revision: 1.1.1.1 $
 .
 .
 .\" Use this macro start a code example.  It will printed as an indented

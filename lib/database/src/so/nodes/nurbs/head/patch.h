@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * patch.h - $Revision: 1.1 $
+ * patch.h - $Revision: 1.1.1.1 $
  */
 
 #include "types.h"

@@ -1,7 +1,7 @@
 #
 # Pmake system makefile for IRIX
 #
-# $Revision: 1.1 $
+# $Revision: 1.1.1.1 $
 #
 # The following variables specify the nature of the system on which Pmake 
 # is running. These names may later be used in #if expressions for conditional 

@@ -37,7 +37,7 @@
 /*
  * isocurveevaluator.c++ - isocurve evaluator
  *
- * $Revision: 1.1 $
+ * $Revision: 1.1.1.1 $
  */
 
 #include "myassert.h"

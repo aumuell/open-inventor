@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * nurbstess.h - $Revision: 1.1 $
+ * nurbstess.h - $Revision: 1.1.1.1 $
  */
 
 #include "mysetjmp.h"

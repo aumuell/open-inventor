@@ -49,7 +49,7 @@
  * 
  *   Author(s)		: David Mott
  *
- *   RCS Revision	: $Revision: 1.1 $
+ *   RCS Revision	: $Revision: 1.1.1.1 $
  *
  ***************  S I L I C O N   G R A P H I C S   I N C .  ***********
  ***********************************************************************

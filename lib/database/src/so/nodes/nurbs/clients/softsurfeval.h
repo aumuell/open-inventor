@@ -37,7 +37,7 @@
 /*
  * surfaceevaluator.h
  *
- * $Revision: 1.1 $
+ * $Revision: 1.1.1.1 $
  */
 
 #ifndef SO_NURBS_SOFTSURFEVAL

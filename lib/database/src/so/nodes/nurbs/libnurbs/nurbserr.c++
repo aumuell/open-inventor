@@ -35,7 +35,7 @@
  */
 
 /*
- * nurbserror.c++ - $Revision: 1.1 $
+ * nurbserror.c++ - $Revision: 1.1.1.1 $
  * 	Derrick Burns - 1992
  */
 

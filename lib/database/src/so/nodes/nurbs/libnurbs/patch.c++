@@ -35,7 +35,7 @@
  */
 
 /*
- * patch.c++ - $Revision: 1.1 $
+ * patch.c++ - $Revision: 1.1.1.1 $
  * 	Derrick Burns - 1992
  */
 

@@ -5,7 +5,7 @@
 #______________  S I L I C O N   G R A P H I C S   I N C .  ____________
 #
 #   usr/src/toolkits/Inventor/make/so_libcommonrules
-#   $Revision: 1.1 $
+#   $Revision: 1.1.1.1 $
 #
 #   Description:
 #      Inventor library common rules - to be included by top-level Makefiles

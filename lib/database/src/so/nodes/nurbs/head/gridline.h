@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * gridline.h - $Revision: 1.1 $
+ * gridline.h - $Revision: 1.1.1.1 $
  */
 
 struct Gridline {
