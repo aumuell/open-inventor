@@ -1,16 +1,12 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-INST_HEADER_ROOT   = $(IVROOT)/usr/include/Inventor/details
-HEADER_PATH        = $(INST_HEADER_ROOT)
-NOSHIP_HEADER_PATH = $(HEADER_PATH)
+HDRSUBDIR = details
 
-INST_HEADERS = \
-	SoNodeKitDetail.h
+HEADERS = SoNodeKitDetail.h
 
-LDIRT = $(INST_HEADER_ROOT)
+all:
 
-install: headers
+install: install_ivheaders
 
 include $(IVCOMMONRULES)
-

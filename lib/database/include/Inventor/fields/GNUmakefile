@@ -1,11 +1,9 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-INST_HEADER_ROOT   = $(IVROOT)/usr/include/Inventor/fields
-HEADER_PATH        = $(INST_HEADER_ROOT)
-NOSHIP_HEADER_PATH = $(HEADER_PATH)
+HDRSUBDIR = fields
 
-INST_HEADERS = \
+HEADERS = \
 	SoField.h \
 	SoFieldContainer.h \
 	SoFieldData.h \
@@ -16,8 +14,8 @@ INST_HEADERS = \
 	SoMFEngine.h \
 	SoMFEnum.h \
 	SoMFFloat.h \
-	SoMFInt32.h \
 	SoMFLong.h \
+	SoMFInt32.h \
 	SoMFMatrix.h \
 	SoMFName.h \
 	SoMFNode.h \
@@ -27,8 +25,8 @@ INST_HEADERS = \
 	SoMFShort.h \
 	SoMFString.h \
 	SoMFTime.h \
-	SoMFUInt32.h \
 	SoMFULong.h \
+	SoMFUInt32.h \
 	SoMFUShort.h \
 	SoMFVec2f.h \
 	SoMFVec3f.h \
@@ -40,8 +38,8 @@ INST_HEADERS = \
 	SoSFEnum.h \
 	SoSFFloat.h \
 	SoSFImage.h \
-	SoSFInt32.h \
 	SoSFLong.h \
+	SoSFInt32.h \
 	SoSFMatrix.h \
 	SoSFName.h \
 	SoSFNode.h \
@@ -52,18 +50,16 @@ INST_HEADERS = \
 	SoSFString.h \
 	SoSFTime.h \
 	SoSFTrigger.h \
-	SoSFUInt32.h \
 	SoSFULong.h \
+	SoSFUInt32.h \
 	SoSFUShort.h \
 	SoSFVec2f.h \
 	SoSFVec3f.h \
 	SoSFVec4f.h \
 	SoSubField.h
 
+all:
 
-LDIRT = $(INST_HEADER_ROOT)
-
-install: headers
+install: install_ivheaders
 
 include $(IVCOMMONRULES)
-

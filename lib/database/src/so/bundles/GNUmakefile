@@ -1,15 +1,8 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../../..
-LDIRT = *.d
-LCXXFLAGS = -I$(DEPTH)/include -DLIBRARYBUILD -DDEBUG
+CXXFILES = SoBundles.c++
 
-CXXFILES =\
-	SoMaterialBundle.c++ \
-	SoNormalBundle.c++ \
-	SoTextureCoordinateBundle.c++
+all install: $(OBJECTS)
 
-all:: $(OBJECTS)
-
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

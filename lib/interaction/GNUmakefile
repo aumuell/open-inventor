@@ -1,11 +1,18 @@
 IVDEPTH = ../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ..
-SUBDIRS=src include #test
+SUBDIRS = src
 
-COMMONPREF = xxx
-$(COMMONTARGS) all:: 
+all:
 	$(SUBDIRS_MAKERULE)
 
-include $(COMMONRULES)
+HEADERS_SUBDIRS = include
+
+install:
+	$(HEADERS_SUBDIRS_MAKERULE)
+
+COMMONPREF = xxx
+$(COMMONTARGS): %: $(COMMONPREF)%
+	$(SUBDIRS_MAKERULE)
+
+include $(IVCOMMONRULES)

@@ -1,24 +1,8 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../../..
-LDIRT = *.d
-LCXXFLAGS += -I$(DEPTH)/include -DLIBRARYBUILD -DDEBUG
+CXXFILES = SoSensors.c++
 
-CXXFILES =\
-	SoAlarmSensor.c++ \
-	SoDataSensor.c++ \
-	SoDelayQueueSensor.c++ \
-	SoFieldSensor.c++ \
-	SoIdleSensor.c++ \
-	SoNodeSensor.c++ \
-	SoOneShotSensor.c++ \
-	SoPathSensor.c++ \
-	SoSensor.c++ \
-	SoSensorMgr.c++ \
-	SoTimerQueueSensor.c++ \
-	SoTimerSensor.c++
+all install: $(OBJECTS)
 
-all:: $(OBJECTS)
-
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

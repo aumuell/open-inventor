@@ -1,23 +1,8 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../../..
-LDIRT = *.d
-LCXXFLAGS = -I$(DEPTH)/include -DLIBRARYBUILD -DDEBUG
+CXXFILES = SbProjectors.c++
 
-CXXFILES =\
-	SbCylinderPlaneProjector.c++ \
-	SbCylinderProjector.c++ \
-	SbCylinderSectionProjector.c++ \
-	SbCylinderSheetProjector.c++ \
-	SbLineProjector.c++ \
-	SbPlaneProjector.c++ \
-	SbProjector.c++ \
-	SbSpherePlaneProjector.c++ \
-	SbSphereProjector.c++ \
-	SbSphereSectionProjector.c++ \
-	SbSphereSheetProjector.c++
+all install: $(OBJECTS)
 
-all:: $(OBJECTS)
-
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

@@ -1,11 +1,9 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-INST_HEADER_ROOT   = $(IVROOT)/usr/include/Inventor/nodes
-HEADER_PATH        = $(INST_HEADER_ROOT)
-NOSHIP_HEADER_PATH = $(HEADER_PATH)
+HDRSUBDIR = nodes
 
-INST_HEADERS = \
+HEADERS = \
 	SoAnnotation.h \
 	SoArray.h \
 	SoAsciiText.h \
@@ -37,17 +35,16 @@ INST_HEADERS = \
 	SoIndexedShape.h \
 	SoIndexedTriangleStripSet.h \
 	SoInfo.h \
-	SoLOD.h \
 	SoLabel.h \
 	SoLevelOfDetail.h \
+	SoLOD.h \
+	SoLocateHighlight.h \
 	SoLight.h \
 	SoLightModel.h \
 	SoLineSet.h \
 	SoLinearProfile.h \
-	SoLocateHighlight.h \
 	SoMaterial.h \
 	SoMaterialBinding.h \
-	SoMaterialIndex.h \
 	SoMatrixTransform.h \
 	SoMultipleCopy.h \
 	SoNode.h \
@@ -99,17 +96,13 @@ INST_HEADERS = \
 	SoTranslation.h \
 	SoTriangleStripSet.h \
 	SoUnits.h \
-	SoVertexArray.h \
-	SoVertexProperty.h \
+	SoVertexProperty.h\
 	SoVertexShape.h \
 	SoWWWAnchor.h \
-	SoWWWInline.h \
-	glVertArray.h
+	SoWWWInline.h
 
+all:
 
-LDIRT = $(INST_HEADER_ROOT)
-
-install: headers
+install: install_ivheaders
 
 include $(IVCOMMONRULES)
-

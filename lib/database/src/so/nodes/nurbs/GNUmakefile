@@ -1,42 +1,18 @@
 IVDEPTH = ../../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../../../..
-LDIRT = *.d
-LCXXFLAGS = -I$(DEPTH)/include -Ihead  -DLIBRARYBUILD  -DNDEBUG 
+LCXXINCS += -Ihead
+LCXXDEFS += -DLIBRARYBUILD
 
-CXXFILES=\
-	SoCurveMaps.c++ \
-	SoCurveRender.c++ \
-	SoCurveRndEvl.c++ \
-	SoGLRender.c++ \
-	SoPickEvals.c++ \
-	SoPickMaps.c++ \
-	SoPickRender.c++ \
-	SoPrimEvals.c++ \
-	SoPrimMaps.c++ \
-	SoPrimRender.c++
+CXXFILES = SoNurbs.c++
 
 SUBDIRS = clients libnurbs
 
-all: $(OBJECTS)
-	@for d in $(SUBDIRS); do \
-		$(ECHO) "\tcd $$d; $(MAKE) $@"; \
-		cd $$d; $(MAKE) $@; cd ..; \
-	done
+all install: $(OBJECTS)
+	$(SUBDIRS_MAKERULE)
 
-install: all
-	@for d in $(SUBDIRS); do \
-		$(ECHO) "\tcd $$d; $(MAKE) $@"; \
-		cd $$d; $(MAKE) $@; cd ..; \
-	done
+COMMONPREF = xxx
+$(COMMONTARGS): %: $(COMMONPREF)%
+	$(SUBDIRS_MAKERULE)
 
-include $(COMMONRULES)
-
-clean clobber: 
-	rm -f *.o *.d
-	@for d in $(SUBDIRS); do \
-		$(ECHO) "\tcd $$d; $(MAKE) $@"; \
-		cd $$d; $(MAKE) $@; cd ..; \
-	done
-
+include $(IVCOMMONRULES)

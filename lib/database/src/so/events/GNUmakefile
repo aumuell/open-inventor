@@ -1,20 +1,8 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../../..
-LDIRT = *.d
-LCXXFLAGS = -I$(DEPTH)/include -DLIBRARYBUILD -DDEBUG
+CXXFILES = SoEventInit.c++ SoEvents.c++
 
-CXXFILES =\
-	SoEventInit.c++ \
-	SoButtonEvent.c++ \
-	SoEvent.c++ \
-	SoKeyboardEvent.c++ \
-	SoLocation2Event.c++ \
-	SoMouseButtonEvent.c++ \
-	SoMotion3Event.c++ \
-	SoSpaceballButtonEvent.c++
+all install: $(OBJECTS)
 
-all:: $(OBJECTS)
-
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

@@ -1,16 +1,12 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-INST_HEADER_ROOT   = $(IVROOT)/usr/include/Inventor/nodekits
-HEADER_PATH        = $(INST_HEADER_ROOT)
-NOSHIP_HEADER_PATH = $(HEADER_PATH)
+HDRSUBDIR = nodekits
 
-INST_HEADERS = \
-	SoInteractionKit.h 
+HEADERS = SoInteractionKit.h 
 
-LDIRT = $(INST_HEADER_ROOT)
+all:
 
-install: headers
+install: install_ivheaders
 
 include $(IVCOMMONRULES)
-

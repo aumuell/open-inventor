@@ -1,17 +1,8 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../../..
-LDIRT = *.d
-LCXXFLAGS = -I$(DEPTH)/include  -DLIBRARYBUILD -DDEBUG
+CXXFILES = SoErrors.c++ SoErrorInit.c++
 
-CXXFILES =\
-	SoErrorInit.c++ \
-	SoError.c++ \
-	SoDebugError.c++ \
-	SoMemoryError.c++ \
-	SoReadError.c++
+all install: $(OBJECTS)
 
-all:: $(OBJECTS)
-
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

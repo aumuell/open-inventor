@@ -1,600 +1,197 @@
-#!gmake
 IVDEPTH = ..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ..
-OBJS1=\
-./database/src/sb/projectors/SbCylinderPlaneProjector.o \
-./database/src/sb/projectors/SbCylinderProjector.o \
-./database/src/sb/projectors/SbCylinderSectionProjector.o \
-./database/src/sb/projectors/SbCylinderSheetProjector.o \
-./database/src/sb/projectors/SbLineProjector.o \
-./database/src/sb/projectors/SbPlaneProjector.o \
-./database/src/sb/projectors/SbProjector.o \
-./database/src/sb/projectors/SbSpherePlaneProjector.o \
-./database/src/sb/projectors/SbSphereProjector.o \
-./database/src/sb/projectors/SbSphereSectionProjector.o \
-./database/src/sb/projectors/SbSphereSheetProjector.o \
-./database/src/sb/SbBox.o \
-./database/src/sb/SbColor.o \
-./database/src/sb/SbCylinder.o \
-./database/src/sb/SbDict.o \
-./database/src/sb/SbLine.o \
-./database/src/sb/SbMatrix.o \
-./database/src/sb/SbName.o \
-./database/src/sb/SbPList.o \
-./database/src/sb/SbPlane.o \
-./database/src/sb/SbRotation.o \
-./database/src/sb/SbSphere.o \
-./database/src/sb/SbString.o \
-./database/src/sb/SbTime.o \
-./database/src/sb/SbVec.o \
-./database/src/sb/SbView.o \
-./database/src/sb/SbViewportRegion.o \
-./database/src/so/actions/SoAction.o \
-./database/src/so/actions/SoActionInit.o \
-./database/src/so/actions/SoCallbackAction.o \
-./database/src/so/actions/SoGLRenderAction.o \
-./database/src/so/actions/SoGetBoundingBoxAction.o \
-./database/src/so/actions/SoGetMatrixAction.o \
-./database/src/so/actions/SoHandleEventAction.o \
-./database/src/so/actions/SoPickAction.o \
-./database/src/so/actions/SoRayPickAction.o \
-./database/src/so/actions/SoSearchAction.o \
-./database/src/so/actions/SoWriteAction.o \
-./database/src/so/bundles/SoMaterialBundle.o \
-./database/src/so/bundles/SoNormalBundle.o \
-./database/src/so/bundles/SoTextureCoordinateBundle.o \
-./database/src/so/caches/SoCache.o \
-./database/src/so/caches/SoBoundingBoxCache.o \
-./database/src/so/caches/SoGLRenderCache.o \
-./database/src/so/caches/SoNormalCache.o \
-./database/src/so/caches/SoGLCacheList.o \
-./database/src/so/details/SoDetail.o \
-./database/src/so/details/SoDetailInit.o \
-./database/src/so/details/SoConeDetail.o \
-./database/src/so/details/SoCubeDetail.o \
-./database/src/so/details/SoCylinderDetail.o \
-./database/src/so/details/SoFaceDetail.o \
-./database/src/so/details/SoLineDetail.o \
-./database/src/so/details/SoPointDetail.o \
-./database/src/so/details/SoTextDetail.o \
-$(NULL)
+LIBDSO = libInventor.so
 
-OBJS2=\
-./database/src/so/elements/SoElement.o \
-./database/src/so/elements/SoElementInit.o \
-./database/src/so/elements/SoAccumulatedElement.o \
-./database/src/so/elements/SoReplacedElement.o \
-./database/src/so/elements/SoBBoxModelMatrixElement.o \
-./database/src/so/elements/SoCacheElement.o \
-./database/src/so/elements/SoClipPlaneElement.o \
-./database/src/so/elements/SoComplexityElement.o \
-./database/src/so/elements/SoComplexityTypeElement.o \
-./database/src/so/elements/SoCoordinateElement.o \
-./database/src/so/elements/SoCreaseAngleElement.o \
-./database/src/so/elements/SoDrawStyleElement.o \
-./database/src/so/elements/SoFloatElement.o \
-./database/src/so/elements/SoFocalDistanceElement.o \
-./database/src/so/elements/SoFontNameElement.o \
-./database/src/so/elements/SoFontSizeElement.o \
-./database/src/so/elements/SoGLCacheContextElement.o \
-./database/src/so/elements/SoGLClipPlaneElement.o \
-./database/src/so/elements/SoGLCoordinateElement.o \
-./database/src/so/elements/SoGLDrawStyleElement.o \
-./database/src/so/elements/SoGLLazyElement.o \
-./database/src/so/elements/SoGLLightIdElement.o \
-./database/src/so/elements/SoGLLinePatternElement.o \
-./database/src/so/elements/SoGLLineWidthElement.o \
-./database/src/so/elements/SoGLModelMatrixElement.o \
-./database/src/so/elements/SoGLNormalElement.o \
-./database/src/so/elements/SoGLPointSizeElement.o \
-./database/src/so/elements/SoGLProjectionMatrixElement.o \
-./database/src/so/elements/SoGLRenderPassElement.o \
-./database/src/so/elements/SoGLShapeHintsElement.o \
-./database/src/so/elements/SoGLTextureCoordinateElement.o \
-./database/src/so/elements/SoGLTextureEnabledElement.o \
-./database/src/so/elements/SoGLTextureImageElement.o \
-./database/src/so/elements/SoGLTextureMatrixElement.o \
-./database/src/so/elements/SoGLUpdateAreaElement.o \
-./database/src/so/elements/SoGLViewingMatrixElement.o \
-./database/src/so/elements/SoGLViewportRegionElement.o \
-./database/src/so/elements/SoLazyElement.o \
-./database/src/so/elements/SoLightAttenuationElement.o \
-./database/src/so/elements/SoLinePatternElement.o \
-./database/src/so/elements/SoLineWidthElement.o \
-./database/src/so/elements/SoLocalBBoxMatrixElement.o \
-./database/src/so/elements/SoInt32Element.o \
-./database/src/so/elements/SoMaterialBindingElement.o \
-./database/src/so/elements/SoModelMatrixElement.o \
-./database/src/so/elements/SoNormalBindingElement.o \
-./database/src/so/elements/SoNormalElement.o \
-./database/src/so/elements/SoOverrideElement.o \
-./database/src/so/elements/SoUnitsElement.o \
-./database/src/so/elements/SoPickRayElement.o \
-./database/src/so/elements/SoPickStyleElement.o \
-./database/src/so/elements/SoPointSizeElement.o \
-./database/src/so/elements/SoProfileCoordinateElement.o \
-./database/src/so/elements/SoProfileElement.o \
-./database/src/so/elements/SoProjectionMatrixElement.o \
-./database/src/so/elements/SoShapeHintsElement.o \
-./database/src/so/elements/SoShapeStyleElement.o \
-./database/src/so/elements/SoSwitchElement.o \
-./database/src/so/elements/SoTextureCoordinateBindingElement.o \
-./database/src/so/elements/SoTextureCoordinateElement.o \
-./database/src/so/elements/SoTextureImageElement.o \
-./database/src/so/elements/SoTextureMatrixElement.o \
-./database/src/so/elements/SoTextureQualityElement.o \
-./database/src/so/elements/SoViewVolumeElement.o \
-./database/src/so/elements/SoViewingMatrixElement.o \
-./database/src/so/elements/SoViewportRegionElement.o \
-./database/src/so/elements/SoWindowElement.o \
-./database/src/so/engines/SoConcatenate.o \
-./database/src/so/engines/SoEngineInit.o \
-./database/src/so/engines/SoFieldConverters.o \
-./database/src/so/engines/SoGate.o \
-./database/src/so/engines/SoSelectOne.o \
-./database/src/so/engines/SoCalcExpr.o \
-./database/src/so/engines/SoCalcParse.o \
-./database/src/so/engines/SoBoolOperation.o \
-./database/src/so/engines/SoCalculator.o \
-./database/src/so/engines/SoCompose.o \
-./database/src/so/engines/SoComputeBoundingBox.o \
-./database/src/so/engines/SoCounter.o \
-./database/src/so/engines/SoElapsedTime.o \
-./database/src/so/engines/SoEngine.o \
-./database/src/so/engines/SoFieldConverter.o \
-./database/src/so/engines/SoInterpolate.o \
-./database/src/so/engines/SoOnOff.o \
-./database/src/so/engines/SoOneShot.o \
-./database/src/so/engines/SoOutputData.o \
-./database/src/so/engines/SoTimeCounter.o \
-./database/src/so/engines/SoTransformVec3f.o \
-./database/src/so/engines/SoTriggerAny.o \
-./database/src/so/engines/SoUnknownEngine.o \
-./database/src/so/errors/SoErrorInit.o \
-./database/src/so/errors/SoError.o \
-./database/src/so/errors/SoDebugError.o \
-./database/src/so/errors/SoMemoryError.o \
-./database/src/so/errors/SoReadError.o \
-./database/src/so/events/SoEventInit.o \
-./database/src/so/events/SoEvent.o \
-./database/src/so/events/SoButtonEvent.o \
-./database/src/so/events/SoKeyboardEvent.o \
-./database/src/so/events/SoLocation2Event.o \
-./database/src/so/events/SoMouseButtonEvent.o \
-./database/src/so/events/SoMotion3Event.o \
-./database/src/so/events/SoSpaceballButtonEvent.o \
-./database/src/so/fields/SoMFBool.o \
-./database/src/so/fields/SoMFBitMask.o \
-./database/src/so/fields/SoMFColor.o \
-./database/src/so/fields/SoMFEngine.o \
-./database/src/so/fields/SoMFEnum.o \
-./database/src/so/fields/SoMFFloat.o \
-./database/src/so/fields/SoMFInt32.o \
-./database/src/so/fields/SoMFMatrix.o \
-./database/src/so/fields/SoMFName.o \
-./database/src/so/fields/SoMFNode.o \
-./database/src/so/fields/SoMFPath.o \
-./database/src/so/fields/SoMFPlane.o \
-./database/src/so/fields/SoMFRotation.o \
-./database/src/so/fields/SoMFShort.o \
-./database/src/so/fields/SoMFString.o \
-./database/src/so/fields/SoMFTime.o \
-./database/src/so/fields/SoMFUInt32.o \
-./database/src/so/fields/SoMFUShort.o \
-./database/src/so/fields/SoMFVec2f.o \
-./database/src/so/fields/SoMFVec3f.o \
-./database/src/so/fields/SoMFVec4f.o \
-./database/src/so/fields/SoSFBitMask.o \
-./database/src/so/fields/SoSFBool.o \
-./database/src/so/fields/SoSFColor.o \
-./database/src/so/fields/SoSFEngine.o \
-./database/src/so/fields/SoSFEnum.o \
-./database/src/so/fields/SoSFFloat.o \
-./database/src/so/fields/SoSFImage.o \
-./database/src/so/fields/SoSFInt32.o \
-./database/src/so/fields/SoSFMatrix.o \
-./database/src/so/fields/SoSFName.o \
-./database/src/so/fields/SoSFNode.o \
-./database/src/so/fields/SoSFPath.o \
-./database/src/so/fields/SoSFPlane.o \
-./database/src/so/fields/SoSFRotation.o \
-./database/src/so/fields/SoSFShort.o \
-./database/src/so/fields/SoSFString.o \
-./database/src/so/fields/SoSFTime.o \
-./database/src/so/fields/SoSFTrigger.o \
-./database/src/so/fields/SoSFUInt32.o \
-./database/src/so/fields/SoSFUShort.o \
-./database/src/so/fields/SoSFVec2f.o \
-./database/src/so/fields/SoSFVec3f.o \
-./database/src/so/fields/SoSFVec4f.o \
-./database/src/so/fields/SoFieldData.o \
-./database/src/so/fields/SoField.o \
-./database/src/so/fields/SoFieldContainer.o \
-./database/src/so/fields/SoFieldInit.o \
-./database/src/so/fields/SoGlobalField.o \
-$(NULL)
+LLDDSOOPTS += -L$(IVDEPTH)/libimage -L$(IVDEPTH)/libFL/src
 
-OBJS3=\
-./database/src/so/nodes/nurbs/clients/gl4base.o \
-./database/src/so/nodes/nurbs/clients/gl4curveval.o \
-./database/src/so/nodes/nurbs/clients/typestrtab.o \
-./database/src/so/nodes/nurbs/clients/gl4surfeval.o \
-./database/src/so/nodes/nurbs/clients/isocurveeval.o \
-./database/src/so/nodes/nurbs/clients/softcurvemaps.o \
-./database/src/so/nodes/nurbs/clients/softcurveval.o \
-./database/src/so/nodes/nurbs/clients/softcurvmap.o \
-./database/src/so/nodes/nurbs/clients/softrenderer.o \
-./database/src/so/nodes/nurbs/clients/softsurfeval.o \
-./database/src/so/nodes/nurbs/clients/softsurfmap.o \
-./database/src/so/nodes/nurbs/clients/softsurfmaps.o \
-./database/src/so/nodes/nurbs/libnurbs/arc.o \
-./database/src/so/nodes/nurbs/libnurbs/arcsorter.o \
-./database/src/so/nodes/nurbs/libnurbs/arctess.o \
-./database/src/so/nodes/nurbs/libnurbs/backend.o \
-./database/src/so/nodes/nurbs/libnurbs/basiccrveval.o \
-./database/src/so/nodes/nurbs/libnurbs/basicsurfeval.o \
-./database/src/so/nodes/nurbs/libnurbs/bin.o \
-./database/src/so/nodes/nurbs/libnurbs/bufpool.o \
-./database/src/so/nodes/nurbs/libnurbs/cachingeval.o \
-./database/src/so/nodes/nurbs/libnurbs/ccw.o \
-./database/src/so/nodes/nurbs/libnurbs/coveandtiler.o \
-./database/src/so/nodes/nurbs/libnurbs/curve.o \
-./database/src/so/nodes/nurbs/libnurbs/curvelist.o \
-./database/src/so/nodes/nurbs/libnurbs/curvesub.o \
-./database/src/so/nodes/nurbs/libnurbs/displaylist.o \
-./database/src/so/nodes/nurbs/libnurbs/flist.o \
-./database/src/so/nodes/nurbs/libnurbs/flistsorter.o \
-./database/src/so/nodes/nurbs/libnurbs/hull.o \
-./database/src/so/nodes/nurbs/libnurbs/intersect.o \
-./database/src/so/nodes/nurbs/libnurbs/knotvector.o \
-./database/src/so/nodes/nurbs/libnurbs/mapdesc.o \
-./database/src/so/nodes/nurbs/libnurbs/mapdescv.o \
-./database/src/so/nodes/nurbs/libnurbs/maplist.o \
-./database/src/so/nodes/nurbs/libnurbs/mesher.o \
-./database/src/so/nodes/nurbs/libnurbs/monotonizer.o \
-./database/src/so/nodes/nurbs/libnurbs/mycode.o \
-./database/src/so/nodes/nurbs/libnurbs/nurbsinterfac.o \
-./database/src/so/nodes/nurbs/libnurbs/nurbstess.o \
-./database/src/so/nodes/nurbs/libnurbs/patch.o \
-./database/src/so/nodes/nurbs/libnurbs/patchlist.o \
-./database/src/so/nodes/nurbs/libnurbs/quilt.o \
-./database/src/so/nodes/nurbs/libnurbs/reader.o \
-./database/src/so/nodes/nurbs/libnurbs/renderhints.o \
-./database/src/so/nodes/nurbs/libnurbs/slicer.o \
-./database/src/so/nodes/nurbs/libnurbs/sorter.o \
-./database/src/so/nodes/nurbs/libnurbs/splitarcs.o \
-./database/src/so/nodes/nurbs/libnurbs/subdivider.o \
-./database/src/so/nodes/nurbs/libnurbs/tobezier.o \
-./database/src/so/nodes/nurbs/libnurbs/trimline.o \
-./database/src/so/nodes/nurbs/libnurbs/trimregion.o \
-./database/src/so/nodes/nurbs/libnurbs/trimvertpool.o \
-./database/src/so/nodes/nurbs/libnurbs/uarray.o \
-./database/src/so/nodes/nurbs/libnurbs/varray.o \
-./database/src/so/nodes/nurbs/SoCurveMaps.o \
-./database/src/so/nodes/nurbs/SoCurveRender.o \
-./database/src/so/nodes/nurbs/SoCurveRndEvl.o \
-./database/src/so/nodes/nurbs/SoGLRender.o \
-./database/src/so/nodes/nurbs/SoPickEvals.o \
-./database/src/so/nodes/nurbs/SoPickMaps.o \
-./database/src/so/nodes/nurbs/SoPickRender.o \
-./database/src/so/nodes/nurbs/SoPrimEvals.o \
-./database/src/so/nodes/nurbs/SoPrimMaps.o \
-./database/src/so/nodes/nurbs/SoPrimRender.o \
-./database/src/so/nodes/SoAnnotation.o \
-./database/src/so/nodes/jdmaster.o \
-./database/src/so/nodes/jdapi.o \
-./database/src/so/nodes/jcomapi.o \
-./database/src/so/nodes/jdatasrc.o \
-./database/src/so/nodes/jdcoefct.o \
-./database/src/so/nodes/jdcolor.o \
-./database/src/so/nodes/jddctmgr.o \
-./database/src/so/nodes/jdhuff.o \
-./database/src/so/nodes/jdmainct.o \
-./database/src/so/nodes/jdmarker.o \
-./database/src/so/nodes/jdmerge.o \
-./database/src/so/nodes/jdpostct.o \
-./database/src/so/nodes/jdsample.o \
-./database/src/so/nodes/jerror.o \
-./database/src/so/nodes/jutils.o \
-./database/src/so/nodes/jidctflt.o \
-./database/src/so/nodes/jidctfst.o \
-./database/src/so/nodes/jidctint.o \
-./database/src/so/nodes/jidctred.o \
-./database/src/so/nodes/jmemmgr.o \
-./database/src/so/nodes/jmemnobs.o \
-./database/src/so/nodes/jquant1.o \
-./database/src/so/nodes/jquant2.o \
-./database/src/so/nodes/readGIF.o \
-./database/src/so/nodes/SoArray.o \
-./database/src/so/nodes/SoAsciiText.o \
-./database/src/so/nodes/SoBaseColor.o \
-./database/src/so/nodes/SoBlinker.o \
-./database/src/so/nodes/SoCallback.o \
-./database/src/so/nodes/SoCamera.o \
-./database/src/so/nodes/SoClipPlane.o \
-./database/src/so/nodes/SoColorIndex.o \
-./database/src/so/nodes/SoComplexity.o \
-./database/src/so/nodes/SoCone.o \
-./database/src/so/nodes/SoCoordinate3.o \
-./database/src/so/nodes/SoCoordinate4.o \
-./database/src/so/nodes/SoCube.o \
-./database/src/so/nodes/SoCylinder.o \
-./database/src/so/nodes/SoDirectionalLight.o \
-./database/src/so/nodes/SoDrawStyle.o \
-./database/src/so/nodes/SoEnvironment.o \
-./database/src/so/nodes/SoEventCallback.o \
-./database/src/so/nodes/SoFaceSet.o \
-./database/src/so/nodes/SoFile.o \
-./database/src/so/nodes/SoFont.o \
-./database/src/so/nodes/SoFontStyle.o \
-./database/src/so/nodes/SoGroup.o \
-./database/src/so/nodes/SoIndexedFaceSet.o \
-./database/src/so/nodes/SoIndexedLineSet.o \
-./database/src/so/nodes/SoIndexedNurbsCurve.o \
-./database/src/so/nodes/SoIndexedNurbsSurface.o \
-./database/src/so/nodes/SoIndexedShape.o \
-./database/src/so/nodes/SoIndexedTriangleStripSet.o \
-./database/src/so/nodes/SoInfo.o \
-./database/src/so/nodes/SoLOD.o \
-./database/src/so/nodes/SoLabel.o \
-./database/src/so/nodes/SoLevelOfDetail.o \
-./database/src/so/nodes/SoLight.o \
-./database/src/so/nodes/SoLightModel.o \
-./database/src/so/nodes/SoLineSet.o \
-./database/src/so/nodes/SoLinearProfile.o \
-./database/src/so/nodes/SoLocateHighlight.o \
-./database/src/so/nodes/SoMaterial.o \
-./database/src/so/nodes/SoMaterialBinding.o \
-./database/src/so/nodes/SoMatrixTransform.o \
-./database/src/so/nodes/SoMultipleCopy.o \
-./database/src/so/nodes/SoNode.o \
-./database/src/so/nodes/SoNodeInit.o \
-./database/src/so/nodes/SoNonIndexedShape.o \
-./database/src/so/nodes/SoNormal.o \
-./database/src/so/nodes/SoNormalBinding.o \
-./database/src/so/nodes/SoNurbsCurve.o \
-./database/src/so/nodes/SoNurbsProfile.o \
-./database/src/so/nodes/SoNurbsSurface.o \
-./database/src/so/nodes/SoOrthographicCamera.o \
-./database/src/so/nodes/SoPackedColor.o \
-./database/src/so/nodes/SoPathSwitch.o \
-./database/src/so/nodes/SoPendulum.o \
-./database/src/so/nodes/SoPerspectiveCamera.o \
-./database/src/so/nodes/SoPickStyle.o \
-./database/src/so/nodes/SoPointLight.o \
-./database/src/so/nodes/SoPointSet.o \
-./database/src/so/nodes/SoProfile.o \
-./database/src/so/nodes/SoProfileCoordinate2.o \
-./database/src/so/nodes/SoQuadMesh.o \
-./database/src/so/nodes/SoProfileCoordinate3.o \
-./database/src/so/nodes/SoResetTransform.o \
-./database/src/so/nodes/SoRotation.o \
-./database/src/so/nodes/SoRotationXYZ.o \
-./database/src/so/nodes/SoRotor.o \
-./database/src/so/nodes/SoScale.o \
-./database/src/so/nodes/SoSeparator.o \
-./database/src/so/nodes/SoShape.o \
-./database/src/so/nodes/SoShapeHints.o \
-./database/src/so/nodes/SoShuttle.o \
-./database/src/so/nodes/SoSphere.o \
-./database/src/so/nodes/SoSpotLight.o \
-./database/src/so/nodes/SoSwitch.o \
-./database/src/so/nodes/SoText2.o \
-./database/src/so/nodes/SoText3.o \
-./database/src/so/nodes/SoTexture2.o \
-./database/src/so/nodes/SoTexture2Transform.o \
-./database/src/so/nodes/SoTextureCoordinate2.o \
-./database/src/so/nodes/SoTransform.o \
-./database/src/so/nodes/SoTextureCoordinateBinding.o \
-./database/src/so/nodes/SoTextureCoordinateDefault.o \
-./database/src/so/nodes/SoTextureCoordinateEnvironment.o \
-./database/src/so/nodes/SoTextureCoordinateFunction.o \
-./database/src/so/nodes/SoTextureCoordinatePlane.o \
-./database/src/so/nodes/SoTransformSeparator.o \
-./database/src/so/nodes/SoTransformation.o \
-./database/src/so/nodes/SoTranslation.o \
-./database/src/so/nodes/SoTriangleStripSet.o \
-./database/src/so/nodes/SoUnits.o \
-./database/src/so/nodes/SoUnknownNode.o \
-./database/src/so/nodes/SoVertexProperty.o \
-./database/src/so/nodes/SoVertexShape.o \
-./database/src/so/nodes/SoWWWAnchor.o \
-./database/src/so/nodes/SoWWWInline.o \
-$(NULL)
+LLDLIBS = \
+	-ljpeg -limage -lFL \
+        -lX11 -ldl -lm \
+        -lGLU -lGL
 
-OBJS4=\
-./database/src/so/sensors/SoSensor.o \
-./database/src/so/sensors/SoAlarmSensor.o \
-./database/src/so/sensors/SoDataSensor.o \
-./database/src/so/sensors/SoDelayQueueSensor.o \
-./database/src/so/sensors/SoFieldSensor.o \
-./database/src/so/sensors/SoIdleSensor.o \
-./database/src/so/sensors/SoNodeSensor.o \
-./database/src/so/sensors/SoOneShotSensor.o \
-./database/src/so/sensors/SoPathSensor.o \
-./database/src/so/sensors/SoSensorMgr.o \
-./database/src/so/sensors/SoTimerQueueSensor.o \
-./database/src/so/sensors/SoTimerSensor.o \
-./database/src/so/upgraders/SoV1CustomNode.o \
-./database/src/so/upgraders/SoV1DrawStyle.o \
-./database/src/so/upgraders/SoV1Environment.o \
-./database/src/so/upgraders/SoV1IndexedTriangleMesh.o \
-./database/src/so/upgraders/SoV1LayerGroup.o \
-./database/src/so/upgraders/SoV1LightModel.o \
-./database/src/so/upgraders/SoV1Material.o \
-./database/src/so/upgraders/SoV1PackedColor.o \
-./database/src/so/upgraders/SoV1PickStyle.o \
-./database/src/so/upgraders/SoV1Separator.o \
-./database/src/so/upgraders/SoV1ShapeHints.o \
-./database/src/so/upgraders/SoV1Texture2.o \
-./database/src/so/upgraders/SoV1Text3.o \
-./database/src/so/upgraders/SoV1TextureCoordinateCube.o \
-./database/src/so/upgraders/SoV1TextureCoordinateCylinder.o \
-./database/src/so/upgraders/SoV1TextureCoordinateEnvironment.o \
-./database/src/so/upgraders/SoV1TextureCoordinatePlane.o \
-./database/src/so/upgraders/SoV1TextureCoordinateSphere.o \
-./database/src/so/upgraders/SoV2Text2.o \
-./database/src/so/upgraders/SoV2Text3.o \
-./database/src/so/upgraders/SoV2AsciiText.o \
-./database/src/so/upgraders/SoV2FontStyle.o \
-./database/src/so/upgraders/SoV2LOD.o \
-./database/src/so/upgraders/SoV2MaterialIndex.o \
-./database/src/so/upgraders/SoV2VertexProperty.o \
-./database/src/so/upgraders/SoV2WWWAnchor.o \
-./database/src/so/upgraders/SoV2WWWInline.o \
-./database/src/so/upgraders/SoUpgraderInit.o \
-./database/src/so/upgraders/SoUpgrader.o \
-./database/src/so/linux.o \
-./database/src/so/SoAuditorList.o \
-./database/src/so/SoBase.o \
-./database/src/so/SoChildList.o \
-./database/src/so/SoDB.o \
-./database/src/so/SoLists.o \
-./database/src/so/SoNotification.o \
-./database/src/so/SoPath.o \
-./database/src/so/SoTempPath.o \
-./database/src/so/SoType.o \
-./database/src/so/SoInput.o \
-./database/src/so/SoOutput.o \
-./database/src/so/SoNormalGenerator.o \
-./database/src/so/SoCompactPathList.o \
-./database/src/so/SoCBList.o \
-./database/src/so/SoPickedPoint.o \
-./database/src/so/SoPrimitiveVertex.o \
-./database/src/so/SoTranscribe.o \
-./database/src/so/SoOffscreenRenderer.o \
-./database/src/so/SoDebug.o \
-./database/src/so/SoByteStream.o \
-./database/src/so/SoState.o \
-$(NULL)
+OBJECTS = \
+	./database/src/sb/projectors/SbProjectors.o \
+	./database/src/sb/Sb.o \
+	./database/src/so/actions/SoActions.o \
+	./database/src/so/bundles/SoBundles.o \
+	./database/src/so/caches/SoCaches.o \
+	./database/src/so/details/SoDetails.o \
+	./database/src/so/elements/SoElement.o \
+	./database/src/so/elements/SoElements.o \
+	./database/src/so/engines/SoEngines.o \
+	./database/src/so/engines/SoConcatenate.o \
+	./database/src/so/engines/SoEngineInit.o \
+	./database/src/so/engines/SoFieldConverters.o \
+	./database/src/so/engines/SoGate.o \
+	./database/src/so/engines/SoSelectOne.o \
+	./database/src/so/errors/SoErrors.o \
+	./database/src/so/errors/SoErrorInit.o \
+	./database/src/so/events/SoEventInit.o \
+	./database/src/so/events/SoEvents.o \
+	./database/src/so/fields/SoField.o \
+	./database/src/so/fields/SoFieldContainer.o \
+	./database/src/so/fields/SoFieldData.o \
+	./database/src/so/fields/SoFieldInit.o \
+	./database/src/so/fields/SoFields.o \
+	./database/src/so/fields/SoGlobalField.o \
+	./database/src/so/nodes/nurbs/clients/nurbsClient.o \
+	./database/src/so/nodes/nurbs/libnurbs/libNurbs.o \
+	./database/src/so/nodes/nurbs/SoNurbs.o \
+	./database/src/so/nodes/SoNode.o \
+	./database/src/so/nodes/SoNodeInit.o \
+	./database/src/so/nodes/SoAnnotation.o \
+	./database/src/so/nodes/SoArray.o \
+	./database/src/so/nodes/SoAsciiText.o \
+	./database/src/so/nodes/SoBaseColor.o \
+	./database/src/so/nodes/SoBlinker.o \
+	./database/src/so/nodes/SoCallback.o \
+	./database/src/so/nodes/SoCamera.o \
+	./database/src/so/nodes/SoClipPlane.o \
+	./database/src/so/nodes/SoColorIndex.o \
+	./database/src/so/nodes/SoComplexity.o \
+	./database/src/so/nodes/SoCone.o \
+	./database/src/so/nodes/SoCoordinate3.o \
+	./database/src/so/nodes/SoCube.o \
+	./database/src/so/nodes/SoCylinder.o \
+	./database/src/so/nodes/SoCoordinate4.o \
+	./database/src/so/nodes/SoDrawStyle.o \
+	./database/src/so/nodes/SoDirectionalLight.o \
+	./database/src/so/nodes/SoEnvironment.o \
+	./database/src/so/nodes/SoFaceSet.o \
+	./database/src/so/nodes/SoFile.o \
+	./database/src/so/nodes/SoFont.o \
+	./database/src/so/nodes/SoGroup.o \
+	./database/src/so/nodes/SoEventCallback.o \
+	./database/src/so/nodes/SoFontStyle.o \
+	./database/src/so/nodes/SoIndexedFaceSet.o \
+	./database/src/so/nodes/SoIndexedLineSet.o \
+	./database/src/so/nodes/SoInfo.o \
+	./database/src/so/nodes/SoIndexedNurbsCurve.o \
+	./database/src/so/nodes/SoIndexedShape.o \
+	./database/src/so/nodes/SoLOD.o \
+	./database/src/so/nodes/SoLabel.o \
+	./database/src/so/nodes/SoLight.o \
+	./database/src/so/nodes/SoIndexedNurbsSurface.o \
+	./database/src/so/nodes/SoLineSet.o \
+	./database/src/so/nodes/SoLevelOfDetail.o \
+	./database/src/so/nodes/SoMaterial.o \
+	./database/src/so/nodes/SoLocateHighlight.o \
+	./database/src/so/nodes/SoLightModel.o \
+	./database/src/so/nodes/SoLinearProfile.o \
+	./database/src/so/nodes/SoNormal.o \
+	./database/src/so/nodes/SoMaterialBinding.o \
+	./database/src/so/nodes/SoMultipleCopy.o \
+	./database/src/so/nodes/SoNurbsCurve.o \
+	./database/src/so/nodes/SoNurbsProfile.o \
+	./database/src/so/nodes/SoMatrixTransform.o \
+	./database/src/so/nodes/SoNurbsSurface.o \
+	./database/src/so/nodes/SoPackedColor.o \
+	./database/src/so/nodes/SoPendulum.o \
+	./database/src/so/nodes/SoNonIndexedShape.o \
+	./database/src/so/nodes/SoPathSwitch.o \
+	./database/src/so/nodes/SoPointSet.o \
+	./database/src/so/nodes/SoProfile.o \
+	./database/src/so/nodes/SoNormalBinding.o \
+	./database/src/so/nodes/SoIndexedTriangleStripSet.o \
+	./database/src/so/nodes/SoQuadMesh.o \
+	./database/src/so/nodes/SoRotation.o \
+	./database/src/so/nodes/SoPickStyle.o \
+	./database/src/so/nodes/SoRotor.o \
+	./database/src/so/nodes/SoPointLight.o \
+	./database/src/so/nodes/SoScale.o \
+	./database/src/so/nodes/SoShape.o \
+	./database/src/so/nodes/SoShuttle.o \
+	./database/src/so/nodes/SoOrthographicCamera.o \
+	./database/src/so/nodes/SoRotationXYZ.o \
+	./database/src/so/nodes/SoSphere.o \
+	./database/src/so/nodes/SoSwitch.o \
+	./database/src/so/nodes/SoText2.o \
+	./database/src/so/nodes/SoPerspectiveCamera.o \
+	./database/src/so/nodes/SoProfileCoordinate2.o \
+	./database/src/so/nodes/SoProfileCoordinate3.o \
+	./database/src/so/nodes/SoResetTransform.o \
+	./database/src/so/nodes/SoSeparator.o \
+	./database/src/so/nodes/SoShapeHints.o \
+	./database/src/so/nodes/SoText3.o \
+	./database/src/so/nodes/SoSpotLight.o \
+	./database/src/so/nodes/SoTexture2.o \
+	./database/src/so/nodes/SoTextureCoordinate2.o \
+	./database/src/so/nodes/SoTransform.o \
+	./database/src/so/nodes/SoTextureCoordinateBinding.o \
+	./database/src/so/nodes/SoUnits.o \
+	./database/src/so/nodes/SoTransformation.o \
+	./database/src/so/nodes/readGIF.o \
+	./database/src/so/nodes/SoTranslation.o \
+	./database/src/so/nodes/SoTriangleStripSet.o \
+	./database/src/so/nodes/SoUnknownNode.o \
+	./database/src/so/nodes/SoVertexShape.o \
+	./database/src/so/nodes/SoWWWAnchor.o \
+	./database/src/so/nodes/SoTextureCoordinateDefault.o \
+	./database/src/so/nodes/SoVertexProperty.o \
+	./database/src/so/nodes/SoTextureCoordinateFunction.o \
+	./database/src/so/nodes/SoTextureCoordinateEnvironment.o \
+	./database/src/so/nodes/SoTextureCoordinatePlane.o \
+	./database/src/so/nodes/SoTexture2Transform.o \
+	./database/src/so/nodes/SoTransformSeparator.o \
+	./database/src/so/nodes/SoWWWInline.o \
+	./database/src/so/sensors/SoSensors.o \
+	./database/src/so/upgraders/SoUpgraderInit.o \
+	./database/src/so/upgraders/SoUpgrader.o \
+	./database/src/so/upgraders/SoUpgraders.o \
+	./database/src/so/So.o \
+	./database/src/so/SoState.o \
+	./database/src/so/linux.o \
+	./interaction/src/actions/SoBoxHL.o \
+	./interaction/src/actions/SoLineHL.o \
+	./interaction/src/draggers/SoDraggerInit.o \
+	./interaction/src/draggers/SoCenterballDragger.o \
+	./interaction/src/draggers/SoDirectionalLightDragger.o \
+	./interaction/src/draggers/SoDragPointDragger.o \
+	./interaction/src/draggers/SoDragger.o \
+	./interaction/src/draggers/SoHandleBoxDragger.o \
+	./interaction/src/draggers/SoJackDragger.o \
+	./interaction/src/draggers/SoPointLightDragger.o \
+	./interaction/src/draggers/SoRotateCylindricalDragger.o \
+	./interaction/src/draggers/SoRotateDiscDragger.o \
+	./interaction/src/draggers/SoRotateSphericalDragger.o \
+	./interaction/src/draggers/SoScale1Dragger.o \
+	./interaction/src/draggers/SoScale2Dragger.o \
+	./interaction/src/draggers/SoScale2UniformDragger.o \
+	./interaction/src/draggers/SoScaleUniformDragger.o \
+	./interaction/src/draggers/SoSpotLightDragger.o \
+	./interaction/src/draggers/SoTabBoxDragger.o \
+	./interaction/src/draggers/SoTabPlaneDragger.o \
+	./interaction/src/draggers/SoTrackballDragger.o \
+	./interaction/src/draggers/SoTransformBoxDragger.o \
+	./interaction/src/draggers/SoTransformerDragger.o \
+	./interaction/src/draggers/SoTranslate1Dragger.o \
+	./interaction/src/draggers/SoTranslate2Dragger.o \
+	./interaction/src/manips/SoManips.o \
+	./interaction/src/nodekits/SoInteractionKit.o \
+	./interaction/src/nodes/SoAntiSquish.o \
+	./interaction/src/nodes/SoSurroundScale.o \
+	./interaction/src/SoInteraction.o \
+	./interaction/src/SoSceneMgr.o \
+	./interaction/src/SoSelection.o \
+	./nodekits/src/details/SoNodeKitDetail.o \
+	./nodekits/src/nodekits/SoNodeKits.o \
+	./nodekits/src/upgraders/SoNodeKitUpgraders.o \
+	./nodekits/src/SoNodeKitPath.o
 
-OBJS5=\
-./interaction/src/actions/SoBoxHL.o \
-./interaction/src/actions/SoLineHL.o \
-./interaction/src/draggers/SoDragger.o \
-./interaction/src/draggers/SoDraggerInit.o \
-./interaction/src/draggers/SoCenterballDragger.o \
-./interaction/src/draggers/SoDirectionalLightDragger.o \
-./interaction/src/draggers/SoDragPointDragger.o \
-./interaction/src/draggers/SoHandleBoxDragger.o \
-./interaction/src/draggers/SoJackDragger.o \
-./interaction/src/draggers/SoPointLightDragger.o \
-./interaction/src/draggers/SoRotateCylindricalDragger.o \
-./interaction/src/draggers/SoRotateDiscDragger.o \
-./interaction/src/draggers/SoRotateSphericalDragger.o \
-./interaction/src/draggers/SoScale1Dragger.o \
-./interaction/src/draggers/SoScale2Dragger.o \
-./interaction/src/draggers/SoScale2UniformDragger.o \
-./interaction/src/draggers/SoScaleUniformDragger.o \
-./interaction/src/draggers/SoSpotLightDragger.o \
-./interaction/src/draggers/SoTabBoxDragger.o \
-./interaction/src/draggers/SoTabPlaneDragger.o \
-./interaction/src/draggers/SoTrackballDragger.o \
-./interaction/src/draggers/SoTransformBoxDragger.o \
-./interaction/src/draggers/SoTransformerDragger.o \
-./interaction/src/draggers/SoTranslate1Dragger.o \
-./interaction/src/draggers/SoTranslate2Dragger.o \
-./interaction/src/manips/SoHbox.o \
-./interaction/src/manips/SoTransformManip.o \
-./interaction/src/manips/SoCenterballManip.o \
-./interaction/src/manips/SoTabBoxManip.o \
-./interaction/src/manips/SoTball.o \
-./interaction/src/manips/SoXformBox.o \
-./interaction/src/manips/SoDirLtManip.o \
-./interaction/src/manips/SoPtLtManip.o \
-./interaction/src/manips/SoSpotLtManip.o \
-./interaction/src/manips/SoTransformerManip.o \
-./interaction/src/manips/SoJackManip.o \
-./interaction/src/nodekits/SoInteractionKit.o \
-./interaction/src/nodes/SoAntiSquish.o \
-./interaction/src/nodes/SoSurroundScale.o \
-./interaction/src/SoInteraction.o \
-./interaction/src/SoSceneMgr.o \
-./interaction/src/SoSelection.o \
-./nodekits/src/details/SoNodeKitDetail.o \
-./nodekits/src/nodekits/SoBaseKit.o \
-./nodekits/src/nodekits/SoAppearKit.o \
-./nodekits/src/nodekits/SoCameraKit.o \
-./nodekits/src/nodekits/SoLightKit.o \
-./nodekits/src/nodekits/SoNkCatalog.o \
-./nodekits/src/nodekits/SoNkParts.o \
-./nodekits/src/nodekits/SoNodeKit.o \
-./nodekits/src/nodekits/SoNodeKitListPart.o \
-./nodekits/src/nodekits/SoSceneKit.o \
-./nodekits/src/nodekits/SoSeparatorKit.o \
-./nodekits/src/nodekits/SoShapeKit.o \
-./nodekits/src/nodekits/SoWrapperKit.o \
-./nodekits/src/upgraders/SoV1AppearKit.o \
-./nodekits/src/upgraders/SoV1BaseKit.o \
-./nodekits/src/upgraders/SoV1CameraKit.o \
-./nodekits/src/upgraders/SoV1ConeKit.o \
-./nodekits/src/upgraders/SoV1CubeKit.o \
-./nodekits/src/upgraders/SoV1CylinderKit.o \
-./nodekits/src/upgraders/SoV1DirLtKit.o \
-./nodekits/src/upgraders/SoV1FaceSetKit.o \
-./nodekits/src/upgraders/SoV1GroupKit.o \
-./nodekits/src/upgraders/SoV1IFaceSetKit.o \
-./nodekits/src/upgraders/SoV1ILineSetKit.o \
-./nodekits/src/upgraders/SoV1INrbCurvKit.o \
-./nodekits/src/upgraders/SoV1INrbSurfKit.o \
-./nodekits/src/upgraders/SoV1ITMshSetKit.o \
-./nodekits/src/upgraders/SoV1LightKit.o \
-./nodekits/src/upgraders/SoV1LineSetKit.o \
-./nodekits/src/upgraders/SoV1NkCatalog.o \
-./nodekits/src/upgraders/SoV1NkParts.o \
-./nodekits/src/upgraders/SoV1NodeKit.o \
-./nodekits/src/upgraders/SoV1NurbCurvKit.o \
-./nodekits/src/upgraders/SoV1NurbSurfKit.o \
-./nodekits/src/upgraders/SoV1OrthoCamKit.o \
-./nodekits/src/upgraders/SoV1PerspCamKit.o \
-./nodekits/src/upgraders/SoV1PointLtKit.o \
-./nodekits/src/upgraders/SoV1PointSetKit.o \
-./nodekits/src/upgraders/SoV1QuadMeshKit.o \
-./nodekits/src/upgraders/SoV1SceneKit.o \
-./nodekits/src/upgraders/SoV1ShapeKit.o \
-./nodekits/src/upgraders/SoV1SphereKit.o \
-./nodekits/src/upgraders/SoV1SpotLtKit.o \
-./nodekits/src/upgraders/SoV1Text2Kit.o \
-./nodekits/src/upgraders/SoV1Text3Kit.o \
-./nodekits/src/upgraders/SoV1WrapperKit.o \
-./nodekits/src/upgraders/SoV1TriStripKit.o \
-./nodekits/src/upgraders/SoV1VtxShapeKit.o \
-./nodekits/src/SoNodeKitPath.o \
-$(NULL)
+LARCHIVE = libInventor.a
 
-OBJS= $(OBJS1) $(OBJS2) $(OBJS3) $(OBJS4) $(OBJS5)
-
-library: all
-ifeq ($(usingLinux),1)
-	$(CXX) -all -O -shared -o libInventor.so $(OBJS) ../libFL/src/libFL.a ../libimage/libimage.a
-else
-	$(RM) lib0.a;	$(AR) clq lib0.a $(OBJS1)
-	$(RM) lib1.a;	$(AR) clq lib1.a $(OBJS2)
-	$(RM) lib2.a;	$(AR) clq lib2.a $(OBJS3)
-	$(RM) lib3.a;	$(AR) clq lib3.a $(OBJS4)
-	$(RM) lib4.a;	$(AR) clq lib4.a $(OBJS5)
-	$(CXX) -all -O -shared -o libInventor.so lib0.a lib1.a lib2.a \
-	lib3.a lib4.a -lFL ../libimage/libimage.a
-	$(RM) lib[0-4].a
-endif
-
-install: library
-	if [ ! -d $(IVROOT)/usr/lib ]; then \
-	  mkdir -p $(IVROOT)/usr/lib ; \
-	fi
-	cp -f libInventor.so $(IVROOT)/usr/lib
-
-COMMONPREF = xxx
 SUBDIRS = database interaction nodekits
 
-$(COMMONTARGS) all:: 
+all: all_ivbin
+
+HEADERS_SUBDIRS = $(SUBDIRS)
+
+install: install_ivlibdso
+	$(HEADERS_SUBDIRS_MAKERULE)
+
+COMMONPREF = xxx
+$(COMMONTARGS): %: $(COMMONPREF)%
 	$(SUBDIRS_MAKERULE)
 
-clean clobber::
-	$(RM) $(IVROOT)/usr/lib/libInventor.so
-	$(RM) libInventor.so
-	$(SUBDIRS_MAKERULE)
-
-
+include $(IVCOMMONRULES)

@@ -1,11 +1,9 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-INST_HEADER_ROOT   = $(IVROOT)/usr/include/Inventor/elements
-HEADER_PATH        = $(INST_HEADER_ROOT)
-NOSHIP_HEADER_PATH = $(HEADER_PATH)
+HDRSUBDIR = elements
 
-INST_HEADERS = \
+HEADERS = \
 	SoAccumulatedElement.h \
 	SoAmbientColorElement.h \
 	SoBBoxModelMatrixElement.h \
@@ -15,9 +13,6 @@ INST_HEADERS = \
 	SoComplexityTypeElement.h \
 	SoCoordinateElement.h \
 	SoCreaseAngleElement.h \
-	SoCullVolumeElement.h \
-	SoCurrentGLMaterialElement.h \
-	SoDiffuseColorElement.h \
 	SoDrawStyleElement.h \
 	SoElement.h \
 	SoElements.h \
@@ -26,42 +21,28 @@ INST_HEADERS = \
 	SoFocalDistanceElement.h \
 	SoFontNameElement.h \
 	SoFontSizeElement.h \
-	SoGLAmbientColorElement.h \
 	SoGLCacheContextElement.h \
 	SoGLClipPlaneElement.h \
 	SoGLColorIndexElement.h \
 	SoGLCoordinateElement.h \
-	SoGLDiffuseColorElement.h \
 	SoGLDrawStyleElement.h \
-	SoGLEmissiveColorElement.h \
 	SoGLLazyElement.h \
 	SoGLLightIdElement.h \
-	SoGLLightModelElement.h \
 	SoGLLinePatternElement.h \
 	SoGLLineWidthElement.h \
-	SoGLMaterialIndexElement.h \
 	SoGLModelMatrixElement.h \
 	SoGLNormalElement.h \
 	SoGLPointSizeElement.h \
-	SoGLPolygonStippleElement.h \
 	SoGLProjectionMatrixElement.h \
 	SoGLRenderPassElement.h \
 	SoGLShapeHintsElement.h \
-	SoGLShininessElement.h \
-	SoGLSpecularColorElement.h \
-	SoGLTextureBlendColorElement.h \
 	SoGLTextureCoordinateElement.h \
 	SoGLTextureEnabledElement.h \
 	SoGLTextureImageElement.h \
 	SoGLTextureMatrixElement.h \
-	SoGLTextureModelElement.h \
-	SoGLTextureQualityElement.h \
-	SoGLTextureWrapSElement.h \
-	SoGLTextureWrapTElement.h \
 	SoGLUpdateAreaElement.h \
 	SoGLViewingMatrixElement.h \
 	SoGLViewportRegionElement.h \
-	SoInt32Element.h \
 	SoLazyElement.h \
 	SoLightAttenuationElement.h \
 	SoLightModelElement.h \
@@ -69,6 +50,7 @@ INST_HEADERS = \
 	SoLineWidthElement.h \
 	SoLocalBBoxMatrixElement.h \
 	SoLongElement.h \
+	SoInt32Element.h \
 	SoMaterialBindingElement.h \
 	SoModelMatrixElement.h \
 	SoNormalBindingElement.h \
@@ -87,26 +69,39 @@ INST_HEADERS = \
 	SoSpecularColorElement.h \
 	SoSubElement.h \
 	SoSwitchElement.h \
-	SoTextureBlendColorElement.h \
 	SoTextureCoordinateBindingElement.h \
 	SoTextureCoordinateElement.h \
 	SoTextureImageElement.h \
 	SoTextureMatrixElement.h \
-	SoTextureModelElement.h \
 	SoTextureQualityElement.h \
-	SoTextureWrapSElement.h \
-	SoTextureWrapTElement.h \
-	SoTransparencyElement.h \
 	SoUnitsElement.h \
 	SoViewVolumeElement.h \
 	SoViewingMatrixElement.h \
 	SoViewportRegionElement.h \
-	SoWindowElement.h
+	SoWindowElement.h \
+	SoCullVolumeElement.h \
+	SoCurrentGLMaterialElement.h \
+	SoDiffuseColorElement.h \
+	SoGLAmbientColorElement.h \
+	SoGLDiffuseColorElement.h \
+	SoGLEmissiveColorElement.h \
+	SoGLLightModelElement.h \
+	SoGLPolygonStippleElement.h \
+	SoGLShininessElement.h \
+	SoGLSpecularColorElement.h \
+	SoGLTextureBlendColorElement.h \
+	SoGLTextureModelElement.h \
+	SoGLTextureQualityElement.h \
+	SoGLTextureWrapSElement.h \
+	SoGLTextureWrapTElement.h \
+	SoTextureBlendColorElement.h \
+	SoTextureModelElement.h \
+	SoTextureWrapSElement.h \
+	SoTextureWrapTElement.h \
+	SoTransparencyElement.h
 
+all:
 
-LDIRT = $(INST_HEADER_ROOT)
-
-install: headers
+install: install_ivheaders
 
 include $(IVCOMMONRULES)
-

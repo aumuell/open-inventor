@@ -1,28 +1,24 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-INST_HEADER_ROOT   = $(IVROOT)/usr/include/Inventor/projectors
-HEADER_PATH        = $(INST_HEADER_ROOT)
-NOSHIP_HEADER_PATH = $(HEADER_PATH)
+HDRSUBDIR = projectors
 
-INST_HEADERS = \
+HEADERS = \
+	SbProjector.h \
+	SbProjectors.h \
 	SbCylinderPlaneProjector.h \
 	SbCylinderProjector.h \
 	SbCylinderSectionProjector.h \
 	SbCylinderSheetProjector.h \
 	SbLineProjector.h \
 	SbPlaneProjector.h \
-	SbProjector.h \
-	SbProjectors.h \
 	SbSpherePlaneProjector.h \
 	SbSphereProjector.h \
 	SbSphereSectionProjector.h \
 	SbSphereSheetProjector.h
 
+all:
 
-LDIRT = $(INST_HEADER_ROOT)
-
-install: headers
+install: install_ivheaders
 
 include $(IVCOMMONRULES)
-

@@ -1,17 +1,14 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-INST_HEADER_ROOT   = $(IVROOT)/usr/include/Inventor/actions
-HEADER_PATH        = $(INST_HEADER_ROOT)
-NOSHIP_HEADER_PATH = $(HEADER_PATH)
+HDRSUBDIR = actions
 
-INST_HEADERS = \
+HEADERS = \
 	SoBoxHighlightRenderAction.h \
 	SoLineHighlightRenderAction.h
 
-LDIRT = $(INST_HEADER_ROOT)
+all:
 
-install: headers
+install: install_ivheaders
 
 include $(IVCOMMONRULES)
-

@@ -1,14 +1,5 @@
 IVDEPTH = ../../..
-include $(IVDEPTH)/make/commonivdefs
-
-DEPTH = ../..
-LDIRT = *.d
-LCXXFLAGS = -I$(DEPTH)/database/include \
-	    -I../include \
-	    -I$(DEPTH)/include \
-	    -DLIBRARYBUILD \
-	    -I../../nodekits/include  -DDEBUG
-
+include $(IVDEPTH)/make/ivcommondefs
 
 CXXFILES =  \
 	SoInteraction.c++ SoSceneMgr.c++ \
@@ -16,23 +7,11 @@ CXXFILES =  \
 
 SUBDIRS = actions draggers manips nodekits nodes
 
-all: $(OBJECTS)
-	@for d in $(SUBDIRS); do \
-		$(ECHO) "\tcd $$d; $(MAKE) $@"; \
-		cd $$d; $(MAKE) $@; cd ..; \
-	done
+all install: $(OBJECTS)
+	$(SUBDIRS_MAKERULE)
 
-install:
-	@for d in $(SUBDIRS); do \
-		$(ECHO) "\tcd $$d; $(MAKE) $@"; \
-		cd $$d; $(MAKE) $@; cd ..; \
-	done
+COMMONPREF = xxx
+$(COMMONTARGS): %: $(COMMONPREF)%
+	$(SUBDIRS_MAKERULE)
 
-include $(COMMONRULES)
-
-clean clobber:
-	rm -f *.o *.d
-	@for d in $(SUBDIRS); do \
-		$(ECHO) "\tcd $$d; $(MAKE) $@"; \
-		cd $$d; $(MAKE) $@; cd ..; \
-	done
+include $(IVCOMMONRULES)

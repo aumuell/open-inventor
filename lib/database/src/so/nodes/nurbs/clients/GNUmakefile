@@ -1,24 +1,11 @@
 IVDEPTH = ../../../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../../../../../..
-LDIRT = *.d
-LCXXFLAGS = -I$(DEPTH)/include -I../head  -DLIBRARYBUILD  -DNDEBUG -DDEBUG
+LCXXINCS += -I../head
+LCXXDEFS += -DLIBRARYBUILD
 
-CXXFILES=\
-	gl4base.c++ \
-	gl4curveval.c++ \
-	gl4surfeval.c++ \
-	isocurveeval.c++ \
-	softcurvemaps.c++ \
-	softcurveval.c++ \
-	softcurvmap.c++ \
-	softrenderer.c++ \
-	softsurfeval.c++ \
-	softsurfmap.c++ \
-	softsurfmaps.c++ \
-	typestrtab.c++
+CXXFILES = nurbsClient.c++
 
-all:: $(OBJECTS)
+all install: $(OBJECTS)
 
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

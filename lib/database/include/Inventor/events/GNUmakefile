@@ -1,11 +1,9 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-INST_HEADER_ROOT   = $(IVROOT)/usr/include/Inventor/events
-HEADER_PATH        = $(INST_HEADER_ROOT)
-NOSHIP_HEADER_PATH = $(HEADER_PATH)
+HDRSUBDIR = events
 
-INST_HEADERS = \
+HEADERS = \
 	SoButtonEvent.h \
 	SoEvent.h \
 	SoEvents.h \
@@ -16,10 +14,8 @@ INST_HEADERS = \
 	SoSpaceballButtonEvent.h \
 	SoSubEvent.h
 
+all:
 
-LDIRT = $(INST_HEADER_ROOT)
-
-install: headers
+install: install_ivheaders
 
 include $(IVCOMMONRULES)
-

@@ -1,11 +1,9 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-INST_HEADER_ROOT   = $(IVROOT)/usr/include/Inventor/engines
-HEADER_PATH        = $(INST_HEADER_ROOT)
-NOSHIP_HEADER_PATH = $(HEADER_PATH)
+HDRSUBDIR = engines
 
-INST_HEADERS = \
+HEADERS = \
 	SoBoolOperation.h \
 	SoCalculator.h \
 	SoCompose.h \
@@ -27,10 +25,8 @@ INST_HEADERS = \
 	SoTransformVec3f.h \
 	SoTriggerAny.h
 
+all:
 
-LDIRT = $(INST_HEADER_ROOT)
-
-install: headers
+install: install_ivheaders
 
 include $(IVCOMMONRULES)
-

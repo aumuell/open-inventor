@@ -1,11 +1,9 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-INST_HEADER_ROOT   = $(IVROOT)/usr/include/Inventor/misc
-HEADER_PATH        = $(INST_HEADER_ROOT)
-NOSHIP_HEADER_PATH = $(HEADER_PATH)
+HDRSUBDIR = misc
 
-INST_HEADERS = \
+HEADERS = \
 	SoAuditorList.h \
 	SoBase.h \
 	SoBasic.h \
@@ -19,16 +17,15 @@ INST_HEADERS = \
 	SoTempPath.h \
 	SoTranscribe.h
 
+HEADERS_SUBDIRS = upgraders
 
-SUBDIRS = \
-	upgraders
+all:
 
-LDIRT = $(INST_HEADER_ROOT)
+install: install_ivheaders
+	$(HEADERS_SUBDIRS_MAKERULE)
 
-install: headers
-	@for d in $(SUBDIRS); do \
-		$(ECHO) "\tcd $$d; $(MAKE) $@"; \
-		cd $$d; $(MAKE) $@; cd ..; \
-	done
+COMMONPREF = xxx
+$(COMMONTARGS): %: $(COMMONPREF)%
+	$(HEADERS_SUBDIRS_MAKERULE)
 
 include $(IVCOMMONRULES)

@@ -1,29 +1,8 @@
 IVDEPTH = ../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../../..
-LDIRT = *.d
-LCXXFLAGS = -I$(DEPTH)/database/include \
-	    -I../../include \
-	    -I$(DEPTH)/include \
-	    -DLIBRARYBUILD \
-	    -I$(DEPTH)/nodekits/include -DDEBUG
+CXXFILES = SoManips.c++
 
-CXXFILES = \
-	SoTransformManip.c++ \
-	SoCenterballManip.c++ \
-	SoTabBoxManip.c++ \
-	SoHbox.c++ \
-	SoTball.c++ \
-	SoXformBox.c++ \
-	SoDirLtManip.c++ \
-	SoPtLtManip.c++ \
-	SoSpotLtManip.c++ \
-	SoTransformerManip.c++ \
-	SoJackManip.c++
+all install: $(OBJECTS)
 
-
-
-all:: $(OBJECTS)
-
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

@@ -1,11 +1,9 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-INST_HEADER_ROOT   = $(IVROOT)/usr/include/Inventor/actions
-HEADER_PATH        = $(INST_HEADER_ROOT)
-NOSHIP_HEADER_PATH = $(HEADER_PATH)
+HDRSUBDIR = actions
 
-INST_HEADERS = \
+HEADERS = \
 	SoAction.h \
 	SoActions.h \
 	SoCallbackAction.h \
@@ -19,10 +17,8 @@ INST_HEADERS = \
 	SoSubAction.h \
 	SoWriteAction.h
 
+all:
 
-LDIRT = $(INST_HEADER_ROOT)
-
-install: headers
+install: install_ivheaders
 
 include $(IVCOMMONRULES)
-

@@ -1,26 +1,18 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-INST_HEADER_ROOT   = $(IVROOT)/usr/include/Inventor/manips
-HEADER_PATH        = $(INST_HEADER_ROOT)
-NOSHIP_HEADER_PATH = $(HEADER_PATH)
+HDRSUBDIR = manips
 
-INST_HEADERS = \
-	SoCenterballManip.h \
-	SoDirectionalLightManip.h \
-	SoHandleBoxManip.h \
-	SoJackManip.h \
-	SoPointLightManip.h \
-	SoSpotLightManip.h \
-	SoTabBoxManip.h \
-	SoTrackballManip.h \
-	SoTransformBoxManip.h \
-	SoTransformManip.h \
-	SoTransformerManip.h
+HEADERS = \
+	SoCenterballManip.h SoDirectionalLightManip.h \
+	SoHandleBoxManip.h SoJackManip.h \
+	SoPointLightManip.h SoSpotLightManip.h \
+	SoTabBoxManip.h SoTrackballManip.h \
+	SoTransformBoxManip.h SoTransformerManip.h \
+	SoTransformManip.h
 
-LDIRT = $(INST_HEADER_ROOT)
+all:
 
-install: headers
+install: install_ivheaders
 
 include $(IVCOMMONRULES)
-

@@ -1,21 +1,8 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../../..
-LDIRT = *.d
-LCXXFLAGS = -I$(DEPTH)/include  -DLIBRARYBUILD -DDEBUG
+CXXFILES = SoDetails.c++
 
-CXXFILES =\
-	SoDetailInit.c++ \
-	SoDetail.c++ \
-	SoConeDetail.c++ \
-	SoCubeDetail.c++ \
-	SoCylinderDetail.c++ \
-	SoFaceDetail.c++ \
-	SoLineDetail.c++ \
-	SoPointDetail.c++ \
-	SoTextDetail.c++
+all install: $(OBJECTS)
 
-all:: $(OBJECTS)
-
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

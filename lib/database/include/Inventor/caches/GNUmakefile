@@ -1,21 +1,17 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-INST_HEADER_ROOT   = $(IVROOT)/usr/include/Inventor/caches
-HEADER_PATH        = $(INST_HEADER_ROOT)
-NOSHIP_HEADER_PATH = $(HEADER_PATH)
+HDRSUBDIR = caches
 
-INST_HEADERS = \
+HEADERS = \
 	SoBoundingBoxCache.h \
 	SoCache.h \
 	SoGLCacheList.h \
 	SoGLRenderCache.h \
 	SoNormalCache.h
 
+all:
 
-LDIRT = $(INST_HEADER_ROOT)
-
-install: headers
+install: install_ivheaders
 
 include $(IVCOMMONRULES)
-

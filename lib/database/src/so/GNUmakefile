@@ -1,57 +1,27 @@
 IVDEPTH = ../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../..
-LDIRT = *.d
-LCXXFLAGS += -I$(DEPTH)/include -DLIBRARYBUILD \
-	    -DDEBUG  \
-	    -I$(IVDEPTH)/libimage
+CXXFILES = So.c++ SoState.c++ linux.c++
 
-CXXFILES = \
-	   SoAuditorList.c++ \
-	   SoBase.c++ \
-	   SoChildList.c++ \
-	   SoDB.c++ \
-	   SoLists.c++ \
-	   SoNotification.c++ \
-	   SoPath.c++ \
-	   SoTempPath.c++ \
-	   SoType.c++ \
-	   SoInput.c++ \
-	   SoOutput.c++ \
-	   SoNormalGenerator.c++ \
-	   SoCompactPathList.c++ \
-	   SoCBList.c++ \
-	   SoPickedPoint.c++ \
-	   SoPrimitiveVertex.c++ \
-	   SoTranscribe.c++ \
-	   SoOffscreenRenderer.c++ \
-	   SoByteStream.c++ \
-	   SoDebug.c++ \
-	   SoState.c++ \
-	   linux.c++
+SUBDIRS = \
+	actions \
+	bundles \
+	caches \
+	details \
+	elements \
+	engines \
+	errors \
+	events \
+	fields \
+	nodes \
+	sensors \
+	upgraders
 
-SUBDIRS=actions bundles caches details elements engines \
-	errors events fields nodes sensors upgraders
+all install: $(OBJECTS)
+	$(SUBDIRS_MAKERULE)
 
-all: $(OBJECTS)
-	@for d in $(SUBDIRS); do \
-		$(ECHO) "\tcd $$d; $(MAKE) $@"; \
-		cd $$d; $(MAKE) $@; cd ..; \
-	done
+COMMONPREF = xxx
+$(COMMONTARGS): %: $(COMMONPREF)%
+	$(SUBDIRS_MAKERULE)
 
-install: all
-	@for d in $(SUBDIRS); do \
-		$(ECHO) "\tcd $$d; $(MAKE) $@"; \
-		cd $$d; $(MAKE) $@; cd ..; \
-	done
-
-include $(COMMONRULES)
-
-clean clobber:
-	rm -f *.o *.d
-	@for d in $(SUBDIRS); do \
-		$(ECHO) "\tcd $$d; $(MAKE) $@"; \
-		cd $$d; $(MAKE) $@; cd ..; \
-	done
-
+include $(IVCOMMONRULES)

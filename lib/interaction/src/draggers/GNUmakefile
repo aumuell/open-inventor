@@ -1,13 +1,5 @@
 IVDEPTH = ../../../..
-include $(IVDEPTH)/make/commonivdefs
-
-DEPTH = ../../..
-LDIRT = *.d
-LCXXFLAGS = -I$(DEPTH)/database/include \
-	    -I../../include \
-	    -I$(DEPTH)/include \
-	    -DLIBRARYBUILD \
-	    -I$(DEPTH)/nodekits/include -DDEBUG
+include $(IVDEPTH)/make/ivcommondefs
 
 CXXFILES = \
 	SoDraggerInit.c++ SoCenterballDragger.c++ \
@@ -23,6 +15,6 @@ CXXFILES = \
 	SoTransformerDragger.c++ SoTranslate1Dragger.c++ \
 	SoTranslate2Dragger.c++
 
-all:: $(OBJECTS)
+all install: $(OBJECTS)
 
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

@@ -1,16 +1,8 @@
 IVDEPTH = ../../../..
-include $(IVDEPTH)/make/commonivdefs
-
-DEPTH = ../../..
-LDIRT = *.d
-LCXXFLAGS = -I$(DEPTH)/database/include \
-	    -I../../include \
-	    -I$(DEPTH)/include \
-	    -DLIBRARYBUILD \
-	    -I$(DEPTH)/nodekits/include -DDEBUG
+include $(IVDEPTH)/make/ivcommondefs
 
 CXXFILES = SoAntiSquish.c++ SoSurroundScale.c++
 
-all:: $(OBJECTS)
+all install: $(OBJECTS)
 
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

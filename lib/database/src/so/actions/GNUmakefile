@@ -1,24 +1,8 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../../..
-LDIRT = *.d
-LCXXFLAGS = -I$(DEPTH)/include -DLIBRARYBUILD \
-	    -DDEBUG 
+CXXFILES = SoActions.c++
 
-CXXFILES =\
-	SoActionInit.c++ \
-	SoAction.c++ \
-	SoCallbackAction.c++ \
-	SoGLRenderAction.c++ \
-	SoGetBoundingBoxAction.c++ \
-	SoGetMatrixAction.c++ \
-	SoHandleEventAction.c++ \
-	SoPickAction.c++ \
-	SoRayPickAction.c++ \
-	SoSearchAction.c++ \
-	SoWriteAction.c++
+all install: $(OBJECTS)
 
-all:: $(OBJECTS)
-
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

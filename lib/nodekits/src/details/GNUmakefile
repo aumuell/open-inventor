@@ -1,16 +1,8 @@
-IVDEPTH = ../../../../
-include  $(IVDEPTH)/make/commonivdefs
+IVDEPTH = ../../../..
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../../..
-LDIRT = *.d
-LCXXFLAGS = -I$(DEPTH)/database/include \
-	    -I../../include \
-	    -I$(DEPTH)/include \
-	    -DLIBRARYBUILD \
-	    -I$(DEPTH)/nodekits/include -DDEBUG
+CXXFILES = SoNodeKitDetail.c++
 
-CXXFILES = SoNodeKitDetail.o
+all install: $(OBJECTS)
 
-all:: $(OBJECTS)
-
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

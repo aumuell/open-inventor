@@ -1,18 +1,8 @@
 IVDEPTH = ../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../../..
-LDIRT = *.d
-LCXXFLAGS = -I$(DEPTH)/database/include \
-	    -I../../include \
-	    -I$(DEPTH)/include \
-	    -DLIBRARYBUILD \
-	    -I$(DEPTH)/nodekits/include -DDEBUG
+CXXFILES = SoBoxHL.c++ SoLineHL.c++
 
-CXXFILES = \
-	SoBoxHL.c++ \
-	SoLineHL.c++
+all install: $(OBJECTS)
 
-all:: $(OBJECTS)
-
-include $(COMMONRULES)
+include $(IVCOMMONRULES)

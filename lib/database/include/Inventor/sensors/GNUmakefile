@@ -1,11 +1,9 @@
 IVDEPTH = ../../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-INST_HEADER_ROOT   = $(IVROOT)/usr/include/Inventor/sensors
-HEADER_PATH        = $(INST_HEADER_ROOT)
-NOSHIP_HEADER_PATH = $(HEADER_PATH)
+HDRSUBDIR = sensors
 
-INST_HEADERS = \
+HEADERS = \
 	SoAlarmSensor.h \
 	SoDataSensor.h \
 	SoDelayQueueSensor.h \
@@ -20,9 +18,8 @@ INST_HEADERS = \
 	SoTimerQueueSensor.h \
 	SoTimerSensor.h
 
-LDIRT = $(INST_HEADER_ROOT)
+all:
 
-install: headers
+install: install_ivheaders
 
 include $(IVCOMMONRULES)
-

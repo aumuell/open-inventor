@@ -1,11 +1,9 @@
 IVDEPTH = ../../../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-INST_HEADER_ROOT   = $(IVROOT)/usr/include/Inventor
-HEADER_PATH        = $(INST_HEADER_ROOT)
-NOSHIP_HEADER_PATH = $(HEADER_PATH)
+HDRSUBDIR =
 
-INST_HEADERS = \
+HEADERS = \
 	Sb.h \
 	SbBasic.h \
 	SbBox.h \
@@ -27,8 +25,7 @@ INST_HEADERS = \
 	SoPrimitiveVertex.h \
 	SoType.h
 
-
-SUBDIRS = \
+HEADERS_SUBDIRS = \
 	actions \
 	bundles \
 	caches \
@@ -43,13 +40,13 @@ SUBDIRS = \
 	projectors \
 	sensors
 
+all:
 
-LDIRT = $(INST_HEADER_ROOT)
+install: install_ivheaders
+	$(HEADERS_SUBDIRS_MAKERULE)
 
-install: headers
-	@for d in $(SUBDIRS); do \
-		$(ECHO) "\tcd $$d; $(MAKE) $@"; \
-		cd $$d; $(MAKE) $@; cd ..; \
-	done
+COMMONPREF = xxx
+$(COMMONTARGS): %: $(COMMONPREF)%
+	$(HEADERS_SUBDIRS_MAKERULE)
 
 include $(IVCOMMONRULES)
