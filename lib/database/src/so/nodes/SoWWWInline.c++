@@ -270,7 +270,8 @@ SoWWWInline::search(SoSearchAction *action)
     SoNode::search(action);
 
     // Then recurse on children
-    doAction(action);
+    if (! action->isFound())
+	doAction(action);
 }
 
 ////////////////////////////////////////////////////////////////////////

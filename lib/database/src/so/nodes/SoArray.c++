@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoArray
@@ -458,6 +458,9 @@ SoArray::search(SoSearchAction *action)
 
     // First see if the caller is searching for this node
     SoNode::search(action);
+
+    if (action->isFound())
+	return;
 
     // See if we're supposed to search only if the stuff under the
     // array is relevant to the search path

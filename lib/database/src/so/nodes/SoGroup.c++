@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoGroup
@@ -602,8 +602,9 @@ SoGroup::search(SoSearchAction *action)
     // First see if the caller is searching for this node
     SoNode::search(action);
 
-    // Then recurse on children
-    SoGroup::doAction(action);
+    // Then recurse on children if not already found
+    if (! action->isFound())
+	SoGroup::doAction(action);
 }
 
 ////////////////////////////////////////////////////////////////////////
