@@ -1,7 +1,7 @@
 IVDEPTH = ..
 include $(IVDEPTH)/make/ivcommondefs
 
-SUBDIRS = models
+SUBDIRS =
 
 all install:
 	$(SUBDIRS_MAKERULE)

@@ -1,14 +1,13 @@
-#!gmake
 IVDEPTH = ..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ..
 SUBDIRS = ppp
 
-library: all
-
-COMMONPREF = xxx
-$(COMMONTARGS) all:: 
+all install:
 	$(SUBDIRS_MAKERULE)
 
-include $(COMMONRULES)
+COMMONPREF = xxx
+$(COMMONTARGS): %: $(COMMONPREF)%
+	$(SUBDIRS_MAKERULE)
+
+include $(IVCOMMONRULES)

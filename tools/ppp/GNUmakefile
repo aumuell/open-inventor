@@ -1,18 +1,12 @@
-#!gmake
 IVDEPTH = ../..
-include $(IVDEPTH)/make/commonivdefs
+include $(IVDEPTH)/make/ivcommondefs
 
-LDIRT     = *.d
-CXXFILES  = ppp.c++
-LCXXFLAGS += -I../../lib/database/include 
-TARGETS   = ppp
+PROGRAM = ppp
 
-$(TARGETS) all: $(OBJECTS)
-	$(CXX) $(LDFLAGS) $(OBJECTS) $(LDOPTS) -o $(TARGETS) -lm
+CXXFILES = ppp.c++
 
-install: all
+LLDLIBS = -lm
 
-include $(COMMONRULES)
+all install: $(PROGRAM)
 
-clean clobber:
-	rm -f *.o *.d ppp
+include $(IVCOMMONRULES)
