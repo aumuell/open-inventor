@@ -251,7 +251,7 @@ static void RenderButtonShadows();
 
 #else
 
-static void ClassInitialize();
+static void ClassInitialize( void );
 static void Initialize(Widget rw, Widget nw, ArgList args, Cardinal *num_args);
 static void Realize(Widget w, XtValueMask *window_mask,
 		    XSetWindowAttributes *window_attributes);
@@ -414,7 +414,6 @@ SgThumbWheelClassRec sgThumbWheelClassRec = {
     QueryGeometry,
     XtInheritDisplayAccelerator,
     NULL,
-
   },
   { /* Primitive class fields */
     XmInheritBorderHighlight,
@@ -456,8 +455,12 @@ Initialize(rw, nw, args, num_args)
 Initialize(Widget rw, Widget nw, ArgList args, Cardinal *num_args)
 #endif /* _NO_PROTO */
 {
-  SgThumbWheelWidget request_w = (SgThumbWheelWidget)rw;
   SgThumbWheelWidget new_w = (SgThumbWheelWidget)nw;
+
+  int hilite = new_w->primitive.highlight_thickness;
+  int shadow = new_w->primitive.shadow_thickness;
+  Boolean horiz = (new_w->thumbWheel.orientation == XmHORIZONTAL);
+
   static GCinit = 0;
   int status,i;
   int pixel[]= {0,42,85,128,170,213,255}; /*close enough */
@@ -475,12 +478,8 @@ Initialize(Widget rw, Widget nw, ArgList args, Cardinal *num_args)
       gcValues.background = screen_def.pixel;
       GCarray[i] = XtGetGC(nw,value_mask,&gcValues);
     }
-      GCinit = 1;
-    }
-    {
-  int hilite = new_w->primitive.highlight_thickness;
-  int shadow = new_w->primitive.shadow_thickness;
-  Boolean horiz = (new_w->thumbWheel.orientation == XmHORIZONTAL);
+    GCinit = 1;
+  }
 
   /* Private state - where the wheel and button will be drawn. */
   new_w->thumbWheel.wheel_x = hilite + shadow;
@@ -515,7 +514,7 @@ Initialize(Widget rw, Widget nw, ArgList args, Cardinal *num_args)
       new_w->core.height = WHEEL_LONG_DIMENSION + 2 * (hilite + shadow);
     }
   }
-}
+
   new_w->thumbWheel.infinite = FALSE;
 
   if (new_w->thumbWheel.lower_bound > new_w->thumbWheel.upper_bound) {
@@ -558,8 +557,6 @@ Initialize(Widget rw, Widget nw, ArgList args, Cardinal *num_args)
     ConvertUserUnitsToPixels(new_w, new_w->thumbWheel.value);
 
   GetForegroundGC(new_w);
-/*  _sgFindShader((Widget)new_w, &(new_w->thumbWheel.shader),
-		new_w->core.background_pixel);*/
 
   new_w->thumbWheel.pix1 = (int)NULL;
   new_w->thumbWheel.pix2 = (int)NULL;
@@ -588,6 +585,7 @@ XrmValue *v;
 ValueDefaultProc(SgThumbWheelWidget w, int offset, XrmValue *v)
 #endif /* _NO_PROTO */
 {
+  /* static variables are safe in callprocs */
   static int val;
   v->addr = (XtPointer) &val;
   val = w->thumbWheel.home_position;
@@ -673,7 +671,6 @@ Redisplay(Widget wid, XEvent *event, Region region)
   /*
    * Render shadows around wheel area.
    */
-
     _XmDrawShadows(XtDisplay(wid), XtWindow(wid),
 		   thumb->primitive.top_shadow_GC,
 		   thumb->primitive.bottom_shadow_GC,
@@ -686,7 +683,6 @@ Redisplay(Widget wid, XEvent *event, Region region)
 		    WHEEL_NARROW_DIMENSION : WHEEL_LONG_DIMENSION)
 		    + 2 * shadow,
 		   shadow, XmSHADOW_OUT);
-
 
   /*
    * Render home button.
@@ -707,7 +703,6 @@ Redisplay(Widget wid, XEvent *event, Region region)
   /*
    * Render shadows around home button.
    */
-
   RenderButtonShadows(thumb);
 
 }
@@ -805,7 +800,8 @@ SetValues(Widget cw, Widget rw, Widget nw, ArgList args, Cardinal *num_args)
 
   if (NEQ(thumbWheel.orientation) ||
       NEQ(primitive.shadow_thickness) ||
-      NEQ(primitive.highlight_thickness)) {
+      NEQ(primitive.highlight_thickness))
+  {
     FreePixmaps(new_w);
     CreateAndRenderPixmaps(new_w);
     /* Make sure the pixmaps are located properly in the window */
@@ -814,7 +810,8 @@ SetValues(Widget cw, Widget rw, Widget nw, ArgList args, Cardinal *num_args)
   }
   if (NEQ(core.width) ||
       NEQ(core.height) ||
-      NEQ(thumbWheel.show_home_button)) {
+      NEQ(thumbWheel.show_home_button))
+  {
     /* Make sure the pixmaps are located properly in the window */
     (* (new_w->core.widget_class->core_class.resize)) (nw);
     return_flag = TRUE;
@@ -824,10 +821,6 @@ SetValues(Widget cw, Widget rw, Widget nw, ArgList args, Cardinal *num_args)
     /* Get the foreground GC again */
     XtReleaseGC((Widget)new_w, new_w->thumbWheel.foreground_GC);
     GetForegroundGC(new_w);
-    /* Get the shader again */
-/*
-    _sgFindShader((Widget)new_w, &(new_w->thumbWheel.shader),
-		  new_w->core.background_pixel);*/
     /* Render the pixmaps again */
     FreePixmaps(new_w);
     CreateAndRenderPixmaps(new_w);
@@ -839,6 +832,7 @@ SetValues(Widget cw, Widget rw, Widget nw, ArgList args, Cardinal *num_args)
     /* Recompute private field "user_pixels", which tracks value. */
     new_w->thumbWheel.user_pixels =
       ConvertUserUnitsToPixels(new_w, new_w->thumbWheel.value);
+
     return_flag = TRUE;
   }
 
@@ -933,12 +927,30 @@ Motion(Widget wid, XEvent *event, String *params, Cardinal *num_params)
     return;
   }
 
-    if ((thumb->thumbWheel.wheel_hilite == FALSE) &&
-	(thumb->thumbWheel.button_hilite == FALSE)) { return; }
-    thumb->thumbWheel.wheel_hilite = FALSE;
-    thumb->thumbWheel.button_hilite = FALSE;
-    Redisplay((Widget) thumb, NULL, NULL);
-
+    /* Locate Highlight */
+    if (MouseIsInWheel(thumb, DimensionToSigned(xmotion->x),
+		       DimensionToSigned(xmotion->y)) == TRUE) {
+      if ((thumb->thumbWheel.wheel_hilite == TRUE) &&
+	  (thumb->thumbWheel.button_hilite == FALSE)) { return; }
+      thumb->thumbWheel.wheel_hilite = TRUE;
+      thumb->thumbWheel.button_hilite = FALSE;
+      Redisplay((Widget) thumb, NULL, NULL);
+    }
+    else if (MouseIsInButton(thumb, DimensionToSigned(xmotion->x),
+			     DimensionToSigned(xmotion->y)) == TRUE) {
+      if ((thumb->thumbWheel.wheel_hilite == FALSE) &&
+	  (thumb->thumbWheel.button_hilite == TRUE)) { return; }
+      thumb->thumbWheel.wheel_hilite = FALSE;
+      thumb->thumbWheel.button_hilite = TRUE;
+      Redisplay((Widget) thumb, NULL, NULL);
+    }
+    else {
+      if ((thumb->thumbWheel.wheel_hilite == FALSE) &&
+	  (thumb->thumbWheel.button_hilite == FALSE)) { return; }
+      thumb->thumbWheel.wheel_hilite = FALSE;
+      thumb->thumbWheel.button_hilite = FALSE;
+      Redisplay((Widget) thumb, NULL, NULL);
+    }
 }
 
 static void
@@ -1320,6 +1332,7 @@ BeginLine(Widget wid, XEvent *event, String *params, Cardinal *num_params)
 /*  fprintf(stderr, "BeginLine\n");*/
 }
 
+
 static void
 #ifdef _NO_PROTO
 EndLine()
@@ -1481,12 +1494,17 @@ ProcessMouseEvent(SgThumbWheelWidget thumb, int event_x,
 	current_mouse_position = thumb->thumbWheel.pegged_mouse_position;
       }
     }
-    else { /* value isn't upper_bound, so we must be pegged at lower_bound */
+    else if (thumb->thumbWheel.value == thumb->thumbWheel.lower_bound) {
       /* we assume max-on-right here; configurable later? */
       /* we assume max-on-bottom here; configurable later? */
       if (current_mouse_position < thumb->thumbWheel.pegged_mouse_position) {
 	current_mouse_position = thumb->thumbWheel.pegged_mouse_position;
       }
+    }
+    else { /* not at upper or lower bound, someone must have changed value */
+      current_mouse_position = thumb->thumbWheel.pegged_mouse_position;
+      thumb->thumbWheel.pegged = FALSE;
+      return thumb->thumbWheel.value;
     }
   }
 
@@ -1715,13 +1733,12 @@ RenderPixmap(SgThumbWheelWidget thumb, int which)
 #endif /* _NO_PROTO */
 {
   GC darkestGC = GCarray[0];
-  GC veryDarkGC =GCarray[1];
+  GC veryDarkGC = GCarray[1];
   GC darkGC = GCarray[2];
   GC mediumGC = GCarray[3];
   GC lightGC = GCarray[4];
   GC veryLightGC = GCarray[5];
   GC lightestGC = GCarray[6];
-
   Display *dpy = XtDisplay((Widget)thumb);
   Pixmap   pix;
   int      off;
@@ -1877,13 +1894,12 @@ RenderButtonPixmaps(SgThumbWheelWidget thumb)
 #endif /* _NO_PROTO */
 {
   GC darkestGC = GCarray[0];
-  GC veryDarkGC =GCarray[1];
+  GC veryDarkGC = GCarray[1];
   GC darkGC = GCarray[2];
   GC mediumGC = GCarray[3];
   GC lightGC = GCarray[4];
   GC veryLightGC = GCarray[5];
   GC lightestGC = GCarray[6];
-
   Display *dpy = XtDisplay((Widget)thumb);
   Pixmap   pixq;
   Pixmap   pixh;
@@ -2199,7 +2215,6 @@ RenderButtonShadows(SgThumbWheelWidget thumb)
    */
   if (thumb->thumbWheel.show_home_button == TRUE) {
     int shadow = thumb->primitive.shadow_thickness;
-
       _XmDrawShadows(XtDisplay((Widget)thumb), XtWindow((Widget)thumb),
 		     thumb->primitive.top_shadow_GC,
 		     thumb->primitive.bottom_shadow_GC,
@@ -2210,6 +2225,5 @@ RenderButtonShadows(SgThumbWheelWidget thumb)
 		     shadow,
 		     (thumb->thumbWheel.home_button_armed ? XmSHADOW_IN :
 		      XmSHADOW_OUT));
-
   }
 }
