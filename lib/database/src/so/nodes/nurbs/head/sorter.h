@@ -50,7 +50,8 @@ protected:
     virtual void	qstexc( char *i, char *j, char *k ); // i<-k, k<-j, j<-i 
 
 private:
-    void		qs1( char *, char * );
+    char *		med3( char *, char *, char * );
+    void		qs1( void *, size_t, size_t );
     int 		es;
 };
 #endif /* __glusorter_h_ */

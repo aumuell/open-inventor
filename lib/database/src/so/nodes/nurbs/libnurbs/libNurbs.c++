@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |      Bunches of nurbs code
@@ -95,3 +95,4 @@
 #include "trimvertpool.c++"
 #include "uarray.c++"
 #include "varray.c++"
+#include "qsort.c++"

@@ -35,7 +35,7 @@
  */
 
 /*
- * sorter.c++ - $Revision: 1.1 $
+ * sorter.c++ - $Revision: 1.2 $
  * 	Derrick Burns - 1991
  */
 
@@ -51,7 +51,7 @@ Sorter::Sorter( int _es )
 void
 Sorter::qsort( void *a, int n )
 {
-    qs1( (char *)a, ((char *)a)+n*es);
+    qs1( a, n, es);
 }
 
 int
@@ -74,68 +74,3 @@ Sorter::qstexc( char *, char *, char * )
 {
     dprintf( "Sorter::qstexc: pure virtual called\n" );
 }
-
-void
-Sorter::qs1( char *a,  char *l )
-{
-    char *i, *j;
-    char	*lp, *hp;
-    int	c;
-    unsigned int n;
-
-start:
-    if((n=l-a) <= es)
-	    return;
-    n = es * (n / (2*es));
-    hp = lp = a+n;
-    i = a;
-    j = l-es;
-    while(1) {
-	if(i < lp) {
-	    if((c = qscmp(i, lp)) == 0) {
-		qsexc(i, lp -= es);
-		continue;
-	    }
-	    if(c < 0) {
-		i += es;
-		continue;
-	    }
-	}
-
-loop:
-	if(j > hp) {
-	    if((c = qscmp(hp, j)) == 0) {
-		qsexc(hp += es, j);
-		goto loop;
-	    }
-	    if(c > 0) {
-		if(i == lp) {
-		    qstexc(i, hp += es, j);
-		    i = lp += es;
-		    goto loop;
-		}
-		qsexc(i, j);
-		j -= es;
-		i += es;
-		continue;
-	    }
-	    j -= es;
-	    goto loop;
-	}
-
-	if(i == lp) {
-	    if(lp-a >= l-hp) {
-		qs1(hp+es, l);
-		l = lp;
-	    } else {
-		qs1(a, lp);
-		a = hp+es;
-	    }
-	    goto start;
-	}
-
-	qstexc(j, lp -= es, i);
-	j = hp -= es;
-    }
-}
-
