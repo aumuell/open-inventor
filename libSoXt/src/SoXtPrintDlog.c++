@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.3 $
+ |   $Revision: 1.4 $
  |
  |   Classes:
  |      SoXtPrintDialog
@@ -1173,8 +1173,12 @@ SoXtPrintDialog::rgbHorizSizeCB(
     if (ptr->alreadyUpdated)
         return;
 
-    short x = (short)atoi(XmTextGetString (ptr->rgbHorizSize));
-    short y = (short)atoi(XmTextGetString (ptr->rgbVertSize));
+    char *text = XmTextGetString (ptr->rgbHorizSize);
+    short x = (short)atoi(text);
+    XtFree(text);
+    text = XmTextGetString (ptr->rgbVertSize);
+    short y = (short)atoi(text);
+    XtFree(text);
     ptr->setPrintSize(SbVec2s(x, y));
 
     // make the text field loose the focus
@@ -1201,8 +1205,12 @@ SoXtPrintDialog::rgbVertSizeCB(
     if (ptr->alreadyUpdated)
         return;
 
-    short x = (short)atoi(XmTextGetString (ptr->rgbHorizSize));
-    short y = (short)atoi(XmTextGetString (ptr->rgbVertSize));
+    char *text = XmTextGetString (ptr->rgbHorizSize);
+    short x = (short)atoi(text);
+    XtFree(text);
+    text = XmTextGetString (ptr->rgbVertSize);
+    short y = (short)atoi(text);
+    XtFree(text);
     ptr->setPrintSize(SbVec2s(x, y));
 
     // make the text field loose the focus
@@ -1229,8 +1237,12 @@ SoXtPrintDialog::printerHorizSizeCB(
     if (ptr->alreadyUpdated)
         return;
 
-    float x = atof(XmTextGetString (ptr->printerHorizSize));
-    float y = atof(XmTextGetString (ptr->printerVertSize));
+    char *text = XmTextGetString (ptr->printerHorizSize);
+    float x = atof(text);
+    XtFree(text);
+    text = XmTextGetString (ptr->printerVertSize);
+    float y = atof(text);
+    XtFree(text);
     ptr->setPrintSize(SbVec2f(x, y));
 
     // make the text field loose the focus
@@ -1257,8 +1269,12 @@ SoXtPrintDialog::printerVertSizeCB(
     if (ptr->alreadyUpdated)
         return;
 
-    float x = atof(XmTextGetString (ptr->printerHorizSize));
-    float y = atof(XmTextGetString (ptr->printerVertSize));
+    char *text = XmTextGetString (ptr->printerHorizSize);
+    float x = atof(text);
+    XtFree(text);
+    text = XmTextGetString (ptr->printerVertSize);
+    float y = atof(text);
+    XtFree(text);
     ptr->setPrintSize(SbVec2f(x, y));
 
     // make the text field loose the focus
@@ -1285,8 +1301,12 @@ SoXtPrintDialog::postScriptHorizSizeCB(
     if (ptr->alreadyUpdated)
         return;
 
-    float x = atof(XmTextGetString (ptr->postScriptHorizSize));
-    float y = atof(XmTextGetString (ptr->postScriptVertSize));
+    char *text = XmTextGetString (ptr->postScriptHorizSize);
+    float x = atof(text);
+    XtFree(text);
+    text = XmTextGetString (ptr->postScriptVertSize);
+    float y = atof(text);
+    XtFree(text);
     ptr->setPrintSize(SbVec2f(x, y));
 
     // make the text field loose the focus
@@ -1313,8 +1333,12 @@ SoXtPrintDialog::postScriptVertSizeCB(
     if (ptr->alreadyUpdated)
         return;
 
-    float x = atof(XmTextGetString (ptr->postScriptHorizSize));
-    float y = atof(XmTextGetString (ptr->postScriptVertSize));
+    char *text = XmTextGetString (ptr->postScriptHorizSize);
+    float x = atof(text);
+    XtFree(text);
+    text = XmTextGetString (ptr->postScriptVertSize);
+    float y = atof(text);
+    XtFree(text);
     ptr->setPrintSize(SbVec2f(x, y));
 
     // make the text field loose the focus
@@ -1343,8 +1367,9 @@ SoXtPrintDialog::printerDPICB(
         return;
     }
     ptr->alreadyUpdated = TRUE;
-    XmTextSetString (ptr->postScriptDPIField,
-                     XmTextGetString (ptr->printerDPIField));
+    char *text = XmTextGetString (ptr->printerDPIField);
+    XmTextSetString (ptr->postScriptDPIField, text);
+    XtFree(text);
 
     // make the text field loose the focus
     XmProcessTraversal(SoXt::getShellWidget(ptr->getWidget()),
@@ -1372,8 +1397,9 @@ SoXtPrintDialog::postScriptDPICB(
         return;
     }
     ptr->alreadyUpdated = TRUE;
-    XmTextSetString (ptr->printerDPIField,
-                     XmTextGetString (ptr->postScriptDPIField));
+    char *text = XmTextGetString (ptr->postScriptDPIField);
+    XmTextSetString (ptr->printerDPIField, text);
+    XtFree(text);
 
     // make the text field loose the focus
     XmProcessTraversal(SoXt::getShellWidget(ptr->getWidget()),
@@ -1547,6 +1573,7 @@ SoXtPrintDialog::print()
     FILE          *fileP = NULL;
     char          *printerName;
     char          tempPSFileName[64];
+    char	  *text;
     char          *fileName = NULL;
     SbColor       bgColor(0.0, 0.0, 0.0);
     SoOffscreenRenderer *renderer;
@@ -1564,19 +1591,31 @@ SoXtPrintDialog::print()
     if (postScriptOutput) {
         float fx, fy;
         if (printerOutput) {
-            fx = atof(XmTextGetString (printerHorizSize));
-            fy = atof(XmTextGetString (printerVertSize));
+	    text = XmTextGetString (printerHorizSize);
+            fx = atof(text);
+	    XtFree(text);
+	    text = XmTextGetString (printerVertSize);
+            fy = atof(text);
+	    XtFree(text);
             setPrintSize(SbVec2f(fx, fy));
         }
         else {
-            fx = atof(XmTextGetString (postScriptHorizSize));
-            fy = atof(XmTextGetString (postScriptVertSize));
+	    text = XmTextGetString (postScriptHorizSize);
+            fx = atof(text);
+	    XtFree(text);
+	    text = XmTextGetString (postScriptVertSize);
+            fy = atof(text);
+	    XtFree(text);
             setPrintSize(SbVec2f(fx, fy));
         }
     }
     else {
-        short sx = (short)atoi(XmTextGetString (rgbHorizSize));
-        short sy = (short)atoi(XmTextGetString (rgbVertSize));
+	text = XmTextGetString (rgbHorizSize);
+        short sx = (short)atoi(text);
+	XtFree(text);
+	text = XmTextGetString (rgbVertSize);
+        short sy = (short)atoi(text);
+	XtFree(text);
         setPrintSize(SbVec2s(sx, sy));
     }
     // make the text fields loose focus
@@ -1780,6 +1819,7 @@ SoXtPrintDialog::print()
             XmTextSetString (messageWidget, "ERROR:  No file name.");
             XmUpdateDisplay(messageWidget);
             afterList.invokeCallbacks ((void *)this);
+            XtFree (fileName);
             delete renderer;   
 	    return;
 	}
@@ -1829,6 +1869,7 @@ SoXtPrintDialog::print()
     XmTextSetString (messageWidget, "Printing completed.");
     XmUpdateDisplay(messageWidget);
     delete renderer; 
+    XtFree (dpiString);
 }
 
 ///////////////////////////////////////////////////////////////////////
