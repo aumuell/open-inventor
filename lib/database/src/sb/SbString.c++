@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SbString
@@ -291,6 +291,9 @@ SbString::operator +=(const SbString &str)
 int
 operator ==(const SbString &str, const char *s)
 {
+    if (s == NULL)
+	return ((str.getLength() == 0) ? 1 : 0);
+
     return (str.string[0] == s[0] && ! strcmp(str.string, s));
 }
 
@@ -301,5 +304,8 @@ operator ==(const SbString &str, const char *s)
 int
 operator !=(const SbString &str, const char *s)
 {
+    if (s == NULL)
+	return ((str.getLength() != 0) ? 1 : 0);
+
     return (str.string[0] != s[0] || strcmp(str.string, s));
 }
