@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Classes:
  |	SoRayPickAction
@@ -425,7 +425,8 @@ SoRayPickAction::intersect(const SbVec3f &v0, const SbVec3f &v1,
 //
 ////////////////////////////////////////////////////////////////////////
 {
-    return objVol.intersect(v0, v1, intersection);
+    return (objVol.intersect(v0, v1, intersection) &&
+	    isBetweenPlanes(intersection));
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -441,7 +442,8 @@ SoRayPickAction::intersect(const SbVec3f &point) const
 //
 ////////////////////////////////////////////////////////////////////////
 {
-    return objVol.intersect(point);
+    return (objVol.intersect(point) &&
+	    isBetweenPlanes(point));
 }
 
 ////////////////////////////////////////////////////////////////////////
