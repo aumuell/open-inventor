@@ -1,9 +1,10 @@
 Name: sgi-OpenInventor-devel
 Version: 2.1.5
-Release: 6
+Release: 11
 Distribution: Red Hat
 Packager: Silicon Graphics, Inc.
-Source: oiv.tar.gz
+BuildRoot: xxx
+Source: sgi-OpenInventor.tar.gz
 
 #
 # Change the following as appropriate.
@@ -42,12 +43,12 @@ in /usr/man/man3 (3iv extension).
 %setup -n inventor
 
 %build
-export LIBTYPE=debug
+export LIBTYPE=debug FREETYPE=1
 make clobber
 make install
 
 %post
-type1=/usr/lib/X11/fonts/Type1
+type1=/usr/X11R6/lib/X11/fonts/Type1
 dps=/usr/lib/DPS/outline/base
 if [ ! -d $type1 ]; then
   echo "Warning: $type1 does not exist"
@@ -575,8 +576,6 @@ exit 0
 %attr(644, root, root) /usr/include/Inventor/Xt/viewers/SoXtViewer.h
 %attr(644, root, root) /usr/include/Inventor/Xt/viewers/SoXtWalkViewer.h
 
-%attr(755, root, root) /usr/lib/libInventor.so
-%attr(755, root, root) /usr/lib/libInventorXt.so
 %attr(755, root, root) /usr/lib/InventorDebug/libInventor.so
 %attr(755, root, root) /usr/lib/InventorDebug/libInventorXt.so
 

@@ -1,9 +1,10 @@
 Name: sgi-OpenInventor-data
 Version: 2.1.5
-Release: 6
+Release: 11
 Distribution: Red Hat
 Packager: Silicon Graphics, Inc.
-Source: oiv.tar.gz
+BuildRoot: xxx
+Source: sgi-OpenInventor.tar.gz
 
 #
 # Change the following as appropriate.
