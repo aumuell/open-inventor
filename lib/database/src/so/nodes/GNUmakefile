@@ -1,24 +1,15 @@
-IVDEPTH=../../../../..
-include $(IVDEPTH)/make/commonivdefs
+IVDEPTH = ../../../../..
+include $(IVDEPTH)/make/ivcommondefs
 
-DEPTH = ../../../
-LDIRT = *.d $(GEN_FILES)
-LCXXFLAGS += -I$(DEPTH)/include \
-	    -Inurbs/head  \
-	    -DLIBRARYBUILD  \
-	    -I../../..//../../libimage \
-	    -I../../../../../libFL/src -DDEBUG
+LCXXINCS += -I$(IVDEPTH)/libFL/src -Inurbs/head
+LCXXDEFS += -DLIBRARYBUILD
 
-.SUFFIXES: .pp
-
-%.c++: %.pp
-	../../../../../tools/ppp/ppp < $< > $@
-
+CFILES = readGIF.c 
 
 CXXFILES = \
 	SoNode.c++ \
 	SoNodeInit.c++ \
-	SoAnnotation.c++ SoArray.c++ \
+	SoAnnotation.c++ SoArray.c++ SoAsciiText.c++ \
 	SoBaseColor.c++ SoBlinker.c++ \
 	SoCallback.c++ SoCamera.c++ \
 	SoClipPlane.c++ SoColorIndex.c++ \
@@ -50,10 +41,10 @@ CXXFILES = \
 	SoResetTransform.c++ SoRotation.c++ \
 	SoRotationXYZ.c++ SoRotor.c++ \
 	SoScale.c++ SoSeparator.c++ \
-	SoShapeHints.c++ \
+	SoShape.c++ SoShapeHints.c++ \
 	SoShuttle.c++ SoSphere.c++ \
 	SoSpotLight.c++ SoSwitch.c++ \
-	SoText2.c++ \
+	SoText2.c++ SoText3.c++ \
 	SoTextureCoordinate2.c++ SoTextureCoordinateBinding.c++ \
 	SoTextureCoordinateFunction.c++ SoTextureCoordinateDefault.c++ \
 	SoTextureCoordinateEnvironment.c++ \
@@ -63,62 +54,22 @@ CXXFILES = \
 	SoTransformation.c++ SoTranslation.c++ \
 	SoTriangleStripSet.c++ SoUnits.c++ \
 	SoUnknownNode.c++ SoVertexProperty.c++ \
-	SoAsciiText.c++ \
-	SoShape.c++ \
-	SoText3.c++ \
 	SoVertexShape.c++ SoWWWAnchor.c++ SoWWWInline.c++ 
 
-#
-# we have to define one or two of these two
-# things...LIBRARYBUILD  GLBUILD
-#
-
-P_FILES = \
-	SoCone.pp \
-	SoCube.pp \
-	SoCylinder.pp \
-	SoFaceSet.pp \
-	SoIndexedFaceSet.pp \
-	SoIndexedLineSet.pp \
-	SoIndexedTriangleStripSet.pp \
-	SoLineSet.pp \
-	SoPointSet.pp \
-	SoQuadMesh.pp \
-	SoSphere.pp \
-	SoTriangleStripSet.pp \
-	$(NULL)
-
-GEN_FILES = $(P_FILES:.pp=.c++)
-
-CFILES = \
-	jdmaster.c \
-	jcomapi.c jdapi.c jdatasrc.c jdcoefct.c jdcolor.c \
-	jddctmgr.c jdhuff.c jdmainct.c jdmarker.c jdmerge.c \
-	jdpostct.c jdsample.c jerror.c jidctflt.c jidctfst.c \
-	jidctint.c jidctred.c jmemmgr.c jmemnobs.c jquant1.c \
-	jquant2.c jutils.c readGIF.c \
-	$(NULL) 
+PPFILES = \
+	SoCone.pp SoCube.pp SoCylinder.pp \
+	SoFaceSet.pp SoIndexedFaceSet.pp \
+	SoIndexedLineSet.pp SoIndexedTriangleStripSet.pp \
+	SoLineSet.pp SoPointSet.pp SoQuadMesh.pp \
+	SoSphere.pp SoTriangleStripSet.pp
 
 SUBDIRS = nurbs
 
-all: $(GEN_FILES) $(OBJECTS)
-	@for d in $(SUBDIRS); do \
-		$(ECHO) "\tcd $$d; $(MAKE) $@"; \
-		cd $$d; $(MAKE) $@; cd ..; \
-	done
+all install: $(SHAPEFILES) $(OBJECTS)
+	$(SUBDIRS_MAKERULE)
 
-install: all
-	@for d in $(SUBDIRS); do \
-		$(ECHO) "\tcd $$d; $(MAKE) $@"; \
-		cd $$d; $(MAKE) $@; cd ..; \
-	done
+COMMONPREF = xxx
+$(COMMONTARGS): %: $(COMMONPREF)%
+	$(SUBDIRS_MAKERULE)
 
-include $(COMMONRULES)
-
-clean clobber:
-	rm -f *.o *.d
-	@for d in $(SUBDIRS); do \
-		$(ECHO) "\tcd $$d; $(MAKE) $@"; \
-		cd $$d; $(MAKE) $@; cd ..; \
-	done
-
+include $(IVCOMMONRULES)

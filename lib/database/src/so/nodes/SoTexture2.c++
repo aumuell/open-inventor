@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.2 $
+ |   $Revision: 1.3 $
  |
  |   Classes:
  |	SoTexture2
@@ -396,7 +396,7 @@ extern "C" {
 #include <setjmp.h>
 
 #include "readGIF.h"
-#include "jpeglib.h"
+#include <jpeglib.h>
 
 typedef struct {
     unsigned short      imagic;         /* stuff saved on disk . . */
@@ -522,7 +522,7 @@ typedef struct my_error_mgr * my_error_ptr;
  * Here's the routine that will replace the standard error_exit method:
  */
 
-METHODDEF void
+METHODDEF(void)
 my_error_exit (j_common_ptr cinfo)
 {
   /* cinfo->err really points to a my_error_mgr struct, so coerce pointer */
