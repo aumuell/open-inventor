@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	This file defines the SoMemoryError class.
@@ -106,6 +106,8 @@ class SoMemoryError : public SoError {
   protected:
     // Returns handler callback (and data) to use for a given instance
     virtual SoErrorCB *	getHandler(void *&data) const;
+
+    virtual ~SoMemoryError() {}
 
   private:
     static SoType	classTypeId;	// Type id of SoMemoryError class

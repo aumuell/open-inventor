@@ -42,7 +42,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.2 $
  |
  |   Description:
  |	This file defines the base SoError class.
@@ -172,6 +172,8 @@ class SoError {
     // Calls appropriate handler for an error instance. Application
     // writers can set breakpoints at this when debugging.
     void		handleError();
+
+    virtual ~SoError() {}
 
   private:
     static SoType	classTypeId;	// Type id of SoError class
