@@ -25,21 +25,21 @@ $(LIBDSO): $(LARCHIVE)
 	$(LD) $(LDDSOOPTS) $^ $(LDLIBS) $(POST_LDDSOOPTS) -o $@
 
 $(LARCHIVE):
-	for i in $(SUBDIRS); do (cd $$i && $(MAKE) all) || exit 1; done
+	for i in $(SUBDIRS); do $(MAKE) -C$$i all || exit 1; done
 	$(RM) $(LARCHIVE)
 	$(AR) $(ARFLAGS) $(LARCHIVE) $(OBJECTS)
 
 install_ivlibdso: $(LIBDSO)
-	if [ ! -d $(IVLIBDIR) ]; then mkdir -p $(IVLIBDIR); fi
+	mkdir -p $(IVLIBDIR)
 	$(INSTALL) -m 755 $< $(IVLIBDIR)
 
 	if [ "$(LIBTYPE)" = "debug" ]; then \
-	  if [ ! -d $(IVDLIBDIR) ]; then mkdir -p $(IVDLIBDIR); fi; \
+	  mkdir -p $(IVDLIBDIR); \
 	  $(INSTALL) -m 755 $< $(IVDLIBDIR); \
 	fi
 
 install_ivheaders:
-	if [ ! -d $(IVHDRDIR) ]; then mkdir -p $(IVHDRDIR); fi
+	mkdir -p $(IVHDRDIR)
 	for h in $(HEADERS); do $(INSTALL) -m 644 $$h $(IVHDRDIR); done
 
 LDIRT += $(LARCHIVE)
@@ -60,11 +60,11 @@ MAN3PAGES = $(IVMFILES:.ivm=.3iv)
 all_man3iv: $(MAN3PAGES)
 
 install_man3iv: $(MAN3PAGES)
-	if [ ! -d $(IVMAN3DIR) ]; then mkdir -p $(IVMAN3DIR); fi
+	mkdir -p $(IVMAN3DIR)
 	for i in $^; do $(INSTALL) -m 644 $$i $(IVMAN3DIR); done
 
 install_man1: $(MAN1PAGES)
-	if [ ! -d $(IVMAN1DIR) ]; then mkdir -p $(IVMAN1DIR); fi
+	mkdir -p $(IVMAN1DIR)
 	for i in $^; do $(INSTALL) -m 644 $$i $(IVMAN1DIR); done
 
 LDIRT += $(MAN3PAGES)
@@ -95,16 +95,15 @@ $(DSO): $(OBJECTS)
 	$(LD) $(LDDSOOPTS) $(OBJECTS) $(LDLIBS) $(POST_LDDSOOPTS) -o $@
 
 install_ivbin: $(PROGRAM)
-	if [ ! -d $(IVBINDIR) ]; then mkdir -p $(IVBINDIR); fi
+	mkdir -p $(IVBINDIR)
 	$(INSTALL) -m 755 $(PROGRAM) $(IVBINDIR)
 
 install_ivscript:
-	if [ ! -d $(IVBINDIR) ]; then mkdir -p $(IVBINDIR); fi
+	mkdir -p $(IVBINDIR)
 	$(INSTALL) -m 755 $(SCRIPT) $(IVBINDIR)
 
 install_ivdemo: $(DEMO)
-	if [ ! -d $(IVDEMOBINDIR) ]; then mkdir -p $(IVDEMOBINDIR); fi
-	if [ ! -d $(IVDEMODATADIR) ]; then mkdir -p $(IVDEMODATADIR); fi
+	mkdir -p $(IVDEMOBINDIR) $(IVDEMODATADIR)
 	$(INSTALL) -m 755 $(DEMO) $(IVDEMOBINDIR)
 
 
