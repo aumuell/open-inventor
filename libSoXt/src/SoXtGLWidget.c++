@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.5 $
+ |   $Revision: 1.6 $
  |
  |   Classes:
  |	SoXtGLWidget
@@ -536,6 +536,17 @@ SoXtGLWidget::setStereoBuffer(SbBool flag)
 	    attribList[index] = GLX_USE_GL; // clear with a no-op
 	    return;
 	}
+    }
+
+    // if there is no overlay context, need to create one that is
+    // persistent for new normal/stereo context to share with.
+    static GLXContext pctx = 0;
+    if (!ctxOverlay && !pctx) {
+	pctx = glXCreateContext(XtDisplay(mgrWidget), vis, ctxNormal, True);
+	glXCopyContext(XtDisplay(mgrWidget), ctxNormal, pctx, GL_ALL_ATTRIB_BITS);
+	SbPList* contextList =
+	    contextListKeeper.find(XtDisplay(mgrWidget), SCREEN(mgrWidget));
+	contextList->append(pctx);
     }
     
     // now set the flag and create the new window with given visual
