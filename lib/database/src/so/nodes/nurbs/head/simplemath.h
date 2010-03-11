@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * simplemath.h - $Revision: 1.1 $
+ * simplemath.h - $Revision: 1.1.1.1 $
  */
 
 /* simple inline routines */

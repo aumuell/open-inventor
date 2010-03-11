@@ -40,7 +40,7 @@
 #include "../SoAddPrefix.h"
 
 /*
- * curve.h - $Revision: 1.1 $
+ * curve.h - $Revision: 1.1.1.1 $
  */
 
 #include "types.h"

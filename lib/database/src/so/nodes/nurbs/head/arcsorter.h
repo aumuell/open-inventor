@@ -40,7 +40,7 @@
 #include "../SoAddPrefix.h"
 
 /*
- * arcsorter.h - $Revision: 1.1 $
+ * arcsorter.h - $Revision: 1.1.1.1 $
  */
 
 #include "sorter.h"

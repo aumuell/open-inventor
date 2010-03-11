@@ -35,7 +35,7 @@
  */
 
 /*
- * sorter.c++ - $Revision: 1.1 $
+ * sorter.c++ - $Revision: 1.1.1.1 $
  * 	Derrick Burns - 1991
  */
 

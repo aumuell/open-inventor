@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * reader.h - $Revision: 1.1 $
+ * reader.h - $Revision: 1.1.1.1 $
  */
 
 #include "bufpool.h"

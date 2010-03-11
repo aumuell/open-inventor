@@ -35,7 +35,7 @@
  */
 
 /*
- * curvesub.c++ - $Revision: 1.1 $
+ * curvesub.c++ - $Revision: 1.1.1.1 $
  * 	Derrick Burns - 1991
  */
 

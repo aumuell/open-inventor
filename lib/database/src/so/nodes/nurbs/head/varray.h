@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * varray.h - $Revision: 1.1 $
+ * varray.h - $Revision: 1.1.1.1 $
  */
 
 #include "types.h"

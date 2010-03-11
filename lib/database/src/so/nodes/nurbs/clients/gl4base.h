@@ -35,7 +35,7 @@
  */
 
 /*
- * gl4base.h - $Revision: 1.1 $
+ * gl4base.h - $Revision: 1.1.1.1 $
  */
 
 #ifndef SO_NURBS_GL4_BASE

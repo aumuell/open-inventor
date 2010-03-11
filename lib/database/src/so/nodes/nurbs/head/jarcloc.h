@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * jarcloc.h - $Revision: 1.1 $
+ * jarcloc.h - $Revision: 1.1.1.1 $
  */
 
 #include "arc.h"

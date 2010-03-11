@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * myassert.h - $Revision: 1.1 $
+ * myassert.h - $Revision: 1.1.1.1 $
  */
 
 #ifdef STANDALONE

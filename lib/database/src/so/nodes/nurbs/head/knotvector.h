@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * knotvector.h - $Revision: 1.1 $
+ * knotvector.h - $Revision: 1.1.1.1 $
  */
 
 #include "types.h"

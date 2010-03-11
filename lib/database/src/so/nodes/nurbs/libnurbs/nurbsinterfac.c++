@@ -35,7 +35,7 @@
  */
 
 /*
- * nurbsinterfac.c++ - $Revision: 1.1 $
+ * nurbsinterfac.c++ - $Revision: 1.1.1.1 $
  * 	Derrick Burns - 1991
  */
 

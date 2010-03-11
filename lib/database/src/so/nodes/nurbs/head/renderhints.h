@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * renderhints.h - $Revision: 1.1 $
+ * renderhints.h - $Revision: 1.1.1.1 $
  */
 
 #include "types.h"

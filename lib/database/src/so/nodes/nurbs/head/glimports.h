@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * glimports.h - $Revision: 1.1 $
+ * glimports.h - $Revision: 1.1.1.1 $
  */
 
 #include <stdio.h>

@@ -40,7 +40,7 @@
 #include "../SoAddPrefix.h"
 
 /*
- * flist.h - $Revision: 1.1 $
+ * flist.h - $Revision: 1.1.1.1 $
  */
 
 #include "types.h"

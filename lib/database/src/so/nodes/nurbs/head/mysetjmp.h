@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * mysetjmp.h - $Revision: 1.1 $
+ * mysetjmp.h - $Revision: 1.1.1.1 $
  */
 
 #ifdef STANDALONE

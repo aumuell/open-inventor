@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * quilt.h - $Revision: 1.1 $
+ * quilt.h - $Revision: 1.1.1.1 $
  */
 
 #include "defines.h"

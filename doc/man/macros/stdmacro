@@ -26,7 +26,7 @@
 .\"	    Dp	print date for hardcopy off-page footer
 .\"	    Xs	file checksum for hardcopy off-page footer
 .\"	
-.\" $Revision: 1.1 $
+.\" $Revision: 1.1.1.1 $
 .deth
 .tmwrong version of man entry macros - use -man6
 .ab

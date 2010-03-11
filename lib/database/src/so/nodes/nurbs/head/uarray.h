@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * uarray.h - $Revision: 1.1 $
+ * uarray.h - $Revision: 1.1.1.1 $
  */
 
 #include "types.h"

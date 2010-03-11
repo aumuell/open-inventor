@@ -40,7 +40,7 @@
 #include "../SoAddPrefix.h"
 
 /*
- * backend.h - $Revision: 1.1 $
+ * backend.h - $Revision: 1.1.1.1 $
  */
 
 #include "trimvertex.h"

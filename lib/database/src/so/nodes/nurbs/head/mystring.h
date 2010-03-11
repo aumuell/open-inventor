@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * mystring.h - $Revision: 1.1 $
+ * mystring.h - $Revision: 1.1.1.1 $
  */
 
 #ifdef STANDALONE

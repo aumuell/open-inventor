@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * mystdio.h - $Revision: 1.1 $
+ * mystdio.h - $Revision: 1.1.1.1 $
  */
 
 #ifdef STANDALONE

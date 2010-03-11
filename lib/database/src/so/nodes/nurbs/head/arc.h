@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * arc.h - $Revision: 1.1 $
+ * arc.h - $Revision: 1.1.1.1 $
  */
 
 #include "myassert.h"

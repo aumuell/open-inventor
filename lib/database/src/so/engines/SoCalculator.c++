@@ -40,7 +40,7 @@
  _______________________________________________________________________
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  |
- |   $Revision: 1.1 $
+ |   $Revision: 1.1.1.1 $
  |
  |   This is the engine mechanism for the SoCalculator class.  The
  |   expression parsing and evaluating code are located in separate

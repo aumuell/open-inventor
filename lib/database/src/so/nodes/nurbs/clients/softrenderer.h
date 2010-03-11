@@ -35,7 +35,7 @@
  */
 
 /*
- * softrenderer.h - $Revision: 1.1 $
+ * softrenderer.h - $Revision: 1.1.1.1 $
  */
 
 #ifndef SO_NURBS_SOFTRENDERER

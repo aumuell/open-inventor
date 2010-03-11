@@ -40,7 +40,7 @@
 #include "../SoAddPrefix.h"
 
 /*
- * displaylist.h - $Revision: 1.1 $
+ * displaylist.h - $Revision: 1.1.1.1 $
  * 	Derrick Burns - 1991
  */
 

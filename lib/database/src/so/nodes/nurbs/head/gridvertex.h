@@ -39,7 +39,7 @@
 
 #include "../SoAddPrefix.h"
 /*
- * gridvertex.h - $Revision: 1.1 $
+ * gridvertex.h - $Revision: 1.1.1.1 $
  */
 
 struct GridVertex {

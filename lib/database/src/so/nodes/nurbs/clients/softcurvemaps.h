@@ -37,7 +37,7 @@
 /*
  * softcurvemaps.c++ - curve evaluator maps
  *
- * $Revision: 1.1 $
+ * $Revision: 1.1.1.1 $
  */
 
 #ifndef SO_NURBS_SOFTCURVEMAPS
