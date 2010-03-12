@@ -42,7 +42,7 @@
 
 #include "../SoAddPrefix.h"
 #include "myassert.h"
-#include <stdio.h>
+#include <cstdio>
 #include <GL/gl.h>
 #include "mystdio.h"
 #include "mymath.h"

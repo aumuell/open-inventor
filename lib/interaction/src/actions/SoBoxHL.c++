@@ -51,8 +51,8 @@
  _______________________________________________________________________
  */
 
-#include <limits.h>
-#include <math.h>
+#include <climits>
+#include <cmath>
 #include <Inventor/SoPath.h>
 #include <Inventor/SoNodeKitPath.h>
 #include <Inventor/actions/SoSearchAction.h>

@@ -329,12 +329,8 @@ SoV1NodekitCatalog::getPartNumber( const SbName &theName ) const
 {
     void *castPNum;
 
-    if ( partNameDict.find( (unsigned long) theName.getString(), castPNum ) )
-#if (USE_64BIT_HACKS)
-	return ( (int) ((long) castPNum) );  // System long
-#else
-	return ( (int) castPNum );
-#endif
+    if ( partNameDict.find( (uintptr_t) theName.getString(), castPNum ) )
+	return ( (intptr_t) castPNum );
     else 
 	return SO_V1_CATALOG_NAME_NOT_FOUND;
 }

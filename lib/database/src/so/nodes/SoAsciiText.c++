@@ -1109,7 +1109,7 @@ MyOutlineFontCache::MyOutlineFontCache(SoState *state) :
     }
     flSetHint(FL_HINT_TOLERANCE, uems);
 
-    static GLfloat m[2][2] = { 1.0, 0.0, 0.0, 1.0 };
+    static GLfloat m[2][2] = { { 1.0, 0.0 }, { 0.0, 1.0 } };
 
     fontId = flCreateFont((const GLubyte *)font.getString(), m, 0, NULL);
 

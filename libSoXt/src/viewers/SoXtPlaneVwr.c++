@@ -50,7 +50,7 @@
  _______________________________________________________________________
  */
 
-#include <math.h>
+#include <cmath>
 #include <inttypes.h>
 #include <X11/Intrinsic.h>
 #include <X11/Xlib.h>

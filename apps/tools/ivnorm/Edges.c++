@@ -70,7 +70,7 @@ EdgeDict::Add(Face *f, int32_t v1, int32_t v2)
     if (v1 == v2)
     {
 	fprintf(stderr, "Warning: Degenerate edge found"
-		" (v1 = v2 = %d)\n", v1, v2);
+		" (v1 = v2 = %d)\n", v1 /*, v2 */);
 	return;
     }
     assert(f != NULL);

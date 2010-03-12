@@ -42,7 +42,7 @@
  *  by subclassing from SoGLRenderAction.
  *------------------------------------------------------------*/
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <X11/StringDefs.h>
 #include <X11/Intrinsic.h>
 

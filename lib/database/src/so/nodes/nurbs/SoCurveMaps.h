@@ -57,8 +57,8 @@
 #ifndef  _SO_NURBS_CURVE_MAPS_
 #define  _SO_NURBS_CURVE_MAPS_
 
-#include <math.h>
-#include <stdlib.h>
+#include <cmath>
+#include <cstdlib>
 #include <Inventor/SbLinear.h>
 #include "clients/softcurvmap.h"
 #include "clients/gl4types.h"

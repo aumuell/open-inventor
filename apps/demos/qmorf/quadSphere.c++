@@ -41,7 +41,7 @@
 // interpolate them into some other shape.
 //
 
-#include <math.h>
+#include <cmath>
 #include "QuadThing.h"
 #include <Inventor/SoDB.h>
 #include <Inventor/nodes/SoSeparator.h>
@@ -76,6 +76,7 @@ createQuadSphere(int sizex, int sizey)
     return result;
 }
 
+int
 main(int argc, char **argv)
 {
     SoDB::init();

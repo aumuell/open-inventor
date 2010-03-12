@@ -10,7 +10,7 @@ CXXFILES = revo.c++ RevClass.c++ profile.c++
 
 LLDOPTS += -L../../samples/common
 
-LLDLIBS = -lcommon -lInventor -lInventorXt
+LLDLIBS = -lcommon -lInventor -lInventorXt -lGL -lXm -lXt -lX11
 
 all: all_ivbin
 

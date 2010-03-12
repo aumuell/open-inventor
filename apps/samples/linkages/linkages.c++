@@ -48,7 +48,7 @@
 //    $Revision: 1.2 $
 //
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <Inventor/SoDB.h>	// for file reading
 #include <Inventor/SoInput.h>	// for file reading
 #include <Inventor/actions/SoWriteAction.h>

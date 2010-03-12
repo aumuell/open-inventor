@@ -7,7 +7,7 @@ LCXXINCS += -I../../nodes/BarChart
 
 CXXFILES = ivperf.c++
 
-LLDLIBS = ../../nodes/BarChart/BarChart.o -lInventor -lInventorXt
+LLDLIBS = ../../nodes/BarChart/BarChart.o -lInventor -lInventorXt -lGL -lXm -lXt -lX11
 
 all: all_ivbin
 

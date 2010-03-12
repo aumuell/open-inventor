@@ -53,7 +53,7 @@
 
 #include <Inventor/projectors/SbCylinderSheetProjector.h>
 #include <Inventor/errors/SoDebugError.h>
-#include <stdio.h>
+#include <cstdio>
 
 ////////////////////////////////////////////////////////////////////////
 //

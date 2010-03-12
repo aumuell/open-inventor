@@ -51,7 +51,7 @@
  _______________________________________________________________________
  */
 
-#include <stdio.h>
+#include <cstdio>
 #include "../SoAddPrefix.h"
 #include "gl4base.c++"
 #include "gl4curveval.c++"

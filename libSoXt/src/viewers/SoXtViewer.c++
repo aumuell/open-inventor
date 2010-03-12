@@ -51,9 +51,9 @@
  */
 
 #include <inttypes.h>
-#include <stdio.h>
-#include <math.h>
-#include <string.h>
+#include <cstdio>
+#include <cmath>
+#include <cstring>
 
 #include <X11/Intrinsic.h>
 #include <X11/Xlib.h>
@@ -2230,9 +2230,9 @@ SoXtViewer::seekAnimationSensorCB(void *p, SoSensor *)
 
 // anchor arrow head description
 static float arrow_data[3][3] = {
-    -ARROW_SIZE, 0, 0,
-    0, 2*ARROW_SIZE, 0,
-    ARROW_SIZE, 0, 0
+    { -ARROW_SIZE, 0, 0 },
+    { 0, 2*ARROW_SIZE, 0 },
+    { ARROW_SIZE, 0, 0 }
 };
 
 

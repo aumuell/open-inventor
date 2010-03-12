@@ -49,7 +49,7 @@
  */
 
 //--------------------------- Include ----------------------------------
-#include <stdio.h>
+#include <cstdio>
 #include <Inventor/nodes/SoTransform.h>
 #include "TsPiece.h"
 

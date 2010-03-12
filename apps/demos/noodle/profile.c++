@@ -38,10 +38,10 @@
 // Some code for setting up and dealing with the profile window.
 //
 
-#include <stdio.h>
+#include <cstdio>
 #include <unistd.h>
-#include <math.h>
-#include <stdlib.h>
+#include <cmath>
+#include <cstdlib>
 
 #include <Inventor/Xt/SoXt.h>
 

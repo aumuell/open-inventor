@@ -41,7 +41,7 @@
  *  Source file for "MFDouble" field.
  *------------------------------------------------------------*/
 
-#include <stdlib.h>
+#include <cstdlib>
 #include "MFDouble.h"
 
 // Defines all required member variables and functions for a

@@ -5,7 +5,7 @@ PROGRAM = componentTest
 
 CXXFILES = componentTest.c++
 
-LLDLIBS = libInventorWidget.a -lInventor -lInventorXt -lGLw
+LLDLIBS = libInventorWidget.a -lInventor -lInventorXt -lGLw -lGL -lXm -lXt -lX11
 
 all install: all_ivbin
 

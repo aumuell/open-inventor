@@ -51,9 +51,9 @@
  _______________________________________________________________________
  */
 
-#include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cmath>
+#include <cstdlib>
 #include "SoAddPrefix.h"
 #include <Inventor/actions/SoRayPickAction.h>
 #include <Inventor/elements/SoModelMatrixElement.h>

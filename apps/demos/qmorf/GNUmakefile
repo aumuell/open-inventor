@@ -6,7 +6,7 @@ DEMO = qmorf
 
 CXXFILES = QuadThing.c++ Background.c++ FlashBackground.c++
 
-LLDLIBS = -lInventor -lInventorXt
+LLDLIBS = -lInventor -lInventorXt -lGL -lXm -lXt -lX11
 
 all: all_ivbin
 

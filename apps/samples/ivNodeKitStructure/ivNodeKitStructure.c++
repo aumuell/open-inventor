@@ -38,8 +38,8 @@
 // Print information about the Structure of a Nodekit class.
 //
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include <dlfcn.h>
 #include <unistd.h>
 #include <Inventor/SoDB.h>

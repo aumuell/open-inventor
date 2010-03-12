@@ -41,7 +41,7 @@
 // a callback on the viewer.
 //
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <X11/Intrinsic.h>
 
 #include <Inventor/So.h>
@@ -153,7 +153,7 @@ msg()
 }
 
 void
-main(unsigned int argc, char *argv[])
+main(int argc, char *argv[])
 {
     if (argc != 2) {
 	printf("Usage: %s filename\n", argv[0]);

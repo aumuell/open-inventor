@@ -55,7 +55,7 @@
 
 /* Polynomial Evaluator Interface */
 
-#include <stdio.h>
+#include <cstdio>
 #include "SoAddPrefix.h"
 #include <Inventor/actions/SoAction.h>
 #include <Inventor/nodes/SoShape.h>

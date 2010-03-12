@@ -52,7 +52,7 @@
  */
 
 
-#include <stdio.h>
+#include <cstdio>
 
 #include <Inventor/errors/SoDebugError.h>
 #include <Inventor/events/SoEvent.h>
@@ -461,6 +461,8 @@ SoTrackballDragger::dragStart()
 	case USER_AXIS_ROTATE:
 	    constrainedAxis = userAxisVec;
 	    break;
+        default:
+            break;
     }
 
     // Working space is space after "antiSquish"

@@ -49,7 +49,7 @@
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  _______________________________________________________________________
  */
-#include <stdlib.h>
+#include <cstdlib>
 #include <inttypes.h>
 #include <X11/Intrinsic.h>
 #include <X11/Xlib.h>

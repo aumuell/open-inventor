@@ -60,8 +60,8 @@
 #define _SB_TIME_
 
 #include <sys/time.h>
-#include <math.h>
-#include <limits.h>
+#include <cmath>
+#include <climits>
 #include <Inventor/SbBasic.h>
 #include <Inventor/SbString.h>
 

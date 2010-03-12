@@ -51,7 +51,7 @@
  */
 
 
-#include <stdio.h>
+#include <cstdio>
 #include <Inventor/SbLinear.h>
 #include <Inventor/SoDB.h>
 

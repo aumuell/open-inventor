@@ -53,7 +53,7 @@ _______________________________________________________________________
 */
 
 
-#include <math.h>
+#include <cmath>
 #include <X11/StringDefs.h>
 
 #include <Inventor/sensors/SoSensor.h>

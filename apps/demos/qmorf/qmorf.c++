@@ -42,11 +42,11 @@
 //
 // Written by Gavin Bell for Silicon Graphics
 //
-#include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cmath>
+#include <cstdlib>
 #include <unistd.h>
-#include <string.h>
+#include <cstring>
 
 
 #include <Inventor/Xt/SoXt.h>

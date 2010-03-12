@@ -60,7 +60,7 @@
 #include <Inventor/SbColor.h>
 #include <Inventor/elements/SoElement.h>
 #include <Inventor/elements/SoSubElement.h>
-#include <math.h>
+#include <cmath>
 
 class SoMFFloat; class SoMFColor; class SoColorPacker;
 

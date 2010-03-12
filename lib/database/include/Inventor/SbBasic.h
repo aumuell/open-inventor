@@ -73,7 +73,7 @@
 #include <sgidefs.h>
 #endif /* __sgi */
 // C-api: begin
-#include <stdio.h>
+#include <cstdio>
 
 #ifndef FALSE
 #   define FALSE	0

@@ -279,7 +279,7 @@ initFuncs()
 static Const *
 isConst(const char *nm)
 {
-    for (int i=0; i<NCONSTANTS; i++)
+    for (size_t i=0; i<NCONSTANTS; i++)
 	if (strcmp(nm, Constants[i].name)==0)
 	    return new Const(Constants[i].val);
     return NULL;
@@ -288,7 +288,7 @@ isConst(const char *nm)
 static Func *
 isFunc(const char *nm)
 {
-    for (int i=0; i<NFUNCS; i++) {
+    for (size_t i=0; i<NFUNCS; i++) {
 	const Func *f = Funcs[i].func;
 	if (strcmp(nm, f->name)==0)
 	    return f->dup();
@@ -299,7 +299,7 @@ isFunc(const char *nm)
 static Var *
 isInput(const char *nm)
 {
-    for (int i=0; i<NINPUTS; i++) if (strcmp(nm, Inputs[i].name)==0) 
+    for (size_t i=0; i<NINPUTS; i++) if (strcmp(nm, Inputs[i].name)==0) 
 	return new Var(nm, Inputs[i].type);
     return NULL;
 }
@@ -307,7 +307,7 @@ isInput(const char *nm)
 static Var *
 isOutput(const char *nm)
 {
-    for (int i=0; i<NOUTPUTS; i++) if (strcmp(nm, Outputs[i].name)==0) 
+    for (size_t i=0; i<NOUTPUTS; i++) if (strcmp(nm, Outputs[i].name)==0) 
 	return new Var(nm, Outputs[i].type);
     return NULL;
 }
@@ -315,7 +315,7 @@ isOutput(const char *nm)
 static Var *
 isVar(const char *nm)
 {
-    for (int i=0; i<NVARS; i++) if (strcmp(nm, Vars[i].name)==0) 
+    for (size_t i=0; i<NVARS; i++) if (strcmp(nm, Vars[i].name)==0) 
 	return new Var(nm, Vars[i].type);
     return NULL;
 }

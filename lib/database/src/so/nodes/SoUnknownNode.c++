@@ -52,7 +52,7 @@
  */
 
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <Inventor/misc/SoState.h>
 #include <Inventor/actions/SoWriteAction.h>
 #include <Inventor/fields/SoMFString.h>

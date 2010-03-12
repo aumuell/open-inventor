@@ -55,7 +55,7 @@
 #include <Inventor/errors/SoDebugError.h>
 #include <Inventor/errors/SoReadError.h>
 #include <Inventor/fields/SoMFEnum.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 //////////////////////////////////////////////////////////////////////////////
 //

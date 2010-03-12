@@ -56,7 +56,7 @@
  _______________________________________________________________________
  */
 
-#include <stdio.h>
+#include <cstdio>
 #include <Inventor/actions/SoAction.h>
 #include <Inventor/elements/SoNormalElement.h>
 #include "SoAddPrefix.h"

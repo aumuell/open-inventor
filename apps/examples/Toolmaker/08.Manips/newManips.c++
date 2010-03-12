@@ -43,7 +43,7 @@
  *  stdout, and renders the graph in an examiner viewer.
  *------------------------------------------------------------*/
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInput.h>
 #include <Inventor/Xt/SoXt.h>

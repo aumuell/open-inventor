@@ -51,7 +51,7 @@
  _______________________________________________________________________
  */
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <Inventor/errors/SoReadError.h>
 #include <Inventor/fields/SoMFBool.h>
 

@@ -38,9 +38,9 @@
 // Convert from/to ASCII/binary Inventor
 //
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
 #include <unistd.h>
 #include <assert.h>
 #include <Inventor/SoDB.h>
@@ -215,6 +215,7 @@ nukeTextureNodes(SoNode *&root)
     }
 }
 
+int
 main(int argc, char **argv)
 {
     int expandFileNodes = 0;

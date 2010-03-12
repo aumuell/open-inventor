@@ -46,9 +46,9 @@
 // The whole thing is underneath a root Separator.
 //
 
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
+#include <cstdio>
+#include <cstring>
+#include <cmath>
 
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/SoXtClipboard.h>

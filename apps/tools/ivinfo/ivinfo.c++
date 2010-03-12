@@ -57,7 +57,7 @@
  _______________________________________________________________________
  */
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <unistd.h>
 
 #include <Inventor/SoDB.h>
@@ -159,6 +159,7 @@ parseArgs(int argc, char **argv, SoInput &in)
     }
 }
 
+int
 main(int argc, char *argv[])
 {
     SoInput	in;

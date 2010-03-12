@@ -42,7 +42,7 @@
 #include <X11/StringDefs.h>
 #include <X11/Intrinsic.h>
 #include <Xm/Label.h>
-#include <stdio.h>
+#include <cstdio>
 
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/viewers/SoXtExaminerViewer.h>

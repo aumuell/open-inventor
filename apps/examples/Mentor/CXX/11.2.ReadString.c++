@@ -42,8 +42,8 @@
  *  Create a dodecahedron, made of an IndexedFaceSet.  
  *------------------------------------------------------------*/
 
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInput.h>

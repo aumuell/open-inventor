@@ -52,7 +52,7 @@
  */
 
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <Inventor/misc/SoByteStream.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInput.h>

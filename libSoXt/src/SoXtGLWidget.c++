@@ -50,9 +50,9 @@
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  _______________________________________________________________________
  */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #include <Inventor/errors/SoDebugError.h>
 #include <Inventor/Xt/SoXt.h>

@@ -56,8 +56,8 @@
 
 #include <machine.h>		// This is included in the Inventor tree
 #include <ctype.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include <Inventor/misc/SoBase.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInput.h>

@@ -44,7 +44,7 @@
  *  2 to illustrate a curve with a spike in it.
  *--------------------------------------------------------*/
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInput.h>
 #include <Inventor/Xt/SoXt.h>

@@ -57,11 +57,11 @@
 //_____________  S I L I C O N   G R A P H I C S   I N C .  ____________
 //______________________________________________________________________
 
-#include <stdio.h>
+#include <cstdio>
 #include <unistd.h>
-#include <math.h>
+#include <cmath>
 #include <assert.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 #include <Inventor/SoInteraction.h>
 #include <Inventor/SoDB.h>
@@ -196,7 +196,7 @@ main(int argc, char **argv)
     for (;;) {
 	if (verbose) fprintf(stderr, "%s: reading graph from '%s'.\n", argv[0], inFileName);
 	ok = SoDB::read(&in, node);
-	if (verbose) fprintf(stderr, "%s: finished reading graph.\n", argv[0], inFileName);
+	if (verbose) fprintf(stderr, "%s: finished reading graph from '%s'.\n", argv[0], inFileName);
 	if (!ok || !node)
 	    break;
 
@@ -208,7 +208,7 @@ main(int argc, char **argv)
 	if (verbose) fprintf(stderr, "%s: writing graph to '%s'.\n", argv[0], outFileName);
 	out.setBinary(in.isBinary());
 	wa.apply(node);
-	if (verbose) fprintf(stderr, "%s: finished writing graph.\n", argv[0], outFileName);
+	if (verbose) fprintf(stderr, "%s: finished writing graph to '%s'.\n", argv[0], outFileName);
     }
 
     if (!ok)

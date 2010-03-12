@@ -52,7 +52,7 @@
  */
 
 #ifdef DEBUG
-#include <stdio.h>
+#include <cstdio>
 #endif
 
 #include <Inventor/SbLinear.h>
@@ -60,7 +60,7 @@
 #include "_SoXtUIRegion.h"
 #include "_SoXtColorSlider.h"
 
-#include <stdlib.h>
+#include <cstdlib>
 
 #include <X11/StringDefs.h>
 #include <X11/Intrinsic.h>

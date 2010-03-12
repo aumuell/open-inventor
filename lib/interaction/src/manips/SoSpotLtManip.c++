@@ -41,7 +41,7 @@
 ////////////////////////////////////////////////////////////////////////
 
 
-#include <stdio.h>
+#include <cstdio>
 #include <Inventor/SoDB.h>
 #include <Inventor/errors/SoDebugError.h>
 #include <Inventor/nodes/SoGroup.h>

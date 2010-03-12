@@ -64,7 +64,7 @@
  */
 
 
-#include <stdio.h>
+#include <cstdio>
 #include <Inventor/SbLinear.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoPath.h>

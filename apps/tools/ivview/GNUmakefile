@@ -7,7 +7,7 @@ CXXFILES = ivview.c++
 
 LLDOPTS += -L../../samples/widgets
 
-LLDLIBS = -lInventorWidget -lInventorXt -lInventor
+LLDLIBS = -lInventorWidget -lInventorXt -lInventor -lGL -lXm -lXt -lX11
 
 all: all_ivbin
 

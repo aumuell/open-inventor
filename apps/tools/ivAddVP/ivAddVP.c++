@@ -74,9 +74,9 @@
 #include <Inventor/actions/SoCallbackAction.h>
 #include <Inventor/actions/SoWriteAction.h>
 #include <Inventor/actions/SoSearchAction.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
 #include <unistd.h>
 #include <assert.h>
 #include <Inventor/SoDB.h>

@@ -55,7 +55,7 @@
 
 /* Polynomial Evaluator Interface */
 
-#include <string.h>
+#include <cstring>
 #include "SoCurveMaps.h"
 
 _SoNurbsCurveV3Map::~_SoNurbsCurveV3Map() 

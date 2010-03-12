@@ -67,12 +67,12 @@
 #include <fcntl.h>
 #include <signal.h>
 #include <errno.h>
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 #include <X11/StringDefs.h>
 #include <Xm/BulletinB.h>
@@ -1783,11 +1783,11 @@ SoXtPrintDialog::print()
         childstat = signal (SIGCHLD, SIG_DFL);
         if (!(wpid=fork())) {
             if (*printerName == 0)
-                execlp("lp", "lp", "-c", "-s", tempPSFileName, 0);
+                execlp("lp", "lp", "-c", "-s", tempPSFileName, (char*) 0);
             else {
                 char popt[SO_PRINTER_STRLEN];
                 sprintf(popt, "-d%s", printerName);
-                execlp("lp", "lp", "-c", popt, "-s", tempPSFileName, 0);
+                execlp("lp", "lp", "-c", popt, "-s", tempPSFileName, (char*) 0);
             }
         }
         (void)waitpid(wpid, (int *)(&waitStatus), 0);

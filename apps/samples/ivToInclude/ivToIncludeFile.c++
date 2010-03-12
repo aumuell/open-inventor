@@ -45,9 +45,9 @@
 // where the stuff between the quotes is a hex version of the binary file.
 //
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <unistd.h>
 #include <assert.h>
 #include <Inventor/SoDB.h>

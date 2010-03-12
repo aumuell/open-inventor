@@ -56,7 +56,7 @@
 
 #include <Inventor/SbBox.h>
 #include <Inventor/errors/SoDebugError.h>
-#include <limits.h>
+#include <climits>
 #include <float.h>    /* For FLT_MAX */
 
 //

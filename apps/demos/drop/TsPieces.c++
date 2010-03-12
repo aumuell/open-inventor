@@ -48,7 +48,7 @@
  _______________________________________________________________________
  */
 
-#include <string.h>
+#include <cstring>
 #include "TsPieces.h"
 
 static int ellTable[24][4] = {

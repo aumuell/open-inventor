@@ -57,10 +57,10 @@
 
 #include <Inventor/errors/SoDebugError.h>
 
-#include <stdio.h>
-#include <stdlib.h> // for system() and getenv()
+#include <cstdio>
+#include <cstdlib> // for system() and getenv()
 #include <unistd.h> // for access()
-#include <string.h> // for strcpy() and strcat()
+#include <cstring> // for strcpy() and strcat()
 
 #include <X11/Intrinsic.h>
 #include <X11/Shell.h>

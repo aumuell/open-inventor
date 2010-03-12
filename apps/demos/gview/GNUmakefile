@@ -8,7 +8,7 @@ CXXFILES = \
 	gview.c++ DisplayGraph.c++ Error.c++ FieldEditor.c++ \
 	GraphIcon.c++ GraphViewer.c++ NodeCreator.c++
 
-LLDLIBS = -lInventor -lInventorXt
+LLDLIBS = -lInventor -lInventorXt -lGL -lXm -lXt -lX11
 
 all: all_ivbin
 

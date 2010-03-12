@@ -34,8 +34,8 @@
  *
  */
 
-#include <math.h>
-#include <stdlib.h>
+#include <cmath>
+#include <cstdlib>
 #include <Inventor/errors/SoDebugError.h>
 #include "SoAddPrefix.h"
 #include "SoPrimRender.h"

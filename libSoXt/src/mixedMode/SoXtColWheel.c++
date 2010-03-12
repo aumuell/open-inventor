@@ -59,8 +59,8 @@
 #include "_SoXtColorWheel.h"
 #include "_SoXtUIRegion.h"
 
-#include <stdlib.h>
-#include <math.h>
+#include <cstdlib>
+#include <cmath>
 
 #include <GL/gl.h>
 

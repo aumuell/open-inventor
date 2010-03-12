@@ -52,8 +52,8 @@
  _______________________________________________________________________
  */
 
+#include <cstdio>
 #include <machine.h>
-#include <stdio.h>
 
 #include <Inventor/SbLinear.h>
 #include <Inventor/SoDB.h>
@@ -687,11 +687,7 @@ SoDragger::isTempPathToThisOk()
 		int indexInPath = tempPathToThis->getIndex(numFmHead+1);
 
 		int numKidsNow    = children->getLength();
-#if (USE_64BIT_HACKS)
-		int numKidsBefore = (int) ((long) (*tempPathNumKidsHack)[numFmHead]);
-#else
-		int numKidsBefore = (int) (*tempPathNumKidsHack)[numFmHead];
-#endif
+		intptr_t numKidsBefore = (intptr_t) (*tempPathNumKidsHack)[numFmHead];
 
 		// To be correct, the childNode has to be the correct numbered
 		// child under the parent, and the parent should still

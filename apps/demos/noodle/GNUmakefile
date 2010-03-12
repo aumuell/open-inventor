@@ -16,7 +16,7 @@ LLDLIBS = \
 	../../nodes/GeneralizedCylinder/NurbMaker.o \
 	../../nodes/GeneralizedCylinder/Triangulator.o \
 	../../nodes/GeneralizedCylinder/GeneralizedCylinder.o \
-	-lInventor -lInventorXt
+	-lInventor -lInventorXt -lGL -lXm -lXt -lX11
 
 all: all_ivbin
 

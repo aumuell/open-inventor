@@ -39,9 +39,9 @@
 // Modified by Gavin Bell
 //
 
-#include <math.h>
+#include <cmath>
 #include <unistd.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 #include <Inventor/SbLinear.h>
 #include <Inventor/nodes/SoGroup.h>

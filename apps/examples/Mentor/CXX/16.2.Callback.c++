@@ -43,7 +43,7 @@
  *  It uses callbacks for the component to report new values.
  *----------------------------------------------------------*/
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <Inventor/SoDB.h> 
 #include <Inventor/Xt/SoXt.h> 
 #include <Inventor/Xt/SoXtMaterialEditor.h>

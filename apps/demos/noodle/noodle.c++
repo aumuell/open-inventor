@@ -37,9 +37,9 @@
 // Generalized Cylinder program
 //
 
-#include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cmath>
+#include <cstdlib>
 #include <unistd.h>
 
 #include <Inventor/SoPickedPoint.h>

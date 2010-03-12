@@ -45,7 +45,7 @@
 #include <GL/glx.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <stdio.h>
+#include <cstdio>
 #include <unistd.h>
 
 #include <Inventor/SoDB.h>

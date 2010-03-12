@@ -50,7 +50,7 @@
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  _______________________________________________________________________
  */
-#include <stdio.h>
+#include <cstdio>
 #include <assert.h>
 #include <Inventor/SbLinear.h>
 #include <Inventor/SoOffscreenRenderer.h>
@@ -827,8 +827,8 @@ SoOffscreenRenderer::readPixels()
 {
     const SbVec2s &vpSize = renderedViewport.getViewportSizePixels();
 
-    GLenum format;
-    int allocSize;
+    GLenum format = 0;
+    int allocSize = 0;
     switch (comps) {
         case LUMINANCE: 
             format = GL_LUMINANCE;

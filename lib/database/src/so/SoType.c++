@@ -56,7 +56,7 @@
 #include <Inventor/SoLists.h>
 #include <Inventor/errors/SoDebugError.h>
 #include <dlfcn.h>
-#include <stdlib.h>
+#include <cstdlib>
 #ifdef __sgi
 #include <sgidefs.h>
 #endif // __sgi
@@ -332,11 +332,7 @@ SoType::fromName(SbName name)
     if (b == NULL)
 	return SoType::badType();
 
-#if (USE_64BIT_HACKS)
-    SoType result = typeData[(int) ((unsigned long) b)].type;
-#else
-    SoType result = typeData[(int)b].type;
-#endif
+    SoType result = typeData[(intptr_t)b].type;
 
     if (result.storage.isPublic == 0) {
 #ifdef DEBUG

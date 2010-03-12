@@ -461,7 +461,7 @@ Initialize(Widget rw, Widget nw, ArgList args, Cardinal *num_args)
   int shadow = new_w->primitive.shadow_thickness;
   Boolean horiz = (new_w->thumbWheel.orientation == XmHORIZONTAL);
 
-  static GCinit = 0;
+  static int GCinit = 0;
   int status,i;
   int pixel[]= {0,42,85,128,170,213,255}; /*close enough */
   XtGCMask      value_mask = 0;

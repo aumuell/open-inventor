@@ -51,7 +51,7 @@
  _______________________________________________________________________
  */
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <Inventor/SbDict.h>
 #include <Inventor/SbString.h>
 #include <Inventor/SoDB.h>

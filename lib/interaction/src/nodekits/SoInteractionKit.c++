@@ -52,8 +52,8 @@
  */
 
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <Inventor/SbDict.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInput.h>

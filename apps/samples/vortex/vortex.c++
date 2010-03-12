@@ -53,7 +53,7 @@
  */
 
 #include <unistd.h>
-#include <stdlib.h>
+#include <cstdlib>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoPrimitiveVertex.h>
 #include <Inventor/Xt/SoXt.h>

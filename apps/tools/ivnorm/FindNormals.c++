@@ -39,7 +39,7 @@
 //
 
 #include <assert.h>
-#include <math.h>
+#include <cmath>
 
 #include <Inventor/SoDB.h>
 #include <Inventor/nodes/SoGroup.h>

@@ -52,7 +52,7 @@
  _______________________________________________________________________
  */
 
-#include <stdlib.h> // for system() and getenv()
+#include <cstdlib> // for system() and getenv()
 #include <unistd.h> // for access()
 
 #include <X11/StringDefs.h>

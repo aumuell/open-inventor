@@ -52,8 +52,8 @@
  */
 
 #include <stdarg.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include <Inventor/errors/SoDebugError.h>
 #include "SoCalcExpr.h"
 

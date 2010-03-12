@@ -42,8 +42,8 @@
  *------------------------------------------------------------*/
 
 
-#include <limits.h>
-#include <math.h>
+#include <climits>
+#include <cmath>
 #include <Inventor/SbBox.h>
 #include <Inventor/SoPath.h>
 #include <Inventor/SoNodeKitPath.h>

@@ -51,7 +51,7 @@
  _______________________________________________________________________
  */
 
-#include <math.h>
+#include <cmath>
 #include <Inventor/SbColor.h>
 
 //

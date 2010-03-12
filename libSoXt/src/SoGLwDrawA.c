@@ -45,6 +45,7 @@
 #include "SoGLwDrawAP.h"
 #endif /* __GLX_MOTIF */
 #include <assert.h>
+#include <stdio.h>
 
 #ifdef __GLX_MOTIF
 /* The MOTIF version differs only in the inclusion of the primitive

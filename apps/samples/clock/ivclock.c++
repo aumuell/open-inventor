@@ -41,9 +41,9 @@
 //  See the README file in this directory for a complete explanation.
 //
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <X11/Intrinsic.h>
-#include <math.h>
+#include <cmath>
 
 #include <Inventor/SoDB.h>
 #include <Inventor/Xt/SoXt.h>

@@ -34,16 +34,16 @@
  *
  */
 
-#include <stdio.h>
+#include <cstdio>
 #include <fcntl.h>
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/prctl.h>
 #include <sys/wait.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
+#include <cstdlib>
+#include <cmath>
+#include <cstring>
 #include <unistd.h>
 #include <CC/osfcn.h>
 #include <signal.h>

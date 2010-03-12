@@ -217,7 +217,7 @@ class SoXtExaminerViewer : public SoXtFullViewer {
     SoFieldSensor   *animationSensor;
     SbRotation	    *rotBuffer;
     int		    firstIndex, lastIndex;
-    int32_t	    lastMotionTime;
+    Time	    lastMotionTime;
     SbRotation	    averageRotation;
     SbBool	    computeAverage;
     static void	    animationSensorCB(void *v, SoSensor *s);

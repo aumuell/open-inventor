@@ -60,7 +60,7 @@
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/nodes/SoTranslation.h>
 
-#include <stdlib.h>
+#include <cstdlib>
 
 ///////////////////////////////////////////////////////////////
 // CODE FOR The Inventor Mentor STARTS HERE
