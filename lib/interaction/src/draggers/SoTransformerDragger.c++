@@ -1117,6 +1117,8 @@ SoTransformerDragger::rotateInit()
 		case BAK_Z_ROTATE:
 	    	    interactiveCenterInBoxSpace.setValue( 0, 0, 1 );
 		    break;
+                default:
+                    break;
 	    }
 	}
 
@@ -1409,6 +1411,8 @@ SoTransformerDragger::translateDrag()
 			case FNT_TRANSLATE: case BAK_TRANSLATE:
 		    	    currentDir = getMouseGestureDirection(1,1,0);
 			    break;
+                        default:
+                            break;
 		    }
 		    setFeedback();
 		}
@@ -1525,6 +1529,8 @@ SoTransformerDragger::scaleDrag()
 		    case NX_NY_NZ_3D_SCALE:
 			interactiveCenterInBoxSpace.setValue(  1,  1,  1 );
 			break;
+                    default:
+                        break;
 		}
 	    }
 	    if (currentDir == 0) {
@@ -1543,6 +1549,8 @@ SoTransformerDragger::scaleDrag()
 			interactiveCenterInBoxSpace.setValue( 
 					    1, startHitBox[1],startHitBox[2]);
 			break;
+                    default:
+                        break;
 		}
 	    }
 	    if (currentDir == 1) {
@@ -1561,6 +1569,8 @@ SoTransformerDragger::scaleDrag()
 			interactiveCenterInBoxSpace.setValue(
 					    startHitBox[0],  1,startHitBox[2]);
 			break;
+                    default:
+                        break;
 		}
 	    }
 	    if (currentDir == 2) {
@@ -1579,6 +1589,8 @@ SoTransformerDragger::scaleDrag()
 			interactiveCenterInBoxSpace.setValue(
 					    startHitBox[0],startHitBox[1],  1);
 			break;
+                    default:
+                        break;
 		}
 	    }
 	}
@@ -1907,6 +1919,8 @@ SoTransformerDragger::getConstrainedRotationAxis()
 	    mouseDir = getMouseGestureDirection(1,1,0);
 	    rotAxis = (mouseDir == 0) ? 1 : 0;
 	    break;
+        default:
+            break;
     }
     return rotAxis;
 }
@@ -2091,6 +2105,8 @@ SoTransformerDragger::setHighlights()
    	    enableNotify(wasEnabled);
 	    touch();
 	    return;
+        default:
+            break;
     }
 
     // The other states require some things on, some things off.
@@ -2248,6 +2264,8 @@ SoTransformerDragger::setFeedbackForTranslate()
 	    case BOT_TRANSLATE: topDir.setValue( 0,-1, 0); break;
 	    case FNT_TRANSLATE: topDir.setValue( 0, 0, 1); break;
 	    case BAK_TRANSLATE: topDir.setValue( 0, 0,-1); break;
+	    default:
+	        break;
 	}
 	boxRot->rotation = SbRotation( SbVec3f(0,1,0), topDir );
 
@@ -2300,6 +2318,8 @@ SoTransformerDragger::setFeedbackForTranslate()
 		    setSwitchValue( yAxisFeedbackSwitch.getValue(), kid  );
 		}
 		break;
+            default:
+                break;
 	}
     }
 
@@ -2424,6 +2444,8 @@ SoTransformerDragger::setFeedbackForScale()
 	case NX_NY_NZ_3D_SCALE:
 	    cornerLoc.setValue(-1,-1,-1 );
 	    break;
+        default:
+            break;
     }
 
     // Finally, position feedback if needed:
@@ -2472,6 +2494,8 @@ SoTransformerDragger::setFeedbackForRotate()
 	    case FNT_Z_ROTATE: case BAK_Z_ROTATE:
 		myAS->sizing = SoAntiSquish::Z;
 		break;
+            default:
+                break;
 	}
     }
 
@@ -2499,6 +2523,8 @@ SoTransformerDragger::setFeedbackForRotate()
 		case BAK_Z_ROTATE:
 		    myXf->translation.setValue(0,0,1);
 		    break;
+                default:
+                    break;
 	    }
 	    myXf->scaleFactor.setValue(1.8,1.8,1.8);
 	}
@@ -2542,6 +2568,8 @@ SoTransformerDragger::setFeedbackForRotate()
 		setSwitchValue( xCircleFeedbackSwitch.getValue(), 0  );
 		setSwitchValue( yCircleFeedbackSwitch.getValue(), 0  );
 		break;
+            default:
+                break;
 	}
     }
 
@@ -2568,6 +2596,8 @@ SoTransformerDragger::setFeedbackForRotate()
 	    case BAK_Z_ROTATE:
 		setSwitchValue( posZWallFeedbackSwitch.getValue(), 1  );
 		break;
+            default:
+                break;
 	}
     }
 
@@ -2589,6 +2619,8 @@ SoTransformerDragger::setFeedbackForRotate()
 		    setSwitchValue( xAxisFeedbackSwitch.getValue(), 1  );
 		    setSwitchValue( yAxisFeedbackSwitch.getValue(), 1  );
 		    break;
+                default:
+                    break;
 	    }
 	}
 	else {
@@ -2612,6 +2644,8 @@ SoTransformerDragger::setFeedbackForRotate()
 		    else
 			setSwitchValue( xAxisFeedbackSwitch.getValue(), 0  );
 		    break;
+                default:
+                    break;
 	    }
 	}
 
@@ -2644,6 +2678,8 @@ SoTransformerDragger::setFeedbackForRotate()
 	    case BAK_Z_ROTATE:
 		loc->translation.setValue( 0, 0,-1.25 );
 		break;
+            default:
+                break;
 	}
     }
 }

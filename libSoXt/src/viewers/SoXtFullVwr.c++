@@ -415,6 +415,7 @@ SoXtFullViewer::setDrawStyle(SoXtViewer::DrawType type,
 	    case SoXtViewer::VIEW_LINE: TOGGLE_ON(drawStyleWidgets[LINE]); break;
 	    case SoXtViewer::VIEW_POINT: TOGGLE_ON(drawStyleWidgets[POINT]); break;
 	    case SoXtViewer::VIEW_BBOX: TOGGLE_ON(drawStyleWidgets[BBOX]); break;
+	    default: break;
 	}
 	switch(getDrawStyle(SoXtViewer::INTERACTIVE)) {
 	    case SoXtViewer::VIEW_SAME_AS_STILL: TOGGLE_ON(drawStyleWidgets[MOVE_SAME_AS]); break;
@@ -425,6 +426,7 @@ SoXtFullViewer::setDrawStyle(SoXtViewer::DrawType type,
 	    case SoXtViewer::VIEW_POINT: TOGGLE_ON(drawStyleWidgets[MOVE_POINT]); break;
 	    case SoXtViewer::VIEW_LOW_RES_POINT: TOGGLE_ON(drawStyleWidgets[MOVE_LOW_POINT]); break;
 	    case SoXtViewer::VIEW_BBOX: TOGGLE_ON(drawStyleWidgets[MOVE_BBOX]); break;
+	    default: break;
 	}
     }
 }
@@ -2670,7 +2672,7 @@ SoXtFullViewer::popMenuCallback(Widget, SoXtFullViewer *v, XEvent *event, Boolea
 ////////////////////////////////////////////////////////////////////////
 {
     Arg args[1];
-    int button;
+    unsigned int button;
     
     XtSetArg(args[0], XmNwhichButton, &button);
     XtGetValues(v->popupWidget, args,1);

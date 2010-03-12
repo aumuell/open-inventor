@@ -331,11 +331,7 @@ SoType::fromName(SbName name)
     if (b == NULL)
 	return SoType::badType();
 
-#if (_MIPS_SZPTR == 64 || __ia64__ || __x86_64__ || __powerpc64__)
-    SoType result = typeData[(int) ((unsigned long) b)].type;
-#else
-    SoType result = typeData[(int)b].type;
-#endif
+    SoType result = typeData[(intptr_t)b].type;
 
     if (result.storage.isPublic == 0) {
 #ifdef DEBUG

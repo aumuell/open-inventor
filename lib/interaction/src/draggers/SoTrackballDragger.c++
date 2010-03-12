@@ -461,6 +461,8 @@ SoTrackballDragger::dragStart()
 	case USER_AXIS_ROTATE:
 	    constrainedAxis = userAxisVec;
 	    break;
+        default:
+            break;
     }
 
     // Working space is space after "antiSquish"

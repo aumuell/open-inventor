@@ -686,11 +686,7 @@ SoDragger::isTempPathToThisOk()
 		int indexInPath = tempPathToThis->getIndex(numFmHead+1);
 
 		int numKidsNow    = children->getLength();
-#if (_MIPS_SZPTR == 64 || __ia64__ || __x86_64__ || __powerpc64__)
-		int numKidsBefore = (int) ((long) (*tempPathNumKidsHack)[numFmHead]);
-#else
-		int numKidsBefore = (int) (*tempPathNumKidsHack)[numFmHead];
-#endif
+		intptr_t numKidsBefore = (intptr_t) (*tempPathNumKidsHack)[numFmHead];
 
 		// To be correct, the childNode has to be the correct numbered
 		// child under the parent, and the parent should still

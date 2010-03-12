@@ -275,7 +275,6 @@ SoTexture2::doAction(SoAction *action)
     SbVec2s size;
     int nc;
     const unsigned char *bytes = image.getValue(size, nc);
-    int numBytes = size[0]*size[1]*nc;
 
     SoTextureImageElement::set(state, this, size, nc, bytes,
 			       wrapS.getValue(), wrapT.getValue(),

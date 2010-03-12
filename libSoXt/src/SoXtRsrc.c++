@@ -127,8 +127,8 @@ SoXtResource::SoXtResource(Widget widget)
 	    n = w->core.xrm_name;
 	    c = XtClass(w)->core_class.xrm_class;
 	}
-	nameplist.append((void *) (unsigned long) n);
-	classplist.append((void *) (unsigned long) c);
+	nameplist.append((void *) (uintptr_t) n);
+	classplist.append((void *) (uintptr_t) c);
 	w = XtParent(w);
     }
 
@@ -145,13 +145,8 @@ SoXtResource::SoXtResource(Widget widget)
     classList = new XrmQuark[listSize];
     for (q = 0, s = len - 1;
     	 s >= 0; q++, s--) {
-#if (_MIPS_SZPTR == 64 || __ia64__ || __x86_64__ || __powerpc64__)
-	 nameList[q]  = (XrmQuark) ((long) nameplist[s]);
-	 classList[q] = (XrmQuark) ((long) classplist[s]);
-#else
-	 nameList[q]  = (XrmQuark) nameplist[s];
-	 classList[q] = (XrmQuark) classplist[s];
-#endif
+	 nameList[q]  = (XrmQuark) ((intptr_t)nameplist[s]);
+	 classList[q] = (XrmQuark) ((intptr_t)classplist[s]);
     }
 
     // make the last entry the NULL sentinel
