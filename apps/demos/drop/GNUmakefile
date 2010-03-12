@@ -8,7 +8,7 @@ CXXFILES = \
 	TsBlock.c++ TsPiece.c++ TsPieces.c++ TsField.c++ \
 	TsTrickle.c++ TsEvents.c++ TsRemoval.c++ TsViewer.c++ drop.c++
 
-LLDLIBS = -lInventor -lInventorXt
+LLDLIBS = -lInventor -lInventorXt -lGL -lXm -lXt -lX11
 
 all: all_ivbin
 

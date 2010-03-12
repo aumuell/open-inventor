@@ -8,7 +8,7 @@ CXXFILES = textomatic.c++ TextGraph.c++ TextWrapper.c++
 
 LLDOPTS += -L../../samples/common
 
-LLDLIBS = -lcommon -lInventor -lInventorXt
+LLDLIBS = -lcommon -lInventor -lInventorXt -lGL -lXm -lXt -lX11
 
 all: all_ivbin
 

@@ -1462,7 +1462,7 @@ SoOutput::findReference(const SoBase *base	// Thing to look for
 
     // Generates a CC warning. Ho hum.
     if (refDict->find((unsigned long) base, ref))
-#if (_MIPS_SZPTR == 64 || __ia64__ || __x86_64__ || __powerpc64__)
+#if (_MIPS_SZPTR == 64 || __ia64__ || __x86_64__ || __powerpc64__ || __s390x__)
         referenceId = (int) ((unsigned long) ref);
 #else
 	referenceId = (int)ref;

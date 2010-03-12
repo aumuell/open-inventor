@@ -8,7 +8,7 @@ CXXFILES = SceneViewer.c++ SoSceneViewer.c++ SvManipList.c++
 
 LLDOPTS += -L../../samples/widgets
 
-LLDLIBS = -lInventorWidget -lInventor -lInventorXt
+LLDLIBS = -lInventorWidget -lInventor -lInventorXt -lGL -lXm -lXt -lX11
 
 all: all_ivbin
 
