@@ -1,7 +1,12 @@
 IVDEPTH = ..
-include $(IVDEPTH)/make/ivcommondefs
 
-LIBDSO = libInventorXt.so
+LIBMAJOR = 0
+LIBMINOR = 0.0
+LIBNAME  = libInventorXt.so
+DSONAME  = $(LIBNAME).$(LIBMAJOR)
+LIBDSO   = $(LIBNAME).$(LIBMAJOR).$(LIBMINOR)
+
+include $(IVDEPTH)/make/ivcommondefs
 
 LLDLIBS = \
 	-lXm -lXt -lXext -lXi -lX11 -lm \

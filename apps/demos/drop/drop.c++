@@ -93,6 +93,7 @@ main( int, char **argv )
     // Enter the Xt event loop
     SoXt::show( appWindow );
     SoXt::mainLoop();
+    return 0;
 }
 
 

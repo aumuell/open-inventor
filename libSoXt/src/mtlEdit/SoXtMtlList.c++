@@ -264,7 +264,7 @@ SoXtMaterialList::constructorCommon(const char *dir, SbBool buildNow)
     setClassName("SoXtMaterialList");
     if (dir != NULL)
 	materialDir = strdup(dir);
-    else materialDir = strdup(IVPREFIX "/share/data/materials");
+    else materialDir = strdup(IVMATERIALSDIR);
 
     callbackList = new SoCallbackList;
     curPalette = -1;

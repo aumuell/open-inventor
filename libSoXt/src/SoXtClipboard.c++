@@ -658,7 +658,7 @@ SoXtClipboard::convertData(
     char conversionCmd[BUFSIZE];
     const char *infile = tmpfile.getString();
     const char *outfile = tmpfile2.getString();
-    sprintf(conversionCmd, IVPREFIX "/bin/ivdowngrade -v 2.0 %s %s", infile, outfile);
+    sprintf(conversionCmd, IVBINDIR "/ivdowngrade -v 2.0 %s %s", infile, outfile);
     
     if (system(conversionCmd) == -1) {
 	#ifdef DEBUG

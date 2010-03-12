@@ -1332,5 +1332,6 @@ main(int argc, char *argv[])
 
     SoXt::show(mainWindow);
     SoXt::mainLoop();
+    return 0;
 }
 

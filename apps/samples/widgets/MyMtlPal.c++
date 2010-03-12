@@ -193,7 +193,7 @@ static MenuStruct pulldownData[] = {
 };
 
 static char *editorTitle = "Material Palette";
-static char *defaultDir = IVPREFIX "/share/data/materials";
+static char *defaultDir = IVMATERIALSDIR;
 
 
 static char *geometryBuffer = "\

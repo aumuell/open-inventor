@@ -413,8 +413,7 @@ parse_args(int argc, char **argv)
 	fprintf(stderr, "At least two files must be given, and "
 		"they must contain QuadMeshes (qmorf can\n");
 	fprintf(stderr, "only morph QuadMesh nodes).\n");
-	fprintf(stderr, "The directory "
-		IVPREFIX "/share/data/models/CyberHeads "
+	fprintf(stderr, "The directory " IVDATADIR "/CyberHeads "
 		"contains good data to morph.\n");
 
 	exit(7);
@@ -436,24 +435,24 @@ quitCallback(Widget, XtPointer, XtPointer)
 void
 showAboutDialog(Widget, XtPointer, XtPointer)
 {
-    if (access(IVPREFIX "/demos/Inventor/qmorf.about", R_OK) != 0)
+    if (access(IVDEMOBINDIR"/qmorf.about", R_OK) != 0)
     {
 	system("xmessage 'Sorry, could not find "
-	       IVPREFIX "/demos/Inventor/qmorf.about' > /dev/null");
+	       IVDEMOBINDIR"/qmorf.about' > /dev/null");
 	return;
     }
     char command[100];
-    sprintf(command, "which acroread > /dev/null");
+    sprintf(command, "which " PDFVIEWER " > /dev/null");
 
     int err = system(command);
     if (err)
     {
-	system("xmessage 'You must install acroread"
+	system("xmessage 'You must install " PDFVIEWER
 	       " for this function to work' > /dev/null");
 	return;
     }
 
-    sprintf(command, "acroread " IVPREFIX "/demos/Inventor/qmorf.about &");
+    sprintf(command, PDFVIEWER " " IVDEMOBINDIR "/qmorf.about &");
     system(command);
 }	
 

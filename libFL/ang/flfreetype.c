@@ -130,6 +130,8 @@ _flFTGetScalableBitmap(FLfontStruct *_fs, GLuint c)
 {
   FLscalableBitmap *bit3;
 
+  TRACE(("unfinished code called"));
+
   /* TODO */
   bit3 = NULL;
 
@@ -202,6 +204,8 @@ _flFTGetBitmap(FLfontStruct *_fs, GLuint c)
   bbox_height = BM_TRUNC(face->bbox.yMax - face->bbox.yMin);
 
   if (glyph->format == ft_glyph_format_outline) {    
+    TRACE(("  creating bitmap from outline glyph\n"));
+
     pitch     = (width + 7) >> 3;
     size      = pitch * height; 
     pitch2    = ((width + (PIXEL_ROW_ALIGNMENT << 3) - 1) >> 5) << 2;
@@ -217,7 +221,7 @@ _flFTGetBitmap(FLfontStruct *_fs, GLuint c)
     bit3->height    = bit2.rows;
     bit3->xorig     = bearing_x;
     bit3->yorig     = height - bearing_y;
-    bit3->xmove     = width > 0 ? width : (bbox_width / 2.0);
+    bit3->xmove     = width > 0 ? width : 10; /*(bbox_width / 2.0);*/
     bit3->ymove     = 0.0;
     bit3->bitmap    = (GLubyte *) malloc(size2 * sizeof(GLubyte));
 
@@ -235,6 +239,7 @@ _flFTGetBitmap(FLfontStruct *_fs, GLuint c)
     free(bit2.buffer);
   }
   else {
+    TRACE(("  creating bitmap from non-outline glyph\n"));
     bit3->width     = glyph->bitmap.width;
     bit3->height    = glyph->bitmap.rows;
     bit3->xorig     = bearing_x;
@@ -243,6 +248,18 @@ _flFTGetBitmap(FLfontStruct *_fs, GLuint c)
     bit3->ymove     = 0.0;
     bit3->bitmap    = glyph->bitmap.buffer;
   }
+
+  /* debugging added by Steve, 2001-08-14 */
+  TRACE(("  glyph->metrics.horiBearingX = %d\n", glyph->metrics.horiBearingX));
+  TRACE(("  glyph->metrics.width = %d\n", glyph->metrics.width ));
+  TRACE(("  left = %d\n", left ));
+  TRACE(("  right = %d\n", right ));
+  TRACE(("  width = %d\n", width ));
+  TRACE(("  height = %d\n", height ));
+  TRACE(("  face->bbox.xMax = %d\n", face->bbox.xMax ));
+  TRACE(("  face->bbox.xMin = %d\n", face->bbox.xMin ));
+  TRACE(("  bit3->xmove = %d\n", bit3->xmove ));
+  TRACE(("  bbox_width = %d\n", bbox_width ));
 
   return bit3;
 }

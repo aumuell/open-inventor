@@ -715,23 +715,23 @@ countUpdatesCB(void *, SoAction *action)
 static void
 showAboutDialog()
 {
-   if (access(IVPREFIX "/share/help/ivview/ivview.about", R_OK) != 0) {
+   if (access(IVHELPDIR"/ivview/ivview.about", R_OK) != 0) {
         system("xmessage 'Sorry, could not find "
-               IVPREFIX "/share/help/ivview/ivview.about' > /dev/null");
+               IVHELPDIR"/ivview/ivview.about' > /dev/null");
         return;
     }
 
     char command[100];
-    sprintf(command, "which acroread > /dev/null");
+    sprintf(command, "which " PDFVIEWER " > /dev/null");
 
     int err = system(command);
     if (err) {
-        system("xmessage 'You must install acroread"
+        system("xmessage 'You must install " PDFVIEWER
                " for this function to work' > /dev/null");
         return;
     }
 
-    sprintf(command, "acroread " IVPREFIX "/share/help/ivview/ivview.about &");
+    sprintf(command, PDFVIEWER " "IVHELPDIR"/ivview/ivview.about &");
     system(command);
 }
 
@@ -1170,4 +1170,5 @@ main(int argc, char **argv)
     setBusyCursor(FALSE);
     
     SoXt::mainLoop();
+    return 0;
 }

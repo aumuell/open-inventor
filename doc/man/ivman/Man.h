@@ -131,6 +131,7 @@ class Item {
     virtual void	write(SbBool runIn) = 0;
     virtual SbBool	read()  = 0;
     virtual int		getNumPreTabChars() const;
+    virtual             ~Item() {}
   protected:
     Item();
   private:

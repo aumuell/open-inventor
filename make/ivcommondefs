@@ -54,10 +54,18 @@ C++ = /usr/bin/g++
 LD  = /usr/bin/g++
 
 INSTALL = /usr/bin/install
+LN_S = ln -sf
 
 # MKDEPOPT = -MD
 
-GLDDSOOPTS = -shared -Wl,--whole-archive
+# The linker flag '-z defs' enforces symbol resolution at build time,
+# with the goal of catching any missing library reference [Policy 10.2].
+#
+
+GLDDSOOPTS = -shared -Wl,--whole-archive -Wl,-z,defs
+ifneq ($(DSONAME),)
+GLDDSOOPTS += -Wl,-soname=$(DSONAME) 
+endif
 POST_LDDSOOPTS = -Wl,--no-whole-archive
 
 endif
@@ -184,23 +192,46 @@ MAKEMANDIRS = $(IVMANDIR)/makeManDirs
 #
 
 IVPREFIX = /usr
-LCXXOPTS += -DIVPREFIX=\"$(IVPREFIX)\"
-LCOPTS += -DIVPREFIX=\"$(IVPREFIX)\"
+_BINDIR = $(IVPREFIX)/bin
+_LIBDIR = $(IVPREFIX)/lib
+_HDRTOP = $(IVPREFIX)/include/Inventor
+_MAN1DIR = $(IVPREFIX)/share/man/man1
+_MAN3DIR = $(IVPREFIX)/share/man/man3
+_FONTPATH = $(IVPREFIX)/share/inventor/fonts
+_HELPDIR = $(IVPREFIX)/share/inventor/help
+_DATADIR = $(IVPREFIX)/share/inventor/data/models
+_MATERIALSDIR = $(IVPREFIX)/share/inventor/data/materials
+_TEXTURESDIR = $(IVPREFIX)/share/inventor/data/textures
+_DEMOBINDIR = $(IVPREFIX)/lib/inventor
+_DEMODATADIR = $(IVPREFIX)/share/inventor/data/demos
 
-IVBINDIR = $(IVROOT)/$(IVPREFIX)/bin
-IVLIBDIR = $(IVROOT)/$(IVPREFIX)/lib
+IVBINDIR = $(IVROOT)$(_BINDIR)
+IVLIBDIR = $(IVROOT)$(_LIBDIR)
 IVDLIBDIR = $(IVLIBDIR)/InventorDebug
-IVHDRTOP = $(IVROOT)/$(IVPREFIX)/include/Inventor
+IVHDRTOP = $(IVROOT)$(_HDRTOP)
 IVHDRDIR = $(IVHDRTOP)/$(HDRSUBDIR)
-IVMAN1DIR = $(IVROOT)/$(IVPREFIX)/man/man1
-IVMAN3DIR = $(IVROOT)/$(IVPREFIX)/man/man3
-IVHELPDIR = $(IVROOT)/$(IVPREFIX)/share/help
-IVDATADIR = $(IVROOT)/$(IVPREFIX)/share/data/models
-IVDEMODIR = $(IVROOT)/$(IVPREFIX)/demos
-IVDEMOBINDIR = $(IVDEMODIR)/Inventor
-IVDEMODATADIR = $(IVDEMODIR)/data/Inventor
+IVMAN1DIR = $(IVROOT)$(_MAN1DIR)
+IVMAN3DIR = $(IVROOT)$(_MAN3DIR)
+IVHELPDIR = $(IVROOT)$(_HELPDIR)
+IVDATADIR = $(IVROOT)$(_DATADIR)
+IVMATERIALSDIR = $(IVROOT)$(_MATERIALSDIR)
+IVTEXTURESDIR = $(IVROOT)$(_TEXTURESDIR)
+IVDEMOBINDIR = $(IVROOT)$(_DEMOBINDIR)
+IVDEMODATADIR = $(IVROOT)$(_DEMODATADIR)
 
-
+# Set "local" C++ defines to specify pathnames.
+#
+LCXXDEFS = -DIVBINDIR=\"$(_BINDIR)\" \
+	-DIVLIBDIR=\"$(_LIBDIR)\" \
+	-DIVHDRTOP=\"$(_HDRTOP)\" \
+	-DIVFONTPATH=\"$(_FONTPATH)\" \
+	-DIVHELPDIR=\"$(_HELPDIR)\" \
+	-DIVDATADIR=\"$(_DATADIR)\" \
+	-DIVMATERIALSDIR=\"$(_MATERIALSDIR)\" \
+	-DIVTEXTURESDIR=\"$(_TEXTURESDIR)\" \
+	-DIVDEMOBINDIR=\"$(_DEMOBINDIR)\" \
+	-DIVDEMODATADIR=\"$(_DEMODATADIR)\" \
+	-DPDFVIEWER=\"xpdf\"
 
 #
 # Locate installed Inventor libraries when linking applications.

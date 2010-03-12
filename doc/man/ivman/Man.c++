@@ -806,7 +806,7 @@ Method::parse()
 
 #define NUM_OP_NAMES (sizeof(opNames) / sizeof(opNames[0]))
 
-		int op;
+		size_t op;
 		for (op = 0; op < NUM_OP_NAMES; op++) {
 		    if (name == opNames[op][0]) {
 			name = opNames[op][1];
