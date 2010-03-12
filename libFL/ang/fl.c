@@ -95,7 +95,7 @@ static FLfontImpl *fontImplTable[] = {
   NULL
 };
 
-static char *fontPath = IVPREFIX "/share/data/fonts";
+static char *fontPath = IVFONTPATH;
 int fl_debug = FALSE;
 
 /*

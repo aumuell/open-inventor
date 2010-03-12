@@ -76,7 +76,7 @@
 
 static char *helpDialogTitle = "Help Card Error Dialog";
 static char *helpCardError = "Inventor Help Cards not installed.";
-static char *helpPrgError = "acroread not installed on this system.";
+static char *helpPrgError = PDFVIEWER " not installed on this system.";
 static char *thisClassName = "SoXtComponent";
 
 // static members
@@ -561,7 +561,7 @@ SoXtComponent::unregisterWidget(Widget w)
 //  card given the file name. By default the file will be searched using:
 //	    1) current working directory
 //	    2) SO_HELP_DIR environment variable
-//	    3) $(IVPREFIX)/share/help/Inventor
+//	    3) IVHELPDIR/Inventor
 //	    4) else bring a "No help card found message"
 //
 // Use: protected
@@ -573,7 +573,7 @@ SoXtComponent::openHelpCard(const char *cardName)
 {
     char pgrCmd[100];
     char cardPath[100];
-    strcpy(pgrCmd, "acroread ");
+    strcpy(pgrCmd, PDFVIEWER " ");
     
 #if 0
     // ??? make showcase come up single buffered on the Indigo. This should
@@ -591,7 +591,7 @@ SoXtComponent::openHelpCard(const char *cardName)
 #endif
 
     char command[100];
-    sprintf(command, "which acroread > /dev/null");
+    sprintf(command, "which " PDFVIEWER " > /dev/null");
     if (system(command) != 0) {
 	SoXt::createSimpleErrorDialog(_baseWidget, helpDialogTitle, helpPrgError);
 	return;
@@ -622,7 +622,7 @@ SoXtComponent::openHelpCard(const char *cardName)
     }
     
     // else check for the default location
-    strcpy(cardPath, IVPREFIX "/share/help/Inventor/");
+    strcpy(cardPath, IVHELPDIR"/Inventor/");
     strcat(cardPath, cardName);
     if ( access(cardPath, R_OK) == 0 ) {
 	strcat(pgrCmd, cardPath);

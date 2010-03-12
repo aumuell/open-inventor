@@ -228,7 +228,7 @@ struct PaletteStruct {
 
 
 static char *customTextureDir = ".textures";
-static char *defaultDir = IVPREFIX "/share/data/textures";
+static char *defaultDir = IVTEXTURESDIR;
 static char *editorTitle = "Texture Editor";
 static char *noFileNameStr = "<empty>";
 

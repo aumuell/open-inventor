@@ -1,7 +1,7 @@
 IVDEPTH = ..
 include $(IVDEPTH)/make/ivcommondefs
 
-SUBDIRS = samples tools converters nodes demos
+SUBDIRS = samples nodes tools converters demos
 
 all install:
 	$(SUBDIRS_MAKERULE)

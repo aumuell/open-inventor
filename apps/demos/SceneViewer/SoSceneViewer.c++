@@ -4734,26 +4734,26 @@ SoSceneViewer::showAboutDialog()
 //
 ////////////////////////////////////////////////////////////////////////
 {
-    if (access(IVPREFIX "/demos/Inventor/SceneViewer.about", R_OK) != 0)
+    if (access(IVDEMOBINDIR "/SceneViewer.about", R_OK) != 0)
     {
 	system("xmessage 'Sorry, could not find "
-	       IVPREFIX "/demos/Inventor/SceneViewer.about' > /dev/null");
+	       IVDEMOBINDIR "/SceneViewer.about' > /dev/null");
 	return;
     }
 
     char command[100];
-    sprintf(command, "which acroread > /dev/null");
+    sprintf(command, "which " PDFVIEWER " > /dev/null");
 
     int err = system(command);
     if (err)
     {
-	system("xmessage 'You must install acroread"
+	system("xmessage 'You must install " PDFVIEWER
 	       " for this function to work' > /dev/null");
 	return;
     }
 
-    sprintf(command, "acroread "
-            IVPREFIX "/demos/Inventor/SceneViewer.about &");
+    sprintf(command, PDFVIEWER " "
+            IVDEMOBINDIR "/SceneViewer.about &");
     system(command);
 }
 

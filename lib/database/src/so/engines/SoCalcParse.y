@@ -119,7 +119,7 @@ static struct {
 %type <expr> asgn primary_expression postfix_expression
 %type <expr> unary_expression
 %type <expr> multiplicative_expression additive_expression
-%type <expr> additive_expression relational_expression
+%type <expr> relational_expression
 %type <expr> equality_expression logical_AND_expression
 %type <expr> logical_OR_expression conditional_expression
 %type <list> args

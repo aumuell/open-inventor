@@ -156,7 +156,7 @@ static char *deftitles[]={
 	"Material Emissive Color"
 };
 
-static char *mtlDir  = IVPREFIX "/share/data/materials";
+static char *mtlDir  = IVMATERIALSDIR;
 
 static char *slider_labels[] = { (char *)NULL, (char *)NULL, (char *)NULL,
 				 (char *)NULL, (char *)NULL, (char *)NULL

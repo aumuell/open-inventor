@@ -1,14 +1,18 @@
 IVDEPTH = ..
-include $(IVDEPTH)/make/ivcommondefs
 
-LIBDSO = libInventor.so
+LIBMAJOR = 0
+LIBMINOR = 0.0
+LIBNAME  = libInventor.so
+DSONAME  = $(LIBNAME).$(LIBMAJOR)
+LIBDSO   = $(LIBNAME).$(LIBMAJOR).$(LIBMINOR)
+
+include $(IVDEPTH)/make/ivcommondefs
 
 LLDDSOOPTS += -L$(IVDEPTH)/libimage -L$(FLDIR)
 
 LLDLIBS = \
 	-ljpeg -limage $(FLLIB) \
-        -lX11 -lm \
-        -lGLU -lGL
+	-lGLU -lGL -lX11 -lm -ldl
 
 OBJECTS = \
 	./database/src/sb/projectors/SbProjectors.o \

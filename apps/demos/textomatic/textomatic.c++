@@ -160,24 +160,24 @@ profileCallback(void *data, SoSensor *)
 void
 showAboutDialog(Widget, XtPointer, XtPointer)
 {
-    if (access(IVPREFIX "/demos/Inventor/textomatic.about", R_OK) != 0)
+    if (access(IVDEMOBINDIR"/textomatic.about", R_OK) != 0)
     {
 	system("xmessage 'Sorry, could not find "
-	       IVPREFIX "/demos/Inventor/textomatic.about' > /dev/null");
+	       IVDEMOBINDIR"/textomatic.about' > /dev/null");
 	return;
     }
 
     char command[100];
-    sprintf(command, "which acroread > /dev/null");
+    sprintf(command, "which " PDFVIEWER " > /dev/null");
 
     int err = system(command);
     if (err) {
-	system("xmessage 'You must install acroread"
+	system("xmessage 'You must install " PDFVIEWER
 	       " for this function to work' > /dev/null");
 	return;
     }
 
-    sprintf(command, "acroread " IVPREFIX "/demos/Inventor/textomatic.about &");
+    sprintf(command, PDFVIEWER " " IVDEMOBINDIR"/textomatic.about &");
     system(command);
 }	
 
@@ -548,4 +548,5 @@ main(int argc, char **argv)
 
     SoXt::show(w);
     SoXt::mainLoop();
+    return 0;
 }

@@ -176,6 +176,28 @@ extern int errno;		/* missing from errno.h			*/
 #endif
 
 
+/* Added for Debian by Steve M. Robbins */
+#if !defined(MACHINE_WORD_FORMAT)
+#   include <endian.h>
+
+#   if __BYTE_ORDER == __BIG_ENDIAN
+#       define MACHINE_WORD_FORMAT	DGL_BIG_ENDIAN
+#   elif __BYTE_ORDER == __LITTLE_ENDIAN
+#       define MACHINE_WORD_FORMAT      DGL_LITTLE_ENDIAN
+#   else
+#       error Inventor needs to be set up for your CPU type.
+#   endif
+
+#   if __FLOAT_WORD_ORDER == __BIG_ENDIAN
+#       define MACHINE_FLOAT_FORMAT	DGL_BIG_IEEE
+#   else
+#       define MACHINE_FLOAT_FORMAT     DGL_NON_IEEE
+#   endif
+
+#endif
+
+
+
 
 /*
  * 32/64-bit architecture dependent statements
@@ -321,12 +343,10 @@ extern float dgl_ntoh_double();
  */
 
 #if MACHINE_FLOAT_FORMAT == DGL_NON_IEEE
-#if __i386__ || __ia64__
 void mem_hton_float(float *t, float *f);
 void mem_ntoh_float(float *t, float *f);
 void mem_hton_double(double *t, double *f);
 void mem_ntoh_double(double *t, double *f);
-#endif /* __i386__ || __ia64__ */
 #define DGL_HTON_FLOAT(t,f) mem_hton_float(&t,&f)
 #define DGL_NTOH_FLOAT(t,f) mem_ntoh_float(&t,&f)
 #define DGL_HTON_DOUBLE(t,f) mem_hton_double(&t,&f)

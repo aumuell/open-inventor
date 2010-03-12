@@ -21,7 +21,7 @@ CXXFILES = \
 all install: all_ivbin
 
 
-/* Some really ugly rules to grab the source from the tree: */
+# /* Some really ugly rules to grab the source from the tree: */
 
 HF = MyUIRegion.h \
 	MyColorEditor.h \

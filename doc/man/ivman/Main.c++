@@ -89,7 +89,7 @@ createClassDef(const char *pathName, const ClassDef *mainCd)
 //
 /////////////////////////////////////////////////////////////////////////////
 
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     SbBool	ok = TRUE;
     int		c, curArg;

@@ -1,7 +1,8 @@
 #ifndef __flfreetype_h_
 #define __flfreetype_h_
 
-#include <freetype/freetype.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 #ifndef __fl_h_
 #include "fl.h"

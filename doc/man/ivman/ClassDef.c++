@@ -237,7 +237,7 @@ ClassDef::getStatementType(const SbName &keyword)
 
 #define NUM_KEY_WORDS (sizeof(keywords) / sizeof(keywords[0]))
 
-    int	i;
+    size_t i;
 
     if (names == NULL) {
 	names = new SbName[NUM_KEY_WORDS];

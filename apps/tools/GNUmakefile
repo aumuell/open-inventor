@@ -1,7 +1,7 @@
 IVDEPTH = ../..
 include $(IVDEPTH)/make/ivcommondefs
 
-SUBDIRS = ivcat ivfix ivinfo ivview
+SUBDIRS = ivAddVP ivcat ivfix ivinfo ivnorm ivperf ivview
 
 all install:
 	$(SUBDIRS_MAKERULE)

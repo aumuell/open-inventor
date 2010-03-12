@@ -230,4 +230,5 @@ main(int argc, char **argv)
     // Loop forever
     //
     SoXt::mainLoop();
+    return 0;
 }

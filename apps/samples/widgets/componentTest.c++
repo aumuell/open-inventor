@@ -85,4 +85,5 @@ main(unsigned int argc, char *argv[])
     XtRealizeWidget(mainWindow);
     
     SoXt::mainLoop();
+    return 0;
 }
