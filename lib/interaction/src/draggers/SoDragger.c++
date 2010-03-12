@@ -686,7 +686,7 @@ SoDragger::isTempPathToThisOk()
 		int indexInPath = tempPathToThis->getIndex(numFmHead+1);
 
 		int numKidsNow    = children->getLength();
-#if (_MIPS_SZPTR == 64 || __ia64)
+#if (_MIPS_SZPTR == 64 || __ia64__ || __x86_64__ || __powerpc64__)
 		int numKidsBefore = (int) ((long) (*tempPathNumKidsHack)[numFmHead]);
 #else
 		int numKidsBefore = (int) (*tempPathNumKidsHack)[numFmHead];

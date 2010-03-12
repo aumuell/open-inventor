@@ -145,7 +145,7 @@ SoXtResource::SoXtResource(Widget widget)
     classList = new XrmQuark[listSize];
     for (q = 0, s = len - 1;
     	 s >= 0; q++, s--) {
-#if (_MIPS_SZPTR == 64 || __ia64)
+#if (_MIPS_SZPTR == 64 || __ia64__ || __x86_64__ || __powerpc64__)
 	 nameList[q]  = (XrmQuark) ((long) nameplist[s]);
 	 classList[q] = (XrmQuark) ((long) classplist[s]);
 #else

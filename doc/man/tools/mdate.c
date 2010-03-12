@@ -45,6 +45,7 @@ char _Origin_[] = "System V";
  *	number, 1 must be added to the month returned.
  */
 
+#include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <time.h>

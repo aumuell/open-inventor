@@ -265,7 +265,7 @@ SbTime::formatDate(const char *fmt) const
 {
     char buf[200];
 
-#if (_MIPS_SZLONG == 64 || __ia64 || __APPLE__)
+#if (_MIPS_SZLONG == 64 || __ia64__ || __x86_64__ || __powerpc64__ || __APPLE__)
     int  seconds;
     seconds = (int) t.tv_sec;
     strftime(buf, sizeof(buf), fmt, localtime((const time_t *) &seconds));
