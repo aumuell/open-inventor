@@ -53,7 +53,7 @@
  */
 
 #include <inttypes.h>
-#include <string.h>
+#include <cstring>
 
 #include <X11/StringDefs.h>
 #include <Xm/Xm.h>

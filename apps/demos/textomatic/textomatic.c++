@@ -37,9 +37,9 @@
 //
 // Main stuff for 3D text creator program
 //
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
 #include <unistd.h>
 #include <iconv.h>
 #ifdef __APPLE__

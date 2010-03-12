@@ -52,8 +52,8 @@
  */
 
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <Inventor/SbDict.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInput.h>
@@ -854,8 +854,8 @@ SoInteractionKit::setAnySurrogatePath( const SbName &partName,
 	    // (as in "childList[0].appearance")
 	    // If so, get the string up to whichever came first.
 	    // This will be the 'intermediary' we look for.
-	    char *dotPtr   = strchr( partName.getString(), '.' );
-	    char *brackPtr = strchr( partName.getString(), '[' );
+	    const char *dotPtr   = strchr( partName.getString(), '.' );
+	    const char *brackPtr = strchr( partName.getString(), '[' );
 
 	    if ( dotPtr != NULL || brackPtr != NULL ) {
 		char *nameCopy = strdup( partName.getString() );

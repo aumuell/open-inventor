@@ -54,8 +54,8 @@
  _______________________________________________________________________
  */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <Inventor/errors/SoDebugError.h>
 
 #include <machine.h>		// Inventor data goo lib

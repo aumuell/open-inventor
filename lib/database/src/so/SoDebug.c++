@@ -56,8 +56,8 @@
 #include <Inventor/actions/SoWriteAction.h>
 #include <Inventor/nodes/SoNode.h>
 #include <Inventor/fields/SoField.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <stdarg.h>
 
 static SbDict *ptrNameDict = NULL;

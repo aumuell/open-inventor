@@ -52,7 +52,7 @@
  */
 
 #include <Inventor/projectors/SbSphereProjector.h>
-#include <stdio.h>
+#include <cstdio>
 
 ////////////////////////////////////////////////////////////////////////
 //

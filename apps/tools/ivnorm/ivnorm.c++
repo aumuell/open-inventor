@@ -57,11 +57,11 @@
 //_____________  S I L I C O N   G R A P H I C S   I N C .  ____________
 //______________________________________________________________________
 
-#include <stdio.h>
+#include <cstdio>
 #include <unistd.h>
-#include <math.h>
+#include <cmath>
 #include <assert.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 #include <Inventor/SoInteraction.h>
 #include <Inventor/SoDB.h>

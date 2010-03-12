@@ -45,7 +45,7 @@
  *  load the overlay color map with the wanted color.
  *----------------------------------------------------------*/
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInput.h>
 #include <Inventor/nodes/SoNode.h>

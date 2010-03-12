@@ -41,7 +41,7 @@
 // a callback on the viewer.
 //
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <X11/Intrinsic.h>
 
 #include <Inventor/So.h>

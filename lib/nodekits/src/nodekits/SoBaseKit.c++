@@ -78,7 +78,7 @@
 
 #include <SoDebug.h>
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <ctype.h>
 
 // Defines for printing out file data for nodekits

@@ -50,8 +50,8 @@
  _______________________________________________________________________
  */
 
-#include <stdlib.h>
-#include <math.h>
+#include <cstdlib>
+#include <cmath>
 #include <time.h>
 #include <Inventor/Xt/SoXt.h>
 #include "TsField.h"

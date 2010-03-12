@@ -42,7 +42,7 @@
 #include "mystdio.h"
 #include "types.h"
 #include "basiccrveval.h"
-#include <stdio.h>
+#include <cstdio>
 
 void 
 BasicCurveEvaluator::domain1f( REAL, REAL )

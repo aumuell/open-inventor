@@ -34,7 +34,7 @@
  *
  */
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <ctype.h>
 #include <X11/Intrinsic.h>
 

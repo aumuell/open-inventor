@@ -42,7 +42,7 @@
  *  continents Africa and Asia.
  *------------------------------------------------------------*/
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/viewers/SoXtExaminerViewer.h>
 #include <Inventor/nodes/SoComplexity.h>

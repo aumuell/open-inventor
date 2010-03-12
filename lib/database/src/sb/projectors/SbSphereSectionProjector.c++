@@ -53,7 +53,7 @@
 
 #include <Inventor/projectors/SbSphereSectionProjector.h>
 #include <Inventor/errors/SoDebugError.h>
-#include <stdio.h>
+#include <cstdio>
 
 ////////////////////////////////////////////////////////////////////////
 //

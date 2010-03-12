@@ -43,8 +43,8 @@
 
 
 #include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include <Inventor/SbLinear.h>
 #include <Inventor/SoDB.h>
 

@@ -38,9 +38,9 @@
 // Stuff to hilight parts of the line-set manipulator
 //
 
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
+#include <cstdio>
+#include <cstring>
+#include <cmath>
 #include <assert.h>
 
 #include <Inventor/SoDB.h>

@@ -52,8 +52,8 @@
  */
 
 #include <GL/gl.h>
-#include <math.h>
-#include <stdlib.h>
+#include <cmath>
+#include <cstdlib>
 #include "SoAddPrefix.h"
 #include "SoCurveRender.h"
 #include "SoCurveRenderEval.h"

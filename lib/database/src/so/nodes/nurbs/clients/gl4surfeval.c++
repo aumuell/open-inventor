@@ -46,7 +46,7 @@
 #include "mymath.h"
 #include "gl4surfeval.h"
 #include "nurbsconsts.h"
-#include <stdio.h>
+#include <cstdio>
 
 /*extern "C" {
     void	gl_nurbs_bgncps2( long, float, float, long, float, float, long );

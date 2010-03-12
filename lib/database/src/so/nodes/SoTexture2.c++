@@ -62,8 +62,8 @@
 #include <Inventor/nodes/SoTexture2.h>
 #include <Inventor/sensors/SoFieldSensor.h>
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 
 SO_NODE_SOURCE(SoTexture2);
 

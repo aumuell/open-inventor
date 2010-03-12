@@ -40,7 +40,7 @@
  * $Revision: 1.1.1.1 $
  */
 
-#include <stdio.h>
+#include <cstdio>
 #include <inttypes.h>   /* defines long and brethren */
 #include "myassert.h"
 #include "mystdio.h"

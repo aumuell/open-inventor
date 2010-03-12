@@ -44,7 +44,7 @@
  *  along the path of the curve.
  *------------------------------------------------------------*/
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <Inventor/SoDB.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/SoXtRenderArea.h>

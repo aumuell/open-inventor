@@ -65,7 +65,7 @@
 #include <Inventor/fields/SoFieldData.h>
 #include <Inventor/misc/SoNotification.h>
 
-#include <stdlib.h>
+#include <cstdlib>
 
 // Syntax for reading/writing type information to files
 #define OPEN_BRACE_CHAR		'['

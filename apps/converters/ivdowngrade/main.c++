@@ -49,8 +49,8 @@
  */
 
 #include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include <Inventor/SbDict.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInteraction.h>

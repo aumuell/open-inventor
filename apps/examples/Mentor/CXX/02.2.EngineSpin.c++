@@ -41,7 +41,7 @@
  *  Use an engine to make the cone spin.
  *------------------------------------------------------------*/
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/SoXtRenderArea.h>
 #include <Inventor/engines/SoElapsedTime.h>

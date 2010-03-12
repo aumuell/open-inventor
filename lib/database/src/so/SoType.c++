@@ -55,7 +55,7 @@
 #include <Inventor/SoLists.h>
 #include <Inventor/errors/SoDebugError.h>
 #include <dlfcn.h>
-#include <stdlib.h>
+#include <cstdlib>
 #ifdef __sgi
 #include <sgidefs.h>
 #endif // __sgi

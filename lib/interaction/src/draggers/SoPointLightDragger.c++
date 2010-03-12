@@ -52,7 +52,7 @@
  */
 
 
-#include <stdio.h>
+#include <cstdio>
 #include <Inventor/SoDB.h>
 #include <Inventor/nodes/SoMaterial.h>
 #include <Inventor/sensors/SoFieldSensor.h>

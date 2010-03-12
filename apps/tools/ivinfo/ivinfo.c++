@@ -57,7 +57,7 @@
  _______________________________________________________________________
  */
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <unistd.h>
 
 #include <Inventor/SoDB.h>

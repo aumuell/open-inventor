@@ -51,7 +51,7 @@
  */
 
 //--------------------------- Include ----------------------------------
-#include <stdio.h>
+#include <cstdio>
 #include <Inventor/SbLinear.h>
 #include <Inventor/nodes/SoMaterial.h>
 #include <Inventor/nodes/SoSeparator.h>

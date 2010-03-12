@@ -42,7 +42,7 @@
 #include "mystdio.h"
 #include "types.h"
 #include "basicsurfeval.h"
-#include <stdio.h>
+#include <cstdio>
 
 void 
 BasicSurfaceEvaluator::domain2f( REAL, REAL, REAL, REAL )

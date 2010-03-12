@@ -67,7 +67,7 @@
 #include <Inventor/fields/SoSubField.h>
 #include <Inventor/nodes/SoNode.h>
 #include <Inventor/sensors/SoDataSensor.h>
-#include <stdlib.h>
+#include <cstdlib>
 #include "SoGlobalField.h"
 
 // Special characters in files

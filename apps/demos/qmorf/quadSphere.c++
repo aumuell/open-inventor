@@ -41,7 +41,7 @@
 // interpolate them into some other shape.
 //
 
-#include <math.h>
+#include <cmath>
 #include "QuadThing.h"
 #include <Inventor/SoDB.h>
 #include <Inventor/nodes/SoSeparator.h>

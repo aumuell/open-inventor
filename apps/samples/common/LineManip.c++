@@ -42,7 +42,7 @@
 // edit).
 //
 
-#include <stdio.h>
+#include <cstdio>
 #include <assert.h>
 
 #include <Inventor/SbColor.h>

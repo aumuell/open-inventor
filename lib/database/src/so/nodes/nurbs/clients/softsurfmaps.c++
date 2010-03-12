@@ -34,7 +34,7 @@
  *
  */
 
-#include <stdio.h>
+#include <cstdio>
 #include "softsurfacemaps.h"
 
 _SoNurbsVertex3SurfaceMap::~_SoNurbsVertex3SurfaceMap(){}

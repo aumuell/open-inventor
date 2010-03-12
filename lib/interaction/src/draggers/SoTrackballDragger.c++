@@ -52,7 +52,7 @@
  */
 
 
-#include <stdio.h>
+#include <cstdio>
 
 #include <Inventor/errors/SoDebugError.h>
 #include <Inventor/events/SoEvent.h>

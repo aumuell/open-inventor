@@ -34,7 +34,7 @@
  *
  */
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <X11/Intrinsic.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/viewers/SoXtExaminerViewer.h>

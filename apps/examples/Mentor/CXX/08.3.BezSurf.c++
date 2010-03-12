@@ -44,7 +44,7 @@
  *  each with multipliciy 4 to define the Bezier surface.
  *--------------------------------------------------------*/
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInput.h>
 #include <Inventor/Xt/SoXt.h>

@@ -51,7 +51,7 @@
  _______________________________________________________________________
  */
 
-#include <math.h>
+#include <cmath>
 
 #include <X11/StringDefs.h>
 #include <X11/Intrinsic.h>

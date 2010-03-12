@@ -56,8 +56,8 @@
 
 #include <machine.h>		// This is included in the Inventor tree
 #include <ctype.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include <Inventor/misc/SoBase.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInput.h>
@@ -2810,7 +2810,7 @@ SoInput::addReference(const SbName &name,	// Reference name
 
     if (addToGlobalDict) {
 	// Look for the first '+':
-	char *firstPlus = strchr(n, '+');
+	const char *firstPlus = strchr(n, '+');
 
 	if (firstPlus == NULL) {
 	    base->setName(name);

@@ -40,7 +40,7 @@
 // quad-mesh objects.
 //
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <assert.h>
 
 #include <Inventor/SoDB.h>

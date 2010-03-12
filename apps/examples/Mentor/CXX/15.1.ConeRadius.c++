@@ -45,7 +45,7 @@
  *  connected to the bottomRadius field of the cone.
  *----------------------------------------------------------------*/
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <Inventor/engines/SoCompose.h>
 #include <Inventor/nodes/SoCone.h>
 #include <Inventor/nodes/SoSeparator.h>

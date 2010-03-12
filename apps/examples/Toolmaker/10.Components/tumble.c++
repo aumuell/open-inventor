@@ -34,8 +34,8 @@
  *
  */
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include <Inventor/SoDB.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/nodes/SoSeparator.h>

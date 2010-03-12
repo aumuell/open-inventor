@@ -52,7 +52,7 @@
  */
 
 #include <Inventor/projectors/SbCylinderProjector.h>
-#include <stdio.h>
+#include <cstdio>
 
 ////////////////////////////////////////////////////////////////////////
 //

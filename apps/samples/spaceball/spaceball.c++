@@ -40,7 +40,7 @@
 // are passed via a callback on an SoEventCallback node.
 //
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <X11/Intrinsic.h>
 
 #include <Inventor/So.h>

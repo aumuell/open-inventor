@@ -51,7 +51,7 @@
  _______________________________________________________________________
  */
 
-#include <stdlib.h>
+#include <cstdlib>
 
 #include <Inventor/caches/SoCache.h>
 #include <Inventor/elements/SoElement.h>

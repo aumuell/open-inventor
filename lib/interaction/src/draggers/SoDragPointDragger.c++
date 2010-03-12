@@ -52,8 +52,8 @@
  */
 
 
-#include <stdio.h>
-#include <limits.h>
+#include <cstdio>
+#include <climits>
 
 #include <Inventor/SoDB.h>
 #include <Inventor/errors/SoDebugError.h>

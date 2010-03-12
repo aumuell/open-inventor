@@ -108,9 +108,9 @@
 
 #include <inttypes.h>
 #include <ctype.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
 
 // There is a nasty cyclic make dependency if we try to use libdatabase.a,
 // so instead just include the following code directly:

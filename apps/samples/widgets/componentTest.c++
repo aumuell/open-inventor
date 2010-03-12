@@ -38,7 +38,7 @@
 // Simple test program which will run a set of custom components.
 //
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/SoXtMaterialEditor.h>
 #include "MyTextureEditor.h"

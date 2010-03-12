@@ -58,7 +58,7 @@
 #include "_SoXtUIRegion.h"
 #include "_SoXtSlider.h"
 
-#include <stdlib.h>
+#include <cstdlib>
 
 #include <X11/StringDefs.h>
 #include <X11/Intrinsic.h>

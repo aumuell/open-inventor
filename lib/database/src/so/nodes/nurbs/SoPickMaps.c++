@@ -54,7 +54,7 @@
  _______________________________________________________________________
  */
 
-#include <stdio.h>
+#include <cstdio>
 #include "SoAddPrefix.h"
 #include <Inventor/SoPickedPoint.h>
 #include <Inventor/actions/SoRayPickAction.h>

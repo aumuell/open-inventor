@@ -67,12 +67,12 @@
 #include <fcntl.h>
 #include <signal.h>
 #include <errno.h>
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 #include <X11/StringDefs.h>
 #include <Xm/BulletinB.h>

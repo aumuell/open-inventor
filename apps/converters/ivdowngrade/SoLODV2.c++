@@ -49,7 +49,7 @@
  _______________________________________________________________________
  */
 
-#include <math.h>
+#include <cmath>
 #include <float.h>
 #include <Inventor/nodes/SoLevelOfDetail.h>
 #include <Inventor/actions/SoGetMatrixAction.h>

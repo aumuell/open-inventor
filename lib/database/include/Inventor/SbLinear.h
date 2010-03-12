@@ -71,7 +71,7 @@
 #ifndef _SB_LINEAR_
 #define _SB_LINEAR_
 
-#include <math.h>
+#include <cmath>
 #include <Inventor/SbBasic.h>
 
 // -----------------------------------

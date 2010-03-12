@@ -40,7 +40,7 @@
 //   to allow interaction with it.
 //
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <X11/Intrinsic.h>
 #include <X11/keysym.h>
 #include <locale.h>

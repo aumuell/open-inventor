@@ -57,8 +57,8 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 
 #include <Inventor/Sb.h>
 #include <Inventor/SbTime.h>

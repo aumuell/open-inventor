@@ -53,13 +53,13 @@
  */
 
 #include <inttypes.h>
-#include <stdio.h>
+#include <cstdio>
 #include <sys/param.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <dirent.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 #include <X11/StringDefs.h>
 #include <Xm/Xm.h>

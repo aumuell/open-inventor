@@ -40,7 +40,7 @@
  */
 
 #include "myglimports.h"
-#include <stdio.h>
+#include <cstdio>
 #include "mystdio.h"
 #include "myassert.h"
 #include "mymath.h"
@@ -56,7 +56,7 @@
  *--------------------------------------------------------------------------
  */
 
-#include <stdlib.h>
+#include <cstdlib>
 
 REAL* Patch::alloc_pts( void )
 {

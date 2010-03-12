@@ -69,7 +69,7 @@
 #include <Inventor/elements/SoModelMatrixElement.h>
 #include <Inventor/elements/SoViewVolumeElement.h>
 #include <Inventor/nodes/SoCamera.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 SO_NODE_ABSTRACT_SOURCE(SoCamera);
 

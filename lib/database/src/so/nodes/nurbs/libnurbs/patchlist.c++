@@ -38,7 +38,7 @@
  * patchlist.c++ - $Revision: 1.1.1.1 $
  * 	Derrick Burns - 1991
  */
-#include <stdio.h>
+#include <cstdio>
 #include "glimports.h"
 #include "myassert.h"
 #include "mystdio.h"

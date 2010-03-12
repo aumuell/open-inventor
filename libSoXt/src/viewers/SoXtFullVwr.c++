@@ -51,9 +51,9 @@
  */
 
 #include <inttypes.h>
-#include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cmath>
+#include <cstdlib>
 
 #include <X11/StringDefs.h>
 #include <X11/Intrinsic.h>

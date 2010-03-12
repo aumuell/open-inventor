@@ -49,9 +49,9 @@
  */
 
 //--------------------------- Include ----------------------------------
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
+#include <cstdlib>
+#include <cstdio>
+#include <cmath>
 #include <sys/types.h>
 #include <Xm/Xm.h>
 #include <Xm/Form.h>

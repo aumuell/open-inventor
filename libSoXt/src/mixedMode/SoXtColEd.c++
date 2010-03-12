@@ -85,7 +85,7 @@
 #include <Xm/ToggleB.h>
 #include <Xm/ToggleBG.h>
 
-#include <stdlib.h>
+#include <cstdlib>
 
 /*
  * Defines

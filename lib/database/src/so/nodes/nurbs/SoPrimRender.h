@@ -57,8 +57,8 @@
 #define  _SO_NURBS_PRIM_RENDER_
 
 //#include <GL/gl.h>
-#include <math.h>
-#include <stdlib.h>
+#include <cmath>
+#include <cstdlib>
 #include <Inventor/SbLinear.h>
 #include "head/nurbstess.h"
 #include "SoPrimEvals.h"

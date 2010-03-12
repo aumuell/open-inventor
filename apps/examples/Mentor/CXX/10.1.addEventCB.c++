@@ -48,7 +48,7 @@
  *  the size of each selected object.
  *-----------------------------------------------------------*/
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <Inventor/Sb.h>
 #include <Inventor/Xt/SoXt.h>
 #include <Inventor/Xt/SoXtRenderArea.h>

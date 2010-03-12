@@ -51,7 +51,7 @@
  _______________________________________________________________________
  */
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <Inventor/SoLists.h>
 #include <Inventor/SoPath.h>
 #include <Inventor/SoPickedPoint.h>

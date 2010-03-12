@@ -76,7 +76,7 @@
 #include <SoDebug.h>
 #endif
 
-#include <stdlib.h>
+#include <cstdlib>
 
 SO_NODE_SOURCE(SoSeparator);
 

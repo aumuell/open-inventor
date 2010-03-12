@@ -55,7 +55,7 @@
 #include <Inventor/elements/SoGLModelMatrixElement.h>
 #include <Inventor/elements/SoGLViewingMatrixElement.h>
 #include <Inventor/errors/SoDebugError.h>
-#include <math.h>
+#include <cmath>
 
 SO_ELEMENT_SOURCE(SoGLModelMatrixElement);
 

@@ -50,7 +50,7 @@
  ______________  S I L I C O N   G R A P H I C S   I N C .  ____________
  _______________________________________________________________________
  */
-#include <stdio.h>
+#include <cstdio>
 #include <assert.h>
 #include <Inventor/SbLinear.h>
 #include <Inventor/SoOffscreenRenderer.h>

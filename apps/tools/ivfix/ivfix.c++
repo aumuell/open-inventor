@@ -34,9 +34,9 @@
  *
  */
 
-#include <string.h>
+#include <cstring>
 #include <unistd.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInput.h>

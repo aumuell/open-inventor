@@ -53,7 +53,7 @@
 
 #include <Inventor/SbLinear.h>
 #include <Inventor/SbBox.h>
-#include <math.h> // for M_PI_2
+#include <cmath> // for M_PI_2
 
 ////////////////////////////////////////////
 //

@@ -39,7 +39,7 @@
 //
 
 #include <assert.h>
-#include <math.h>
+#include <cmath>
 #include "Faces.h"
 #include "Edges.h"
 

@@ -52,9 +52,9 @@
  _______________________________________________________________________
  */
 
-#include <string.h>
-#include <math.h>
-#include <stdlib.h>
+#include <cstring>
+#include <cmath>
+#include <cstdlib>
 
 #include <Xm/Text.h>
 #include <Xm/Form.h>

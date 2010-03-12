@@ -56,9 +56,9 @@
 #include "foo.h"
 
 
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
+#include <cstdlib>
+#include <cmath>
+#include <cstring>
 #include <X11/Intrinsic.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInput.h>
