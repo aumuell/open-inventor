@@ -1783,11 +1783,11 @@ SoXtPrintDialog::print()
         childstat = signal (SIGCHLD, SIG_DFL);
         if (!(wpid=fork())) {
             if (*printerName == 0)
-                execlp("lp", "lp", "-c", "-s", tempPSFileName, 0);
+                execlp("lp", "lp", "-c", "-s", tempPSFileName, (char*) 0);
             else {
                 char popt[SO_PRINTER_STRLEN];
                 sprintf(popt, "-d%s", printerName);
-                execlp("lp", "lp", "-c", popt, "-s", tempPSFileName, 0);
+                execlp("lp", "lp", "-c", popt, "-s", tempPSFileName, (char*) 0);
             }
         }
         (void)waitpid(wpid, (int *)(&waitStatus), 0);

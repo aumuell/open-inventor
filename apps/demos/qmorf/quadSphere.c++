@@ -76,6 +76,7 @@ createQuadSphere(int sizex, int sizey)
     return result;
 }
 
+int
 main(int argc, char **argv)
 {
     SoDB::init();

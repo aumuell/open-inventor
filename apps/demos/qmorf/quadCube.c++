@@ -182,6 +182,7 @@ createQuadCube(int sizex, int sizey)
     return result;
 }
 
+int
 main(int argc, char **argv)
 {
     if (argc > 1) diagonalFlag = 0;

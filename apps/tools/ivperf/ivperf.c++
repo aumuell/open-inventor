@@ -823,6 +823,7 @@ drawBar(float asisTime, float noClearTime, float noMatTime,
 //    Mainline
 //
 
+int
 main(int argc, char **argv)
 //
 //////////////////////////////////////////////////////////////

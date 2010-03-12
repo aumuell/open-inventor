@@ -4,6 +4,8 @@
  *				Paul Haeberli - 1984
  *
  */
+
+#include 	<unistd.h>
 #include	<stdio.h>
 #include	"image.h"
 

@@ -80,6 +80,7 @@ static void	initOptions(OptionInfo &options);
 //
 /////////////////////////////////////////////////////////////////////////////
 
+int
 main(int argc, char **argv)
 {
     OptionInfo options;

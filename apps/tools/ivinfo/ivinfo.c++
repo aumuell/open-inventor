@@ -159,6 +159,7 @@ parseArgs(int argc, char **argv, SoInput &in)
     }
 }
 
+int
 main(int argc, char *argv[])
 {
     SoInput	in;

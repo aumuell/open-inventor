@@ -2230,9 +2230,9 @@ SoXtViewer::seekAnimationSensorCB(void *p, SoSensor *)
 
 // anchor arrow head description
 static float arrow_data[3][3] = {
-    -ARROW_SIZE, 0, 0,
-    0, 2*ARROW_SIZE, 0,
-    ARROW_SIZE, 0, 0
+    { -ARROW_SIZE, 0, 0 },
+    { 0, 2*ARROW_SIZE, 0 },
+    { ARROW_SIZE, 0, 0 }
 };
 
 

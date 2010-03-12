@@ -53,6 +53,7 @@
 
 #include <Inventor/SbTime.h>
 #include <time.h>
+#include <inttypes.h>
 
 #ifdef _CRAY
 extern "C" {
@@ -190,52 +191,52 @@ SbTime::format(const char *fmt) const
 
 	      case 'D':
 		if (negative) *s++ = '-';
-		s += sprintf(s, "%ld", tday);
+		s += sprintf(s, "%" PRId32, tday);
 		break;
 
 	      case 'H':
 		if (negative) *s++ = '-';
-		s += sprintf(s, "%ld", thour);
+		s += sprintf(s, "%" PRId32, thour);
 		break;
 
 	      case 'M':
 		if (negative) *s++ = '-';
-		s += sprintf(s, "%ld", tmin);
+		s += sprintf(s, "%" PRId32, tmin);
 		break;
 
 	      case 'S':
 		if (negative) *s++ = '-';
-		s += sprintf(s, "%ld", tsec);
+		s += sprintf(s, "%" PRId32, tsec);
 		break;
 
 	      case 'I':
 		if (negative) *s++ = '-';
-		s += sprintf(s, "%ld", tmilli);
+		s += sprintf(s, "%" PRId32, tmilli);
 		break;
 
 	      case 'U':
 		if (negative) *s++ = '-';
-		s += sprintf(s, "%ld", tmicro);
+		s += sprintf(s, "%" PRId32, tmicro);
 		break;
 
 	      case 'h':
-		s += sprintf(s, "%.2ld", rhour);
+		s += sprintf(s, "%.2" PRId32, rhour);
 		break;
 
 	      case 'm':
-		s += sprintf(s, "%.2ld", rmin);
+		s += sprintf(s, "%.2" PRId32, rmin);
 		break;
 
 	      case 's':
-		s += sprintf(s, "%.2ld", rsec);
+		s += sprintf(s, "%.2" PRId32, rsec);
 		break;
 
 	      case 'i':
-		s += sprintf(s, "%.3ld", rmilli);
+		s += sprintf(s, "%.3" PRId32, rmilli);
 		break;
 
 	      case 'u':
-		s += sprintf(s, "%.6ld", rmicro);
+		s += sprintf(s, "%.6" PRId32, rmicro);
 		break;
 
 	      default:

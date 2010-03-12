@@ -215,6 +215,7 @@ nukeTextureNodes(SoNode *&root)
     }
 }
 
+int
 main(int argc, char **argv)
 {
     int expandFileNodes = 0;
