@@ -79,6 +79,7 @@
 
 class SoPathList;
 class SoWriteAction;
+class SoTempPath;
 
 class SoPath : public SoBase {
 
