@@ -204,6 +204,7 @@ _MATERIALSDIR = $(IVPREFIX)/share/inventor/data/materials
 _TEXTURESDIR = $(IVPREFIX)/share/inventor/data/textures
 _DEMOBINDIR = $(IVPREFIX)/lib/inventor
 _DEMODATADIR = $(IVPREFIX)/share/inventor/data/demos
+_PDFVIEWER = xpdf
 
 IVBINDIR = $(IVROOT)$(_BINDIR)
 IVLIBDIR = $(IVROOT)$(_LIBDIR)
@@ -231,7 +232,7 @@ LCXXDEFS = -DIVBINDIR=\"$(_BINDIR)\" \
 	-DIVTEXTURESDIR=\"$(_TEXTURESDIR)\" \
 	-DIVDEMOBINDIR=\"$(_DEMOBINDIR)\" \
 	-DIVDEMODATADIR=\"$(_DEMODATADIR)\" \
-	-DPDFVIEWER=\"xpdf\"
+	-DPDFVIEWER=\"$(_PDFVIEWER)\"
 
 #
 # Locate installed Inventor libraries when linking applications.
