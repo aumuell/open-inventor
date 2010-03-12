@@ -2810,7 +2810,7 @@ SoInput::addReference(const SbName &name,	// Reference name
 
     if (addToGlobalDict) {
 	// Look for the first '+':
-	char *firstPlus = strchr(n, '+');
+	const char *firstPlus = strchr(n, '+');
 
 	if (firstPlus == NULL) {
 	    base->setName(name);
