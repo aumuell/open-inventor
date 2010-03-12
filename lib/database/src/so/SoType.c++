@@ -51,6 +51,7 @@
  _______________________________________________________________________
  */
 
+#include <machine.h>
 #include <Inventor/SoType.h>
 #include <Inventor/SoLists.h>
 #include <Inventor/errors/SoDebugError.h>
@@ -331,7 +332,7 @@ SoType::fromName(SbName name)
     if (b == NULL)
 	return SoType::badType();
 
-#if (_MIPS_SZPTR == 64 || __ia64)
+#if (USE_64BIT_HACKS)
     SoType result = typeData[(int) ((unsigned long) b)].type;
 #else
     SoType result = typeData[(int)b].type;

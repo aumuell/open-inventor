@@ -51,7 +51,7 @@
  _______________________________________________________________________
  */
 
-
+#include <machine.h>
 #include <Inventor/errors/SoDebugError.h>
 #include <Inventor/nodekits/SoNodekitCatalog.h>
 #include <Inventor/nodekits/SoNodeKitListPart.h>
@@ -336,7 +336,7 @@ SoNodekitCatalog::getPartNumber( const SbName &theName ) const
     void *castPNum;
 
     if ( partNameDict.find( (unsigned long) theName.getString(), castPNum ) )
-#if (_MIPS_SZPTR == 64 || __ia64)
+#if (USE_64BIT_HACKS)
 	return ( (int) ((long) castPNum) );  // System long
 #else
 	return ( (int) castPNum );

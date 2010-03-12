@@ -51,6 +51,7 @@
  _______________________________________________________________________
  */
 
+#include <machine.h>
 #include <Inventor/SbPList.h>
 #include <Inventor/Xt/SoXtComponent.h>
 #include <Inventor/Xt/SoXt.h>
@@ -145,7 +146,7 @@ SoXtResource::SoXtResource(Widget widget)
     classList = new XrmQuark[listSize];
     for (q = 0, s = len - 1;
     	 s >= 0; q++, s--) {
-#if (_MIPS_SZPTR == 64 || __ia64)
+#if (USE_64BIT_HACKS)
 	 nameList[q]  = (XrmQuark) ((long) nameplist[s]);
 	 classList[q] = (XrmQuark) ((long) classplist[s]);
 #else

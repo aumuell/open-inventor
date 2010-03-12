@@ -52,6 +52,7 @@
  _______________________________________________________________________
  */
 
+#include <machine.h>
 #include <stdio.h>
 
 #include <Inventor/SbLinear.h>
@@ -686,7 +687,7 @@ SoDragger::isTempPathToThisOk()
 		int indexInPath = tempPathToThis->getIndex(numFmHead+1);
 
 		int numKidsNow    = children->getLength();
-#if (_MIPS_SZPTR == 64 || __ia64)
+#if (USE_64BIT_HACKS)
 		int numKidsBefore = (int) ((long) (*tempPathNumKidsHack)[numFmHead]);
 #else
 		int numKidsBefore = (int) (*tempPathNumKidsHack)[numFmHead];
