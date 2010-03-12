@@ -1,4 +1,4 @@
-#! /usr/bin/tcsh -f
+#! /bin/tcsh -f
 
 #
 # Prepares command line info to create a man page for the given class name
