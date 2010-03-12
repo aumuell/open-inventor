@@ -371,7 +371,7 @@ void mem_ntoh_double(double *t, double *f);
 #endif
 
 /* Added for Debian by Steve M. Robbins */
-#if (_MIPS_SZPTR == 64 || __ia64 || __x86_64 || __alpha__)
+#if (_MIPS_SZPTR == 64 || __ia64 || __x86_64 || __alpha__ || __powerpc64__)
 #  define USE_64BIT_HACKS 1
 #else
 #  define USE_64BIT_HACKS 0
