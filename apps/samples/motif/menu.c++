@@ -463,7 +463,7 @@ buildMainWindow(Widget parent, SoNode *sceneGraph)
 //  display this window, and loop forever...
 //
 void
-main(unsigned int /*argc*/, char *argv[])
+main(int /*argc*/, char *argv[])
 //
 ////////////////////////////////////////////////////////////////////////
 {

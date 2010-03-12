@@ -102,7 +102,7 @@ usage()
 }
 
 void
-main(unsigned int, char *argv[])
+main(int, char *argv[])
 {
     Widget mainWindow = SoXt::init(argv[0]);
 
