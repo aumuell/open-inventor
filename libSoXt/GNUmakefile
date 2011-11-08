@@ -8,9 +8,12 @@ LIBDSO   = $(LIBNAME).$(LIBMAJOR).$(LIBMINOR)
 
 include $(IVDEPTH)/make/ivcommondefs
 
+LLDDSOOPTS += -L$(IVDEPTH)/libimage -L$(FLDIR)
+
 LLDLIBS = \
 	-lXm -lXt -lXext -lXi -lX11 -lm \
-	-lInventor -lGLU -lGL
+	-lInventor -lGLU -lGL \
+	$(FLLIB) -limage -ljpeg
 
 LLDLIBS += $(shell [ -e $(X11LIBDIR)/libXp.so ] && echo -lXp)
 

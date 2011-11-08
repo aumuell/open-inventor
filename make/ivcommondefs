@@ -172,7 +172,7 @@ LCINCS += $(IVLIBHDRDIRS)
 #
 
 FLDIR = $(IVDEPTH)/libFL/src
-FLLIB = -lFL
+FLLIB = -lFLiv
 ifdef FREETYPE
 FLDIR = $(IVDEPTH)/libFL/freetype
 FLLIB += -lfreetype

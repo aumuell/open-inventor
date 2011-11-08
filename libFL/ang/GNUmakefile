@@ -3,7 +3,7 @@ include $(IVDEPTH)/make/ivcommondefs
 
 LCDEFS = $(LCXXDEFS)
 
-ARCHIVE = libFL.a
+ARCHIVE = libFLiv.a
 
 LCINCS += -I/usr/include/freetype2
 
