@@ -81,6 +81,7 @@ endif
 ifeq ($(usingLinux), 1)
 
 LINUXOPTS = -fPIC
+LINUXOPTS += -D__STDC_FORMAT_MACROS
 LCXXOPTS += $(LINUXOPTS)
 LCOPTS += $(LINUXOPTS)
 
