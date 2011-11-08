@@ -115,6 +115,7 @@ LD  = /usr/bin/libtool
 
 ARFLAGS = vrs
 INSTALL = /usr/bin/install
+LN_S = ln -sf
 
 LCXXDEFS += $(MATHDEFS)
 LCDEFS += $(MATHDEFS)

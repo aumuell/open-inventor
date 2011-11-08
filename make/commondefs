@@ -100,6 +100,7 @@ M4	= m4
 #
 ALLSTYLES=32 32_M2 32_ABI N32 N32_M3 N32_M4 64 64_M3 64_M4 64_ABI
 ALLSTYLES+=IA32
+ALLSTYLES+=DARWIN
 
 #
 # ENDIAN is defined only when cross-compiling
@@ -165,6 +166,7 @@ CSTYLE_64_M3 = -mips3 -64
 CSTYLE_64_M4 = -mips4 -64
 CSTYLE_64_ABI = -mips3 -64 -D_MIPSABI_SOURCE=3
 CSTYLE_IA32  =
+CSTYLE_DARWIN= #-arch x86_64 -arch i686
 
 # 'generic' styles - per ABI. releasedefs sets what it is.
 # DEF_CSTYLE's are set in releasedefs
@@ -224,6 +226,9 @@ CSTYLE=$(CSTYLE_32_M2)
 endif
 ifeq "$(OBJECT_STYLE)" "IA32"
 CSTYLE=$(CSTYLE_IA32)
+endif
+ifeq "$(OBJECT_STYLE)" "DARWIN"
+CSTYLE=$(CSTYLE_DARWIN)
 endif
 ifeq "$(OBJECT_STYLE)" "NONE"
 CSTYLE=
@@ -360,6 +365,7 @@ GLDOPTS_64_ABI= -mips3 -64 -abi -nostdlib $(LSRCH_64_ABI)
 # until new ld
 GLDOPTS_64_ABI= -mips3 -64 -nostdlib $(LSRCH_64_ABI)
 GLDOPTS_IA32  =
+GLDOPTS_DARWIN= #-arch x86_64 -arch i686
 #
 # Most objects don't have absolute requirements for ISA - use these
 # to get the default for each ABI as set by the release gods.
@@ -427,6 +433,9 @@ endif
 ifeq "$(OBJECT_STYLE)" "IA32"
 GLDOPTS=$(GLDOPTS_IA32)
 endif
+ifeq "$(OBJECT_STYLE)" "DARWIN"
+GLDOPTS=$(GLDOPTS_DARWIN)
+endif
 ifeq "$(OBJECT_STYLE)" "NONE"
 GLDOPTS=
 endif
@@ -443,6 +452,7 @@ LDOPTS_64_M3 =$(VLDOPTS) $(LLDOPTS) $(LLDOPTS_64_M3) $(GLDOPTS_64_M3)
 LDOPTS_64_M4 =$(VLDOPTS) $(LLDOPTS) $(LLDOPTS_64_M4) $(GLDOPTS_64_M4)
 LDOPTS_64_ABI=$(VLDOPTS) $(LLDOPTS) $(LLDOPTS_64_ABI) $(GLDOPTS_64_ABI)
 LDOPTS_IA32  =$(VLDOPTS) $(LLDOPTS) $(LLDOPTS_IA32) $(GLDOPTS_IA32)
+LDOPTS_DARWIN=$(VLDOPTS) $(LLDOPTS) $(LLDOPTS_DARWIN) $(GLDOPTS_DARWIN)
 
 #
 # Loader options for making shared objects. By default, shared objects
@@ -563,6 +573,9 @@ LDDSOOPTS_64_ABI= $(VLDDSOOPTS) $(VLDDSOOPTS_64_ABI) \
 LDDSOOPTS_IA32  = $(VLDDSOOPTS) $(VLDDSOOPTS_IA32) \
 		$(LLDDSOOPTS) $(LLDDSOOPTS_IA32) \
 		$(GLDDSOOPTS) $(GLDDSOOPTS_IA32)
+LDDSOOPTS_DARWIN= $(VLDDSOOPTS) $(VLDDSOOPTS_DARWIN) \
+		$(LLDDSOOPTS) $(LLDDSOOPTS_DARWIN) \
+		$(GLDDSOOPTS) $(GLDDSOOPTS_DARWIN)
 
 # Totally generic - common options for all ABIs
 ifeq ($(usingIrix), 1)
@@ -584,6 +597,8 @@ GLDDSOOPTS_64   = $(LD_NO_UNRESOLVED) $(LD_QUICKSTART_INFO) \
 GLDDSOOPTS_64_ABI   = $(DSOEXPORTSOPT_64_ABI)
 GLDDSOOPTS_IA32 = $(DSOEXPORTSOPT) $(DSOEXPORTSOPT_IA32) \
 			$(DSOSTARTOPT_IA32)
+GLDDSOOPTS_DARWIN = $(DSOEXPORTSOPT) $(DSOEXPORTSOPT_DARWIN) \
+			$(DSOSTARTOPT_DARWIN)
 
 #
 # set LDDSOOPTS based on OBJECT_STYLE - makes it easier to make .so's
@@ -609,6 +624,9 @@ LDDSOOPTS=$(LDDSOOPTS_32)
 endif
 ifneq (, $(findstring IA32, $(OBJECT_STYLE)))
 LDDSOOPTS=$(LDDSOOPTS_IA32)
+endif
+ifneq (, $(findstring DARWIN, $(OBJECT_STYLE)))
+LDDSOOPTS=$(LDDSOOPTS_DARWIN)
 endif
 ifeq "$(OBJECT_STYLE)" "NONE"
 LDDSOOPTS=
@@ -637,6 +655,7 @@ MKDEPFILE = Makedepend
 LIB_LOCATION_O32=lib
 LIB_LOCATION_N32=lib32
 LIB_LOCATION_IA32=lib
+LIB_LOCATION_DARWIN=lib
 
 #
 # Name of the runtime linker in /
@@ -651,6 +670,7 @@ LIB_LOCATION_IA32=lib
 ROOTRLDNAME_O32=/lib/libc.so.1,-rpath,/lib
 ROOTRLDNAME_N32=/lib32/libc.so.1,-rpath,/lib32
 ROOTRLDNAME_IA32=
+ROOTRLDNAME_DARWIN=
 
 
 #
