@@ -73,7 +73,11 @@
 #include <Xm/SelectioB.h>
 #include <Xm/MessageB.h>
 #include <Xm/FileSB.h>
+#ifdef __APPLE__
+#include "GLwMDrawA.h"
+#else
 #include <GL/GLwMDrawA.h>
+#endif
 
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/nodes/SoCube.h>

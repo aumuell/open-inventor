@@ -18,6 +18,13 @@ CXXFILES = \
 	MyMtlPal.c++  \
 	MyTextureEd.c++
 
+ifeq ($(usingDarwin), 1)
+CXXFILES += \
+	GLwDrawA.c++ \
+	GLwMDrawA.c++
+endif
+
+
 all install: all_ivbin
 
 

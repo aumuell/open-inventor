@@ -5,7 +5,10 @@ PROGRAM = componentTest
 
 CXXFILES = componentTest.c++
 
-LLDLIBS = libInventorWidget.a -lInventor -lInventorXt -lGLw -lGL -lXm -lXt -lX11
+LLDLIBS = libInventorWidget.a -lInventor -lInventorXt -lGL -lXm -lXt -lX11
+ifneq ($(usingDarwin), 1)
+LLDLIBS += -lGLw
+endif
 
 all install: all_ivbin
 
