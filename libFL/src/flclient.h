@@ -131,7 +131,7 @@ extern "C" {
 #define FL_FONT_BOTTOMTOTOP         2
 #define FL_FONT_TOPTOBOTTOM         3
 
-typedef GLint FLfontNumber;
+typedef intptr_t FLfontNumber;
 
 /* character outline data structures */
 typedef struct {

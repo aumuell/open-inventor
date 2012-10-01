@@ -228,7 +228,7 @@ flDestroyContext(FLcontext ctx)
 void
 flDestroyFont(FLfontNumber fn)
 {
-  TRACE(("flDestroyFont: fn=%d\n", fn));
+  TRACE(("flDestroyFont: fn=%" PRIiPTR "\n", fn));
   _flDestroyFont(flGetFontInfo(fn));
 }
 
@@ -356,7 +356,7 @@ flGetOutlineBBox(FLfontNumber fn,
 FLbitmap *
 flGetBitmap(FLfontNumber fn, GLuint c)
 {
-  TRACE(("flGetBitmap: fn=%d, c='%c'(%u)\n", fn, c, c));
+  TRACE(("flGetBitmap: fn=%" PRIiPTR ", c='%c'(%u)\n", fn, c, c));
   return _flGetBitmap(flGetFontInfo(fn), c);
 }
 
@@ -380,7 +380,7 @@ flGetCurrentFont(void)
   FLcontext ctx = current_context;
   FLfontNumber fn = ctx ? ctx->current_font : BAD_FONT_NUMBER;
 
-  TRACE(("flGetCurrentFont: fn=%d\n", fn));
+  TRACE(("flGetCurrentFont: fn=%" PRIiPTR "\n", fn));
 
   return fn;
 }
@@ -395,7 +395,7 @@ flGetFontInfo(FLfontNumber fn)
 FLoutline *
 flGetOutline(FLfontNumber fn, GLuint c)
 {
-  TRACE(("flGetOutline: fn=%d, c='%c'(%u)\n", fn, c, c));
+  TRACE(("flGetOutline: fn=%" PRIiPTR ", c='%c'(%u)\n", fn, c, c));
   return _flGetOutline(flGetFontInfo(fn), c);
 }
 
@@ -405,7 +405,7 @@ flGetStringWidth(FLfontNumber fn,
 		 GLfloat *    dx,
 		 GLfloat *    dy)
 {
-  TRACE(("flGetStringWidth: fn=%d\n", fn));
+  TRACE(("flGetStringWidth: fn=%" PRIiPTR "\n", fn));
   /* TODO - not used in Inventor */
   return FALSE;
 }
@@ -456,7 +456,7 @@ flMakeCurrentFont(FLfontNumber fn)
 {
   FLcontext ctx = current_context;
 
-  TRACE(("flMakeCurrentFont: fn=%d\n", fn));
+  TRACE(("flMakeCurrentFont: fn=%" PRIiPTR "\n", fn));
 
   if (! ctx)
     return FALSE;
@@ -491,7 +491,7 @@ flGetFontBBox(FLfontNumber fn,
 	      GLfloat *	   ury,
 	      GLint *	   isfixed)
 {
-  TRACE(("flGetFontBBox: fn=%d\n", fn));
+  TRACE(("flGetFontBBox: fn=%" PRIiPTR "\n", fn));
   /* TODO - not used in Inventor */
 }
 
