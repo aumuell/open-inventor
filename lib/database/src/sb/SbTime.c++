@@ -54,6 +54,9 @@
 #include <machine.h>
 #include <Inventor/SbTime.h>
 #include <time.h>
+#ifndef __STDC_FORMAT_MACROS
+#define __STDC_FORMAT_MACROS
+#endif
 #include <inttypes.h>
 
 #ifdef _CRAY

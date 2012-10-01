@@ -106,6 +106,9 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#ifndef __STDC_FORMAT_MACROS
+#define __STDC_FORMAT_MACROS
+#endif
 #include <inttypes.h>
 #include <ctype.h>
 #include <cstdio>

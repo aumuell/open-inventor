@@ -51,7 +51,9 @@
  _______________________________________________________________________
  */
 
-
+#ifndef __STDC_FORMAT_MACROS
+#define __STDC_FORMAT_MACROS
+#endif
 #include "SbBox.c++"
 #include "SbColor.c++"
 #include "SbCylinder.c++"
