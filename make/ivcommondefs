@@ -49,6 +49,8 @@ endif
 
 ifeq ($(usingLinux), 1)
 
+FREETYPE = 1
+
 CC  = /usr/bin/gcc
 C++ = /usr/bin/g++
 LD  = /usr/bin/g++
