@@ -116,7 +116,7 @@ static char fontDefault[_MAX_DIR];
 static GLboolean
 _flInitialize(FLfontImpl *impl)
 {
-  GLboolean ret;
+  GLboolean ret = FALSE;
   char *ev;
 #ifdef WIN32
   static char dirBuffer[_MAX_DIR];
