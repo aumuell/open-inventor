@@ -176,9 +176,9 @@ _flFTGetBitmap(FLfontStruct *_fs, GLuint c)
   FLbitmap *bit3;
   FT_Error error;
   int width, height, pitch, size;
-  int left, right, top, bottom;
-  int bbox_width, bbox_height;
-  int bearing_x, bearing_y;
+  FT_Pos left, right, top, bottom;
+  FT_Pos bbox_width, bbox_height;
+  FT_Pos bearing_x, bearing_y;
   int pitch2, size2;
 
   TRACE(("_flFTGetBitmap: '%c'(0x%04x)\n", c, c));
@@ -250,16 +250,16 @@ _flFTGetBitmap(FLfontStruct *_fs, GLuint c)
   }
 
   /* debugging added by Steve, 2001-08-14 */
-  TRACE(("  glyph->metrics.horiBearingX = %d\n", glyph->metrics.horiBearingX));
-  TRACE(("  glyph->metrics.width = %d\n", glyph->metrics.width ));
-  TRACE(("  left = %d\n", left ));
-  TRACE(("  right = %d\n", right ));
+  TRACE(("  glyph->metrics.horiBearingX = %ld\n", glyph->metrics.horiBearingX));
+  TRACE(("  glyph->metrics.width = %ld\n", glyph->metrics.width ));
+  TRACE(("  left = %ld\n", left ));
+  TRACE(("  right = %ld\n", right ));
   TRACE(("  width = %d\n", width ));
   TRACE(("  height = %d\n", height ));
-  TRACE(("  face->bbox.xMax = %d\n", face->bbox.xMax ));
-  TRACE(("  face->bbox.xMin = %d\n", face->bbox.xMin ));
-  TRACE(("  bit3->xmove = %d\n", bit3->xmove ));
-  TRACE(("  bbox_width = %d\n", bbox_width ));
+  TRACE(("  face->bbox.xMax = %ld\n", face->bbox.xMax ));
+  TRACE(("  face->bbox.xMin = %ld\n", face->bbox.xMin ));
+  TRACE(("  bit3->xmove = %f\n", bit3->xmove ));
+  TRACE(("  bbox_width = %ld\n", bbox_width ));
 
   return bit3;
 }
@@ -1973,9 +1973,9 @@ _flFTGenerateGlyph(FLFreeTypeOutline *ch)
   FT_RasterRec_ rec;
   FT_Raster	raster = &rec;
   FT_Outline *	outline = &ch->glyph->outline;
-  int		top, bottom, y_min, y_max;
-  int		left, right, x_min, x_max;
-  int		error;
+  FT_Pos		top, bottom, y_min, y_max;
+  FT_Pos		left, right, x_min, x_max;
+  FT_Error		error;
 
   ras.cursor = ras.pool = (TPoint *) pool;
   ras.pool_size = (TPoint *) pool + sizeof(pool);
