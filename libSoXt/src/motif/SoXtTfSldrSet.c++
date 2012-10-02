@@ -127,7 +127,7 @@ SoXtTransformSliderSet::constructorCommon(SbBool buildNow)
 {
     // Create the five modules used by a Transform editor.
     _numSubComponents = 5;
-    _subComponentArray = new ( SoXtSliderSetBase * [ _numSubComponents ] );
+    _subComponentArray = new SoXtSliderSetBase* [ _numSubComponents ];
 
     _subComponentArray[0] = NULL;
     _subComponentArray[1] = NULL;

@@ -128,7 +128,7 @@ SoXtLightSliderSet::constructorCommon(SbBool buildNow)
 {
     // Create the two modules used by this editor.
     _numSubComponents = 2;
-    _subComponentArray = new ( SoXtSliderSetBase * [ _numSubComponents ] );
+    _subComponentArray = new SoXtSliderSetBase* [ _numSubComponents ];
 
     _subComponentArray[0] = NULL;
     _subComponentArray[1] = NULL;

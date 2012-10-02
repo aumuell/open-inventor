@@ -95,7 +95,7 @@ SoNodekitParts::SoNodekitParts( SoBaseKit *rootOfKit )
     catalog = rootOfKit->getNodekitCatalog();  // assign the catalog
 
     numEntries = catalog->getNumEntries();        // make a empty node list
-    fieldList = new ( SoSFNode *[numEntries] );
+    fieldList = new SoSFNode* [numEntries];
 
     // Make each field in the fieldList point to the field corresponding
     // to the similarly indexed catalog entry.
