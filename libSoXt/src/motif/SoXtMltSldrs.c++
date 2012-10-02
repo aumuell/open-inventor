@@ -183,7 +183,7 @@ SoXtTransMultiSlider::SoXtTransMultiSlider(
 	    FALSE)  // tell parent not to build just yet
 {
     _numSubComponents = 3;
-    _subComponentArray = new ( SoXtSliderSetBase * [_numSubComponents] );
+    _subComponentArray = new SoXtSliderSetBase* [_numSubComponents];
 
     Widget form = buildForm(getParentWidget());
     
@@ -275,7 +275,7 @@ SoXtScaleMultiSlider::SoXtScaleMultiSlider(
 	    FALSE)  // tell parent not to build just yet
 {
     _numSubComponents = 3;
-    _subComponentArray = new ( SoXtSliderSetBase * [_numSubComponents] );
+    _subComponentArray = new SoXtSliderSetBase* [_numSubComponents];
 
     Widget form = buildForm(getParentWidget());
     
@@ -366,7 +366,7 @@ SoXtRotateMultiSlider::SoXtRotateMultiSlider(
 	    FALSE)  // tell parent not to build just yet
 {
     _numSubComponents = 3;
-    _subComponentArray = new ( SoXtSliderSetBase * [_numSubComponents] );
+    _subComponentArray = new SoXtSliderSetBase* [_numSubComponents];
 
     Widget form = buildForm(getParentWidget());
     
@@ -485,7 +485,7 @@ SoXtScaleOrientationMultiSlider::SoXtScaleOrientationMultiSlider(
 	    FALSE)  // tell parent not to build just yet
 {
     _numSubComponents = 3;
-    _subComponentArray = new ( SoXtSliderSetBase * [_numSubComponents] );
+    _subComponentArray = new SoXtSliderSetBase* [_numSubComponents];
 
     Widget form = buildForm(getParentWidget());
     
@@ -604,7 +604,7 @@ SoXtCenterMultiSlider::SoXtCenterMultiSlider(
 	    FALSE)  // tell parent not to build just yet
 {
     _numSubComponents = 3;
-    _subComponentArray = new ( SoXtSliderSetBase * [_numSubComponents] );
+    _subComponentArray = new SoXtSliderSetBase* [_numSubComponents];
 
     Widget form = buildForm(getParentWidget());
     
@@ -685,7 +685,7 @@ SoXtAmbientColorMultiSlider::SoXtAmbientColorMultiSlider(
 	    FALSE)  // tell parent not to build just yet
 {
     _numSubComponents = 3;
-    _subComponentArray = new ( SoXtSliderSetBase * [_numSubComponents] );
+    _subComponentArray = new SoXtSliderSetBase* [_numSubComponents];
 
     Widget form = buildForm(getParentWidget());
     
@@ -777,7 +777,7 @@ SoXtDiffuseColorMultiSlider::SoXtDiffuseColorMultiSlider(
 	    FALSE)  // tell parent not to build just yet
 {
     _numSubComponents = 3;
-    _subComponentArray = new ( SoXtSliderSetBase * [_numSubComponents] );
+    _subComponentArray = new SoXtSliderSetBase* [_numSubComponents];
 
     Widget form = buildForm(getParentWidget());
     
@@ -869,7 +869,7 @@ SoXtSpecularColorMultiSlider::SoXtSpecularColorMultiSlider(
 	    FALSE)  // tell parent not to build just yet
 {
     _numSubComponents = 3;
-    _subComponentArray = new ( SoXtSliderSetBase * [_numSubComponents] );
+    _subComponentArray = new SoXtSliderSetBase* [_numSubComponents];
 
     Widget form = buildForm(getParentWidget());
     
@@ -960,7 +960,7 @@ SoXtEmissiveColorMultiSlider::SoXtEmissiveColorMultiSlider(
 	    FALSE)  // tell parent not to build just yet
 {
     _numSubComponents = 3;
-    _subComponentArray = new ( SoXtSliderSetBase * [_numSubComponents] );
+    _subComponentArray = new SoXtSliderSetBase* [_numSubComponents];
 
     Widget form = buildForm(getParentWidget());
     
@@ -1051,7 +1051,7 @@ SoXtShininessMultiSlider::SoXtShininessMultiSlider(
 	    FALSE)  // tell parent not to build just yet
 {
     _numSubComponents = 1;
-    _subComponentArray = new ( SoXtSliderSetBase * [_numSubComponents] );
+    _subComponentArray = new SoXtSliderSetBase* [_numSubComponents];
 
     Widget form = buildForm(getParentWidget());
     
@@ -1128,7 +1128,7 @@ SoXtTransparencyMultiSlider::SoXtTransparencyMultiSlider(
 	    FALSE)  // tell parent not to build just yet
 {
     _numSubComponents = 1;
-    _subComponentArray = new ( SoXtSliderSetBase * [_numSubComponents] );
+    _subComponentArray = new SoXtSliderSetBase* [_numSubComponents];
 
     Widget form = buildForm(getParentWidget());
     
@@ -1206,7 +1206,7 @@ SoXtLightIntensityMultiSlider::SoXtLightIntensityMultiSlider(
 	    FALSE)  // tell parent not to build just yet
 {
     _numSubComponents = 1;
-    _subComponentArray = new ( SoXtSliderSetBase * [_numSubComponents] );
+    _subComponentArray = new SoXtSliderSetBase* [_numSubComponents];
 
     Widget form = buildForm(getParentWidget());
     
@@ -1282,7 +1282,7 @@ SoXtLightColorMultiSlider::SoXtLightColorMultiSlider(
 	    FALSE)  // tell parent not to build just yet
 {
     _numSubComponents = 3;
-    _subComponentArray = new ( SoXtSliderSetBase * [_numSubComponents] );
+    _subComponentArray = new SoXtSliderSetBase* [_numSubComponents];
 
     Widget form = buildForm(getParentWidget());
     
@@ -1372,7 +1372,7 @@ SoXtFovMultiSlider::SoXtFovMultiSlider(
 	    FALSE)  // tell parent not to build just yet
 {
     _numSubComponents = 1;
-    _subComponentArray = new ( SoXtSliderSetBase * [_numSubComponents] );
+    _subComponentArray = new SoXtSliderSetBase* [_numSubComponents];
 
     Widget form = buildForm(getParentWidget());
     

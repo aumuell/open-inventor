@@ -82,7 +82,7 @@ SoV1NodekitParts::SoV1NodekitParts( SoV1BaseKit *rootOfKit,
     catalog = rootOfKit->getNodekitCatalog();  // assign the catalog
 
     numEntries = catalog->getNumEntries();        // make an empty node list
-    nodeList = new ( SoNode *[numEntries] );
+    nodeList = new SoNode* [numEntries];
     int i;
     for ( i = 0; i < numEntries; i++ )
 	nodeList[i] = NULL;
