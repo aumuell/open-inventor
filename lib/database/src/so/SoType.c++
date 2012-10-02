@@ -295,7 +295,7 @@ SoType::fromName(SbName name)
 	if (dsoHandle  == NULL)
 	    return SoType::badType();
 
-#if ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1))
+#if (__GNUC__ > 3) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1))
 #define DUMMY_FUNC "_ZN%d%s9initClassEv"
 #else
 #define DUMMY_FUNC "initClass__%d%s%s"
