@@ -124,7 +124,7 @@ DARWINOPTS = -dynamic -fno-common
 LCXXOPTS += $(DARWINOPTS)
 LCOPTS += $(DARWINOPTS)
 
-X11DIR = /usr/X11R6
+X11DIR = /opt/X11
 X11INCDIR = $(X11DIR)/include
 X11LIBDIR = $(X11DIR)/lib
 
