@@ -143,12 +143,12 @@ extern int errno;		/* missing from errno.h			*/
  * Linux i386/ia64 machine dependent setup
  */
 
-#if __i386__ || __ia64__
+#if __i386__ || __ia64__ || __x86_64
 
 #define MACHINE_WORD_FORMAT	DGL_LITTLE_ENDIAN
 #define MACHINE_FLOAT_FORMAT	DGL_NON_IEEE
 
-#endif /* __i386__ || __ia64__ */
+#endif /* __i386__ || __ia64__ || __x86_64 */
 
 
 /*
@@ -157,8 +157,16 @@ extern int errno;		/* missing from errno.h			*/
 
 #ifdef __APPLE__
 
+#ifdef __LITTLE_ENDIAN__
+
+#define MACHINE_WORD_FORMAT	DGL_LITTLE_ENDIAN
+#define MACHINE_FLOAT_FORMAT	DGL_NON_IEEE
+
+#else
+
 #define MACHINE_WORD_FORMAT	DGL_BIG_ENDIAN
 #define MACHINE_FLOAT_FORMAT	DGL_BIG_IEEE
+#endif
 
 #endif /* __APPLE__ */
 
