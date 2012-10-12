@@ -109,8 +109,8 @@ ifeq ($(usingDarwin), 1)
 
 FREETYPE = 1
 
-CC  = /usr/bin/gcc
-C++ = /usr/bin/g++
+CC  = /usr/bin/cc
+C++ = /usr/bin/c++
 LD  = /usr/bin/libtool
 
 ARFLAGS = vrs
