@@ -211,7 +211,11 @@ _MATERIALSDIR = $(IVPREFIX)/share/inventor/data/materials
 _TEXTURESDIR = $(IVPREFIX)/share/inventor/data/textures
 _DEMOBINDIR = $(IVPREFIX)/lib/inventor
 _DEMODATADIR = $(IVPREFIX)/share/inventor/data/demos
+ifeq ($(usingDarwin), 1)
+_PDFVIEWER = open
+else
 _PDFVIEWER = xpdf
+endif
 
 IVBINDIR = $(IVROOT)$(_BINDIR)
 IVLIBDIR = $(IVROOT)$(_LIBDIR)
