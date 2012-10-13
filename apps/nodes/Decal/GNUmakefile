@@ -5,7 +5,7 @@ DSO = Decal.so
 
 CXXFILES = Decal.c++
 
-LLDLIBS = -lGL -lInventor -lInventorXt
+LLDLIBS = -lGL -L$(IVDEPTH)/lib -lInventor -L$(IVDEPTH)/libSoXt -lInventorXt
 
 all install: all_ivbin
 
