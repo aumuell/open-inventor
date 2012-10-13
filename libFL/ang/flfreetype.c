@@ -175,7 +175,7 @@ _flFTGetBitmap(FLfontStruct *_fs, GLuint c)
   FT_Bitmap  bit2;
   FLbitmap *bit3;
   FT_Error error;
-  int width, height, pitch, size;
+  int width, height, pitch, size, xadvance;
   FT_Pos left, right, top, bottom;
   FT_Pos bbox_width, bbox_height;
   FT_Pos bearing_x, bearing_y;
@@ -191,7 +191,8 @@ _flFTGetBitmap(FLfontStruct *_fs, GLuint c)
   /* No, proceed to create it */
   left        = BM_FLOOR(glyph->metrics.horiBearingX);
   right       = BM_CEILING(glyph->metrics.horiBearingX + glyph->metrics.width);
-  width       = BM_TRUNC(right - left);
+  width       = BM_TRUNC(right);
+  xadvance    = BM_TRUNC(glyph->metrics.horiAdvance);
     
   top         = BM_CEILING(glyph->metrics.horiBearingY);
   bottom      = BM_FLOOR(glyph->metrics.horiBearingY - glyph->metrics.height);
@@ -221,11 +222,11 @@ _flFTGetBitmap(FLfontStruct *_fs, GLuint c)
     bit3->height    = bit2.rows;
     bit3->xorig     = bearing_x;
     bit3->yorig     = height - bearing_y;
-    bit3->xmove     = width > 0 ? width : 10; /*(bbox_width / 2.0);*/
+    bit3->xmove     = xadvance > 0 ? xadvance : (bbox_width / 2.0);
     bit3->ymove     = 0.0;
     bit3->bitmap    = (GLubyte *) malloc(size2 * sizeof(GLubyte));
 
-    FT_Outline_Translate(&glyph->outline, -left, -bottom);
+    FT_Outline_Translate(&glyph->outline, 0, -bottom);
     memset(bit2.buffer, 0, size);
     memset(bit3->bitmap, 0, size2);
 
