@@ -4734,10 +4734,10 @@ SoSceneViewer::showAboutDialog()
 //
 ////////////////////////////////////////////////////////////////////////
 {
-    if (access(IVDEMOBINDIR "/SceneViewer.about", R_OK) != 0)
+    if (access(IVDEMOBINDIR "/SceneViewer.about.pdf", R_OK) != 0)
     {
 	system("xmessage 'Sorry, could not find "
-	       IVDEMOBINDIR "/SceneViewer.about' > /dev/null");
+	       IVDEMOBINDIR "/SceneViewer.about.pdf' > /dev/null");
 	return;
     }
 
@@ -4753,7 +4753,7 @@ SoSceneViewer::showAboutDialog()
     }
 
     sprintf(command, PDFVIEWER " "
-            IVDEMOBINDIR "/SceneViewer.about &");
+            IVDEMOBINDIR "/SceneViewer.about.pdf &");
     system(command);
 }
 

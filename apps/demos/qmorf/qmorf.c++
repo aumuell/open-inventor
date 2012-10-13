@@ -435,10 +435,10 @@ quitCallback(Widget, XtPointer, XtPointer)
 void
 showAboutDialog(Widget, XtPointer, XtPointer)
 {
-    if (access(IVDEMOBINDIR"/qmorf.about", R_OK) != 0)
+    if (access(IVDEMOBINDIR"/qmorf.about.pdf", R_OK) != 0)
     {
 	system("xmessage 'Sorry, could not find "
-	       IVDEMOBINDIR"/qmorf.about' > /dev/null");
+	       IVDEMOBINDIR"/qmorf.about.pdf' > /dev/null");
 	return;
     }
     char command[100];
@@ -452,7 +452,7 @@ showAboutDialog(Widget, XtPointer, XtPointer)
 	return;
     }
 
-    sprintf(command, PDFVIEWER " " IVDEMOBINDIR "/qmorf.about &");
+    sprintf(command, PDFVIEWER " " IVDEMOBINDIR "/qmorf.about.pdf &");
     system(command);
 }	
 

@@ -399,9 +399,9 @@ Interface::createOkayCancelDialog(Widget widget, XtCallbackProc okCB,
 void
 Interface::showAboutDialog()
 {
-   if (access(IVDEMOBINDIR"/noodle.about", R_OK) != 0) {
+   if (access(IVDEMOBINDIR"/noodle.about.pdf", R_OK) != 0) {
         system("xmessage 'Sorry, could not find "
-               IVDEMOBINDIR"/noodle.about' > /dev/null");
+               IVDEMOBINDIR"/noodle.about.pdf' > /dev/null");
         return;
     }
 
@@ -415,7 +415,7 @@ Interface::showAboutDialog()
         return;
     }
 
-    sprintf(command, PDFVIEWER " " IVDEMOBINDIR"/noodle.about &");
+    sprintf(command, PDFVIEWER " " IVDEMOBINDIR"/noodle.about.pdf &");
     system(command);
 }
 

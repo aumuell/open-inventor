@@ -78,10 +78,10 @@ extern void clearPoints();
 void
 showAboutDialog(Widget, XtPointer, XtPointer)
 {
-    if (access(IVDEMOBINDIR "/revo.about", R_OK) != 0)
+    if (access(IVDEMOBINDIR "/revo.about.pdf", R_OK) != 0)
     {
 	system("xmessage 'Sorry, could not find "
-	       IVDEMOBINDIR "/revo.about' > /dev/null");
+	       IVDEMOBINDIR "/revo.about.pdf' > /dev/null");
 	return;
     }
 
@@ -96,7 +96,7 @@ showAboutDialog(Widget, XtPointer, XtPointer)
 	return;
     }
 
-    sprintf(command, PDFVIEWER " " IVDEMOBINDIR "/revo.about &");
+    sprintf(command, PDFVIEWER " " IVDEMOBINDIR "/revo.about.pdf &");
     system(command);
 }	
 

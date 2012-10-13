@@ -571,9 +571,12 @@ SoXtComponent::openHelpCard(const char *cardName)
 //
 ////////////////////////////////////////////////////////////////////////
 {
-    char pgrCmd[100];
-    char cardPath[100];
+    char pgrCmd[1000];
+    char cardPath[1000];
+    char cardFile[1000];
     strcpy(pgrCmd, PDFVIEWER " ");
+    strcpy(cardFile, cardName);
+    strcat(cardFile, ".pdf");
     
 #if 0
     // ??? make showcase come up single buffered on the Indigo. This should
@@ -598,8 +601,8 @@ SoXtComponent::openHelpCard(const char *cardName)
     }
     
     // check if the file is located in current directory
-    if ( access(cardName, R_OK) == 0 ) {
-	strcat(pgrCmd, cardName);
+    if ( access(cardFile, R_OK) == 0 ) {
+	strcat(pgrCmd, cardFile);
 	strcat(pgrCmd, " &");
 	if (system(pgrCmd) != 0)
 	    SoXt::createSimpleErrorDialog(_baseWidget, helpDialogTitle, helpPrgError);
@@ -611,7 +614,7 @@ SoXtComponent::openHelpCard(const char *cardName)
     if (envPath != NULL) {
 	strcpy(cardPath, envPath);
 	strcat(cardPath, "/");
-	strcat(cardPath, cardName);
+	strcat(cardPath, cardFile);
 	if ( access(cardPath, R_OK) == 0 ) {
 	    strcat(pgrCmd, cardPath);
 	    strcat(pgrCmd, " &");
@@ -623,7 +626,7 @@ SoXtComponent::openHelpCard(const char *cardName)
     
     // else check for the default location
     strcpy(cardPath, IVHELPDIR"/Inventor/");
-    strcat(cardPath, cardName);
+    strcat(cardPath, cardFile);
     if ( access(cardPath, R_OK) == 0 ) {
 	strcat(pgrCmd, cardPath);
 	strcat(pgrCmd, " &");

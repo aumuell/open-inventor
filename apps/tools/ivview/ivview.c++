@@ -715,9 +715,9 @@ countUpdatesCB(void *, SoAction *action)
 static void
 showAboutDialog()
 {
-   if (access(IVHELPDIR"/ivview/ivview.about", R_OK) != 0) {
+   if (access(IVHELPDIR"/ivview/ivview.about.pdf", R_OK) != 0) {
         system("xmessage 'Sorry, could not find "
-               IVHELPDIR"/ivview/ivview.about' > /dev/null");
+               IVHELPDIR"/ivview/ivview.about.pdf' > /dev/null");
         return;
     }
 
@@ -731,7 +731,7 @@ showAboutDialog()
         return;
     }
 
-    sprintf(command, PDFVIEWER " "IVHELPDIR"/ivview/ivview.about &");
+    sprintf(command, PDFVIEWER " "IVHELPDIR"/ivview/ivview.about.pdf &");
     system(command);
 }
 

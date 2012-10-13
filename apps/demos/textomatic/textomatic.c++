@@ -160,10 +160,10 @@ profileCallback(void *data, SoSensor *)
 void
 showAboutDialog(Widget, XtPointer, XtPointer)
 {
-    if (access(IVDEMOBINDIR"/textomatic.about", R_OK) != 0)
+    if (access(IVDEMOBINDIR"/textomatic.about.pdf", R_OK) != 0)
     {
 	system("xmessage 'Sorry, could not find "
-	       IVDEMOBINDIR"/textomatic.about' > /dev/null");
+	       IVDEMOBINDIR"/textomatic.about.pdf' > /dev/null");
 	return;
     }
 
@@ -177,7 +177,7 @@ showAboutDialog(Widget, XtPointer, XtPointer)
 	return;
     }
 
-    sprintf(command, PDFVIEWER " " IVDEMOBINDIR"/textomatic.about &");
+    sprintf(command, PDFVIEWER " " IVDEMOBINDIR"/textomatic.about.pdf &");
     system(command);
 }	
 

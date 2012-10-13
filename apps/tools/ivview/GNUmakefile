@@ -13,6 +13,6 @@ all: all_ivbin
 
 install: install_ivbin
 	mkdir -p $(IVHELPDIR)/$(PROGRAM)
-	$(INSTALL) -m 644 $(PROGRAM).about $(IVHELPDIR)/$(PROGRAM)
+	$(INSTALL) -m 644 $(PROGRAM).about.pdf $(IVHELPDIR)/$(PROGRAM)
 
 include $(IVCOMMONRULES)
