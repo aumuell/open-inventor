@@ -333,7 +333,7 @@ void
 mySelectionCB(void *userData, SoPath *selectionPath)
 {
    Arg args[1];
-   SbBool isSelection = (SbBool) userData;
+   SbBool isSelection = (SbBool) (userData != NULL);
 
    // We have to temporarily change the selection policy to
    // MULTIPLE so that we can select and deselect single items.

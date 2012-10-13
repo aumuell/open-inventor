@@ -57,6 +57,7 @@
 #include "Pyramid.h"
 #include "Alternate.h"
 
+int
 main(int, char **argv)
 {
    SoInput      myInput;

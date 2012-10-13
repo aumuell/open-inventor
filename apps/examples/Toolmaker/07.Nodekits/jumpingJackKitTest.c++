@@ -49,6 +49,7 @@
 // Header files for new node class
 #include "JumpingJackKit.h"
 
+int
 main(int, char **argv)
 {
    // Initialize Inventor and Xt

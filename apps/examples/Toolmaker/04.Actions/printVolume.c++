@@ -51,6 +51,7 @@
 // Header file for new action class
 #include "GetVolumeAction.h"
 
+int
 main()
 {
    // Initialize Inventor

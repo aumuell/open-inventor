@@ -49,6 +49,7 @@
 #include "../02.Nodes/Pyramid.h"
 #include "PyramidKit.h"
 
+int
 main(int, char **argv)
 {
    // Initialize Inventor and Xt

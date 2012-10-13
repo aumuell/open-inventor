@@ -51,6 +51,7 @@
 #include <Inventor/nodes/SoDirectionalLight.h>
 #include <Inventor/nodes/SoSeparator.h>
 
+int
 main(int argc, char **argv)
 {
    // Initialize Inventor

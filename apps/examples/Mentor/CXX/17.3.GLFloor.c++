@@ -198,6 +198,7 @@ drawFloor()
 }
 
 
+int
 main(int, char **)
 {
    // Initialize Inventor

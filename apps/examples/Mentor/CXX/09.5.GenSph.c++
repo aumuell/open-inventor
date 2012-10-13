@@ -119,6 +119,7 @@ printVertex(const SoPrimitiveVertex *vertex)
 // CODE FOR The Inventor Mentor ENDS HERE
 ///////////////////////////////////////////////////////////////
 
+int
 main(int, char **)
 {
    // Initialize Inventor

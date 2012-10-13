@@ -58,6 +58,7 @@
 #include "RotTransManip.h"
 #include "Coordinate3Manip.h"
 
+int
 main(int, char **argv)
 {
    SoInput      myInput;
