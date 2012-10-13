@@ -131,8 +131,9 @@ LCXXINCS += -I$(X11INCDIR)
 LCINCS += -I$(X11INCDIR) -I$(X11INCDIR)/freetype2
 
 LDDSOOPTS += -dynamic -all_load -L$(X11LIBDIR)
-LDOPTS += -multiply_defined suppress -L$(X11LIBDIR)
-CXXDSOOPTS += -bundle -flat_namespace -undefined suppress -L$(X11LIBDIR)
+LDOPTS += -multiply_defined suppress -undefined error -L$(X11LIBDIR)
+CXXDSOOPTS += -bundle -flat_namespace -undefined error -L$(X11LIBDIR)
+GLDDSOOPTS += -undefined error
 
 LOCALRULES = $(IVDEPTH)/make/localrules.apple
 
