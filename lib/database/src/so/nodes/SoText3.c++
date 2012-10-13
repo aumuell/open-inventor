@@ -2309,11 +2309,13 @@ SoOutlineFontCache::convertToUCS(uint32_t nodeid,
     
 	UCSNumChars[i] = (void*)((2*strings[i].getLength()+2 - outbytes)>>1);
        
+#ifndef __APPLE__
         int j;
         for (j = 0; j < getNumUCSChars(i); j++) {
             char* c = (char*)UCSStrings[i]+j*2;
             DGL_HTON_SHORT(SHORT(c), SHORT(c));
         }
+#endif
     }
  
     return;
