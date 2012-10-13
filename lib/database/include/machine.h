@@ -143,12 +143,12 @@ extern int errno;		/* missing from errno.h			*/
  * Linux i386/ia64 machine dependent setup
  */
 
-#if __i386__ || __ia64__ || __x86_64
+#if __i386__ || __ia64__ || __x86_64__
 
 #define MACHINE_WORD_FORMAT	DGL_LITTLE_ENDIAN
 #define MACHINE_FLOAT_FORMAT	DGL_NON_IEEE
 
-#endif /* __i386__ || __ia64__ || __x86_64 */
+#endif /* __i386__ || __ia64__ || __x86_64__ */
 
 
 /*
@@ -379,7 +379,7 @@ void mem_ntoh_double(double *t, double *f);
 #endif
 
 /* Added for Debian by Steve M. Robbins */
-#if (_MIPS_SZPTR == 64 || __ia64 || __x86_64 || __alpha__ || __powerpc64__)
+#if (_MIPS_SZPTR == 64 || __ia64__ || __x86_64__ || __alpha__ || __powerpc64__)
 #  define USE_64BIT_HACKS 1
 #else
 #  define USE_64BIT_HACKS 0
