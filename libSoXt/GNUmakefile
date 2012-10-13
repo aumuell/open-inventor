@@ -2,11 +2,19 @@ IVDEPTH = ..
 
 LIBMAJOR = 0
 LIBMINOR = 0.0
-LIBNAME  = libInventorXt.so
-DSONAME  = $(LIBNAME).$(LIBMAJOR)
-LIBDSO   = $(LIBNAME).$(LIBMAJOR).$(LIBMINOR)
+LIBBASENAME = libInventorXt
 
 include $(IVDEPTH)/make/ivcommondefs
+
+ifeq ($(usingDarwin), 1)
+LIBNAME  = $(LIBBASENAME).dylib
+DSONAME  = $(LIBBASENAME).$(LIBMAJOR).dylib
+LIBDSO   = $(LIBBASENAME).$(LIBMAJOR).$(LIBMINOR).dylib
+else
+LIBNAME  = $(LIBBASENAME).so
+DSONAME  = $(LIBNAME).$(LIBMAJOR)
+LIBDSO   = $(LIBNAME).$(LIBMAJOR).$(LIBMINOR)
+endif
 
 LLDDSOOPTS += -L$(IVDEPTH)/libimage -L$(FLDIR)
 

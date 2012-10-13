@@ -3,7 +3,6 @@
 
 ifeq ($(usingDarwin), 1)
 
-LIBDSO := $(LIBDSO:.so=.dylib)
 LLDLIBS += -lXm -lXt -lXi -lX11 -lGLU -lGL -liconv -ldl -lstdc++
 
 BUNDLE := $(DSO:.so=.bundle)
