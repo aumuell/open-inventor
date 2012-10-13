@@ -43,7 +43,7 @@
  */
 
 #ifdef STANDALONE
-inline void dprintf( char *, ... ) { }
+inline void dprintf( const char *, ... ) { }
 #endif
 
 #ifdef LIBRARYBUILD
@@ -51,12 +51,12 @@ inline void dprintf( char *, ... ) { }
 #define dprintf printf
 #else
 #include <stdio.h>
-inline void dprintf( char *, ... ) { }
+inline void dprintf( const char *, ... ) { }
 #endif
 #endif
 
 #ifdef GLBUILD
-inline void dprintf( char *, ... ) { }
+inline void dprintf( const char *, ... ) { }
 #endif
 
 #ifndef NULL

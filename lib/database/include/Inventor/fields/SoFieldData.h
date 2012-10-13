@@ -131,7 +131,7 @@ SoINTERNAL class SoFieldData {
     // Enum name/value mechanism
     void		addEnumValue(const char *typeName,
 				     const char *valName, int val);
-    void		getEnumData(char *typeName, int &num,
+    void		getEnumData(const char *typeName, int &num,
 				    int *&vals, SbName *&names);
 
   SoINTERNAL public:

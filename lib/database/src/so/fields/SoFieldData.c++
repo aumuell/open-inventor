@@ -417,7 +417,7 @@ SoFieldData::addEnumValue(const char *typeNameArg, const char *valNameArg,
 // Use: public
 
 void
-SoFieldData::getEnumData(char *typeNameArg, int &num,
+SoFieldData::getEnumData(const char *typeNameArg, int &num,
 			 int *&vals, SbName *&names)
 //
 ////////////////////////////////////////////////////////////////////////

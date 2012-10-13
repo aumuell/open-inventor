@@ -90,8 +90,8 @@
 #include <flclient.h>
 
 gluTESSELATOR *junk;
-char *morejunk = "__glu_h";
-char *garbage  = "GLU_VERSION_1_2";
+const char *morejunk = "__glu_h";
+const char *garbage  = "GLU_VERSION_1_2";
 
 // First, a more convenient structure for outlines:
 class MyFontOutline {

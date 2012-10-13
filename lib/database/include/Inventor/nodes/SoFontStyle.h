@@ -108,7 +108,7 @@ class SoFontStyle : public SoFont {
     virtual ~SoFontStyle();
     
   private:
-    static char *fontList[][4];
+    static const char *fontList[][4];
 };
 
 #endif /* _SO_FONTSTYLE_ */
