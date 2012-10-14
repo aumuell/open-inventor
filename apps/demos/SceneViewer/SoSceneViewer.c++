@@ -4741,7 +4741,7 @@ SoSceneViewer::showAboutDialog()
 	return;
     }
 
-    char command[100];
+    char command[2*PATH_MAX+100];
     sprintf(command, "which " PDFVIEWER " > /dev/null");
 
     int err = system(command);

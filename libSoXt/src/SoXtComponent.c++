@@ -58,6 +58,7 @@
 #include <Inventor/errors/SoDebugError.h>
 
 #include <cstdio>
+#include <climits> // for PATH_MAX
 #include <cstdlib> // for system() and getenv()
 #include <unistd.h> // for access()
 #include <cstring> // for strcpy() and strcat()
@@ -571,9 +572,9 @@ SoXtComponent::openHelpCard(const char *cardName)
 //
 ////////////////////////////////////////////////////////////////////////
 {
-    char pgrCmd[1000];
-    char cardPath[1000];
-    char cardFile[1000];
+    char pgrCmd[2*PATH_MAX+100];
+    char cardPath[PATH_MAX+10];
+    char cardFile[PATH_MAX+10];
     strcpy(pgrCmd, PDFVIEWER " ");
     strcpy(cardFile, cardName);
     strcat(cardFile, ".pdf");
@@ -593,7 +594,7 @@ SoXtComponent::openHelpCard(const char *cardName)
 	strcat(pgrCmd, "-b ");	// single buffer mode
 #endif
 
-    char command[100];
+    char command[2*PATH_MAX+100];
     sprintf(command, "which " PDFVIEWER " > /dev/null");
     if (system(command) != 0) {
 	SoXt::createSimpleErrorDialog(_baseWidget, helpDialogTitle, helpPrgError);
@@ -602,9 +603,10 @@ SoXtComponent::openHelpCard(const char *cardName)
     
     // check if the file is located in current directory
     if ( access(cardFile, R_OK) == 0 ) {
-	strcat(pgrCmd, cardFile);
-	strcat(pgrCmd, " &");
-	if (system(pgrCmd) != 0)
+    strcpy(command, pgrCmd);
+	strcat(command, cardFile);
+	strcat(command, " &");
+	if (system(command) != 0)
 	    SoXt::createSimpleErrorDialog(_baseWidget, helpDialogTitle, helpPrgError);
 	return;
     }
@@ -616,9 +618,10 @@ SoXtComponent::openHelpCard(const char *cardName)
 	strcat(cardPath, "/");
 	strcat(cardPath, cardFile);
 	if ( access(cardPath, R_OK) == 0 ) {
-	    strcat(pgrCmd, cardPath);
-	    strcat(pgrCmd, " &");
-	    if (system(pgrCmd) != 0)
+        strcpy(command, pgrCmd);
+	    strcat(command, cardPath);
+	    strcat(command, " &");
+	    if (system(command) != 0)
 		SoXt::createSimpleErrorDialog(_baseWidget, helpDialogTitle, helpPrgError);
 	    return;
 	}
