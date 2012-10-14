@@ -216,7 +216,7 @@ _DEMODATADIR = $(IVPREFIX)/share/inventor/data/demos
 ifeq ($(usingDarwin), 1)
 _PDFVIEWER = open
 else
-_PDFVIEWER = xpdf
+_PDFVIEWER = xdg-open
 endif
 
 IVBINDIR = $(IVROOT)$(_BINDIR)
