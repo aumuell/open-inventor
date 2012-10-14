@@ -6,7 +6,7 @@ PROGRAM = componentTest
 CXXFILES = componentTest.c++
 
 LLDLIBS = libInventorWidget.a -lInventor -lInventorXt -lGL -lXm -lXt -lX11
-ifneq ($(usingDarwin), 1)
+ifneq ($(INTERNALGLW), 1)
 LLDLIBS += -lGLw
 endif
 

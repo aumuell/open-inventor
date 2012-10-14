@@ -18,7 +18,9 @@ CXXFILES = \
 	MyMtlPal.c++  \
 	MyTextureEd.c++
 
-ifeq ($(usingDarwin), 1)
+ifeq ($(INTERNALGLW), 1)
+LCXXDEFS += -DINTERNALGLW
+
 CXXFILES += \
 	GLwDrawA.c++ \
 	GLwMDrawA.c++

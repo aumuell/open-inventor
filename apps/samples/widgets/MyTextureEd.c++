@@ -73,7 +73,7 @@
 #include <Xm/SelectioB.h>
 #include <Xm/MessageB.h>
 #include <Xm/FileSB.h>
-#ifdef __APPLE__
+#ifdef INTERNALGLW
 #include "GLwMDrawA.h"
 #else
 #include <GL/GLwMDrawA.h>
