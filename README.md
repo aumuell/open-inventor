@@ -22,5 +22,4 @@ More Information
 ================
 
 Refer to [SGI's Open Inventor page](http://oss.sgi.com/projects/inventor/)
-for more information and to the included [README.FIRST](README.FIRST) for
-build instructions.
+for more information and to the included README.FIRST for build instructions.
