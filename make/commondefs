@@ -140,6 +140,9 @@ ALLSTYLES+=DARWIN
 ifeq ($(usingIrix), 1)
 WOFF=-woff 1685,515,608,658,799,803,852,1048,1233,1499$(LWOFF)
 endif
+ifeq ($(usingLinux), 1)
+WOFF=-Wno-error$(LWOFF)
+endif
 
 #
 # Default C version, optimizer, common global options, and make-depend options.
