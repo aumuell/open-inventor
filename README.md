@@ -12,7 +12,7 @@ The aim of this repository is to integrate patches applied by various Linux
 distributions and to apply build fixes for OS X.
 
 It is based on an import of SGI's CVS repository at :pserver:cvs@oss.sgi.com:/cvs.
-Currently, patches from Fedora and Debian are included. It also includesfixes for
+Currently, patches from Fedora and Debian are included. It also includes fixes for
 font rendering on 64 bit Linux platforms.
 
 For building on OS X, there is a [Homebrew](http://mxcl.github.com/homebrew/)
