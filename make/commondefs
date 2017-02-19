@@ -168,7 +168,7 @@ CSTYLE_R32   = -mips3 -r32
 CSTYLE_64_M3 = -mips3 -64
 CSTYLE_64_M4 = -mips4 -64
 CSTYLE_64_ABI = -mips3 -64 -D_MIPSABI_SOURCE=3
-CSTYLE_IA32  =
+CSTYLE_IA32  = -std=c++03
 CSTYLE_DARWIN= #-arch x86_64 -arch i686
 
 # 'generic' styles - per ABI. releasedefs sets what it is.
