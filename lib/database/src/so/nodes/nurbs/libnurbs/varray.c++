@@ -44,7 +44,7 @@
 #include "mystdio.h"
 #include "varray.h"
 #include "arc.h"
-#include "math.h"         // fabs()
+#include <cmath>         // fabs()
 
 #define TINY 0.0001
 inline long sgn( REAL x ) 

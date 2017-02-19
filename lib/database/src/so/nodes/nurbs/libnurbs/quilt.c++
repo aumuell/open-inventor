@@ -48,7 +48,7 @@
 #include "flist.h"
 #include "knotvector.h"
 #include "patchlist.h"
-#include "math.h"     //fabs()
+#include <cmath>     //fabs()
 #include "simplemath.h" //min()
 
 /* local preprocessor definitions */

@@ -43,8 +43,8 @@
 
 #include <inttypes.h>   /* defines long and brethren */
 
-#include "math.h"
-#include "stdlib.h"
+#include <cmath>
+#include <cstdlib>
 #include "nurbstess.h"
 #include "gl4types.h"
 #include "gl4surfeval.h"

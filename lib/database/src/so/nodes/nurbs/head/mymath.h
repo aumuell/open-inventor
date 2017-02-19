@@ -58,7 +58,7 @@ extern "C" float	floorf(float);
 #endif
 
 #ifdef LIBRARYBUILD
-#include <math.h>
+#include <cmath>
 #endif
 
 #ifdef _DOUBLE_MATH_ONLY
