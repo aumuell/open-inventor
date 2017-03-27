@@ -405,7 +405,8 @@ _flFTDeleteGlyphChar(FLFreeTypeOutline *outline)
   TRACE(("_flFTDeleteGlyphChar: outline=%p\n", outline));
 
   if (outline) {
-    FT_Done_GlyphSlot(outline->glyph);
+    // should be freed automatically together with font
+    //FT_Done_GlyphSlot(outline->glyph);
   }
 }
 
