@@ -104,9 +104,4 @@ extern "C" {
 void iconv_open() {}
 
 void iconv() {}
-
-void flUniGetBitmap() {}
-
-void flUniGetOutline() {}
-
 }
