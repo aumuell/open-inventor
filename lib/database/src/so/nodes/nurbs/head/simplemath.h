@@ -38,22 +38,15 @@
 #define __glusimplemath_h_
 
 #include "../SoAddPrefix.h"
+#include <cmath>
+#include <algorithm>
+
 /*
  * simplemath.h - $Revision: 1.1.1.1 $
  */
 
-/* simple inline routines */
-
-inline int 
-max( int x, int y ) { return ( x < y ) ? y : x; }
-
-inline REAL 
-min( REAL x, REAL y ) { return ( x > y ) ? y : x; }
-
-inline int 
-absi( int x ) { return ( x < 0 ) ? -x : x; }
-
-inline REAL 
-abs( REAL x ) { return ( x < 0.0 ) ? -x : x; }
+using std::min;
+using std::max;
+using std::abs;
 
 #endif /* __glusimplemath_h_ */
