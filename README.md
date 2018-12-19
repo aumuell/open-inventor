@@ -9,14 +9,14 @@ This Repository
 ===============
 
 The aim of this repository is to integrate patches applied by various Linux
-distributions and to apply build fixes for OS X.
+distributions and to apply build fixes for macOS.
 
 It is based on an import of SGI's CVS repository at :pserver:cvs@oss.sgi.com:/cvs.
 Currently, patches from Fedora and Debian are included. It also includes fixes for
 font rendering on 64 bit Linux platforms.
 
-For building on OS X, there is a [Homebrew](http://mxcl.github.com/homebrew/)
-[formula](https://github.com/aumuell/homebrew-tap) based on this repository.
+For building on macOS, there is a [Homebrew](http://mxcl.github.com/homebrew/)
+[formula](https://github.com/hlrs-vis/homebrew-tap) based on this repository.
 
 More Information
 ================
