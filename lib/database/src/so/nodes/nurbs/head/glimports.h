@@ -47,6 +47,9 @@
 #include "mystdlib.h"
 #include "mystdio.h"
 
+//#define DEBUG_NEW
+
+#ifdef DEBUG_NEW
 inline void *
 operator new( size_t s )
 {
@@ -66,4 +69,5 @@ operator delete( void *p )
 {
     if( p ) free( p );
 }
+#endif
 #endif /* __gluimports_h_ */

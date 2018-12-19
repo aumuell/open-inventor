@@ -265,8 +265,8 @@ Quilt::findSampleRates( Flist& slist, Flist& tlist )
 	    patchlist.getstepsize();
 	    
 	    {
-	    float edge_len_s = min(fabs(ptb[0]-pta[0]),REAL(1.0));
-	    float edge_len_t = min(fabs(ptb[1]-pta[1]),REAL(1.0));
+	    float edge_len_s = min(float(fabs(ptb[0]-pta[0])),1.f);
+	    float edge_len_t = min(float(fabs(ptb[1]-pta[1])),1.f);
 
 	    if( patchlist.getStepsize(0)/edge_len_s < qspec[0].step_size ) 
 	       qspec[0].step_size = patchlist.getStepsize(0)/edge_len_s;
