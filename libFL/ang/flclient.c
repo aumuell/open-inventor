@@ -32,6 +32,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <inttypes.h>
 struct __FLcontextRec;
 #include "flclient.h"
 #include "fl.h"
