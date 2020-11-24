@@ -5,6 +5,7 @@
  *
  */
 #include	"image.h"
+#include	"image-intern.h"
 
 int ifilbuf(IMAGE *image)
 {

@@ -6,6 +6,7 @@
  */
 #include	<stdio.h>
 #include	"image.h"
+#include	"image-intern.h"
 
 int img_getrowsize(IMAGE *image)
 {

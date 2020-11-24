@@ -37,12 +37,10 @@
 #include "fl.h"
 #include "flfreetype.h"
 
+#include FT_OUTLINE_H
+
 typedef unsigned short SbUCS2;
 
-/* from ftoutln.h */
-extern FT_Error FT_Outline_Get_Bitmap(FT_Library  library,
-				      FT_Outline *outline,
-				      FT_Bitmap*  map);
 
 #ifndef PI
 #define PI			3.141592654

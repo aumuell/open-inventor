@@ -8,6 +8,7 @@
 #include 	<unistd.h>
 #include	<stdio.h>
 #include	"image.h"
+#include        "image-intern.h"
 
 unsigned int img_optseek(IMAGE *image, unsigned int offset);
 

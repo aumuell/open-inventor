@@ -113,34 +113,38 @@ typedef struct {
 } IMAGE;
 
 IMAGE *icreate();
-/*
- * IMAGE *iopen(char *file, char *mode, unsigned int type, unsigned int dim,
- * 		unsigned int xsize, unsigned int ysize, unsigned int zsize);
- * IMAGE *fiopen(int f, char *mode, unsigned int type, unsigned int dim,
- * 		unsigned int xsize, unsigned int ysize, unsigned int zsize);
- *
- * ...while iopen and fiopen can take an extended set of parameters, the 
- * last five are optional, so a more correct prototype would be:
- *
- * IMAGE *iopen(char *file, char *mode, ...);
- * IMAGE *fiopen(int f, char *mode, ...);
- * 
- * unsigned short *ibufalloc(IMAGE *image);
- * int ifilbuf(IMAGE *image);
- * int iflush(IMAGE *image);
- * unsigned int iflsbuf(IMAGE *image, unsigned int c);
- * void isetname(IMAGE *image, char *name);
- * void isetcolormap(IMAGE *image, int colormap);
- * int iclose(IMAGE *image);
- * 
- * int putrow(IMAGE *image, unsigned short *buffer, unsigned int y, unsigned int z);
- * int getrow(IMAGE *image, unsigned short *buffer, unsigned int y, unsigned int z);
- * 
- */
 
+IMAGE *iopen(char *file, char *mode, unsigned int type, unsigned int dim,
+		unsigned int xsize, unsigned int ysize, unsigned int zsize);
+IMAGE *fiopen(int f, char *mode, unsigned int type, unsigned int dim,
+		unsigned int xsize, unsigned int ysize, unsigned int zsize);
+
+/*
+ ...while iopen and fiopen can take an extended set of parameters, the 
+ last five are optional, so a more correct prototype would be:
+*/
+
+//IMAGE *iopen(char *file, char *mode, ...);
+//IMAGE *fiopen(int f, char *mode, ...);
+
+unsigned short *ibufalloc(IMAGE *image);
+int ifilbuf(IMAGE *image);
+int iflush(IMAGE *image);
+unsigned int iflsbuf(IMAGE *image, unsigned int c);
+void isetname(IMAGE *image, char *name);
+void isetcolormap(IMAGE *image, int colormap);
+int iclose(IMAGE *image);
+
+int putrow(IMAGE *image, unsigned short *buffer, unsigned int y, unsigned int z);
+int getrow(IMAGE *image, unsigned short *buffer, unsigned int y, unsigned int z);
+
+
+
+/*
 IMAGE *iopen();
 IMAGE *icreate();
 unsigned short *ibufalloc();
+*/
 
 #define _IOEOF          0020    /* EOF reached on read */
 #define _IOERR          0040    /* I/O error from system */

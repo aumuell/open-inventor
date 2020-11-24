@@ -6,7 +6,11 @@
  */
 #include	<stdio.h>
 #include	<stdlib.h>
+#include        <stdarg.h>
+#include        <unistd.h>
+#include        <fcntl.h>
 #include	"image.h"
+#include	"image-intern.h"
 
 void cvtlongs(int buffer[],int n);
 void cvtimage(int buffer[]);
@@ -241,18 +245,21 @@ static void (*i_errfunc)();
 	want to can handle the errors themselves.  Olson, 11/88
 */
 int
-i_errhdlr(fmt, a1, a2, a3, a4)	/* most args currently used is 2 */
-char *fmt;
+i_errhdlr(const char *fmt, ...)	/* most args currently used is 2 */
 {
+        va_list args;
+        va_start(args, fmt);
 	if(i_errfunc) {
 		char ebuf[2048];	/* be generous; if an error includes a
 			pathname, the maxlen is 1024, so we shouldn't ever 
 			overflow this! */
-		sprintf(ebuf, fmt, a1, a2, a3, a4);
+		vsprintf(ebuf, fmt, args);
 		(*i_errfunc)(ebuf);
+                va_end(args);
 		return 0;
 	}
-	fprintf(stderr, fmt, a1, a2, a3, a4);
+	vfprintf(stderr, fmt, args);
+        va_end(args);
 	exit(1);
 	/*NOTREACHED*/
 }

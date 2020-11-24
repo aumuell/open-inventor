@@ -46,6 +46,8 @@
 #include "defines.h"
 #include "softcurvmap.h"
 
+#include <cstring>
+
 #define SHALLOWCOPY
 
 
