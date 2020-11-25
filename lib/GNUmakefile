@@ -20,7 +20,7 @@ LLDDSOOPTS += -L$(IVDEPTH)/libimage -L$(FLDIR)
 
 LLDLIBS = \
 	-ljpeg -limage $(FLLIB) \
-	-lGLU -lGL -lX11 -ldl -lm
+	-lGLU -lGL -lX11 $(DLLIB) $(MATHLIB)
 
 OBJECTS = \
 	./database/src/sb/projectors/SbProjectors.o \

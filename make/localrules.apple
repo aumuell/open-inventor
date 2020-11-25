@@ -9,7 +9,7 @@ MOTIFLIBDIR = $(MOTIFDIR)/lib
 
 LCINCS   += -I$(MOTIFINCDIR)
 LCXXINCS += -I$(MOTIFINCDIR)
-LLDLIBS  += -L$(MOTIFLIBDIR) -lXm -lXt -lXi -lX11 -lGLU -lGL -liconv -ldl -lstdc++
+LLDLIBS  += -L$(MOTIFLIBDIR) -lXm -lXt -lXi -lX11 -lGLU -lGL $(DLLIB)
 
 BUNDLE := $(DSO:.so=.bundle)
 DSO :=

@@ -29,6 +29,9 @@ LLDDSOOPTS += -Wl,-full_transitive_link
 LLDOPTS += -Wl,-full_transitive_link
 LD_QUICKSTART_INFO =
 
+MATHLIB = -lm
+DLLIB = -ldl
+
 endif
 
 
@@ -83,6 +86,9 @@ ifeq ($(usingLinux), 1)
 
 FREETYPE = 1
 
+MATHLIB = -lm
+DLLIB = -ldl
+
 LINUXOPTS = -fPIC
 LINUXOPTS += -D__STDC_FORMAT_MACROS
 LCXXOPTS += $(LINUXOPTS) -std=c++03
@@ -127,11 +133,14 @@ LCXXOPTS += $(DARWINOPTS) -std=c++03
 LCOPTS += $(DARWINOPTS)
 
 X11DIR = /opt/X11
+MATHLIB =
+DLLIB =
+
 X11INCDIR = $(X11DIR)/include
 X11LIBDIR = $(X11DIR)/lib
 
 LCXXINCS += -I$(X11INCDIR)
-LCINCS += -I$(X11INCDIR) -I$(X11INCDIR)/freetype2
+LCINCS += -I$(X11INCDIR) -I/usr/local/include/freetype2
 
 LDDSOOPTS += -dynamic -all_load -L$(X11LIBDIR)
 LDOPTS += -multiply_defined suppress -undefined error -L$(X11LIBDIR)

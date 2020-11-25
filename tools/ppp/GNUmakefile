@@ -5,7 +5,7 @@ PROGRAM = ppp
 
 CXXFILES = ppp.c++
 
-LLDLIBS = -lm
+LLDLIBS = $(MATHLIB)
 
 all install: $(PROGRAM)
 

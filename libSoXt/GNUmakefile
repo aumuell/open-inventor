@@ -19,7 +19,7 @@ endif
 LLDDSOOPTS += -L$(IVDEPTH)/libimage -L$(FLDIR)
 
 LLDLIBS = \
-	-lXm -lXt -lXext -lXi -lX11 -lm \
+	-lXm -lXt -lXext -lXi -lX11 $(MATHLIB) \
 	-lInventor -lGLU -lGL \
 	$(FLLIB) -limage -ljpeg
 
