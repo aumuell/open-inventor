@@ -1,0 +1,13 @@
+add_ivman(
+    SoAlarmSensor.ivm
+    SoDataSensor.ivm
+    SoDelayQueueSensor.ivm
+    SoFieldSensor.ivm
+    SoIdleSensor.ivm
+    SoNodeSensor.ivm
+    SoOneShotSensor.ivm
+    SoPathSensor.ivm
+    SoSensor.ivm
+    SoTimerQueueSensor.ivm
+    SoTimerSensor.ivm
+)

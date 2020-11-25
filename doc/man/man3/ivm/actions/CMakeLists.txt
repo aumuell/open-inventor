@@ -1,0 +1,12 @@
+add_ivman(
+    SoAction.ivm
+    SoCallbackAction.ivm
+    SoGLRenderAction.ivm
+    SoGetBoundingBoxAction.ivm
+    SoGetMatrixAction.ivm
+    SoHandleEventAction.ivm
+    SoPickAction.ivm
+    SoRayPickAction.ivm
+    SoSearchAction.ivm
+    SoWriteAction.ivm
+)

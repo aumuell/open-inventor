@@ -1,0 +1,13 @@
+add_ivman(
+    SoCenterballManip.ivm
+    SoDirectionalLightManip.ivm
+    SoHandleBoxManip.ivm
+    SoJackManip.ivm
+    SoPointLightManip.ivm
+    SoSpotLightManip.ivm
+    SoTabBoxManip.ivm
+    SoTrackballManip.ivm
+    SoTransformBoxManip.ivm
+    SoTransformManip.ivm
+    SoTransformerManip.ivm
+)

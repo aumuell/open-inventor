@@ -15,6 +15,9 @@ It is based on an import of SGI's CVS repository at :pserver:cvs@oss.sgi.com:/cv
 Currently, patches from Fedora and Debian are included. It also includes fixes for
 font rendering on 64 bit Linux platforms.
 
+A [CMake](https://cmake.org) build system has been added. It can be used
+instead of traditional Makefiles.
+
 For building on macOS, there is a [Homebrew](http://mxcl.github.com/homebrew/)
 [formula](https://github.com/hlrs-vis/homebrew-tap) based on this repository.
 

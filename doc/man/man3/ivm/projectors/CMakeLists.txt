@@ -1,0 +1,13 @@
+add_ivman(
+    SbCylinderPlaneProjector.ivm
+    SbCylinderProjector.ivm
+    SbCylinderSectionProjector.ivm
+    SbCylinderSheetProjector.ivm
+    SbLineProjector.ivm
+    SbPlaneProjector.ivm
+    SbProjector.ivm
+    SbSpherePlaneProjector.ivm
+    SbSphereProjector.ivm
+    SbSphereSectionProjector.ivm
+    SbSphereSheetProjector.ivm
+)

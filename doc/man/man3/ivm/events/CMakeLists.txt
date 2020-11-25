@@ -1,0 +1,9 @@
+add_ivman(
+    SoButtonEvent.ivm
+    SoEvent.ivm
+    SoKeyboardEvent.ivm
+    SoLocation2Event.ivm
+    SoMotion3Event.ivm
+    SoMouseButtonEvent.ivm
+    SoSpaceballButtonEvent.ivm
+)

@@ -1,0 +1,21 @@
+add_ivman(
+    SoBase.ivm
+    SoBaseList.ivm
+    SoByteStream.ivm
+    SoCallbackList.ivm
+    SoDB.ivm
+    SoInput.ivm
+    SoNodeKitPath.ivm
+    SoNodeList.ivm
+    SoOffscreenRenderer.ivm
+    SoOutput.ivm
+    SoPath.ivm
+    SoPathList.ivm
+    SoPickedPoint.ivm
+    SoPickedPointList.ivm
+    SoPrimitiveVertex.ivm
+    SoTranReceiver.ivm
+    SoTranSender.ivm
+    SoType.ivm
+    SoTypeList.ivm
+)

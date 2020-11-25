@@ -1,0 +1,17 @@
+add_ivman(
+    SoXt.ivm
+    SoXtClipboard.ivm
+    SoXtComponent.ivm
+    SoXtDirectionalLightEditor.ivm
+    SoXtGLWidget.ivm
+    SoXtLightSliderSet.ivm
+    SoXtMaterialEditor.ivm
+    SoXtMaterialList.ivm
+    SoXtMaterialSliderSet.ivm
+    SoXtPrintDialog.ivm
+    SoXtRenderArea.ivm
+    SoXtResource.ivm
+    SoXtSliderSet.ivm
+    SoXtSliderSetBase.ivm
+    SoXtTransformSliderSet.ivm
+)

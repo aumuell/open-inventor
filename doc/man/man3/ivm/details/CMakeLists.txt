@@ -1,0 +1,12 @@
+add_ivman(
+    SoConeDetail.ivm
+    SoCubeDetail.ivm
+    SoCylinderDetail.ivm
+    SoDetail.ivm
+    SoDetailList.ivm
+    SoFaceDetail.ivm
+    SoLineDetail.ivm
+    SoNodeKitDetail.ivm
+    SoPointDetail.ivm
+    SoTextDetail.ivm
+)
