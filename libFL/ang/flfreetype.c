@@ -54,7 +54,7 @@ typedef unsigned short SbUCS2;
 /* Bitmap precisions */
 #define BM_PRECISION_BITS	6
 #define BM_PRECISION		(1 << BM_PRECISION_BITS)
-#define BM_PRECISION_MASK	(-1L << BM_PRECISION_BITS)
+#define BM_PRECISION_MASK	((~0UL) << BM_PRECISION_BITS)
 
 #define BM_FLOOR(x)		((x) & BM_PRECISION_MASK)
 #define BM_CEILING(x)		(((x) + BM_PRECISION - 1) & BM_PRECISION_MASK)
@@ -735,7 +735,7 @@ typedef struct TFace {
 
 #define PRECISION_BITS    FT_PRECISION_BITS
 #define PRECISION         (1 << PRECISION_BITS)
-#define PRECISION_MASK    (-1L << PRECISION_BITS)
+#define PRECISION_MASK    ((~0UL) << PRECISION_BITS)
 #define PRECISION_HALF    (PRECISION >> 1)
 #define PRECISION_JITTER  (PRECISION >> 5)
 #define PRECISION_STEP    PRECISION_HALF

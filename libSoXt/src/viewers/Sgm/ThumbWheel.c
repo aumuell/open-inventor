@@ -558,20 +558,20 @@ Initialize(Widget rw, Widget nw, ArgList args, Cardinal *num_args)
 
   GetForegroundGC(new_w);
 
-  new_w->thumbWheel.pix1 = (int)NULL;
-  new_w->thumbWheel.pix2 = (int)NULL;
-  new_w->thumbWheel.pix3 = (int)NULL;
-  new_w->thumbWheel.pix4 = (int)NULL;
-  new_w->thumbWheel.pix1_hilite = (int)NULL;
-  new_w->thumbWheel.pix2_hilite = (int)NULL;
-  new_w->thumbWheel.pix3_hilite = (int)NULL;
-  new_w->thumbWheel.pix4_hilite = (int)NULL;
-  new_w->thumbWheel.current_quiet_pixmap = (int)NULL;
-  new_w->thumbWheel.current_hilite_pixmap = (int)NULL;
+  new_w->thumbWheel.pix1 = (Pixmap)NULL;
+  new_w->thumbWheel.pix2 = (Pixmap)NULL;
+  new_w->thumbWheel.pix3 = (Pixmap)NULL;
+  new_w->thumbWheel.pix4 = (Pixmap)NULL;
+  new_w->thumbWheel.pix1_hilite = (Pixmap)NULL;
+  new_w->thumbWheel.pix2_hilite = (Pixmap)NULL;
+  new_w->thumbWheel.pix3_hilite = (Pixmap)NULL;
+  new_w->thumbWheel.pix4_hilite = (Pixmap)NULL;
+  new_w->thumbWheel.current_quiet_pixmap = (Pixmap)NULL;
+  new_w->thumbWheel.current_hilite_pixmap = (Pixmap)NULL;
   new_w->thumbWheel.wheel_hilite = FALSE;
 
-  new_w->thumbWheel.button_quiet_pixmap = (int)NULL;
-  new_w->thumbWheel.button_hilite_pixmap = (int)NULL;
+  new_w->thumbWheel.button_quiet_pixmap = (Pixmap)NULL;
+  new_w->thumbWheel.button_hilite_pixmap = (Pixmap)NULL;
   new_w->thumbWheel.button_hilite = FALSE;
 }
 
@@ -641,7 +641,7 @@ Redisplay(Widget wid, XEvent *event, Region region)
 	(horiz ? 0 : WHEEL_LONG_DIMENSION + 2 * shadow);
   }
 
-  if (thumb->thumbWheel.current_quiet_pixmap == (int)NULL) {
+  if (thumb->thumbWheel.current_quiet_pixmap == (Pixmap)NULL) {
     CreateAndRenderPixmaps(thumb);
     thumb->thumbWheel.current_quiet_pixmap = thumb->thumbWheel.pix1;
     thumb->thumbWheel.current_hilite_pixmap = thumb->thumbWheel.pix1_hilite;
@@ -2079,9 +2079,9 @@ FreePixmaps(SgThumbWheelWidget thumb)
 #endif /* _NO_PROTO */
 {
 #define MyFreePixmap(w, field) \
-  if (w->thumbWheel.field != (int)NULL) {\
+  if (w->thumbWheel.field != (Pixmap)NULL) {\
     XFreePixmap(XtDisplay((Widget)w), w->thumbWheel.field);\
-    w->thumbWheel.field = (int)NULL;\
+    w->thumbWheel.field = (Pixmap)NULL;\
   }
 
   MyFreePixmap(thumb, pix1);
@@ -2092,8 +2092,8 @@ FreePixmaps(SgThumbWheelWidget thumb)
   MyFreePixmap(thumb, pix2_hilite);
   MyFreePixmap(thumb, pix3_hilite);
   MyFreePixmap(thumb, pix4_hilite);
-  thumb->thumbWheel.current_quiet_pixmap  = (int)NULL;
-  thumb->thumbWheel.current_hilite_pixmap = (int)NULL;
+  thumb->thumbWheel.current_quiet_pixmap  = (Pixmap)NULL;
+  thumb->thumbWheel.current_hilite_pixmap = (Pixmap)NULL;
 
   MyFreePixmap(thumb, button_quiet_pixmap);
   MyFreePixmap(thumb, button_hilite_pixmap);

@@ -238,7 +238,7 @@ SbPList::expand(int size)
 #endif
     }
 
-    newPtrs = new (void *[ptrsSize]);
+    newPtrs = new void *[ptrsSize];
 
     if (ptrs != NULL) {
 	for (i = 0; i < nPtrs; i++)

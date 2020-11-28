@@ -852,7 +852,7 @@ untangleInstances(SoSeparator *root)
      
 	//Go through each path in pathlist, looking for instancing
       
-	for (int i = 0; i< vertexPathList.getLength();  i++){
+    for (long i = 0; i< vertexPathList.getLength();  i++){
 	    SoVertexShape* node = (SoVertexShape*)(vertexPathList[i]->getTail());
 	
 	    // see if it's been previously instanced:	
@@ -908,7 +908,7 @@ removeInstances(SoSeparator *root, SoPathList& inputPathList)
      
     //Go through each path in pathlist, looking for instanced nodes
       
-    int i;
+    long i;
     for (i = 0; i< vertexPathList.getLength();  i++){
 	SoVertexShape* node = (SoVertexShape*)(vertexPathList[i]->getTail());
 	
@@ -924,7 +924,7 @@ removeInstances(SoSeparator *root, SoPathList& inputPathList)
 	    // we always put the new one "i" in instanced list.
 	    // we conditionally put the matching one in if it's not
 	    // already there:
-	    int matchvalue = (long)value;
+        long matchvalue = (long)value;
 	    if (!instDict->find(key, value)){
 		instDict->enter(key, (void*)i);
 		instancedPathList.append(vertexPathList[matchvalue]);

@@ -18,7 +18,7 @@ void img_rle_expand(unsigned short *rlebuf, int ibpp,
 			unsigned short *expbuf, int obpp);
 void img_setrowsize(IMAGE *image, int cnt, int y, int z);
 
-void cvtimage(int buffer[]);
+void cvtimage(IMAGE *image);
 void cvtshorts(unsigned short buffer[],int n);
 void cvtlongs(int buffer[],int n);
 

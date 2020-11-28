@@ -98,7 +98,7 @@ SoNotRec::print(FILE *fp) const
     if (fp == NULL)
 	fp = stdout;
 
-    fprintf(fp, "\tSoNotRec @%#x: type %s, base %#x", this, typeName, base);
+    fprintf(fp, "\tSoNotRec @%p: type %s, base %p", this, typeName, base);
 
     if (base != NULL) {
 	const char *baseTypeName = base->getTypeId().getName().getString();
@@ -199,6 +199,6 @@ SoNotList::print(FILE *fp) const
 	rec = rec->getPrevious();
     } while (rec != NULL);
 
-    fprintf(fp, "\tfirstAtNode = %#x, lastField = %#x\n",
+    fprintf(fp, "\tfirstAtNode = %p, lastField = %p\n",
 	    firstAtNode, lastField);
 }

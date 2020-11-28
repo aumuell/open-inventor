@@ -994,7 +994,7 @@ SoBase::writeAnnotation(SoOutput *out) const
 	out->write(" #");
 	if (out->getAnnotation() & SoOutput::ADDRESSES) {
 	    char buf[100];
-	    sprintf(buf, " %#x", this);
+        sprintf(buf, " %p", this);
 	    out->write(buf);
 	}
 	if (out->getAnnotation() & SoOutput::REF_COUNTS

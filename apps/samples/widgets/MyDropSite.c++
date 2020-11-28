@@ -238,7 +238,7 @@ MyDropSite::transferObjectProc(Widget w, XtPointer, Atom *, Atom *type,
     
     // Do the yellow pullback lines if any of the objects failed
     if (! success)
-	XtVaSetValues(w, XmNtransferStatus, XmTRANSFER_FAILURE, 0);
+    XtVaSetValues(w, XmNtransferStatus, XmTRANSFER_FAILURE, NULL);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -268,7 +268,7 @@ MyDropSite::transferIconProc(Widget w, XtPointer, Atom *, Atom *type,
 
     // Do the yellow pullback lines if any of the icons failed
     if (anyFailures)
-	XtVaSetValues(w, XmNtransferStatus, XmTRANSFER_FAILURE, 0);
+    XtVaSetValues(w, XmNtransferStatus, XmTRANSFER_FAILURE, NULL);
 }
 
 /////////////////////////////////////////////////////////////////////////////

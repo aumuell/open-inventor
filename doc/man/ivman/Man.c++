@@ -904,7 +904,7 @@ Method::parse()
 
 	// If it is just white space, this method should be ignored in C
 	else {
-	    for (s = cName.getString(); *s!= '\0'; *s++)
+        for (s = cName.getString(); *s!= '\0'; s++)
 		if (! isspace(*s))
 		    break;
 	    if (*s == '\0')

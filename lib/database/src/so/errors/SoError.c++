@@ -264,7 +264,7 @@ SoError::getBaseString(const SoBase *base, const char *what)
 	str += "\"";
     }
 
-    sprintf(addrBuf, "%#x", base);
+    sprintf(addrBuf, "%p", base);
     str += " at address ";
     str += addrBuf;
 

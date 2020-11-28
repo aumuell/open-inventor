@@ -12,8 +12,6 @@
 #include	"image.h"
 #include	"image-intern.h"
 
-void cvtlongs(int buffer[],int n);
-void cvtimage(int buffer[]);
 void i_seterror(void (*func)());
 
 IMAGE *imgopen(int, char *, char *,unsigned int, unsigned int,
@@ -107,7 +105,7 @@ IMAGE *imgopen(int f, char *file, char *mode,
 		if( ((image->imagic>>8) | ((image->imagic&0xff)<<8)) 
 							     == IMAGIC ) {
 		    image->dorev = 1;
-		    cvtimage((int*)image);
+            cvtimage(image);
 		} else
 		    image->dorev = 0;
 		if (image->imagic != IMAGIC) {
@@ -184,6 +182,7 @@ unsigned short *ibufalloc(IMAGE *image)
     return (unsigned short *)malloc(IBUFSIZE(image->xsize));
 }
 
+unsigned int
 reverse(lwrd) 
 register unsigned int lwrd;
 {
@@ -227,9 +226,10 @@ register int n;
 }
 
 void
-cvtimage( buffer )
-register int buffer[];
+cvtimage( image )
+IMAGE *image;
 {
+    int *buffer = (int *)image;
     cvtshorts((unsigned short *)buffer,12);
     cvtlongs(buffer+3,12);
     cvtlongs(buffer+26,4);

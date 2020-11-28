@@ -912,8 +912,8 @@ SoBitmapFontCache::createUniFontList(const char* fontNameList, float size)
     char *fontList = new char[10*fontNums->getLength()];
     fontList[0] = '\0';
     for (int i = 0; i< fontNums->getLength(); i++ ){
-	fn = (FLfontNumber)(long)(*fontNums)[i];
-	sprintf(&fontList[strlen(fontList)], "%d,", fn);	
+    fn = (FLfontNumber)(long)(*fontNums)[i];
+    sprintf(&fontList[strlen(fontList)], "%ld,", (long)fn);
     }
     fontList[strlen(fontList) - 1] = '\0'; // the last ',' is replaced with NULL
     

@@ -29,13 +29,13 @@ int iclose(IMAGE *image)
 	    img_optseek(image, 512);
 	    tablesize = image->ysize*image->zsize*sizeof(int);
 	    if(image->dorev)
-		cvtlongs(image->rowstart,tablesize);
+        cvtlongs((int *)image->rowstart,tablesize);
 	    if (img_write(image,(char *)(image->rowstart),tablesize) != tablesize) {
 		i_errhdlr("iclose: error on write of rowstart\n");
 		return EOF;
 	    }
 	    if(image->dorev)
-		cvtlongs(image->rowsize,tablesize);
+        cvtlongs((int *)image->rowsize,tablesize);
 	    if (img_write(image,(char *)(image->rowsize),tablesize) != tablesize) {
 		i_errhdlr("iclose: error on write of rowsize\n");
 		return EOF;

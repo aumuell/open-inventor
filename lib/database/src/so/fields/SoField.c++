@@ -1626,7 +1626,7 @@ SoField::write(SoOutput *out, const SbName &name) const
 	    // Annotate if necessary
 	    if (out->getAnnotation() & SoOutput::ADDRESSES) {
 		char buf[100];
-		sprintf(buf, " # %#x", this);
+        sprintf(buf, " # %p", this);
 		out->write(buf);
 	    }
 	    out->write(out->isCompact() ? ' ' : '\n');
@@ -1694,7 +1694,7 @@ SoField::writeConnection(SoOutput *out) const
 	out->write(CONNECTION_CHAR);
 	if (out->getAnnotation()&SoOutput::ADDRESSES) {
 	    char buf[100];
-	    sprintf(buf, " # %#x", this);
+        sprintf(buf, " # %p", this);
 	    out->write(buf);
 	}
 	out->write('\n');
@@ -1731,7 +1731,7 @@ SoField::writeConnection(SoOutput *out) const
 	    getConnectedField(f);
 	    ptr = f;
 	}
-	sprintf(buf, " # %#x", ptr);
+    sprintf(buf, " # %p", ptr);
 	out->write(buf);
     }
 

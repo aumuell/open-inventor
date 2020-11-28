@@ -907,7 +907,7 @@ SoBaseKit::readInstance( SoInput *in, unsigned short /*flags*/ )
 	// firstPartField is 1. Part 0 is 'this' and is not treated here.
 	int      firstPartField = 1;
 	SoSFNode **realPartFldLst = nodekitPartsList->fieldList;
-	SoSFNode **tempPartFldLst = new ( SoSFNode *[numParts] );
+        SoSFNode **tempPartFldLst = new SoSFNode *[numParts];
 
 	int i;
 	for ( i = firstPartField; i < numParts; i++ ) {

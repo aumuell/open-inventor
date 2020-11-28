@@ -270,7 +270,7 @@ SoTranSender::addNodeRef(const SoNode *node)
     // Convert the node pointer to a string
     char	s[16];
 
-    sprintf(s, "%#x", node);
+    sprintf(s, "%p", node);
 
     out->write(s);
 
@@ -364,7 +364,7 @@ SoTranReceiver::SoTranReceiver(SoGroup *rootNode)
 
     // Add root to dictionaries with name for NULL, since that is how
     // the root is referred to.
-    sprintf(s, "%#x", NULL);
+    sprintf(s, "%p", (void *)NULL);
     SbName	name(s);
     addEntry(rootNode, name);
 
