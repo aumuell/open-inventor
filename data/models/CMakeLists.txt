@@ -1,7 +1,7 @@
 add_custom_target(chess ALL
-    COMMAND ivcat -b ${CMAKE_CURRENT_SOURCE_DIR}/scenes/chesschairs.iv.asc > scenes/chesschairs.iv
+    COMMAND ivcat -b ${CMAKE_CURRENT_SOURCE_DIR}/scenes/chesschairs.iv.asc > chesschairs.iv
     DEPENDS scenes/chesschairs.iv.asc
-    BYPRODUCTS scenes/chesschairs.iv
+    BYPRODUCTS chesschairs.iv
 )
 
 install(DIRECTORY .
@@ -12,6 +12,6 @@ install(DIRECTORY .
     PATTERN "README"
 )
 
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/scenes/chesschairs.iv
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/chesschairs.iv
     DESTINATION ${IVDATADIR}/scenes
 )
