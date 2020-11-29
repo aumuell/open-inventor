@@ -26,6 +26,12 @@ if (BUILD_SHARED_LIBS AND INSTALL_RPATH)
     set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
 endif()
 
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    add_compile_options(-Wno-write-strings)
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    add_compile_options(-Wno-c++11-compat-deprecated-writable-strings)
+endif()
+
 find_program(SED_EXECUTABLE
     NAMES sed
     DOC "sed stream editor"
