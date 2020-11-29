@@ -6,6 +6,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
+include(GNUInstallDirs)
+include(FeatureSummary)
 
 project(OpenInventor VERSION 2.1.5.10 LANGUAGES CXX C)
 
@@ -63,7 +65,6 @@ macro(ADD_DIRVAR VAR DIR)
     add_definitions(-D${VAR}="${CMAKE_INSTALL_PREFIX}/${DIR}")
 endmacro()
 
-include(GNUInstallDirs)
 add_dirvar(IVBINDIR "${CMAKE_INSTALL_BINDIR}")
 add_dirvar(IVHELPDIR "${CMAKE_INSTALL_DATADIR}/inventor/help")
 add_dirvar(IVFONTPATH "${CMAKE_INSTALL_DATADIR}/inventor/fonts")
@@ -93,5 +94,4 @@ add_subdirectory(doc)
 add_subdirectory(apps)
 add_subdirectory(data)
 
-include(FeatureSummary)
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES)
