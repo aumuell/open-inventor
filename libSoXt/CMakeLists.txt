@@ -79,9 +79,7 @@ target_link_libraries(InventorXt PUBLIC
     Inventor
 )
 
-target_include_directories(InventorXt PRIVATE OpenGL::GL)
-target_link_libraries(InventorXt PUBLIC OpenGL::GL)
-target_link_libraries(InventorXt PUBLIC OpenGL::GLU)
+target_link_libraries(InventorXt PUBLIC OpenGL::GL OpenGL::GLU)
 
 install(TARGETS InventorXt)
 

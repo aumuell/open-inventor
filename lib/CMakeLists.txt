@@ -216,24 +216,19 @@ target_include_directories(Inventor PUBLIC
     nodekits/include
 )
 
-target_include_directories(Inventor PUBLIC OpenGL::GL)
 target_link_libraries(Inventor PUBLIC OpenGL::GL)
 target_link_libraries(Inventor PUBLIC OpenGL::GLU)
 
 target_include_directories(Inventor PRIVATE ../libFL/ang)
 target_link_libraries(Inventor PRIVATE FL)
 
-target_include_directories(Inventor PRIVATE image)
 target_link_libraries(Inventor PRIVATE image)
 target_include_directories(Inventor PRIVATE database/src/so/nodes/nurbs/head)
 
-target_include_directories(Inventor PRIVATE JPEG::JPEG)
 target_link_libraries(Inventor PRIVATE JPEG::JPEG)
 
-target_include_directories(Inventor PRIVATE X11::X11)
 target_link_libraries(Inventor PRIVATE X11::X11)
 
-target_include_directories(Inventor PRIVATE Iconv::Iconv)
 target_link_libraries(Inventor PRIVATE Iconv::Iconv)
 
 if (CMAKE_DL_LIBS)

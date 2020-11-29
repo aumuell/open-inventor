@@ -77,12 +77,7 @@ add_library(InventorWidget STATIC
 if(USE_INTERNAL_GLW)
     target_compile_definitions(InventorWidget PRIVATE INTERNALGLW)
 endif()
-target_include_directories(InventorWidget PUBLIC
-    ${MOTIF_INCLUDE_DIR}
-    X11::Xt
-    X11::X11
-    ${CMAKE_SOURCE_DIR}/libSoXt/include
-    ${CMAKE_SOURCE_DIR}/lib/database/include
+target_include_directories(InventorWidget
     INTERFACE .
 )
 target_link_libraries(InventorWidget PRIVATE
