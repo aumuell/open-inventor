@@ -1,0 +1,58 @@
+#--------------------------------------------------------------------------------------------------
+# Configuration script for use with continuous integration service travis-ci.org
+#
+
+notifications:
+  email:
+    - aumuell@reserv.at
+
+language: cpp
+cache: ccache
+
+os:
+    - linux
+    #- osx
+
+env:
+    #- BUILD_TYPE="Make"
+    #- BUILD_TYPE="Debug"
+    - BUILD_TYPE="Release"
+
+dist: bionic
+
+osx_image:
+    - xcode11.5
+
+jobs:
+    exclude:
+        - os: osx
+          env: BUILD_TYPE="Debug"
+
+addons:
+    apt:
+        packages:
+            - cmake
+            - ninja-build
+            - bison
+            - libjpeg-dev
+            - libmotif-dev
+            - libglu1-mesa-dev
+    homebrew:
+        #update: true # necessary for 'brew bundle' with xcode10.3 and older
+        packages:
+            - ccache
+            - cmake
+            - ninja
+            - jpeg
+
+
+before_install:
+    - if [ "$TRAVIS_OS_NAME" = "linux" ]; then rm -f ${HOME}/.ccache/ccache.conf; ccache --set-config=sloppiness=file_macro,time_macros; fi
+
+script:
+
+    - BUILD=build-${BUILD_TYPE}
+    - mkdir $BUILD
+    - cd $BUILD
+    - cmake -G Ninja -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
+    - ninja -v
