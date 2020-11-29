@@ -46,8 +46,8 @@ find_program(SED_EXECUTABLE
     REQUIRED
 )
 
+find_package(StandardMathLibrary)
 find_package(BISON REQUIRED)
-find_package(StandardMathLibrary REQUIRED)
 find_package(JPEG REQUIRED)
 set(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)
@@ -92,3 +92,6 @@ add_subdirectory(libSoXt)
 add_subdirectory(doc)
 add_subdirectory(apps)
 add_subdirectory(data)
+
+include(FeatureSummary)
+feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES)
