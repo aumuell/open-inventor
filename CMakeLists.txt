@@ -21,6 +21,14 @@ IF(APPLE)
     SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/apple;${CMAKE_MODULE_PATH}")
 ENDIF()
 
+if (CMAKE_BUILD_TYPE STREQUAL "")
+   set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING
+      "Choose the type of build, options are: None(CMAKE_CXX_FLAGS or CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel."
+      FORCE
+   )
+   message("Setting CMAKE_BUILD_TYPE to ${CMAKE_BUILD_TYPE}")
+endif()
+
 set(BUILD_SHARED_LIBS TRUE)
 if (BUILD_SHARED_LIBS AND INSTALL_RPATH)
     set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
