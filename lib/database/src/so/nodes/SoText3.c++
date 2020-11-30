@@ -1481,7 +1481,7 @@ SoOutlineFontCache::createUniFontList(const char* fontNameList)
 		"Cannot create font %s", s);         
 #endif          
        }
-       else fontNums->append((void*)(unsigned long)fn);
+       else fontNums->append((void*)(intptr_t)fn);
        if(s1 == ends) break;
        s = (s1 + 1);  /* move to next font name */
     }
@@ -1492,8 +1492,8 @@ SoOutlineFontCache::createUniFontList(const char* fontNameList)
     char *fontList = new char[10*fontNums->getLength()];
     fontList[0] = '\0';
     for (int i = 0; i< fontNums->getLength(); i++ ){
-    fn = (FLfontNumber)(long)(*fontNums)[i];
-    sprintf(&fontList[strlen(fontList)], "%ld,", (long)fn);
+    fn = (FLfontNumber)(intptr_t)(*fontNums)[i];
+    sprintf(&fontList[strlen(fontList)], "%"PRIiPTR",", (intptr_t)fn);
     }
     fontList[strlen(fontList) - 1] = '\0'; // the last ',' is replaced with NULL
     
@@ -1784,7 +1784,7 @@ SoOutlineFontCache::~SoOutlineFontCache()
 	    void *value;
 	    if ( !otherFonts || 
 		    !otherFontDict->find((unsigned long)(*fontNums)[i], value)){
-		flDestroyFont((FLfontNumber)(long)(*fontNums)[i]);
+        flDestroyFont((FLfontNumber)(unsigned long)(*fontNums)[i]);
 	    }
 	}
 	if (otherFonts) delete otherFontDict;	

@@ -900,7 +900,7 @@ SoBitmapFontCache::createUniFontList(const char* fontNameList, float size)
 #endif          
        }
        else {
-	 fontNums->append((void*)(unsigned long)fn);       
+     fontNums->append((void*)(intptr_t)fn);
        }
        if(s1 == ends) break;
        s = (s1 + 1);  /* move to next font name */
@@ -912,8 +912,8 @@ SoBitmapFontCache::createUniFontList(const char* fontNameList, float size)
     char *fontList = new char[10*fontNums->getLength()];
     fontList[0] = '\0';
     for (int i = 0; i< fontNums->getLength(); i++ ){
-    fn = (FLfontNumber)(long)(*fontNums)[i];
-    sprintf(&fontList[strlen(fontList)], "%ld,", (long)fn);
+    fn = (FLfontNumber)(intptr_t)(*fontNums)[i];
+    sprintf(&fontList[strlen(fontList)], "%"PRIiPTR",", (intptr_t)fn);
     }
     fontList[strlen(fontList) - 1] = '\0'; // the last ',' is replaced with NULL
     
@@ -1057,7 +1057,7 @@ SoBitmapFontCache::~SoBitmapFontCache()
 	    void *value;
 	    if ( !otherFonts || 
 		    !otherFontDict->find((unsigned long)(*fontNums)[i], value)){
-		flDestroyFont((FLfontNumber)(long)(*fontNums)[i]);
+        flDestroyFont((FLfontNumber)(intptr_t)(*fontNums)[i]);
 	    }
 	}
 	if (otherFonts) delete otherFontDict;	
