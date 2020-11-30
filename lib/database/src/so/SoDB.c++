@@ -52,6 +52,7 @@
  */
 
 #include <cstdlib>
+#include <cassert>
 #include <Inventor/SbDict.h>
 #include <Inventor/SbString.h>
 #include <Inventor/SoDB.h>
@@ -694,8 +695,9 @@ SoDB::addConverter(SoType fromField, SoType toField, SoType converterFunc)
     }
 #endif
 
+    assert(sizeof(converterFunc) == sizeof(uint32_t));
     conversionDict->enter(getConversionKey(fromField, toField),
-			  * (void **) &converterFunc);
+                          (void *)(unsigned long)*(uint32_t *)&converterFunc);
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -713,7 +715,12 @@ SoDB::getConverter(SoType fromField, SoType toField)
     void	*typePtr;
 
     if (conversionDict->find(getConversionKey(fromField, toField), typePtr))
-	return * (SoType *) &typePtr;
+    {
+        uint32_t val = (unsigned long)typePtr;
+        SoType converterFunc = *(SoType *)&val;
+        assert(sizeof(converterFunc) == sizeof(val));
+        return converterFunc;
+    }
 
     return SoType::badType();
 }
