@@ -71,7 +71,7 @@ Pool::~Pool( void )
     assert( this && (magic == is_allocated) );
 
     while( nextblock ) {
-	delete blocklist[--nextblock];
+	delete[] blocklist[--nextblock];
         blocklist[nextblock] = 0;
     }
     magic = is_free;
@@ -98,7 +98,7 @@ Pool::clear( void )
     assert( this && (magic == is_allocated) );
 
     while( nextblock ) {
-	delete blocklist[--nextblock];
+        delete[] blocklist[--nextblock];
 	blocklist[nextblock] = 0;
     }
     curblock	= 0;

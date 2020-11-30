@@ -1077,7 +1077,7 @@ TsField::createFloorAndGrid()
     gridCoords = new SoCoordinate3();
     gridCoords->point.setValues (0, 4*resolution, points);
     grid->addChild (gridCoords);
-    delete points;
+    delete[] points;
 
     //
     // Create nodes representing the color and linewidth of the grid
@@ -1162,7 +1162,7 @@ TsField::createFloorAndGrid()
     SoNormalBinding  *normBind = new SoNormalBinding;
     floor->addChild (normBind);
     normBind->value = SoNormalBinding::OVERALL;
-    delete points;
+    delete[] points;
 
     //
     // create an SoIndexedFaceSet node and fill it with indices into

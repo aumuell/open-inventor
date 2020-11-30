@@ -151,7 +151,7 @@ TsField::buildBlock()
     verts[23] = tcoord;
     normals = new SoNormal();
     normals->vector.setValues (0, 24, verts);
-    delete verts;
+    delete[] verts;
 
     indices = new int32_t[30+60+32];
     ind = indices;
@@ -187,7 +187,7 @@ TsField::buildBlock()
 
     faces = new SoIndexedFaceSet();
     faces->coordIndex.setValues (0, 30+60+32, indices);
-    delete indices;
+    delete[] indices;
 
     block->addChild (coords);
     block->addChild (normals);

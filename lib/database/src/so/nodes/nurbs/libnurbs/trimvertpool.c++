@@ -68,7 +68,7 @@ TrimVertexPool::~TrimVertexPool( void )
 {
     // free all arrays of TrimVertices vertices
     while( nextvlistslot ) {
-	delete vlist[--nextvlistslot];
+        delete[] vlist[--nextvlistslot];
     }
 
     // reallocate space for array of pointers to vertex lists
@@ -87,7 +87,7 @@ TrimVertexPool::clear( void )
 
     // free all arrays of TrimVertices vertices
     while( nextvlistslot ) {
-	delete vlist[--nextvlistslot];
+        delete[] vlist[--nextvlistslot];
 	vlist[nextvlistslot] = 0;
     }
 

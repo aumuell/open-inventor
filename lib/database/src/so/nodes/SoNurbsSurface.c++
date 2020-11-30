@@ -1155,7 +1155,7 @@ SoNurbsSurface::drawNURBS(
         render->endtrim();
 
     render->endsurface();
-    delete coords;
+    delete[] coords;
 }
 
 
