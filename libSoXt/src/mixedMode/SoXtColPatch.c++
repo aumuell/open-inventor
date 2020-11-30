@@ -52,7 +52,7 @@
  */
 
 #if DEBUG
-#include <stream.h>
+#include <iostream>
 #endif
 
 #include "_SoXtUIRegion.h"

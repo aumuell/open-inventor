@@ -52,7 +52,7 @@
  */
 
 #if DEBUG
-#include <stream.h>
+#include <iostream>
 #endif
 #include <inttypes.h>
 #include <Inventor/Xt/devices/SoXtMouse.h>
