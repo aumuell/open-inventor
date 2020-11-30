@@ -485,8 +485,11 @@ createTextSceneGraph()
 
     TheMaterial = new SoMaterial;
     root->addChild(TheMaterial);
+    SoMaterial *defaultMaterial = new SoMaterial;
+    defaultMaterial->ref();
     // Make all three materials (for front/back/sides) the same:
-    matEditCB(NULL, TheMaterial);
+    matEditCB(NULL, defaultMaterial);
+    defaultMaterial->unref();
 
     SoMaterialBinding *mb = new SoMaterialBinding;
     root->addChild(mb);
