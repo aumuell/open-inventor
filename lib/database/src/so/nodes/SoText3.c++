@@ -1461,13 +1461,12 @@ SoOutlineFontCache::createUniFontList(const char* fontNameList)
     
     //Make a copy of fontNameList so we don't disturb the one we are passed.    
     //Find \n at end of namelist:
-    char * nameCopy = new char[strlen(fontNameList)+1];
+    char * nameCopy = new char[strlen(fontNameList)+1+1];
     strcpy(nameCopy, fontNameList);
 
     //find the last null in nameCopy.    
-    s = ends = (char *)strrchr(nameCopy, '\0');        
-    *s = ';';  /* put a guard in the end of string */
-    
+    ends = (char *)strrchr(nameCopy, '\0');
+    strcat(nameCopy, ";"); /* put a guard in the end of string */
 
     s = (char*)nameCopy;
     fontNums = new SbPList; 
