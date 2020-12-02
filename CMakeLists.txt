@@ -6,10 +6,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
-include(GNUInstallDirs)
-include(FeatureSummary)
 
 project(OpenInventor VERSION 2.1.5.10 LANGUAGES CXX C)
+
+include(GNUInstallDirs)
+include(FeatureSummary)
 
 option(USE_INTERNAL_GLW "Use included copy of GLw (OpenGL Xt/Motif widgets) library" ON)
 option(INSTALL_RPATH "Apply rpath when installing" ON)
