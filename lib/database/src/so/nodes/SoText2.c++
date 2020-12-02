@@ -854,8 +854,8 @@ SoBitmapFontCache::getFont(SoState *state, SbBool forRender)
 	}	    
     }
     if (result == NULL) {
-	result = new SoBitmapFontCache(state);
-
+    result = new SoBitmapFontCache(state);
+    result->ref();
     }    
     return result;
 }

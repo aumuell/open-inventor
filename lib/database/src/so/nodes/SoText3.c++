@@ -1436,6 +1436,7 @@ SoOutlineFontCache::getFont(SoState *state, SbBool forRender)
     // If none match:
     if (result == NULL) {
 	result = new SoOutlineFontCache(state);
+    result->ref();
 
     }
     return result;
