@@ -42,6 +42,10 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     add_compile_options(-Wno-c++11-compat-deprecated-writable-strings)
 endif()
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    add_compile_options(-fno-strict-aliasing)
+    add_compile_options(-funsigned-char)
+endif()
 
 find_program(SED_EXECUTABLE
     NAMES sed
