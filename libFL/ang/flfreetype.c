@@ -205,8 +205,8 @@ _flFTGetBitmap(FLfontStruct *_fs, GLuint c)
   if (glyph->format == ft_glyph_format_outline) {    
     TRACE(("  creating bitmap from outline glyph\n"));
 
-    pitch     = (width + 7) >> 3;
-    size      = pitch * height; 
+    pitch     = ((((width + 7) >> 3) + 1) >> 1) << 1; /* has to be even */
+    size      = pitch * height;
     pitch2    = ((width + (PIXEL_ROW_ALIGNMENT << 3) - 1) >> 5) << 2;
     size2     = pitch2 * height;
 
