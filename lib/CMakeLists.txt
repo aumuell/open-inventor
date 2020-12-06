@@ -2,7 +2,7 @@ macro(ADD_PP_FILES outfiles)
     foreach(it ${ARGN})
         get_filename_component(outbase ${it} NAME_WE)
         get_filename_component(infile ${it} ABSOLUTE)
-        set(outfile ${CMAKE_CURRENT_BINARY_DIR}/pp_${outbase}.c++)
+        set(outfile ${CMAKE_CURRENT_BINARY_DIR}/${outbase}.c++)
 
         add_custom_command(OUTPUT ${outfile}
             COMMAND ppp < ${infile} > ${outfile}
