@@ -49,7 +49,7 @@
 #include <Inventor/nodes/SoCone.h>
 #include <Inventor/nodes/SoCube.h>
 
-void
+int
 main(int argc, char *argv[])
 {
    Widget mainWindow = SoXt::init(argv[0]);

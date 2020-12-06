@@ -241,7 +241,7 @@ valueChangedCB( void *stuff, SoDragger *dragger )
 	limitRotate( (SoSFRotation *)myField, myStuff ); 
 }
 
-void
+int
 main(int argc, char **argv)
 {
    int curArg = 0;

@@ -79,6 +79,7 @@ parse_args(int argc, char **argv, char **variableName)
     return; 
 }
 
+int
 main(int argc, char **argv)
 {
     SoXt::init(argv[0]);
@@ -116,10 +117,10 @@ main(int argc, char **argv)
     fprintf(stderr,"bufferSize = %d\n", size);
     // All but last number get commas afterwards
     for ( int j = 0; j < size-1; j++ ) {
-	fprintf( stdout, "0x%p,", outputBuffer[j] );
+	fprintf( stdout, "0x%x,", outputBuffer[j] );
     }
     // Last number gets no comma afterwards
-    fprintf( stdout, "0x%p", outputBuffer[size-1] );
+    fprintf( stdout, "0x%x", outputBuffer[size-1] );
     fprintf( stdout, "\n};\n");
 
     return 0;

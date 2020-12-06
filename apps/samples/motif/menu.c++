@@ -462,7 +462,7 @@ buildMainWindow(Widget parent, SoNode *sceneGraph)
 //  main - init Inventor and Xt, set up a scene graph and the main window,
 //  display this window, and loop forever...
 //
-void
+int
 main(int /*argc*/, char *argv[])
 //
 ////////////////////////////////////////////////////////////////////////

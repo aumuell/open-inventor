@@ -101,7 +101,7 @@ usage()
     printf("to reset the transform affecting the cube.\n");
 }
 
-void
+int
 main(int, char *argv[])
 {
     Widget mainWindow = SoXt::init(argv[0]);

@@ -189,7 +189,7 @@ makeWriteButton( Widget parentWidget, SoSeparator *scene )
     return writeButton;
 }
 
-void main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     SoXtExaminerViewer *myViewer;
     SoXtExaminerViewer *myMenuViewer;

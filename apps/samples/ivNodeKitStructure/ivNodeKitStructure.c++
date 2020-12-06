@@ -79,6 +79,7 @@ parse_args(int argc, char **argv)
     }
 }
 
+int
 main(int argc, char **argv)
 {
     SoXt::init(argv[0]);

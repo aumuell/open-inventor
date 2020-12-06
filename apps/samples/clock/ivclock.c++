@@ -44,6 +44,7 @@
 #include <cstdlib>
 #include <X11/Intrinsic.h>
 #include <cmath>
+#include <time.h>
 
 #include <Inventor/SoDB.h>
 #include <Inventor/Xt/SoXt.h>
@@ -200,7 +201,7 @@ setupHands(SoGroup *root)
     return (TRUE);
 }
 
-void
+int
 main(int argc, char **argv)
 {
     char *filename = "clockData.iv";

@@ -152,7 +152,7 @@ msg()
     printf("to reset the camera to its home position.\n");
 }
 
-void
+int
 main(int argc, char *argv[])
 {
     if (argc != 2) {

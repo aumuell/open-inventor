@@ -85,6 +85,7 @@ readFromIncludeFile()
     return root;
 }
 
+int
 main( int argc, char **argv )
 {
    // Initialize Inventor and Xt

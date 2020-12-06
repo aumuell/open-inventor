@@ -124,6 +124,7 @@ createPlaneViewer(Widget parent, const char *name, SoNode *sceneRoot,
 //    Mainline
 //
 
+int
 main(int argc, char **argv)
 //
 ////////////////////////////////////////////////////////////////////////

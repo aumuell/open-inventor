@@ -445,7 +445,7 @@ eventHandler(Widget, XtPointer *data, XAnyEvent *xe, Boolean *)
 //    Mainline
 //
 
-void
+int
 main(int argc, char **argv)
 
 //

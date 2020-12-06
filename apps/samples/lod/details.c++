@@ -44,7 +44,7 @@
 #include <Inventor/nodes/SoSeparator.h>
 
 
-void
+int
 main(int argc, char *argv[])
 {
     char *filename = "lod.iv";
