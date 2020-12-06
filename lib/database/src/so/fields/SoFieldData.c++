@@ -84,7 +84,7 @@
 
 struct SoFieldEntry {
     SbName		name;		// Name of field
-    int32_t		offset;		// Offset of field within object
+    std::ptrdiff_t	offset;		// Offset of field within object
 };
 
 struct SoEnumEntry {

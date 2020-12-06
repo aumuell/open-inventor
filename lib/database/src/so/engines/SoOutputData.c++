@@ -72,7 +72,7 @@
 
 struct SoOutputEntry {
     SbName		name;		// Name of output
-    int32_t		offset;		// Offset of output within object
+    std::ptrdiff_t	offset;		// Offset of output within object
     SoType type;			// Type of output
 };
 

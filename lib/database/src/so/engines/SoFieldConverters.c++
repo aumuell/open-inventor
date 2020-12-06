@@ -315,7 +315,6 @@ SoBuiltinFieldConverter::~SoBuiltinFieldConverter()
 
     if (input != NULL) {
 	delete input;
-	delete output;
     }
 }
 
@@ -334,9 +333,8 @@ SoBuiltinFieldConverter::getOutput(SoType type)
 //
 ////////////////////////////////////////////////////////////////////////
 {
-    output = new SoEngineOutput;
-    output->setContainer(this);
-    myOutputData->addOutput(this, "output", output, type);
+    output.setContainer(this);
+    myOutputData->addOutput(this, "output", &output, type);
     
 #define DECIDEOUT(class) \
     (type == SO__CONCAT(So,class)::getClassTypeId()) { \
@@ -390,7 +388,7 @@ SoBuiltinFieldConverter::getOutput(SoType type)
 		       "no output for type '%s'", type.getName().getString());
     }
 #endif    
-    return output;
+    return &output;
 }
 
 
@@ -503,8 +501,8 @@ SoBuiltinFieldConverter::evaluate()
     // first time, notification will be blocked, so we don't have to
     // check for a disabled output here.
 
-    for (int i = 0; i < output->getNumConnections(); i++) {
-	SoField *outField = (*output)[i];
+    for (int i = 0; i < output.getNumConnections(); i++) {
+    SoField *outField = output[i];
 	if (!outField->isReadOnly())
 	    doConversion(outField);
     }

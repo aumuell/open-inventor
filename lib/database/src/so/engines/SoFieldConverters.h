@@ -102,7 +102,7 @@ class SoBuiltinFieldConverter : public SoFieldConverter {
 
   public:
     SoField		*input;
-    SoEngineOutput	*output;
+    SoEngineOutput	output;
 
   SoINTERNAL public:
     static void		initClass();
