@@ -43,7 +43,7 @@ transform_source(SO_SOURCES So
     ${SO_PREFIX}FloatCallbackList.h 
 )
 
-if(USE_INTERNAL_GLW)
+if(INVENTOR_INTERNAL_GLW)
     set(GLW_SOURCES
 	GLwDrawA.c++
 	GLwMDrawA.c++
@@ -74,7 +74,7 @@ add_library(InventorWidget STATIC
         ${GLW_SOURCES}
 )
 
-if(USE_INTERNAL_GLW)
+if(INVENTOR_INTERNAL_GLW)
     target_compile_definitions(InventorWidget PRIVATE INTERNALGLW)
 endif()
 target_include_directories(InventorWidget
