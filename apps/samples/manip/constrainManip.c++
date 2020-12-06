@@ -59,7 +59,7 @@
 #include <Inventor/manips/SoCenterballManip.h>
 #include <Inventor/nodekits/SoSceneKit.h>
 
-typedef struct MyCBStruct {
+struct MyCBStruct {
     SbVec3f translateMin;
     SbVec3f translateMax;
     SbVec3f scaleMin;
