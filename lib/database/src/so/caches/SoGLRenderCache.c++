@@ -126,7 +126,7 @@ SoGLRenderCache::isValid(const SoState *state) const
 	    lazyMatches(checkGLFlag,checkIVFlag,eltInState)){
 #ifdef DEBUG
 	if (SoDebug::GetEnv("IV_DEBUG_CACHES")) {
-	    fprintf(stderr, "CACHE DEBUG: cache(0x%x) not valid ",
+	    fprintf(stderr, "CACHE DEBUG: cache(%p) not valid ",
 		    this);
 	    fprintf(stderr, "Because a lazy element match failed,\n");
 	    fprintf(stderr, "GL and IV flags were %d %d\n", checkGLFlag, 

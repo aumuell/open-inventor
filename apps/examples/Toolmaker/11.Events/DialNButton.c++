@@ -107,7 +107,7 @@ DialNButton::init(Display *display)
    
    // make sure we found the device
    if (device == NULL) {
-      fprintf(stderr, "DialNButton::init",
+      fprintf(stderr, "DialNButton::init: "
          "Sorry there is no dial and button attached to this display");
       return;
    }
@@ -231,19 +231,19 @@ DialNButton::enable(
    
    Display *display = XtDisplay(w);
    if (display == NULL) {
-      fprintf(stderr, "DialNButton::enable",
+      fprintf(stderr, "DialNButton::enable: "
          "SoXt::init not properly called (Display is NULL).");
       return;
    }
    
    if (w == NULL) {
-      fprintf(stderr, "DialNButton::enable",
+      fprintf(stderr, "DialNButton::enable: "
          "widget is NULL.");
       return;
    }
    
    if (window == (Window) NULL) {
-      fprintf(stderr, "DialNButton::enable",
+      fprintf(stderr, "DialNButton::enable: "
          "widget must be realized (Window is NULL).");
       return;
    }

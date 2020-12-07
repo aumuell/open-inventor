@@ -257,7 +257,7 @@ SoAccumulatedElement::print(FILE *fp) const
 
     fprintf(fp, "NodeIds: [ ");
     for (int i = 0; i < nodeIds.getLength(); i++) {
-	fprintf(fp, "%d, ", nodeIds[i]);
+	fprintf(fp, "%p, ", nodeIds[i]);
     }
     fprintf(fp, "]\n");
 }

@@ -381,7 +381,7 @@ BarChart::generateChildren()
     {
 	SoText3 *text = new SoText3();
 	char s[40];
-	sprintf(s, "%hg", val);
+	sprintf(s, "%g", val);
 	text->string = s;
 	text->justification = SoText3::CENTER;
 	text->parts = SoText3::ALL;

@@ -208,7 +208,7 @@ SoGLLightIdElement::print(FILE *fp) const
 {
     SoElement::print(fp);
 
-    fprintf(fp, "\tLight id = %ld\n", data);
+    fprintf(fp, "\tLight id = %" PRId32 "\n", data);
 }
 #else  /* DEBUG */
 void

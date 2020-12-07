@@ -1347,7 +1347,7 @@ Bezier_Up_Sign(RAS_ARG_ int degree,
 
       angle = Bounding_Triangle_Angle(x1, e0, x, y, x2, e2);
 
-      if (abs(x2 - x) >= 64 && e2 - y >= 64 && angle < lower_threshold) {
+      if (labs(x2 - x) >= 64 && e2 - y >= 64 && angle < lower_threshold) {
 	/* if the arc's bounding triangle's angle is too great, split it */
 	splitter(arc);
 	arc += degree;
@@ -1483,7 +1483,7 @@ Bezier_Right_Sign(RAS_ARG_ int degree,
 
       angle = Bounding_Triangle_Angle(e0, y1, x, y, e2, y2);
       
-      if (e2 - x >= 64 && abs(y2 - y) >= 64 && angle < lower_threshold) {
+      if (e2 - x >= 64 && labs(y2 - y) >= 64 && angle < lower_threshold) {
 	/* if the arc's bounding triangle's angle is too great, split it */
 	splitter(arc);
 	arc += degree;
