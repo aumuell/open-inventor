@@ -96,7 +96,7 @@ find_package(OpenGL REQUIRED)
 find_package(X11 REQUIRED)
 find_package(Iconv REQUIRED)
 find_package(Motif REQUIRED)
-if (NOT USE_INTERNAL_GLW)
+if (NOT INVENTOR_INTERNAL_GLW)
     find_package(GLw REQUIRED)
 endif()
 
