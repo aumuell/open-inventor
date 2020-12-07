@@ -18,10 +18,10 @@ env:
     #- BUILD_TYPE="Debug"
     - BUILD_TYPE="Release"
 
-dist: bionic
+dist: focal
 
 osx_image:
-    - xcode11.5
+    - xcode12.2
 
 jobs:
     exclude:
@@ -31,6 +31,8 @@ jobs:
 addons:
     apt:
         packages:
+            - cmake
+            - ninja-build
             - bison
             - libjpeg-dev
             - libmotif-dev
@@ -45,12 +47,6 @@ addons:
 
 
 before_install:
-    - >
-      if [ "$TRAVIS_OS_NAME" = "linux" ]; then
-        wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null
-        sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main'
-        sudo apt-get -y install cmake ninja-build
-      fi
     - if [ "$TRAVIS_OS_NAME" = "linux" ]; then rm -f ${HOME}/.ccache/ccache.conf; ccache --set-config=sloppiness=file_macro,time_macros; fi
 
 script:
@@ -58,8 +54,11 @@ script:
     - BUILD=build-${BUILD_TYPE}
     - mkdir $BUILD
     - cd $BUILD
-    - which cmake
-    - cmake --version
-    - /usr/bin/cmake --version
-    - /usr/bin/cmake -G Ninja -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
+    - >
+      cmake
+      -G Ninja
+      -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+      -DINVENTOR_SAMPLES=ON
+      -DINVENTOR_EXAMPLES=ON
+      ..
     - ninja -v
