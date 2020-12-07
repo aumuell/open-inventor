@@ -54,10 +54,8 @@
 #include "SoV2Text2.h"
 #include <Inventor/nodes/SoText2.h>
 
-#ifdef IRIX_6
 #include <iconv.h>
 #include <errno.h>
-#endif /*IRIX_6*/
 
 
 SO_NODE_SOURCE(SoV2Text2);
@@ -131,7 +129,6 @@ SoV2Text2::createNewNode()
     return result;
 }
 // Following is different for irix 6.2
-#ifdef IRIX_6
 static iconv_t codeConvert1 = NULL;
 static iconv_t codeConvert2 = NULL;
 
@@ -234,48 +231,3 @@ SoV2Text2::convertToUTF8(const SbString &inString,
 
     return TRUE;
 }
-
-#else /*IRIX_6*/
-// For Irix 5.3, just make characters legal ascii:
-
-////////////////////////////////////////////////////////////////////////
-//
-// Description:
-//    make characters ascii
-//
-// Use: public, static 
-
-SbBool
-SoV2Text2::convertToUTF8(const SbString &inString, SbString& outString)
-//
-////////////////////////////////////////////////////////////////////////
-{
-    int i;
-    const char* str = inString.getString();
-    SbBool ascii = TRUE;
-    for (i= 0; i< inString.getLength(); i++){
-	if ( str[i]& 0x80) {
-	    ascii = FALSE;
-	    break;
-	}
-    }
-    if (ascii) {
-	outString = inString;
-	return TRUE;
-    }
-
-#ifdef DEBUG
-    SoDebugError::post("SoV2Text2::convertToUTF8", 
-	"Non ascii text was changed to ascii");
-#endif /*DEBUG*/    
-    char *asciiBuf = new char[inString.getLength()+1];
-    for (i= 0; i< inString.getLength(); i++){
-	if ( str[i] & 0x80 ) asciiBuf[i] = '_';
-	    else asciiBuf[i] =  str[i];
-    }
-    asciiBuf[inString.getLength()] = '\0';
-    outString = asciiBuf;
-    delete [] asciiBuf; 
-    return TRUE;
-} 
-#endif /*IRIX_6*/

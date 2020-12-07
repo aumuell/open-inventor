@@ -198,16 +198,6 @@ set_property(SOURCE
     APPEND PROPERTY OBJECT_DEPENDS lib/SoCalcParse.c++
 )
 
-foreach(file 
-    database/src/so/upgraders/SoV1Text2.c++
-    database/src/so/upgraders/SoV2Text2.c++
-    database/src/so/nodes/SoText2.c++
-    database/src/so/nodes/SoText3.c++)
-    set_property(SOURCE ${file}
-         APPEND PROPERTY COMPILE_DEFINITIONS IRIX_6
-    )
-endforeach()
-
 target_compile_definitions(Inventor PRIVATE LIBRARYBUILD)
 
 target_include_directories(Inventor PUBLIC
