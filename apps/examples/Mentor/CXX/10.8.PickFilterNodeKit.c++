@@ -59,7 +59,7 @@
 #include <Inventor/nodes/SoSelection.h>
 #include <Inventor/nodes/SoTransform.h>
 
-typedef struct UserData {
+struct UserData {
    SoSelection *sel;
    SoXtMaterialEditor *editor;
    SbBool ignore;

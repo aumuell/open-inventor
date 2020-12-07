@@ -12,11 +12,14 @@ project(OpenInventor VERSION 2.1.5.10 LANGUAGES CXX C)
 include(GNUInstallDirs)
 include(FeatureSummary)
 
+option(INVENTOR_MAN "Build man pages" ON)
 option(INVENTOR_DEMOS "Build demo applications" ON)
 option(INVENTOR_SAMPLES "Build sample applications" OFF)
-option(INVENTOR_MAN "Build man pages" ON)
+option(INVENTOR_EXAMPLES "Build examples from Inventor Mentor and Inventor Toolmaker books" OFF)
+
 option(INVENTOR_INTERNAL_GLW "Use included copy of GLw (OpenGL Xt/Motif widgets) library" ON)
 option(INVENTOR_INSTALL_RPATH "Apply rpath when installing" ON)
+
 option(INVENTOR_SANITIZE_UNDEFINED "Build with -fsanitize=undefined" OFF)
 option(INVENTOR_SANITIZE_ADDRESS "Build with -fsanitize=address" OFF)
 option(INVENTOR_SANITIZE_THREAD "Build with -fsanitize=thread" OFF)

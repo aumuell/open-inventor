@@ -49,7 +49,7 @@
  *
  *----------------------------------------------------------*/
 
-#ifndef  _TRANSLATE_RADIAL_MANIP
+#ifndef  _TRANSLATE_RADIAL_MANIP_
 #define  _TRANSLATE_RADIAL_MANIP_
 
 #include <Inventor/manips/SoTransformManip.h>

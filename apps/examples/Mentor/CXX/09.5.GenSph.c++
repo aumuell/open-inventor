@@ -87,7 +87,7 @@ printHeaderCallback(void *, SoCallbackAction *,
    // Print the node name (if it exists) and address
    if (! !node->getName())
       printf("named \"%s\" ", node->getName().getString());
-   printf("at address %#x\n", node);
+   printf("at address %p\n", node);
 
    return SoCallbackAction::CONTINUE;
 }
