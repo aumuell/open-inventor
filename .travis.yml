@@ -36,6 +36,7 @@ addons:
             - bison
             - libjpeg-dev
             - libmotif-dev
+            - libxi-dev
             - libglu1-mesa-dev
     homebrew:
         #update: true # necessary for 'brew bundle' with xcode10.3 and older
