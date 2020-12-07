@@ -18,11 +18,12 @@ font rendering on 64 bit Linux platforms.
 A [CMake](https://cmake.org) build system has been added. It can be used
 instead of traditional Makefiles.
 
-For building on macOS, there is a [Homebrew](http://mxcl.github.com/homebrew/)
+For building on macOS, there is a [Homebrew](https://brew.sh)
 [formula](https://github.com/hlrs-vis/homebrew-tap) based on this repository.
 
 More Information
 ================
 
 Refer to [SGI's Open Inventor page](http://oss.sgi.com/projects/inventor/)
+([archive link](https://web.archive.org/web/20170811183842/http://oss.sgi.com/projects/inventor/)).
 for more information and to the included README.FIRST for build instructions.
