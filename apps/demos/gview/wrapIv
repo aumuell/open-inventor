@@ -1,5 +1,0 @@
-#!/bin/sh
-
-echo "const char gviewIcons[] ="
-sed -e '{ s/"/\\"/g; s/^/"/; s/$/\\n"/; }' "$1"
-echo \;

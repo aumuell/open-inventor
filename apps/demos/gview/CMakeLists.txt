@@ -6,7 +6,7 @@ add_demo(gview
 )
 
 add_custom_target(gviewIcons.iv.h.target ALL
-    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/wrapIv ${CMAKE_CURRENT_SOURCE_DIR}/gviewIcons.iv > gviewIcons.iv.h
+    COMMAND ivToIncludeFile gviewIcons < ${CMAKE_CURRENT_SOURCE_DIR}/gviewIcons.iv > gviewIcons.iv.h
     DEPENDS gviewIcons.iv
     BYPRODUCTS gviewIcons.iv.h
 )
