@@ -127,7 +127,7 @@ add_definitions(-DPDFVIEWER="${PDFVIEWER}")
 
 add_subdirectory(tools)
 add_subdirectory(libimage)
-add_subdirectory(libFL/ang)
+add_subdirectory(libFL)
 add_subdirectory(lib)
 add_subdirectory(libSoXt)
 add_subdirectory(doc)

@@ -1,19 +1,16 @@
 IVDEPTH = ..
 include $(IVDEPTH)/make/ivcommondefs
 
-SUBDIRS = src
-ifdef FREETYPE
-SUBDIRS = freetype
-endif
+LCDEFS = $(LCXXDEFS)
 
-all install: link
-	$(SUBDIRS_MAKERULE)
+ARCHIVE = libFLiv.a
 
-link:
-	if [ ! -L freetype ]; then ln -fs ang freetype; fi
+LCINCS += -I/usr/include/freetype2
 
-COMMONPREF = xxx
-$(COMMONTARGS): %: $(COMMONPREF)%
-	$(SUBDIRS_MAKERULE)
+CFILES = fl.c flclient.c flfreetype.c
+
+CFLAGS += -Wall -g
+
+all install: all_ivbin
 
 include $(IVCOMMONRULES)

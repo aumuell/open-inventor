@@ -209,8 +209,7 @@ target_include_directories(Inventor PUBLIC
 target_link_libraries(Inventor PUBLIC OpenGL::GL)
 target_link_libraries(Inventor PUBLIC OpenGL::GLU)
 
-target_include_directories(Inventor PRIVATE ../libFL/ang)
-target_link_libraries(Inventor PRIVATE FL)
+target_link_libraries(Inventor PRIVATE FLiv)
 
 target_link_libraries(Inventor PRIVATE image)
 target_include_directories(Inventor PRIVATE database/src/so/nodes/nurbs/head)

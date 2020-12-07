@@ -1,4 +1,5 @@
 **/*.o
+libFL/libFLiv.a
 libimage/libimage.a
 lib/libInventor.a
 lib/libInventor.so*

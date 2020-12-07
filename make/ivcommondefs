@@ -184,10 +184,9 @@ LCINCS += $(IVLIBHDRDIRS)
 # Font library directories.
 #
 
-FLDIR = $(IVDEPTH)/libFL/src
+FLDIR = $(IVDEPTH)/libFL
 FLLIB = -lFLiv
 ifdef FREETYPE
-FLDIR = $(IVDEPTH)/libFL/freetype
 FLLIB += -lfreetype
 endif
 
