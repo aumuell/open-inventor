@@ -18,4 +18,4 @@ jobs:
       run: sudo apt-get install bison libjpeg-dev libmotif-dev libxi-dev libglu1-mesa-dev
 
     - name: Build
-      run: make
+      run: LD_LIBRARY_PATH=`pwd`/lib make
