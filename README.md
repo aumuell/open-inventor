@@ -1,4 +1,6 @@
-![CMake build status](https://github.com/aumuell/open-inventor/workflows/CMake/badge.svg) ![make build status](https://github.com/aumuell/open-inventor/workflows/make/badge.svg)
+![make build status](https://github.com/aumuell/open-inventor/workflows/make/badge.svg)
+![CMake build status](https://github.com/aumuell/open-inventor/workflows/CMake/badge.svg)
+![macOS build status](https://github.com/aumuell/open-inventor/workflows/macOS/badge.svg)
 
 Open Inventor
 =============
