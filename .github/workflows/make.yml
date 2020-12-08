@@ -1,0 +1,21 @@
+name: Make
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Install Dependencies
+      run: sudo apt-get install bison libjpeg-dev libmotif-dev libxi-dev libglu1-mesa-dev
+
+    - name: Build
+      run: make
