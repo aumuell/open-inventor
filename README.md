@@ -1,6 +1,6 @@
-![make build status](https://github.com/aumuell/open-inventor/workflows/make/badge.svg)
-![CMake build status](https://github.com/aumuell/open-inventor/workflows/CMake/badge.svg)
-![macOS build status](https://github.com/aumuell/open-inventor/workflows/macOS/badge.svg)
+[![make build status](https://github.com/aumuell/open-inventor/workflows/make/badge.svg)](https://github.com/aumuell/open-inventor/actions?query=workflow%3Amake)
+[![CMake build status](https://github.com/aumuell/open-inventor/workflows/CMake/badge.svg)](https://github.com/aumuell/open-inventor/actions?query=workflow%3ACMake)
+[![macOS build status](https://github.com/aumuell/open-inventor/workflows/macOS/badge.svg)](https://github.com/aumuell/open-inventor/actions?query=workflow%3AmacOS)
 
 Open Inventor
 =============
