@@ -6,12 +6,14 @@ add_demo(gview
         gviewIcons.iv.h
 )
 
-add_custom_target(gviewIcons.iv.h.target
+add_custom_command(OUTPUT gviewIcons.iv.h  
     COMMAND ivToIncludeFile gviewIcons < ${CMAKE_CURRENT_SOURCE_DIR}/gviewIcons.iv > gviewIcons.iv.h
     DEPENDS gviewIcons.iv
-    BYPRODUCTS gviewIcons.iv.h
-    VERBATIM
 )
+
+add_custom_target(gviewIcons.iv.h.target DEPENDS gviewIcons.iv.h)
+
+add_dependencies(gview gviewIcons.iv.h.target)
 
 install(FILES windmill.iv
     DESTINATION ${IVDEMODATADIR})
