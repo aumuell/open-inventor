@@ -16,6 +16,24 @@ add_executable(ivfix
     IfStripper.c++
     IfTypes.c++
     IfWeeder.c++
+
+    IfAssert.h
+    IfBuilder.h
+    IfCollector.h
+    IfCondenser.h
+    IfFixer.h
+    IfFlattener.h
+    IfHasher.h
+    IfHolder.h
+    IfMerger.h
+    IfReplacer.h
+    IfReporter.h
+    IfShape.h
+    IfShapeList.h
+    IfSorter.h
+    IfStripper.h
+    IfTypes.h
+    IfWeeder.h
 )
 
 target_link_libraries(ivfix PRIVATE Inventor)

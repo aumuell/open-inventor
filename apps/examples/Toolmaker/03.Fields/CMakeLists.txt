@@ -1,4 +1,4 @@
-# nothing to build here
-set(SOURCES
+add_library(Fields OBJECT
     MFDouble.c++ SFDouble.c++
+    MFDouble.h SFDouble.h
 )

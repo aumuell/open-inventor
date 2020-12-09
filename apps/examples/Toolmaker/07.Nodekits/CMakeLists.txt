@@ -1,8 +1,14 @@
 add_example(jumpingJackKitTest
-    JumpingJackKit.c++ jumpingJackKitTest.c++
+    jumpingJackKitTest.c++
+    JumpingJackKit.c++
+    JumpingJackKit.h
 )
 
 add_example(pyramidKitTest
-    PyramidKit.c++ pyramidKitTest.c++
+    pyramidKitTest.c++
     ../02.Nodes/Pyramid.c++
+    PyramidKit.c++
+    PyramidKit.h
 )
+
+

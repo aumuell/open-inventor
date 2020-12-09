@@ -1,7 +1,11 @@
-# no executable built here
-set(SOURCES
-	ConvertSFShortToSFFloat.c++
-	FanIn.c++ MultFloatVec3f.c++
-	SoComposeVec2f.c++ SoDecomposeVec2f.c++
-	Ticker.c++
+add_library(Engines OBJECT
+    ConvertSFShortToSFFloat.c++
+    FanIn.c++ MultFloatVec3f.c++
+    SoComposeVec2f.c++ SoDecomposeVec2f.c++
+    Ticker.c++
+
+    ConvertSFShortToSFFloat.h
+    FanIn.h MultFloatVec3f.h
+    SoComposeVec2f.h SoDecomposeVec2f.h
+    Ticker.h
 )

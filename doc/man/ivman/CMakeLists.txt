@@ -5,6 +5,8 @@ add_executable(ivman
     Reader.c++
     Writer.c++
     BuildIssues.c++
+
+    Man.h
 )
 
 target_link_libraries(ivman PRIVATE

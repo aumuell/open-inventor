@@ -1,4 +1,6 @@
 add_example(eventTest
-    ButtonBoxEvent.c++ DialEvent.c++
-    DialNButton.c++ eventTest.c++
+    eventTest.c++
+    ButtonBoxEvent.c++ DialEvent.c++ DialNButton.c++
+    ButtonBoxEvent.h DialEvent.h DialNButton.h
 )
+

@@ -47,6 +47,11 @@ if(INVENTOR_INTERNAL_GLW)
     set(GLW_SOURCES
 	GLwDrawA.c++
 	GLwMDrawA.c++
+
+        GLwDrawA.h
+        GLwDrawAP.h
+        GLwMDrawA.h
+        GLwMDrawAP.h
     )
 else()
     set(GLW_SOURCES)
@@ -66,6 +71,13 @@ add_library(InventorWidget STATIC
 	MySimpleMtlEditor.c++
 	MyMtlPal.c++
 	MyTextureEd.c++
+
+        MyDropSite.h
+        MyFileRead.h
+        MyMaterialPalette.h
+        MySimpleMaterialEditor.h
+        MyTextureEditor.h
+        MyThumbWheel.h
 
         ${SOXT_SOURCES}
         ${SO_SOURCES}

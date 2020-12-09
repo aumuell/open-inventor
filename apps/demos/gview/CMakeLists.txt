@@ -1,9 +1,16 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 add_demo(gview
-	gview.c++ DisplayGraph.c++ Error.c++ FieldEditor.c++
-	GraphIcon.c++ GraphViewer.c++ NodeCreator.c++
-        gviewIcons.iv.h
+    gview.c++
+    DisplayGraph.c++ Error.c++ FieldEditor.c++
+    GraphIcon.c++ GraphViewer.c++ NodeCreator.c++
+
+
+    Actions.h Menu.h MotifHelp.h
+    DisplayGraph.h Error.h FieldEditor.h
+    GraphIcon.h GraphViewer.h NodeCreator.h
+
+    gviewIcons.iv.h
 )
 
 add_custom_command(OUTPUT gviewIcons.iv.h  

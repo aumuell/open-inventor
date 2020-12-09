@@ -1,4 +1,4 @@
-# nothing to build here
-set(SOURCES
+add_library(Elements OBJECT
     TemperatureElement.c++
+    TemperatureElement.h
 )
