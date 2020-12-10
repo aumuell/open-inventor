@@ -49,3 +49,23 @@ More Information
 Refer to [SGI's Open Inventor page](http://oss.sgi.com/projects/inventor/)
 ([archive link](https://web.archive.org/web/20170811183842/http://oss.sgi.com/projects/inventor/))
 for more information.
+
+There are also helpful books for studying Open Inventor:
+
+- **The Inventor Mentor**: Programming Object-Oriented 3D Graphics With Open Inventor, Release 2
+  ([html](http://www-evasion.imag.fr/Membres/Francois.Faure/doc/inventorMentor/sgi_html/),
+   [pdf](http://www.cs.ualberta.ca/~graphics/books/mentor.pdf))  
+  *Josie Wernecke*  
+  Addison-Wesley, 1994  
+  ISBN: 978-0-201-62495-3  
+
+  This book illustrates how to use Open Inventor.
+
+- **The Inventor Toolmaker**: Extending Open Inventor, Release 2
+    ([html](http://www-evasion.imag.fr/Membres/Francois.Faure/doc/inventorToolmaker/sgi_html/index.html),
+     [pdf](http://www.cs.ualberta.ca/~graphics/books/toolmaker.pdf))  
+  *Josie Wernecke, Open Inventor Architecture Group*  
+  Addison-Wesley, 1994  
+  ISBN: 978-0-201-62493-9  
+
+  This book covers how to extend the functionality of Open Inventor.
