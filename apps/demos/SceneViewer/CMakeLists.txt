@@ -14,3 +14,6 @@ target_link_libraries(SceneViewer PRIVATE InventorWidget)
 
 install(FILES jackInTheBox.iv
     DESTINATION ${IVDEMODATADIR})
+
+# install to bin in addition to demo directory
+install(TARGETS SceneViewer)
