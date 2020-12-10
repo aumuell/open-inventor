@@ -4,10 +4,12 @@ set (CMAKE_CXX_STANDARD 98)
 set (CXX_STANDARD_REQUIRED ON) 
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
-
-project(OpenInventor VERSION 2.1.5.10 LANGUAGES CXX C)
+project("Open Inventor"
+    VERSION 2.1.5.10
+    DESCRIPTION "Object oriented OpenGL scene graph"
+    HOMEPAGE_URL "http://oss.sgi.com/projects/inventor/"
+    LANGUAGES CXX C)
 
 include(GNUInstallDirs)
 include(FeatureSummary)
@@ -23,6 +25,8 @@ option(INVENTOR_INSTALL_RPATH "Apply rpath when installing" ON)
 option(INVENTOR_SANITIZE_UNDEFINED "Build with -fsanitize=undefined" OFF)
 option(INVENTOR_SANITIZE_ADDRESS "Build with -fsanitize=address" OFF)
 option(INVENTOR_SANITIZE_THREAD "Build with -fsanitize=thread" OFF)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
 # this is used to override some of cmake's original find-modules
