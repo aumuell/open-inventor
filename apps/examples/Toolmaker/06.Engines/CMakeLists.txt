@@ -9,3 +9,5 @@ add_library(Engines OBJECT
     SoComposeVec2f.h SoDecomposeVec2f.h
     Ticker.h
 )
+
+target_link_libraries(Engines PRIVATE Inventor)
