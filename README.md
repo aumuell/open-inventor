@@ -30,8 +30,12 @@ You can build with CMake like this:
     git clone https://github.com/aumuell/open-inventor
     mkdir open-inventor-build
     cd open-inventor-build
-    cmake ../open-inventor
+    cmake -DCMAKE_INSTALL_PREFIX=/opt/inventor ../open-inventor
     make -j10
+    make install
+
+The last step is optional, as all the programs that do not try to read from
+hard-coded paths also work from the build directory.
 
 The included `README.FIRST` has instructions on how to use the original make
 build system.
