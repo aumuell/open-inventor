@@ -15,6 +15,7 @@ include(GNUInstallDirs)
 include(FeatureSummary)
 
 option(INVENTOR_MAN "Build man pages" ON)
+option(INVENTOR_NODES "Build node type extension plug-ins" ON)
 option(INVENTOR_DEMOS "Build demo applications" ON)
 option(INVENTOR_SAMPLES "Build sample applications" OFF)
 option(INVENTOR_EXAMPLES "Build examples from Inventor Mentor and Inventor Toolmaker books" OFF)

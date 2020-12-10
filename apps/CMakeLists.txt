@@ -1,5 +1,7 @@
 add_subdirectory(samples)
-add_subdirectory(nodes)
+if (INVENTOR_NODES)
+    add_subdirectory(nodes)
+endif()
 add_subdirectory(tools)
 add_subdirectory(converters)
 add_subdirectory(demos)
