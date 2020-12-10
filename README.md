@@ -69,3 +69,22 @@ There are also helpful books for studying Open Inventor:
   ISBN: 978-0-201-62493-9  
 
   This book covers how to extend the functionality of Open Inventor.
+
+Related Projects
+================
+
+- [MeVisLab Open Inventor](https://www.mevislab.de/mevislab/features/open-inventor), a
+  further development of the code open sourced by SGI, available as part of the
+  MeVisLabOpenSource\_MeVisLabSDK on the [MeVisLab download
+  page](https://www.mevislab.de/download). It comes with Qt GUI bindings (SoQtMeVis).
+
+- [Open Inventor Toolkit](https://www.openinventor.com/en) by ThermoFisher
+  Scientific is a closed source derivative of SGI Open Inventor.
+
+- [Coin3D](https://coin3d.github.io), a clean room open source reimplementation of the Open
+  Inventor API. Together with this, bindings for many different GUI
+  tool kits, such as Qt ([SoQt](https://github.com/coin3d/soqt) and
+  [Quarter](https://github.com/coin3d/quarter)),
+  X11 ([SoXt](https://github.com/coin3d/soxt)), and Windows
+  ([SoWin](https://github.com/coin3d/sowin)) are provided.
+  Commercial support has ended, but still maintained on [GitHub](https://github.com/coin3d).
