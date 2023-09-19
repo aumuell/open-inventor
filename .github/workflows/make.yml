@@ -1,7 +1,6 @@
 name: make
 
 on: [push, pull_request, workflow_dispatch]
-  branches: [master]
 
 jobs:
   build:
