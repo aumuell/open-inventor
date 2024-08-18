@@ -11,6 +11,8 @@ project("Open Inventor"
     HOMEPAGE_URL "http://oss.sgi.com/projects/inventor/"
     LANGUAGES CXX C)
 
+set(INVENTOR_SOVERSION 1)
+
 include(GNUInstallDirs)
 include(FeatureSummary)
 

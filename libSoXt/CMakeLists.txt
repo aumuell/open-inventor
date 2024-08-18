@@ -115,9 +115,8 @@ target_sources(InventorXt
 )
 
 set_target_properties(InventorXt PROPERTIES
-    #VERSION ${CMAKE_PROJECT_VERSION}
-    VERSION 0.0.0
-    SOVERSION 0
+    VERSION ${CMAKE_PROJECT_VERSION}
+    SOVERSION ${INVENTOR_SOVERSION}
 )
 
 target_include_directories(InventorXt PRIVATE
