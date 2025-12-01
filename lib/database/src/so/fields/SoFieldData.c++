@@ -52,6 +52,7 @@
  */
 
 #include <assert.h>
+#include <cstddef>
 #include <Inventor/SbString.h>
 #include <Inventor/SoInput.h>
 #include <Inventor/SoOutput.h>

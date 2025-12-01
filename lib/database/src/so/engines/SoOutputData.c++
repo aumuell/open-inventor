@@ -57,6 +57,7 @@
 #include <Inventor/engines/SoOutputData.h>
 #include <Inventor/engines/SoEngine.h>
 #include <Inventor/errors/SoDebugError.h>
+#include <cstddef>
 
 // Syntax for reading/writing type information to files
 #define OPEN_BRACE_CHAR		'['

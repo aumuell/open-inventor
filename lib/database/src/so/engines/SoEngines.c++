@@ -38,6 +38,7 @@
 // Most of the miscellaneous engine classes
 //
 
+#include <cstddef>
 #include "SoBoolOperation.c++"
 #include "SoCalcExpr.c++"
 #include "SoCalcParse.c++"
