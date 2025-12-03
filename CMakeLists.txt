@@ -6,7 +6,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 
 project("Open Inventor"
-    VERSION 2.1.6
+    VERSION 2.1.6.1
     DESCRIPTION "Object oriented OpenGL scene graph"
     HOMEPAGE_URL "http://oss.sgi.com/projects/inventor/"
     LANGUAGES CXX C)
