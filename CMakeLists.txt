@@ -120,8 +120,7 @@ add_dirvar(IVDATADIR "${IVDATAROOT}/models")
 add_dirvar(IVMATERIALSDIR "${IVDATAROOT}/materials")
 add_dirvar(IVTEXTURESDIR "${IVDATAROOT}/textures")
 add_dirvar(IVDEMODATADIR "${IVDATAROOT}/demos")
-#add_dirvar(IVDEMOBINDIR "libexec/inventor")
-add_dirvar(IVDEMOBINDIR "${CMAKE_INSTALL_LIBDIR}/inventor")
+add_dirvar(IVDEMOBINDIR "${CMAKE_INSTALL_LIBEXECDIR}/inventor")
 
 set(IVHDRTOP Inventor)
 
